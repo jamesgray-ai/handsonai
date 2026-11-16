@@ -26,7 +26,8 @@
   "extraction_warnings": [
    "N-8: no wording in design.md 12 (the row is a rule, not a line): 'No intro line: the opening, N-3, the first question and N-4 serve'"
   ],
-  "deconstruct_3_3": "2026-11-13: Deconstruct 3.3's lines edited in by hand (retired, reworded, added; the 23 uncatalogued lines catalogued as deconstruct:<section>:l<n>), as the Analyze 3.1 build did; not a re-extraction, which would drop curated forms"
+  "deconstruct_3_3": "2026-11-13: Deconstruct 3.3's lines edited in by hand (retired, reworded, added; the 23 uncatalogued lines catalogued as deconstruct:<section>:l<n>), as the Analyze 3.1 build did; not a re-extraction, which would drop curated forms",
+  "deconstruct_single_interview": "2026-11-15: one interview for every workflow (James). Edited by hand, not re-extracted: N-D3, deconstruct:light-line, deconstruct:3.3:q1 and one Not sure? reworded; deconstruct:safety-limits-line added; the lines the interview no longer says are retired; lines Deconstruct still says are re-homed in references/interview.md"
  },
  "lines": [
   {
@@ -792,7 +793,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-L1",
@@ -806,7 +808,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-L2",
@@ -814,19 +817,30 @@
    "text": "This [changes something that can't be undone / sends, posts or changes something other people see / runs without you / is regulated / reads confidential details or content from outside your team], so I'll treat it as a full workflow.",
    "kind": "safety or promise",
    "skills": [
-    "deconstruct",
     "design",
     "build",
     "test"
    ],
    "files": {
-    "deconstruct": "SKILL.md",
     "design": "references/light-track.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
+  },
+  {
+   "id": "deconstruct:safety-limits-line",
+   "form": "main",
+   "text": "Because this [the sign, in the leader's words], I'll also set its safety limits with you.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/interview.md"
+   },
+   "source": "approved by James, 2026-11-15 (the single interview)"
   },
   {
    "id": "N-D1",
@@ -3194,12 +3208,13 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); part 2 retitled, 3c-EB (2026-10-25); reworded, 03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3) (R-C1, D4: the count added)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D3",
    "form": "main",
-   "text": "Stopping early is safe: once the workflow has a name, progress is saved after each part. 'Not sure' is always a fine answer. To pick up, say 'run the deconstruct skill. My files are in [location].'",
+   "text": "Stopping early is safe: once the workflow has a name, progress is saved as we go. 'Not sure' is always a fine answer. To pick up, say 'run the deconstruct skill. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -3213,7 +3228,7 @@
   {
    "id": "N-D3",
    "form": "Claude desktop, files in a local folder",
-   "text": "Stopping early is safe: once the workflow has a name, progress is saved after each part. 'Not sure' is always a fine answer. To pick up, open a new chat with your working folder selected and say 'run the deconstruct skill. My files are in [location].'",
+   "text": "Stopping early is safe: once the workflow has a name, progress is saved as we go. 'Not sure' is always a fine answer. To pick up, open a new chat with your working folder selected and say 'run the deconstruct skill. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -3227,7 +3242,7 @@
   {
    "id": "N-D3",
    "form": "Microsoft 365",
-   "text": "Stopping early is safe: once the workflow has a name, progress is saved after each part. 'Not sure' is always a fine answer. To pick up, open a new Cowork chat and say 'run the deconstruct skill. My files are in [location].'",
+   "text": "Stopping early is safe: once the workflow has a name, progress is saved as we go. 'Not sure' is always a fine answer. To pick up, open a new Cowork chat and say 'run the deconstruct skill. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -3275,7 +3290,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -3376,7 +3391,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D9",
@@ -3390,7 +3406,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D10",
@@ -3446,7 +3463,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24), with the line review's change",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D11",
@@ -3474,7 +3492,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D13",
@@ -3670,7 +3689,8 @@
     "deconstruct": "references/part-1-what-this-is-worth.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D18",
@@ -3684,7 +3704,8 @@
     "deconstruct": "references/part-1-what-this-is-worth.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D18",
@@ -3698,7 +3719,8 @@
     "deconstruct": "references/part-1-what-this-is-worth.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D18",
@@ -3712,7 +3734,8 @@
     "deconstruct": "references/part-1-what-this-is-worth.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D19",
@@ -3726,7 +3749,8 @@
     "deconstruct": "references/part-1-what-this-is-worth.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D19",
@@ -3740,7 +3764,8 @@
     "deconstruct": "references/part-1-what-this-is-worth.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D20",
@@ -3751,7 +3776,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -3765,7 +3790,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -7520,7 +7545,8 @@
    },
    "source": "lines-to-approve.md Deconstruct; 3c-DJ (2026-10-24), open point 20",
    "fragment": true,
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-R1",
@@ -7566,7 +7592,7 @@
   {
    "id": "deconstruct:3.3:q1",
    "form": "main",
-   "text": "You have [N] workflows partway through Deconstruct: [Name 1] (next: Part [N]), [Name 2] (next: Part [N]). Which one do you want to continue?",
+   "text": "You have [N] workflows partway through Deconstruct: [Name 1] (next: [the thing, in plain words]), [Name 2] (next: [the thing, in plain words]). Which one do you want to continue?",
    "kind": "question",
    "skills": [
     "deconstruct"
@@ -7580,7 +7606,7 @@
   {
    "id": "deconstruct:3.3:q1",
    "form": "Two workflows",
-   "text": "You have 2 workflows partway through Deconstruct: [Name 1] (next: Part [N]) and [Name 2] (next: Part [N]). Which one do you want to continue?",
+   "text": "You have 2 workflows partway through Deconstruct: [Name 1] (next: [the thing, in plain words]) and [Name 2] (next: [the thing, in plain words]). Which one do you want to continue?",
    "kind": "question",
    "skills": [
     "deconstruct"
@@ -7717,7 +7743,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 8 (line 272); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:signpost-part-1",
@@ -7731,7 +7758,8 @@
     "deconstruct": "references/part-1-what-this-is-worth.md"
    },
    "source": "deconstruct.md 8.part-1 (line 272); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-1"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-1",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-1:q1",
@@ -7745,7 +7773,8 @@
     "deconstruct": "references/part-1-what-this-is-worth.md"
    },
    "source": "deconstruct.md 8.part-1 (line 276); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-1"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-1",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-1:q2",
@@ -7759,7 +7788,8 @@
     "deconstruct": "references/part-1-what-this-is-worth.md"
    },
    "source": "deconstruct.md 8.part-1 (line 276); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-1; Deconstruct 3.3 (R-T1, D2): asked only for a backlog pick whose card has a Business Objective but no Goal row (an earlier report)"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-1; Deconstruct 3.3 (R-T1, D2): asked only for a backlog pick whose card has a Business Objective but no Goal row (an earlier report)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:signpost-part-2",
@@ -7773,7 +7803,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 8 (line 294); approved: 'every other quoted line in this document is approved' (19); retitled, 3c-EB (2026-10-25)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:signpost-part-2",
@@ -7787,7 +7818,8 @@
     "deconstruct": "references/part-2-scope-and-a-name.md"
    },
    "source": "deconstruct.md 8.part-2 (line 294); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-2:q1",
@@ -7798,7 +7830,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-2 (line 311); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
@@ -7812,7 +7844,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-2 (line 312); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
@@ -7826,7 +7858,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-2 (line 313); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
@@ -7840,7 +7872,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-2 (line 314); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
@@ -7854,7 +7886,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-2 (line 316); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
@@ -7871,7 +7903,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 8 (line 322); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:signpost-part-3",
@@ -7885,7 +7918,8 @@
     "deconstruct": "references/part-3-the-outcome.md"
    },
    "source": "deconstruct.md 8.part-3 (line 322); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-3:q1",
@@ -7896,7 +7930,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 328); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -7910,7 +7944,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 329); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -7924,7 +7958,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 330); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -7938,7 +7972,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/from-a-document.md"
    },
    "source": "deconstruct.md 8.part-3 (line 332); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -7952,7 +7986,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 340); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -7966,7 +8000,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 341); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -7980,7 +8014,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 342); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -7994,7 +8028,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 343); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -8008,7 +8042,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 345); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -8022,7 +8056,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 347); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -8036,7 +8070,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 347); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -8050,7 +8084,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 355); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -8064,7 +8098,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 359); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -8078,7 +8112,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 359); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -8092,7 +8126,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 360); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -8106,7 +8140,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 361); approved: 'every other quoted line in this document is approved' (19)",
    "fragment": true,
@@ -8121,7 +8155,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 369); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -8135,7 +8169,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 370); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
@@ -8152,7 +8186,8 @@
     "deconstruct": "references/part-3-the-outcome.md"
    },
    "source": "deconstruct.md 8.part-3 (line 374); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:signpost-part-4",
@@ -8166,7 +8201,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 8 (line 380); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:signpost-part-4",
@@ -8180,7 +8216,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 380); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q1",
@@ -8194,7 +8231,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 386); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q1",
@@ -8208,7 +8246,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 387); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q1",
@@ -8222,7 +8261,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 388); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q2",
@@ -8236,7 +8276,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 392); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q3",
@@ -8250,7 +8291,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 398); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q3",
@@ -8264,7 +8306,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 399); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q3",
@@ -8278,7 +8321,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 400); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q3",
@@ -8292,7 +8336,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 401); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q4",
@@ -8306,7 +8351,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 405); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q5",
@@ -8320,7 +8366,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 405); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q6",
@@ -8334,7 +8381,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 405); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q6",
@@ -8348,7 +8396,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 406); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q7",
@@ -8362,7 +8411,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 408); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q7",
@@ -8376,7 +8426,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 409); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q8",
@@ -8387,7 +8438,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 413); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8401,7 +8452,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 414); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8409,13 +8460,13 @@
   {
    "id": "deconstruct:8.part-4:q8",
    "form": "not-sure",
-   "text": "Say no; we'll cover rules in Part 5.",
+   "text": "Say no; we'll cover rules next.",
    "kind": "teaching",
    "skills": [
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 415); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8432,7 +8483,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 419); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q10",
@@ -8446,7 +8498,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 428); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q10",
@@ -8460,7 +8513,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 429); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q11",
@@ -8474,7 +8528,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 431); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q12",
@@ -8488,7 +8543,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 437); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q12",
@@ -8502,7 +8558,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 438); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q12",
@@ -8516,7 +8573,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 439); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q13",
@@ -8530,7 +8588,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 441); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q14",
@@ -8544,7 +8603,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 441); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q15",
@@ -8558,7 +8618,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 443); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q15",
@@ -8572,7 +8633,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 444); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q16",
@@ -8586,7 +8648,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 446); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q16",
@@ -8600,7 +8663,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 447); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q17",
@@ -8611,7 +8675,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 452); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8628,7 +8692,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 453); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q19",
@@ -8639,7 +8704,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 455); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8656,7 +8721,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 458); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q19",
@@ -8670,7 +8736,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 459); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q20",
@@ -8684,7 +8751,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 463); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q20",
@@ -8698,7 +8766,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 464); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q20",
@@ -8712,7 +8781,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 465); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q20",
@@ -8726,7 +8796,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 466); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q21",
@@ -8740,7 +8811,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 468); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q22",
@@ -8799,7 +8871,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 476); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q23",
@@ -8813,7 +8886,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 477); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q24",
@@ -8824,7 +8898,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 479); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8838,7 +8912,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 480); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8852,7 +8926,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 484); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8866,7 +8940,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 486); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8880,7 +8954,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 487); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8894,7 +8968,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 488); approved: 'every other quoted line in this document is approved' (19); reworded 2026-11-14, approved by James (Deconstruct pre-eval review, M6: the input isn't always notes; lines-to-approve.md, 2026-11-14 note)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8911,7 +8985,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 490); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q27",
@@ -8925,7 +9000,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 491); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q27",
@@ -8939,7 +9015,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 492); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q28",
@@ -8950,7 +9027,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 494); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8964,7 +9041,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 494); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
@@ -8981,7 +9058,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 496); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q30",
@@ -8995,7 +9073,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 497); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q30",
@@ -9010,7 +9089,8 @@
    },
    "source": "deconstruct.md 8.part-4 (line 498); approved: 'every other quoted line in this document is approved' (19)",
    "fragment": true,
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:q31",
@@ -9069,7 +9149,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 8.part-5 (line 533); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:q2",
@@ -9080,7 +9161,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 533); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9094,7 +9175,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 533); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9108,7 +9189,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 534); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9122,7 +9203,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 538); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9136,7 +9217,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 539); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9150,7 +9231,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 542); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9167,7 +9248,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 8.part-5 (line 544); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:q7",
@@ -9181,7 +9263,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 8.part-5 (line 548); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:q7",
@@ -9195,7 +9278,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 8.part-5 (lines 678, 682): the main form with \"or skip that item\" added, when one run handles several items (`Per run` a batch)",
-   "note": "smoke-1 fix (2026-11-14): the batch form, as the spec gives it; placed in the skill file as q8's plural form is"
+   "note": "smoke-1 fix (2026-11-14): the batch form, as the spec gives it; placed in the skill file as q8's plural form is",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:q7",
@@ -9209,7 +9293,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 8.part-5 (lines 678, 682): the batch form with \"stop and ask you\" left out, when it runs without the leader",
-   "note": "smoke-1 follow-up (2026-11-14): the batch form on `Runs: without you`, as the spec gives it; placed in the skill file as q8's plural form is"
+   "note": "smoke-1 follow-up (2026-11-14): the batch form on `Runs: without you`, as the spec gives it; placed in the skill file as q8's plural form is",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:q7",
@@ -9223,7 +9308,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 8.part-5 (line 549); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:q7",
@@ -9237,7 +9323,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 8.part-5 (line 550); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:q8",
@@ -9248,7 +9335,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 559); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9262,7 +9349,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 560); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9276,7 +9363,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 561); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9290,7 +9377,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "3c-EB (2026-10-25)"
   },
@@ -9303,7 +9390,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "3c-EB (2026-10-25)"
   },
@@ -9316,7 +9403,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 563); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9345,7 +9432,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 581); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9359,7 +9446,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 581); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
@@ -9376,7 +9463,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 8.part-5 (line 584); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:q14",
@@ -9390,7 +9478,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 8.part-5 (line 584); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:q14",
@@ -9404,7 +9493,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 8.part-5 (line 585); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:q14",
@@ -9419,7 +9509,8 @@
    },
    "source": "deconstruct.md 8.part-5 (line 586); approved: 'every other quoted line in this document is approved' (19)",
    "fragment": true,
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:10.1:q1",
@@ -9430,7 +9521,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/light-track.md"
+    "deconstruct": "references/from-a-document.md"
    },
    "source": "deconstruct.md 10.1 (line 645); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 10.1"
@@ -9475,7 +9566,8 @@
     "deconstruct": "references/personal-life.md"
    },
    "source": "deconstruct.md 15 (line 1006); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 15"
+   "note": "deconstruct: inferred from deconstruct 17 by section 15",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:15:q4",
@@ -9489,7 +9581,8 @@
     "deconstruct": "references/personal-life.md"
    },
    "source": "deconstruct.md 15 (line 1006); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 15"
+   "note": "deconstruct: inferred from deconstruct 17 by section 15",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:15:q5",
@@ -9517,7 +9610,8 @@
     "deconstruct": "references/personal-life.md"
    },
    "source": "deconstruct.md 15 (line 1006); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 15"
+   "note": "deconstruct: inferred from deconstruct 17 by section 15",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:15:q7",
@@ -9536,7 +9630,7 @@
   {
    "id": "deconstruct:description",
    "form": "main",
-   "text": "This skill should be used when the user wants to deconstruct a workflow, break down a business process, capture requirements for an AI workflow, or turn a workflow from their backlog into a clear, testable description of what it must do. It starts from anything already written down, shapes the outcome first (a goal and yes-or-no checks), then how the work gets done, the rules, where a person checks or approves the work, the sources it uses and practice inputs, and saves them as the workflow's requirements for the Design step; small, low-risk workflows get a shorter version. Also use when the user says \"continue my workflow\" (pick it before reading files) and the workflow needs its requirements: none yet, an unfinished Deconstruct interview, or a big change sent back from Design; and when the user asks to run the deconstruct skill on work that already runs outside the framework (an in-production Workflow node with no workflow folder), to bring it in. This is the Deconstruct step of the AI Workflow Framework.",
+   "text": "This skill should be used when the user wants to deconstruct a workflow, break down a business process, capture requirements for an AI workflow, or turn a workflow from their backlog into a clear, testable description of what it must do. It starts from anything already written down, shapes the outcome first (a goal and yes-or-no checks), then how the work gets done, the rules, where a person checks or approves the work, the sources it uses and practice inputs, and saves them as the workflow's requirements for the Design step. Also use when the user says \"continue my workflow\" (pick it before reading files) and the workflow needs its requirements: none yet, an unfinished Deconstruct interview, or a big change sent back from Design; and when the user asks to run the deconstruct skill on work that already runs outside the framework (an in-production Workflow node with no workflow folder), to bring it in. This is the Deconstruct step of the AI Workflow Framework.",
    "kind": "structure",
    "skills": [
     "deconstruct"
@@ -10040,7 +10134,7 @@
   {
    "id": "N-D3",
    "form": "Claude Code and Codex",
-   "text": "Stopping early is safe: once the workflow has a name, progress is saved after each part. 'Not sure' is always a fine answer. To pick up, start a new session in this project and say 'run the deconstruct skill.'",
+   "text": "Stopping early is safe: once the workflow has a name, progress is saved as we go. 'Not sure' is always a fine answer. To pick up, start a new session in this project and say 'run the deconstruct skill.'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -10061,7 +10155,8 @@
    "files": {
     "deconstruct": "references/light-track.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:map-backlog-question",
@@ -10113,18 +10208,19 @@
    "files": {
     "deconstruct": "SKILL.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:light-line",
    "form": "main",
-   "text": "After this, the shorter version asks a few safety questions, then covers what it's for, what it must get right, what it works from, its rules and a few practice runs: about [M] questions from here.",
+   "text": "After this, I'll ask a few safety questions, then cover what it's for, what it must get right, what it works from, its rules and a few practice runs: about [M] questions from here.",
    "kind": "teaching",
    "skills": [
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "said in light-track.md's flow too; one home, SKILL.md (the track), as N-D17"
@@ -10153,7 +10249,8 @@
    "files": {
     "deconstruct": "references/part-1-what-this-is-worth.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "N-D23",
@@ -10164,7 +10261,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "the five rows and the ending follow in the same message; said as light item 0 too (light-track.md points to part 2)"
@@ -10178,7 +10275,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "one of N-D23's five rows"
@@ -10192,7 +10289,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "one of N-D23's five rows"
@@ -10206,7 +10303,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "one of N-D23's five rows"
@@ -10220,7 +10317,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "SKILL.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "one of N-D23's five rows"
@@ -10234,7 +10331,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "SKILL.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "one of N-D23's five rows; only when known"
@@ -10248,7 +10345,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10275,7 +10372,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "approved by James, 2026-11-14 (Deconstruct smoke-2 fixes); said in two parts around the inputs (Deconstruct smoke-3 fixes, 2026-11-14): the approved words are unchanged, the placeholder marks where the inputs go, as N-B3 and N-T11 mark theirs",
    "note": "both tracks, when a kept practice run is a proposed one: once the runs are confirmed (N-D11's reply and any re-ask) and the real inputs are in, its own message: N-D25's first sentence, then every input the AI wrote, in full, each under a plain label naming its run, then its second sentence, which ends the message; before the confidential check and the save"
@@ -10289,7 +10386,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "the \"Not clear yet\" deliverable question on the Organizational lens, outside personal life (R-T2)"
@@ -10303,7 +10400,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10329,7 +10426,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10342,7 +10439,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10355,7 +10452,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10368,7 +10465,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10381,7 +10478,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10394,7 +10491,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10407,7 +10504,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "on the light track asked after item 3 (light-track.md points to part 4)"
@@ -10421,7 +10518,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10434,7 +10531,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-4-the-path.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10447,7 +10544,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "asked where its source first shows (Parts 2 to 5); one home, part 2"
@@ -10461,7 +10558,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10474,7 +10571,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10487,7 +10584,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10500,7 +10597,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10621,7 +10718,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-2-scope-and-a-name.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged except the folder line, changed (R-S8, D11)"
@@ -10635,7 +10732,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "SKILL.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
@@ -10649,7 +10746,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
@@ -10663,7 +10760,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
@@ -10677,7 +10774,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-3-the-outcome.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
@@ -10694,7 +10791,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:l2",
@@ -10708,7 +10806,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:l3",
@@ -10722,7 +10821,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:l4",
@@ -10736,7 +10836,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:l5",
@@ -10750,7 +10851,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:l6",
@@ -10764,7 +10866,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:l7",
@@ -10778,7 +10881,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:l8",
@@ -10792,7 +10896,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:l9",
@@ -10806,7 +10911,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:l10",
@@ -10820,7 +10926,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-4:l11",
@@ -10834,7 +10941,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:l1",
@@ -10848,7 +10956,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:l2",
@@ -10859,7 +10968,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
@@ -10876,7 +10985,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-15: not said by the single interview (one interview for every workflow; James)"
   },
   {
    "id": "deconstruct:8.part-5:l4",
@@ -10887,7 +10997,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/requirements-template.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
@@ -10901,7 +11011,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
@@ -10915,7 +11025,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
