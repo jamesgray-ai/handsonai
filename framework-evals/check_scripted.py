@@ -190,7 +190,10 @@ BUILTIN_TEXT = {"scripted_lines": "Every scripted line the AI says is the approv
 # core round-1 fixes (2026-11-12): a paragraph that opens like a note to itself, or names a Markdown file
 # outside backticks, is the AI narrating its own work to the leader
 # core batch 2 (2026-11-14): "Let me suggest one, then: …" offers the leader a suggestion; it is not a note to itself
-NARRATION = re.compile(r"^(Now (the|I'll|writing|update)|Read |Ask N-|Let me (?!suggest\b)|I need )")
+# round 4 (2026-11-16): "Read and edit, then send it yourself: that's your checkpoint." plays the leader's
+# own checkpoint back; "Read " is a note only when a file, a reference or the notes follow it
+NARRATION = re.compile(r"^(Now (the|I'll|writing|update)|Read (?=(the |its |progress|routing|references?\b|`|[\w/-]+\.md))"
+                       r"|Ask N-|Let me (?!suggest\b)|I need )")
 # a file named on its own; a path with folders (the close's report path, a fill) is left out
 BARE_MD = re.compile(r"(?<![\w/.-])[\w.-]*\w\.md\b(?![\w/])")
 # core round-2 fixes (2026-11-12): two moments get approved words instead of silence. The saving line (N-A30)

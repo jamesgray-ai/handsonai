@@ -22,19 +22,18 @@ Deconstruct turns a piece of the leader's real work into their **Workflow Requir
 
 ## When to read what
 
-In `references/`. Read a file only when its row applies.
+In `references/`. **Your first tool calls, before you know the state, read the four files every interview needs, together:** `routing.md`, `interview.md`, `requirements-template.md` and `saving-the-requirements.md`, alongside the state check and the workflow's own files. Then nothing is left to read once you know whether this is a new interview, a resume or a hand-off, and no step comes between finding the state and your first line. Any other file is read only when its row applies, as a tool call with no text.
 
 | When | Read |
 |---|---|
-| At every entry and on "continue my workflow" | `routing.md` |
+| At every entry and on "continue my workflow", in your first tool calls | `routing.md`, `interview.md`, `requirements-template.md`, `saving-the-requirements.md` |
 | State 0 or 1, the rule applied by hand, or a cloud session | `routing-rare.md` (`routing.md` says which part) |
 | Any platform but Claude Code and Codex; or this chat can't find or read the framework files | `location.md` |
 | No working folder yet, or Claude desktop with no folder selected and no location | `storage.md` |
 | A resume | The files *Resuming* names, before the resume line |
 | The backlog choice or cold entry | `choosing-a-workflow.md` |
 | A yes to N-D1 | `from-a-document.md` |
-| Whenever an interview starts or resumes, with the entry reads, before any text | `interview.md` and `requirements-template.md` |
-| The turn that shows the preview, before its text | `saving-the-requirements.md` |
+| With those four, when there's a registry | The files `saving-the-requirements.md` lists |
 | A re-run, a big-change redo, or calling either off | `re-runs.md` |
 | Before the interview's first message, in a personal-life registry | `personal-life.md` |
 | Whenever you need a fact about the leader's platform | `platform-facts.md` |
