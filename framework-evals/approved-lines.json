@@ -10237,7 +10237,7 @@
     "deconstruct": "SKILL.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "retired": "2026-11-15: not said by the single interview (the count is said once, in the line that says how it will go; James)"
+   "note": "2026-11-15: the single interview never says this line. It stays in the corpus only so the harness can recognise a stray count (check_scripted.COUNT_LINE_ID); SKILL.md names it as wording never to say"
   },
   {
    "id": "deconstruct:part-1-card",
