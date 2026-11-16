@@ -11,7 +11,7 @@ Omar Haddad, operations manager at Kestrel Print, a 25-person print shop. Direct
 - **Analyze's summary** (if played back and you're asked what to change): "Fine."
 - **What it sends or changes:** "Nothing. It gives me the draft log here."
 - **Taking part:** "Yes, I check it and sign it before it goes in the safety file."
-- **Law or regulation:** "Yes: the work equipment regulations. The presses' weekly inspections have to be recorded."
+- **Law or regulation:** "Yes." Name it only when asked which one.
 - **Which one** (if asked): "The work equipment regulations, for machinery inspections. I'm responsible for the inspection records here."
 - **What the regulation requires every time** (if asked): "Every press gets every check on the weekly checklist, and each inspection is recorded with any fault and the dates it was tagged out and fixed."
 - **Decisions a person must make or approve** (if asked): "I sign off every log before it goes in the safety file. Nobody else can."

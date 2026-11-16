@@ -10,6 +10,7 @@ Sam Okoro again (see the facts below), running Deconstruct on the Weekly Newslet
 
 ## How you answer
 Answer from the facts above, except where these override them:
+- **What you'd check** (overrides the above): every item from my notes is in it; nothing made up; under 200 words; ends with my sign-off. **Send back:** a made-up fact. If the AI says two of your answers conflict over the client list: "Both hold: it uses my notes and the client list."
 - **Sources** (overrides the above): "My notes, and our client list with each client's contract value and renewal date, so it can mention renewals."
 
 ## When to stop

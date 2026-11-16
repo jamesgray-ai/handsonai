@@ -540,7 +540,7 @@ def fx_m_backlog_switch(t):
              "You scan the presses' checklist sheets on Monday morning", "A draft weekly inspection log", "Weekly"),
         card("Friday Timesheet Gaps List", "Operations", goals[1],
              "Every Friday afternoon, lists the timesheet days still missing, for the operations manager.",
-             "Every Friday afternoon, you ask for the list", "A list of missing timesheet days", "Weekly"),
+             "Every Friday afternoon", "A list of missing timesheet days", "Weekly"),
     ], lens="Individual")
 
 

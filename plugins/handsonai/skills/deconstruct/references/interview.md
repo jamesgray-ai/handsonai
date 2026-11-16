@@ -204,7 +204,7 @@ The goal sentence merges the deliverable and its format into one phrase, names t
 
 (For illustration only; use the leader's own trigger, deliverable and reader: "For each supplier invoice that arrives, a short, easy-to-skim approval summary to the finance manager, one page long, ready for you to check and approve the same day.") It keeps the leader's own words; numbers live only in the list. It has no "containing [parts]" blank: the parts live only in the list, so each is graded once. Never invent a sample output for the leader to react to; questions sharpen it.
 
-The goal is played back once, with its question, and this clause after it, "(The [parts they named in 'say it'] become the list we write next.)": **Ask:** "Here's your goal: [sentence]. What would you change or clarify?" It's the goal's one confirmation.
+The goal is played back once, in one message: first this clause, word for word, on its own line, "(The [parts they named in 'say it'] become the list we write next.)", then the question, last, so the message ends on it: **Ask:** "Here's your goal: [sentence]. What would you change or clarify?" Nothing follows the question. It's the goal's one confirmation.
 
 ## What it must get right
 
@@ -305,15 +305,15 @@ Then the standing-rules question, only from the leader's second workflow and whe
 
 ## The safety limits
 
-Only when a test trips (the requirements template, *Which security categories are worked*): any write, a saved draft included; `Runs: without you`; a `Confidential` or `Regulated` row; an `External` row. Their own message, after the rules draft and any access questions. It opens with this line, word for word, [the sign] being what the leader said, in their words:
+Every workflow gets them, in their own message, after the rules draft and any access questions. Which categories are worked comes from the tests (the requirements template, *Which security categories are worked*): any write, a saved draft included; `Runs: without you`; a `Confidential` or `Regulated` row; an `External` row; with none of these, Prohibited actions alone. The message opens with this line, word for word, [the sign] being the test that tripped, as the leader said it, in their words; with no test tripped, [the sign] is what the workflow does, in the leader's words (for illustration only: "Because this drafts your weekly newsletter from your notes, …"):
 
 > Because this [the sign, in the leader's words], I'll also set its safety limits with you.
 
-Then each constraint in plain words under its category, as the requirements template's *The security limits* says, each tagged, each kept or dropped (the rubber-stamp guard applies), ending "What would you change or add?". A prohibition the leader stated ("it never sends") is in it as theirs, *(you said)*. With nothing tripped, there is no such message and the file takes the one-line form.
+Then each constraint in plain words under its category, as the requirements template's *The security limits* says, each tagged, each kept or dropped (the rubber-stamp guard applies), ending "What would you change or add?". A prohibition the leader stated ("it never sends") is in it as theirs, *(you said)*. With no test tripped, the draft is short: what it must never do outside this conversation, as your suggestion.
 
-**A fallback row trips it too.** A source the file marks `Confidential` or `External` only because the leader hasn't said what it holds (SKILL.md rules 7 and 13) still gets its limits and its access question. The line then names what isn't known, never a guess: "Because this uses [source], and it isn't known yet whether it holds confidential details, I'll also set its safety limits with you."
+**A fallback row is a test too.** A source the file marks `Confidential` or `External` only because the leader hasn't said what it holds (SKILL.md rules 7 and 13) gets its limits and its access question. The line then names what isn't known, never a guess: "Because this uses [source], and it isn't known yet whether it holds confidential details, I'll also set its safety limits with you."
 
-**A test that trips later.** A write, a source or a "without you" that first shows after this point (a source named with the practice runs, a correction to what was filled in, a change asked at the preview) brings the limits with it: show this message, or show it again with the new lines, before the preview. On a resume, check that the limits were shown whenever a test trips; if they weren't, they come before the practice runs.
+**A test that trips later.** A write, a source or a "without you" that first shows after this point (a source named with the practice runs, a correction to what was filled in, a change asked at the preview) brings its limits with it: show this message again with the new lines, before the preview. On a resume, check that the limits were shown; if they weren't, they come before the practice runs.
 
 **Never a safety line the leader hasn't kept.** No line goes into the file's Security tables unless the leader saw it in this message and kept it. A category whose every line was dropped is written as its heading and an empty table. If the file check asks for a category the leader hasn't seen, that is not a miss to fix in silence: stop and show them this message.
 

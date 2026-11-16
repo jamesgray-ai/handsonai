@@ -2491,11 +2491,20 @@
           }
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
           }
         },
         {
@@ -8888,14 +8897,6 @@
           }
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
-          "kind": "scripted",
-          "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
-          }
-        },
-        {
           "text": "The quote check the leader does is recorded as a checkpoint (or a rule the leader carries out, tagged `(you)`), never as a step",
           "kind": "judged"
         }
@@ -12755,13 +12756,13 @@
       "kind": "interview",
       "keep_workspace": true,
       "action_target": {
-        "figure": 24,
-        "journey": "the single Deconstruct interview with no additions (the approved design's paper walk: 22 to 24 replies; a count from the list, not yet measured)"
+        "figure": 22,
+        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
       },
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in framework.",
       "student": "students/L1-newsletter-light.md",
-      "expected_output": "Deconstruct's part of a first-time leader's journey on claude-code: the single interview end to end from the backlog for a plain workflow with no risk, in about 24 leader actions, with no evaluation term and nothing said about a track.",
+      "expected_output": "Deconstruct's part of a first-time leader's journey on claude-code: the single interview end to end from the backlog for a plain workflow with no risk, in about 25 leader actions, with no evaluation term and nothing said about a track.",
       "files": [
         "students/L1-newsletter-light.md"
       ],
@@ -12834,20 +12835,11 @@
           "must": true
         },
         {
-          "text": "The goal is confirmed once, at its playback; the full goal isn't played back again",
+          "text": "The goal is confirmed at its playback, word for word (\"Here's your goal: [sentence]. What would you change or clarify?\")",
           "kind": "scripted",
           "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "quote",
-                "id": "deconstruct:8.part-3:q7"
-              },
-              {
-                "type": "ai_not_contains",
-                "text": "What would you change or clarify?"
-              }
-            ]
+            "type": "quote",
+            "id": "deconstruct:8.part-3:q7"
           }
         },
         {
@@ -13150,11 +13142,20 @@
           }
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
           }
         },
         {
@@ -13606,13 +13607,13 @@
       "keep_workspace": true,
       "platform": "codex",
       "action_target": {
-        "figure": 24,
-        "journey": "the single Deconstruct interview with no additions (the approved design's paper walk: 22 to 24 replies; a count from the list, not yet measured)"
+        "figure": 22,
+        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
       },
       "fixture": "newsletter-git",
       "prompt": "Run the deconstruct skill. My files are in framework.",
       "student": "students/L1-newsletter-light.md",
-      "expected_output": "Deconstruct's part of a first-time leader's journey on codex: the single interview end to end from the backlog for a plain workflow with no risk, in about 24 leader actions, with no evaluation term and nothing said about a track.",
+      "expected_output": "Deconstruct's part of a first-time leader's journey on codex: the single interview end to end from the backlog for a plain workflow with no risk, in about 25 leader actions, with no evaluation term and nothing said about a track.",
       "files": [
         "students/L1-newsletter-light.md"
       ],
@@ -13685,20 +13686,11 @@
           "must": true
         },
         {
-          "text": "The goal is confirmed once, at its playback; the full goal isn't played back again",
+          "text": "The goal is confirmed at its playback, word for word (\"Here's your goal: [sentence]. What would you change or clarify?\")",
           "kind": "scripted",
           "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "quote",
-                "id": "deconstruct:8.part-3:q7"
-              },
-              {
-                "type": "ai_not_contains",
-                "text": "What would you change or clarify?"
-              }
-            ]
+            "type": "quote",
+            "id": "deconstruct:8.part-3:q7"
           }
         },
         {
@@ -14019,11 +14011,20 @@
           }
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
           }
         },
         {
@@ -14144,13 +14145,13 @@
       "keep_workspace": true,
       "platform": "claude-web",
       "action_target": {
-        "figure": 24,
-        "journey": "the single Deconstruct interview with no additions (the approved design's paper walk: 22 to 24 replies; a count from the list, not yet measured)"
+        "figure": 22,
+        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
       },
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in Google Drive, in ai-workspace.",
       "student": "students/L1-newsletter-light.md",
-      "expected_output": "Deconstruct's part of a first-time leader's journey on claude-web: the single interview end to end from the backlog for a plain workflow with no risk, in about 24 leader actions, with no evaluation term and nothing said about a track.",
+      "expected_output": "Deconstruct's part of a first-time leader's journey on claude-web: the single interview end to end from the backlog for a plain workflow with no risk, in about 25 leader actions, with no evaluation term and nothing said about a track.",
       "files": [
         "students/L1-newsletter-light.md"
       ],
@@ -14223,20 +14224,11 @@
           "must": true
         },
         {
-          "text": "The goal is confirmed once, at its playback; the full goal isn't played back again",
+          "text": "The goal is confirmed at its playback, word for word (\"Here's your goal: [sentence]. What would you change or clarify?\")",
           "kind": "scripted",
           "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "quote",
-                "id": "deconstruct:8.part-3:q7"
-              },
-              {
-                "type": "ai_not_contains",
-                "text": "What would you change or clarify?"
-              }
-            ]
+            "type": "quote",
+            "id": "deconstruct:8.part-3:q7"
           }
         },
         {
@@ -14539,11 +14531,20 @@
           }
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
           }
         },
         {
@@ -14581,35 +14582,35 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Method preference: AI works it out each time\\s*$",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Path: none",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^- Step \\d",
                 "must": false
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^- D\\d+",
                 "must": false
               },
               {
                 "type": "file_not_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "pattern": "(?m)^### (?:Step \\d|Decisions)"
               }
             ]
@@ -14624,28 +14625,28 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Baseline \\| - · Unknown \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Target \\| - \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Measure \\| - \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Business Objective \\| - \\|",
                 "must": true
@@ -14664,13 +14665,13 @@
       "keep_workspace": true,
       "platform": "chatgpt",
       "action_target": {
-        "figure": 24,
-        "journey": "the single Deconstruct interview with no additions (the approved design's paper walk: 22 to 24 replies; a count from the list, not yet measured)"
+        "figure": 22,
+        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
       },
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in Google Drive, in ai-workspace.",
       "student": "students/L1-newsletter-light.md",
-      "expected_output": "Deconstruct's part of a first-time leader's journey on chatgpt: the single interview end to end from the backlog for a plain workflow with no risk, in about 24 leader actions, with no evaluation term and nothing said about a track.",
+      "expected_output": "Deconstruct's part of a first-time leader's journey on chatgpt: the single interview end to end from the backlog for a plain workflow with no risk, in about 25 leader actions, with no evaluation term and nothing said about a track.",
       "files": [
         "students/L1-newsletter-light.md"
       ],
@@ -14743,20 +14744,11 @@
           "must": true
         },
         {
-          "text": "The goal is confirmed once, at its playback; the full goal isn't played back again",
+          "text": "The goal is confirmed at its playback, word for word (\"Here's your goal: [sentence]. What would you change or clarify?\")",
           "kind": "scripted",
           "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "quote",
-                "id": "deconstruct:8.part-3:q7"
-              },
-              {
-                "type": "ai_not_contains",
-                "text": "What would you change or clarify?"
-              }
-            ]
+            "type": "quote",
+            "id": "deconstruct:8.part-3:q7"
           }
         },
         {
@@ -15059,11 +15051,20 @@
           }
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
           }
         },
         {
@@ -15101,35 +15102,35 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Method preference: AI works it out each time\\s*$",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Path: none",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^- Step \\d",
                 "must": false
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^- D\\d+",
                 "must": false
               },
               {
                 "type": "file_not_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "pattern": "(?m)^### (?:Step \\d|Decisions)"
               }
             ]
@@ -15144,28 +15145,28 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Baseline \\| - · Unknown \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Target \\| - \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Measure \\| - \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Business Objective \\| - \\|",
                 "must": true
@@ -15184,13 +15185,13 @@
       "keep_workspace": true,
       "platform": "claude-desktop",
       "action_target": {
-        "figure": 24,
-        "journey": "the single Deconstruct interview with no additions (the approved design's paper walk: 22 to 24 replies; a count from the list, not yet measured)"
+        "figure": 22,
+        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
       },
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in ai-workspace.",
       "student": "students/L1-newsletter-light.md",
-      "expected_output": "Deconstruct's part of a first-time leader's journey on claude-desktop: the single interview end to end from the backlog for a plain workflow with no risk, in about 24 leader actions, with no evaluation term and nothing said about a track.",
+      "expected_output": "Deconstruct's part of a first-time leader's journey on claude-desktop: the single interview end to end from the backlog for a plain workflow with no risk, in about 25 leader actions, with no evaluation term and nothing said about a track.",
       "files": [
         "students/L1-newsletter-light.md"
       ],
@@ -15257,20 +15258,11 @@
           "must": true
         },
         {
-          "text": "The goal is confirmed once, at its playback; the full goal isn't played back again",
+          "text": "The goal is confirmed at its playback, word for word (\"Here's your goal: [sentence]. What would you change or clarify?\")",
           "kind": "scripted",
           "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "quote",
-                "id": "deconstruct:8.part-3:q7"
-              },
-              {
-                "type": "ai_not_contains",
-                "text": "What would you change or clarify?"
-              }
-            ]
+            "type": "quote",
+            "id": "deconstruct:8.part-3:q7"
           }
         },
         {
@@ -15573,11 +15565,20 @@
           }
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
           }
         },
         {
@@ -15615,35 +15616,35 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Method preference: AI works it out each time\\s*$",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Path: none",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^- Step \\d",
                 "must": false
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^- D\\d+",
                 "must": false
               },
               {
                 "type": "file_not_regex",
-                "path": "framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "pattern": "(?m)^### (?:Step \\d|Decisions)"
               }
             ]
@@ -15658,28 +15659,28 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Baseline \\| - · Unknown \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Target \\| - \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Measure \\| - \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Business Objective \\| - \\|",
                 "must": true
@@ -15699,13 +15700,13 @@
       "keep_workspace": true,
       "platform": "microsoft-365",
       "action_target": {
-        "figure": 24,
-        "journey": "the single Deconstruct interview with no additions (the approved design's paper walk: 22 to 24 replies; a count from the list, not yet measured)"
+        "figure": 22,
+        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
       },
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in OneDrive, in ai-workspace.",
       "student": "students/L1-newsletter-light.md",
-      "expected_output": "Deconstruct's part of a first-time leader's journey on microsoft-365: the single interview end to end from the backlog for a plain workflow with no risk, in about 24 leader actions, with no evaluation term and nothing said about a track.",
+      "expected_output": "Deconstruct's part of a first-time leader's journey on microsoft-365: the single interview end to end from the backlog for a plain workflow with no risk, in about 25 leader actions, with no evaluation term and nothing said about a track.",
       "files": [
         "students/L1-newsletter-light.md"
       ],
@@ -15778,20 +15779,11 @@
           "must": true
         },
         {
-          "text": "The goal is confirmed once, at its playback; the full goal isn't played back again",
+          "text": "The goal is confirmed at its playback, word for word (\"Here's your goal: [sentence]. What would you change or clarify?\")",
           "kind": "scripted",
           "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "quote",
-                "id": "deconstruct:8.part-3:q7"
-              },
-              {
-                "type": "ai_not_contains",
-                "text": "What would you change or clarify?"
-              }
-            ]
+            "type": "quote",
+            "id": "deconstruct:8.part-3:q7"
           }
         },
         {
@@ -16102,11 +16094,20 @@
           }
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
           }
         },
         {
@@ -16144,35 +16145,35 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Method preference: AI works it out each time\\s*$",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Path: none",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^- Step \\d",
                 "must": false
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^- D\\d+",
                 "must": false
               },
               {
                 "type": "file_not_regex",
-                "path": "framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "pattern": "(?m)^### (?:Step \\d|Decisions)"
               }
             ]
@@ -16187,28 +16188,28 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Baseline \\| - · Unknown \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Target \\| - \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Measure \\| - \\|",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "section": "## Value & Measurement",
                 "pattern": "^\\| Business Objective \\| - \\|",
                 "must": true
@@ -16422,7 +16423,7 @@
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in framework.",
       "student": "students/LS-law-not-sure.md",
-      "expected_output": "A \"not sure\" to the law question asks neither regulation question and says no N-D6; the file records `Governing regime: Not sure — to check` and `track: full`; with nothing else tripped there is no safety limits draft; no track is named.",
+      "expected_output": "A \"not sure\" to the law question asks neither regulation question and says no N-D6; the file records `Governing regime: Not sure — to check` and `track: full`; the safety limits draft comes in its own message; no track is named.",
       "files": [
         "students/LS-law-not-sure.md"
       ],
@@ -16509,11 +16510,20 @@
           "must": true
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
           }
         },
         {
@@ -16935,7 +16945,7 @@
           }
         },
         {
-          "text": "`### Prohibited actions` and `### Traceability` are worked in the file; `### Boundaries` and `### Access` are not (nothing confidential, nothing from outside)",
+          "text": "`### Prohibited actions` and `### Traceability` are worked in the file",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -16949,16 +16959,6 @@
                 "type": "file_regex",
                 "path": "framework/*/requirements.md",
                 "pattern": "(?m)^### Traceability[ \\t]*$"
-              },
-              {
-                "type": "file_not_regex",
-                "path": "framework/*/requirements.md",
-                "pattern": "(?m)^### Boundaries[ \\t]*$"
-              },
-              {
-                "type": "file_not_regex",
-                "path": "framework/*/requirements.md",
-                "pattern": "(?m)^### Access[ \\t]*$"
               }
             ]
           },
@@ -17077,7 +17077,7 @@
       "fixture": "empty",
       "prompt": "Run the deconstruct skill.",
       "student": "students/M-light-cold-entry.md",
-      "expected_output": "A plain workflow with no risk, from cold entry: the interview's first message carries the line that says how it will go with the name and description; no track line, no \"Part N of 5\", no \"About [M] questions left.\" anywhere; no safety limits; the file passes the requirements check with `track: light`.",
+      "expected_output": "A plain workflow with no risk, from cold entry: the interview's first message carries the line that says how it will go with the name and description; no track line, no \"Part N of 5\", no \"About [M] questions left.\" anywhere; the safety limits in their own message; the file passes the requirements check with `track: light`.",
       "files": [
         "students/M-light-cold-entry.md"
       ],
@@ -17140,11 +17140,20 @@
           }
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
           }
         },
         {
@@ -17324,27 +17333,12 @@
           }
         },
         {
-          "text": "With nothing tripped, Security takes its one-line form: no `### Boundaries`, `### Access`, `### Traceability` table",
+          "text": "`### Prohibited actions` is worked in the file with the lines the leader kept",
           "kind": "scripted",
           "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "file_not_regex",
-                "path": "framework/*/requirements.md",
-                "pattern": "(?m)^### Boundaries[ \\t]*$"
-              },
-              {
-                "type": "file_not_regex",
-                "path": "framework/*/requirements.md",
-                "pattern": "(?m)^### Access[ \\t]*$"
-              },
-              {
-                "type": "file_not_regex",
-                "path": "framework/*/requirements.md",
-                "pattern": "(?m)^### Traceability[ \\t]*$"
-              }
-            ]
+            "type": "file_regex",
+            "path": "framework/*/requirements.md",
+            "pattern": "(?m)^### Prohibited actions[ \\t]*$"
           }
         },
         {
@@ -23552,7 +23546,7 @@
           }
         }
       ],
-      "est_turns": 32
+      "est_turns": 38
     },
     {
       "id": "BL-retired-named",
@@ -24437,11 +24431,20 @@
           }
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
           }
         },
         {
@@ -27213,14 +27216,6 @@
           "must": true
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
-          "kind": "scripted",
-          "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
-          }
-        },
-        {
           "text": "None of the earlier interview's step, decision or expertise questions is asked (no method question, no \"What comes after that?\", no fixed-or-flexible question, no decisions question, no beginner question)",
           "kind": "scripted",
           "check": {
@@ -27485,11 +27480,20 @@
           }
         },
         {
-          "text": "With no test tripped, the safety-limits line is never said and there is no safety limits draft",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "deconstruct:safety-limits-line"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
           }
         },
         {
