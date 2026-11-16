@@ -568,7 +568,7 @@
           }
         },
         {
-          "text": "The drafts come as short messages, in order: the sources (after the typical-case question), the rules and checkpoints (after the always/never and review questions), then, only when a test trips (a write, running without the leader, confidential or outside content), the safety limits in their own message opened by the safety-limits line, then the practice runs; each draft ends \"What would you change or add?\", and the AI never says how many drafts are coming",
+          "text": "The drafts come as short messages, in order: the sources (after the typical-case question), the rules and checkpoints (after the always/never and review questions), then the safety limits in their own message opened by the safety-limits line, then the practice runs; each draft ends \"What would you change or add?\", and the AI never says how many drafts are coming",
           "kind": "judged"
         },
         {
@@ -1636,7 +1636,7 @@
           }
         },
         {
-          "text": "The drafts come as short messages, in order: the sources (after the typical-case question), the rules and checkpoints (after the always/never and review questions), then, only when a test trips (a write, running without the leader, confidential or outside content), the safety limits in their own message opened by the safety-limits line, then the practice runs; each draft ends \"What would you change or add?\", and the AI never says how many drafts are coming",
+          "text": "The drafts come as short messages, in order: the sources (after the typical-case question), the rules and checkpoints (after the always/never and review questions), then the safety limits in their own message opened by the safety-limits line, then the practice runs; each draft ends \"What would you change or add?\", and the AI never says how many drafts are coming",
           "kind": "judged"
         },
         {
@@ -2324,7 +2324,7 @@
           }
         },
         {
-          "text": "The drafts come as short messages, in order: the sources (after the typical-case question), the rules and checkpoints (after the always/never and review questions), then, only when a test trips (a write, running without the leader, confidential or outside content), the safety limits in their own message opened by the safety-limits line, then the practice runs; each draft ends \"What would you change or add?\", and the AI never says how many drafts are coming",
+          "text": "The drafts come as short messages, in order: the sources (after the typical-case question), the rules and checkpoints (after the always/never and review questions), then the safety limits in their own message opened by the safety-limits line, then the practice runs; each draft ends \"What would you change or add?\", and the AI never says how many drafts are coming",
           "kind": "judged"
         },
         {
@@ -8210,7 +8210,7 @@
           }
         },
         {
-          "text": "The drafts come as short messages, in order: the sources (after the typical-case question), the rules and checkpoints (after the always/never and review questions), then, only when a test trips (a write, running without the leader, confidential or outside content), the safety limits in their own message opened by the safety-limits line, then the practice runs; each draft ends \"What would you change or add?\", and the AI never says how many drafts are coming",
+          "text": "The drafts come as short messages, in order: the sources (after the typical-case question), the rules and checkpoints (after the always/never and review questions), then the safety limits in their own message opened by the safety-limits line, then the practice runs; each draft ends \"What would you change or add?\", and the AI never says how many drafts are coming",
           "kind": "judged"
         },
         {
@@ -12756,8 +12756,8 @@
       "kind": "interview",
       "keep_workspace": true,
       "action_target": {
-        "figure": 22,
-        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
+        "figure": 24,
+        "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in framework.",
@@ -13607,8 +13607,8 @@
       "keep_workspace": true,
       "platform": "codex",
       "action_target": {
-        "figure": 22,
-        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
+        "figure": 24,
+        "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter-git",
       "prompt": "Run the deconstruct skill. My files are in framework.",
@@ -14145,8 +14145,8 @@
       "keep_workspace": true,
       "platform": "claude-web",
       "action_target": {
-        "figure": 22,
-        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
+        "figure": 24,
+        "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in Google Drive, in ai-workspace.",
@@ -14665,8 +14665,8 @@
       "keep_workspace": true,
       "platform": "chatgpt",
       "action_target": {
-        "figure": 22,
-        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
+        "figure": 24,
+        "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in Google Drive, in ai-workspace.",
@@ -15185,8 +15185,8 @@
       "keep_workspace": true,
       "platform": "claude-desktop",
       "action_target": {
-        "figure": 22,
-        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
+        "figure": 24,
+        "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in ai-workspace.",
@@ -15700,8 +15700,8 @@
       "keep_workspace": true,
       "platform": "microsoft-365",
       "action_target": {
-        "figure": 22,
-        "journey": "the single Deconstruct interview, counted after the line that says how it will go (measured 2026-11-15 across six platforms: 21 to 24 replies, most often 22)"
+        "figure": 24,
+        "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in OneDrive, in ai-workspace.",
@@ -19395,6 +19395,23 @@
             ]
           },
           "must": true
+        },
+        {
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
+          }
         }
       ],
       "est_turns": 34,
@@ -23683,7 +23700,7 @@
           "must": true
         },
         {
-          "text": "The resume line plays back what the earlier interview recorded (what the work is worth, the name and description) and asks none of it again; the interview then carries on with the single interview's remaining items, starting with the first one the notes don't cover",
+          "text": "The resume line plays back what the earlier interview recorded (the name and description, in a sentence; no time or target figure from the notes is required or quoted) and asks none of it again; the interview then carries on with the single interview's remaining items, starting with the first one the notes don't cover",
           "kind": "judged",
           "must": true
         },
@@ -28122,6 +28139,23 @@
             ]
           },
           "must": true
+        },
+        {
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "deconstruct:safety-limits-line"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+              }
+            ]
+          }
         }
       ],
       "est_turns": 34,

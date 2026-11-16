@@ -210,7 +210,7 @@ class DeconstructWordCounter(unittest.TestCase):
         how, cap = msgs["backlog pick"]
         self.assertEqual(cap, 170)
         self.assertTrue(how.startswith("After this, I'll ask a few safety questions"))
-        self.assertIn("about 22 questions from here", how)
+        self.assertIn("about 24 questions from here", how)
         self.assertLessEqual(CS.word_count(how), cap)
         self.assertNotIn("Part 1", how)
         self.assertNotIn("workflow because", how)

@@ -109,7 +109,7 @@ def how_it_goes_messages():
     description = ("Drafts the weekly client status report from the project tracker and last week's notes, "
                    "ready for me to check and send each Friday")  # 25 words, illustrative
     msg = "\n\n".join([
-        line("deconstruct:light-line", M="22"),
+        line("deconstruct:light-line", M="24"),
         "\n".join([line("N-D23"), line("N-D23", "Starts when", trigger="every Friday morning"),
                    line("N-D23", "Ends with", deliverable="a status report for each client"),
                    line("N-D23", "Name", name="Weekly Client Status Report"),

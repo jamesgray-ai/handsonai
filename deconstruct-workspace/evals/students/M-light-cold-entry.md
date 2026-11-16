@@ -23,6 +23,7 @@ Femi Adeyemi, learning and development manager at Corran Logistics. Upbeat, plai
 - **Defaults message:** "looks fine".
 - **Preview:** "go ahead".
 - **On screen:** do it and say "done".
+- **Safety limits** (when the AI says it will also set the workflow's safety limits with you and shows them): keep its suggestions by name.
 
 ## How you answer
 Short, cheerful answers from the facts above.

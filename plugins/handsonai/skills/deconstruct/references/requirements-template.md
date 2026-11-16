@@ -54,7 +54,7 @@ Each tripped test works its categories, once each even when two tests point at t
 | A `Regulated` row | Boundaries and Access, with the `Governing regime:` line naming the regime, or `Not sure — to check` |
 | None of these | **Prohibited actions** alone |
 
-With nothing tripped, `### Prohibited actions` holds the lines the leader kept, each with its Source and its `P` ID (`P1` for the first), and the section opens "No sensitivity constraints beyond the prohibition(s) below — personal data only, read-only, human-triggered." Only when the leader dropped every line does it take the one-line form: "No sensitivity constraints — personal data only, read-only, human-triggered." A stated prohibition is always written down.
+With nothing tripped, `### Prohibited actions` holds the lines the leader kept, each with its Source and its `P` ID (`P1` for the first), and the section opens "No sensitivity constraints beyond the prohibition(s) below — personal data only, read-only, human-triggered." Only when the leader dropped every line does it take the one-line form: "No sensitivity constraints — personal data only, read-only, human-triggered." A prohibition the leader stated is always written down, unless they take it back themselves.
 
 ## 3. Standing rules
 
@@ -326,6 +326,7 @@ After writing, check the file and fix any miss before the close. Where code can 
 - A decision classified from free text is `your criteria` or `open judgment`, never `a rule on a value`.
 - Each requirement lives in one place: a quality of the output is an AC, a behaviour an R; a detail block's lines say only what that step adds ("look each promised link up in C2, for AC4"), never an AC's own wording again.
 - Human Gates opens with the `Runs:` line; Security has the `Governing regime:` line, then `### Writes` with W lines or `None`; every security constraint has a `P` ID, in one series across its tables, and a Source.
+- The safety limits message was shown in this interview and every Security line in the file is one the leader kept in it; the one-line form is written only when no test tripped and the leader dropped every line. The validator can't see this: check it yourself, and if the message wasn't shown, stop and show it (`interview.md`, *The safety limits*).
 - No saved file (requirements, input, context or progress file) holds a password or key.
 - Every practice input listed exists at its path, opens with its header lines (`source:`, `tests:`, then `expect:` with text, required on every input whose `source:` is `deconstruct`, then a blank line), and holds the input itself (or the one allowed placeholder line), never a description of it; its `tests:` IDs (AC, R, G and D) exist in the file. Each `expect:` comes from the playback, or from the line's own wording for an input aimed at a D line, an out-of-bounds line or carry-over, and "What to look for" matches it word for word. Only a carry-over input opens its body with an `Earlier run:` paragraph.
 - `Starts`, `Per run` and `Remembers`, when present, sit in the Metadata order (Workflow Name, Description, Trigger, Starts, Per run, Owner, Lens, Stakeholders, Runs today, Remembers) with one of their values.

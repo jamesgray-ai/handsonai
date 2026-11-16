@@ -58,7 +58,7 @@ Follow `references/routing.md`'s order at every entry: the wrong place (N-F7; it
 |---|---|
 | 0, running work, asked by name (or by "change my workflow", said here, or started directly by another step) | Brings it in (*Running work brought in*) |
 | 0, running work, any other way | The running-work message, and stop |
-| 0, retired | The retired line, word for word, as the whole reply, with nothing before or after it: "This workflow is retired. To bring it back, say 'change my workflow. My files are in [location].'" (on Claude Code and Codex: "…say 'change my workflow.'") |
+| 0, retired | The retired line, word for word, as the whole reply, with nothing before or after it: "This workflow is retired. To bring it back, say 'change my workflow. My files are in [location].'" (on Claude Code and Codex: "…say 'change my workflow.'"). When the leader asked to change it, Design brings it back instead (`routing.md`) |
 | 1, requirements in an earlier format | *An earlier version* |
 | 1, another step's earlier file | N-T22 with that step's start phrase, and stop |
 | 2, redo pending | The big-change redo: `references/re-runs.md` |
@@ -151,7 +151,7 @@ Follow `references/interview.md` from its first message to *What was filled in*:
 
 The interview gives one figure, once: [M] in the line that says how it will go (`references/interview.md`, item 1). After it, no count or progress remark is said, and no figure is worked out from the conversation.
 
-**The figure.** [M] is 22, whatever the entry (backlog pick, cold entry, running work): measured across six platforms on 2026-11-15 (21 to 24 replies after this line, most often 22).
+**The figure.** [M] is 24, whatever the entry (backlog pick, cold entry, running work). In the 2026-11-15 round, runs that included the safety limits took 23 to 24 replies after this line; the next round measures it with the limits always shown.
 
 #### Phase 3 — Generate Workflow Requirements
 
