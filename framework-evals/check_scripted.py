@@ -386,12 +386,25 @@ def leader_files(run):
     return out
 
 
+def _leaders_own(found, allowed):
+    """Every size found is one the leader gave, or sits one unit either side of one: a practice run
+    built on the leader's own limit ("exactly 48 hours, and one has 49") is their data, not an estimate."""
+    def near(size):
+        if size in allowed:
+            return True
+        try:
+            return any(u == size[1] and abs(float(n) - float(size[0])) <= 1 for n, u in allowed)
+        except ValueError:
+            return False
+    return all(near(x) for x in found)
+
+
 def time_or_step_hits(message, allowed=frozenset()):
     # what fills an approved line's placeholder ("about [hours] saved") is part of that line here;
     # a size the leader gave for their own work ("about 20 minutes per follow-up") is theirs, not an estimate
     text = corpus().strip_approved(leader_text(message), keep_fills=False)
     hits = [("time", text[max(0, m.start() - 40):m.end() + 40].strip()) for m in TIME.finditer(text)
-            if not (sizes(text[m.start():m.end() + 25]) and sizes(text[m.start():m.end() + 25]) <= allowed)]
+            if not (sizes(text[m.start():m.end() + 25]) and _leaders_own(sizes(text[m.start():m.end() + 25]), allowed))]
     hits += [("step number", text[max(0, m.start() - 40):m.end() + 40].strip()) for m in STEP_NUMBER.finditer(text)]
     return hits
 

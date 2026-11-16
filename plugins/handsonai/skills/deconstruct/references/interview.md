@@ -287,6 +287,8 @@ Record it as an optional Metadata row, `Remembers`: `nothing`, `[what, in the le
 - *Example:* "Always use this week's price list; never quote a discount."
 - *Not sure?* Say no; we'll cover rules next.
 
+The question is said as written whatever the leader has already told you: never "anything else it must always do". What they've said goes in the line before it (rule 1).
+
 Each answer is a rule ("It always…", "It never…"), an R line in the file. An order the leader insists on is a rule too ("It always [does this] before [that]"). On cold entry, offer any "It always…" or "It never…" rule the cold-entry answer holds in this question.
 
 Then the review question, in its own message:
