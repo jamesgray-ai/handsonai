@@ -27,8 +27,6 @@ Each step is a skill in the `handsonai` plugin. [Install the plugin](skills/) on
 
 Design plans against these lines, Build checks each task against them, and Test grades every one.
 
-**Two tracks.** Small, low-risk workflows take the **light** track; everything else takes the **full** track. Both use the same steps and the same files. Deconstruct, Design and Test are shorter on the light track; Build works the same way on both. Deconstruct proposes a track early and you can switch. Any sign of risk keeps a workflow on the full track: a change that can't be undone, a change to a system other people use, running without you, regulated work, or confidential or outside content such as inbound email.
-
 **Three stages prove a workflow.**
 
 1. **Build's quick real checks** prove each kind of change works, with one small real change somewhere only you can see.

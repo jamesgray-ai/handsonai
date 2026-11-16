@@ -814,7 +814,7 @@
   {
    "id": "N-L2",
    "form": "promise clause",
-   "text": "This [changes something that can't be undone / sends, posts or changes something other people see / runs without you / is regulated / reads confidential details or content from outside your team], so I'll treat it as a full workflow.",
+   "text": "This [changes something that can't be undone / sends, posts or changes something other people see / runs without you / is regulated / reads confidential details or content from outside your team], so it needs a few more safety answers.",
    "kind": "safety or promise",
    "skills": [
     "design",
@@ -826,7 +826,7 @@
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change",
+   "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change; ending reworded, approved by James 2026-11-15 (no tracks are said to the leader)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
   },
   {
@@ -4800,7 +4800,7 @@
   {
    "id": "B54",
    "form": "main",
-   "text": "You asked for the AI to work it out each time, but this work [has one input and rules that settle each decision], so a fixed set of steps will be more reliable. I'll plan those steps; you can still change this.",
+   "text": "This work [has one input and rules that settle each decision], so a fixed set of steps will be more reliable than working it out each time. I'll plan those steps; you can still change this.",
    "kind": "teaching",
    "skills": [
     "design"
@@ -4808,7 +4808,7 @@
    "files": {
     "design": "references/variants.md"
    },
-   "source": "design.md 12; approved before 3c-DJ ((word for word))",
+   "source": "design.md 12; approved before 3c-DJ ((word for word)); reworded, approved by James 2026-11-15 (the leader no longer chooses how the work is done)",
    "note": "design: inferred from design 13 by section"
   },
   {
