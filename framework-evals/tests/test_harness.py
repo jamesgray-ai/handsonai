@@ -261,10 +261,19 @@ class WordingChecks(unittest.TestCase):
         self.assertTrue(ok(c, run_of(said, files_start=req)))  # the leader brought it
 
     def test_signposts_per_skill(self):
+        # Deconstruct has no signposts since its single interview (2026-11-15): the check fails closed there,
+        # whatever is said, with the skill named or left out, and the validator rejects it
         dec = ["Part 1 of 5 — what this is worth.", "Part 2 of 5 — where it starts and ends, and a name.", "Part 3 of 5 — the outcome.",
                "Part 4 of 5 — how the work gets done.", "Part 5 of 5 — rules, sources and practice runs."]
-        self.assertTrue(ok({"type": "signposts", "skill": "deconstruct"}, run_of(*dec)))
-        self.assertFalse(ok({"type": "signposts", "skill": "deconstruct"}, run_of(*(dec[:2] + dec[3:]))))
+        self.assertFalse(ok({"type": "signposts", "skill": "deconstruct"}, run_of(*dec)))
+        self.assertFalse(ok({"type": "signposts"}, run_of(*dec)))
+        for c in ({"type": "signposts"}, {"type": "signposts", "skill": "deconstruct"}):
+            errs = []
+            V.check_check(c, "x", errs, 1, AL.load())
+            self.assertTrue(errs, c)
+        errs = []
+        V.check_check({"type": "signposts", "skill": "design"}, "x", errs, 1, AL.load())
+        self.assertEqual(errs, [])
         des = ["Part 1 of 4 — where it runs", "Part 2 of 4 — the plan", "Part 3 of 4 — a few questions for you",
                "Part 4 of 4 — review and approve"]
         self.assertTrue(ok({"type": "signposts", "skill": "design"}, run_of(*des)))
@@ -277,15 +286,16 @@ class WordingChecks(unittest.TestCase):
         self.assertFalse(ok({"type": "signposts", "skill": "build"}, run_of(bld[0], "Part 2 of 3 — building", bld[2])))
 
     def test_signposts_across_sessions(self):
-        # smoke-1 fix: a stop after Part 3 and a resume that says Parts 4 and 5 count, in order across sessions
-        dec = ["Part 1 of 5 — what this is worth.", "Part 2 of 5 — where it starts and ends, and a name.", "Part 3 of 5 — the outcome.",
-               "Part 4 of 5 — how the work gets done.", "Part 5 of 5 — rules, sources and practice runs."]
-        a, b = run_of(*dec[:3]), run_of(*dec[3:])
+        # smoke-1 fix: a stop after Part 2 and a resume that says Parts 3 and 4 count, in order across sessions
+        # (Design's four parts: Deconstruct, where the fix was first made, has had no signposts since 2026-11-15)
+        des = ["Part 1 of 4 — where it runs", "Part 2 of 4 — the plan", "Part 3 of 4 — a few questions for you",
+               "Part 4 of 4 — review and approve"]
+        a, b = run_of(*des[:2]), run_of(*des[2:])
         run = {"sessions": a["sessions"] + [dict(b["sessions"][0], n=2)]}
-        self.assertTrue(ok({"type": "signposts", "skill": "deconstruct"}, run))
+        self.assertTrue(ok({"type": "signposts", "skill": "design"}, run))
         swapped = {"sessions": [dict(b["sessions"][0], n=1), dict(a["sessions"][0], n=2)]}
-        self.assertFalse(ok({"type": "signposts", "skill": "deconstruct"}, swapped))
-        self.assertFalse(ok({"type": "signposts", "skill": "deconstruct", "session": 2}, run))
+        self.assertFalse(ok({"type": "signposts", "skill": "design"}, swapped))
+        self.assertFalse(ok({"type": "signposts", "skill": "design", "session": 2}, run))
 
     def test_rubric_judge_sees_tool_lines_behind_a_figure(self):
         # a version the AI read with `claude --version` isn't invented: the judge sees that output line
@@ -1286,7 +1296,7 @@ class StubbedHarness(unittest.TestCase):
     def test_no_yes_means_no_calls(self):
         import run_eval as R
         argv = sys.argv
-        sys.argv = ["run_eval.py", str(self.tmp / "o"), "I16", "--evals",
+        sys.argv = ["run_eval.py", str(self.tmp / "o"), "I1", "--evals",  # a live eval (I16 retired with the two-track interview)
                     str(ROOT / "deconstruct-workspace" / "evals" / "evals.json")]
         H.pin_binary = lambda: self.fail("a model call was set up without --yes")
         try:
@@ -1299,8 +1309,39 @@ class StubbedHarness(unittest.TestCase):
 
 class ExistingEvals(unittest.TestCase):
     def test_a_deconstruct_eval_validates(self):
-        errs = V.validate_file(ROOT / "deconstruct-workspace" / "evals" / "evals.json", build=True, only={"NF1", "I16"})
+        # a first-time leader's journey, and two of the single interview's own evals (one on a new fixture)
+        errs = V.validate_file(ROOT / "deconstruct-workspace" / "evals" / "evals.json", build=True,
+                               only={"FTJ-claude-code", "SI-plain-cold", "SI-old-light-progress-rules"})
         self.assertEqual(errs, [])
+
+    def test_no_live_deconstruct_eval_asks_for_the_retired_interview(self):
+        # one interview for every workflow (2026-11-15): no live eval may need a track line, a part signpost,
+        # a running count or N-L2 to be said, and every retired eval says why
+        data = json.loads((ROOT / "deconstruct-workspace" / "evals" / "evals.json").read_text())
+        stale = re.compile(r"Part \\?d|Part \[|Part [1-5] of|questions left|full workflow|full version|keep it light|Ready to start")
+        def walk(c):
+            yield c
+            for x in c.get("checks", []):
+                yield from walk(x)
+        for ev in data["evals"]:
+            if ev.get("retired"):
+                self.assertTrue(ev.get("retired_note"), ev["id"])
+                continue
+            for x in ev["expectations"]:
+                for c in (walk(x["check"]) if isinstance(x, dict) and "check" in x else []):
+                    where = f"{ev['id']}: {c}"
+                    self.assertNotEqual(c["type"], "signposts", where)
+                    if c["type"] in ("quote", "opens_with", "said_before"):
+                        self.assertNotIn(c.get("id"), ("N-L2", "deconstruct:questions-left"), where)
+                    if c["type"] in ("ai_contains", "ai_regex"):
+                        self.assertIsNone(stale.search(c.get("text", "") + c.get("pattern", "")), where)
+        # the evals the design names are there, and the whole file validates
+        ids = {e["id"] for e in data["evals"] if not e.get("retired")}
+        for i in ("SI-plain-cold", "SI-confidential", "SI-scheduled-without-you", "SI-law-yes", "SI-no-worth", "SI-fixed-order",
+                  "SI-old-light-progress-rules", "SI-rerun-old-full", "SI-draft-limits-looks-fine", "LS-draft-own-email",
+                  "DC-old-progress-resume"):
+            self.assertIn(i, ids)
+        self.assertEqual(V.validate_file(ROOT / "deconstruct-workspace" / "evals" / "evals.json"), [])
 
     def test_validator_catches_planted_problems(self):
         with tempfile.TemporaryDirectory() as t:

@@ -9,7 +9,6 @@ Dana Reyes again (see the facts below).
 ## How you answer
 Answer each question in a sentence or two from the facts above, except where these override them:
 - **Taking part / review point:** "No, I don't want to read them first. It should run without me and save the drafts."
-- **Fixed steps:** none.
 - **Live writes:** "It saves each draft in Outlook. I'm not sure which folder yet."
 - **Where flags go** (if a draft suggests where it tells you about a case it couldn't handle): "Yes, an email to me is fine."
 

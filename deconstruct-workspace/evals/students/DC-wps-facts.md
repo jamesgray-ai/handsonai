@@ -1,6 +1,6 @@
-# Leader facts: Weekly Pipeline Summary from a full-card backlog, light track (Deconstruct 3.3 evals)
+# Leader facts: Weekly Pipeline Summary from a full-card backlog (Deconstruct evals)
 
-Shared facts for the light DC- evals on the `card-backlog` fixture. Each eval's own script includes these and overrides what it tests. Every name, figure and system here is made up for the eval.
+Shared facts for the DC- evals on the `card-backlog` fixture. Each eval's own script includes these and overrides what it tests. Every name, figure and system here is made up for the eval.
 
 ## Who you are
 Dana Reyes, owner of Brightline Advisory, a small consulting firm. Busy, direct, new to building with AI. Short, plain sentences. Not technical.
@@ -8,7 +8,6 @@ Dana Reyes, owner of Brightline Advisory, a small consulting firm. Busy, direct,
 ## What you know
 - **Which workflow:** "Weekly Pipeline Summary", from your backlog. If the AI suggests another one, still pick this one.
 - **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes): no, nothing written down.
-- **The light or full version** (if the AI says this looks like a light workflow): "The shorter version is fine."
 - **Your Analyze report's summary** (if it's played back and you're asked what to change or clarify): "That's right."
 - **How runs start** (if asked whether you'll start each run yourself or put it on a schedule): "On a schedule: every Friday at 3pm."
 - **Live writes** (if asked whether it sends, posts or changes anything): "Nothing. It just gives me the summary; I read it before Monday's meeting."

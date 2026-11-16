@@ -1,4 +1,4 @@
-# Leader: light track, a past newsletter given at the start (PR-past-output)
+# Leader: the newsletter, a past newsletter given at the start (PR-past-output)
 
 ## Who you are
 Sam Okoro again (see the facts below), running Deconstruct on the Weekly Newsletter Draft.

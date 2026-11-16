@@ -1,4 +1,4 @@
-# Leader: a policy "no" in Part 2, answered with a removal step (DC-policy-remove-part-2)
+# Leader: a policy "no", answered with a removal (DC-policy-remove-part-2)
 
 ## Who you are
 Dana Reyes again (see the facts below).

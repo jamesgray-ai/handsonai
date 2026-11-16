@@ -1,6 +1,6 @@
-# Leader: cold entry, light track (measurement)
+# Leader: cold entry (measurement)
 
-For the Deconstruct 3.3 measurement runs (section 7 item 6, light): a cold entry with no backlog, clearly light.
+For the Deconstruct measurement runs (one interview for every workflow): a cold entry with no backlog, with no risk.
 
 ## Who you are
 Femi Adeyemi, learning and development manager at Corran Logistics. Upbeat, plain-spoken, new to AI.
@@ -8,7 +8,6 @@ Femi Adeyemi, learning and development manager at Corran Logistics. Upbeat, plai
 ## What you know
 - **The workflow** (when asked to describe it): "After each training session I run, I write a short recap for the people who attended: what we covered, the three key points, and the links. I start it when the session ends and paste in my notes."
 - **Anything written down:** no.
-- **The light or full version:** "The shorter version is fine."
 - **Name and description:** accept the AI's recommendation if it's close to "Training Session Recap".
 - **What it sends or changes:** "Nothing. It gives me the recap and I send it myself."
 - **Taking part:** "Yes, I read it before I send it."

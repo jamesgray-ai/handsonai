@@ -1,4 +1,4 @@
-# Leader: Weekly Pipeline Summary, light, on a schedule (DC-light-scheduled)
+# Leader: Weekly Pipeline Summary, on a schedule (DC-light-scheduled)
 
 ## Who you are
 Dana Reyes again (see the facts below).

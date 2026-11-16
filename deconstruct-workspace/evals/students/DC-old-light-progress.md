@@ -1,4 +1,4 @@
-# Leader: an old light progress file with no safety answers (DC-old-light-progress)
+# Leader: a progress file from the earlier interview with no safety answers (DC-old-light-progress)
 
 ## Who you are
 Sam Okoro again (see the facts below).

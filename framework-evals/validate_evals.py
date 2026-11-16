@@ -93,8 +93,9 @@ def check_check(c, where, errs, nsessions, corpus):
         errs.append(f"{where}: structure kind {c.get('kind')!r}")
     if t == "fill_check" and c.get("kind") not in ("build", "fix"):
         errs.append(f"{where}: fill_check kind {c.get('kind')!r}")
-    if t == "signposts" and c.get("skill", "deconstruct") not in ("deconstruct", "design", "test", "build"):
-        errs.append(f"{where}: signposts skill {c.get('skill')!r}")
+    if t == "signposts" and c.get("skill") not in CS.SIGNPOST_IDS:
+        # Deconstruct has no signposts since the single interview (2026-11-15), so the check names its skill
+        errs.append(f"{where}: signposts skill {c.get('skill')!r} (one of {', '.join(CS.SIGNPOST_IDS)})")
     if "session" in c and not (isinstance(c["session"], int) and 1 <= c["session"] <= nsessions):
         errs.append(f"{where}: session {c['session']} out of range 1..{nsessions}")
     for i, sub in enumerate(c.get("checks", [])):

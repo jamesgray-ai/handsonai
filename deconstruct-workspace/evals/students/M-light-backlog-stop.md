@@ -1,6 +1,6 @@
-# Leader: leader-started light backlog pick, stops at an item's start (measurement, session 1)
+# Leader: leader-started backlog pick, stops partway (measurement, session 1)
 
-For the Deconstruct 3.3 measurement runs (section 7 item 6, light): a backlog pick the leader starts, with a stop at the start of a light item and a resume (session 2: `M-light-backlog-resume.md`).
+For the Deconstruct measurement runs (one interview for every workflow): a backlog pick the leader starts, with a stop partway and a resume (session 2: `M-light-backlog-resume.md`).
 
 ## Who you are
 Grace Whitfield, managing partner at Whitfield & Lowe, a small accounting practice. Warm, busy, not technical. First time using the framework.
@@ -8,7 +8,6 @@ Grace Whitfield, managing partner at Whitfield & Lowe, a small accounting practi
 ## What you know
 - **Which workflow:** "Partner Meeting Agenda", from your backlog.
 - **Anything written down:** no.
-- **The light or full version:** "The shorter version is fine."
 - **Analyze's summary** (if played back and you're asked what to change): "That's right."
 - **What it sends or changes:** "Nothing. It gives me the agenda here and I paste it into the meeting invite myself."
 - **Taking part:** "Yes, I read it and tidy it before I send it."
@@ -24,4 +23,4 @@ Grace Whitfield, managing partner at Whitfield & Lowe, a small accounting practi
 Short, friendly answers from the facts above. Confirm correct playbacks.
 
 ## When to stop
-Stop at the start of a light item: once the AI has asked what a good agenda looks like or what it must get right (its second item), reply `END` instead of answering.
+Once the AI has asked what a good agenda looks like, reply `END` instead of answering.

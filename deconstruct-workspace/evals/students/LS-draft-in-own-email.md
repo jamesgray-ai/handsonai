@@ -1,4 +1,4 @@
-# Leader: light track, a draft saved in your own email (LS-draft-own-email)
+# Leader: the newsletter, a draft saved in your own email (LS-draft-own-email)
 
 ## Who you are
 Sam Okoro again (see the facts below), running Deconstruct on the Weekly Newsletter Draft.

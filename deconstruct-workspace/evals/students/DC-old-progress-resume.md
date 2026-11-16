@@ -1,7 +1,7 @@
-# Leader: Client Follow-Up, picking up a progress file saved before 3.3 (DC-old-progress-resume)
+# Leader: Client Follow-Up, picking up a progress file saved by the earlier interview (DC-old-progress-resume)
 
 ## Who you are
-Dana Reyes again (see the facts below). You stopped after Part 2 a while ago.
+Dana Reyes again (see the facts below). You stopped partway a while ago.
 
 ## What you know
 <!-- include-facts: students/DC-cfu-facts.md -->

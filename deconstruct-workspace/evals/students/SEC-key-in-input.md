@@ -1,4 +1,4 @@
-# Leader: light track, a key inside a pasted input (SEC-key-in-input)
+# Leader: the newsletter, a key inside a pasted input (SEC-key-in-input)
 
 ## Who you are
 Sam Okoro again (see the facts below), running Deconstruct on the Weekly Newsletter Draft.

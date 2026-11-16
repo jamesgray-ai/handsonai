@@ -1,4 +1,4 @@
-# Leader: Client Follow-Up from a full card, to the end of Part 2's opening (DC-card-full-to-part-2)
+# Leader: Client Follow-Up from a full card, to the safety questions (DC-card-full-to-part-2)
 
 ## Who you are
 Dana Reyes again (see the facts below).

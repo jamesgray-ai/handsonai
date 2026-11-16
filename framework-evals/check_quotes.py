@@ -10,7 +10,7 @@ the skills, with placeholders as wildcards.
   python3 check_quotes.py evals <evals.json>...
       The evals are in step with the corpus: every `quote` check names a line and form that exist;
       every `ai_contains` marked with `line` matches that line's wording; and no `ai_contains` text
-      quotes an approved line with a word changed (a stale quote).
+      quotes an approved line with a word changed (a stale quote). An eval marked `"retired"` is skipped.
 
   --skill NAME    transcript mode: count only that skill's lines (and the built workflow's), as the
                   runner does with the evals file's skill_name
@@ -71,6 +71,8 @@ def check_evals(corpus, files):
         data = json.loads(Path(f).read_text())
         skill = data.get("skill_name")  # as the runner's transcript check does: only lines this skill says
         for ev in data["evals"]:
+            if ev.get("retired"):
+                continue  # kept in place with its note, never run (validate_evals.py skips it too)
             for c in _walk(ev.get("expectations", []), []):
                 where = f"{Path(f).name} {ev['id']}"
                 if c["type"] in ("quote", "quote_absent"):

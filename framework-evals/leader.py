@@ -45,7 +45,7 @@ The leader-action counter (`count_actions`) reports leader actions per run (each
 sends, plus each action a simulation counts on the leader's screen: opening a chat, pasting, adding
 a file under Knowledge, choosing Create) against the spec's journey figures. It never measures time.
 `replies_by_part` splits the leader's replies at the skill's signposts and reports, at each count Deconstruct
-says, the replies still to come (Deconstruct 3.3, T3 and T4).
+says, the replies still to come (Deconstruct says one: in the line that says how its interview will go).
 """
 import json
 import re
@@ -513,11 +513,13 @@ def _is_reply(t):
 
 
 def replies_by_part(sessions, skill="deconstruct"):
-    """Leader replies per part, on top of count_actions (Deconstruct 3.3, T3 and T4): every reply count_actions
-    counts as a message, split at the skill's "Part k of N" signposts (check_scripted.SIGNPOST_IDS; replies
-    before the first signpost are "entry"), plus, at each AI message that carries a count (the count line,
-    N-D17's main form or the light line), the replies still to come after it: what that count's [M] promises.
-    A skill with no signposts has only "entry". Never measures time."""
+    """Leader replies per part, on top of count_actions: every reply count_actions counts as a message, split
+    at the skill's "Part k of N" signposts (check_scripted.SIGNPOST_IDS; replies before the first signpost are
+    "entry"), plus, at each AI message that carries a count, the replies still to come after it: what that
+    count's [M] promises. Deconstruct's one count is in the line that says how the interview will go
+    (check_scripted.COUNT_CARRIERS); a run that also says "About [M] questions left." gets a count point for it,
+    so the stray count shows. A skill with no signposts (Deconstruct, since its single interview) has only
+    "entry". Never measures time."""
     import check_scripted as CS  # lazily: check_scripted doesn't import this module, but keep loading cheap
     total = CS.SIGNPOST_IDS.get(skill, (0, []))[0]
     signpost = re.compile(rf"\bPart ([1-9]) of {total}\b") if total else None

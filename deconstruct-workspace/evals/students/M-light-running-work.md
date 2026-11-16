@@ -1,6 +1,6 @@
-# Leader: light running work brought in (measurement)
+# Leader: running work brought in, with no risk (measurement)
 
-For the Deconstruct 3.3 measurement runs (section 7 item 6, light): work Analyze recorded as already running, light by every criterion.
+For the Deconstruct measurement runs (one interview for every workflow): work Analyze recorded as already running, with no risk.
 
 ## Who you are
 Leo Marsh, solo founder of Marsh Studio, a two-person design studio. Relaxed, chatty, uses AI chat tools daily but isn't technical.
@@ -8,7 +8,6 @@ Leo Marsh, solo founder of Marsh Studio, a two-person design studio. Relaxed, ch
 ## What you know
 - **How it runs today** (when asked how it runs, or what happens in it): "Every Monday I paste the links I saved last week into a chat with a saved prompt, and it gives me a short reading list with a line on each. I start it myself, no schedule."
 - **Anything written down:** no.
-- **The light or full version:** "The shorter version is fine."
 - **Analyze's summary** (if played back and you're asked what to change): "That's right."
 - **What it sends or changes:** "Nothing. It just gives me the list here."
 - **Taking part:** "Yes, I read it, that's the point."

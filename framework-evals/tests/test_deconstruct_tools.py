@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Deconstruct 3.3's eval tooling (stage 8): the word count and `max_words` (T1, T2), the time check's
-exemption for the leader's own schedule (a brought `Starts` row, R-D3), per-part reply counts
-(leader.replies_by_part, T3 and T4), validate_evals' shape check for `max_words`, and the Deconstruct word
-counter (tools/wc_deconstruct.py). No model is called.
+"""Deconstruct's eval tooling: the word count and `max_words` (T1, T2), the time check's exemption for the
+leader's own schedule (a brought `Starts` row, R-D3), reply counts (leader.replies_by_part: Deconstruct's
+single interview has no parts, and one count, in the line that says how it will go), validate_evals' shape
+check for `max_words`, and the Deconstruct word counter (tools/wc_deconstruct.py). No model is called.
 
 Run: python3 -m unittest discover -s framework-evals/tests -v
 """
@@ -46,11 +46,10 @@ def line(lid, form="main"):
     return next(f.text for f in AL.load().get(lid, form) if f.text)
 
 
-N_L1_LIGHT = ("This looks like a light workflow because it has a few steps and only drafts for you, so we'll do the "
-              "shorter version. To switch, say 'make it the full version'.")
-LIGHT_LINE = line("deconstruct:light-line").replace("[M]", "20")
-N_D17 = line("N-D17").replace("[M]", "45")
-COUNT = line("deconstruct:questions-left").replace("[M]", "40")
+# the line that says how the interview will go: the one count the single interview says (2026-11-15)
+HOW_LINE = line("deconstruct:light-line").replace("[M]", "24")
+# "About [M] questions left." is never said by the single interview; it stays in the corpus so a run that says it is seen
+COUNT = line("deconstruct:questions-left").replace("[M]", "12")
 
 
 class WordCount(unittest.TestCase):
@@ -80,26 +79,31 @@ class MaxWords(unittest.TestCase):
         n_d23 = "\n".join([line("N-D23"), "Starts when: every Friday", "Ends with: a report",
                            "Name: Weekly Report (rename it here if you like)", "Description: Drafts it.",
                            line("N-D23", "ending")])
-        light_msg = "\n\n".join([N_L1_LIGHT, LIGHT_LINE, n_d23])
-        c = {"type": "max_words", "max": 170, "containing": "N-L1"}
-        self.assertTrue(ok(c, session(1, ("go", "Hello."), ("1", light_msg)))[0])
-        padded = light_msg + " extra" * (171 - CS.word_count(light_msg))
+        how_msg = "\n\n".join([HOW_LINE, n_d23])
+        c = {"type": "max_words", "max": 170, "containing": "deconstruct:light-line"}
+        self.assertTrue(ok(c, session(1, ("go", "Hello."), ("1", how_msg)))[0])
+        padded = how_msg + " extra" * (171 - CS.word_count(how_msg))
         self.assertFalse(ok(c, session(1, ("go", "Hello."), ("1", padded)))[0])
         # a line never said fails closed, and the check never counts other messages
         self.assertFalse(ok(c, session(1, ("go", "word " * 500)))[0])
+        # the retired track line names no approved line any more: nothing to count, so it fails closed
+        self.assertFalse(ok({"type": "max_words", "max": 170, "containing": "N-L1"}, session(1, ("go", how_msg)))[0])
 
     def test_validator_shapes(self):
         corpus = AL.load()
         good = [{"type": "max_words", "max": 200, "turn": "first"},
-                {"type": "max_words", "max": 150, "containing": "N-L1"},
-                {"type": "max_words", "max": 170, "containing": "N-L1", "form": "main"}]
+                {"type": "max_words", "max": 170, "containing": "deconstruct:light-line"},
+                {"type": "max_words", "max": 170, "containing": "deconstruct:light-line", "form": "main"}]
         bad = [{"type": "max_words", "turn": "first"},
                {"type": "max_words", "max": "200", "turn": "first"},
                {"type": "max_words", "max": 0, "turn": "first"},
                {"type": "max_words", "max": 200},
-               {"type": "max_words", "max": 200, "turn": "first", "containing": "N-L1"},
+               {"type": "max_words", "max": 200, "turn": "first", "containing": "deconstruct:light-line"},
                {"type": "max_words", "max": 200, "turn": "last"},
-               {"type": "max_words", "max": 200, "containing": "N-NOPE"}]
+               {"type": "max_words", "max": 200, "containing": "N-NOPE"},
+               # retired with the two-track interview (2026-11-15): no longer approved lines
+               {"type": "max_words", "max": 150, "containing": "N-L1"},
+               {"type": "max_words", "max": 150, "containing": "N-D17"}]
         for c in good:
             errs = []
             V.check_check(c, "x", errs, 1, corpus)
@@ -139,27 +143,38 @@ class StartsExemption(unittest.TestCase):
 
 
 class RepliesByPart(unittest.TestCase):
-    def test_full_track(self):
-        p2 = "Part 2 of 5 — where it starts and ends, and a name.\n\n" + COUNT + "\n\nNow the name."
+    def test_single_interview_has_one_count_and_no_parts(self):
         s = session(1,
                     ("run the deconstruct skill", "Which workflow?"),
                     ("1", "Do you have anything written down?"),
-                    ("no", "This looks like a full workflow because it sends emails, so we'll do the full version.\n\n"
-                     + N_D17 + "\n\nReady to start Part 1?"),
-                    ("yes", "Part 1 of 5 — what this is worth. Is that what we should count?"),
-                    ("yes", "What's it today?"),
-                    ("unknown", p2),
-                    ("fine", "Thanks."),
+                    ("no", HOW_LINE + "\n\nHere's what your Analyze report has for this workflow:"),
+                    ("looks right", "Everything for this workflow goes in its own folder.\n\nWill it send or change anything itself?"),
+                    ("no", "Is there a law or regulation that governs this work?"),
+                    ("no", "Thanks."),
                     ("END", None))
         r = L.replies_by_part([s])
-        self.assertEqual(r["by_part"], {"entry": 4, "Part 1": 2, "Part 2": 1})
-        self.assertEqual(r["replies"], 7)
-        self.assertEqual([(p["at"], p["still_to_come"]) for p in r["count_points"]],
-                         [("N-D17", 4), ("Part 2 signpost", 1)])
+        # no signposts: every reply is "entry", whatever the AI says
+        self.assertEqual(r["by_part"], {"entry": 6})
+        self.assertEqual(r["replies"], 6)
+        # the one count point: the line that says how the interview will go, with the replies still to come
+        self.assertEqual([(p["at"], p["message"], p["still_to_come"]) for p in r["count_points"]],
+                         [("deconstruct:light-line", 3, 3)])
 
-    def test_light_track_and_sessions(self):
+    def test_a_part_signpost_no_longer_splits_deconstruct(self):
+        # the retired five-part interview's signposts and N-D17 mean nothing now: no part, no count point
+        s = session(1, ("go", "It runs in five parts, about 45 questions.\n\nReady to start Part 1?"),
+                    ("yes", "Part 1 of 5 — what this is worth."), ("fine", "Part 2 of 5 — where it starts and ends, and a name."),
+                    ("ok", None))
+        r = L.replies_by_part([s])
+        self.assertEqual(r["by_part"], {"entry": 4})
+        self.assertEqual(r["count_points"], [])
+        self.assertNotIn("deconstruct", CS.SIGNPOST_IDS)
+        self.assertEqual(CS.COUNT_CARRIERS, [("deconstruct:light-line", "main")])
+
+    def test_a_stray_count_line_shows_across_sessions(self):
+        # "About [M] questions left." is never said now; a run that says it gets a count point, so it shows
         s1 = session(1, ("run it", "Which workflow?"), ("1", "Anything written down?"),
-                     ("no", "\n\n".join([N_L1_LIGHT, LIGHT_LINE, "Here's what your Analyze report has for this workflow:"])),
+                     ("no", "\n\n".join([HOW_LINE, "Here's what your Analyze report has for this workflow:"])),
                      ("looks right", None))
         s2 = session(2, ("run it on Weekly Report", COUNT + "\n\nWhat is it for?"), ("a summary", "Thanks."))
         r = L.replies_by_part([s1, s2])
@@ -189,14 +204,21 @@ class DeconstructWordCounter(unittest.TestCase):
         # the fills keep T1's limits: labels at most 3 words, goals at most 8
         self.assertTrue(all(len(x.split()) <= 3 for x in WC.LABELS))
         self.assertTrue(all(len(g.split()) <= 8 for _, _, g in WC.CANDIDATES if g))
-        full, light = WC.n_l1_messages()["full"][0], WC.n_l1_messages()["light"][0]
-        self.assertTrue(full.endswith("Ready to start Part 1?"))
-        self.assertIn("about 20 questions from here", light)
+        # T2: one message, for every workflow: the line that says how the interview will go, then N-D23
+        msgs = WC.how_it_goes_messages()
+        self.assertEqual(list(msgs), ["backlog pick"])
+        how, cap = msgs["backlog pick"]
+        self.assertEqual(cap, 170)
+        self.assertTrue(how.startswith("After this, I'll ask a few safety questions"))
+        self.assertIn("about 24 questions from here", how)
+        self.assertLessEqual(CS.word_count(how), cap)
+        self.assertNotIn("Part 1", how)
+        self.assertNotIn("workflow because", how)
 
     def test_transcript_mode(self):
-        light_msg = "\n\n".join([N_L1_LIGHT, LIGHT_LINE, "Here's what your Analyze report has for this workflow:"])
+        how_msg = "\n\n".join([HOW_LINE, "Here's what your Analyze report has for this workflow:"])
         turns = [{"role": "student", "text": "go"}, {"role": "ai", "text": "word " * 150},
-                 {"role": "student", "text": "1"}, {"role": "ai", "text": light_msg}]
+                 {"role": "student", "text": "1"}, {"role": "ai", "text": how_msg}]
         with tempfile.TemporaryDirectory() as t:
             p = Path(t) / "turns.json"
             p.write_text(json.dumps(turns))
@@ -208,6 +230,14 @@ class DeconstructWordCounter(unittest.TestCase):
             with redirect_stdout(out):
                 self.assertEqual(WC.main(["transcript", str(p)]), 1)
             self.assertIn("OVER", out.getvalue())
+            # T2: the message that says how the interview will go, over 170 words
+            turns[1]["text"] = "word " * 150
+            turns[3]["text"] = how_msg + " extra" * 171
+            p.write_text(json.dumps(turns))
+            out = io.StringIO()
+            with redirect_stdout(out):
+                self.assertEqual(WC.main(["transcript", str(p)]), 1)
+            self.assertIn("how-it-will-go message 2", out.getvalue())
 
 
 if __name__ == "__main__":

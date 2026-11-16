@@ -6,7 +6,6 @@ Jo Park, operations lead at a small firm. You named a workflow that isn't in any
 ## What you know
 - **Anything written down:** no.
 - **The workflow, when asked to describe it:** "Every Friday it reads my own notes for the week and drafts a short update for my team, which I read and send in Slack. It's already set up as a Claude agent that runs every Friday at 4."
-- **The light or full version:** if it says this looks like a light workflow, say "OK, the shorter version is fine."
 - **Name and description:** accept the AI's suggestion if it's close to "Weekly Team Update".
 - **Process** (only if asked what set of related work it belongs to and which function looks after it): "Team Communications, looked after by Operations."
 - **A real past output:** no.

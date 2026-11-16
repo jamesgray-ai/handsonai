@@ -1,4 +1,4 @@
-# Leader: a source first shown in Part 5, then a removal rule (DC-policy-remove-part-5)
+# Leader: a source first named at the sources question, then a removal rule (DC-policy-remove-part-5)
 
 ## Who you are
 Dana Reyes again (see the facts below).

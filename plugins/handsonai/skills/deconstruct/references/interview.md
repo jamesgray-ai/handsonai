@@ -140,7 +140,7 @@ The *Why* goes with whichever form is asked first. A saved draft is a write, rec
 
 A draft saved only where the leader alone sees it, which they can delete, is still a write, recorded with its place. **Each write's place** (no new question): a place the reply didn't give is shown as "[place] not known yet" in the next draft that names the write (the first draft, or the security limits). Never ask a separate question about a place. Recorded inside W's `[system]` field: `[system] [place, as the leader named it]`, or `[system] ([place] to confirm)` when it stays unknown.
 
-**2. With or without the leader.** **2. Taking part while it runs.** When a checkpoint, step or rule the leader performs already settles it, state it: "You review every [deliverable] before it's sent, so this runs with you." (naming what they do). Only [deliverable] is filled: "review" and "sent" stay as written, even when the leader posts or approves it. Only when nothing settles it:
+**2. With or without the leader.** When a checkpoint, step or rule the leader performs already settles it, state it: "You review every [deliverable] before it's sent, so this runs with you." (naming what they do). Only [deliverable] is filled: "review" and "sent" stay as written, even when the leader posts or approves it. Only when nothing settles it:
 
 **Ask:** "While it runs, do you want to take part, like reviewing a draft, answering its questions or approving something, or should it run from start to finish without you?"
 - *Why:* If it runs without you, it can't stop to ask, so it needs clear rules for when it's unsure.
@@ -164,7 +164,7 @@ Record it for Security, Privacy & Safety as one line: `Governing regime: [name]`
 
 **Ask:** "What does the regulation require it to do, every time?"
 
-Each answer becomes a rule in the "It always…" shape, tagged *(you said)*, with "(required by [the law])" in the rules draft, and is never offered for dropping. Then:
+Each answer becomes a rule that says so in its own words, "It always [does that], as [the law] requires.", tagged *(you said)*, played back in the rules draft with "(required by [the law])" and never offered for dropping. The file keeps the rule's words, the law's name included. Then:
 
 **Ask:** "Which decisions must a person make or approve?"
 - *Why:* Those become checkpoints, so the AI never makes them alone.
@@ -339,7 +339,6 @@ After the practice runs, one message (model wording) lists in plain words what y
 | What | Default |
 |---|---|
 | How the work gets done | The AI works it out each time, from the goal, the list and the rules (`Method preference: AI works it out each time`; `Path: none — the AI plans each run from the goal`) |
-| Decisions | None recorded |
 | When it's unsure | "When it can't confidently handle a case, it does its best and flags it for you." (when it runs with the leader; without them, the rules draft settled it) |
 
 "Looks fine" keeps these as they are: the rubber-stamp re-ask doesn't apply to this message. A correction is taken as given. Safety limits are never listed here: they have their own message, with a keep or drop.

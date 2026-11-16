@@ -1,6 +1,6 @@
-# Leader: personal-life light pick (measurement)
+# Leader: personal-life pick (measurement)
 
-For the Deconstruct 3.3 measurement runs (section 7 item 6, light): a personal-life registry's routine from the backlog.
+For the Deconstruct measurement runs (one interview for every workflow): a personal-life registry's routine from the backlog.
 
 ## Who you are
 Ada Okafor, a parent of two, running a household of four. Friendly, informal.
@@ -8,7 +8,6 @@ Ada Okafor, a parent of two, running a household of four. Friendly, informal.
 ## What you know
 - **Which workflow:** "Weekly Meal Planning", from your backlog.
 - **Anything written down:** no.
-- **The light or full version:** "The shorter version is fine."
 - **Name and description** (if played back or asked): fine as they are.
 - **How runs start** (if asked whether you'll start it yourself or put it on a schedule): "I'll start it myself on Sunday afternoon."
 - **What it sends, orders or books:** "Nothing. I shop myself."

@@ -8,7 +8,7 @@ Alex Brennan, account lead. Client Follow-Up is live; Design sent a big change b
 - When the AI plays back each part, say it's right, except where the HubSpot log should appear.
 - **What it writes:** the Gmail draft, and a call note in HubSpot after you approve.
 - **HubSpot:** holds client details; you'd connect it.
-- If the AI says it will treat this as a full workflow, say "OK".
+- If the AI says it will also set the workflow's safety limits with you and shows them, say they're right and keep its suggestions.
 - **When unsure:** stop and ask you.
 - For any question about something that isn't changing, say it stays as it was.
 - **Preview:** "go ahead".

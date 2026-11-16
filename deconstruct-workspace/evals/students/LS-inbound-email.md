@@ -1,4 +1,4 @@
-# Leader: light track, then inbound email (LS-inbound)
+# Leader: the newsletter, then inbound email (LS-inbound)
 
 ## Who you are
 Sam Okoro again (see the facts below), running Deconstruct on the Weekly Newsletter Draft.
@@ -11,4 +11,4 @@ Answer from the facts above, except where these override them:
 - **Sources** (overrides the above): "My notes, plus the replies clients send to the newsletter inbox, so it can answer common questions in the next issue."
 
 ## When to stop
-After the AI says it will treat this as a full workflow and asks its next question, reply `END`.
+When the AI says it will also set the workflow's safety limits with you and shows them (what it must never do, what it records, or where its data may go), reply `END`. If the AI says your Workflow Requirements are saved, reply `END` too.

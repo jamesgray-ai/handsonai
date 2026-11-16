@@ -9,7 +9,6 @@ Dana Reyes again (see the facts below).
 ## How you answer
 Answer each question in a sentence or two from the facts above, except where these override them:
 - **Taking part / review point:** "No, I don't want to read them. It should run without me and save the drafts."
-- **Fixed steps:** none.
 - **Company rules on client data:** "No." If offered choices: "Add a step where I take the client figures out first."
 - **If the AI says two of your answers conflict and asks which holds:** "Keep the step where I take the figures out; I'll be part of each run for that."
 

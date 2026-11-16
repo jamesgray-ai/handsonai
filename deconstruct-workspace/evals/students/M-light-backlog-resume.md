@@ -1,4 +1,4 @@
-# Leader: leader-started light backlog pick, back to finish (measurement, session 2)
+# Leader: leader-started backlog pick, back to finish (measurement, session 2)
 
 ## Who you are
 Grace Whitfield again (see the facts below), back to finish describing your partner meeting agenda. Everything below holds whether or not the AI remembers it; if it asks again about something from last time, answer from these facts.

@@ -10,7 +10,7 @@ Two kinds of fixture:
 - Fixtures built on framework-fixtures/ (T15), the shared library of routing-state workspaces:
   most evals point at a variant folder directly (`dir:../../framework-fixtures/...`); the names here
   are the combinations that library doesn't hold (two interviews partway, the wrong place, a
-  newsletter candidate for the light track, standing rules, a Git repository, and so on).
+  newsletter candidate with no risk, standing rules, a Git repository, and so on).
 
 `R1` and `R10` are kept for the Design and Test eval sets that still name them (T23, T25): R1 is a
 workflow built and waiting for Test (state 8); R10 an earlier-version requirements file (state 1).
@@ -89,11 +89,13 @@ def add_process(t, slug, title, description, owner, workflows=()):
         lobs[0].write_text(lobs[0].read_text().rstrip("\n") + f"\n- [{title}](/processes/{slug}.md)\n")
 
 
-def progress_file(t, slug, node, next_part, track, notes, root="framework"):
+def progress_file(t, slug, node, next_part, track, notes, root="framework", said=None):
+    """A progress file. With `said`, this release's four-line form (`Said:` on line 4); without it, the form the
+    earlier two-track interview saved (`Next: Part N — …` or `Next: Light — …`, no `Said:` line)."""
     d = t / root / slug
     d.mkdir(parents=True, exist_ok=True)
-    (d / "deconstruct-in-progress.md").write_text(
-        f"Next: {next_part}\nWorkflow node: {node}\nTrack: {track}\n\n{notes}\n")
+    head = f"Next: {next_part}\nWorkflow node: {node}\nTrack: {track}\n" + (f"Said: {said}\n" if said else "")
+    (d / "deconstruct-in-progress.md").write_text(f"{head}\n{notes}\n")
 
 
 # ---------- interview fixtures ----------
@@ -142,22 +144,28 @@ def fx_r10(t):  # kept for design-workspace: an earlier-version requirements fil
     ff(t, "earlier-version/old-format/step-driven-norow")
 
 
-CFU_NOTES = ("## What this is worth\nAbout 20 minutes per call today; you'd like it down to 5.\n\n"
-             "## Scope and a name\nClient Follow-Up: drafts a follow-up email after each client call from your call notes, "
-             "for you to review and send. Law or regulation: no. Governing regime: None.")
-WPS_NOTES = ("## What this is worth\nAbout an hour every Friday pulling deals out of HubSpot.\n\n"
-             "## Scope and a name\nWeekly Pipeline Summary: summarises your open deals every Friday from HubSpot, "
-             "for you to review before the Monday sales meeting. Law or regulation: no. Governing regime: None.")
+# the single interview's progress notes: plain words under each item's name (one interview for every workflow, 2026-11-15)
+CFU_NOTES = ("## The name and description\nClient Follow-Up: drafts a follow-up email after each client call from your call notes, "
+             "for you to review and send. Starts: you, after each call.\n\n"
+             "## The safety questions\nIt saves the draft in your Outlook Drafts folder; you send it yourself. Runs with you: you read "
+             "every draft before it goes. Law or regulation: no. Governing regime: None.")
+WPS_NOTES = ("## The name and description\nWeekly Pipeline Summary: summarises your open deals every Friday from HubSpot, "
+             "for you to review before the Monday sales meeting. Starts: schedule: every Friday at 3pm.\n\n"
+             "## The safety questions\nIt sends and changes nothing: it gives you the summary. Runs with you: you read every summary. "
+             "Law or regulation: no. Governing regime: None.\n\n"
+             "## The goal\nEach Friday, a one-page summary of every open deal and its next step, ready for you to read before "
+             "Monday's sales meeting.")
 
 
 def fx_one_unfinished(t):  # one interview partway (Client Follow-Up), Weekly Pipeline Summary still in the backlog
     ff(t, "continue/c-only-backlog/with-registry")
-    progress_file(t, CFU, f"registry/workflows/{CFU}.md", "Part 3 — The outcome", "full", CFU_NOTES)
+    progress_file(t, CFU, f"registry/workflows/{CFU}.md", "the goal", "light", CFU_NOTES, said="folder line")
 
 
 def fx_two_unfinished(t):  # two interviews partway, no workflow named: deconstruct 3.3's list question
     fx_one_unfinished(t)
-    progress_file(t, WPS, f"registry/workflows/{WPS}.md", "Light — the goal", "light", WPS_NOTES)
+    progress_file(t, WPS, f"registry/workflows/{WPS}.md", "what it must get right", "light", WPS_NOTES,
+                  said="privacy line · folder line")
 
 
 def fx_analyze_unfinished(t):  # an unfinished Analyze session beside the backlog: deconstruct 3.3 item 2
@@ -196,7 +204,7 @@ def add_newsletter(t):
              artifacts="- [Opportunity report](framework/ai-opportunity-report.md)\n" if report else "")
 
 
-def fx_newsletter(t):  # a first-time leader's backlog with a clearly light candidate (the light track)
+def fx_newsletter(t):  # a first-time leader's backlog with a plain candidate that shows no risk
     ff(t, "continue/c-only-backlog/with-registry")
     add_newsletter(t)
 
@@ -378,7 +386,7 @@ def set_node(t, slug, **fields):
     p.write_text(text)
 
 
-def fx_card_backlog(t):  # Client Follow-Up (full: client details) and Weekly Pipeline Summary (light, a time), full cards
+def fx_card_backlog(t):  # Client Follow-Up (client details, a saved draft) and Weekly Pipeline Summary (no risk, a time), full cards
     ff(t, "continue/c-only-backlog/with-registry")
     with_objectives(t)
     (t / "framework" / "ai-opportunity-report.md").write_text(card_report([CARD_CFU, CARD_WPS]))
@@ -422,7 +430,7 @@ def fx_card_monthly(t):  # F-M12: a monthly workflow on Xero, SharePoint and Mic
     (t / "framework" / "ai-opportunity-report.md").write_text(card_report([CARD_CFU, CARD_WPS, CARD_MONTHLY]))
 
 
-def fx_light_progress_old(t):  # R-L1: a light progress file saved before 3.3, past item 1, with no safety answers
+def fx_light_progress_old(t):  # a progress file the earlier light interview saved, past item 1, with no safety answers
     fx_newsletter(t)
     progress_file(t, NEWS, f"registry/workflows/{NEWS}.md", "Light — what it must get right", "light",
                   "## Name and description\nWeekly Newsletter Draft: Drafts the weekly client newsletter from your notes, "
@@ -430,9 +438,24 @@ def fx_light_progress_old(t):  # R-L1: a light progress file saved before 3.3, p
                   "and one tip, ready for you to edit and send.\n")
 
 
+def fx_light_progress_rules_old(t):  # a progress file the earlier light interview saved at its rules, safety answers captured
+    fx_newsletter(t)
+    progress_file(t, NEWS, f"registry/workflows/{NEWS}.md", "Light — the rules", "light",
+                  "## Name and description\nWeekly Newsletter Draft: Drafts the weekly client newsletter from your notes, "
+                  "for you to edit and send yourself.\n\n"
+                  "## Safety questions\nIt sends and changes nothing: it gives you the draft here, and you copy it into your email "
+                  "tool and send it yourself. Runs with you: you read and edit every draft. Law or regulation: no.\n\n"
+                  "## The goal\nEach Friday, a short, friendly newsletter draft of the week's news and one tip to the firm's "
+                  "clients, ready for you to edit and send by noon. No real example was kept.\n\n"
+                  "## What it must get right\n1. Every item from your notes is in it. 2. Nothing that isn't in your notes "
+                  "(must-have). 3. Under 200 words. 4. It ends with your sign-off.\n\n"
+                  "## What it works from\nYour notes for the week, four or five short ones, pasted in each Friday; your past "
+                  "newsletters, for the tone.\n")
+
+
 # ---------- the measurement backlogs (section 7 item 6; the M- leader scripts) ----------
 # Fresh registries for the businesses the measurement scripts name, each with a current-format report. The
-# switch backlog's cards show no sign of risk, so N-L1 says light and the switch comes at the safety questions.
+# switch backlog's cards show no sign of risk: the risk shows in an answer to the safety questions (or the law question).
 
 def card(name, process, goal, description, trigger, deliverable, frequency, lever="Streamline", **kw):
     nc = "Not clear yet — Deconstruct settles it"
@@ -546,6 +569,7 @@ def fx_m_personal_backlog(t):
 FIXTURES = {
     "card-backlog": fx_card_backlog, "card-not-clear": fx_card_not_clear, "card-no-goal": fx_card_no_goal,
     "card-running": fx_card_running, "card-monthly": fx_card_monthly, "light-progress-old": fx_light_progress_old,
+    "light-progress-rules-old": fx_light_progress_rules_old,
     "m-backlog-full": fx_m_backlog_full, "m-backlog-light": fx_m_backlog_light, "m-backlog-switch": fx_m_backlog_switch,
     "m-running-light": fx_m_running_light, "m-personal-backlog": fx_m_personal_backlog,
     "sales": fx_sales, "expenses": fx_expenses, "meals": fx_meals, "winstory": fx_winstory,

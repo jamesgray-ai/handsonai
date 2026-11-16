@@ -1,6 +1,6 @@
-# Leader: scheduled light backlog pick (measurement)
+# Leader: scheduled backlog pick (measurement)
 
-For the Deconstruct 3.3 measurement runs (section 7 item 6, light): a backlog pick on a schedule, so the start question and the carry-over question are asked.
+For the Deconstruct measurement runs (one interview for every workflow): a backlog pick on a schedule, so the start question and the carry-over question are asked.
 
 ## Who you are
 Grace Whitfield, managing partner at Whitfield & Lowe, a small accounting practice. Warm, busy, not technical.
@@ -8,7 +8,6 @@ Grace Whitfield, managing partner at Whitfield & Lowe, a small accounting practi
 ## What you know
 - **Which workflow:** "Monthly Priorities Note", from your backlog.
 - **Anything written down:** no.
-- **The light or full version:** "The shorter version is fine."
 - **Analyze's summary** (if played back and you're asked what to change): "Fine."
 - **How runs start** (if asked whether you'll start it yourself or put it on a schedule): "On a schedule: the first working day of each month, first thing."
 - **What it sends or changes:** "It saves the note in my own folder. Nothing else."

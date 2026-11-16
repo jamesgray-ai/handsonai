@@ -1,4 +1,4 @@
-# Leader: the newsletter, light, started by the leader: the order after item 0 (DC-light-leader-started-order)
+# Leader: the newsletter, started by the leader: the order after the name and description (DC-light-leader-started-order)
 
 ## Who you are
 Sam Okoro again (see the facts below).

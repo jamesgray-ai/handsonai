@@ -52,15 +52,17 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   brought requirements.md's `Starts` row records
                                                                   it ("checked every 30 minutes"; Deconstruct 3.3,
                                                                   R-D3's time-word exception)
-  signposts        {skill?, of?, optional?, session?}             the skill's "Part k of N" signposts, in
-                                                                  order: deconstruct 5 (default), design 4,
-                                                                  test 4, build 3; `of` for a later entry
+  signposts        {skill, of?, optional?, session?}              the skill's "Part k of N" signposts, in
+                                                                  order: design 4, test 4, build 3; `of` for a
+                                                                  later entry. Deconstruct has none (one interview
+                                                                  for every workflow, 2026-11-15): there the check
+                                                                  fails closed
   max_words        {max, turn: "first", session?}                 each session's first AI message is at most
                    {max, containing: <line ID>, form?, session?}  `max` words; or every AI message that says
                                                                   that approved line is (none said: fails).
                                                                   Words as word_count counts them (Deconstruct
-                                                                  T1: 200 on the first turn; T2: the N-L1
-                                                                  message, 150 full, 170 light)
+                                                                  T1: 200 on the first turn; T2: the message
+                                                                  that says how the interview will go, 170)
   file_exists      {path, session?}                               a file matching the glob exists at session end
   file_absent      {path, session?}                               no file matches at session end (a fixture's
                                                                   own file counts: for "nothing written",
@@ -172,13 +174,13 @@ STEP_NUMBER = re.compile(
     rf"|\b{STEP_NAMES}\s+is\s+(?:[Ss]tep\s+[1-5]|the\s+(?:first|second|third|fourth|fifth)\s+step)\b"
     rf"|\b(?:first|second|third|fourth|fifth)\s+step\s+of\s+the\s+(?:AI\s+Workflow\s+)?[Ff]ramework\b")
 
-SIGNPOST_IDS = {"deconstruct": (5, ["deconstruct:signpost-part-1", "deconstruct:signpost-part-2",
-                                    "deconstruct:signpost-part-3", "deconstruct:signpost-part-4", "N-D9"]),
-                "design": (4, ["N-0"]), "test": (4, ["N-T1"]), "build": (3, ["N-B1"])}
-# Deconstruct 3.3 (R-C4): the count line, "About [M] questions left.", is its own line, never a signpost; N-D17's
-# main form and the light line carry a count too (R-C1, R-C2). leader.replies_by_part reads them as count points
+# One interview for every workflow (2026-11-15): Deconstruct has no parts and so no signposts
+SIGNPOST_IDS = {"design": (4, ["N-0"]), "test": (4, ["N-T1"]), "build": (3, ["N-B1"])}
+# Deconstruct gives one figure, once: the count in the line that says how the interview will go
+# (deconstruct:light-line). "About [M] questions left." is never said after it; leader.replies_by_part still
+# reports it as a count point when a run says it, so a stray count shows up in the measurement
 COUNT_LINE_ID = "deconstruct:questions-left"
-COUNT_CARRIERS = [("N-D17", "main"), ("deconstruct:light-line", "main")]
+COUNT_CARRIERS = [("deconstruct:light-line", "main")]
 BUILTIN =("scripted_lines", "vocabulary", "no_time_or_step_numbers")
 BUILTIN_TEXT = {"scripted_lines": "Every scripted line the AI says is the approved line, word for word (the quote check)",
                 "vocabulary": "No word from the vocabulary's Never column in anything the leader reads",
@@ -896,7 +898,9 @@ def check(c, run):
         allowed = leader_sizes(run)
         return _scan(run, n, lambda m: time_or_step_hits(m, allowed), "time estimate or step number")
     if t == "signposts":
-        skill = c.get("skill", "deconstruct")
+        skill = c.get("skill")
+        if skill not in SIGNPOST_IDS:
+            return False, f"signposts needs a skill with parts (one of {', '.join(SIGNPOST_IDS)}); {skill or 'none'} has no signposts"
         total, ids = SIGNPOST_IDS[skill]
         total = c.get("of", total)
         want = []

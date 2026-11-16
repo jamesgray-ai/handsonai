@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Deconstruct's word counter (Deconstruct 3.3, T1 and T2). Analyze's own is wc_v31.py, beside this one,
-unchanged.
+"""Deconstruct's word counter (T1 and T2). Analyze's own is wc_v31.py, beside this one, unchanged.
 
   python3 framework-evals/tools/wc_deconstruct.py estimate
       Builds Deconstruct's scripted messages from approved-lines.json, with illustrative fills, and counts
@@ -9,14 +8,14 @@ unchanged.
             platform's form; print-to-save: N-F6 and no N-D3) and the backlog choice, a first and a later
             workflow, with 5 candidates under 4 process labels (each at most 3 words) and 3 goals (each at
             most 8 words); cold entry; running work Analyze recorded (N-D22's Status form).
-        T2, the message carrying N-L1: full (N-L1, N-D17's main form, the ready line; at most 150) and
-            light (N-L1, the light line, N-D23 with a 25-word description; at most 170).
+        T2, the message that says how the interview will go (one interview for every workflow, 2026-11-15):
+            the line itself (deconstruct:light-line) and N-D23 with a 25-word description; at most 170.
       The location line is model wording around N-F3's promise clause, filled as the skill fills it;
       every other line comes from the corpus, so a reworded line changes the count here too.
 
   python3 framework-evals/tools/wc_deconstruct.py transcript <turns.json | run folder>...
       Measures real runs: each session's first AI message against T1, and each AI message that says
-      N-L1 against T2 (170 when it says the light line, else 150).
+      how the interview will go against T2 (170).
 
 Words are counted by check_scripted.word_count, the count the `max_words` eval check uses. Exit 1 when a
 message is over its limit. Never calls a model.
@@ -31,7 +30,7 @@ sys.path.insert(0, str(HERE.parent))
 import approved_lines as AL  # noqa: E402
 import check_scripted as CS  # noqa: E402
 
-T1, T2_FULL, T2_LIGHT = 200, 150, 170
+T1, T2 = 200, 170
 
 # Illustrative fills only (a made-up business), at T1's limits: labels at most 3 words, goals at most 8
 LABELS = ["Client delivery", "Sales pipeline", "Finance and billing", "Team operations"]
@@ -105,24 +104,19 @@ def first_messages(platform):
     }
 
 
-def n_l1_messages():
-    full = "\n\n".join([
-        line("N-L1").replace("[light / full]", "full").replace("[reason]", "it sends emails to clients")
-        .replace("[shorter / full]", "full").replace("['make it the full version' / 'keep it light']", "'keep it light'"),
-        line("N-D17", "main", M="45"), line("deconstruct:ready-line")])
+def how_it_goes_messages():
+    """The interview's first message for a backlog pick: the line that says how it will go, then N-D23."""
     description = ("Drafts the weekly client status report from the project tracker and last week's notes, "
                    "ready for me to check and send each Friday")  # 25 words, illustrative
-    light = "\n\n".join([
-        line("N-L1").replace("[light / full]", "light").replace("[reason]", "it has a few steps and only drafts for you")
-        .replace("[shorter / full]", "shorter").replace("['make it the full version' / 'keep it light']", "'make it the full version'"),
-        line("deconstruct:light-line", M="20"),
+    msg = "\n\n".join([
+        line("deconstruct:light-line", M="24"),
         "\n".join([line("N-D23"), line("N-D23", "Starts when", trigger="every Friday morning"),
                    line("N-D23", "Ends with", deliverable="a status report for each client"),
                    line("N-D23", "Name", name="Weekly Client Status Report"),
                    line("N-D23", "Description", description=description),
                    line("N-D23", "How often", **{"frequency, in plain words": "about once a week"}),
                    line("N-D23", "ending")])])
-    return {"full": (full, T2_FULL), "light": (light, T2_LIGHT)}
+    return {"backlog pick": (msg, T2)}
 
 
 def estimate():
@@ -136,12 +130,12 @@ def estimate():
         over += [(k, p, c) for p, c in zip(LOCATION, counts) if c > T1]
         print(f"{k:32}" + "".join(f"{c:>15}" for c in counts))
     print()
-    print("T2: the message carrying N-L1")
-    for track, (msg, cap) in n_l1_messages().items():
+    print("T2: the message that says how the interview will go")
+    for kind, (msg, cap) in how_it_goes_messages().items():
         c = CS.word_count(msg)
         if c > cap:
-            over.append((f"N-L1 message, {track}", "any", c))
-        print(f"  {track:6} {c:4} words (at most {cap})")
+            over.append((f"how-it-will-go message, {kind}", "any", c))
+        print(f"  {kind:12} {c:4} words (at most {cap})")
     return over
 
 
@@ -157,8 +151,7 @@ def ai_turns(path):
 
 def transcript(paths):
     over = []
-    nl1 = [f for f in AL.load().get("N-L1") if f.text]
-    light = [f for f in AL.load().get("deconstruct:light-line") if f.text]
+    how = [f for f in AL.load().get("deconstruct:light-line") if f.text]
     for path in paths:
         for where, msgs in ai_turns(path):
             if not msgs:
@@ -168,12 +161,11 @@ def transcript(paths):
             if c > T1:
                 over.append((where, "first message", c))
             for i, m in enumerate(msgs, 1):
-                if any(f.matches(m) for f in nl1):
-                    cap = T2_LIGHT if any(f.matches(m) for f in light) else T2_FULL
+                if any(f.matches(m) for f in how):
                     c = CS.word_count(m)
-                    print(f"{where}: AI message {i} carries N-L1: {c} words (at most {cap})")
-                    if c > cap:
-                        over.append((where, f"N-L1 message {i}", c))
+                    print(f"{where}: AI message {i} says how the interview will go: {c} words (at most {T2})")
+                    if c > T2:
+                        over.append((where, f"how-it-will-go message {i}", c))
     return over
 
 
