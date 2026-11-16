@@ -181,7 +181,7 @@ The workflow folder (`framework/[slug]/` in the working folder, on every platfor
 
 ### Registry write
 
-On the Workflow node the progress file's second line names, at the file write: `references/saving-the-requirements.md`, *Registry write*. Only the fields it lists; a field another step or the leader set is never overwritten.
+On the Workflow node the progress file's second line names, at the file write, resolved and written as the indexing-registry skill's `registry-bundle.md` says: `status: under-development` (from `backlog` only; any other status is kept), the refined trigger, the description, the "Requirements" link and `generated`. The full list and its rules are in `references/saving-the-requirements.md`, *Registry write*. Only the fields it lists; a field another step or the leader set is never overwritten.
 
 ## Guidelines
 
