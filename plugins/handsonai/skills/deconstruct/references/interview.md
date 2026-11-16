@@ -336,7 +336,7 @@ That is: its first sentence opens the message; then each input under a short lab
 - Not shown again: real inputs, and a made-up example from "draft one", already shown and checked with "Does this look like your real [inputs]?". Inputs the leader pasted are saved as given, as above.
 - The leader's corrections are taken as given, and the corrected text is what's saved; a yes keeps them as shown. Nothing you wrote reaches `inputs/` unseen. Then the confidential check, where it applies.
 
-**Each input's expected result** (no new question): every input saved here gets an `expect:` line from the playback the leader confirmed, in the form "[what it produces or does]; [what it doesn't do]". "What to look for in the output" in Example Scenarios is the `expect:` line, word for word. Numbered and saved as the requirements template says (*inputs/ and context/*).
+**Each input's expected result** (no new question): every input saved here gets an `expect:` line from the playback the leader confirmed, in the form "[what it produces or does]; [what it doesn't do]". "What to look for in the output" in Example Scenarios is the `expect:` line, word for word. Numbered and saved as the requirements template says (*`inputs/`, `context/` and `history/`*).
 
 ## What was filled in
 
