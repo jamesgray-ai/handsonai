@@ -67,8 +67,6 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **`stale_after`** — The re-check date on a workflow's registry card. [Test](../test/) sets it when the workflow goes live, three months out, and resets it after each Ready re-check.
 
-**Track (light, full)** — How thorough the five steps are for a workflow. **Light** is for small, low-risk workflows; **full** is for the rest. Same steps and files; Deconstruct, Design and Test are shorter on the light track, and Build works the same way on both. Any sign of risk keeps a workflow on the full track. Proposed in [Deconstruct](../deconstruct/).
-
 **Tricky case** — An input that's harder than usual: missing information, an unusual request, something that tests a rule. Your practice inputs should include at least one.
 
 **What it must get right** — Yes-or-no checks in your requirements that every output is graded against; the one or two you can never let go out wrong are must-haves. One of the [three kinds of line](../#how-it-fits-together), captured in [Deconstruct](../deconstruct/) and checked in every [Test](../test/) round.
