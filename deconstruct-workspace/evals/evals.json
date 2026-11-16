@@ -1561,7 +1561,7 @@
           "kind": "judged"
         },
         {
-          "text": "After the regime is named, the AI says N-D6 word for word (\"Because this work is regulated, we'll note which steps and decisions the rules cover.\"), with nothing about it taking longer",
+          "text": "After the regime is named, the AI says N-D6 word for word (\"Because this work is regulated, we'll note what the rules require and which decisions a person must make.\"), with nothing about it taking longer",
           "kind": "scripted",
           "check": {
             "type": "all",
