@@ -27,7 +27,7 @@ One message, in this order, within 170 words: the line below, word for word, wit
 - **Cold entry, and other running work:** a name and a description in one message. Run the boundary tests yourself first (*One trigger, one deliverable*, below; when they find several workflows, its breakdown runs). Then one message (model wording, one question) plays back the description in the `naming-workflows` shape, which carries the trigger and the deliverable, with the name you recommend and one or two others in the name's style (below), ending "What would you change or clarify?" (for illustration only; use the leader's own work: "I'd call it Newsletter Draft (or Weekly Newsletter, or Newsletter Writing), described as: after you've gathered the week's notes, drafts the newsletter, ready for you to edit and send. What would you change or clarify?"). For running work brought in, play back the `Runs today` row in the same message.
 - **In personal life,** `personal-life.md`'s two questions ("What starts it?", "What do you end up with?") come first, each in its own message, before item 1's message.
 
-The reply confirms the trigger, the deliverable, the name and the description together. The progress file is first saved after it, silently, then after each item (`Next: [the safety questions | the goal | what it must get right | what it works from | the rules | the practice runs | the defaults]`).
+The reply confirms the trigger, the deliverable, the name and the description together. The progress file is first saved after it, silently, then after each item (`Next: [how runs start | the safety questions | the goal | what it must get right | what it works from | the rules | the safety limits | the practice runs | the defaults]`).
 
 ### The card playback (N-D23)
 
@@ -136,7 +136,7 @@ Right after item 1's reply and any "Not clear yet" and start questions. In this 
 Say what's known and ask only the open part. When the leader sends it themselves (a step or rule they perform): **Ask:** "You send it yourself. Will the AI save the draft anywhere, such as in your email?" Otherwise: **Ask:** "Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where."
 - *Why:* Anything it changes outside this conversation is checked before it's built, and gets a limit that fits the risk.
 
-The *Why* goes with whichever form is asked first. A saved draft is a write, recorded with its action (`save as a draft`). When the leader says it never sends, acknowledge that in one line and offer it as a prohibited action in the safety limits. For a write named here, propose where it happens: "That's after [moment], right?"; the Writes line names that moment.
+The *Why* goes with whichever form is asked first. A saved draft is a write, recorded with its action (`save as a draft`). When the leader says in so many words that it must never send (not merely that it only prepares drafts), acknowledge that in one line: it is played back as theirs, *(you said)*, in the safety limits, or, when nothing trips and there is no such message, in the rules draft; it is never recorded unseen. A write named here is recorded with the moment the leader described; where they didn't say when it happens, the next draft that names the write states the moment for them to correct. No separate question is asked about it.
 
 A draft saved only where the leader alone sees it, which they can delete, is still a write, recorded with its place. **Each write's place** (no new question): a place the reply didn't give is shown as "[place] not known yet" in the next draft that names the write (the first draft, or the security limits). Never ask a separate question about a place. Recorded inside W's `[system]` field: `[system] [place, as the leader named it]`, or `[system] ([place] to confirm)` when it stays unknown.
 
@@ -214,7 +214,7 @@ The goal is played back once, with its question, and this clause after it, "(The
 
 Each answer becomes a yes-or-no check, kept only if someone else could check it without asking the leader; never a scale word ("mostly", "somewhat", "1–5"). Play the list back numbered, in plain words, opening "Here's what every [deliverable] must get right:" and ending "What would you change or add?"
 
-**The vague words go inside that list:** there's no separate vague-words message. Every vague word left in the answers (*good, engaging, thorough, clear, professional, short, easy to skim, key points* and the like) is already replaced in the list by a concrete version, tagged *(my suggestion)*; a concrete version the leader already gave (a number, a length) is theirs, *(you said)*. The rubber-stamp guard applies to those suggestions. A follow-up here asks what a phrase means, never which miss would send it back: that's question 5, asked as written even when an earlier answer already named one.
+**The vague words go inside that list:** there's no separate vague-words message. Every vague word left in the answers (*good, engaging, thorough, clear, professional, short, easy to skim, key points* and the like) is already replaced in the list by a concrete version, tagged *(my suggestion)*; a concrete version the leader already gave (a number, a length) is theirs, *(you said)*. The rubber-stamp guard applies to those suggestions. A follow-up here asks what a phrase means, never which miss would send it back: that's the must-haves question, asked as written even when an earlier answer already named one.
 
 **Ask:** "Which of these could you never let go out wrong — the ones where a single miss sends it back?"
 - *Why:* Every draft is checked against all of these. Missing one you can't live without always sends it back; any other miss, you decide whether to fix or accept.
@@ -231,9 +231,9 @@ After the answer, say: "That makes '[item]' a must-have: a miss always sends it 
 - *Why:* Your typical and tricky [cases] become the practice runs used to test the workflow; you'll paste real ones near the end.
 - *Not sure?* One sentence is enough; you'll paste a real one later.
 
-Then one draft of the inputs and sources (the requirements template, draft 2's sources and inputs, with the context sentence the first time), ending "What would you change or add?". When nothing comes in yet: **Ask:** "Where will the information come from?" Then, separately, **Ask:** "Does it exist yet?" Draft the Inputs lines (`I1`…) from the trigger and these answers, tagged *(my suggestion)*, for the sources draft. A source that doesn't exist yet is recorded in Inputs as `Status: not available yet`.
+Then one draft of the inputs and sources (the requirements template, *The sources draft*, with the context sentence the first time), ending "What would you change or add?". When nothing comes in yet: **Ask:** "Where will the information come from?" Then, separately, **Ask:** "Does it exist yet?" Draft the Inputs lines (`I1`…) from the trigger and these answers, tagged *(my suggestion)*, for the sources draft. A source that doesn't exist yet is recorded in Inputs as `Status: not available yet`.
 
-**The policy question,** asked once, for the first source the leader described as confidential or regulated, or as holding client, staff or personal details. Never for a row saved `Confidential` only as the safe fallback (SKILL.md rules 7 and 13: never assert what a source holds), and never for outside content alone. Skipped on the personal-life lens. It names no tool. It comes in the next message after the reply that showed the source, never inside a draft's message; when a paste triggers both, the confidential check comes first (it runs before saving), then, once the paste is saved, the policy question.
+**The policy question,** asked once, for the first source the leader described as confidential or regulated, or as holding client, staff or personal details. Never for a row saved `Confidential` only as the safe fallback (SKILL.md rules 7 and 13: never assert what a source holds), and never for outside content alone. Skipped on the personal-life lens. It names no tool. It comes in the next message after the reply that showed the source, never inside a draft's message, and before the sources draft when the typical-case reply is what showed it; when a paste triggers both, the confidential check comes first (it runs before saving), then, once the paste is saved, the policy question.
 
 **Ask:** "Do your company's rules, or your agreements with clients, allow [what you said these hold] to go into an AI tool?"
 - *Why:* Some companies and contracts limit what goes into AI tools, so it's better to know before it's built.
@@ -293,7 +293,7 @@ Then the review question, in its own message:
 
 **Ask:** "Is there a point where you review or approve the work before it goes further?"
 
-Then one draft of the rules and checkpoints in the "When… it…" shape (the requirements template, draft 1), with standing rules offered, ending "What would you change or add?". When it runs without the leader, the draft also proposes, each tagged *(my suggestion)* for a keep or drop:
+Then one draft of the rules and checkpoints in the "When… it…" shape (the requirements template, *The rules draft*), with standing rules offered, ending "What would you change or add?". When it runs without the leader, the draft also proposes, each tagged *(my suggestion)* for a keep or drop:
 
 - **the conditions it can't confidently handle,** taken from the tricky case and the out-of-bounds rule, in the Fallback;
 - **where flags go, when `Runs: without you`:** "…it does its best and flags it in [an email / a chat message] to you", an email by default, a chat message only when the leader has named the chat tool they use (named as they named it). Dropped, the flag stays in the end-of-run message;
@@ -311,9 +311,15 @@ Only when a test trips (the requirements template, *Which security categories ar
 
 Then each constraint in plain words under its category, as the requirements template's *The security limits* says, each tagged, each kept or dropped (the rubber-stamp guard applies), ending "What would you change or add?". A prohibition the leader stated ("it never sends") is in it as theirs, *(you said)*. With nothing tripped, there is no such message and the file takes the one-line form.
 
+**A fallback row trips it too.** A source the file marks `Confidential` or `External` only because the leader hasn't said what it holds (SKILL.md rules 7 and 13) still gets its limits and its access question. The line then names what isn't known, never a guess: "Because this uses [source], and it isn't known yet whether it holds confidential details, I'll also set its safety limits with you."
+
+**A test that trips later.** A write, a source or a "without you" that first shows after this point (a source named with the practice runs, a correction to what was filled in, a change asked at the preview) brings the limits with it: show this message, or show it again with the new lines, before the preview. On a resume, check that the limits were shown whenever a test trips; if they weren't, they come before the practice runs.
+
+**Never a safety line the leader hasn't kept.** No line goes into the file's Security tables unless the leader saw it in this message and kept it. A category whose every line was dropped is written as its heading and an empty table. If the file check asks for a category the leader hasn't seen, that is not a miss to fix in silence: stop and show them this message.
+
 ## The practice runs
 
-Two or three in total, opened word for word: "Here are the practice runs we'll test it on." ("we'll", never "I'd" or "I'll"). The typical case, real (with a real example, the input behind it is the typical run, and holds the Golden Example in its row); and a tricky one, proposed when the leader gave none. No carry-over, out-of-bounds or rule-aimed input is proposed here: Test writes those. Each playback says what should happen with that input, and each input saved gets its `expect:` line from it (the requirements template, *inputs/*). End it with N-D11, word for word: "Change, replace or drop any; keep two or three, including your typical [case]. When we test it, each of these is run and checked against your requirements." Then the real inputs, pasted now. With a real example (pasted at item 1), the typical run's input is asked for only this way, never with the paste request below: in the message after the leader's reply to the practice runs, one line (model wording) names the example, then:
+Two or three in total, opened word for word: "Here are the practice runs we'll test it on." ("we'll", never "I'd" or "I'll"). The typical case, real (with a real example, the input behind it is the typical run, and holds the Golden Example in its row); and a tricky one, proposed when the leader gave none. No carry-over, out-of-bounds or rule-aimed input is proposed here: Test writes those. Each playback says what should happen with that input, and each input saved gets its `expect:` line from it (the requirements template, *`inputs/`, `context/` and `history/`*). End it with N-D11, word for word: "Change, replace or drop any; keep two or three, including your typical [case]. When we test it, each of these is run and checked against your requirements." Then the real inputs, pasted now. With a real example (pasted at the real-example question), the typical run's input is asked for only this way, never with the paste request below: in the message after the leader's reply to the practice runs, one line (model wording) names the example, then:
 
 **Ask:** "What did you start from for that one?"
 
@@ -346,6 +352,10 @@ After the practice runs, one message (model wording) lists in plain words what y
 **Filled in silently, never said:** Business Objective, Desired Outcome and Measure from the backlog card where there is one, otherwise "—"; Baseline `— · Unknown`; Target "—"; Owner, Lens and Stakeholders as the leader, Individual and none, unless the card says otherwise.
 
 Then the preview (the requirements template), the file and the close.
+
+## What the file records, with no steps
+
+Every file this interview writes has `Path: none`, so nothing in it names a step. A checkpoint's `Where` is its moment in plain words ("after the draft is ready"); a write's line ends `· after [moment]`; a source's `Used By` is `All` or `—`; a policy removal is `(R[n])`.
 
 ## What the file records about risk
 

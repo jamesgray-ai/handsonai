@@ -67,7 +67,7 @@ With nothing tripped, the one-line form: "No sensitivity constraints — persona
 - *Why:* I'll suggest them whenever you start a new workflow, and each workflow keeps its own copy, so changing one later doesn't touch workflows already built.
 - *Not sure?* Say no for now; I'll ask again the next time one of these comes up.
 
-The lines kept are written to `standing-rules.md` at the close (Phase 7); create the file the first time:
+The lines kept are written to `standing-rules.md` at the close (Phase 3); create the file the first time:
 
 ```markdown
 # Standing rules
@@ -90,7 +90,7 @@ Always, in its own message, right after the filled-in message (`interview.md`, *
 
 Its sentence "Anything it must never do counts like a must-have: one miss always sends it back." is said always, whether or not the workflow has an "It never…" rule or a prohibited action yet.
 
-Everything the save needs is read in the preview's turn, before its text, so the go-ahead's turn holds only writes (SKILL.md, Phase 7).
+Everything the save needs is read in the preview's turn, before its text, so the go-ahead's turn holds only writes (SKILL.md, Phase 3).
 
 **On a re-run or a redo whose old inputs lack `expect:`,** one drafted message comes before the preview (`re-runs.md`).
 
@@ -339,4 +339,4 @@ After writing, check the file and fix any miss before the close. Where code can 
 - Notes for the leader are never inside the deliverable, unless the requirement says they're unmistakable and removed before sending.
 - Paths in the file are relative to the workflow folder.
 
-The registry write goes out in the same batch as the file, and the node is checked after this check (SKILL.md, Phase 7 step 2), not here.
+The registry write goes out in the same batch as the file, and the node is checked after this check (SKILL.md, Phase 3 step 2), not here.

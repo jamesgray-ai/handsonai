@@ -10230,12 +10230,8 @@
    "form": "main",
    "text": "About [M] questions left.",
    "kind": "teaching",
-   "skills": [
-    "deconstruct"
-   ],
-   "files": {
-    "deconstruct": "SKILL.md"
-   },
+   "skills": [],
+   "files": {},
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "2026-11-15: the single interview never says this line. It stays in the corpus only so the harness can recognise a stray count (check_scripted.COUNT_LINE_ID); SKILL.md names it as wording never to say"
   },
@@ -10318,7 +10314,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "one of N-D23's five rows"
@@ -10332,7 +10328,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "note": "one of N-D23's five rows; only when known"

@@ -23,7 +23,7 @@ Each question is its own message even when several are alike: one N-14 per write
 
 A person's change becomes a Human step; when that person is the leader and the requirements say `Runs: without you`, `Runs:` becomes `with you` (N-15).
 
-**The checkpoint question,** when the plan runs without the leader and changes something with no checkpoint before it: for an Autonomous plan, any change in a live system; below Autonomous, a change that can't be undone. Drafts are exempt at every level; undoable changes below Autonomous; and so is a flag sent only to the leader (the flag `W` line, `· send a flag · after each run`, kept in draft 1): never asked about, it's a consequential point instead. Asked once, and again only when a change in the review newly creates it. Autonomous, said as approved:
+**The checkpoint question,** when the plan runs without the leader and changes something with no checkpoint before it: for an Autonomous plan, any change in a live system; below Autonomous, a change that can't be undone. Drafts are exempt at every level; undoable changes below Autonomous; and so is a flag sent only to the leader (the flag `W` line, `· send a flag · after each run`, kept in the rules draft): never asked about, it's a consequential point instead. Asked once, and again only when a change in the review newly creates it. Autonomous, said as approved:
 
 **Ask:** "This workflow works out its own path, runs without you, and changes something live: [the writes, in plain words]. No one sees a change before it's made, so a mistake goes straight into [system]. Should I add a point where someone reviews or approves [the change] first, or do you accept that risk?"
 
@@ -42,7 +42,7 @@ With several changes that can't be undone, **Ask:** "This workflow runs without 
 
 **Ask:** "You asked for [the choice, in plain words], but your requirements say [the limit, in plain words]. Which one holds?"
 
-A `fixed (regulation)` or `fixed (policy)` step isn't the leader's to change: say in one line that the rules (or the policy) require it, so it stays, and move on.
+A `fixed (regulation)` or `fixed (policy)` step, or a rule or checkpoint that names a law as its reason ("…, as [the law] requires."), isn't the leader's to change: say in one line that the rules (or the policy) require it, so it stays, and move on.
 
 **A constraint the plan can't meet:**
 
