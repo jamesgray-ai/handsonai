@@ -11,7 +11,7 @@ Jo Park, operations lead at a small firm. You named a workflow that isn't in any
 - **A real past output:** no.
 - **Good one:** "Three or four bullet points, what's done and what's next, under 120 words." Send back: anything not in my notes.
 - **Typical week:** five or six short notes.
-- **Sources:** just my notes, pasted in.
+- **Sources:** just my notes for the week, which I keep in one notes file the agent reads.
 - **Rules:** never makes up progress.
 - **Review:** yes, I read it before I send it.
 - **What it sends or changes:** "nothing, I post it myself".

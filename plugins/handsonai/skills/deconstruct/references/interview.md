@@ -303,9 +303,13 @@ When it runs with the leader, the Fallback is the default, shown in *What was fi
 
 ## The safety limits
 
-Every workflow gets them, in their own message, after the rules draft and any access questions. Which categories are worked comes from the tests (the requirements template, *Which security categories are worked*): any write, a saved draft included; `Runs: without you`; a `Confidential` or `Regulated` row; an `External` row; with none of these, Prohibited actions alone. The message opens with this line, word for word, [the sign] being the test that tripped, as the leader said it, in their words; with no test tripped, [the sign] is what the workflow does, in the words of the description the leader confirmed (for illustration only: "Because this drafts your weekly newsletter from your notes, …"):
+Every workflow gets them, in their own message, after the rules draft and any access questions. Which categories are worked comes from the tests (the requirements template, *Which security categories are worked*): any write, a saved draft included; `Runs: without you`; a `Confidential` or `Regulated` row; an `External` row; with none of these, Prohibited actions alone. The message opens with one of two lines, word for word. When a test tripped, [the sign] being that test, as the leader said it, in their words:
 
 > Because this [the sign, in the leader's words], I'll also set its safety limits with you.
+
+When no test tripped:
+
+> Every workflow gets safety limits, so I'll set this one's with you.
 
 Then each constraint in plain words under its category, as the requirements template's *The security limits* says, each tagged, each kept or dropped (the rubber-stamp guard applies), ending "What would you change or add?". A prohibition the leader stated ("it never sends") is in it as theirs, *(you said)*. With no test tripped, the draft is short: what it must never do outside this conversation, as your suggestion. After the leader's reply, the standing-rules question, only from the leader's second workflow and when it applies (the requirements template, *Standing rules*).
 

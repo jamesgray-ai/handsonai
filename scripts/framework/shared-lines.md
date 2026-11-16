@@ -5,7 +5,7 @@ Lines that are the same in every framework step and are said only at one moment.
 
 ## The dashboard wasn't refreshed (N-F20)
 
-When it fails, say N-F20, exactly, as one line before the close: "Your dashboard wasn't refreshed this time, because something in your registry needs fixing first. To fix it, say 'update my registry. My files are in [location].'" [location] is the framework folder, as the close names it when there's no workflow folder ("OneDrive, in Framework" on Microsoft 365).
+When it fails, say N-F20, exactly, as one line before the close: "Your dashboard wasn't refreshed this time, because something in your registry needs fixing first. To fix it, say 'update my registry. My files are in [location].'" [location] is the working folder, as a start phrase names it ("OneDrive, in ai-workspace" on Microsoft 365).
 
 ## The Git offer
 

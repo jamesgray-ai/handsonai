@@ -843,6 +843,19 @@
    "source": "approved by James, 2026-11-15 (the single interview)"
   },
   {
+   "id": "deconstruct:safety-limits-line",
+   "form": "no sign",
+   "text": "Every workflow gets safety limits, so I'll set this one's with you.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/interview.md"
+   },
+   "source": "approved by James, 2026-11-16 (said when no risk test tripped)"
+  },
+  {
    "id": "N-D1",
    "form": "main",
    "text": "Do you have anything written down for this: an SOP, a checklist, a past example, or notes?",

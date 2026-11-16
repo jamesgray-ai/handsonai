@@ -734,7 +734,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -1702,7 +1702,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -2390,7 +2390,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -2502,7 +2502,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -2923,7 +2923,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -4290,7 +4290,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -4842,7 +4842,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -5409,7 +5409,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -5635,7 +5635,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -5812,7 +5812,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -6243,7 +6243,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -6769,7 +6769,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -7307,7 +7307,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -7806,7 +7806,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -8291,7 +8291,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -8767,7 +8767,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -10870,7 +10870,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -11486,7 +11486,7 @@
           }
         },
         {
-          "text": "The first message is a resume line naming what was covered in plain words, then the next item's first question; no part signpost and no count is said",
+          "text": "The first message opens with a resume line naming what was covered in plain words, with no time, cost or target figure; it may confirm where the files are saved; it ends with the next item's first question; no part signpost and no count is said",
           "kind": "judged",
           "must": true
         },
@@ -11691,7 +11691,7 @@
           }
         },
         {
-          "text": "The resume line (model wording) says what was covered and summarises what was noted",
+          "text": "The resume line (model wording) says what was covered, naming each finished item in plain words; it gives no time, cost or target figure from the notes",
           "kind": "judged",
           "must": true
         },
@@ -11711,7 +11711,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               }
             ]
           }
@@ -12139,7 +12139,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -12756,7 +12756,7 @@
       "kind": "interview",
       "keep_workspace": true,
       "action_target": {
-        "figure": 24,
+        "figure": 30,
         "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter",
@@ -13119,7 +13119,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -13153,7 +13153,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -13607,7 +13607,7 @@
       "keep_workspace": true,
       "platform": "codex",
       "action_target": {
-        "figure": 24,
+        "figure": 30,
         "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter-git",
@@ -13988,7 +13988,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -14022,7 +14022,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -14145,7 +14145,7 @@
       "keep_workspace": true,
       "platform": "claude-web",
       "action_target": {
-        "figure": 24,
+        "figure": 30,
         "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter",
@@ -14508,7 +14508,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -14542,7 +14542,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -14665,7 +14665,7 @@
       "keep_workspace": true,
       "platform": "chatgpt",
       "action_target": {
-        "figure": 24,
+        "figure": 30,
         "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter",
@@ -15028,7 +15028,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -15062,7 +15062,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -15185,7 +15185,7 @@
       "keep_workspace": true,
       "platform": "claude-desktop",
       "action_target": {
-        "figure": 24,
+        "figure": 30,
         "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter",
@@ -15542,7 +15542,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -15576,7 +15576,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -15700,7 +15700,7 @@
       "keep_workspace": true,
       "platform": "microsoft-365",
       "action_target": {
-        "figure": 24,
+        "figure": 30,
         "journey": "the single Deconstruct interview with the safety limits, counted after the line that says how it will go (2026-11-15 round: 23 to 24 replies in runs that included the limits; to be measured again)"
       },
       "fixture": "newsletter",
@@ -16071,7 +16071,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -16105,7 +16105,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -16264,11 +16264,11 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
           }
         },
         {
-          "text": "The safety-limits line names the sign in the leader's own words (it sends the newsletter to the client list itself); the draft comes in its own message, after the rules and checkpoints draft, and lists what it must never do and what it records, each tagged and each to keep or drop",
+          "text": "The safety-limits line names the sign in the leader's own words (it sends the newsletter to the client list itself); the draft comes in its own message, after the rules and checkpoints draft, and lists what it must never do and what it records, each item tagged with where it came from; the message ends by asking what to change or add",
           "kind": "judged",
           "must": true
         },
@@ -16290,7 +16290,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -16364,11 +16364,11 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
           }
         },
         {
-          "text": "The safety-limits line names the sign in the leader's own words (it runs on its own without the leader); the draft comes in its own message, after the rules and checkpoints draft, and lists what it must never do and what it records, each tagged and each to keep or drop",
+          "text": "The safety-limits line names the sign in the leader's own words (it runs on its own without the leader); the draft comes in its own message, after the rules and checkpoints draft, and lists what it must never do and what it records, each item tagged with where it came from; the message ends by asking what to change or add",
           "kind": "judged",
           "must": true
         },
@@ -16390,7 +16390,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -16521,7 +16521,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -16545,7 +16545,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -16641,11 +16641,11 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
           }
         },
         {
-          "text": "The safety-limits line names the sign in the leader's own words (it reads the client list's contract values and renewal dates); the draft comes in its own message, after the rules and checkpoints draft, and lists where the data may go, who may see it and what it must never do, each tagged and each to keep or drop",
+          "text": "The safety-limits line names the sign in the leader's own words (it uses the client list, which is confidential or holds contract values and renewal dates); the draft comes in its own message, after the rules and checkpoints draft, and lists where the data may go and who may see it, each item tagged with where it came from; the message ends by asking what to change or add",
           "kind": "judged",
           "must": true
         },
@@ -16667,7 +16667,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -16745,11 +16745,11 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
           }
         },
         {
-          "text": "The safety-limits line names the sign in the leader's own words (it reads replies that clients send in); the draft comes in its own message, after the rules and checkpoints draft, and lists where that content may travel and what it may never be allowed to trigger, each tagged and each to keep or drop",
+          "text": "The safety-limits line names the sign in the leader's own words (it reads replies that clients send in); the draft comes in its own message, after the rules and checkpoints draft, and lists where that content may travel and what it may never be allowed to trigger, each item tagged with where it came from; the message ends by asking what to change or add",
           "kind": "judged",
           "must": true
         },
@@ -16771,7 +16771,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -16844,7 +16844,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "ai_not_regex",
@@ -16927,11 +16927,11 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
           }
         },
         {
-          "text": "The safety-limits line names the sign in the leader's own words (it saves the draft in the leader's own Gmail drafts); the draft comes in its own message, after the rules and checkpoints draft, and lists what it must never do and what it records, each tagged and each to keep or drop",
+          "text": "The safety-limits line names the sign in the leader's own words (it saves the draft in the leader's own Gmail drafts); the draft comes in its own message, after the rules and checkpoints draft, and lists what it must never do and what it records, each item tagged with where it came from; the message ends by asking what to change or add",
           "kind": "judged",
           "must": true
         },
@@ -17001,7 +17001,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -17117,7 +17117,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -17151,7 +17151,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -17333,12 +17333,12 @@
           }
         },
         {
-          "text": "`### Prohibited actions` is worked in the file with the lines the leader kept",
+          "text": "The safety limits the leader kept are worked in the file: `### Prohibited actions`, or `### Boundaries` when a source's content isn't known yet",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "framework/*/requirements.md",
-            "pattern": "(?m)^### Prohibited actions[ \\t]*$"
+            "pattern": "(?m)^### (?:Prohibited actions|Boundaries)[ \\t]*$"
           }
         },
         {
@@ -17762,11 +17762,11 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
           }
         },
         {
-          "text": "The safety-limits line names the sign in the leader's own words (it reads the client list's contract values and renewal dates); the draft comes in its own message, after the rules and checkpoints draft, and lists where the data may go, who may see it and what it must never do, each tagged and each to keep or drop",
+          "text": "The safety-limits line names the sign in the leader's own words (it uses the client list, which is confidential or holds contract values and renewal dates); the draft comes in its own message, after the rules and checkpoints draft, and lists where the data may go and who may see it, each item tagged with where it came from; the message ends by asking what to change or add",
           "kind": "judged",
           "must": true
         },
@@ -17824,7 +17824,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -18321,11 +18321,11 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
           }
         },
         {
-          "text": "The safety-limits line names the sign in the leader's own words (it runs without the leader); the draft comes in its own message, after the rules and checkpoints draft, and lists what it must never do and what it records, each tagged and each to keep or drop",
+          "text": "The safety-limits line names the sign in the leader's own words (it runs without the leader); the draft comes in its own message, after the rules and checkpoints draft, and lists what it must never do and what it records, each item tagged with where it came from; the message ends by asking what to change or add",
           "kind": "judged",
           "must": true
         },
@@ -18407,7 +18407,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -19006,7 +19006,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -19408,7 +19408,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -19521,7 +19521,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -20041,7 +20041,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -20453,7 +20453,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               }
             ]
           },
@@ -20683,7 +20683,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               }
             ]
           }
@@ -20771,7 +20771,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
           }
         },
         {
@@ -20854,7 +20854,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -21520,7 +21520,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -21957,7 +21957,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -22108,7 +22108,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -22857,7 +22857,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -23095,7 +23095,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -23185,7 +23185,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -23540,7 +23540,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -23811,7 +23811,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -24027,7 +24027,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -24153,7 +24153,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -24425,7 +24425,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -24459,7 +24459,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -24567,7 +24567,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -24754,7 +24754,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -24886,7 +24886,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -25245,7 +25245,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -25478,7 +25478,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -25659,7 +25659,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -25779,7 +25779,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -25847,7 +25847,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -25930,7 +25930,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -26033,7 +26033,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -26125,7 +26125,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -26207,7 +26207,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -26319,7 +26319,7 @@
             "checks": [
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -26383,7 +26383,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -26590,7 +26590,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -26842,7 +26842,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -27018,7 +27018,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -27153,7 +27153,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -27297,7 +27297,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -27447,7 +27447,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -27508,7 +27508,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -27578,7 +27578,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -27702,7 +27702,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -27816,7 +27816,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -27931,7 +27931,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -28046,7 +28046,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -28152,7 +28152,7 @@
               },
               {
                 "type": "ai_regex",
-                "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -28195,7 +28195,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",
@@ -28318,7 +28318,7 @@
               },
               {
                 "type": "ai_not_regex",
-                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview)\\b|make it the full version|keep it light"
+                "pattern": "(?i)\\b(?:light|full|shorter|fuller)(?:-track)? (?:workflow|track|version|interview(?! [a-z]))\\b|make it the full version|keep it light"
               },
               {
                 "type": "quote_absent",

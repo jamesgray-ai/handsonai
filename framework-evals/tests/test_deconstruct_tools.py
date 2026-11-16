@@ -47,7 +47,7 @@ def line(lid, form="main"):
 
 
 # the line that says how the interview will go: the one count the single interview says (2026-11-15)
-HOW_LINE = line("deconstruct:light-line").replace("[M]", "24")
+HOW_LINE = line("deconstruct:light-line").replace("[M]", "30")
 # "About [M] questions left." is never said by the single interview; it stays in the corpus so a run that says it is seen
 COUNT = line("deconstruct:questions-left").replace("[M]", "12")
 
@@ -210,7 +210,7 @@ class DeconstructWordCounter(unittest.TestCase):
         how, cap = msgs["backlog pick"]
         self.assertEqual(cap, 170)
         self.assertTrue(how.startswith("After this, I'll ask a few safety questions"))
-        self.assertIn("about 24 questions from here", how)
+        self.assertIn("about 30 questions from here", how)
         self.assertLessEqual(CS.word_count(how), cap)
         self.assertNotIn("Part 1", how)
         self.assertNotIn("workflow because", how)
