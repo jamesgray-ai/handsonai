@@ -30,9 +30,7 @@ In `references/`. Read a file only when its row applies.
 | State 0 or 1, the rule applied by hand, or a cloud session | `routing-rare.md` (`routing.md` says which part) |
 | Any platform but Claude Code and Codex; or this chat can't find or read the framework files | `location.md` |
 | No working folder yet, or Claude desktop with no folder selected and no location | `storage.md` |
-| Running work brought in (state 0, by name) | `running-work.md` |
-| Requirements in an earlier format; several unfinished interviews, or one for another workflow; an unfinished Analyze | `entries.md` |
-| A resume | `resume.md`, and the files it names, before the resume line |
+| A resume | The files *Resuming* names, before the resume line |
 | The backlog choice or cold entry | `choosing-a-workflow.md` |
 | A yes to N-D1 | `from-a-document.md` |
 | As each part starts; on the light track, for the questions it borrows | `part-1-…` to `part-5-…` |
@@ -60,15 +58,15 @@ Follow `references/routing.md`'s order at every entry: the wrong place (N-F7; it
 
 | State | What Deconstruct does |
 |---|---|
-| 0, running work, asked by name (or by "change my workflow", said here, or started directly by another step) | Brings it in (`references/running-work.md`) |
+| 0, running work, asked by name (or by "change my workflow", said here, or started directly by another step) | Brings it in (*Running work brought in*) |
 | 0, running work, any other way | The running-work message, and stop |
 | 0, retired | The retired line, and stop |
-| 1, requirements in an earlier format | `references/entries.md`, *An earlier version* |
+| 1, requirements in an earlier format | *An earlier version* |
 | 1, another step's earlier file | N-T22 with that step's start phrase, and stop |
 | 2, redo pending | The big-change redo: `references/re-runs.md` |
 | "Continue my workflow", nothing to continue (no workflow folder that isn't retired, no backlog, no unfinished Analyze) | N-F22 in its platform form, in full, and stop (`routing.md`, its first case; N-F24 may come first) |
 | "Continue my workflow", no workflow folder, backlog candidates | The opening and the backlog choice (*Phase 1*), in this chat |
-| 3, requirements needed | A new interview, or a resume (`references/resume.md`). This includes a live earlier-version workflow whose redo stopped before its new requirements were saved |
+| 3, requirements needed | A new interview, or a resume (*Pause and resume*). This includes a live earlier-version workflow whose redo stopped before its new requirements were saved |
 | 4 to 6, asked by name, no `build-record.md` | The re-run before anything is built: `references/re-runs.md` |
 | 7 | The open-item line, and stop |
 | 4 to 6, 8 to 10, any other way | One line (model wording): where the workflow is, the next step by name, its start phrase with the location. When the leader asked to work on its requirements, add that a change to what it must do starts with "change my workflow: [what changed]. My files are in [location]." |
@@ -81,11 +79,33 @@ Follow `references/routing.md`'s order at every entry: the wrong place (N-F7; it
 After routing, before the opening, in this order. A check that asks before the opening starts its message with one line naming Deconstruct and the workflow and confirming the location with N-F3's promise clause; the opening then doesn't repeat it.
 
 1. **Unfinished interviews:** `deconstruct-in-progress.md` with a `Track:` line in any workflow folder (one without a `Track:` line is from an earlier version: check 3). This check comes before the backlog choice.
-   - One, and the leader named no workflow or named that one (by its name, an earlier name, or the node its second line names, whose slug is the folder's name, since a rename keeps the ID): resume it (`references/resume.md`).
-   - One, and the leader named another workflow; or several, with none named: `references/entries.md`.
+   - One, and the leader named no workflow or named that one (by its name, an earlier name, or the node its second line names, whose slug is the folder's name, since a rename keeps the ID): resume it.
+   - One, and the leader named another workflow: say "[Name] is partway through Deconstruct; to finish it, say 'run the deconstruct skill on [Name]. My files are in [location].'", then carry on for the one they named.
+   - Several, with none named: **Ask:** "You have [N] workflows partway through Deconstruct: [Name 1] (next: Part [N]), [Name 2] (next: Part [N]). Which one do you want to continue?" For a light interview, "(next: [the thing, in plain words])". With exactly two: "You have 2 workflows partway through Deconstruct: [Name 1] (next: Part [N]) and [Name 2] (next: Part [N]). Which one do you want to continue?"
    - On "continue my workflow", routing finds the workflow first (N-F9 when several are in progress), and this check resumes it.
-2. **An unfinished Analyze:** `analyze-in-progress.md` in the framework folder; on print-to-save, which has no progress file, a pasted or attached Analyze report whose top holds a **Report status** block. When there is one: `references/entries.md`. Not asked when N-F9 has just listed the unfinished Analyze session in this chat and the leader picked a workflow.
+2. **An unfinished Analyze:** `analyze-in-progress.md` in the framework folder; on print-to-save, which has no progress file, a pasted or attached Analyze report whose top holds a **Report status** block ("**Report status:** unfinished — list not confirmed"; Analyze removes the block at its final write, so a finished report has none). **Ask:** "Your last Analyze session stopped partway, so those workflows aren't in your backlog yet. Finish it first, or carry on here?" "Noted" means any candidate in that file or report. When there is none yet: **Ask:** "Your last Analyze session stopped partway. Finish it first, or carry on here?" On "finish", give Analyze's start phrase in N-F2's approved form for this platform, exactly, with the working folder as the location, and stop, with nothing after it: on the web, "Start Analyze in a new chat. Add your [storage service] to it, then say 'run the analyze skill. My files are in [location].'"; on Claude desktop with the files in a local folder, "Start Analyze in a new chat with your working folder selected: 'run the analyze skill. My files are in [location].'"; on Microsoft 365, "Start Analyze in a new Cowork chat with: 'run the analyze skill. My files are in OneDrive, in ai-workspace.'"; on Claude Code and Codex, "Start Analyze in a new session in this project and say 'run the analyze skill.'"; on print-to-save, "Start Analyze in a new chat with: 'run the analyze skill.' Then attach the latest zip I gave you, or paste or attach the files you saved." On "carry on", continue. Not asked when N-F9 has just listed the unfinished Analyze session in this chat and the leader picked a workflow.
 3. **A progress file from an earlier version** (no `Track:` line): move it into `history/earlier-version-YYYY-MM-DD/`, say so in one line (model wording), and start the interview fresh; its notes count as something written down at N-D1.
+
+### An earlier version
+
+When the requirements are in an earlier format (`references/routing-rare.md`, *Earlier versions*), Deconstruct owns state 1: ask N-B44 first when the workflow is live or was built (`routing.md`; its [steps] for pausing a schedule are filled as `references/platform-facts.md` rule 2 says); move the requirements and every later file (plan, build record, results) into `history/earlier-version-YYYY-MM-DD/`; with a registry, remove the node's "Design plan" (or legacy "Design spec") and "Test results" links under `# Artifacts` where they're there, since their files have moved, and restamp `generated`; say so in one line (model wording, naming the files in plain words: "its old requirements and plan"), offering the earlier requirements as a starting document (after N-B44, only the offer); then begin as for a new workflow, drafting from the old file at N-D1 if offered, with nothing in it current until the leader confirms it. The node keeps its status.
+
+### Running work brought in
+
+Running work Analyze recorded (an `in-production` node with no workflow folder) arrives by name ("run the deconstruct skill on [workflow]", or "change my workflow" said here, taken as the same request), or started directly by another step, whose skill call says "run the deconstruct skill on [workflow]" with the leader's own words after it. It needs a registry. However it arrived, its first question is N-D22 (step 3), even when the leader named a change (noted for the interview). Take it as a new workflow:
+1. The opening, with the working folder as the location (only when it hasn't been said yet: when the leader named the work at the backlog choice or at cold entry, it has), then one line (model wording): this brings [workflow] into the framework, and the version that runs today keeps running as it is until Build installs the new one.
+2. Prefill from the node, as for a backlog pick: the name, description, trigger and deliverable, and any other field it has; with its card in `framework/ai-opportunity-report.md`, the card's fields too (`references/choosing-a-workflow.md`, *Prefilled*).
+3. In cold entry's place, and before N-D1, one of two forms of N-D22, word for word:
+   - **Its Analyze card has a Status line** ("Already runs with [skill or agent], [home]"): **Ask:** "Your Analyze report says it runs with [skill or agent][, in [where]]. Tell me what happens in it, from what kicks it off to what comes out the other end, and whether it runs on a schedule. Rough is fine." Fill [where] only when the card names it; otherwise the bracketed clause is left out.
+   - **Every other case** (a node Analyze didn't write, or a card with no Status line): **Ask:** "Tell me how it runs today: what kicks it off, what happens, what comes out the other end, and whether you do it by hand or it's set up somewhere (a skill, an agent, an automation), on a schedule or not. Rough is fine."
+
+   Its answer is played back at Part 4's method question and becomes the Metadata's `Runs today` row, played back with Part 2.
+4. The normal interview from N-D1 on, on either track. Nothing is skipped because the work already runs.
+   - **When Analyze recorded it** (its card has a Status line): Part 1 takes the card form (`part-1-what-this-is-worth.md`), and Part 2 opens with N-D23 (`part-2-scope-and-a-name.md`; on the light track, item 0), so nothing Analyze recorded is asked again.
+   - **Otherwise,** the N-D22 answer prefills Part 2's trigger and deliverable, confirmed with "Does that match?", and Part 2 runs as for cold entry.
+5. The registry write keeps `status: in-production`.
+
+A stop before the first progress save leaves it in state 0: the leader starts again the same way.
 
 ### Storage and saving
 
@@ -229,7 +249,12 @@ Line 1 names the next part as its phase heading does. A save within Part 4 or 5 
 
 **Pausing:** one line (model wording) says what's saved, then "To pick up, say 'run the deconstruct skill on [Name]. My files are in [location].'" in its platform's form (Claude desktop with a local folder: "To pick up, open a new chat with your working folder selected and say '…'"; Microsoft 365: "To pick up, open a new Cowork chat and say '…'"). Before the workflow has a name, say plainly that nothing is saved yet, so stopping means starting again. On print-to-save, give the progress notes in full to save, and ask for them when they start again.
 
-**Resuming:** `references/resume.md`, read before the resume line.
+**Resuming:** before the resume line, read the part file the `Next:` line names (in Part 5, the requirements template too; on the light track, `light-track.md` and the part files it borrows; on a re-run or redo, `re-runs.md` too; in a personal-life registry, `personal-life.md`), and the `Said:` line: what it lists isn't said or asked again (a file with no `Said:` line: judge from its notes), and the follow-up count carries on. A resume line (model wording) replaces the opening: what was covered, naming each finished part in plain words as N-D17 lists them (on the light track, the items done), so the leader hears which parts are behind them, not only their notes, by its words alone ("You've covered what this is worth, and where it starts and ends, and a name"), never "Part [n]" with its name, which is a signpost said wrong; a signpost is said only whole, as the line after this one says; a short summary of what was noted; the location confirmed with N-F3's promise clause; then:
+- **At the start of a part** (a plain `Next: Part N — …`, including a file saved before this release): the next part's signpost, said exactly, with its "of 5" ("Part 3 of 5 — the outcome."), then its count line (Parts 2 to 5), then its lead-in; when the `Said:` line shows `switched to full`, the part opens as *Switching* says, with no count.
+- **Partway through a part** (a `· after:` line): the resume line also plays back what this part has captured so far, then the next question. The signpost isn't repeated, and no count is said.
+- **On the light track,** which has no signposts: the count line first, then the next item's first question. An old light progress file with no safety answers recorded: `light-track.md`, *Resuming an old light progress file*.
+
+Merge everything captured into the node line 2 names. A folder that also holds `requirements.md` is a re-run or a redo (`references/re-runs.md`). A resume reads the progress file from the location (N-F13 first where *The location* says), and the leader is never asked again where the files are.
 
 ## Output
 

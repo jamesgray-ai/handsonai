@@ -133,7 +133,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "references/entries.md",
+    "deconstruct": "SKILL.md",
     "design": "SKILL.md",
     "build": "references/package-and-install.md",
     "test": "SKILL.md"
@@ -178,7 +178,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "references/entries.md",
+    "deconstruct": "SKILL.md",
     "design": "references/location.md",
     "build": "references/package-and-install.md",
     "test": "SKILL.md"
@@ -264,7 +264,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "references/entries.md"
+    "deconstruct": "SKILL.md"
    },
    "source": "3c-DX (2026-10-24); said by Deconstruct too (R11), approved by James, 2026-11-12 (core round-1 fixes)"
   },
@@ -854,8 +854,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "references/rare-entries.md",
-    "test": "references/rare-entries.md"
+    "build": "SKILL.md",
+    "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -872,8 +872,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "references/rare-entries.md",
-    "test": "references/rare-entries.md"
+    "build": "SKILL.md",
+    "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -890,8 +890,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "references/rare-entries.md",
-    "test": "references/rare-entries.md"
+    "build": "SKILL.md",
+    "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -908,8 +908,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "references/rare-entries.md",
-    "test": "references/rare-entries.md"
+    "build": "SKILL.md",
+    "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -926,8 +926,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "references/rare-entries.md",
-    "test": "references/rare-entries.md"
+    "build": "SKILL.md",
+    "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24); the verb inside the bracket, 3c-EC (2026-10-28)",
    "note": "design: inferred from design 13 by section"
@@ -944,8 +944,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "references/rare-entries.md",
-    "test": "references/rare-entries.md"
+    "build": "SKILL.md",
+    "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -962,8 +962,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "references/rare-entries.md",
-    "test": "references/rare-entries.md"
+    "build": "SKILL.md",
+    "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -3247,7 +3247,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/entries.md"
+    "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -3793,7 +3793,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/running-work.md"
+    "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -6316,7 +6316,7 @@
     "test"
    ],
    "files": {
-    "test": "references/rare-entries.md"
+    "test": "SKILL.md"
    },
    "source": "test.md 12; approved before 3c-DJ"
   },
@@ -7304,7 +7304,7 @@
     "test"
    ],
    "files": {
-    "test": "references/rare-entries.md"
+    "test": "SKILL.md"
    },
    "source": "test.md 12; 3c-DJ (2026-10-24)"
   },
@@ -7572,7 +7572,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/entries.md"
+    "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 3.3 (line 86); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 3.3"
@@ -7586,7 +7586,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/entries.md"
+    "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 3.3; approved by James 2026-11-14 (core batch 1: the two-item form)"
   },
@@ -7599,7 +7599,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/entries.md"
+    "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 3.3 (line 90); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 3.3"
@@ -7613,7 +7613,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/entries.md"
+    "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 3.3 (line 90); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 3.3"
@@ -10316,7 +10316,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "references/running-work.md"
+    "deconstruct": "SKILL.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
