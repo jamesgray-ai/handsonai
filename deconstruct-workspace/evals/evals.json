@@ -11486,7 +11486,7 @@
           }
         },
         {
-          "text": "The first message opens with a resume line naming what was covered in plain words, with no time, cost or target figure; it may confirm where the files are saved; it ends with the next item's first question; no part signpost and no count is said",
+          "text": "The first message opens with a resume line naming what was covered in plain words (it need not list every note, and never names what an earlier interview's notes hold that this one doesn't ask, such as what the work is worth), with no time, cost or target figure; it may confirm where the files are saved; an item the saved notes already answer (how runs start) may be stated for the leader to correct instead of asked; the message ends with the first question still unanswered; no part signpost and no count is said",
           "kind": "judged",
           "must": true
         },
