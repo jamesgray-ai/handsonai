@@ -23,9 +23,9 @@ One message, in this order, within 170 words: the line below, word for word, wit
 > After this, I'll ask a few safety questions, then cover what it's for, what it must get right, what it works from, its rules and a few practice runs: about [M] questions from here.
 
 **Item 1.**
-- **A backlog pick, or running work Analyze recorded:** N-D23, word for word (`part-2-scope-and-a-name.md`, *The card playback*). For running work, the `Runs today` row is played back in the same message.
-- **Cold entry, and other running work:** a name and a description in one message. Run Part 2's boundary tests yourself first (when they find several workflows, Part 2's breakdown runs). Then one message (model wording, one question) plays back the description in Part 2's shape, which carries the trigger and the deliverable, with the name you recommend and one or two others in Part 2's style, ending "What would you change or clarify?" (for illustration only; use the leader's own work: "I'd call it Newsletter Draft (or Weekly Newsletter, or Newsletter Writing), described as: after you've gathered the week's notes, drafts the newsletter, ready for you to edit and send. What would you change or clarify?"). For running work brought in, play back the `Runs today` row in the same message.
-- **In personal life,** Part 2's two personal questions ("What starts it?", "What do you end up with?") come first, each in its own message, before item 0's message.
+- **A backlog pick, or running work Analyze recorded:** N-D23, word for word (*The card playback*, below). For running work, the `Runs today` row is played back in the same message.
+- **Cold entry, and other running work:** a name and a description in one message. Run the boundary tests yourself first (*One trigger, one deliverable*, below; when they find several workflows, its breakdown runs). Then one message (model wording, one question) plays back the description in the `naming-workflows` shape, which carries the trigger and the deliverable, with the name you recommend and one or two others in the name's style (below), ending "What would you change or clarify?" (for illustration only; use the leader's own work: "I'd call it Newsletter Draft (or Weekly Newsletter, or Newsletter Writing), described as: after you've gathered the week's notes, drafts the newsletter, ready for you to edit and send. What would you change or clarify?"). For running work brought in, play back the `Runs today` row in the same message.
+- **In personal life,** `personal-life.md`'s two questions ("What starts it?", "What do you end up with?") come first, each in its own message, before item 1's message.
 
 The reply confirms the trigger, the deliverable, the name and the description together. The progress file is first saved after it, silently, then after each item (`Next: [the safety questions | the goal | what it must get right | what it works from | the rules | the practice runs | the defaults]`).
 
@@ -204,7 +204,7 @@ The goal sentence merges the deliverable and its format into one phrase, names t
 
 (For illustration only; use the leader's own trigger, deliverable and reader: "For each supplier invoice that arrives, a short, easy-to-skim approval summary to the finance manager, one page long, ready for you to check and approve the same day.") It keeps the leader's own words; numbers live only in the list. It has no "containing [parts]" blank: the parts live only in the list, so each is graded once. Never invent a sample output for the leader to react to; questions sharpen it.
 
-The goal is played back once, with its question, and this clause after it, "(The [parts they named in 'say it'] become the list we write next.)": **Ask:** "Here's your goal: [sentence]. What would you change or clarify?" It's the goal's one confirmation on that track.
+The goal is played back once, with its question, and this clause after it, "(The [parts they named in 'say it'] become the list we write next.)": **Ask:** "Here's your goal: [sentence]. What would you change or clarify?" It's the goal's one confirmation.
 
 ## What it must get right
 
@@ -350,4 +350,4 @@ Then the preview (the requirements template), the file and the close.
 
 ## What the file records about risk
 
-`track:` in the requirements' frontmatter is never said to the leader. Write `full` when the safety limits were worked, the law answer was yes or "not sure", or it runs without the leader; otherwise `light`. Record the same value as `Track:` in the progress file. Later steps read it; nothing in this interview depends on it.
+`track:` in the requirements' frontmatter is never said to the leader. Write `full` when any of these is known: it sends, posts or changes something other people see, or something that can't be undone (a draft or file only the leader sees, which they can delete, doesn't count); it runs without the leader; the law answer was yes or "not sure"; a source holds confidential, regulated or outside content, as the leader said it. Otherwise `light`. A safe fallback the file takes for something not known yet never makes it `full`. Record the same value as `Track:` in the progress file. Later steps read it; nothing in this interview depends on it.
