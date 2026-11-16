@@ -231,7 +231,7 @@ After the answer, say: "That makes '[item]' a must-have: a miss always sends it 
 - *Why:* Your typical and tricky [cases] become the practice runs used to test the workflow; you'll paste real ones near the end.
 - *Not sure?* One sentence is enough; you'll paste a real one later.
 
-Then one draft of the inputs and sources (the requirements template, draft 2's sources and inputs, with the context sentence the first time), ending "What would you change or add?". When nothing comes in yet: **Ask:** "Where will the information come from?" Then, separately, **Ask:** "Does it exist yet?" Draft the Inputs lines (`I1`…) from the trigger and these answers, tagged *(my suggestion)*, for Part 5's second draft. A source that doesn't exist yet is recorded in Inputs as `Status: not available yet`.
+Then one draft of the inputs and sources (the requirements template, draft 2's sources and inputs, with the context sentence the first time), ending "What would you change or add?". When nothing comes in yet: **Ask:** "Where will the information come from?" Then, separately, **Ask:** "Does it exist yet?" Draft the Inputs lines (`I1`…) from the trigger and these answers, tagged *(my suggestion)*, for the sources draft. A source that doesn't exist yet is recorded in Inputs as `Status: not available yet`.
 
 **The policy question,** asked once, for the first source the leader described as confidential or regulated, or as holding client, staff or personal details. Never for a row saved `Confidential` only as the safe fallback (SKILL.md rules 7 and 13: never assert what a source holds), and never for outside content alone. Skipped on the personal-life lens. It names no tool. It comes in the next message after the reply that showed the source, never inside a draft's message; when a paste triggers both, the confidential check comes first (it runs before saving), then, once the paste is saved, the policy question.
 
@@ -287,7 +287,7 @@ Record it as an optional Metadata row, `Remembers`: `nothing`, `[what, in the le
 - *Example:* "Always use this week's price list; never quote a discount."
 - *Not sure?* Say no; we'll cover rules next.
 
-Each answer is a rule ("It always…", "It never…"), an R line in the file. An order the leader insists on is a rule too ("It always [does this] before [that]"). On cold entry, offer any "It always…" or "It never…" rule the cold-entry answer holds in this question. For the AI to work it out, it's given a clear goal (Part 3) and its limits (this question, the shared questions and Part 5); never guess the plan.
+Each answer is a rule ("It always…", "It never…"), an R line in the file. An order the leader insists on is a rule too ("It always [does this] before [that]"). On cold entry, offer any "It always…" or "It never…" rule the cold-entry answer holds in this question.
 
 Then the review question, in its own message:
 
