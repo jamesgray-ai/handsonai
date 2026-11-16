@@ -152,11 +152,11 @@ Record it at the top of Human Gates: `Runs: with you` or `Runs: without you`.
 **3. A law or regulation.** Skipped in personal life (`Governing regime: None`). An earlier answer is recorded, not asked again.
 
 **Ask:** "Is there a law or regulation that governs this work?"
-- *Why:* Regulated steps are followed exactly, and a person approves the decisions the rules cover.
+- *Why:* What the rules require is followed exactly, and a person approves the decisions the rules cover.
 - *Example:* Financial-advice rules, health-privacy law such as HIPAA, or data-protection law such as GDPR.
 - *Not sure?* Say not sure; I'll note it for you to check.
 
-On a yes, in its own message, **Ask:** "Which one? A name or a description is fine." Then say (N-D6): "Because this work is regulated, we'll note which steps and decisions the rules cover." It opens the next message, ahead of everything else in it.
+On a yes, in its own message, **Ask:** "Which one? A name or a description is fine." Then say (N-D6): "Because this work is regulated, we'll note what the rules require and which decisions a person must make." It opens the next message, ahead of everything else in it.
 
 Record it for Security, Privacy & Safety as one line: `Governing regime: [name]`, `Governing regime: None`, or `Governing regime: Not sure — to check` (a "not sure", or a yes whose name stays unknown).
 

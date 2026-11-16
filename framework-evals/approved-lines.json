@@ -3284,7 +3284,7 @@
   {
    "id": "N-D6",
    "form": "main",
-   "text": "Because this work is regulated, we'll note which steps and decisions the rules cover.",
+   "text": "Because this work is regulated, we'll note what the rules require and which decisions a person must make.",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -3292,7 +3292,7 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
+   "source": "deconstruct.md 19; 3c-DJ (2026-10-24); 'steps' reworded, approved by James 2026-11-15 (the interview records rules, not steps)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {
@@ -4675,7 +4675,7 @@
   {
    "id": "D3′",
    "form": "main",
-   "text": "Your work falls under [regime], and it can still work out its own steps: the steps the rules require stay exactly as they are, and every decision a person must make stays with a person. The plan also adds a record of what it did on each run, so you can check it later.",
+   "text": "Your work falls under [regime], and it can still work out its own steps: what the rules require stays exactly as it is, and every decision a person must make stays with a person. The plan also adds a record of what it did on each run, so you can check it later.",
    "kind": "teaching",
    "skills": [
     "design"
@@ -4683,7 +4683,7 @@
    "files": {
     "design": "references/variants.md"
    },
-   "source": "design.md 12; approved before 3c-DJ",
+   "source": "design.md 12; approved before 3c-DJ; 'steps' reworded, approved by James 2026-11-15 (the interview records rules, not steps)",
    "note": "design: inferred from design 13 by section"
   },
   {
@@ -7838,7 +7838,7 @@
   {
    "id": "deconstruct:8.part-2:q1",
    "form": "why",
-   "text": "Regulated steps are followed exactly, and a person approves the decisions the rules cover.",
+   "text": "What the rules require is followed exactly, and a person approves the decisions the rules cover.",
    "kind": "teaching",
    "skills": [
     "deconstruct"
@@ -7846,7 +7846,7 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "deconstruct.md 8.part-2 (line 312); approved: 'every other quoted line in this document is approved' (19)",
+   "source": "deconstruct.md 8.part-2 (line 312); approved: 'every other quoted line in this document is approved' (19); 'steps' reworded, approved by James 2026-11-15 (the interview records rules, not steps)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
   },
   {
