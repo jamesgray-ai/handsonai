@@ -4,7 +4,7 @@ description: >-
   This skill should be used when the user wants to deconstruct a workflow, break down a business process, capture
   requirements for an AI workflow, or turn a workflow from their backlog into a clear, testable description of what it
   must do. It starts from anything already written down, shapes the outcome first (a goal and yes-or-no checks), then
-  how the work gets done, the rules, where a person checks or approves the work, the sources it uses and practice
+  the sources it works from, its rules, where a person checks or approves the work, its safety limits and practice
   inputs, and saves them as the workflow's requirements for the Design step.
   Also use when the user says "continue my workflow" (pick it before reading files) and the workflow needs
   its requirements: none yet, an unfinished Deconstruct interview, or a big change sent back from Design; and when the
