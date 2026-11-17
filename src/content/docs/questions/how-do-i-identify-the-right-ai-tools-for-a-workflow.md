@@ -17,7 +17,7 @@ You can't choose the right AI tools for a workflow you don't fully understand. T
 
 Most people jump straight to tool selection — "Should I use an agent? Do I need an API?" — before they've worked out what the workflow actually involves. The result is over-engineered solutions for simple problems, or under-powered tools for complex ones.
 
-**Deconstruct first.** The Deconstruct skill starts with the outcome: what the workflow produces and what every output must get right. Then it records how the work gets done, the rules it follows, where a person checks before it goes on (checkpoints), and a few practice inputs from your real work. No tool, platform, or autonomy level is chosen here. The result is your Workflow Requirements: a description of the work.
+**Deconstruct first.** The Deconstruct skill starts with the outcome: what the workflow produces and what every output must get right. Then it records the sources it works from, the rules it follows, where a person checks before it goes on (checkpoints), and a few practice inputs from your real work. No tool, platform, or autonomy level is chosen here. The result is your Workflow Requirements: a description of the work.
 
 **Then design.** Design reads those requirements and makes the mechanism decisions: which platform, whether the workflow runs as a skill or an agent, how much the AI decides on its own (autonomy), and whether a person takes part while it runs (involvement). It then maps each step to the building block that delivers it:
 
