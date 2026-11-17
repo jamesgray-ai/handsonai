@@ -22,7 +22,7 @@ Deconstruct turns a piece of the leader's real work into their **Workflow Requir
 
 ## When to read what
 
-In `references/`. **Your first tool calls, before you know the state, read the four files every interview needs, together:** `routing.md`, `interview.md`, `requirements-template.md` and `saving-the-requirements.md`, alongside the state check and the workflow's own files. Then nothing is left to read once you know whether this is a new interview, a resume or a hand-off, and no step comes between finding the state and your first line. Any other file is read only when its row applies, as a tool call with no text.
+In `references/`. **Your first tool calls, before you know the state, read the four files every interview needs, together:** `routing.md`, `interview.md`, `requirements-template.md` and `saving-the-requirements.md`, alongside the state check and the workflow's own files: when the leader named a workflow folder, read its `deconstruct-in-progress.md` and its registry page in those same first calls (a file that isn't there just comes back missing), so a resume needs no second round of reading. Then nothing is left to read once you know whether this is a new interview, a resume or a hand-off, and no step comes between finding the state and your first line. Any other file is read only when its row applies, as a tool call with no text.
 
 | When | Read |
 |---|---|
@@ -30,7 +30,7 @@ In `references/`. **Your first tool calls, before you know the state, read the f
 | State 0 or 1, the rule applied by hand, or a cloud session | `routing-rare.md` (`routing.md` says which part) |
 | Any platform but Claude Code and Codex; or this chat can't find or read the framework files | `location.md` |
 | No working folder yet, or Claude desktop with no folder selected and no location | `storage.md` |
-| A resume | The files *Resuming* names, before the resume line |
+| The state check finds an unfinished interview | Whatever *Resuming* names that the first calls didn't read, as tool calls with nothing written before them: a label for what you found ("A resume. Read the progress file and others.") is text, and it reaches the leader |
 | The backlog choice or cold entry | `choosing-a-workflow.md` |
 | A yes to N-D1 | `from-a-document.md` |
 | With those four, when there's a registry | The files `saving-the-requirements.md` lists |
