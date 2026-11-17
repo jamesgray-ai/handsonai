@@ -1,6 +1,6 @@
 # The interview
 
-Read before the message that says how the interview will go (item 1), since that message holds its first question. One interview, for every workflow: it confirms a name and description, asks how runs start where needed, asks three safety questions, captures what it's for, what it must get right, what it works from and its rules, proposes a few practice runs, sets its safety limits, and fills defaults for the rest, shown once to correct. Where an answer calls for them, it adds the policy and access questions, the carry-over question and the regulation questions. Every quoted line is said exactly; each question is its own message. There are no part numbers and no signposts, and nothing is ever said about a track.
+Read before the message that says how the interview will go (item 1), since that message holds its first question. One interview, for every workflow: it confirms a name and description, asks how runs start where needed, asks three safety questions, captures what it's for, what it must get right, what it works from and its rules, sets its safety limits, proposes a few practice runs, and fills defaults for the rest, shown once to correct. Where an answer calls for them, it adds the policy and access questions, the carry-over question and the regulation questions. Every quoted line is said exactly; each question is its own message. There are no part numbers and no signposts, and nothing is ever said about a track.
 
 ## Contents
 
@@ -338,7 +338,7 @@ Its answer is the typical run's input. Any other real input named but not pasted
 > Here are the practice inputs I wrote. [Every input I wrote, in full, each under a plain label naming its run.] Does each look like what you'd really get?
 
 That is: its first sentence opens the message; then each input under a short label in plain words naming its run (never `(proposed)`, `hard`, an E number or a line's label), the input itself as a block quote: exactly the text you'll save; then its second sentence, alone, as the message's last line. Nothing follows it.
-- A carry-over input's set-up is shown too, in plain words, in its label ("as if an earlier run already handled [case]"), never as its `Earlier run:` line. The header lines (`source:`, `tests:`, `expect:`) are never shown.
+- On a re-run, an older carry-over input's set-up is shown too, in plain words, in its label ("as if an earlier run already handled [case]"), never as its `Earlier run:` line. The header lines (`source:`, `tests:`, `expect:`) are never shown.
 - Not shown again: real inputs, and a made-up example from "draft one", already shown and checked with "Does this look like your real [inputs]?". Inputs the leader pasted are saved as given, as above.
 - The leader's corrections are taken as given, and the corrected text is what's saved; a yes keeps them as shown. Nothing you wrote reaches `inputs/` unseen. Then the confidential check, where it applies.
 
