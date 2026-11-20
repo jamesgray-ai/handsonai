@@ -112,7 +112,33 @@ def build_prompt(ev, run, items, script):
                 continue
             kind = "added" if a is None else "removed" if b is None else "changed"
             parts += [f"### {kind}: {rel}", "", "````", b or "", "````", ""]
+        gone = written_then_gone(s)
+        if gone:
+            parts += ["## Files the session wrote that were gone by its end (moved or cleared)", ""]
+            parts += [f"- {rel}" for rel in gone] + [""]
     return "\n".join(parts)
+
+
+def written_then_gone(s):
+    """Files a session wrote with its Write or Edit tool that weren't there at its end: a part staged in
+    `package/` and then installed and cleared. The end state alone hid the staging, so a judged
+    "staged in package/" failed on three runs that staged it (P2-shared-skill, trial 4, 2026-11-20)."""
+    if not s.get("root"):
+        return []
+    ws = str(Path(s["root"]).resolve())
+    out = []
+    for e in _load_events(Path(s["root"]).parent / "events.jsonl"):
+        if e.get("type") != "assistant":
+            continue
+        for c in (e.get("message") or {}).get("content") or []:
+            if not isinstance(c, dict) or c.get("type") != "tool_use" or c.get("name") not in ("Write", "Edit"):
+                continue
+            fp = str((c.get("input") or {}).get("file_path") or "")
+            i = fp.find("/workspace/")
+            rel = fp[i + len("/workspace/"):] if i >= 0 else (fp[len(ws) + 1:] if fp.startswith(ws) else "")
+            if rel and rel not in (s.get("files_end") or {}) and rel not in out:
+                out.append(rel)
+    return out
 
 
 def _call_json(rnd, root, prompt, system, key, n_expected):

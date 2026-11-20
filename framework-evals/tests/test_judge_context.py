@@ -350,5 +350,16 @@ class BuildRoundContext(unittest.TestCase):
                               "files_end": {".claude/settings.local.json": settings}}]}
         self.assertEqual(G.settings_files(same), "")
 
+    def test_a_file_staged_then_cleared_is_listed(self):
+        # trial 4: the staging in package/ was removed after the install, so the judge never saw it
+        write = {"type": "assistant", "message": {"content": [{"type": "tool_use", "name": "Write", "input": {
+            "file_path": "/tmp/x/workspace/framework/w/package/skills/s/SKILL.md", "content": "x"}}]}}
+        run = run_with([write])
+        s = run["sessions"][0]
+        s["files_end"] = {}
+        self.assertEqual(G.written_then_gone(s), ["framework/w/package/skills/s/SKILL.md"])
+        s["files_end"] = {"framework/w/package/skills/s/SKILL.md": "x"}
+        self.assertEqual(G.written_then_gone(s), [])
+
 if __name__ == "__main__":
     unittest.main()
