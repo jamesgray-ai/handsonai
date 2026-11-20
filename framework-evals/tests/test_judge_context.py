@@ -361,5 +361,16 @@ class BuildRoundContext(unittest.TestCase):
         s["files_end"] = {"framework/w/package/skills/s/SKILL.md": "x"}
         self.assertEqual(G.written_then_gone(s), [])
 
+    def test_a_file_staged_by_a_heredoc_then_cleared_is_listed(self):
+        # trial 6: the shared skill was staged with `cat > ... <<'EOF'`, which only Write/Edit tracking missed
+        cmd = ("cd /tmp/x/workspace/framework/w; mkdir -p package/skills/d; cat > package/skills/d/SKILL.md <<'EOF'\n"
+               "text\nEOF\nls -R package 2>/dev/null >&2")
+        bash = {"type": "assistant", "message": {"content": [{"type": "tool_use", "name": "Bash",
+                                                              "input": {"command": cmd}}]}}
+        run = run_with([bash])
+        s = run["sessions"][0]
+        s["files_end"] = {}
+        self.assertEqual(G.written_then_gone(s), ["framework/w/package/skills/d/SKILL.md"])
+
 if __name__ == "__main__":
     unittest.main()

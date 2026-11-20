@@ -131,13 +131,39 @@ def written_then_gone(s):
         if e.get("type") != "assistant":
             continue
         for c in (e.get("message") or {}).get("content") or []:
-            if not isinstance(c, dict) or c.get("type") != "tool_use" or c.get("name") not in ("Write", "Edit"):
+            if not isinstance(c, dict) or c.get("type") != "tool_use":
                 continue
-            fp = str((c.get("input") or {}).get("file_path") or "")
-            i = fp.find("/workspace/")
-            rel = fp[i + len("/workspace/"):] if i >= 0 else (fp[len(ws) + 1:] if fp.startswith(ws) else "")
-            if rel and rel not in (s.get("files_end") or {}) and rel not in out:
-                out.append(rel)
+            inp = c.get("input") or {}
+            if c.get("name") in ("Write", "Edit"):
+                paths = [str(inp.get("file_path") or "")]
+            elif c.get("name") == "Bash":
+                paths = _bash_targets(str(inp.get("command") or ""))
+            else:
+                continue
+            for fp in paths:
+                i = fp.find("/workspace/")
+                rel = fp[i + len("/workspace/"):] if i >= 0 else (fp[len(ws) + 1:] if fp.startswith(ws) else "")
+                if rel and rel not in (s.get("files_end") or {}) and rel not in out:
+                    out.append(rel)
+    return out
+
+
+_CD = re.compile(r"^\s*cd\s+(['\"]?)([^'\";&|]+)\1\s*(?:;|&&)")
+_REDIRECT = re.compile(r"(?<![0-9&>])>>?\s*(['\"]?)([^\s;&|<>'\"]+)\1")
+
+
+def _bash_targets(cmd):
+    """Files a Bash command wrote by redirection (`cat > path <<'EOF'`, `> path`, `>> path`), made absolute
+    from a leading `cd`. Trial 6 (2026-11-20): P2-shared-skill run 1 staged the shared skill in package/
+    with a heredoc, then installed and cleared it, and the judge, shown only Write and Edit paths, said
+    it was never staged."""
+    m = _CD.match(cmd)
+    base = m.group(2).strip() if m else ""
+    out = []
+    for q, p in _REDIRECT.findall(cmd):
+        if p.startswith("/dev/") or p.startswith("&"):
+            continue
+        out.append(p if p.startswith("/") or not base else base.rstrip("/") + "/" + p)
     return out
 
 
@@ -853,7 +879,9 @@ def session_tools(run):
 TOOLS_LABEL = ("## The tools the session was offered (context, not graded)\n\n"
                "From the session's own start-up message. A connection's tools (`mcp__[connection]__[action]`) "
                "are the actions it offers: a message saying the connection offers, or lacks, an action is backed "
-               "or contradicted by this list.\n\n")
+               "or contradicted by this list. A later session's list can lack a tool an earlier session listed "
+               "because that session's settings deny it (a deny rule hides the tool from the session): the "
+               "connection still offers it, so \"your connection can also send\" is backed by the earlier list.\n\n")
 
 INPUTS_CAP = 6000
 INPUT_FILE_CAP = 2000
