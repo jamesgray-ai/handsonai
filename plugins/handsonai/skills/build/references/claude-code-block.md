@@ -74,7 +74,7 @@ At the end of Part 1, after the quick real checks (each one's N-B27 already said
 
 1. **List each connection's live tools** and class them (section 2). Write the profile (section 3).
 2. **Copy the wrapper** from this skill's own `scripts/test-run.sh` to `framework/.bin/test-run.sh`, byte for byte (`cat <this skill's folder>/scripts/test-run.sh > framework/.bin/test-run.sh`, then `chmod +x`; not `cp`, which Claude Code asks about as an edit to the plugin's own file). Never write or edit it.
-3. **Record its fingerprint** in the record's frontmatter: `shasum -a 256 framework/.bin/test-run.sh`, written as below. Go from the hash (and any look at the wrapper's usage) straight to reading and editing the record with no text between: never a line naming the record, profile or fingerprint as your next work. Keep that note in your thinking.
+3. **Record its fingerprint** in the record's frontmatter: `shasum -a 256 framework/.bin/test-run.sh`, written as below. Go from the hash (and any look at the wrapper's usage) straight to reading and editing the record with no text between (`SKILL.md`: text comes once per turn, at the end).
 
    ```yaml
    fingerprints:
@@ -101,12 +101,12 @@ At the end of Part 1, after the quick real checks (each one's N-B27 already said
    ```
 
    `on` is this workflow's own rules (a rule another workflow also lists is still on this list: both own it). `check_agents` (added as each check agent file is written, section 6) lists those files' paths. `leader_rules` are rules the leader had before, never removed by any lift. `leader_allow` is the leader's allow rules at this moment, so the close can tell which ones were added during Build. When the block is off, the key reads `write_block: off`.
-7. **Give each check agent** an allow-list `tools:` naming only its connections' reads, from `check_agent_tools`, and no Write, Edit, Bash or WebFetch (section 6).
+7. **Write each check agent file now,** one per task the plan checks (section 6), each with an allow-list `tools:` naming only its connections' reads, from `check_agent_tools`, and no Write, Edit, Bash or WebFetch, and add each path to `check_agents`. Claude Code loads agent files when a session starts, so a check agent file written in this session can't be called until the next one: write them all here, before the restart (step 10), never later in a session that then calls them. Never run a check through another agent type in its place (general-purpose, Explore or any agent not under `check_agents`): those hold Bash, Write and every connection. When a check agent is reported missing, run no check through anything else: stop as rule 6 says (`SKILL.md`, *Style and safety*).
 8. **Read the settings back:** `framework/.bin/test-run.sh settings-check <slug> --plugin-copy …`. Go on only when `ok` is true and `bash_claude_denied` is true. Never probe with a write.
 
    **When the block can't be written or read back** (`python3` missing, so no wrapper call can run; a wrapper error at step 4; `settings-check` exiting non-zero, or `ok` or `bash_claude_denied` false), fail closed: Build stops before Part 2 and checks nothing. With `python3` missing nothing was written. Where step 5 already wrote rules, lift them as section 8 does (steps 1, 3 and 4), with no N-B21a, since no check ran; if `lift-rules` can't run either, leave them (they only refuse), keep them in `write_block`, and the next entry takes them over (section 9). Record the reason, then end as every stop does (`SKILL.md`, *The end of the part, and every stop*), with N-B55 as the stop line (`SKILL.md`, entry check 3), [what's missing] naming what failed. The next entry starts the block again from step 1.
 9. **Read back the permission mode** this session runs in: the mode the session reports to you (a plan-mode or auto-mode notice, or the leader's word if you can't tell), and `default_modes` from `settings-check` (the mode each settings file starts a session in). Where release check 4 hasn't passed on this version, or the mode is one it showed the deny rules don't bind in, the check sessions still hold, since a check agent's allow list and the wrapper's profiles work in any mode, but this session isn't blocked, and N-B21a takes its fallback first sentence at the close once release check 2 has passed, and its instruction-only first sentence until then (section 8).
-10. **Where release check 1 hasn't passed** (a deny rule added mid-session applied), the leader restarts the session once before Part 2, and the resume picks up: one line of model wording asking for the restart, then N-F10's main form with Build's phrase (`setup.md` section 5).
+10. **Where release check 1 hasn't passed** (a deny rule added mid-session applied), or step 7 wrote a check agent file in this session, the leader restarts the session once before Part 2, and the resume picks up: one line of model wording asking for the restart, then N-F10's main form with Build's phrase (`setup.md` section 5).
 
 At every later Build entry (fix mode, a resumed change, a rebuild), re-list each connection's tools, update the profile, and repeat steps 4 to 8 before any check, using the recorded OK.
 
@@ -126,7 +126,7 @@ Every release check in section 10 is open in this release: each takes its fallba
 
 Every check runs in a dedicated check session, never in Build's main session.
 
-**A check agent**, written to `.claude/agents/framework-check-<slug>-<task>.md`, recorded under `write_block` as `check_agents:` (one path each), and removed with the block:
+**A check agent**, written to `.claude/agents/framework-check-<slug>-<task>.md` at section 4 step 7 (never later: a file written mid-session isn't available until the next session), recorded under `write_block` as `check_agents:` (one path each), and removed with the block:
 
 ```markdown
 ---
@@ -203,7 +203,7 @@ Each is a check in the maintainers' release checklist (not shipped with the plug
 | Row | What's assumed | Fallback |
 |---|---|---|
 | 1 | A deny rule added mid-session is applied | The leader restarts the session once, before Part 2 |
-| 2 | A deny rule binds a check agent running a sub-agent's text; a check agent's `tools:` refuses every unlisted tool; a check agent file written mid-session is available | Those checks rely on the instruction, said in N-B21's words |
+| 2 | A deny rule binds a check agent running a sub-agent's text; a check agent's `tools:` refuses every unlisted tool | Those checks rely on the instruction, said in N-B21's words |
 | 3 | A headless session's Write and Edit stay inside its own `practice/` | `headless_writes none`: Write and Edit denied outright; the files come back in the output |
 | 4 | Deny rules bind in every permission mode Build's own session can be in | The check sessions keep their allow lists; N-B21a's fallback first sentence once row 2 has passed, its instruction-only first sentence until then (section 8) |
 | 6 | Headless runs under the subscription login; `--restricted` leaves out the leader's user, project and local settings and hooks; the leader's instructions and memory stay out; `--strict-mcp-config` with a config naming a variable; `--tools`, `dontAsk` and `--permission-prompts none` refuse every unlisted tool; the start-up message's field names; a claude.ai connector through its stored sign-in; the workflow loads from the run folder's `.claude/`; a checkpoint ends the turn and `--resume` keeps the settings; the wrapper refuses bypass flags | Check agents only, and no bare run |

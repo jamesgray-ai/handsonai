@@ -5618,6 +5618,20 @@
   },
   {
    "id": "N-B26",
+   "form": "Permanent, not a send",
+   "text": "…I'll do it once myself: [the smallest version], in [a place only you see]. I won't be able to undo it. OK to go ahead, or skip it and let the first real run prove it?",
+   "kind": "question",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/setup.md"
+   },
+   "source": "James's approval in session (2026-11-20): a change that can't be undone but isn't a send",
+   "fragment": true
+  },
+  {
+   "id": "N-B26",
    "form": "No private place",
    "text": "[Tool] has no place only you can see, so a test record would reach your team. I'll skip this check, and the first real run will prove it.",
    "kind": "safety or promise",
