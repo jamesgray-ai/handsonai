@@ -4959,6 +4959,32 @@
   },
   {
    "id": "N-B4",
+   "form": "after an orientation line",
+   "text": "Build makes your workflow for [Name] from your approved plan, task by task, checking each part as it goes. First I'll need you to [No place yet, Claude, ChatGPT: 'set up a Project for your workflow, '; Claude desktop: 'set up a folder for your workflow, '] connect [tools], check [a draft] and OK [L] quick real checks and setup changes; then I build and check the rest, and I'll ask you to confirm about [K] things along the way[Bare run, Claude and ChatGPT: ', including one short run you do yourself in a new chat, then delete'][Bare run, Codex: ', including one short run you do yourself in a new terminal, then close']. [With an open item: '[Part] waits for [the open item]; I'll build everything else.'] [The stopping sentence, section 4.] Let's start with [first action].",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "SKILL.md"
+   },
+   "source": "James's approval in session (2026-11-19): the opening after an orientation line, which already said the promise clause"
+  },
+  {
+   "id": "N-B4",
+   "form": "Every task waits, after an orientation line",
+   "text": "Build makes your workflow for [Name] from your approved plan, task by task, checking each part as it goes. First I'll need you to [setup clauses] connect [tools][ and OK [L] quick real checks and setup changes]. [Part] can't be built yet: [the open item, or 'your plan needs a change first'], so I'll stop after that. [The stopping sentence.] Let's start with [first action].",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "SKILL.md"
+   },
+   "source": "James's approval in session (2026-11-19): the opening after an orientation line, which already said the promise clause"
+  },
+  {
+   "id": "N-B4",
    "form": "[L] is 1, a quick real check",
    "text": "OK 1 quick real check",
    "kind": "safety or promise",
