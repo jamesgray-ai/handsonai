@@ -332,6 +332,14 @@ class BuildRoundContext(unittest.TestCase):
         msg = "Your Git history has the commit from 2026-10-20 called my skill."
         self.assertIn("my skill 2026-10-20", G.tool_lines(run_with([tool_result(line)], text=msg), [msg]))
 
+    def test_a_short_count_is_matched_with_the_word_after_it(self):
+        # trial 2026-11-19: "71 words" was backed by the check agent's "Word count: 71", but facts
+        # under 3 characters were dropped, so the judge flagged it as invented
+        msg = "The draft came to 71 words, under your limit."
+        results = [tool_result("Word count: 71"), tool_result("Found 71 rows")]
+        out = G.tool_lines(run_with(results, text=msg), [msg])
+        self.assertIn("Word count: 71", out)
+        self.assertNotIn("Found 71 rows", out)  # the number alone, without its word, isn't enough
 
 if __name__ == "__main__":
     unittest.main()

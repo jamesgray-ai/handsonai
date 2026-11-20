@@ -743,6 +743,8 @@ def fx_cc_block_left_on(t):  # a session ended with the block on and a run folde
     rec = record(t)
     sub(rec, 'write_block: "off"', "write_block:\n  on:\n    - mcp__gmail__create_draft\n    - mcp__gmail__send_message\n    - Bash(claude:*)\n    - Bash(claude *)\n  leader_rules: []\n  leader_allow: []")
     sub(rec, "run_folders: []", "run_folders:\n  - /tmp/framework-run-client-follow-up-check-1")
+    # no bare run yet: T2, the skill it would run, isn't built (S08's "done" made a stop look like a skipped bare run)
+    sub(rec, "bare_run:\n  client-follow-up: done", "bare_run: {}")
     resub(rec, r"^plan_revision: 1\n", "")
     resub(rec, r"^last_close_after_round: 0\n", "")
     resub(rec, r"^\| T2 \| New skill: S1 \|(.*)\| Created \| yes \|", r"| T2 | New skill: S1 |\1| Not built yet | no |")

@@ -187,7 +187,11 @@ def connect_now(ai_text, leader_msg):
     return bool(NOT_CONNECTED_RE.search(ai_text or "")) and bool(DONE_RE.search(leader_msg or ""))
 
 
-RESTART_RE = re.compile(r"\brestart\b", re.I)
+# The restart, in Build's own wording: "restart", "needs restarting", or closing Claude Code and
+# opening it again ("quit Claude Code and open it again", "close this session and open a new one").
+# Five trial runs (2026-11-19) asked in those words and lost their second session.
+RESTART_RE = re.compile(r"\brestart|\b(?:close|quit|exit)\b[^.?!]{0,80}\b(?:open|start|launch)\b[^.?!]{0,40}"
+                        r"\b(?:again|a new one|a new session|a fresh one)\b", re.I)
 # The pick-up phrase in the restart line: with "My files are in [location]." where a location is
 # said, and without it on Claude Code, where [location] is nothing (build SKILL.md: "To pick up, start a
 # new session in this project and say 'run the build skill.'"). Missing that form left every Claude
@@ -357,6 +361,9 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                     srec.update(session=n, turn=turn + 1)
                     calls.append(srec)
                     msg, reported = L.strip_actions(raw)
+                    if not msg:  # only on-screen actions reported: the leader says they're done
+                        # (an empty message ended JR-claude-web r3 as a harness failure, 2026-11-19)
+                        msg = "Done." if reported else "OK."
                     acts = sum(a for _, a in screens) + reported + platform.on_leader(msg, ws)
                     msg_kind = "student"
                     for w in s.get("run_writes", []):

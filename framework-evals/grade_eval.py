@@ -518,6 +518,7 @@ _MON = r"((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*)"
 DATE_SAID = re.compile(r"\b(?:(\d{1,2}) " + _MON + r"|" + _MON + r"\.? (\d{1,2}))\b")
 # Build rounds 2026-11-18: about 11 of 59 rubric-6 flags were facts in tool output cut off here
 TOOL_LINES_CAP = 3000
+SHORT_NUM = re.compile(r"(?<![\w.])(\d{1,2})(?![\w.]) ([A-Za-z]{3,})")
 TOOL_LINE_LEN = 300
 
 
@@ -532,7 +533,11 @@ def tool_lines(run, msgs):
     for m in msgs:
         for d, mon, mon2, d2 in DATE_SAID.findall(m):
             facts.add(f"-{MONTHS.index((mon or mon2)[:3].title()) + 1:02d}-{int(d or d2):02d}")
-    if not facts:
+    # a short number ("71 words", "12 members") is too common to match alone: match it with the
+    # stem of the word after it, both on the same tool line ("word count: 71"). Trial 2026-11-19:
+    # about half the rubric-6 number flags were counts a check agent's result printed.
+    pairs = {(n, w[:4].lower()) for m in msgs for n, w in SHORT_NUM.findall(m)}
+    if not facts and not pairs:
         return ""
     words = {w for m in msgs for w in re.findall(r"[A-Za-z][\w.-]{3,}", m)} - facts
     cands = []
@@ -542,7 +547,8 @@ def tool_lines(run, msgs):
         for res in _tool_results(Path(s["root"]).parent / "events.jsonl"):
             for ln in res.splitlines():
                 ln = re.sub(r"\s+", " ", ln.strip())[:TOOL_LINE_LEN]
-                if ln and ln not in cands and any(f in ln for f in facts):
+                if ln and ln not in cands and (any(f in ln for f in facts) or any(
+                        re.search(rf"(?<![\w.]){n}(?![\w.])", ln) and w in ln.lower() for n, w in pairs)):
                     cands.append(ln)
     out, total = [], 0
     for ln in sorted(cands, key=lambda ln: not any(w in ln.split() for w in words)):
