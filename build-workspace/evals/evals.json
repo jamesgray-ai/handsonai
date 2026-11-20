@@ -4722,10 +4722,10 @@
    "spec_item": "13 Part 2: a shared skill (3c-DV: other live workflows paused, a kept copy)",
    "fixture": "extend-shared",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
-   "student": "students/default.md",
+   "student": "students/shared-skill.md",
    "expected_output": "Extend existing: N-B25 with the before-and-after and Client Check-In named, asked before anything of the skill is written; the change staged in package/ and installed only in Part 3; Client Check-In is live, so N-B41 for its schedule and a kept copy of drafting-client-emails' current version come before that install.",
    "files": [
-    "students/default.md"
+    "students/shared-skill.md"
    ],
    "expectations": [
     {

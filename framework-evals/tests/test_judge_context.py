@@ -341,5 +341,14 @@ class BuildRoundContext(unittest.TestCase):
         self.assertIn("Word count: 71", out)
         self.assertNotIn("Found 71 rows", out)  # the number alone, without its word, isn't enough
 
+    def test_the_settings_a_session_wrote_are_shown(self):
+        # trial 3: "the four test-run.sh lines under allow" was true but flagged; .claude/ was never shown
+        settings = '{"permissions": {"allow": ["Bash(framework/.bin/test-run.sh *)"]}}'
+        run = {"sessions": [{"files_start": {}, "files_end": {".claude/settings.local.json": settings}}]}
+        self.assertIn("test-run.sh", G.settings_files(run))
+        same = {"sessions": [{"files_start": {".claude/settings.local.json": settings},
+                              "files_end": {".claude/settings.local.json": settings}}]}
+        self.assertEqual(G.settings_files(same), "")
+
 if __name__ == "__main__":
     unittest.main()

@@ -234,7 +234,9 @@ class Line:
             return False
         nm = norm(message)
         longest = self.longest
-        if longest and _pre(longest) not in _pre(nm):
+        # the literal's leading stop can sit inside a closing quote in the message ("…owns it.' It
+        # changes"), which the regex allows: leave it out of the prefilter (P2-shared-skill, trial 3)
+        if longest and _pre(longest).lstrip(".;:, ") not in _pre(nm):
             return False
         return bool(self.regex.search(nm))
 

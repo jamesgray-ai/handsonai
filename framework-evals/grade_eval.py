@@ -783,6 +783,25 @@ def _load_events(path):
     return out
 
 
+SETTINGS_LABEL = "## The project's Claude Code settings as each session left them (context, not graded)\n\n"
+SETTINGS_CAP = 1500
+
+
+def settings_files(run):
+    """`.claude/settings.local.json` as each session left it, where the session changed it: the block's
+    deny rules and the test helper's allow rules Build wrote there. The file context leaves out dot
+    folders, so "the four `test-run.sh` lines under allow" (true: the wrapper adds four) was flagged
+    as invented in four trial-3 runs (2026-11-20). Capped at SETTINGS_CAP characters."""
+    out = []
+    for k, s in enumerate(run["sessions"], 1):
+        end = (s.get("files_end") or {}).get(".claude/settings.local.json")
+        if not end or end == (s.get("files_start") or {}).get(".claude/settings.local.json"):
+            continue
+        label = f"Session {k}: " if len(run["sessions"]) > 1 else ""
+        out.append(f"{label}.claude/settings.local.json\n{end.strip()}")
+    return H.scrub("\n\n".join(out))[:SETTINGS_CAP]
+
+
 def session_tools(run):
     """The tools each session had, from its first init message: the connection tools (mcp__…) by full
     name, so "this Gmail connection also offers a send action" or "it can't delete drafts" is checked
@@ -962,6 +981,8 @@ def rubric_prompt(run):
     read += f"{INPUTS_LABEL}{inputs}\n\n" if inputs else ""
     docs = platform_docs(run, msgs)
     read += f"{DOCS_LABEL}````\n{docs}\n````\n\n" if docs else ""
+    settings = settings_files(run)
+    read += f"{SETTINGS_LABEL}````\n{settings}\n````\n\n" if settings else ""
     calls = tool_calls(run)
     read += f"{COMMANDS_LABEL}````\n{calls}\n````\n\n" if calls else ""
     skill = skill_passages(run, msgs)

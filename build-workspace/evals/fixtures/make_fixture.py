@@ -1034,14 +1034,27 @@ def fx_live_install_partway(t):  # a live change stopped partway through Part 3'
     text = rec.read_text()
     text = text.replace("| T2 | New skill: S1 | C1 | client-follow-up skill | `.claude/skills/client-follow-up/SKILL.md` | Created | yes | 1 |",
                         "| T2 | New skill: S1 | C1 | client-follow-up skill | `package/client-follow-up/SKILL.md` | Created | yes | 2 |")
-    # T2's second row (its style guide's runtime copy) was rebuilt at rev 2 too: left at rev 1, it made
-    # T2 look unbuilt, so Build rebuilt it instead of finishing the install (trial 2, 2026-11-20)
+    # The install had started: T2's style guide (its runtime copy) is already installed at rev 2 and the
+    # skill itself is still staged. Left at rev 1, it made T2 look unbuilt, so Build rebuilt it; both
+    # staged, nothing looked started, so no "don't run it yet" was owed (trials 2 and 3, 2026-11-20)
     old = "| T2 | — | C1 | Follow-up style guide (runtime copy) | `.claude/skills/client-follow-up/references/follow-up-style.md` | Created | yes | 1 |"
     assert old in text, "T2's style-guide row moved"
-    text = text.replace(old, "| T2 | — | C1 | Follow-up style guide (runtime copy) | `package/client-follow-up/references/follow-up-style.md` | Created | yes | 2 |")
+    text = text.replace(old, old[:-len(" 1 |")] + " 2 |")
+    # the install's earlier steps: the leader paused (no schedule) and a copy of the live version was kept
+    kept = "history/kept-copy-2026-11-19-1400"
+    assert "- Nothing is waiting.\n" in text, "the record's waiting line moved"
+    text = text.replace("- Nothing is waiting.\n", "- Waiting: the changed follow-up skill is checked and staged; its install had started.\n")
+    for line, filled in (("- The kept copy: none yet.", f"- The kept copy: `framework/client-follow-up/{kept}/`."),
+                         ("- Put back the kept copy: no kept copy yet.",
+                          f"- Put back the kept copy: copy `framework/client-follow-up/{kept}/client-follow-up/` over "
+                          "`.claude/skills/client-follow-up/`.")):
+        assert line in text, f"{line!r} moved"
+        text = text.replace(line, filled)
     rec.write_text(text)
-    write(wf(t) / "package" / "client-follow-up" / "references" / "follow-up-style.md",
-          (Path(t) / ".claude" / "skills" / "client-follow-up" / "references" / "follow-up-style.md").read_text())
+    skill_dir = Path(t) / ".claude" / "skills" / "client-follow-up"
+    write(wf(t) / kept / "client-follow-up" / "SKILL.md", (skill_dir / "SKILL.md").read_text())
+    write(wf(t) / kept / "client-follow-up" / "references" / "follow-up-style.md",
+          (skill_dir / "references" / "follow-up-style.md").read_text())
     # the changed, checked text: C1's numbered next steps built in (T2 rev 2), staged for the install
     write(wf(t) / "package" / "client-follow-up" / "SKILL.md", built_skill("code", numbered=True))
 

@@ -118,5 +118,14 @@ class NamedFormIncludesItsDerivedForms(unittest.TestCase):
                              for f in forms))
 
 
+
+class StopInsideAClosingQuote(unittest.TestCase):
+    def test_a_line_whose_hole_ends_in_a_quoted_sentence_matches(self):
+        # P2-shared-skill run 3 (trial 3): N-B25 said exactly, its [before and after] ending "…owns it.'"
+        f = AL.load().get("N-B25", "main")[0]
+        self.assertTrue(f.matches("drafting-client-emails is also used by Client Check-In. Here's the change: "
+                                  "before, it says \"Sign with your first name.\"; after, it says \"List every "
+                                  "next step agreed.\" It changes those workflows too. Shall I make it?"))
+
 if __name__ == "__main__":
     unittest.main()
