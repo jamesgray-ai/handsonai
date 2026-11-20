@@ -244,16 +244,46 @@ def agent_m365(t, context=True, connection=True):
 
 CHECKED = ("AC1", "AC2", "AC3", "R1", "R3")  # the lines E1's practice run is checked against (T2's Done when)
 
+# Thirty-two next steps, each with its owner: even at a few words each they come to well over 150
+# words, so AC1 (every step with its owner) and AC3 (under 150 words) can't both be met and the fix
+# needs AC3 changed. Six steps fit easily, so Build fixed the skill and never reached the misses path
+# (trial 2, 2026-11-20).
 SIX_STEPS = """source: deconstruct
 tests: AC1, AC3
 
-Call with Priya Shah (Harbour Freight), quarterly review of the reporting rollout.
-- Send the revised rollout plan by Tuesday. Owner: me.
-- Share the dashboard access list with their admins. Owner: Priya.
-- Book the admin training for the second week of next month. Owner: me.
+Call with Priya Shah (Harbour Freight), quarterly review of the reporting rollout. Next steps:
+- Send the revised rollout plan. Owner: me.
+- Share the dashboard access list. Owner: Priya.
+- Book the admin training. Owner: me.
 - Confirm the data retention settings. Owner: Tom at Harbour.
 - Send the invoice for the extra seats. Owner: our billing team.
-- Set up a check-in call after the training. Owner: me.
+- Set up the post-training check-in. Owner: me.
+- Draft the customer story outline. Owner: Lena on our side.
+- Send the board pack export template. Owner: me.
+- Confirm single sign-on settings. Owner: Marcus at Harbour.
+- Share last quarter's uptime report. Owner: our support lead.
+- Agree the Leeds depot pilot date. Owner: Tom at Harbour.
+- Send forecasting add-on pricing. Owner: me.
+- Update the three open support tickets. Owner: our support lead.
+- Introduce Priya to our product manager. Owner: me.
+- Confirm who signs the renewal. Owner: Priya.
+- Send the meeting notes to everyone. Owner: me.
+- Map their regional reporting hierarchy. Owner: Priya.
+- Fix the duplicate depot codes. Owner: our data team.
+- Send the API rate-limit guide. Owner: our support lead.
+- Test the Leeds data feed. Owner: Marcus at Harbour.
+- Book the roadmap session. Owner: me.
+- Send the accessibility statement. Owner: Lena on our side.
+- Confirm the March budget figures. Owner: Tom at Harbour.
+- Share the admin quick-start guide. Owner: me.
+- Set up their sandbox account. Owner: our data team.
+- Agree the escalation contacts. Owner: Priya.
+- Send the security questionnaire answers. Owner: our security lead.
+- Confirm the training room booking. Owner: Tom at Harbour.
+- Review the custom report requests. Owner: me.
+- Send the case study consent form. Owner: Lena on our side.
+- Confirm their holiday freeze dates. Owner: Priya.
+- Schedule the next quarterly review. Owner: me.
 """
 
 
@@ -262,16 +292,16 @@ def fix_round(t, *, task="T2", line="AC2", cause="The draft adds a renewal amoun
     """After Build's close, round 1 is Not ready with one Issues row (rules 6.5). The row, the run's results in
     the frontmatter, the report card and the input it names agree: `line` is the one line not met, on
     `input_id`; every other line checked is met. An input other than E1 or E2 is written into inputs/ and the
-    requirements' Example Scenarios (fix-requirement's six next steps: E1 has three, so a miss on 150 words
+    requirements' Example Scenarios (fix-requirement's thirty-two next steps: E1 has three, so a miss on 150 words
     there would contradict the notes; Build rightly questioned it, 2026-11-18)."""
     task_cell = "" if artifact else task
     runs = {"E1": dict.fromkeys(CHECKED, "met"), "E2": dict.fromkeys(("AC2", "AC3", "R1"), "met")}
     if input_id not in runs:
         runs[input_id] = dict.fromkeys(("AC1", "AC3"), "met")
-        write(wf(t) / "inputs" / f"{input_id}-six-next-steps.md", SIX_STEPS)
+        write(wf(t) / "inputs" / f"{input_id}-thirty-two-next-steps.md", SIX_STEPS)
         sub(req(t), "| It asks you for a next step before it drafts anything | — |",
             "| It asks you for a next step before it drafts anything | — |\n"
-            f"| {input_id} | Six next steps (real) | `inputs/{input_id}-six-next-steps.md` — notes from a review call with six next steps | All six next steps, each with its owner, under 150 words | — |")
+            f"| {input_id} | Thirty-two next steps (real) | `inputs/{input_id}-thirty-two-next-steps.md` — notes from a review call with thirty-two next steps | All thirty-two next steps, each with its owner, under 150 words | — |")
     runs[input_id][line] = "not-met"
     edits = {"E1": "none", "E2": "minor"}
     ran = " and ".join(runs) if len(runs) == 2 else ", ".join(list(runs)[:-1]) + " and " + list(runs)[-1]
@@ -815,7 +845,7 @@ def fx_fix_mode_artifact(t):  # the Issues row names no task: mapped through the
 def fx_fix_requirement(t):  # after Build's first close, the fix needs AC3 changed (a must-have can't fit in 150 words)
     ff(t, S08)
     real_fingerprints(t)
-    fix_round(t, line="AC3", cause="Six next steps with owners can't fit in 150 words", change="Allow a longer draft when there are many next steps",
+    fix_round(t, line="AC3", cause="Thirty-two next steps with owners can't fit in 150 words", change="Allow a longer draft when there are many next steps",
               input_id="E3")
 
 
@@ -1004,7 +1034,14 @@ def fx_live_install_partway(t):  # a live change stopped partway through Part 3'
     text = rec.read_text()
     text = text.replace("| T2 | New skill: S1 | C1 | client-follow-up skill | `.claude/skills/client-follow-up/SKILL.md` | Created | yes | 1 |",
                         "| T2 | New skill: S1 | C1 | client-follow-up skill | `package/client-follow-up/SKILL.md` | Created | yes | 2 |")
+    # T2's second row (its style guide's runtime copy) was rebuilt at rev 2 too: left at rev 1, it made
+    # T2 look unbuilt, so Build rebuilt it instead of finishing the install (trial 2, 2026-11-20)
+    old = "| T2 | — | C1 | Follow-up style guide (runtime copy) | `.claude/skills/client-follow-up/references/follow-up-style.md` | Created | yes | 1 |"
+    assert old in text, "T2's style-guide row moved"
+    text = text.replace(old, "| T2 | — | C1 | Follow-up style guide (runtime copy) | `package/client-follow-up/references/follow-up-style.md` | Created | yes | 2 |")
     rec.write_text(text)
+    write(wf(t) / "package" / "client-follow-up" / "references" / "follow-up-style.md",
+          (Path(t) / ".claude" / "skills" / "client-follow-up" / "references" / "follow-up-style.md").read_text())
     # the changed, checked text: C1's numbered next steps built in (T2 rev 2), staged for the install
     write(wf(t) / "package" / "client-follow-up" / "SKILL.md", built_skill("code", numbered=True))
 

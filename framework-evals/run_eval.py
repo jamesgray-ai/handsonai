@@ -189,8 +189,9 @@ def connect_now(ai_text, leader_msg):
 
 # The restart, in Build's own wording: "restart", "needs restarting", or closing Claude Code and
 # opening it again ("quit Claude Code and open it again", "close this session and open a new one").
-# Five trial runs (2026-11-19) asked in those words and lost their second session.
-RESTART_RE = re.compile(r"\brestart|\b(?:close|quit|exit)\b[^.?!]{0,80}\b(?:open|start|launch)\b[^.?!]{0,40}"
+# Five trial runs (2026-11-19) asked in those words and lost their second session; trial 2 added
+# "end this session and start Claude Code again".
+RESTART_RE = re.compile(r"\brestart|\b(?:close|quit|exit|end)\b[^.?!]{0,80}\b(?:open|start|launch)\b[^.?!]{0,40}"
                         r"\b(?:again|a new one|a new session|a fresh one)\b", re.I)
 # The pick-up phrase in the restart line: with "My files are in [location]." where a location is
 # said, and without it on Claude Code, where [location] is nothing (build SKILL.md: "To pick up, start a

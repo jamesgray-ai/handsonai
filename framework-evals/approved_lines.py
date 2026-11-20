@@ -374,8 +374,12 @@ class Corpus:
         self._index = None
 
     def get(self, line_id, form=None):
+        # a named form includes the variants derived from it ("after an orientation line, no draft":
+        # a clause with nothing in it is left out); EN-orientation failed 3/3 on a correct opening
+        # with no draft to check (trial 2, 2026-11-20)
         forms = self.by_id.get(line_id, [])
-        return [f for f in forms if form is None or f.form == form]
+        return [f for f in forms if form is None or f.form == form
+                or (getattr(f, "derived", False) and f.form.startswith(form + ", "))]
 
     def checkable(self):
         return [ln for ln in self.lines if ln.text and not ln.fragment]

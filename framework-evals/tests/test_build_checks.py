@@ -95,5 +95,28 @@ class NF2InsideNF10(unittest.TestCase):
         msg = "Then open a new session in this project and say 'run the build skill.'"
         self.assertIn("N-F2", [i for i, _ in self.ids(msg)])
 
+
+
+class NamedFormIncludesItsDerivedForms(unittest.TestCase):
+    """A quote check naming a form also accepts that form with an empty clause left out (trial 2,
+    2026-11-20: EN-orientation failed 3/3 on a correct opening with no draft to check)."""
+
+    OPENING = ("Build makes your workflow for Client Follow-Up from your approved plan, task by task, checking each "
+               "part as it goes. First I'll need you to set up a Project for your workflow, connect Gmail and OK 2 "
+               "quick real checks and setup changes; then I build and check the rest, and I'll ask you to confirm "
+               "about 5 things along the way. Stopping early is safe: progress is saved after each task. To pick up, "
+               "say 'run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.' "
+               "Let's start with the Project for your workflow.")
+
+    def test_no_draft_variant_counts_as_the_named_form(self):
+        forms = AL.load().get("N-B4", "after an orientation line")
+        self.assertTrue(any(f.matches(self.OPENING) for f in forms))
+
+    def test_another_approved_form_is_not_pulled_in(self):
+        forms = AL.load().get("N-B4", "Every task waits")
+        self.assertFalse(any(f.form.startswith("Every task waits, after an orientation line") and not f.derived
+                             for f in forms))
+
+
 if __name__ == "__main__":
     unittest.main()
