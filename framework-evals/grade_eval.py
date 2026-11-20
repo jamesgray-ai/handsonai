@@ -516,7 +516,9 @@ FACT = re.compile(MONTH_DAY + r"|[\w.+-]*\d[\w.+-]*|[\w.+-]+@[\w-]+(?:\.[\w-]+)+
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 _MON = r"((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*)"
 DATE_SAID = re.compile(r"\b(?:(\d{1,2}) " + _MON + r"|" + _MON + r"\.? (\d{1,2}))\b")
-TOOL_LINES_CAP = 1500
+# Build rounds 2026-11-18: about 11 of 59 rubric-6 flags were facts in tool output cut off here
+TOOL_LINES_CAP = 3000
+TOOL_LINE_LEN = 300
 
 
 def tool_lines(run, msgs):
@@ -539,7 +541,7 @@ def tool_lines(run, msgs):
             continue
         for res in _tool_results(Path(s["root"]).parent / "events.jsonl"):
             for ln in res.splitlines():
-                ln = re.sub(r"\s+", " ", ln.strip())[:200]
+                ln = re.sub(r"\s+", " ", ln.strip())[:TOOL_LINE_LEN]
                 if ln and ln not in cands and any(f in ln for f in facts):
                     cands.append(ln)
     out, total = [], 0
@@ -616,7 +618,7 @@ def state_lines(run):
 
 WORD = re.compile(r"[a-z0-9]+(?:'[a-z]+)?")
 SHARED_RUN = 4  # consecutive words a tool-output passage must share with a message
-SHARED_LINES_CAP = 1500
+SHARED_LINES_CAP = 3000
 SHARED_LINE_LEN = 300
 SHARED_NOUN_CAP = 600  # characters of passages sharing only a three-word noun run
 NOUN_WORD = 5  # letters in a "long" word of a three-word run (_noun_grams)
@@ -752,6 +754,167 @@ SKILL_LABEL = ("## The step's own instructions, passages the messages echo (cont
                "give) is invented (item 6).\n\n")
 
 
+def _events(run):
+    """(session number, events path) for each session of the run that has its events."""
+    for k, s in enumerate(run["sessions"], 1):
+        if s.get("root"):
+            yield k, Path(s["root"]).parent / "events.jsonl"
+
+
+def _load_events(path):
+    try:
+        lines = Path(path).read_text(errors="replace").splitlines()
+    except OSError:
+        return []
+    out = []
+    for line in lines:
+        try:
+            e = json.loads(line)
+        except ValueError:
+            continue
+        if isinstance(e, dict):
+            out.append(e)
+    return out
+
+
+def session_tools(run):
+    """The tools each session had, from its first init message: the connection tools (mcp__…) by full
+    name, so "this Gmail connection also offers a send action" or "it can't delete drafts" is checked
+    against what the session was offered (Build rounds 2026-11-18: 8 runs flagged on rubric 6 for
+    exactly that), and the others in one line."""
+    out, many = [], len(run["sessions"]) > 1
+    for k, path in _events(run):
+        init = next((e for e in _load_events(path) if e.get("type") == "system" and e.get("subtype") == "init"), None)
+        if not init:
+            continue
+        tools = [str(t) for t in init.get("tools") or []]
+        mcp = [t for t in tools if t.startswith("mcp__")]
+        own = [t for t in tools if not t.startswith("mcp__")]
+        head = f"Session {k}: " if many else ""
+        out.append(f"{head}connection tools: {', '.join(mcp) if mcp else 'none'}")
+        out.append(f"{head}other tools: {', '.join(own) if own else 'none'}")
+    return "\n".join(out)
+
+
+TOOLS_LABEL = ("## The tools the session was offered (context, not graded)\n\n"
+               "From the session's own start-up message. A connection's tools (`mcp__[connection]__[action]`) "
+               "are the actions it offers: a message saying the connection offers, or lacks, an action is backed "
+               "or contradicted by this list.\n\n")
+
+INPUTS_CAP = 6000
+INPUT_FILE_CAP = 2000
+
+
+def practice_inputs(run):
+    """The workflow's practice inputs the leader brought (`inputs/` in a framework folder: the call notes
+    and examples checks run on), each whole up to INPUT_FILE_CAP, in all up to INPUTS_CAP. A check
+    agent reads them, so the main thread's tool results may never hold them, and a name or detail the
+    AI quotes from one ("Dana Ortiz") was judged invented (Build rounds 2026-11-18, 4 runs)."""
+    out, total, seen = [], 0, set()
+    for rel, text in CS.leader_files(run):
+        if "/inputs/" not in f"/{rel}" or rel in seen or not text.strip():
+            continue
+        seen.add(rel)
+        body = text.strip()
+        body = body if len(body) <= INPUT_FILE_CAP else body[:INPUT_FILE_CAP] + "\n[…cut]"
+        if total + len(body) > INPUTS_CAP:
+            continue
+        out.append(f"### {rel}\n\n````\n{body}\n````")
+        total += len(body)
+    return "\n\n".join(out)
+
+
+INPUTS_LABEL = ("## The workflow's practice inputs the leader brought (context, not graded)\n\n"
+                "The leader's own files: a detail found in them is backed.\n\n")
+
+DOCS_KEYS = {"claude-code": "claude-code", "claude-web": "claude", "claude-desktop": "claude", "chatgpt": "chatgpt",
+             "codex": "openai-codex", "microsoft-365": "microsoft-365-copilot"}
+DOCS_FILE = HERE.parent / "plugins" / "handsonai" / "registries" / "platform-docs.json"
+
+
+def platform_docs(run, msgs=()):
+    """The entries of the plugin's platform-docs.json (the official pages the step points the leader
+    to) for each session's platform, and any other platform's entry whose page a message names, one
+    line per topic: from the plugin copy the session ran with (its run root's plugin/), else this
+    repo's. A help page a message links ("help.openai.com/…/skills-in-chatgpt") then reads as one the
+    step was given, not an invented one (Build rounds 2026-11-18, 2 runs)."""
+    data = None
+    for s in run["sessions"]:
+        if s.get("root"):
+            f = Path(s["root"]).parents[1] / "plugin" / "registries" / "platform-docs.json"
+            if f.exists():
+                data = f
+                break
+    try:
+        docs = json.loads((data or DOCS_FILE).read_text()).get("platforms") or {}
+    except (OSError, ValueError):
+        return ""
+    keys = [DOCS_KEYS[s["platform"]] for s in run["sessions"] if DOCS_KEYS.get(s.get("platform"))]
+    said = " ".join(msgs)
+    for key, p in docs.items():
+        urls = [u for v in (p.get("docs") or {}).values() for u in v]
+        if any(re.sub(r"^https?://", "", u).rstrip("/") in said for u in urls):
+            keys.append(key)
+    out = []
+    for key in dict.fromkeys(keys):
+        p = docs.get(key)
+        if not p:
+            continue
+        out.append(f"{p.get('name', key)}:")
+        out += [f"- {topic}: {', '.join(urls)}" for topic, urls in (p.get("docs") or {}).items() if urls]
+    return "\n".join(out)
+
+
+DOCS_LABEL = ("## The platform's official pages the step was given (its platform-docs.json; context, not graded)\n\n"
+              "The step is told to point the leader to these pages: a link to one is backed. They hold no fact "
+              "about the leader's work.\n\n")
+
+COMMANDS_CAP = 6000
+COMMAND_LEN = 240
+RESULT_LEN = 500
+
+
+def tool_calls(run):
+    """The AI's own tool calls and what each returned, cut short: every connection call (mcp__…, its
+    input up to COMMAND_LEN) and every Bash command that isn't a read of the step's own text, each with
+    the start of its result. Calls with short results first (a `crontab -l`, a `git log`, a `diff`, a
+    draft's address), then in order, up to COMMANDS_CAP. A claim backed only by a check the AI ran
+    ("nothing is scheduled on this computer", "`# edited` was added at the end") was judged invented
+    when no word run of it matched the output (Build rounds 2026-11-18, about 11 runs)."""
+    rows = []
+    for _, path in _events(run):
+        calls = {}
+        for e in _load_events(path):
+            msg = e.get("message")
+            content = msg.get("content") if isinstance(msg, dict) else None
+            for b in content if isinstance(content, list) else []:
+                if not isinstance(b, dict):
+                    continue
+                if e.get("type") == "assistant" and b.get("type") == "tool_use":
+                    name, inp = str(b.get("name") or ""), b.get("input") or {}
+                    if name == "Bash" and not _instruction_call(b):
+                        calls[b.get("id")] = "$ " + re.sub(r"\s+", " ", str(inp.get("command") or ""))[:COMMAND_LEN]
+                    elif name.startswith("mcp__"):
+                        calls[b.get("id")] = f"{name} " + json.dumps(inp, ensure_ascii=False)[:COMMAND_LEN]
+                elif e.get("type") == "user" and b.get("type") == "tool_result" and b.get("tool_use_id") in calls:
+                    res = _result_text(b).strip()
+                    call = calls.pop(b.get("tool_use_id"))
+                    short = res if len(res) <= RESULT_LEN else res[:RESULT_LEN] + " […cut]"
+                    rows.append((len(res) > RESULT_LEN, len(rows), f"{call}\n{short or '(no output)'}"))
+    out, total = [], 0
+    for _, _, row in sorted(rows):
+        if total + len(row) > COMMANDS_CAP:
+            continue
+        out.append(row)
+        total += len(row) + 2
+    return "\n\n".join(out)
+
+
+COMMANDS_LABEL = ("## The AI's own commands and connection calls, with what each returned (context, not graded)\n\n"
+                  "Each result is cut short. A fact a result shows (nothing scheduled, a commit's message, a "
+                  "draft's address, a line a diff shows) is backed.\n\n")
+
+
 def rubric_prompt(run):
     """Each AI message, with what the leader said just before it as context (not graded), so
     item 6 can tell a fact the leader gave from an invented one; and, once at the top, what the AI
@@ -784,6 +947,14 @@ def rubric_prompt(run):
     tools = "\n".join(x for x in (state_lines(run), tools, shared, name_lines(run, msgs)) if x)
     read +=(f"## Lines the AI's own tool calls printed (context, not graded)\n\n````\n{tools}\n````\n\n"
              if tools else "")
+    offered = session_tools(run)
+    read += f"{TOOLS_LABEL}````\n{offered}\n````\n\n" if offered else ""
+    inputs = practice_inputs(run)
+    read += f"{INPUTS_LABEL}{inputs}\n\n" if inputs else ""
+    docs = platform_docs(run, msgs)
+    read += f"{DOCS_LABEL}````\n{docs}\n````\n\n" if docs else ""
+    calls = tool_calls(run)
+    read += f"{COMMANDS_LABEL}````\n{calls}\n````\n\n" if calls else ""
     skill = skill_passages(run, msgs)
     read += f"{SKILL_LABEL}````\n{skill}\n````\n\n" if skill else ""
     return msgs, f"Grade each of these {len(msgs)} messages on the rubric.\n\n{read}{body}"

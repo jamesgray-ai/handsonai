@@ -258,6 +258,17 @@ def _edit_distance(a, b, cap):
 
 
 PLATFORM_REFUSE_LABELS = [("Cancel", "Copilot Cowork")]
+OPTIONAL_STOP_AFTER = {"N-B8": "[the content]"}  # a fill that can be a block-quoted draft (see Corpus)
+# A near miss of one line whose words are, exactly, part of another line's fixed run is that other line
+# said, not the first one reworded: N-F10's platform forms ("To pick up, start a new session in this
+# project and say…", "…open a new chat with your working folder selected and say…") hold the words N-F2's
+# forms are fuzzy-matched against ("in a new session in this project and say"). Build rounds 2026-11-18.
+SAID_AS = {"N-F2": ("N-F10",)}
+
+
+def _contains(seq, sub):
+    n = len(sub)
+    return n > 0 and any(seq[i:i + n] == sub for i in range(len(seq) - n + 1))
 
 
 class Corpus:
@@ -285,6 +296,15 @@ class Corpus:
                     if f"Part {n} of {m} in this fix" != e["text"]:
                         self.lines.append(Line(dict(e, form=f"{e['form']}, {n} of {m}",
                                                     text=f"Part {n} of {m} in this fix", files={}, derived=True)))
+        # N-B8's [the content] is often the draft itself, block-quoted, which ends on its sign-off ("> Alex")
+        # with no full stop before "I haven't…": the stop after the content is then optional (Build rounds
+        # 2026-11-18, JR-claude-web and JR-chatgpt). Every word stays the approved line's own.
+        for e in data["lines"]:
+            if e["id"] in OPTIONAL_STOP_AFTER and e.get("text") and not e.get("clause"):
+                hole = OPTIONAL_STOP_AFTER[e["id"]]
+                if f"{hole}. " in e["text"]:
+                    self.lines.append(Line(dict(e, form=f"{e['form']}, content with no full stop",
+                                                text=e["text"].replace(f"{hole}. ", f"{hole} ", 1), files={}, derived=True)))
         # a line said "in N-F2's new-chat form" (the bring-in line) has its platform forms approved as
         # fragments of that form ("in a new session", "in a new chat with your working folder selected",
         # "in a new Cowork chat with:…"); the whole line each makes is the same approved line on that platform
@@ -449,6 +469,9 @@ class Corpus:
                         continue
                     _, a, L, win = best
                     if _edge_word_only(seg, win) or _start_phrase_only(seg, win):
+                        continue
+                    if any(_contains(s2, win) for other in SAID_AS.get(ln.id, ())
+                           for o in self.by_id.get(other, []) for s2 in o.segments):
                         continue
                     if any(min(a + L, e) - max(a, s) >= min(L, e - s) * 0.5 for s, e in exact):
                         continue

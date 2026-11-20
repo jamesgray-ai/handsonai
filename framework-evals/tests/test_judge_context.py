@@ -256,5 +256,74 @@ class PickedCard(unittest.TestCase):
         self.assertIn("A one-page follow-up email", G.files_read(run, ["x"]))
 
 
+class BuildRoundContext(unittest.TestCase):
+    """Build rounds 2026-11-18: about 44% of the rubric-6 flags were backed by what the judge wasn't
+    shown: the session's tool list, the practice inputs, platform-docs.json, and tool results cut short."""
+
+    INIT = {"type": "system", "subtype": "init", "tools": [
+        "Read", "Bash", "Task", "mcp__gmail__get_profile", "mcp__gmail__list_messages",
+        "mcp__gmail__create_draft", "mcp__gmail__send_message"]}
+
+    def test_the_session_tool_list_names_each_connection_action(self):
+        msg = "This Gmail connection also offers a send action, and it can't delete drafts."
+        run = run_with([self.INIT], text=msg)
+        offered = G.session_tools(run)
+        self.assertIn("mcp__gmail__send_message", offered)
+        self.assertNotIn("delete_draft", offered)
+        self.assertIn("other tools: Read, Bash, Task", offered)
+        head = G.rubric_prompt(run)[1].split("## Message 1")[0]
+        self.assertIn("## The tools the session was offered", head)
+        self.assertIn("mcp__gmail__create_draft", head)
+
+    def test_the_practice_inputs_are_shown_whole(self):
+        files = {"framework/client-follow-up/inputs/E1-acme-renewal-call.md":
+                 "source: deconstruct\ntests: AC1\n\nCall with Dana Ortiz (Acme). Lee was happy with the reporting.",
+                 "framework/client-follow-up/requirements.md": "W1 · Gmail · create a draft"}
+        msg = "Dana Ortiz said Lee was happy with the reporting."
+        run = run_with([], files=files, text=msg)
+        out = G.practice_inputs(run)
+        self.assertIn("inputs/E1-acme-renewal-call.md", out)
+        self.assertIn("Lee was happy with the reporting", out)
+        self.assertNotIn("requirements.md", out)
+        self.assertIn("## The workflow's practice inputs the leader brought", G.rubric_prompt(run)[1])
+
+    def test_the_platform_docs_entry_of_the_sessions_platform(self):
+        msg = "OpenAI's page \"Skills in ChatGPT\" (help.openai.com/en/articles/20001066-skills-in-chatgpt) shows it."
+        run = run_with([], text=msg)
+        run["sessions"][0]["platform"] = "chatgpt"
+        out = G.platform_docs(run, [msg])
+        self.assertIn("ChatGPT:", out)
+        self.assertIn("help.openai.com", out)
+        self.assertNotIn("Claude Code:", out)
+        # another platform's entry only when a message names one of its pages
+        run["sessions"][0]["platform"] = "claude-code"
+        self.assertIn("ChatGPT:", G.platform_docs(run, [msg]))
+        self.assertNotIn("ChatGPT:", G.platform_docs(run, ["nothing linked"]))
+        self.assertIn("## The platform's official pages", G.rubric_prompt(run)[1])
+
+    def test_a_short_check_result_is_shown_with_its_command(self):
+        # LV-staged runs: "Nothing is scheduled on this computer" rested on crontab -l and a LaunchAgents look
+        big = "x" * 5000
+        events = (call_and_result(1, "Bash", {"command": "cat framework/x/build-record.md"}, big)
+                  + call_and_result(2, "Bash", {"command": "crontab -l 2>&1; ls ~/Library/LaunchAgents 2>&1"},
+                                    "crontab: no crontab for leader\nls: /x/home/Library/LaunchAgents: No such file or directory")
+                  + call_and_result(3, "mcp__gmail__create_draft", {"to": "alex@brightline.example", "subject": "Build check, delete me"},
+                                    "Draft created: r-123")
+                  + call_and_result(4, "Bash", {"command": f"cat {REF}"}, "Example: within 48 hours"))
+        run = run_with(events, text="Nothing is scheduled on this computer.")
+        out = G.tool_calls(run)
+        self.assertIn("$ crontab -l 2>&1; ls ~/Library/LaunchAgents 2>&1\ncrontab: no crontab for leader", out)
+        self.assertIn('mcp__gmail__create_draft {"to": "alex@brightline.example"', out)
+        self.assertLess(out.index("crontab -l"), out.index("cat framework/x/build-record.md"))  # short results first
+        self.assertIn("[…cut]", out)
+        self.assertNotIn("within 48 hours", out)  # a read of the step's own text is never a tool result
+        self.assertIn("## The AI's own commands and connection calls", G.rubric_prompt(run)[1])
+
+    def test_tool_lines_keep_more_of_each_line(self):
+        line = "commit 1a2b3c " + "word " * 50 + "my skill 2026-10-20"
+        msg = "Your Git history has the commit from 2026-10-20 called my skill."
+        self.assertIn("my skill 2026-10-20", G.tool_lines(run_with([tool_result(line)], text=msg), [msg]))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -146,13 +146,19 @@ def build_fixture(fixture, target, evals_dir, builder=None):
         raise H.HarnessFailure(f"fixture {fixture}: {r.stderr[-800:]}")
 
 
-def tools_for(ev, s):
+def tools_for(ev, s, data=None, platform=None):
+    """The skill session's tools: an eval's (or session's) `tools` kind, else SKILL_TOOLS. Build on
+    Claude Code gets the Agent tool by default (AGENT_TOOLS): its checks run in check agents, which a
+    leader's Claude Code always offers; without it every check stopped (2026-11-18, 105 of 105
+    Claude Code sessions). `tools: "skill"` asks for SKILL_TOOLS explicitly."""
     kind = s.get("tools", ev.get("tools"))
     if kind == "no_file":
         return H.NO_FILE_TOOLS
     if kind == "web":
         return H.WEB_TOOLS
     if kind == "agent":
+        return H.AGENT_TOOLS
+    if kind is None and (data or {}).get("skill_name") == "build" and getattr(platform, "key", None) == "claude-code":
         return H.AGENT_TOOLS
     return H.SKILL_TOOLS
 
@@ -172,7 +178,7 @@ def leader_prompt(turns, screens):
 # "done" to Build's "[Tool] isn't connected yet." (connect_now). Before, none are there, as for a
 # leader who hasn't connected them; without them Build could never pass Part 1 on these platforms.
 CHAT_CONNECT = ("claude-web", "chatgpt", "claude-desktop")
-NOT_CONNECTED_RE = re.compile(r"\b(Gmail|Google Sheets) isn't connected yet\b")
+NOT_CONNECTED_RE = re.compile(r"\b(Gmail|Google Sheets|Slack) isn't connected yet\b")
 DONE_RE = re.compile(r"\bdone\b", re.I)
 
 
@@ -182,7 +188,11 @@ def connect_now(ai_text, leader_msg):
 
 
 RESTART_RE = re.compile(r"\brestart\b", re.I)
-PICKUP_RE = re.compile(r"say '(run the build skill\. My files are in [^']+?\.)'")
+# The pick-up phrase in the restart line: with "My files are in [location]." where a location is
+# said, and without it on Claude Code, where [location] is nothing (build SKILL.md: "To pick up, start a
+# new session in this project and say 'run the build skill.'"). Missing that form left every Claude
+# Code first build at Part 1 (2026-11-18).
+PICKUP_RE = re.compile(r"say '(run the build skill\.(?: My files are in [^']+?\.)?)'")
 
 
 def restart_session(ev, data, platform, turns, sessions):
@@ -206,7 +216,7 @@ def restart_session(ev, data, platform, turns, sessions):
 
 def connections_for(platform, ws, root, data, extra=()):
     """The stand-in connections a Claude Code (or Codex) session of Build sees: Gmail, when the
-    workflow's plan uses it, and Google Sheets, when it does, as a leader who connected them would
+    workflow's plan uses it, and Google Sheets and Slack, when it does, as a leader who connected them would
     have (harness.stub_mcp); on Microsoft 365, the Outlook the Cowork chat reaches, when the plan uses
     Outlook. Test's evals don't get them yet: its waiting-on-access cases need a way to show Gmail not
     connected first. `extra`: the mail stand-in's optional tools an eval asks for with `stub_tools`
@@ -227,6 +237,8 @@ def connections_for(platform, ws, root, data, extra=()):
         specs.append(H.stub_spec(extra=extra))
     if re.search(r"(?m)(^|\. )Google Sheets: ", plans):
         specs.append(H.stub_spec("google_sheets", "Google Sheets", "sheets"))
+    if re.search(r"(?m)(^|\. )Slack: ", plans):  # the plans that post to #client-updates (W2)
+        specs.append(H.stub_spec("slack", "Slack", "slack"))
     return H.stub_mcp(root, specs) if specs else None
 
 
@@ -303,7 +315,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                 script = load_script(evals_dir, ev["student"])
             replies = list(s.get("replies", []))
             cap = s.get("max_turns", ev.get("max_turns", args.max_turns))
-            tools = tools_for(ev, s)
+            tools = tools_for(ev, s, data, platform)
             if "no_gmail" in (s.get("platform_faults") or ev.get("platform_faults") or []):
                 mcp = None  # a leader who hasn't connected Gmail
             else:

@@ -1569,7 +1569,7 @@
      }
     },
     {
-     "text": "The switch-on steps say how to point the existing schedule at the new version, never how to add a second one",
+     "text": "The switch-on steps set up one schedule on the new platform (a Claude scheduled task, as the plan's SCH says), never a second one beside it, and say how to remove the earlier Claude Code task if it was ever switched on",
      "kind": "judged"
     }
    ],
@@ -2190,7 +2190,16 @@
      }
     },
     {
-     "text": "The opening that follows doesn't repeat what the orientation line said",
+     "text": "The opening that follows is N-B4's form for after an orientation line",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-B4",
+      "form": "after an orientation line"
+     }
+    },
+    {
+     "text": "The opening that follows doesn't repeat what the orientation line said, apart from naming Build and the workflow in its first sentence",
      "kind": "judged"
     }
    ],
@@ -3919,7 +3928,7 @@
      "check": {
       "type": "file_regex",
       "path": "framework/client-follow-up/build-record.md",
-      "pattern": "(?m)^  \\S+: \\\"?skipped"
+      "pattern": "(?m)^  [^\\s:][^:\\n]*: \\\"?skipped"
      }
     }
    ],
@@ -4019,7 +4028,7 @@
      "check": {
       "type": "file_regex",
       "path": "framework/client-follow-up/build-record.md",
-      "pattern": "(?m)^  \\S+: \\\"?declined"
+      "pattern": "(?m)^  [^\\s:][^:\\n]*: \\\"?declined"
      }
     }
    ],
@@ -4779,7 +4788,7 @@
     "P2-open-item",
     "P3-cc-stop"
    ],
-   "expected_output": "[P2-open-item] T2 and KW wait; T1 built and saved; nothing packaged; N-B11 with no offer to start Design here. [P3-cc-stop] An open-item stop on Claude Code: N-B21a, run folders cleared, settings said, then N-B11; no last_close_after_round.",
+   "expected_output": "[P2-open-item] T2 and KW wait; T1 built and saved; nothing packaged; N-B11 with no offer to start Design here. [P3-cc-stop] An open-item stop on Claude Code with every check waiting, so no block to lift (no N-B21a): N-B11; no last_close_after_round.",
    "files": [
     "students/default.md"
    ],
@@ -4816,25 +4825,6 @@
      "check": {
       "type": "ai_not_regex",
       "pattern": "(?i)want me to (start|run) (the )?design"
-     }
-    },
-    {
-     "text": "[P3-cc-stop] N-B21a then N-B11",
-     "kind": "scripted",
-     "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-B21a",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "N-B11",
-        "form": "main"
-       }
-      ]
      }
     },
     {
@@ -7447,7 +7437,7 @@
     "JR-chatgpt",
     "P1-quick-check-chatgpt-no-label"
    ],
-   "expected_output": "[P1-older-no-chatgpt] On chatgpt: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-chatgpt] chatgpt: N-B21 once after the setup items. [P2-bare-chatgpt] Release check 16 verified: chatgpt: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-chatgpt] chatgpt: checks under the practice-run instruction in Build's own chat; no separate session started. [JR-chatgpt] A first-time leader through Build on chatgpt: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-quick-check-chatgpt-no-label] ChatGPT's one-time label is null in the registry: N-B26 without its one-time-option clause; no button named. [P1-place-chatgpt] ChatGPT: N-B4 with the Project clause, N-B17 for the workflow's own Project; project-only memory asked only once release check 15 passes, and never Claude's 'Use account memory' (N-B40). [P1-connect-chatgpt] Gmail connected with ChatGPT's own steps. [P2-staged-chatgpt] Every part staged in package/ before Part 3. [P3-install-chatgpt] Release check 19 open: no skill upload presented as working on Plus; the guided path or a plain line that skills aren't offered there; the already-there clause before any install steps.",
+   "expected_output": "[P1-older-no-chatgpt] On chatgpt: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-chatgpt] chatgpt: N-B21 once after the setup items. [P2-bare-chatgpt] Release check 16 verified: chatgpt: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-chatgpt] chatgpt: checks under the practice-run instruction in Build's own chat; no separate session started. [JR-chatgpt] A first-time leader through Build on chatgpt: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-quick-check-chatgpt-no-label] ChatGPT's one-time label is null in the registry: N-B26 without its one-time-option clause; no button named. [P1-place-chatgpt] ChatGPT: N-B4 with the Project clause, N-B17 for the workflow's own Project; project-only memory asked only once release check 15 passes, and never Claude's 'Use account memory' (N-B40). [P1-connect-chatgpt] Gmail connected with ChatGPT's own steps. [P2-staged-chatgpt] Every part staged in package/ before Part 3. [P3-install-chatgpt] The already-there clause before any install steps (the Plus-plan item is retired: the skill has no release check 19 rule, 2026-11-19).",
    "files": [
     "students/default.md"
    ],
@@ -7716,17 +7706,6 @@
      }
     },
     {
-     "text": "[P3-install-chatgpt] Release check 19 passed: the skill is uploaded under Plugins › Skills, then N-B12's read-back",
-     "kind": "judged",
-     "release_check": {
-      "ids": [
-       19
-      ],
-      "passed": "[P3-install-chatgpt] Release check 19 passed: the skill is uploaded under Plugins › Skills, then N-B12's read-back",
-      "open": "[P3-install-chatgpt] Release check 19 open (skills on Plus unverified): Build never presents uploading under Plugins › Skills as something that works on the leader's Plus plan; it takes the guided path or says plainly, in one line, that skills aren't offered on that plan and what the leader does instead, and its read-back question matches the path it took"
-     }
-    },
-    {
      "text": "[P3-install-chatgpt] Wherever install steps are given, the already-there clause comes first",
      "kind": "scripted",
      "check": {
@@ -7930,7 +7909,7 @@
      "check": {
       "type": "file_regex",
       "path": "drive/ai-workspace/framework/client-follow-up/build-record.md",
-      "pattern": "(?m)^  \\S+: \\\"?done: .+"
+      "pattern": "(?m)^  [^\\s:][^:\\n]*: \\\"?done: .+"
      }
     },
     {

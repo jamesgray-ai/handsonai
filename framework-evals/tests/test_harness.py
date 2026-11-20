@@ -1012,6 +1012,46 @@ class SheetsStub(unittest.TestCase):
             shutil.rmtree(root)
 
 
+class SlackStub(unittest.TestCase):
+    """The stand-in Slack a Build session sees when the plan posts to #client-updates (sch-send,
+    light-gains-risk): reads, a post the team sees, and a private channel whose first post fails until
+    the app is added (P1-qrc-private-channel's N-B35)."""
+    talk = MailStub.talk
+
+    def test_slack_kind_and_the_plans_connections(self):
+        with tempfile.TemporaryDirectory() as t:
+            env = {"GMAIL_STUB_LOG": str(Path(t) / "log.jsonl"), "GMAIL_STUB_KIND": "slack",
+                   "GMAIL_STUB_SERVER": "slack", "GMAIL_STUB_SERVICE": "Slack"}
+            out = self.talk(env, [("post_message", {"channel": "alex-test", "text": "Build check"}),
+                                  ("post_message", {"channel": "#alex-test", "text": "Build check"}),
+                                  ("post_message", {"channel": "client-updates", "text": "hi"}),
+                                  ("send_message", {"to": "x", "body": "y"})])
+            names = [x["name"] for x in out[1]["result"]["tools"]]
+            self.assertEqual(names, ["get_profile", "list_channels", "read_channel", "post_message", "delete_message"])
+            first, again, team = (json.loads(out[k]["result"]["content"][0]["text"]) for k in (2, 3, 4))
+            self.assertEqual(first["error"], "not_in_channel")
+            self.assertTrue(again["ok"] and again["seen_by"] == "only you")
+            self.assertEqual(team["seen_by"], "the channel's 12 members")
+            self.assertIn("error", out[5])  # no mail tools on Slack
+            # a later session (a new server) deletes the private post once, from the log
+            res = self.talk(env, [("delete_message", {"channel": "#alex-test", "ts": again["ts"]}),
+                                  ("delete_message", {"channel": "#alex-test", "ts": again["ts"]})])
+            self.assertEqual([json.loads(r["result"]["content"][0]["text"])["deleted"] for r in res[2:]], [True, False])
+        import run_eval as R
+        root = Path(tempfile.mkdtemp())
+        try:
+            ws = root / "workspace"
+            (ws / "framework" / "client-follow-up").mkdir(parents=True)
+            (ws / "framework" / "client-follow-up" / "design-plan.md").write_text(
+                "Gmail: the Claude Code connector (use). Slack: the Claude Code connector, to post to #client-updates (use).\n")
+            m = R.connections_for(L.PLATFORMS["claude-code"](), ws, root, {"skill_name": "build"})
+            self.assertEqual(m["servers"], ["gmail", "slack"])
+            self.assertIn("mcp__slack__post_message", m["allow"])
+            self.assertTrue(R.connect_now("Slack isn't connected yet. Here's how…", "done"))
+        finally:
+            shutil.rmtree(root)
+
+
 class ChatPlatformConnections(unittest.TestCase):
     """On Claude on the web, ChatGPT and Claude desktop the leader connects Gmail in the platform's
     settings when Build asks: the stand-in is there from the next turn, never before."""
@@ -1061,6 +1101,34 @@ class RestartContinues(unittest.TestCase):
         stop = turns[:1] + [{"role": "ai", "text": "To pick up, say 'run the build skill. My files are in framework/x.'"},
                             turns[2]]
         self.assertIsNone(R.restart_session(ev, build, cc, stop, [{}]))  # a pause, not a restart
+
+    def test_the_claude_code_pick_up_form_restarts_too(self):
+        """On Claude Code [location] is nothing, so the pick-up line has no "My files are in" (round
+        build-single-interview-2, JR-claude-code run 1: its last message, verbatim)."""
+        import run_eval as R
+        last = ("Now write the settings file (new; none exists).\n\n1 of 3: Gmail connection — built and checked\n\n"
+                "That's your part of the setup done.\n\nBefore I build and check the rest, please restart Claude Code "
+                "once (quit this session and start a new one in this project), so the new settings take effect. To "
+                "pick up, start a new session in this project and say 'run the build skill.'")
+        turns = [{"role": "student", "text": "Run the build skill."}, {"role": "ai", "text": last},
+                 {"role": "student", "text": "END", "end": True}]
+        s = R.restart_session({"prompt": "x"}, {"skill_name": "build"}, L.ClaudeCode(), turns, [{}])
+        self.assertEqual(s["prompt"], "Run the build skill.")
+        self.assertTrue(s["restart"] and s["from_previous"] and s["student"])
+
+    def test_build_on_claude_code_gets_the_agent_tool(self):
+        """Build's checks run in check agents: every Build session on Claude Code has the Agent tool
+        unless its eval names other tools; other platforms and steps keep SKILL_TOOLS."""
+        import run_eval as R
+        build, test = {"skill_name": "build"}, {"skill_name": "test"}
+        cc, web = L.ClaudeCode(), L.PLATFORMS["claude-web"]()
+        self.assertEqual(R.tools_for({}, {}, build, cc), H.AGENT_TOOLS)
+        self.assertEqual(R.tools_for({}, {"restart": True}, build, cc), H.AGENT_TOOLS)  # the restart's session too
+        self.assertEqual(R.tools_for({}, {}, build, web), H.SKILL_TOOLS)
+        self.assertEqual(R.tools_for({}, {}, test, cc), H.SKILL_TOOLS)
+        self.assertEqual(R.tools_for({"tools": "no_file"}, {}, build, cc), H.NO_FILE_TOOLS)
+        self.assertEqual(R.tools_for({"tools": "skill"}, {}, build, cc), H.SKILL_TOOLS)
+        self.assertEqual(R.tools_for({}, {}), H.SKILL_TOOLS)
 
 
 class NoPython3(unittest.TestCase):
@@ -1223,6 +1291,53 @@ class StubbedHarness(unittest.TestCase):
         self.assertIn("home path (near: ", hits[0])
         self.assertIn("node -> ~/.local/share/fnm/node", hits[0])
         self.assertNotIn(str(H.REAL_HOME), hits[0].split(": home path", 1)[1])
+
+    def test_a_sessions_schedulers_are_the_run_roots_stand_ins(self):
+        """crontab, launchctl and at reach the host user's own schedules whatever HOME is (2026-11-18:
+        `crontab -l` printed "no crontab for <the host user>"). A session finds the run root's
+        stand-ins first on PATH; they keep their state in the run root and name a neutral user."""
+        cmds = ["command -v crontab launchctl at atq atrm batch", "crontab -l",
+                "launchctl list", "printf '0 16 * * 5 echo hi\\n' > c.txt && crontab c.txt && crontab -l",
+                "echo 'echo hi' | at 4pm friday", "atq", "crontab -r && crontab -l"]
+        self.mode({"shell": cmds})
+        rnd = H.Round(binary=str(self.stub_dir / "claude"), version="9.9.9")
+        rnd.bundled_skills, rnd.bundled_plugins = [], []
+        root = H.new_run_root(str(self.plugin))
+        text, _ = H.call(rnd, "skill", root, "run the build skill", cwd=root / "workspace",
+                         tools=H.SKILL_TOOLS, plugin=root / "plugin")
+        found = text.split("$ crontab -l", 1)[0]
+        for tool in ("crontab", "launchctl", "at", "atq", "atrm", "batch"):
+            self.assertIn(f"{root}/bin/{tool}\n", found)
+        self.assertIn("$ crontab -l\ncrontab: no crontab for leader\n[exit 1]", text)
+        self.assertIn("$ launchctl list\nPID\tStatus\tLabel\n[exit 0]", text)  # nothing real loaded
+        self.assertIn("0 16 * * 5 echo hi\n[exit 0]", text)
+        self.assertIn("job 1 at 4pm friday", text)
+        self.assertIn("1\t4pm friday", text)
+        self.assertTrue((root / "scheduler" / "at" / "1.job").exists())  # state stays in the run root
+        self.assertTrue(text.endswith("crontab: no crontab for leader\n[exit 1]"))
+        self.assertNotIn(H.real_user(), text.replace(str(root), ""))
+        # the real binaries are denied by absolute path, both rule forms
+        deny = json.loads((root / "settings-deny.json").read_text())["permissions"]["deny"]
+        for p in ("/usr/bin/crontab", "/bin/launchctl", "/usr/bin/at", "/usr/bin/atq", "/usr/bin/atrm", "/usr/bin/batch"):
+            self.assertIn(f"Bash({p}:*)", deny)
+            self.assertIn(f"Bash({p} *)", deny)
+
+    def test_leak_scan_catches_the_host_user_name_but_not_an_ls_owner_column(self):
+        out = self.tmp / "out"
+        out.mkdir()
+        saved = H.real_user
+        H.real_user = lambda: "hostuser"
+        try:
+            (out / "a.jsonl").write_text('{"content": "drwxr-xr-x@ 3 hostuser  staff   96 Nov 18 x\\n'
+                                         '-rw-r--r--  1 hostuser  staff  221 Nov 18 y", "url": "hostuser-ai/repo hostuser.ai"}\n')
+            self.assertEqual(H.commit_leak_scan(out), [])
+            (out / "b.jsonl").write_text('{"stdout": "Exit code 1\\ncrontab: no crontab for hostuser"}\n')
+            hits = H.commit_leak_scan(out)
+            self.assertEqual(len(hits), 1)
+            self.assertIn("b.jsonl: host user name", hits[0])
+            self.assertNotIn("hostuser", hits[0].split(":", 1)[1])
+        finally:
+            H.real_user = saved
 
     def test_fake_home_only(self):
         self.assertTrue(str(H.REAL_CLAUDE).startswith(str(self.tmp)))

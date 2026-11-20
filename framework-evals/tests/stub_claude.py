@@ -66,6 +66,15 @@ def main():
         text = "END"
     elif prompt.strip() == "Say OK.":
         text = "OK"
+    elif MODE.get("shell"):
+        # the session runs these commands in its own environment, as its Bash tool would, and says
+        # what they printed
+        import subprocess
+        out = []
+        for cmd in MODE["shell"]:
+            r = subprocess.run(["/bin/sh", "-c", cmd], capture_output=True, text=True, cwd=os.getcwd())
+            out.append(f"$ {cmd}\n{r.stdout}{r.stderr}[exit {r.returncode}]")
+        text = "\n".join(out)
     else:
         k = next_turn()
         replies = MODE.get("skill_replies") or ["OK."]

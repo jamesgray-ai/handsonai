@@ -40,8 +40,15 @@ AGENT_TOOLS = SKILL_TOOLS + ["Agent"]
 NO_FILE_TOOLS = ["Read", "Glob", "Grep", "Skill"]   # NF1: no Write, Edit or Bash
 WEB_TOOLS = SKILL_TOOLS + ["WebSearch", "WebFetch"]  # running a built workflow that researches (G2)
 
+# The real schedulers, by absolute path: a session reaches them only so (the run root's bin/ holds
+# stand-ins first on PATH, _scheduler_bin). `crontab -l` once printed "no crontab for <the host user>".
+REAL_SCHEDULERS = ("/usr/bin/crontab", "/bin/launchctl", "/usr/bin/at", "/usr/bin/atq", "/usr/bin/atrm",
+                   "/usr/bin/batch", "/usr/sbin/cron", "/usr/libexec/atrun")
+
 DENY_SETTINGS = {"permissions": {"deny": [
     "Bash(claude plugin:*)", "Bash(claude plugin *)", "Bash(claude mcp:*)", "Bash(claude mcp *)",
+    *[f"Bash({p}{sep})" for p in REAL_SCHEDULERS for sep in (":*", " *")],
+    *[f"Bash({p})" for p in REAL_SCHEDULERS],
 ]}}
 
 REAL_HOME = Path.home()
@@ -209,7 +216,111 @@ def _tool_bin(root):
         link = b / tool
         if found and not link.is_symlink() and not link.exists():
             link.symlink_to(_tool_copy(tool, found))
+    _scheduler_bin(root, b)
     return str(b)
+
+
+# ---------- scheduler stand-ins ----------
+# crontab, launchctl, at, atq, atrm and batch reach the host user's own schedules (HOME being a temp
+# folder doesn't change that: cron and launchd key on the user ID). Sessions get these stand-ins first
+# on PATH, keeping their state in the run root's scheduler/ folder, and the real binaries are denied by
+# absolute path (DENY_SETTINGS). Plain /bin/sh, so they work with the no_python3 fault too. The user
+# they report is always STANDIN_USER, never the host's.
+STANDIN_USER = "leader"
+
+_CRONTAB = r"""#!/bin/sh
+# Eval stand-in for crontab: this run's own crontab, kept in the run root. Never the real one.
+S='@STATE@'; F="$S/crontab"; U='@USER@'
+mkdir -p "$S"
+case "$1" in
+  -u) echo "crontab: must be privileged to use -u" >&2; exit 1 ;;
+  -l) if [ -s "$F" ]; then cat "$F"; else echo "crontab: no crontab for $U" >&2; exit 1; fi ;;
+  -r) if [ -f "$F" ]; then rm -f "$F"; else echo "crontab: no crontab for $U" >&2; exit 1; fi ;;
+  -e) echo "crontab: no editor in this session; write the lines to a file and run: crontab FILE" >&2; exit 1 ;;
+  -|"") cat > "$F.new" && mv "$F.new" "$F" ;;
+  -*) echo "usage: crontab [-u user] file" >&2; echo "       crontab [-u user] { -l | -r | -e }" >&2; exit 1 ;;
+  *) if [ -f "$1" ]; then cp "$1" "$F"; else echo "crontab: $1: No such file or directory" >&2; exit 1; fi ;;
+esac
+"""
+
+_LAUNCHCTL = r"""#!/bin/sh
+# Eval stand-in for launchctl: only what this run loaded, kept in the run root. Never the real launchd.
+S='@STATE@/launchd'; U='@USER@'
+mkdir -p "$S"
+label_of() {
+  l=$(/usr/bin/plutil -extract Label raw -o - "$1" 2>/dev/null)
+  [ -n "$l" ] || l=$(basename "$1" .plist)
+  printf '%s' "$l"
+}
+sub="$1"; [ $# -gt 0 ] && shift
+case "$sub" in
+  list)
+    if [ -n "$1" ]; then
+      if [ -f "$S/$1" ]; then printf '{\n\t"Label" = "%s";\n\t"LastExitStatus" = 0;\n};\n' "$1"
+      else echo "Could not find service \"$1\" in domain for port"; exit 113; fi
+    else
+      printf 'PID\tStatus\tLabel\n'
+      for f in "$S"/*; do [ -f "$f" ] && printf -- '-\t0\t%s\n' "$(basename "$f")"; done
+    fi ;;
+  load|bootstrap)
+    [ "$sub" = bootstrap ] && shift
+    for p in "$@"; do
+      case "$p" in -*) continue ;; esac
+      if [ -f "$p" ]; then printf '%s\n' "$p" > "$S/$(label_of "$p")"
+      else echo "$p: No such file or directory" >&2; exit 2; fi
+    done ;;
+  unload|bootout)
+    for p in "$@"; do
+      case "$p" in -*|gui/*[0-9]|user/*[0-9]) continue ;; esac
+      case "$p" in gui/*/*|user/*/*) l=${p##*/} ;; *) l=$(label_of "$p") ;; esac
+      rm -f "$S/$l"
+    done ;;
+  remove) rm -f "$S/$1" ;;
+  start|stop|kickstart|enable|disable)
+    for p in "$@"; do case "$p" in -*) continue ;; esac; l=${p##*/}
+      [ -f "$S/$l" ] || { echo "Could not find service \"$l\" in domain for user: $U" >&2; exit 113; }; done ;;
+  print) for p in "$@"; do l=${p##*/}; [ -f "$S/$l" ] && { echo "$p = {"; echo "	path = $(cat "$S/$l")"; echo "}"; exit 0; }; done
+         echo "Could not find service in domain for user: $U" >&2; exit 113 ;;
+  ""|help) echo "Usage: launchctl <subcommand> ..." ;;
+  *) echo "launchctl: '$sub' isn't available in this session" >&2; exit 1 ;;
+esac
+exit 0
+"""
+
+_AT = r"""#!/bin/sh
+# Eval stand-in for at, atq, atrm and batch: this run's own job queue, kept in the run root.
+S='@STATE@/at'
+mkdir -p "$S"
+me=$(basename "$0")
+case "$me" in
+  atq) for f in "$S"/*.when; do [ -f "$f" ] && printf '%s\t%s\n' "$(basename "$f" .when)" "$(cat "$f")"; done; exit 0 ;;
+  atrm) for j in "$@"; do [ -f "$S/$j.when" ] || { echo "atrm: $j: no such job" >&2; exit 1; }
+          rm -f "$S/$j.when" "$S/$j.job"; done; exit 0 ;;
+esac
+case "$1" in -l) exec "$(dirname "$0")/atq" ;; -r) shift; exec "$(dirname "$0")/atrm" "$@" ;; esac
+file=""
+while [ $# -gt 0 ]; do
+  case "$1" in -f) file="$2"; shift 2 ;; -q) shift 2 ;; -m|-v) shift ;; *) break ;; esac
+done
+when="$*"; [ "$me" = batch ] && when="now (batch)"
+[ -n "$when" ] || { echo "usage: at [-f file] time" >&2; exit 1; }
+n=$(( $(ls "$S" | grep -c '\.when$') + 1 ))
+if [ -n "$file" ]; then cp "$file" "$S/$n.job" || exit 1; else cat > "$S/$n.job"; fi
+printf '%s\n' "$when" > "$S/$n.when"
+echo "job $n at $when" >&2
+"""
+
+
+def _scheduler_bin(root, b):
+    state = root / "scheduler"
+    state.mkdir(exist_ok=True)
+    scripts = {"crontab": _CRONTAB, "launchctl": _LAUNCHCTL,
+               **{name: _AT for name in ("at", "atq", "atrm", "batch")}}
+    for name, body in scripts.items():
+        f = b / name
+        if not f.exists():
+            f.write_text(body.replace("@STATE@", str(state)).replace("@USER@", STANDIN_USER))
+            f.chmod(0o755)
 
 
 GMAIL_STUB = Path(__file__).resolve().parent / "tools" / "gmail_stub_mcp.py"
@@ -227,14 +338,21 @@ SHEETS_ALLOW = ["mcp__google_sheets__get_profile", "mcp__google_sheets__list_spr
                 "mcp__google_sheets__update_range"]
 
 
+# The stand-in Slack (GMAIL_STUB_KIND=slack): its reads, the post and the delete allowed as the leader's click
+# would allow them (the post is W2's own action, as create_draft is W1's); the block's deny rules still win.
+SLACK_ALLOW = ["mcp__slack__get_profile", "mcp__slack__list_channels", "mcp__slack__read_channel",
+               "mcp__slack__post_message", "mcp__slack__delete_message"]
+
+
 def stub_spec(server="gmail", service="Gmail", kind="mail", account="alex@brightline.example", extra=()):
     """One stand-in connection for stub_mcp: the mail stub (Gmail, or Outlook on Microsoft 365) or,
-    with kind="sheets", Google Sheets."""
+    with kind="sheets", Google Sheets, or with kind="slack", Slack."""
     unknown = set(extra) - set(STUB_EXTRA_TOOLS)
     if unknown:
         raise HarnessFailure(f"unknown stand-in connection tools: {sorted(unknown)}")
-    allow = (SHEETS_ALLOW if kind == "sheets" else GMAIL_ALLOW + [STUB_EXTRA_TOOLS[x] for x in sorted(extra)])
-    prefix = "mcp__google_sheets__" if kind == "sheets" else "mcp__gmail__"
+    allow = (SHEETS_ALLOW if kind == "sheets" else SLACK_ALLOW if kind == "slack"
+             else GMAIL_ALLOW + [STUB_EXTRA_TOOLS[x] for x in sorted(extra)])
+    prefix = {"sheets": "mcp__google_sheets__", "slack": "mcp__slack__"}.get(kind, "mcp__gmail__")
     return {"server": server, "service": service, "kind": kind, "account": account, "extra": sorted(extra),
             "allow": [t.replace(prefix, f"mcp__{server}__") for t in allow]}
 
@@ -761,6 +879,7 @@ def commit_leak_scan(folder):
         v = _account_field(field)
         if v:
             needles[v] = label
+    user = user_needle()
     hits = []
     for f in Path(folder).rglob("*"):
         if f.is_file():
@@ -771,7 +890,33 @@ def commit_leak_scan(folder):
             for n, label in needles.items():
                 if n in s:
                     hits.append(f"{f}: {label}" + (leak_context(s, n) if label == "home path" else ""))
+            if user and user.search(LS_OWNER.sub("", s.replace(str(REAL_HOME), ""))):
+                hits.append(f"{f}: host user name")
     return hits
+
+
+def real_user():
+    """The host's user name, read at run time; never written down."""
+    try:
+        import pwd
+        return pwd.getpwuid(os.getuid()).pw_name
+    except (ImportError, KeyError):
+        return REAL_HOME.name
+
+
+# `ls -l` names each file's owner, the host user, in nearly every Build session; that column is
+# expected (the files are the host's) and isn't a sign the session reached the user's own state.
+LS_OWNER = re.compile(r"[-dlbcps][-rwxsStT]{9}[@+.]?\s+\d+\s+\S+\s+\S+")
+
+
+def user_needle():
+    """The host user's name as a whole word: "no crontab for <user>" is a run that reached the user's
+    own scheduler (or any other per-user state). Not inside a longer name, a domain or a path segment
+    (the home path is its own needle), and never in an `ls -l` owner column (LS_OWNER)."""
+    u = real_user()
+    if not u or len(u) < 3 or u in (STANDIN_USER, "root"):
+        return None
+    return re.compile(rf"(?<![\w.@/-]){re.escape(u)}(?![\w.@-])")
 
 
 def leak_context(text, needle, width=60):
