@@ -55,7 +55,7 @@ An "already there", or a skill of the same name the creator finds, stops that pa
 
 ## 3. Fingerprints
 
-Mark each row `Saved: yes` with its installed place, and record a fingerprint of each installed skill and agent (none for an agent on Microsoft 365, whose instructions you can't read back) and of each runtime context copy you can read back: `sha256:` and the hex digest of its text, or, where no code can run, its size and date.
+In one Edit of the record after the last install, mark each row `Saved: yes` with its installed place, and record a fingerprint of each installed skill and agent (none for an agent on Microsoft 365, whose instructions you can't read back) and of each runtime context copy you can read back: `sha256:` and the hex digest of its text, or, where no code can run, its size and date.
 
 ## 4. Keep a copy
 
@@ -71,7 +71,7 @@ Inputs marked `not available yet` (the D12 line in `SKILL.md`), and in the recor
 ## 6. Finish the record and the registry
 
 1. **Settings and folders** (Claude Code): lift the block with N-B21a and clear the run folders (`claude-code-block.md` section 8). Then say, in one short message of your own words, what's left in the leader's settings and how to remove each if they drop the workflow: the wrapper's allow, which stays for Test and is removed at go-live, and any allow rule the leader added during Build.
-2. **"What was built" and "What it can access"** at the top of the record, keeping Test's "Live since" and "How to switch it off" lines and the older-version line (`build-record-template.md`).
+2. **"What was built" and "What it can access"** at the top of the record, written with step 3's values and the lift's `write_block: off` in one Write of the whole record, keeping Test's "Live since" and "How to switch it off" lines and the older-version line (`build-record-template.md`).
 3. **Set `plan_revision` and `last_close_after_round`** (the last round's number, 0 before any round). Only at a close.
 4. **The registry** (`SKILL.md`, *Output*).
 5. **The Git offer, then the close** (`SKILL.md`, Part 3): the close is the last message.
