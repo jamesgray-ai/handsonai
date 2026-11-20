@@ -784,10 +784,13 @@ def session_tools(run):
     exactly that), and the others in one line."""
     out, many = [], len(run["sessions"]) > 1
     for k, path in _events(run):
-        init = next((e for e in _load_events(path) if e.get("type") == "system" and e.get("subtype") == "init"), None)
-        if not init:
+        # Every init, not the first: a connection the leader adds partway through (Build's "Connect a tool")
+        # shows only in the inits after it, and the first one alone listed no connection tools at all
+        # (re-grade 2026-11-19: 20 runs still flagged "the tool list shows no connection tools").
+        inits = [e for e in _load_events(path) if e.get("type") == "system" and e.get("subtype") == "init"]
+        if not inits:
             continue
-        tools = [str(t) for t in init.get("tools") or []]
+        tools = list(dict.fromkeys(str(t) for e in inits for t in e.get("tools") or []))
         mcp = [t for t in tools if t.startswith("mcp__")]
         own = [t for t in tools if not t.startswith("mcp__")]
         head = f"Session {k}: " if many else ""

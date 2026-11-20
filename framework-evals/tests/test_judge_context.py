@@ -275,6 +275,14 @@ class BuildRoundContext(unittest.TestCase):
         self.assertIn("## The tools the session was offered", head)
         self.assertIn("mcp__gmail__create_draft", head)
 
+    def test_a_connection_added_partway_is_in_the_tool_list(self):
+        # Re-grade 2026-11-19: Gmail is connected mid-session, so only a later init lists its tools.
+        first = {"type": "system", "subtype": "init", "tools": ["Read", "Bash"]}
+        run = run_with([first, self.INIT], text="This Gmail connection also offers a send action.")
+        offered = G.session_tools(run)
+        self.assertIn("mcp__gmail__send_message", offered)
+        self.assertEqual(offered.count("Read"), 1)
+
     def test_the_practice_inputs_are_shown_whole(self):
         files = {"framework/client-follow-up/inputs/E1-acme-renewal-call.md":
                  "source: deconstruct\ntests: AC1\n\nCall with Dana Ortiz (Acme). Lee was happy with the reporting.",
