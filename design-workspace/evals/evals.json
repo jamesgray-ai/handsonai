@@ -7181,6 +7181,11 @@
    ],
    "expectations": [
     {
+     "text": "N-L2 and the security-limits draft come in Part 3, after its signpost and before any other question, and the limits are drafted once, never asked as a question of the AI's own wording",
+     "kind": "judged",
+     "must": true
+    },
+    {
      "text": "N-L2's promise clause",
      "kind": "scripted",
      "check": {
