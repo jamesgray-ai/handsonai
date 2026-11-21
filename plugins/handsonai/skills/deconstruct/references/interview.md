@@ -131,6 +131,8 @@ After item 1's reply and any "Not clear yet" question, before the safety questio
 
 Right after item 1's reply and any "Not clear yet" and start questions. In this order, each in its own message, each with its *Why*. The first one's message opens with the folder line (and the process line, where it applies).
 
+**The risk record, at each answer.** When an answer here shows a risk (it sends, posts or changes something other people see, or something that can't be undone; it runs without the leader; the law answer is yes or "not sure"), the progress save that follows that answer writes `Track: full` (*What the file records about risk*; a safe fallback alone never makes it `full`, and nothing about it is said to the leader). It stays `full` from then on.
+
 **1. What it sends or changes.**
 
 Say what's known and ask only the open part. When the leader sends it themselves (a step or rule they perform): **Ask:** "You send it yourself. Will the AI save the draft anywhere, such as in your email?" Otherwise: **Ask:** "Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where."
@@ -231,6 +233,8 @@ After the answer, say: "That makes '[item]' a must-have: a miss always sends it 
 - *Why:* Your typical and tricky [cases] become the practice runs used to test the workflow; you'll paste real ones near the end.
 - *Not sure?* One sentence is enough; you'll paste a real one later.
 
+**The risk record, at a source.** When the leader describes a source as confidential or regulated, or as content from outside the team, the progress save that follows that answer writes `Track: full` (*What the file records about risk*; a safe fallback alone never makes it `full`, and nothing about it is said to the leader), before the policy question or the sources draft comes.
+
 Then one draft of the inputs and sources (the requirements template, *The sources draft*, with the context sentence the first time), ending "What would you change or add?". When nothing comes in yet: **Ask:** "Where will the information come from?" Then, separately, **Ask:** "Does it exist yet?" Draft the Inputs lines (`I1`…) from the trigger and these answers, tagged *(my suggestion)*, for the sources draft. A source that doesn't exist yet is recorded in Inputs as `Status: not available yet`.
 
 **The policy question,** asked once, for the first source that either the leader described as confidential or regulated, or as holding client, staff or personal details, or that is plainly about clients, staff or individuals by its own name or by the Analyze report (client call notes, a CRM, HR records, patient files). For a source known only by its name, the line fills with the source itself, never with a guess at what it holds. Never for a row saved `Confidential` only as the safe fallback (SKILL.md rules 7 and 13: never assert what a source holds), and never for outside content alone. Skipped on the personal-life lens. It names no tool. It comes in the next message after the reply that showed the source, never inside a draft's message, and before the sources draft when the typical-case reply is what showed it; when a paste triggers both, the confidential check comes first (it runs before saving), then, once the paste is saved, the policy question.
@@ -305,7 +309,7 @@ When it runs with the leader, the Fallback is the default, shown in *What was fi
 
 ## The safety limits
 
-Every workflow gets them, in their own message, after the rules draft and any access questions. Which categories are worked comes from the tests (the requirements template, *Which security categories are worked*): any write, a saved draft included; `Runs: without you`; a `Confidential` or `Regulated` row; an `External` row; with none of these, Prohibited actions alone. The message opens with one of two lines, word for word. When a test tripped, [the sign] being that test, as the leader said it, in their words:
+Every workflow gets them, in their own message, after the rules draft and any access questions. Before this message, the progress file's `Track:` already holds every risk an answer showed (the risk record, at each answer and at a source, above); if one is missing, the save before this message writes it. Which categories are worked comes from the tests (the requirements template, *Which security categories are worked*): any write, a saved draft included; `Runs: without you`; a `Confidential` or `Regulated` row; an `External` row; with none of these, Prohibited actions alone. The message opens with one of two lines, word for word. When a test tripped, [the sign] being that test, as the leader said it, in their words:
 
 > Because this [the sign, in the leader's words], I'll also set its safety limits with you.
 

@@ -2493,19 +2493,48 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "all",
+            "type": "any",
             "checks": [
               {
-                "type": "quote",
-                "id": "deconstruct:safety-limits-line",
-                "form": "no sign"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "main"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               },
               {
-                "type": "ai_regex",
-                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_not_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "no sign"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               }
             ]
           }
@@ -13148,19 +13177,48 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "all",
+            "type": "any",
             "checks": [
               {
-                "type": "quote",
-                "id": "deconstruct:safety-limits-line",
-                "form": "no sign"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "main"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               },
               {
-                "type": "ai_regex",
-                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_not_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "no sign"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               }
             ]
           }
@@ -14018,19 +14076,48 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "all",
+            "type": "any",
             "checks": [
               {
-                "type": "quote",
-                "id": "deconstruct:safety-limits-line",
-                "form": "no sign"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "main"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               },
               {
-                "type": "ai_regex",
-                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_not_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "no sign"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               }
             ]
           }
@@ -15089,19 +15176,48 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "all",
+            "type": "any",
             "checks": [
               {
-                "type": "quote",
-                "id": "deconstruct:safety-limits-line",
-                "form": "no sign"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_regex",
+                    "path": "drive/ai-workspace/framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "main"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               },
               {
-                "type": "ai_regex",
-                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_not_regex",
+                    "path": "drive/ai-workspace/framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "no sign"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               }
             ]
           }
@@ -15604,19 +15720,48 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "all",
+            "type": "any",
             "checks": [
               {
-                "type": "quote",
-                "id": "deconstruct:safety-limits-line",
-                "form": "no sign"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_regex",
+                    "path": "ai-workspace/framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "main"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               },
               {
-                "type": "ai_regex",
-                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_not_regex",
+                    "path": "ai-workspace/framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "no sign"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               }
             ]
           }
@@ -16134,19 +16279,48 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "all",
+            "type": "any",
             "checks": [
               {
-                "type": "quote",
-                "id": "deconstruct:safety-limits-line",
-                "form": "no sign"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_regex",
+                    "path": "onedrive/ai-workspace/framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "main"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               },
               {
-                "type": "ai_regex",
-                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_not_regex",
+                    "path": "onedrive/ai-workspace/framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "no sign"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               }
             ]
           }
@@ -16553,19 +16727,48 @@
           "must": true
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "all",
+            "type": "any",
             "checks": [
               {
-                "type": "quote",
-                "id": "deconstruct:safety-limits-line",
-                "form": "no sign"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "main"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               },
               {
-                "type": "ai_regex",
-                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_not_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "no sign"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               }
             ]
           }
@@ -24572,19 +24775,48 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "all",
+            "type": "any",
             "checks": [
               {
-                "type": "quote",
-                "id": "deconstruct:safety-limits-line",
-                "form": "no sign"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "main"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               },
               {
-                "type": "ai_regex",
-                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_not_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "no sign"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               }
             ]
           }
@@ -27628,19 +27860,48 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "all",
+            "type": "any",
             "checks": [
               {
-                "type": "quote",
-                "id": "deconstruct:safety-limits-line",
-                "form": "no sign"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "main"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               },
               {
-                "type": "ai_regex",
-                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_not_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "no sign"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               }
             ]
           }
@@ -28275,19 +28536,48 @@
           "must": true
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
-            "type": "all",
+            "type": "any",
             "checks": [
               {
-                "type": "quote",
-                "id": "deconstruct:safety-limits-line",
-                "form": "no sign"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "main"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               },
               {
-                "type": "ai_regex",
-                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "file_not_regex",
+                    "path": "framework/*/requirements.md",
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
+                  },
+                  {
+                    "type": "quote",
+                    "id": "deconstruct:safety-limits-line",
+                    "form": "no sign"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
+                  }
+                ]
               }
             ]
           }
