@@ -23,7 +23,7 @@ Each question is its own message even when several are alike: one N-14 per write
 
 A person's change becomes a Human step; when that person is the leader and the requirements say `Runs: without you`, `Runs:` becomes `with you` (N-15).
 
-**The checkpoint question,** when the plan runs without the leader and changes something with no checkpoint before it: for an Autonomous plan, any change in a live system; below Autonomous, a change that can't be undone. Drafts are exempt at every level; undoable changes below Autonomous; and so is a flag sent only to the leader (the flag `W` line, `· send a flag · after each run`, kept in the rules draft): never asked about, it's a consequential point instead. Asked once, and again only when a change in the review newly creates it. Autonomous, said as approved:
+**The checkpoint question,** when the plan changes something with no checkpoint before it: running without the leader, as below; running with them, its own form (*With the leader*, below). Without the leader: for an Autonomous plan, any change in a live system; below Autonomous, a change that can't be undone. Drafts are exempt at every level; undoable changes below Autonomous; and so is a flag sent only to the leader (the flag `W` line, `· send a flag · after each run`, kept in the rules draft): never asked about, it's a consequential point instead. Asked once, and again only when a change in the review newly creates it. Autonomous, said as approved:
 
 **Ask:** "This workflow works out its own path, runs without you, and changes something live: [the writes, in plain words]. No one sees a change before it's made, so a mistake goes straight into [system]. Should I add a point where someone reviews or approves [the change] first, or do you accept that risk?"
 
@@ -32,6 +32,10 @@ Below Autonomous:
 **Ask:** "This workflow runs without you and makes a change that can't be undone: [the change, in plain words]. No one sees it before it's made, so a mistake goes straight into [system]. Should I add a point where someone reviews or approves it first, or do you accept that risk?"
 
 With several changes that can't be undone, **Ask:** "This workflow runs without you and makes changes that can't be undone: [the changes, in plain words]. No one sees them before they're made, so a mistake goes straight into [system]. Should I add a point where someone reviews or approves them first, or do you accept that risk?"
+
+**With the leader,** when the plan runs with them and makes a change that can't be undone (a send included) with nothing stopping for them to see it first: drafts and undoable changes stay exempt, and a checkpoint the leader already performs settles it. Asked once, like the forms above:
+
+**Ask:** "This workflow makes a change that can't be undone while you run it: [the change, in plain words]. Nothing stops for you to see it first, so a mistake goes straight into [system]. Should I add a point where you review or approve it first, or do you accept that risk?" (D5″, with you)
 
 **An unchecked regime** on an Autonomous plan:
 

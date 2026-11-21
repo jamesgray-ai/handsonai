@@ -11186,6 +11186,19 @@
     "build": "references/package-and-install.md"
    },
    "source": "independent review finding 6; approved by James 2026-11-21"
+  },
+  {
+   "id": "D5″",
+   "form": "with you",
+   "text": "This workflow makes a change that can't be undone while you run it: [the change, in plain words]. Nothing stops for you to see it first, so a mistake goes straight into [system]. Should I add a point where you review or approve it first, or do you accept that risk?",
+   "kind": "question",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "references/questions.md"
+   },
+   "source": "independent review finding 12; approved by James 2026-11-21"
   }
  ]
 }
