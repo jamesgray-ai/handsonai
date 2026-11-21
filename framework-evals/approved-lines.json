@@ -11038,7 +11038,7 @@
   {
    "id": "deconstruct:8.part-5:l2",
    "form": "main",
-   "text": "You review every [deliverable] before it's sent, so this runs with you.",
+   "text": "You review every [deliverable] before it's [sent / posted / saved / used], so this runs with you.",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -11046,7 +11046,7 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3); reworded per independent review finding 17, approved by James 2026-11-21",
    "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
   },
   {

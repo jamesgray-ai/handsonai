@@ -140,7 +140,7 @@ The *Why* goes with whichever form is asked first. A saved draft is a write, rec
 
 A draft saved only where the leader alone sees it, which they can delete, is still a write, recorded with its place. **Each write's place** (no new question): a place the reply didn't give is shown as "[place] not known yet" in the next draft that names the write (the first draft, or the security limits). Never ask a separate question about a place. Recorded inside W's `[system]` field: `[system] [place, as the leader named it]`, or `[system] ([place] to confirm)` when it stays unknown.
 
-**2. With or without the leader.** When a checkpoint, step or rule the leader performs already settles it, state it: "You review every [deliverable] before it's sent, so this runs with you." (naming what they do). Only [deliverable] is filled: "review" and "sent" stay as written, even when the leader posts or approves it. Only when nothing settles it:
+**2. With or without the leader.** When a checkpoint, step or rule the leader performs already settles it, state it: "You review every [deliverable] before it's [sent / posted / saved / used], so this runs with you." (naming what they do). [deliverable] is filled, and the verb with what actually happens to the work next ("sent" only when it's sent); "review" stays as written, even when the leader approves it. Only when nothing settles it:
 
 **Ask:** "While it runs, do you want to take part, like reviewing a draft, answering its questions or approving something, or should it run from start to finish without you?"
 - *Why:* If it runs without you, it can't stop to ask, so it needs clear rules for when it's unsure.
