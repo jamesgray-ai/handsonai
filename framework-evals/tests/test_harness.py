@@ -1345,6 +1345,40 @@ class StubbedHarness(unittest.TestCase):
         self.skill_call()
         self.assertEqual(H.compare_snapshots(before, H.real_config_snapshot()), [])
 
+    def _sync(self, skills, folders):
+        acct = H.REAL_CLAUDE / "skills" / "synced" / "acct"
+        if acct.exists():
+            shutil.rmtree(acct)
+        acct.mkdir(parents=True)
+        (acct / "manifest.json").write_text(json.dumps({"lastUpdated": 1, "skills": skills}))
+        for f in folders:
+            (acct / f).mkdir()
+
+    def test_anthropic_skill_added_mid_round_is_logged_not_voiding(self):
+        mine = {"skillId": "mine", "name": "mine", "source": "plugin", "updatedAt": "1"}
+        self._sync([mine], ["mine"])
+        before = H.real_config_snapshot()
+        gw = {"skillId": "google-workspace", "name": "google-workspace", "source": "anthropic-example",
+              "updatedAt": "2"}
+        self._sync([mine, gw], ["mine", "google-workspace"])
+        after = H.real_config_snapshot()
+        self.assertEqual(H.compare_snapshots(before, after), [])
+        self.assertEqual(H.anthropic_sync_changes(before, after), ["added or updated: google-workspace 2"])
+
+    def test_own_synced_skill_added_mid_round_still_voids(self):
+        mine = {"skillId": "mine", "name": "mine", "source": "plugin", "updatedAt": "1"}
+        self._sync([mine], ["mine"])
+        before = H.real_config_snapshot()
+        other = {"skillId": "other", "name": "other", "source": "plugin", "updatedAt": "1"}
+        self._sync([mine, other], ["mine", "other"])
+        self.assertEqual(H.compare_snapshots(before, H.real_config_snapshot()), ["skills/synced changed"])
+
+    def test_folder_named_like_an_anthropic_skill_but_unlisted_still_voids(self):
+        self._sync([], [])
+        before = H.real_config_snapshot()
+        self._sync([], ["google-workspace"])
+        self.assertEqual(H.compare_snapshots(before, H.real_config_snapshot()), ["skills/synced changed"])
+
     def test_round_reports_per_tier(self):
         import run_eval as R
         self.mode({"skill_replies": [N_D1]})

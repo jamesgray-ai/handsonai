@@ -757,27 +757,20 @@ def _account_field(name):
         return None
 
 
-# Anthropic's own built-in skills (source "anthropic" or "anthropic-example") are updated by the
-# account sync on Anthropic's schedule (2026-11-12: xlsx, pptx, docx and google-workspace mid-round
-# voided a core round). For those, a new updatedAt alone isn't a change; a skill added, removed or
-# renamed still is, and every other skill is compared in full.
+# Anthropic's own built-in skills (source "anthropic" or "anthropic-example") are added, removed and
+# updated by the account sync on Anthropic's schedule: 2026-11-12 (xlsx, pptx, docx and
+# google-workspace updated) and 2026-11-20 (google-workspace added at 16:12 CST) each voided a core
+# round, build-full-1 the second (waived by James). Eval sessions can't write them: they run in
+# their own config folder, where plugins/synced is checked separately. So those skills are left out
+# of the fail-closed hash and logged instead (anthropic_sync_changes); every other synced skill is
+# still compared in full, its add, removal, rename or update voiding the round.
 ANTHROPIC_SYNC_SOURCES = {"anthropic", "anthropic-example"}
 
 
-def _synced_fields(x):
-    if x.get("source") in ANTHROPIC_SYNC_SOURCES:
-        return ("skillId", "name", "source")
-    return ("skillId", "name", "source", "updatedAt")
-
-
-def _synced_skills():
-    """~/.claude/skills/synced/ is the account skill sync that James's own Claude Code sessions
-    rewrite on their schedule (its manifest's lastUpdated and .last-complete-round change on
-    every sync). Compare what it holds, not its timestamps: the synced folders and, per
-    manifest, each skill's id, name, source and updatedAt."""
+def _synced_manifests():
     root = REAL_CLAUDE / "skills" / "synced"
     if not root.exists():
-        return "absent"
+        return None
     out = {}
     for acct in sorted(p for p in root.iterdir() if p.is_dir()):
         m = acct / "manifest.json"
@@ -785,12 +778,46 @@ def _synced_skills():
             skills = json.loads(m.read_text()).get("skills", []) if m.exists() else []
         except ValueError:
             skills = ["unreadable manifest"]
+        out[acct] = skills
+    return out
+
+
+def _is_anthropic(x):
+    return isinstance(x, dict) and x.get("source") in ANTHROPIC_SYNC_SOURCES
+
+
+def _synced_skills():
+    """~/.claude/skills/synced/ is the account skill sync that James's own Claude Code sessions
+    rewrite on their schedule (its manifest's lastUpdated and .last-complete-round change on
+    every sync). Compare what it holds, not its timestamps: the synced folders and, per
+    manifest, each skill's id, name, source and updatedAt, leaving out Anthropic's own skills
+    and their folders (see ANTHROPIC_SYNC_SOURCES)."""
+    manifests = _synced_manifests()
+    if manifests is None:
+        return "absent"
+    out = {}
+    for acct, skills in manifests.items():
+        theirs = {str(x.get(k)) for x in skills if _is_anthropic(x) for k in ("skillId", "name")}
         out[acct.name] = {
-            "folders": sorted(p.name for p in acct.iterdir() if p.is_dir()),
-            "skills": sorted(json.dumps({k: x.get(k) for k in _synced_fields(x)},
-                                        sort_keys=True) if isinstance(x, dict) else str(x) for x in skills),
+            "folders": sorted(p.name for p in acct.iterdir() if p.is_dir() and p.name not in theirs),
+            "skills": sorted(json.dumps({k: x.get(k) for k in ("skillId", "name", "source", "updatedAt")},
+                                        sort_keys=True) if isinstance(x, dict) else str(x)
+                             for x in skills if not _is_anthropic(x)),
         }
     return hashlib.sha256(json.dumps(out, sort_keys=True).encode()).hexdigest()
+
+
+def _anthropic_synced():
+    """Anthropic's own synced skills, by name, with their updatedAt: logged, never voiding."""
+    manifests = _synced_manifests() or {}
+    return sorted(f"{x.get('name')} {x.get('updatedAt')}" for skills in manifests.values()
+                  for x in skills if _is_anthropic(x))
+
+
+def anthropic_sync_changes(before, after):
+    """What Anthropic's account sync added, removed or updated mid-round, for the round record."""
+    b, a = set(before.get("_anthropic_synced", [])), set(after.get("_anthropic_synced", []))
+    return [f"removed or updated: {x}" for x in sorted(b - a)] + [f"added or updated: {x}" for x in sorted(a - b)]
 
 
 def real_config_snapshot():
@@ -805,6 +832,7 @@ def real_config_snapshot():
         "settings.json": _hash_tree(REAL_CLAUDE / "settings.json"),
         "skills/": _hash_tree(REAL_CLAUDE / "skills", skip=("synced",)),
         "skills/synced": _synced_skills(),
+        "_anthropic_synced": _anthropic_synced(),
         "agents/": _hash_tree(REAL_CLAUDE / "agents"),
         "mcpServers": hashlib.sha256(json.dumps(cj.get("mcpServers"), sort_keys=True).encode()).hexdigest(),
         # profileFetchedAt is rewritten whenever any Claude Code session on this machine refetches the

@@ -724,6 +724,7 @@ def main():
 
     after = H.real_config_snapshot()
     problems = H.compare_snapshots(before, after)
+    anthropic_sync = H.anthropic_sync_changes(before, after)
     tiers = summarize(out, evs, results, data)
     try:
         evals_rel = str(evals_path.relative_to(ROOT))
@@ -735,6 +736,7 @@ def main():
                   "grader_model": H.GRADER_MODEL, "evals_file": evals_rel,
                   "estimate_usd": round(total, 2), "usd_reported": round(budget["usd"], 4),
                   "fail_closed_check": "pass" if not problems else problems,
+                  "anthropic_sync_changes": anthropic_sync,
                   "tiers": tiers,
                   "results": [{k: r.get(k) for k in ("eval", "run", "tier", "status", "passed", "total", "note")}
                               for r in results]}
@@ -743,6 +745,9 @@ def main():
         vs = list(verdicts.values())
         print(f"tier {t}: {vs.count('PASS')} pass, {vs.count('FAIL')} fail, "
               f"{len(vs) - vs.count('PASS') - vs.count('FAIL')} not counted, of {len(vs)}")
+    if anthropic_sync:
+        print("note: Anthropic's account sync changed its own skills mid-round (logged, not voiding):",
+              anthropic_sync)
     if problems:
         print("FAIL-CLOSED CHECK FAILED: the round is void:", problems)
         sys.exit(2)

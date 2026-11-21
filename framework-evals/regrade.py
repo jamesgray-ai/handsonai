@@ -456,7 +456,11 @@ def main():
     summary(out, [by_id[i] for i in ids], data, args.tag, results, smoke, skipped)
     usd = sum(r.get("usd") or 0 for r in results)
     if rnd is not None:
-        problems = H.compare_snapshots(before, H.real_config_snapshot())
+        after = H.real_config_snapshot()
+        problems = H.compare_snapshots(before, after)
+        if H.anthropic_sync_changes(before, after):
+            print("note: Anthropic's account sync changed its own skills mid-re-grade (logged, not voiding):",
+                  H.anthropic_sync_changes(before, after))
         if problems:
             print("FAIL-CLOSED CHECK FAILED: the re-grade is void:", problems)
             sys.exit(2)
