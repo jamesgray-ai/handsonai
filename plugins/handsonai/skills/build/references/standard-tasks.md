@@ -7,7 +7,7 @@ Read at the `KW` task (every plan has it) and the `SCH` task (a plan for a workf
 Write the keeping-it-working lines into the workflow, word for word from `carried-lines.md` section 4, in this platform's form, with the location compiled into every line that points to a framework step:
 - **The flag line** in each run's closing summary, and in that run's row where the workflow writes a run log.
 - **The run log and the re-check line,** only where the workflow writes and reads its own run log (Claude Code, Codex, and Microsoft 365 Cowork once release check 27 passes; never on Claude on the web or desktop, ChatGPT, or an agent Agent Builder made).
-- **The time-saved line,** only with a run log and a Measure that is time per run with a known Baseline: the time saved per run is the Baseline, less the Target when the Target is a time per run. Otherwise none.
+- **The time-saved line,** only with a run log and a Measure that is time per run with a known Baseline (an older file only: Deconstruct now writes Baseline `— · Unknown`): the time saved per run is the Baseline, less the Target when the Target is a time per run. Otherwise none.
 - **How to change or re-check it,** for when the leader asks the workflow itself.
 
 *Done when:* you find each line in the built text, with the location and this platform's form. Test grades the flag line.

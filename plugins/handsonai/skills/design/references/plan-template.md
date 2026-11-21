@@ -32,7 +32,7 @@ Route by the `Method preference:` line and `## Path` (`drafting.md`, step 1). Th
 - **`Governing regime:`,** for regulated work.
 - **`Policy check:`,** when present: passed to Test unchanged, never asked about, never changed, never treated as approval. A `fixed (policy)` removal step, or its `When` rule with its role tag, is designed like any fixed step or rule, with its Boundaries `P` line in Constraint Conformance. With `No — [source] left out`, the source is absent; a part left with nothing to work from is an open item.
 - **Practice inputs** (`inputs/`, each with its `source:` and `tests:` header and, where present, an `expect:` line; a carry-over input's body opening with its `Earlier run:` paragraph) and the Example Scenarios, for *Done when* and for risks no input covers. `tests:` may name D lines.
-- **Value & Measurement:** only the Measure and Baseline, to decide the `KW` task's time-saved line.
+- **Value & Measurement:** only the Measure and Baseline, to decide the `KW` task's time-saved line. Deconstruct now writes Baseline `— · Unknown`, so only an older file with a known Baseline gets the line.
 
 Plan-invented steps (`Step 2a`, `Step Pa`) are flexible: Test grades them on the outcome, never by a step-output check.
 
@@ -307,7 +307,7 @@ A worked revision: tasks at `rev` 1, 1 and 2 make the plan revision 2. A change 
 - **rev:** 1
 ```
 
-List only the lines that apply: the flag line always (in the orchestrator's or the agent's closing summary); the re-check line where the workflow writes its own run log; the time-saved line where it writes its own run log and the Measure is time per run with a known Baseline. Never a figure: Build compiles the time saved itself.
+List only the lines that apply: the flag line always (in the orchestrator's or the agent's closing summary); the re-check line where the workflow writes its own run log; the time-saved line where it writes its own run log and the Measure is time per run with a known Baseline (an older file only: a file Deconstruct writes now has Baseline `— · Unknown`). Never a figure: Build compiles the time saved itself.
 
 **`SCH` — The schedule,** when `Starts` is `schedule: …` or `event: … · checked …` (with no `Starts` row, when the Trigger is a schedule): the task's format and rules are in `schedules.md`.
 

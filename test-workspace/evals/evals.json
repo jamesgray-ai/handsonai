@@ -7107,7 +7107,7 @@
       "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
       "student": "students/default.md",
       "platform": "claude-web",
-      "expected_output": "Bank details in a practice input (confidential content): N-L2's promise clause; track: full; revision unchanged.",
+      "expected_output": "Bank details in a practice input (confidential content): N-L2's promise clause; track: full; the security limits for the bank details drafted right after N-L2, each kept or dropped, the kept ones written as P lines with revision raised (the track switch alone raises nothing).",
       "files": [
         "students/default.md"
       ],
@@ -7130,12 +7130,12 @@
           }
         },
         {
-          "text": "revision unchanged",
+          "text": "revision raised once, by the kept security limits",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "drive/ai-workspace/framework/client-follow-up/requirements.md",
-            "pattern": "(?m)^revision: 1$"
+            "pattern": "(?m)^revision: 2$"
           }
         }
       ],

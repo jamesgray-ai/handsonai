@@ -5261,16 +5261,16 @@
    "fixture": "light-gains-risk",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "N-L2's promise clause and a change request to switch the track; the tasks it touches wait.",
+   "expected_output": "A change request to switch the track, naming the risk in its why; the tasks it touches wait; Build never says N-L2's promise clause (Design does, when it drafts the safety answer).",
    "files": [
     "students/default.md"
    ],
    "expectations": [
     {
-     "text": "N-L2",
+     "text": "Never says N-L2 (Build asks and drafts no safety answer)",
      "kind": "scripted",
      "check": {
-      "type": "quote",
+      "type": "quote_absent",
       "id": "N-L2",
       "form": "promise clause"
      }
