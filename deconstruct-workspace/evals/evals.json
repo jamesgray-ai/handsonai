@@ -862,7 +862,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -1853,7 +1854,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -2491,18 +2493,19 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -4514,7 +4517,7 @@
           }
         },
         {
-          "text": "`requirements.md` opens with frontmatter holding `revision`, `track` and `revisions` (no `big_change`), at revision 1 (deconstruct 12.1)",
+          "text": "`requirements.md` opens with frontmatter holding `revision`, `track` and `revisions` (no `big_change`), at revision 1 (deconstruct 12.1), with `track: light`",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -4540,7 +4543,7 @@
               {
                 "type": "file_regex",
                 "path": "framework/*/requirements.md",
-                "pattern": "(?m)^track: (?:light|full)[ \\t]*$"
+                "pattern": "(?m)^track: light[ \\t]*$"
               }
             ]
           }
@@ -6349,7 +6352,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -6866,7 +6870,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -7420,7 +7425,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -10736,7 +10742,7 @@
           }
         },
         {
-          "text": "`requirements.md` opens with frontmatter holding `revision`, `track` and `revisions` (no `big_change`), at revision 1 (deconstruct 12.1)",
+          "text": "`requirements.md` opens with frontmatter holding `revision`, `track` and `revisions` (no `big_change`), at revision 1 (deconstruct 12.1), with `track: full`",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -10762,7 +10768,7 @@
               {
                 "type": "file_regex",
                 "path": "framework/*/requirements.md",
-                "pattern": "(?m)^track: (?:light|full)[ \\t]*$"
+                "pattern": "(?m)^track: full[ \\t]*$"
               }
             ]
           }
@@ -11486,7 +11492,7 @@
           }
         },
         {
-          "text": "The first message opens with a resume line naming what was covered in plain words (it need not list every note, and never names what an earlier interview's notes hold that this one doesn't ask, such as what the work is worth), with no time, cost or target figure; it may confirm where the files are saved; an item the saved notes already answer (how runs start) may be stated for the leader to correct instead of asked; the message ends with the first question still unanswered; no part signpost and no count is said",
+          "text": "The first message opens with a resume line naming what was covered in plain words (naming each finished item of the single interview its notes hold (the name and description at least, how runs start where recorded), and never names what an earlier interview's notes hold that this one doesn't ask, such as what the work is worth), with no time, cost or target figure; it may confirm where the files are saved; an item the saved notes already answer (how runs start) may be stated for the leader to correct instead of asked; the message ends with the first question still unanswered; no part signpost and no count is said",
           "kind": "judged",
           "must": true
         },
@@ -13142,18 +13148,19 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -14011,18 +14018,19 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -14531,18 +14539,19 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -15051,18 +15060,19 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -15565,18 +15575,19 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -16094,18 +16105,19 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -16255,7 +16267,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -16264,7 +16277,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
           }
         },
         {
@@ -16355,7 +16368,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -16364,7 +16378,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
           }
         },
         {
@@ -16632,7 +16646,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -16641,7 +16656,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
           }
         },
         {
@@ -16736,7 +16751,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -16745,7 +16761,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
           }
         },
         {
@@ -16931,7 +16947,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -16940,7 +16957,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
           }
         },
         {
@@ -17153,18 +17170,19 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -17766,7 +17784,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -17775,7 +17794,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
           }
         },
         {
@@ -18325,7 +18344,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -18334,7 +18354,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
           }
         },
         {
@@ -20775,7 +20795,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -20784,7 +20805,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+            "pattern": "Because this [^\\n]*I'll also set its safety limits with you\\.[\\s\\S]*What would you change or add\\?"
           }
         },
         {
@@ -21413,7 +21434,7 @@
           }
         },
         {
-          "text": "`requirements.md` opens with frontmatter holding `revision`, `track` and `revisions` (no `big_change`), at revision 1 (deconstruct 12.1)",
+          "text": "`requirements.md` opens with frontmatter holding `revision`, `track` and `revisions` (no `big_change`), at revision 1 (deconstruct 12.1), with `track: light`",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -21439,7 +21460,7 @@
               {
                 "type": "file_regex",
                 "path": "framework/*/requirements.md",
-                "pattern": "(?m)^track: (?:light|full)[ \\t]*$"
+                "pattern": "(?m)^track: light[ \\t]*$"
               }
             ]
           }
@@ -23537,7 +23558,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           }
         },
         {
@@ -23713,7 +23735,7 @@
           "must": true
         },
         {
-          "text": "The resume line plays back what the earlier interview recorded (the name and description, in a sentence; no time or target figure from the notes is required or quoted) and asks none of it again; the interview then carries on with the single interview's remaining items, starting with the first one the notes don't cover",
+          "text": "The resume line plays back what the earlier interview recorded, each finished item the notes hold that the single interview asks (the name and description at least), with no time or target figure from the notes required or quoted, and asks none of it again; the interview then carries on with the single interview's remaining items, starting with the first one the notes don't cover",
           "kind": "judged",
           "must": true
         },
@@ -24461,18 +24483,19 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -25570,7 +25593,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         }
@@ -25700,7 +25724,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           }
         }
       ],
@@ -26065,7 +26090,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -26534,7 +26560,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -26657,7 +26684,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -26962,7 +26990,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -27510,18 +27539,19 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits: the safety-limits line is said word for word in its no-sign form (\"Every workflow gets safety limits, so I'll set this one's with you.\") and opens the message that holds the safety limits draft, which ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -27875,7 +27905,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -27990,7 +28021,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -28262,7 +28294,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
@@ -28385,7 +28418,8 @@
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "deconstruct:safety-limits-line"
+            "id": "deconstruct:safety-limits-line",
+            "form": "main"
           },
           "must": true
         },
