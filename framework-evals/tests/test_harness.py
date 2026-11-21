@@ -847,6 +847,34 @@ class PlatformSimulations(unittest.TestCase):
         self.assertEqual((msg, n), ("It says hello.", 2))
 
 
+class OlderSkillPause(unittest.TestCase):
+    """build-full-1 (2026-11-21): on Claude Code the leader's "done" to pausing an older skill is applied:
+    `disable-model-invocation: true` added to the SKILL.md Build named."""
+
+    ASK = ("Pause it so it can't run while the new one goes in: in this workspace, move the `client-follow-up` folder "
+           "out of `.claude/skills/`, or add the line `disable-model-invocation: true` under `description:` in its "
+           "`.claude/skills/client-follow-up/SKILL.md`. Say 'done' when it\u2019s paused, 'it only runs when I start it', "
+           "or 'stop' to leave everything as it is.")
+
+    def test_done_pauses_the_named_skill_once(self):
+        with tempfile.TemporaryDirectory() as t:
+            f = Path(t) / ".claude" / "skills" / "client-follow-up" / "SKILL.md"
+            f.parent.mkdir(parents=True)
+            f.write_text("---\nname: client-follow-up\ndescription: x\n---\nSend it from Gmail when done.\n")
+            p = L.PLATFORMS["claude-code"]()
+            p.screen("Thanks, OK.", t)
+            self.assertEqual(p.on_leader("done", t), 0)  # no ask, nothing done
+            p.screen(self.ASK, t)
+            self.assertEqual(p.on_leader("Not sure.", t), 0)
+            self.assertNotIn("disable-model-invocation", f.read_text())
+            p.screen(self.ASK, t)
+            self.assertEqual(p.on_leader("done", t), 1)
+            self.assertEqual(f.read_text(), "---\nname: client-follow-up\ndescription: x\ndisable-model-invocation: true\n"
+                                            "---\nSend it from Gmail when done.\n")
+            p.screen(self.ASK, t)
+            self.assertEqual(p.on_leader("done", t), 0)  # already paused
+
+
 class ReleaseItemsAndFidelity(unittest.TestCase):
     def test_judged_items_and_preconditions_follow_the_release_checks(self):
         saved = CS.release_checks_passed
@@ -1037,6 +1065,15 @@ class SlackStub(unittest.TestCase):
             res = self.talk(env, [("delete_message", {"channel": "#alex-test", "ts": again["ts"]}),
                                   ("delete_message", {"channel": "#alex-test", "ts": again["ts"]})])
             self.assertEqual([json.loads(r["result"]["content"][0]["text"])["deleted"] for r in res[2:]], [True, False])
+            # build-full-1: the leader's private channel is listed, the app not in it until a post there works
+            res = self.talk(env, [("list_channels", {}), ("post_message", {"channel": "#build-check", "text": "x"}),
+                                  ("post_message", {"channel": "#build-check", "text": "x"}), ("list_channels", {})])
+            before, fail, ok_, after = (json.loads(r["result"]["content"][0]["text"]) for r in res[2:])
+            self.assertEqual([(c["name"], c["private"], c["app_in_channel"]) for c in before["channels"]],
+                             [("#client-updates", False, True), ("#build-check", True, False)])
+            self.assertEqual(fail["error"], "not_in_channel")
+            self.assertTrue(ok_["ok"])
+            self.assertTrue(after["channels"][1]["app_in_channel"])
         import run_eval as R
         root = Path(tempfile.mkdtemp())
         try:
@@ -1052,6 +1089,35 @@ class SlackStub(unittest.TestCase):
             shutil.rmtree(root)
 
 
+class HubSpotStub(unittest.TestCase):
+    """build-full-1 (2026-11-21): cc-mixed-tool's HubSpot, one CRM tool that both reads and changes records."""
+    talk = MailStub.talk
+
+    def test_one_mixed_tool_and_the_plans_connection(self):
+        with tempfile.TemporaryDirectory() as t:
+            env = {"GMAIL_STUB_LOG": str(Path(t) / "log.jsonl"), "GMAIL_STUB_KIND": "hubspot",
+                   "GMAIL_STUB_SERVER": "hubspot", "GMAIL_STUB_SERVICE": "HubSpot"}
+            out = self.talk(env, [("manage_crm_objects", {"action": "read", "objectType": "deals"}),
+                                  ("manage_crm_objects", {"action": "create", "objectType": "notes"})])
+            self.assertEqual([x["name"] for x in out[1]["result"]["tools"]], ["get_profile", "manage_crm_objects"])
+            read, note = (json.loads(out[k]["result"]["content"][0]["text"]) for k in (2, 3))
+            self.assertEqual(read["results"][0]["name"], "Contoso renewal")
+            self.assertEqual(note["seen_by"], "the account team (12 people)")
+        import run_eval as R
+        sys.path.insert(0, str(ROOT / "build-workspace" / "evals" / "fixtures"))
+        import make_fixture as MF
+        root = Path(tempfile.mkdtemp())
+        try:
+            ws = root / "workspace"
+            MF.fx_cc_mixed_tool(ws)
+            m = R.connections_for(L.PLATFORMS["claude-code"](), ws, root, {"skill_name": "build"})
+            self.assertEqual(m["servers"], ["gmail", "hubspot"])
+            self.assertIn("mcp__hubspot__manage_crm_objects", m["allow"])
+            self.assertIn("track: full", (ws / "framework" / "client-follow-up" / "requirements.md").read_text())
+        finally:
+            shutil.rmtree(root)
+
+
 class ChatPlatformConnections(unittest.TestCase):
     """On Claude on the web, ChatGPT and Claude desktop the leader connects Gmail in the platform's
     settings when Build asks: the stand-in is there from the next turn, never before."""
@@ -1062,6 +1128,9 @@ class ChatPlatformConnections(unittest.TestCase):
         self.assertTrue(R.connect_now(ask, "done"))
         self.assertFalse(R.connect_now(ask, "Not sure."))
         self.assertFalse(R.connect_now("Can you check that skills are turned on?", "done"))
+        # build-full-1: Build's wording varies after "connected"
+        self.assertTrue(R.connect_now("Gmail isn't connected in this chat yet. Add it from the prompt box.", "done"))
+        self.assertTrue(R.connect_now("Google Sheets is not connected here.", "Done."))
         self.assertEqual(set(R.CHAT_CONNECT), {"claude-web", "chatgpt", "claude-desktop"})
 
     def test_chat_platforms_get_the_plan_s_gmail_from_the_drive(self):
@@ -1228,6 +1297,35 @@ class StubbedHarness(unittest.TestCase):
         with self.assertRaisesRegex(H.HarnessFailure, "init assertion failed: mcp_servers"):
             H.call(rnd, "skill", root, "run the build skill", cwd=root / "workspace",
                    tools=H.SKILL_TOOLS, plugin=root / "plugin")
+
+    def test_platform_skills_are_denied_and_a_run_one_stops_the_run(self):
+        """build-full-1 (2026-11-21): Skill("schedule", "list") reached the real claude.ai account."""
+        rnd = H.Round(binary=str(self.stub_dir / "claude"), version="9.9.9")
+        rnd.bundled_skills, rnd.bundled_plugins = ["schedule", "some-new-cli-skill"], []
+        root = H.new_run_root(str(self.plugin))
+        ws = root / "workspace"
+        (ws / ".claude" / "skills" / "client-follow-up").mkdir(parents=True)
+        (ws / ".claude" / "skills" / "client-follow-up" / "SKILL.md").write_text("---\nname: client-follow-up\n---\n")
+        self.mode({"extra_skills": ["client-follow-up"]})
+        H.call(rnd, "skill", root, "run the build skill", cwd=ws, tools=H.SKILL_TOOLS, plugin=root / "plugin",
+               prompt_tool=None)
+        args = json.loads((self.stub_dir / "last-args.json").read_text())
+        denied = args[args.index("--disallowedTools") + 1].split(",")
+        for n in ("schedule", "some-new-cli-skill", "loop", "send-to-project"):
+            self.assertIn(f"Skill({n})", denied)
+        self.assertFalse([d for d in denied if "handsonai" in d or "client-follow-up" in d], denied)
+        # no Skill tool, no skill rules
+        H.call(rnd, "student", root, "x", cwd=ws, tools=["Read"], prompt_tool=None)
+        self.assertNotIn("--disallowedTools", json.loads((self.stub_dir / "last-args.json").read_text()))
+        # the plugin's, the workspace's own, and a denied call are fine
+        self.mode({"extra_skills": ["client-follow-up"], "skill_calls": [
+            ["handsonai:build", "Launching skill: handsonai:build"], ["client-follow-up", "Launching skill: client-follow-up"],
+            ["schedule", "Permission to use Skill has been denied."]]})
+        H.call(rnd, "skill", root, "run the build skill", cwd=ws, tools=H.SKILL_TOOLS, plugin=root / "plugin")
+        # one that ran anyway stops the run: fail closed
+        self.mode({"extra_skills": ["client-follow-up"], "skill_calls": [["schedule", "Launching skill: schedule"]]})
+        with self.assertRaisesRegex(H.HarnessFailure, "a skill outside the plugin ran: schedule"):
+            H.call(rnd, "skill", root, "run the build skill", cwd=ws, tools=H.SKILL_TOOLS, plugin=root / "plugin")
 
     def test_wrong_version_fails_the_init_assertion(self):
         self.mode({"version": "9.9.8"})
@@ -1905,6 +2003,33 @@ class SettingsPrompt(unittest.TestCase):
         self.assertFalse(self.d("Write", str(self.ws / "framework" / ".bin" / "test-run.sh")))
         self.assertFalse(self.d("Write", str(self.tmp / "other" / ".claude" / "settings.local.json")))
         self.assertFalse(self.d("Write", ""))
+
+    def test_edits_inside_framework_and_check_agent_removal(self):
+        # build-full-1 (2026-11-21): the leader's "allow edits for this session" covers framework/
+        # (package/.claude/ too), and section 8 step 2's rm of the check agents is allowed
+        self.assertTrue(self.d("Write", str(self.ws / "framework" / "client-follow-up" / "package" / ".claude" / "skills" / "x" / "SKILL.md")))
+        self.assertTrue(self.d("Edit", "framework/client-follow-up/build-record.md"))
+        self.assertFalse(self.d("Write", "framework/.bin/test-run.sh"))
+        self.assertFalse(self.d("Write", "framework-other/x.md"))
+        self.assertFalse(self.d("Write", "framework/../registry/x.md"))
+        ok = lambda c: self.SP.decide("Bash", {"command": c}, str(self.ws))[0]
+        for c in ("rm .claude/agents/framework-check-client-follow-up-t2.md && ls .claude/agents/",
+                  "rm -f .claude/agents/framework-check-client-follow-up-t2.md .claude/agents/framework-check-client-follow-up-kw.md && ls .claude/agents",
+                  "rm .claude/agents/framework-check-client-follow-up-t2.md; ls .claude/agents/framework-check-client-follow-up-* 2>/dev/null",
+                  f"cd {self.ws}; rm .claude/agents/framework-check-client-follow-up-t2.md",
+                  "rm -f .claude/agents/framework-check-client-follow-up-*.md"):
+            self.assertTrue(ok(c), c)
+        for c in ("rm .claude/agents/status-checker.md",
+                  "rm -rf .claude/agents",
+                  "rm .claude/agents/framework-check-x-t2.md framework/client-follow-up/package/skills/x/SKILL.md",
+                  "rm .claude/agents/framework-check-x-t2.md && date -u",
+                  "rm .claude/agents/framework-check-x-t2.md > /tmp/out",
+                  "rm .claude/agents/framework-check-x-t2.md; rm $(echo x)",
+                  f"cd {self.tmp}; rm workspace/.claude/agents/framework-check-x-t2.md",
+                  "rm ../other/.claude/agents/framework-check-x-t2.md",
+                  "ls .claude/agents",
+                  "mv framework/x/package/skills/x .claude/skills/x"):
+            self.assertFalse(ok(c), c)
 
     def test_builds_own_parts_and_check_agents_are_allowed(self):
         # Build installs into .claude/skills/ and writes check agents into .claude/agents/; Claude Code

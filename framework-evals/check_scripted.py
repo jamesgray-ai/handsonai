@@ -285,8 +285,13 @@ def leader_never_words(run):
     return frozenset(name for name, rx in NEVER if rx.search(said))
 
 
+# a link's text is an address, not wording: a help-page slug ("…/10166901-use-google-workspace-connectors")
+# names the platform's page, not the framework's thing (build-full-1 fix, 2026-11-21)
+URL = re.compile(r"(?:https?://|\b[\w-]+(?:\.[\w-]+)+/)\S*")
+
+
 def vocabulary_hits(message, allowed=frozenset()):
-    text = corpus().strip_approved(leader_text(message))
+    text = URL.sub(" ", corpus().strip_approved(leader_text(message)))
     hits = []
     for name, rx in NEVER:
         if name in allowed:
@@ -919,10 +924,14 @@ def check(c, run):
             return False, f"signposts needs a skill with parts (one of {', '.join(SIGNPOST_IDS)}); {skill or 'none'} has no signposts"
         total, ids = SIGNPOST_IDS[skill]
         total = c.get("of", total)
-        want = []
+        forms = []
         for lid in ids:
-            want += [f.text for f in corpus().get(lid) if f.text and not f.derived and re.match(r"Part \d of \d", f.text)]
-        want = [w for w in want if re.match(rf"Part \d of {total}\b", w)] or [f"Part {k} of {total}" for k in range(1, total + 1)]
+            forms += [f.text for f in corpus().get(lid) if f.text and not f.derived and re.match(r"Part \d of \d", f.text)]
+        # build-full-1 fix (2026-11-21): every part 1..total is expected, each said in any of its approved
+        # forms ("Part 2 of 2 in this fix — save it and test") or, with none approved, as bare "Part k of N";
+        # before, one approved form of an `of` count made the check want that one signpost only
+        want = [[w for w in forms if re.match(rf"Part {k} of {total}\b", w)] or [f"Part {k} of {total}"]
+                for k in range(1, total + 1)]
         # smoke-1 fix (2026-11-14): in order across the sessions joined, so a stop and resume between two
         # parts counts (each signpost is said once, in whichever session reaches that part)
         sess = _sessions(run, n)
@@ -930,14 +939,14 @@ def check(c, run):
         pos = 0
         # Design baseline fix (2026-11-14): `optional` lists part numbers that may be left out (Design's
         # Part 3 when there is nothing to ask: Part 4 follows with no announcement and keeps its number)
-        optional = {f"Part {k} of {total}" for k in c.get("optional", [])}
-        for w in want:
-            j = text.find(AL.norm(w).rstrip("."), pos)
-            if j < 0 and w[:11] in optional:
+        optional = set(c.get("optional", []))
+        for k, alts in enumerate(want, 1):
+            found = [j for j in (text.find(AL.norm(w).rstrip("."), pos) for w in alts) if j >= 0]
+            if not found and k in optional:
                 continue
-            if j < 0:
-                return False, f"{w!r} missing or out of order"
-            pos = j
+            if not found:
+                return False, f"{' or '.join(map(repr, alts))} missing or out of order"
+            pos = min(found)
         return True, f"{skill}'s {len(want)} signposts in order (session{'s' if len(sess) > 1 else ''} " \
                      f"{', '.join(str(s['n']) for s in sess)})"
     if t == "max_words":

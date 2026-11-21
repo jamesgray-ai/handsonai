@@ -12,6 +12,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 import approved_lines as AL  # noqa: E402
+import check_scripted as CS  # noqa: E402
 
 EVALS = HERE.parents[1] / "build-workspace" / "evals" / "evals.json"
 
@@ -126,6 +127,75 @@ class StopInsideAClosingQuote(unittest.TestCase):
         self.assertTrue(f.matches("drafting-client-emails is also used by Client Check-In. Here's the change: "
                                   "before, it says \"Sign with your first name.\"; after, it says \"List every "
                                   "next step agreed.\" It changes those workflows too. Shall I make it?"))
+
+
+def _run_of(*ai_messages):
+    turns = []
+    for m in ai_messages:
+        turns += [{"role": "student", "text": "go", "student": True}, {"role": "ai", "text": m}]
+    return {"sessions": [{"n": 1, "turns": turns, "files_by_turn": [[]] * len(ai_messages),
+                          "files_start": {}, "files_end": {}, "cap_hit": False, "root": None}]}
+
+
+class VocabularySkipsLinks(unittest.TestCase):
+    """build-full-1 (2026-11-21): a help-page slug flagged "connector"."""
+
+    def test_a_link_slug_is_not_wording(self):
+        for m in ("See https://support.claude.com/en/articles/10166901-use-google-workspace-connectors for the steps.",
+                  "See support.claude.com/en/articles/10166901-use-google-workspace-connectors for the steps."):
+            self.assertEqual(CS.vocabulary_hits(m), [], m)
+
+    def test_the_word_outside_a_link_still_counts(self):
+        m = "Add the Gmail connector (support.claude.com/en/articles/10166901) first."
+        self.assertEqual([n for n, _ in CS.vocabulary_hits(m)], ["connector"])
+
+
+class ShortRunNeedsTheRestOfItsLine(unittest.TestCase):
+    """build-full-1 (2026-11-21): a 6-7 word run with one word changed, and nothing else of its line said,
+    is model wording, not the line reworded."""
+
+    def misses(self, msg, skill="build"):
+        return [(ln.id, got) for ln, _, got in AL.load().near_misses(msg, skill)]
+
+    def test_false_hits_from_the_round(self):
+        for msg, lid in [
+            ("Say 'done' when it's paused, 'it only runs when I start it', or 'stop' to leave everything as it is.",
+             "N-B14"),  # P1-older-yes-cc-copy run 2/3
+            ("If you'd rather leave the old one alone for now, say 'stop'. Nothing is installed so far, and I'll "
+             "pick up here next time.", "N-B9"),  # P1-older-yes-cc-copy run 3
+            ("Your progress is saved. In the new chat, add your Google Drive and Gmail from the prompt box before "
+             "you type anything.\n\nTo pick up, say 'run the build skill. My files are in Google Drive, in "
+             "ai-workspace/framework/client-follow-up.'", "N-F2"),  # P2-sch-claude-web run 1
+        ]:
+            self.assertNotIn(lid, [i for i, _ in self.misses(msg)], msg)
+
+    def test_a_rewording_with_the_rest_of_the_line_is_still_caught(self):
+        msg = "Test found a typo in the draft step. I'll redo just that, and leave everything as it is."
+        self.assertIn("N-B14", [i for i, _ in self.misses(msg)])
+        msg = ("Start Design in the new chat. Add your Google Drive to it, then say 'run the design skill. My files "
+               "are in Google Drive, in ai-workspace/framework/client-follow-up.'")
+        self.assertIn("N-F2", [i for i, _ in self.misses(msg, None)])
+
+    def test_a_short_line_on_its_own_is_still_caught(self):
+        self.assertIn("N-D16", [i for i, _ in self.misses("It keeps running as is.", None)])
+
+
+class SignpostsOfAnotherCount(unittest.TestCase):
+    """build-full-1 (2026-11-21): with `of`, every part 1..N is expected, in any approved form."""
+
+    C = {"type": "signposts", "skill": "build", "of": 2}
+
+    def test_both_parts_of_a_fix_are_wanted(self):
+        self.assertFalse(CS.check(self.C, _run_of("Part 1 of 2 in this fix"))[0])
+        self.assertTrue(CS.check(self.C, _run_of("Part 1 of 2 in this fix", "Part 2 of 2 in this fix — save it and test"))[0])
+        self.assertFalse(CS.check(self.C, _run_of("Part 2 of 2 in this fix — save it and test", "Part 1 of 2 in this fix"))[0])
+
+    def test_a_three_part_fix_takes_its_own_first_form(self):
+        c = {"type": "signposts", "skill": "build"}
+        self.assertTrue(CS.check(c, _run_of("Part 1 of 3 in this fix — your setup", "Part 2 of 3 — building and checking",
+                                            "Part 3 of 3 — save it and test"))[0])
+        self.assertFalse(CS.check(c, _run_of("Part 1 of 3 — your setup", "Part 3 of 3 — save it and test"))[0])
+
 
 if __name__ == "__main__":
     unittest.main()

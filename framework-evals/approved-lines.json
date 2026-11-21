@@ -4893,6 +4893,32 @@
    "source": "build.md 12; approved before 3c-DJ (with three parts)"
   },
   {
+   "id": "N-B1",
+   "form": "main-5",
+   "text": "Part 1 of 3 in this fix — your setup",
+   "kind": "teaching",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/fix-mode.md"
+   },
+   "source": "build-full-1 fix (2026-11-21, James): fix mode's signposts with their part names"
+  },
+  {
+   "id": "N-B1",
+   "form": "main-6",
+   "text": "Part 2 of 2 in this fix — save it and test",
+   "kind": "teaching",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/fix-mode.md"
+   },
+   "source": "build-full-1 fix (2026-11-21, James): fix mode's signposts with their part names"
+  },
+  {
    "id": "N-B2",
    "form": "main",
    "text": "To start, paste or attach your Workflow Requirements, your approved plan[, your build record], and the practice inputs and context files saved with them.",

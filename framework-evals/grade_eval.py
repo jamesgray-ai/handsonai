@@ -958,30 +958,60 @@ RESULT_LEN = 500
 
 def tool_calls(run):
     """The AI's own tool calls and what each returned, cut short: every connection call (mcp__…, its
-    input up to COMMAND_LEN) and every Bash command that isn't a read of the step's own text, each with
-    the start of its result. Calls with short results first (a `crontab -l`, a `git log`, a `diff`, a
+    input up to COMMAND_LEN), every Bash command that isn't a read of the step's own text, every Skill
+    call that isn't a handsonai skill (with the synthetic message that follows it), and every Edit or
+    Write on a file outside the plugin (its path and the start of what it wrote), each with the start
+    of its result. Calls with short results first (a `crontab -l`, a `git log`, a `diff`, a
     draft's address), then in order, up to COMMANDS_CAP. A claim backed only by a check the AI ran
     ("nothing is scheduled on this computer", "`# edited` was added at the end") was judged invented
     when no word run of it matched the output (Build rounds 2026-11-18, about 11 runs)."""
     rows = []
     for _, path in _events(run):
-        calls = {}
+        calls, skill_row = {}, None
         for e in _load_events(path):
             msg = e.get("message")
             content = msg.get("content") if isinstance(msg, dict) else None
+            if e.get("type") == "user" and e.get("isSynthetic") and skill_row is not None:
+                # build-full-1 fix (2026-11-21): what a platform skill printed back to the session
+                # ("We're having trouble connecting with your remote claude.ai account…") follows its
+                # "Launching skill" result as a synthetic user message: show it with the call
+                text = content if isinstance(content, str) else "\n".join(
+                    b.get("text", "") for b in content or [] if isinstance(b, dict) and b.get("type") == "text")
+                text = text.strip()
+                if text:
+                    short = text if len(text) <= RESULT_LEN else text[:RESULT_LEN] + " […cut]"
+                    row = rows[skill_row]
+                    rows[skill_row] = (row[0], row[1], f"{row[2]}\n{short}")
+                skill_row = None
+                continue
             for b in content if isinstance(content, list) else []:
                 if not isinstance(b, dict):
                     continue
                 if e.get("type") == "assistant" and b.get("type") == "tool_use":
                     name, inp = str(b.get("name") or ""), b.get("input") or {}
+                    skill_row = None
                     if name == "Bash" and not _instruction_call(b):
                         calls[b.get("id")] = "$ " + re.sub(r"\s+", " ", str(inp.get("command") or ""))[:COMMAND_LEN]
                     elif name.startswith("mcp__"):
                         calls[b.get("id")] = f"{name} " + json.dumps(inp, ensure_ascii=False)[:COMMAND_LEN]
+                    elif name == "Skill" and not str(inp.get("skill") or "").startswith("handsonai:"):
+                        # a skill that isn't the framework's (Claude Code's own /schedule): what it did is a fact
+                        calls[b.get("id")] = (f"Skill {inp.get('skill') or ''} "
+                                              + json.dumps(inp.get("args") or "", ensure_ascii=False)[:COMMAND_LEN])
+                    elif name in ("Edit", "Write", "MultiEdit") and not _plugin_path(inp.get("file_path")):
+                        # a change the AI made itself to the leader's files (a settings rule, a skill paused)
+                        body = inp.get("new_string") if name == "Edit" else inp.get("content")
+                        if name == "MultiEdit":
+                            body = " | ".join(str(x.get("new_string") or "") for x in inp.get("edits") or []
+                                              if isinstance(x, dict))
+                        calls[b.get("id")] = (f"{name} {inp.get('file_path') or ''}: "
+                                              + re.sub(r"\s+", " ", str(body or ""))[:COMMAND_LEN])
                 elif e.get("type") == "user" and b.get("type") == "tool_result" and b.get("tool_use_id") in calls:
                     res = _result_text(b).strip()
                     call = calls.pop(b.get("tool_use_id"))
                     short = res if len(res) <= RESULT_LEN else res[:RESULT_LEN] + " […cut]"
+                    if call.startswith("Skill "):
+                        skill_row = len(rows)
                     rows.append((len(res) > RESULT_LEN, len(rows), f"{call}\n{short or '(no output)'}"))
     out, total = [], 0
     for _, _, row in sorted(rows):

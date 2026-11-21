@@ -327,6 +327,26 @@ class BuildRoundContext(unittest.TestCase):
         self.assertNotIn("within 48 hours", out)  # a read of the step's own text is never a tool result
         self.assertIn("## The AI's own commands and connection calls", G.rubric_prompt(run)[1])
 
+    def test_platform_skill_calls_and_edits_outside_the_plugin_are_shown(self):
+        # build-full-1 (2026-11-21): Skill("schedule", "list") answered in a synthetic message, and an Edit
+        # that paused the older skill, were invisible to the judge
+        synth = {"type": "user", "isSynthetic": True, "message": {"role": "user", "content": [
+            {"type": "text", "text": "We're having trouble connecting with your remote claude.ai account."}]}}
+        events = (call_and_result(1, "Skill", {"skill": "schedule", "args": "list"}, "Launching skill: schedule")
+                  + [synth]
+                  + call_and_result(2, "Skill", {"skill": "handsonai:build"}, "Launching skill: handsonai:build")
+                  + call_and_result(3, "Edit", {"file_path": "/tmp/x/workspace/.claude/skills/client-follow-up/SKILL.md",
+                                                "old_string": "description: x", "new_string":
+                                                "description: x\ndisable-model-invocation: true"}, "updated")
+                  + call_and_result(4, "Write", {"file_path": "/tmp/x/plugin/skills/build/SKILL.md", "content": "nope"},
+                                    "written"))
+        out = G.tool_calls(run_with(events))
+        self.assertIn('Skill schedule "list"\nLaunching skill: schedule\nWe\'re having trouble connecting', out)
+        self.assertNotIn("handsonai:build", out)
+        self.assertIn("Edit /tmp/x/workspace/.claude/skills/client-follow-up/SKILL.md: description: x "
+                      "disable-model-invocation: true", out)
+        self.assertNotIn("/tmp/x/plugin/", out)
+
     def test_tool_lines_keep_more_of_each_line(self):
         line = "commit 1a2b3c " + "word " * 50 + "my skill 2026-10-20"
         msg = "Your Git history has the commit from 2026-10-20 called my skill."

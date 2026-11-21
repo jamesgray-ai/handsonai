@@ -9,7 +9,11 @@ leader would: it allows an Edit, Write or MultiEdit whose file_path resolves to 
 `.claude/settings.local.json`, and denies everything else but one case: an Edit, Write or MultiEdit
 inside the workspace's own `.claude/skills/` or `.claude/agents/` (Build installing the parts it built,
 and its check agents' files, claude-code-block.md section 6), which Claude Code also asks about and
-the leader running Build allows. It also denies the settings file when:
+the leader running Build allows. Two more the leader allows (build-full-1, 2026-11-21): an Edit, Write
+or MultiEdit anywhere inside the workspace's `framework/` (the leader's "allow edits for this session":
+the workflow's folder, its package/ and package/.claude/) but its `.bin/` (the wrapper, never written), and a Bash command that only removes Build's
+check agent files, `.claude/agents/framework-check-<slug>-*.md` (claude-code-block.md section 8 step 2),
+optionally with a `cd` into the workspace and `ls` or `echo` around it. It also denies the settings file when:
 - the leader declined Claude Code's prompt (SETTINGS_PROMPT_DENY=1, the eval's
   `leader_denies_settings_prompt` fault), or
 - the gate file (SETTINGS_PROMPT_GATE, rewritten by the runner before every turn) says the leader
@@ -19,6 +23,8 @@ Every decision is appended to SETTINGS_PROMPT_LOG (JSON lines), the path relativ
 """
 import json
 import os
+import re
+import shlex
 import sys
 import time
 
@@ -32,14 +38,65 @@ def _real(p):
     return os.path.realpath(p)
 
 
+CHECK_AGENT = re.compile(r"^framework-check-[a-z0-9*][a-z0-9*-]*\.md$")
+SAFE_REDIRECTS = re.compile(r"\s(?:2>/dev/null|2>&1)(?=\s|$)")
+
+
+def _check_agent_rm(command, workspace):
+    """Whether a Bash command only removes check agent files in the workspace's .claude/agents/
+    (globs within the file name allowed), with at most a `cd` into the workspace and `ls`/`echo` beside it."""
+    cmd = SAFE_REDIRECTS.sub(" ", " " + command + " ")
+    if re.search(r"[`<>\n]|\$\(", cmd):
+        return False
+    cwd, removed = _real(workspace), False
+    for seg in re.split(r"&&|\|\||;|\|", cmd):
+        try:
+            words = shlex.split(seg)
+        except ValueError:
+            return False
+        if not words:
+            continue
+        head, rest = words[0], words[1:]
+        if head == "cd" and len(rest) == 1:
+            target = rest[0] if os.path.isabs(rest[0]) else os.path.join(cwd, rest[0])
+            if _real(target) != _real(workspace):
+                return False
+            cwd = _real(target)
+        elif head in ("ls", "echo"):
+            continue
+        elif head == "rm":
+            paths = [w for w in rest if w not in ("-f", "--")]
+            if not paths or any(w.startswith("-") for w in paths):
+                return False
+            for w in paths:
+                full = w if os.path.isabs(w) else os.path.join(cwd, w)
+                full = os.path.normpath(full)
+                if _real(os.path.dirname(full)) != _real(os.path.join(workspace, ".claude", "agents")) \
+                        or not CHECK_AGENT.match(os.path.basename(full)):
+                    return False
+            removed = True
+        else:
+            return False
+    return removed
+
+
 def decide(tool_name, tool_input, workspace, gate=None, leader_declines=False):
     """(allow: bool, reason: str). Pure: the unit tests call it directly."""
+    if tool_name == "Bash":
+        if _check_agent_rm(str((tool_input or {}).get("command") or ""), workspace):
+            return True, "removing Build's check agent files in .claude/agents/"
+        return False, "a Bash command other than removing Build's check agent files"
     if tool_name not in FILE_TOOLS:
         return False, f"{tool_name} isn't a file edit the leader's settings prompt covers"
     path = (tool_input or {}).get("file_path") or ""
     if not path:
         return False, "no file_path"
     full = path if os.path.isabs(path) else os.path.join(workspace, path)
+    fw = _real(os.path.join(workspace, "framework"))
+    if _real(full).startswith(_real(os.path.join(fw, ".bin")) + os.sep):
+        return False, "the wrapper's folder framework/.bin/ (copied byte for byte, never written or edited)"
+    if _real(full).startswith(fw + os.sep):
+        return True, "an edit inside the workspace's framework/ (the leader's allow edits for this session)"
     for d in PARTS:
         root = _real(os.path.join(workspace, d))
         if _real(full).startswith(root + os.sep):

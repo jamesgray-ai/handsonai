@@ -220,6 +220,11 @@ def _move_into(ws, sub):
     return target
 
 
+# Build's ask to pause an older skill on Claude Code (claude-code-block / setup.md: move the folder out, or add
+# `disable-model-invocation: true` to its SKILL.md), then "Say 'done' when it's paused…"
+PAUSE_ASK = re.compile(r"(?is)disable-model-invocation.*?\bsay\s+[‘’'\"“”]done[‘’'\"“”]\s+when it[‘’']?s paused")
+
+
 class ClaudeCode(Platform):
     run_in_workspace = True
     run_opening = ("You opened a second terminal window, went to the folder, started Claude Code and pasted "
@@ -227,6 +232,32 @@ class ClaudeCode(Platform):
 
     def run_preamble(self):
         return None  # the real platform: the workspace's .claude/skills load as they would for the leader
+
+    def screen(self, ai_text, ws, run_chat=None):
+        # remember which older skills Build asked the leader to pause, for their "done" (on_leader)
+        self.state["pause"] = (sorted(set(re.findall(r"\.claude/skills/([A-Za-z0-9_-]+)", ai_text or "")))
+                               if PAUSE_ASK.search(ai_text or "") else [])
+        return Platform.screen(self, ai_text, ws, run_chat)
+
+    def on_leader(self, msg, ws):
+        """build-full-1 (2026-11-21): the leader says "done" to pausing an older skill, as the student script
+        says, but a student can't edit files: the leader's edit is made here, as Build asked, by adding
+        `disable-model-invocation: true` to that skill's SKILL.md frontmatter (the folder stays put)."""
+        names = self.state.pop("pause", [])
+        if not names or not re.search(r"\bdone\b", msg, re.I):
+            return 0
+        acts = 0
+        for name in names:
+            f = Path(ws) / ".claude" / "skills" / name / "SKILL.md"
+            if not f.is_file():
+                continue
+            text = f.read_text()
+            m = re.match(r"---\n(.*?)\n---", text, re.S)
+            if not m or re.search(r"(?m)^disable-model-invocation:", m.group(1)):
+                continue
+            f.write_text(f"---\n{m.group(1)}\ndisable-model-invocation: true\n---" + text[m.end():])
+            acts += 1
+        return acts
 
 
 class Codex(Platform):

@@ -178,7 +178,8 @@ def leader_prompt(turns, screens):
 # "done" to Build's "[Tool] isn't connected yet." (connect_now). Before, none are there, as for a
 # leader who hasn't connected them; without them Build could never pass Part 1 on these platforms.
 CHAT_CONNECT = ("claude-web", "chatgpt", "claude-desktop")
-NOT_CONNECTED_RE = re.compile(r"\b(Gmail|Google Sheets|Slack) isn't connected yet\b")
+# build-full-1 fix (2026-11-21): "Gmail isn't connected in this chat yet" too
+NOT_CONNECTED_RE = re.compile(r"\b(Gmail|Google Sheets|Slack) (?:isn't|is not) connected\b")
 DONE_RE = re.compile(r"\bdone\b", re.I)
 
 
@@ -244,6 +245,8 @@ def connections_for(platform, ws, root, data, extra=()):
         specs.append(H.stub_spec("google_sheets", "Google Sheets", "sheets"))
     if re.search(r"(?m)(^|\. )Slack: ", plans):  # the plans that post to #client-updates (W2)
         specs.append(H.stub_spec("slack", "Slack", "slack"))
+    if re.search(r"(?m)(^|\. )HubSpot: ", plans):  # cc-mixed-tool: reads the open deal, logs a note (W2)
+        specs.append(H.stub_spec("hubspot", "HubSpot", "hubspot"))
     return H.stub_mcp(root, specs) if specs else None
 
 

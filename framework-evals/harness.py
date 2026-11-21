@@ -65,6 +65,53 @@ TRANSIENT_RE = re.compile(r"overloaded|API Error: 5\d\d|ECONNRESET|socket hang u
 # planted or leaked skill of the same name still stops the run.
 CLI_BUILTIN_SKILLS = {"send-to-project"}
 
+# Claude Code's own skills, denied by name in every session that has the Skill tool (build-full-1,
+# 2026-11-21: two Build sessions ran Skill("schedule", "list"), which reached the real claude.ai account).
+# The deny list is these, the round's recorded bundled skills and CLI_BUILTIN_SKILLS, less the plugin's
+# handsonai:* skills and the workspace's own (the built workflow's). Permission rules can't allow only
+# a prefix (a deny always wins over an allow), so the names are listed; a skill not on the list that
+# still runs is caught after the call (check_skill_calls) and stops the run: fail closed.
+KNOWN_CLI_SKILLS = {"schedule", "loop", "claude-api", "update-config", "keybindings-help", "simplify",
+                    "fewer-permission-prompts", "init", "security-review", "review", "code-review", "run",
+                    "workflow-authoring", "plugin-authoring", "claude-in-chrome", "statusline", "dataviz",
+                    "artifact-design", "artifact-diagramming", "artifact-capabilities", "pr-comments",
+                    "release-notes", "compact", "memory", "agents", "batch", "debug", "insights"}
+
+
+def skill_denies(rnd, cwd, tools):
+    """The permission rules that deny every non-plugin skill a session could call: [] without the Skill tool."""
+    if "Skill" not in tools:
+        return []
+    names = set(rnd.bundled_skills or []) | KNOWN_CLI_SKILLS | CLI_BUILTIN_SKILLS
+    names = sorted(n for n in names - own_skills(cwd) if not n.startswith("handsonai:"))
+    return [r for n in names for r in (f"Skill({n})", f"Skill({n} *)")]
+
+
+def check_skill_calls(role, events, cwd, own_before=(), plugin=None):
+    """Fail closed: a Skill call that ran (its result "Launching skill…") for a skill that is neither
+    the plugin's (handsonai:*) nor the workspace's own stops the run, as an isolation problem: its
+    deny didn't hold. A denied call (a permission denial) is the session's to handle."""
+    own = set(own_before) | own_skills(cwd)
+    if plugin:  # the plugin's skills, called without the handsonai: prefix
+        own |= {p.parent.name for p in Path(plugin).glob("skills/*/SKILL.md")}
+    calls = {}
+    for e in events:
+        msg = e.get("message") if isinstance(e, dict) else None
+        content = msg.get("content") if isinstance(msg, dict) else None
+        for b in content if isinstance(content, list) else []:
+            if not isinstance(b, dict):
+                continue
+            if b.get("type") == "tool_use" and b.get("name") == "Skill":
+                name = str((b.get("input") or {}).get("skill") or "")
+                if not name.startswith("handsonai:") and name not in own:
+                    calls[b.get("id")] = name
+            elif b.get("type") == "tool_result" and b.get("tool_use_id") in calls:
+                c = b.get("content")
+                text = c if isinstance(c, str) else " ".join(x.get("text", "") for x in c or [] if isinstance(x, dict))
+                if not b.get("is_error") and re.search(r"launching skill", text, re.I):
+                    raise HarnessFailure(f"{role}: a skill outside the plugin ran: {calls[b.get('tool_use_id')]} "
+                                         "(its deny rule didn't hold)")
+
 
 class HarnessFailure(Exception):
     """An isolation or harness problem: never a skill result."""
@@ -343,16 +390,20 @@ SHEETS_ALLOW = ["mcp__google_sheets__get_profile", "mcp__google_sheets__list_spr
 SLACK_ALLOW = ["mcp__slack__get_profile", "mcp__slack__list_channels", "mcp__slack__read_channel",
                "mcp__slack__post_message", "mcp__slack__delete_message"]
 
+# The stand-in HubSpot (GMAIL_STUB_KIND=hubspot; cc-mixed-tool): its one CRM tool both reads and changes
+# records, allowed as the leader's click would allow it; the block's deny rules still win.
+HUBSPOT_ALLOW = ["mcp__hubspot__get_profile", "mcp__hubspot__manage_crm_objects"]
+
 
 def stub_spec(server="gmail", service="Gmail", kind="mail", account="alex@brightline.example", extra=()):
     """One stand-in connection for stub_mcp: the mail stub (Gmail, or Outlook on Microsoft 365) or,
-    with kind="sheets", Google Sheets, or with kind="slack", Slack."""
+    with kind="sheets", Google Sheets, with kind="slack", Slack, or with kind="hubspot", HubSpot."""
     unknown = set(extra) - set(STUB_EXTRA_TOOLS)
     if unknown:
         raise HarnessFailure(f"unknown stand-in connection tools: {sorted(unknown)}")
-    allow = (SHEETS_ALLOW if kind == "sheets" else SLACK_ALLOW if kind == "slack"
+    allow = (SHEETS_ALLOW if kind == "sheets" else SLACK_ALLOW if kind == "slack" else HUBSPOT_ALLOW if kind == "hubspot"
              else GMAIL_ALLOW + [STUB_EXTRA_TOOLS[x] for x in sorted(extra)])
-    prefix = {"sheets": "mcp__google_sheets__", "slack": "mcp__slack__"}.get(kind, "mcp__gmail__")
+    prefix = {"sheets": "mcp__google_sheets__", "slack": "mcp__slack__", "hubspot": "mcp__hubspot__"}.get(kind, "mcp__gmail__")
     return {"server": server, "service": service, "kind": kind, "account": account, "extra": sorted(extra),
             "allow": [t.replace(prefix, f"mcp__{server}__") for t in allow]}
 
@@ -615,9 +666,13 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
     configs = [str(m["config"]) for m in (mcp, prompt_tool) if m]
     if configs:
         args += ["--mcp-config", *configs]
+    disallowed = skill_denies(rnd, cwd, tools)
     if prompt_tool:
         # The session's model never calls the click itself: only Claude Code's prompt does.
-        args += ["--permission-prompt-tool", prompt_tool["tool"], "--disallowedTools", prompt_tool["tool"]]
+        args += ["--permission-prompt-tool", prompt_tool["tool"]]
+        disallowed.append(prompt_tool["tool"])
+    if disallowed:
+        args += ["--disallowedTools", ",".join(disallowed)]
     if plugin:
         args += ["--plugin-dir", str(plugin)]
     if agent:
@@ -663,6 +718,7 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
     check_init(rnd, role, init, root, tools, cwd, plugin,
                list((mcp or {}).get("servers", ())) + list((prompt_tool or {}).get("servers", ())), own_before)
     check_config_folder(root, plugin)
+    check_skill_calls(role, events, cwd, own_before, plugin)
     record = {
         "role": role,
         "init": {k: init.get(k) for k in INIT_FIELDS},

@@ -476,6 +476,8 @@ class Corpus:
                     _, a, L, win = best
                     if _edge_word_only(seg, win) or _start_phrase_only(seg, win):
                         continue
+                    if len(seg) < SHORT_RUN_WORDS and best[0] == 1 and not _rest_said(ln, k, ws):
+                        continue
                     if any(_contains(s2, win) for other in SAID_AS.get(ln.id, ())
                            for o in self.by_id.get(other, []) for s2 in o.segments):
                         continue
@@ -534,6 +536,40 @@ def _edge_word_only(seg, win):
     if len(seg) >= SHORT_RUN_WORDS or len(win) != len(seg):
         return False
     return win[1:] == seg[1:] or win[:-1] == seg[:-1]
+
+
+# fixed runs every routing line shares ("…. My files are in [location].'"): saying them is no sign that
+# a particular line was said
+COMMON_RUNS = {("my", "files", "are", "in")}
+
+
+def _run_said(seg, ws):
+    """The run is in ws word for word or, when it is six words or more, with a word or two changed."""
+    if _contains(ws, seg):
+        return True
+    if len(seg) < MIN_SEGMENT_WORDS:
+        return False
+    cap = 1 if len(seg) < 12 else 2
+    for L in range(max(1, len(seg) - cap), len(seg) + cap + 1):
+        for a in range(0, len(ws) - L + 1):
+            if ws[a] not in seg and ws[a + L - 1] not in seg:
+                continue
+            if _edit_distance(seg, ws[a:a + L], cap) <= cap:
+                return True
+    return False
+
+
+def _rest_said(ln, k, ws):
+    """build-full-1 fix (2026-11-21): a short run (under SHORT_RUN_WORDS words) said with one word changed
+    is that line reworded only when something else of the line was said too: another of its fixed runs of
+    three words or more (not a run every routing line shares) appears in the message. "and leave everything
+    as it is" alone is not N-B14 ("…I'll redo just that…, and leave everything else as it is"), nor "I'll pick
+    up here next time" N-B9, nor "In the new chat, add your Google Drive" N-F2. A line with no other such
+    run (the short run is the line) is still flagged."""
+    others = [seg for j, seg in enumerate(ln.segments) if j != k and len(seg) >= 3 and tuple(seg) not in COMMON_RUNS]
+    if not others:
+        return True
+    return any(_run_said(seg, ws) for seg in others)
 
 
 START_PHRASE = re.compile(r"\bsay (?:run the \w+ skill(?: on \w+)?|test the workflow i built|change my workflow)"
