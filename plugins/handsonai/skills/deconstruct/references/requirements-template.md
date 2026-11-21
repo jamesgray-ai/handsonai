@@ -54,7 +54,7 @@ Each tripped test works its categories, once each even when two tests point at t
 | A `Regulated` row | Boundaries and Access, with the `Governing regime:` line naming the regime, or `Not sure — to check` |
 | None of these | **Prohibited actions** alone |
 
-With nothing tripped, `### Prohibited actions` holds the lines the leader kept, each with its Source and its `P` ID (`P1` for the first), and the section opens "No sensitivity constraints beyond the prohibition(s) below — personal data only, read-only, human-triggered." Only when the leader dropped every line does it take the one-line form: "No sensitivity constraints — personal data only, read-only, human-triggered." A prohibition the leader stated is always written down, unless they take it back themselves.
+With nothing tripped, `### Prohibited actions` holds the lines the leader kept, each with its Source and its `P` ID (`P1` for the first), and the section opens "No sensitivity constraints beyond the prohibition(s) below — personal data only, read-only, human-triggered." Only when the leader dropped every line does it take the one-line form: "No sensitivity constraints — personal data only, read-only, human-triggered." When a test tripped and the leader dropped every line of one of its categories, that category is written as its heading and an empty table (`| ID | Constraint | Source |` and its separator row): later steps read it as answered, never as missing. A prohibition the leader stated is always written down, unless they take it back themselves.
 
 ## 3. Standing rules
 
@@ -288,8 +288,8 @@ Earlier run: [what an earlier run left behind, in plain words: the cases it hand
 [the input]
 ```
 
-- **`tests:`** names the AC, R, G and D lines the input exercises (a D line must exist under `### Decisions`).
-- **`expect:`** is always written by Deconstruct, never empty: the result the leader confirmed in the practice-runs playback, in the form "[what it produces or does]; [what it doesn't do]". For an input aimed at a D line, an out-of-bounds `When` line or carry-over, it's taken from that line's own wording ("[takes the D line's path]", "[does what the `When` line says instead]", "[does what with] the [case] an earlier run already handled"). The Example Scenarios row's "What to look for in the output" is the same text, word for word.
+- **`tests:`** names the AC, R and G lines the input exercises (in an older file with `### Decisions`, also its D lines).
+- **`expect:`** is always written by Deconstruct, never empty: the result the leader confirmed in the practice-runs playback, in the form "[what it produces or does]; [what it doesn't do]". Deconstruct proposes no input aimed at a decision, an out-of-bounds case or carry-over (Test writes those); in an older file that holds one, its `expect:` is taken from that line's own wording ("[takes the D line's path]", "[does what the `When` line says instead]", "[does what with] the [case] an earlier run already handled"). The Example Scenarios row's "What to look for in the output" is the same text, word for word.
 - **`Earlier run:`** appears only on a carry-over input: one paragraph of set-up, never input. Testing puts it where the workflow keeps what it remembers, and no run ever sees it.
 
 The header lines and the `Earlier run:` paragraph are for the steps only and never reach a run. A real input is saved exactly as given, except that a password or key in it is replaced with a placeholder first, with N-F14 said; a proposed one is written out in full, so it can be pasted as it is, and saved exactly as the leader saw and confirmed it at N-D25, with their corrections (`interview.md`, *The inputs you wrote, shown before saving*). The interview saves two or three, plus any pasted input that holds an instruction addressed to the AI, which is always kept (`interview.md`, *The practice runs*). Deconstruct's inputs are also listed in Example Scenarios, path first.

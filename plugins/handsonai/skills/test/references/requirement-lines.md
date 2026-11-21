@@ -76,7 +76,7 @@ A file without these reads as before.
 ## Changing a requirement
 
 N-T6 + N-T7's add or drop, a requirement-level miss and a what-change at the real example all change `requirements.md`, which Test may do:
-1. **A fixed step, or a line a law requires, stays.** A line fixed by regulation or policy, or a rule or checkpoint that names a law as its reason ("…, as [the law] requires."): say "[The step] is required by [the rules / your policy], so it stays." then the next action. Never removed or loosened, whatever the leader says.
+1. **A fixed step, or a line a law requires, stays.** A line fixed by regulation or policy, or a rule or checkpoint that names a law as its reason ("…, as [the law] requires."): say "[The step] is required by [the rules / your policy], so it stays." then the next action. ([The step] names the rule or checkpoint, in plain words, for a line a law requires.) Never removed or loosened, whatever the leader says.
 2. **Loosening a rule** (a checkpoint, an "It always…" or "It never…" line, any rule) asks once: **Ask:** "Removing this means it'll [the consequence]. Remove it?" (folded into N-T14 when that's the question that led here).
 3. **Write it:** the line in the leader's words, in the formats above (the table's columns, its `Kind` values and the `(must)` marker; a new line takes the next number in its series, and a removed line's number is never reused); `revision` raised; a `revisions:` entry (`by: test`, the line IDs), written in block form, never as `{ … }`:
    ```yaml
