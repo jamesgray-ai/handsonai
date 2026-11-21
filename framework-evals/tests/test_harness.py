@@ -1907,8 +1907,8 @@ class ScriptedMarks(unittest.TestCase):
 
     def test_leading_fill_stays_in_its_sentence(self):
         out = self.mark("Now update the record. client-follow-up is made in Copilot's Agent Builder, not here in "
-                        "Cowork: 1. Open Copilot, choose Chat, then Agents, then New agent. 2. Paste this into the "
-                        "Message Agent Builder box:")
+                        "Cowork: 1. Open Microsoft 365 Copilot and choose New agent in the left pane. 2. Paste this "
+                        "into the chat box on the Describe tab:")
         self.assertTrue(out.startswith("Now update the record. ⟦"), out)
 
     def test_model_wording_id_stays_outside(self):

@@ -8869,10 +8869,9 @@
        36
       ],
       "passed": {
-       "type": "quote",
-       "id": "N-B45",
-       "form": "Codex, in the CLI"
-      },
+      "type": "quote_absent",
+      "id": "N-B45"
+     },
       "open": {
        "type": "all",
        "checks": [
