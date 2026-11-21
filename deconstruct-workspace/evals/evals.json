@@ -16531,11 +16531,12 @@
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -19437,11 +19438,12 @@
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
@@ -28193,11 +28195,12 @@
             "checks": [
               {
                 "type": "quote",
-                "id": "deconstruct:safety-limits-line"
+                "id": "deconstruct:safety-limits-line",
+                "form": "no sign"
               },
               {
                 "type": "ai_regex",
-                "pattern": "(?:Because this [^\\n]*I'll also set its safety limits with you\\.|Every workflow gets safety limits, so I'll set this one's with you\\.)[\\s\\S]*What would you change or add\\?"
+                "pattern": "Every workflow gets safety limits, so I'll set this one's with you\\.[\\s\\S]*What would you change or add\\?"
               }
             ]
           }
