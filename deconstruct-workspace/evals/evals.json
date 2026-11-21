@@ -14539,7 +14539,7 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a source is marked Confidential (the safe default when the leader hasn't said, included); its no-sign form otherwise; the message ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "any",
@@ -14550,7 +14550,7 @@
                   {
                     "type": "file_regex",
                     "path": "drive/ai-workspace/framework/*/requirements.md",
-                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*Confidential\\s*\\|"
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
                   },
                   {
                     "type": "quote",
@@ -14569,7 +14569,7 @@
                   {
                     "type": "file_not_regex",
                     "path": "drive/ai-workspace/framework/*/requirements.md",
-                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*Confidential\\s*\\|"
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
                   },
                   {
                     "type": "quote",
@@ -17200,7 +17200,7 @@
           }
         },
         {
-          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a source is marked Confidential (the safe default when the leader hasn't said, included); its no-sign form otherwise; the message ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "any",
@@ -17211,7 +17211,7 @@
                   {
                     "type": "file_regex",
                     "path": "framework/*/requirements.md",
-                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*Confidential\\s*\\|"
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
                   },
                   {
                     "type": "quote",
@@ -17230,7 +17230,7 @@
                   {
                     "type": "file_not_regex",
                     "path": "framework/*/requirements.md",
-                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*Confidential\\s*\\|"
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
                   },
                   {
                     "type": "quote",
@@ -19489,7 +19489,7 @@
           "must": true
         },
         {
-          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a source is marked Confidential (the safe default when the leader hasn't said, included); its no-sign form otherwise; the message ends \"What would you change or add?\"",
+          "text": "Every workflow gets its safety limits, opened by the safety-limits line word for word: its main form, naming the sign, when a safety test trips in the file (a Confidential, Regulated or External source, the safe default included; a write; or running without the leader); its no-sign form otherwise; the message ends \"What would you change or add?\"",
           "kind": "scripted",
           "check": {
             "type": "any",
@@ -19500,7 +19500,7 @@
                   {
                     "type": "file_regex",
                     "path": "framework/*/requirements.md",
-                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*Confidential\\s*\\|"
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
                   },
                   {
                     "type": "quote",
@@ -19519,7 +19519,7 @@
                   {
                     "type": "file_not_regex",
                     "path": "framework/*/requirements.md",
-                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*Confidential\\s*\\|"
+                    "pattern": "(?m)^\\|[^\\n]*\\|\\s*(?:Confidential|Regulated|External)\\s*\\||^Runs: without you|^- W\\d+ ·"
                   },
                   {
                     "type": "quote",
