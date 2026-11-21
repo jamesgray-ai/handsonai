@@ -91,7 +91,7 @@ Always, in its own message, right after the filled-in message (`interview.md`, *
 
 Its sentence "Anything it must never do counts like a must-have: one miss always sends it back." is said always, whether or not the workflow has an "It never…" rule or a prohibited action yet.
 
-Everything the save needs is read in the preview's turn, before its text, so the go-ahead's turn holds only writes (SKILL.md, Phase 3).
+Everything the save needs is read at entry (`saving-the-requirements.md`, first paragraph), so the go-ahead's turn holds only writes; only a file that shows up later is read in the preview's turn, with no text.
 
 **On a re-run or a redo whose old inputs lack `expect:`,** one drafted message comes before the preview (`re-runs.md`).
 
@@ -165,20 +165,14 @@ For each [trigger], a [format] [deliverable] to [who], ready for you to [review]
 
 ## Path
 
-Method preference: some of each
-
-- Step 1 — [Name] · produces [what it produces] · uses C1 · fixed (policy)
-- The AI plans this part
-- Step 3 — [Name] · produces [what it produces] · uses C2 · flexible · writes W1 · (you)
+Method preference: AI works it out each time
+Path: none — the AI plans each run from the goal
 
 ### Decisions
 
-- D1 (Step 3): When [this is true], it [goes this way] · settled by: your criteria · criteria: [the leader's words] · value read by AI
+- D1: When [this is true], it [goes this way] · settled by: your criteria · criteria: [the leader's words] · value read by AI
 
-### Step 1 — [Name]
-**Rule:** [the rule it follows at this step]
-**Check or handoff:** [what's checked, or who it passes to]
-**Expertise:** [what a capable beginner would get wrong]
+(Every file this interview writes has this form. An older file with steps, kept on a re-run, has step lines and `### Step N` blocks instead: *Format rules*, `## Path`, below.)
 
 ## Inputs
 
@@ -189,7 +183,7 @@ Method preference: some of each
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
-| C1 | [name] | [Step N, the AI's part after Step N, All, or —] | Exists / Needs Creation | Public / Internal / Confidential / Regulated | Authored / External | Yes / Partial / No | [`context/C1-[short-name].md`, a system or a URL, or "Create as `context/C1-[short-name].md`"] | [what's in it] |
+| C1 | [name] | [All, or —; in an older file with steps, Step N or the AI's part after Step N] | Exists / Needs Creation | Public / Internal / Confidential / Regulated | Authored / External | Yes / Partial / No | [`context/C1-[short-name].md`, a system or a URL, or "Create as `context/C1-[short-name].md`"] | [what's in it] |
 
 ## Acceptance Criteria
 
@@ -227,7 +221,7 @@ Runs: with you
 
 | ID | Where | Checkpoint |
 |---|---|---|
-| G1 | Step 3 | When the draft is ready, it stops until you approve it. · (you) |
+| G1 | After the draft is ready | When the draft is ready, it stops until you approve it. · (you) |
 
 ## Security, Privacy & Safety
 
@@ -254,10 +248,10 @@ Runs: with you
 | P4 | It never [acts], whoever asks. | [...] |
 
 Governing regime: [name] | None | Not sure — to check
-Policy check: Allowed | No — [source] left out | No — details removed first (Step [N]) | No — not live until approved | Not sure — to check
+Policy check: Allowed | No — [source] left out | No — details removed first (R[n]) | No — not live until approved | Not sure — to check
 
 ### Writes
-- W1 · [system] [place, as the leader named it] · [action] · Step 3
+- W1 · [system] [place, as the leader named it] · [action] · after [moment]
 - W2 · [email / chat] to you · send a flag · after each run
 ````
 

@@ -11199,6 +11199,19 @@
     "design": "references/questions.md"
    },
    "source": "independent review finding 12; approved by James 2026-11-21"
+  },
+  {
+   "id": "deconstruct:policy",
+   "form": "by name",
+   "text": "Do your company's rules, or your agreements with clients, allow [the source, as the leader or the report names it] to go into an AI tool?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/interview.md"
+   },
+   "source": "James 2026-11-14 decision, wording approved 2026-11-15 (deconstruct-decisions-draft.md 1), kept 2026-11-21"
   }
  ]
 }

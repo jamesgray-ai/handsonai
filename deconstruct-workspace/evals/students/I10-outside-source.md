@@ -32,3 +32,4 @@ Short answers from the facts above. Correct the AI's playbacks when they're wron
 
 ## When to stop
 When the AI says the Workflow Requirements are saved and tells you how to start Design, reply `END`.
+- If asked whether your company's rules or client agreements allow it to go into an AI tool, say "Yes, that's fine."

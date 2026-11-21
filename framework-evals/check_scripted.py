@@ -411,8 +411,13 @@ def time_or_step_hits(message, allowed=frozenset()):
     # what fills an approved line's placeholder ("about [hours] saved") is part of that line here;
     # a size the leader gave for their own work ("about 20 minutes per follow-up") is theirs, not an estimate
     text = corpus().strip_approved(leader_text(message), keep_fills=False)
-    hits = [("time", text[max(0, m.start() - 40):m.end() + 40].strip()) for m in TIME.finditer(text)
-            if not (sizes(text[m.start():m.end() + 25]) and _leaders_own(sizes(text[m.start():m.end() + 25]), allowed))]
+    # James, 2026-11-14 (kept 2026-11-21): a time the AI suggests inside a check, on a line tagged
+    # "(my suggestion)", is a suggested check the leader keeps or drops, not a time estimate
+    # (the text may arrive with its line breaks joined, so the check's own clause is cut back to the
+    # previous sentence end or line break, never the whole message)
+    timed = re.sub(r"[^.!?\n]*\(my suggestion\)", " ", text, flags=re.I)
+    hits = [("time", timed[max(0, m.start() - 40):m.end() + 40].strip()) for m in TIME.finditer(timed)
+            if not (sizes(timed[m.start():m.end() + 25]) and _leaders_own(sizes(timed[m.start():m.end() + 25]), allowed))]
     hits += [("step number", text[max(0, m.start() - 40):m.end() + 40].strip()) for m in STEP_NUMBER.finditer(text)]
     return hits
 

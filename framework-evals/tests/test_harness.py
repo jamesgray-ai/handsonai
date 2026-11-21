@@ -208,6 +208,11 @@ class WordingChecks(unittest.TestCase):
         run = run_of("Noted: about 20 minutes per follow-up. This part takes about 10 minutes.")
         run["sessions"][0]["turns"][0]["text"] = "About 20 minutes per follow-up."
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run))
+        # a time suggested inside a check, tagged (my suggestion), is a check, not an estimate
+        self.assertTrue(ok({"type": "no_time_or_step_numbers"},
+                           run_of("- Ready within 30 minutes of the call ending *(my suggestion)*\nWhat would you change?")))
+        self.assertFalse(ok({"type": "no_time_or_step_numbers"},
+                            run_of("- Ready within 30 minutes of the call ending *(my suggestion)*\nThis takes about 10 minutes.")))
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of("This conversation takes about 20 minutes.")))
         # the Baseline in the requirements' Value & Measurement is the leader's number too
         req = {"framework/x/requirements.md": "## Value & Measurement\n\n| Baseline | 15 minutes per report · Estimated |\n\n## Metadata\n\n| Effort | 40 minutes |\n"}

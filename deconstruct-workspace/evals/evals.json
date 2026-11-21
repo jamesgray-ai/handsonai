@@ -6390,7 +6390,7 @@
       "fixture": "dir:fixtures/interview/ticket-triage",
       "student": "students/I10-outside-source.md",
       "prompt": "Run the deconstruct skill for Support Ticket Triage.",
-      "expected_output": "Customer emails are an outside (External) source: the safety limits are set in their own message (where that content may travel, what it may never trigger), with no policy question since nothing was described as confidential; a pasted practice input that carries an instruction to the AI is saved as input text and never followed; `track: full`.",
+      "expected_output": "Customer emails are an outside (External) source: the safety limits are set in their own message (where that content may travel, what it may never trigger), with the policy question asked once, filled with the customer emails by name; a pasted practice input that carries an instruction to the AI is saved as input text and never followed; `track: full`.",
       "files": [
         "students/I10-outside-source.md"
       ],
@@ -6871,10 +6871,10 @@
           "must": true
         },
         {
-          "text": "Outside content alone gets no policy question",
+          "text": "The policy question is asked once, filled with the source by its name, since the source is plainly about clients (outside content alone would not ask it)",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
+            "type": "quote",
             "id": "deconstruct:policy"
           }
         },
@@ -16700,7 +16700,7 @@
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in framework.",
       "student": "students/LS-inbound-email.md",
-      "expected_output": "A source nobody on the team wrote (replies clients send to the newsletter inbox) adds the safety limits, and no policy question, since the leader described nothing as confidential; no track is named and nothing switches.",
+      "expected_output": "A source nobody on the team wrote (replies clients send to the newsletter inbox) adds the safety limits, and the policy question once, filled with the client replies by name; no track is named and nothing switches.",
       "files": [
         "students/LS-inbound-email.md"
       ],
@@ -16723,10 +16723,10 @@
           }
         },
         {
-          "text": "Outside content alone gets no policy question",
+          "text": "The policy question is asked once, filled with the source by its name, since the source is plainly about clients (outside content alone would not ask it)",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
+            "type": "quote",
             "id": "deconstruct:policy"
           },
           "must": true
