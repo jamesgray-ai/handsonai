@@ -76,10 +76,12 @@ mkdir -p "$TMP/outputs/articles/demo"
 assert "flag deleted mid-repo → inert" 0 "$(run_gate "$TMP")"
 rm -rf "$TMP"
 
+# stop_hook_active used to make the gate exit 0 unchecked, so an agent's second attempt
+# after being sent back was never looked at. A retry must be checked like any other stop.
 new_workspace
 printf '{"session_id":"t","cwd":"%s","hook_event_name":"SubagentStop","stop_hook_active":true}' "$TMP" \
   | bash "$GATE" 2>"$TMP/stderr"
-assert "stop_hook_active → inert (no loop)" 0 "$?"
+assert "stop_hook_active no longer skips the checks" 2 "$?" "without writing any file"
 rm -rf "$TMP"
 
 new_workspace
@@ -378,6 +380,119 @@ else
   FAIL=$((FAIL + 1))
 fi
 rm -rf "$TMP"
+
+# --- Bounded retries --------------------------------------------------------
+# A failing agent is sent back at most twice. Its next failing stop is let through, but
+# recorded as QUALITY GATE FAILED in run-log.md and shown to the person via the
+# documented systemMessage JSON — never passed silently, and never looped.
+
+# $1 = agent_id ("" to omit), $2 = stop_hook_active. Stdout lands in $TMP/stdout.
+stop_as() {
+  local id_field=""
+  [ -n "$1" ] && id_field="\"agent_id\":\"$1\","
+  printf '{"session_id":"t","cwd":"%s","hook_event_name":"SubagentStop",%s"stop_hook_active":%s}' \
+    "$TMP" "$id_field" "$2" | bash "$GATE" >"$TMP/stdout" 2>"$TMP/stderr"
+  echo $?
+}
+
+check() {
+  # $1 = name, $2 = condition result (0 = true)
+  if [ "$2" -eq 0 ]; then echo "  ok    $1"; PASS=$((PASS + 1)); else echo "  FAIL  $1"; FAIL=$((FAIL + 1)); fi
+}
+
+new_workspace
+echo "too short" > "$RUN/01-research.md"
+assert "first failing stop → send-back 1 of 2" 2 "$(stop_as agent-a false)" "send-back 1 of 2"
+assert "retry 1 still failing → send-back 2 of 2" 2 "$(stop_as agent-a true)" "send-back 2 of 2"
+grep -q "last attempt" "$TMP/stderr"; check "the final send-back warns it is the last attempt" $?
+assert "retry 2 still failing → limit reached, agent may finish" 0 "$(stop_as agent-a true)"
+grep -q '"systemMessage"' "$TMP/stdout" && grep -q 'QUALITY GATE FAILED after 2 retries' "$TMP/stdout"
+check "limit reached → systemMessage shown to the person" $?
+node -e 'JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"))' "$TMP/stdout" 2>/dev/null
+check "limit-reached output is valid JSON" $?
+grep -q 'QUALITY GATE FAILED after 2 retries: 01-research.md is too thin' "$RUN/run-log.md"
+check "limit reached → failure and reason recorded in run-log.md" $?
+# No infinite loop: however many more times the agent stops, it is never blocked again,
+# and the failure is logged once, not once per stop.
+LOOPED=0
+for _ in 1 2 3 4 5 6 7 8 9 10; do
+  [ "$(stop_as agent-a true)" = "0" ] || LOOPED=1
+done
+check "ten further stops are never blocked (no loop)" "$LOOPED"
+[ "$(grep -c 'QUALITY GATE FAILED' "$RUN/run-log.md")" = "1" ]
+check "the failure is logged once, not once per stop" $?
+# Budgets are per agent: a different agent in the same run is still checked in full.
+assert "another agent in the same run still gets its own send-backs" 2 "$(stop_as agent-b false)" "send-back 1 of 2"
+rm -rf "$TMP"
+
+# Fixing the work after a send-back passes, and clears that agent's counter.
+new_workspace
+echo "too short" > "$RUN/01-research.md"
+stop_as agent-c false > /dev/null
+{ make_body 1500; make_sources; } > "$RUN/01-research.md"
+assert "fixed after one send-back → allow" 0 "$(stop_as agent-c true)"
+[ ! -f "$RUN/.gate-send-backs-agent-c" ]; check "a pass clears the agent's send-back counter" $?
+! grep -q 'QUALITY GATE FAILED' "$RUN/run-log.md"; check "a fixed stage records no failure" $?
+rm -rf "$TMP"
+
+# No agent_id in the payload: one counter for the run, reset by any stop that is not a
+# hook-driven continuation — still bounded.
+new_workspace
+echo "too short" > "$RUN/01-research.md"
+assert "no agent_id: first stop → send-back 1" 2 "$(stop_as "" false)" "send-back 1 of 2"
+assert "no agent_id: retry 1 → send-back 2" 2 "$(stop_as "" true)" "send-back 2 of 2"
+assert "no agent_id: retry 2 → limit reached" 0 "$(stop_as "" true)"
+assert "no agent_id: a fresh stop starts a new budget" 2 "$(stop_as "" false)" "send-back 1 of 2"
+rm -rf "$TMP"
+
+# A workspace the gate cannot write to must not become a loop: if the counter cannot be
+# saved, it gives up (visibly) instead of blocking with a count that never advances.
+# Skipped when running as root, where permissions do not bite.
+if [ "$(id -u)" != "0" ]; then
+  new_workspace
+  chmod 555 "$RUN"
+  assert "unwritable workspace → no block loop" 0 "$(stop_as agent-d false)"
+  grep -q 'QUALITY GATE FAILED' "$TMP/stdout"; check "unwritable workspace → failure still shown" $?
+  chmod 755 "$RUN"
+  rm -rf "$TMP"
+fi
+
+# --- Node.js missing ------------------------------------------------------
+# The gate reads the payload with Node.js, its only parser. Without Node it
+# must still run every check — no silent pass — keep the retry budget bounded, and tell
+# the person once per run. Run it on a PATH holding only the tools the gate uses.
+NO_NODE_BIN="$(mktemp -d)"
+for tool in bash cat tr cut rm date wc grep sed tail mkdir rmdir sleep unzip; do
+  src="$(command -v "$tool" 2>/dev/null)" && [ -x "$src" ] && ln -s "$src" "$NO_NODE_BIN/$tool"
+done
+
+stop_no_node() {
+  printf '{"session_id":"t","cwd":"%s","hook_event_name":"SubagentStop","agent_id":"x","stop_hook_active":%s}' "$TMP" "$1" \
+    | CLAUDE_PROJECT_DIR="$TMP" PATH="$NO_NODE_BIN" "$NO_NODE_BIN/bash" "$GATE" >"$TMP/stdout" 2>"$TMP/stderr"
+  echo $?
+}
+
+new_workspace
+echo "too short" > "$RUN/01-research.md"
+assert "no Node: checks still run → send-back 1" 2 "$(stop_no_node false)" "01-research.md"
+grep -q "Node.js" "$TMP/stderr"; check "no Node: the send-back mentions Node.js" $?
+grep -q 'NOTE: Node.js not found' "$RUN/run-log.md"; check "no Node: recorded in run-log.md" $?
+assert "no Node: retry 1 → send-back 2" 2 "$(stop_no_node true)" "send-back 2 of 2"
+assert "no Node: retry 2 → limit reached, no loop" 0 "$(stop_no_node true)"
+grep -q 'QUALITY GATE FAILED' "$TMP/stdout"; check "no Node: limit-reached systemMessage shown" $?
+[ "$(stop_no_node true)" = "0" ]; check "no Node: further stops are not blocked" $?
+[ "$(grep -c 'NOTE: Node.js not found' "$RUN/run-log.md")" = "1" ]
+check "no Node: the notice is logged once per run" $?
+rm -rf "$TMP"
+
+new_workspace
+{ make_body 1500; make_sources; } > "$RUN/01-research.md"
+assert "no Node: valid work → allow" 0 "$(stop_no_node false)"
+grep -q '"systemMessage".*Node.js is not installed' "$TMP/stdout"
+check "no Node: a passing stop still tells the person Node.js is missing" $?
+stop_no_node false > /dev/null
+[ ! -s "$TMP/stdout" ]; check "no Node: the on-screen notice is shown once per run" $?
+rm -rf "$TMP" "$NO_NODE_BIN"
 
 echo
 echo "$PASS passed, $FAIL failed"

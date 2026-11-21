@@ -132,6 +132,29 @@ else
 fi
 rm -rf "$TMP"
 
+# --- Node.js missing: fail CLOSED -----------------------------------------
+# The gate reads the payload with Node.js. Without it the target agent can never be
+# identified, so falling through would silently let the publisher run unapproved. It
+# must block instead, and say why. Run it on a PATH holding only the tools the gate
+# uses, with no node on it.
+NO_NODE_BIN="$(mktemp -d)"
+for tool in bash cat tr date printf; do
+  src="$(command -v "$tool" 2>/dev/null)" && [ -x "$src" ] && ln -s "$src" "$NO_NODE_BIN/$tool"
+done
+
+new_workspace
+printf '{"session_id":"t","cwd":"%s","hook_event_name":"PreToolUse","tool_name":"Agent","tool_input":{"subagent_type":"hbr-publisher"}}' "$TMP" \
+  | CLAUDE_PROJECT_DIR="$TMP" PATH="$NO_NODE_BIN" "$NO_NODE_BIN/bash" "$GATE" 2>"$TMP/stderr"
+assert "Node.js missing → block the publisher (fail closed)" 2 "$?" "Node.js is required"
+rm -rf "$TMP"
+
+# Still inert outside a pipeline run, Node or not.
+TMP="$(mktemp -d)"
+printf '{"cwd":"%s","tool_name":"Agent","tool_input":{"subagent_type":"hbr-publisher"}}' "$TMP" \
+  | CLAUDE_PROJECT_DIR="$TMP" PATH="$NO_NODE_BIN" "$NO_NODE_BIN/bash" "$GATE" 2>"$TMP/stderr"
+assert "Node.js missing, no active run → allow (inert)" 0 "$?"
+rm -rf "$TMP" "$NO_NODE_BIN"
+
 echo
 echo "$PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

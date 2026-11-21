@@ -25,11 +25,27 @@ set -uo pipefail
 
 INPUT="$(cat)"
 
-jqr() {
-  printf '%s' "$INPUT" | jq -r "try ($1 // empty) catch empty" 2>/dev/null || true
+# Reads one field of the hook payload by dotted path (".tool_input.subagent_type") and
+# prints it, or nothing. Parsed with Node.js, which the plugin already needs for its Word
+# renderer, so the gate adds no developer tool of its own. Any error yields empty.
+field() {
+  command -v node > /dev/null 2>&1 || return 0
+  printf '%s' "$INPUT" | node -e '
+    let d = "";
+    process.stdin.on("data", c => d += c).on("end", () => {
+      try {
+        let v = JSON.parse(d);
+        for (const k of process.argv[1].replace(/^\./, "").split(".")) {
+          v = (v === null || typeof v !== "object") ? undefined : v[k];
+        }
+        if (v !== undefined && v !== null && v !== "") {
+          process.stdout.write(typeof v === "object" ? JSON.stringify(v) : String(v));
+        }
+      } catch (e) {}
+    });' "$1" 2>/dev/null || true
 }
 
-PROJECT_DIR="${CLAUDE_PROJECT_DIR:-$(jqr .cwd)}"
+PROJECT_DIR="${CLAUDE_PROJECT_DIR:-$(field .cwd)}"
 [ -n "$PROJECT_DIR" ] || PROJECT_DIR="$PWD"
 
 # Only a pipeline run arms this gate.
@@ -48,38 +64,35 @@ RUN="$PROJECT_DIR/$RUN_REL"
 
 # From here on this is definitely a pipeline run, so the gate is meant to be enforcing.
 #
-# jq is how this gate reads the dispatch payload. Without it every field probe below
+# Node.js is how this gate reads the dispatch payload. Without it every field probe below
 # returns empty, the target agent is never identified, and the script falls through to
 # its fail-open exit — silently allowing the publisher to run with no human approval, for
 # every dispatch, for the whole session. That is the one failure this gate exists to
-# prevent, so it is the one case where it fails CLOSED: jq's absence is a condition we
+# prevent, so it is the one case where it fails CLOSED: Node's absence is a condition we
 # can establish with certainty, and a loud stop with a fix is strictly better than a
 # guarantee that has quietly stopped being true.
 #
-# (The SubagentStop gate makes the opposite call for the same missing tool — see the
-# comment there. The asymmetry is deliberate: this gate blocking is recoverable, that
-# one blocking risks an infinite loop.)
-if ! command -v jq > /dev/null 2>&1; then
+# (The SubagentStop gate keeps running every check without Node — its rules are plain
+# shell and only its retry counter needs the payload. See the comment there.)
+if ! command -v node > /dev/null 2>&1; then
   cat >&2 <<'EOF'
 BLOCKED — the human-approval gate cannot run.
 
-jq is not installed, so this hook cannot read the dispatch payload and cannot tell
-whether a human has approved this article. Rather than let the publishing step through
-unchecked, it is stopping here.
+Node.js is required: this hook uses it to read the dispatch payload, and without it
+cannot tell whether a human has approved this article. Rather than let the publishing
+step through unchecked, it is stopping here. (The publisher needs Node.js anyway, to
+produce the Word document.)
 
-Fix it with one of:
-  macOS         brew install jq
-  Debian/Ubuntu sudo apt-get install jq
-
-Then dispatch the publisher again. If you would rather proceed without the automated
-gate, confirm approval with the human yourself and remove the hook from settings.
+Tell the human that Node.js is required and ask them to install it from
+https://nodejs.org, then dispatch the publisher again. If they would rather proceed
+without the automated gate, confirm approval with them yourself and remove the hook.
 EOF
   exit 2
 fi
 
 # Only subagent-dispatch tools are relevant. The tool has been named both Task and Agent
 # across Claude Code versions, so accept either.
-TOOL="$(jqr .tool_name)"
+TOOL="$(field .tool_name)"
 
 # Record the dispatch BEFORE deciding whether the tool name is one we know.
 #
@@ -113,7 +126,7 @@ for candidate in \
   '.tool_input.subagent' \
   '.subagent_type'
 do
-  TARGET="$(jqr "$candidate")"
+  TARGET="$(field "$candidate")"
   [ -n "$TARGET" ] && break
 done
 
