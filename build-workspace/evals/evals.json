@@ -2383,7 +2383,7 @@
        {
         "type": "quote",
         "id": "N-F10",
-        "form": "main",
+        "form": "Claude Code and Codex",
         "turn": "first"
        }
       ]
@@ -7309,7 +7309,7 @@
      "check": {
       "type": "quote",
       "id": "N-F10",
-      "form": "main"
+      "form": "Claude Code and Codex"
      }
     }
    ],

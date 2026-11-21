@@ -17,7 +17,7 @@ Wait for "done" (or "yes" to the still-paused form), then write `schedule: pause
 
 ## 2. The kept copy, next
 
-Where files can be kept, save a copy of the current version in `history/kept-copy-YYYY-MM-DD-HHMM/`, or a Git commit where the folder is a repository (`git rev-parse --show-toplevel` returns the workspace). A Git commit takes only the workflow's installed paths, staged by name (`git add -- <each installed path>`; never `-a`, `.` or a folder above them), so the leader's other work, the framework's own files, a practice folder and any secret stay out; say so in one line (model wording). Where those paths have no changes since their last commit, that commit is the copy and nothing is committed. On a drive that can write, move the copy you already keep in `package/` into `history/kept-copy-YYYY-MM-DD-HHMM/` yourself, and ask only for what isn't there (a .zip the leader saved from the chat, say): **Ask:** "Do you have the copy you kept? If not, download it now: [steps]. Say 'done' when you have it." Write the steps to put the kept copy back in the record's "Put back the kept copy" section.
+Where files can be kept, save a copy of the current version in `history/kept-copy-YYYY-MM-DD-HHMM/`. Where the folder is a Git repository (`git rev-parse --show-toplevel` returns the workspace) and the installed paths have no changes since their last commit, that commit is the copy and nothing is copied; say so in one line (model wording). Never make a Git commit yourself here: a commit happens only through the Git offer, which asks first (`package-and-install.md`). On a drive that can write, move the copy you already keep in `package/` into `history/kept-copy-YYYY-MM-DD-HHMM/` yourself, and ask only for what isn't there (a .zip the leader saved from the chat, say): **Ask:** "Do you have the copy you kept? If not, download it now: [steps]. Say 'done' when you have it." Write the steps to put the kept copy back in the record's "Put back the kept copy" section.
 
 **An earlier version Build owns, or running work brought in** (section 3): N-B42 isn't asked, since its copy was never in `package/`; what you can't copy yourself gets the no-copy line below.
 
@@ -52,7 +52,7 @@ After a yes to N-B51 (or something you found at an install name or place, or an 
 
 "Stop" at the pause form or here ends Build with nothing installed (a stop); the next entry asks again. Then write the older-version line (`build-record-template.md`), and, where a copy was kept, the steps to put the older version back in "Put back the kept copy". `schedule:` isn't touched: it belongs to the new workflow.
 
-Where a new part takes the older version's place, it's installed over it when it's installed (on a first build on Claude Code and Codex, in Part 2; elsewhere in Part 3, with the install line's replace steps, ending by switching the skill on again where the leader switched it off). Then rewrite the older-version line in its replaced form, naming whatever of the older version is still set up, never the new part's place.
+Where a new part takes the older version's place, it's installed over it when it's installed (in Part 3, with the install line's replace steps, ending by switching the skill on again where the leader switched it off). Then rewrite the older-version line in its replaced form, naming whatever of the older version is still set up, never the new part's place.
 
 ## 7. A shared skill other live workflows use
 

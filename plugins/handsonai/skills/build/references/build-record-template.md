@@ -105,7 +105,7 @@ In plain words, with no IDs; anyone the leader shows it to (IT, security, a mana
 Once N-B51 is answered, one line in "What was built", in one of these forms:
 - **A yes:** "An older version: [where it's set up]; you paused it on [date] (a skill: you switched it off on [date]; or: it runs only when you start it)[; your copy is [in [place] / where you kept it / in your version history]][; the new one went in as [new name], so nothing was overwritten]. Switch it off for good when this one goes live." (the copy clause only where the new version is saved over the old one; the new-name clause where no copy could be kept).
 - **A no or "not sure":** "An older version: none that you know of."
-- **A part installed over it** (Part 2 on a first build on Claude Code and Codex, Part 3 elsewhere), rewritten: "An older version: [where]; this one replaced it when it was installed on [date]; your copy is [in [place] / where you kept it / in your version history].[ Still set up: [what of it you didn't install over, such as its schedule, paused on [date]]. Switch that off for good when this one goes live.]" It never names the new part's place as the older version's.
+- **A part installed over it** (at Part 3's install), rewritten: "An older version: [where]; this one replaced it when it was installed on [date]; your copy is [in [place] / where you kept it / in your version history].[ Still set up: [what of it you didn't install over, such as its schedule, paused on [date]]. Switch that off for good when this one goes live.]" It never names the new part's place as the older version's.
 - **After go-live,** Test writes: "An older version: [where]; you switched it off on [date]."
 
 The line is kept whenever the section is rewritten, and carried over a set-aside.
