@@ -4787,7 +4787,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "Change, replace or drop any; keep three to five, including your typical and tricky"
+                "text": "Change, replace or drop any; keep two or three, including your typical"
               }
             ]
           }
@@ -5088,21 +5088,21 @@
             "type": "all",
             "checks": [
               {
-                "type": "file_contains",
+                "type": "file_regex",
                 "path": "framework/*/deconstruct-in-progress.md",
-                "text": "What this is worth",
+                "pattern": "(?i)the goal",
                 "session": 1
               },
               {
-                "type": "file_contains",
+                "type": "file_regex",
                 "path": "framework/*/deconstruct-in-progress.md",
-                "text": "Scope and a name",
+                "pattern": "(?i)what it must get right",
                 "session": 1
               },
               {
-                "type": "file_contains",
+                "type": "file_regex",
                 "path": "framework/*/deconstruct-in-progress.md",
-                "text": "The outcome",
+                "pattern": "(?i)safety",
                 "session": 1
               },
               {

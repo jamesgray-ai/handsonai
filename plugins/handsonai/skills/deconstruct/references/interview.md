@@ -169,7 +169,7 @@ Each answer becomes a rule that says so in its own words, "It always [does that]
 **Ask:** "Which decisions must a person make or approve?"
 - *Why:* Those become checkpoints, so the AI never makes them alone.
 
-Each decision named becomes a checkpoint. A "not sure" to the law question asks neither: Design confirms with the leader before it lets the AI decide on its own.
+Each decision named becomes a checkpoint that names the law as its reason, "[The checkpoint], as [the law] requires.", tagged *(you said)*, played back with "(required by [the law])" and never offered for dropping, like the rules above. A "not sure" to the law question asks neither: Design confirms with the leader before it lets the AI decide on its own.
 
 ## What it's for
 

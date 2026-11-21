@@ -123,7 +123,7 @@ track: full
 revisions:
   - revision: 2
     by: deconstruct
-    lines: [AC3, R2, Step 4]
+    lines: [AC3, R2]
 ---
 ```
 
@@ -168,11 +168,7 @@ For each [trigger], a [format] [deliverable] to [who], ready for you to [review]
 Method preference: AI works it out each time
 Path: none — the AI plans each run from the goal
 
-### Decisions
-
-- D1: When [this is true], it [goes this way] · settled by: your criteria · criteria: [the leader's words] · value read by AI
-
-(Every file this interview writes has this form. An older file with steps, kept on a re-run, has step lines and `### Step N` blocks instead: *Format rules*, `## Path`, below.)
+(Every file this interview writes has this form, with no `### Decisions`: no question in this interview captures a decision line, and a decision the law gives a person is a checkpoint. An older file with steps, kept on a re-run, may have step lines, `### Decisions` and `### Step N` blocks: *Format rules*, `## Path`, below.)
 
 ## Inputs
 
@@ -284,7 +280,7 @@ Policy check: Allowed | No — [source] left out | No — details removed first 
 
 ```
 source: deconstruct
-tests: AC1, AC3, R2, D1
+tests: AC1, AC3, R2
 expect: [what should happen, in plain words]
 
 Earlier run: [what an earlier run left behind, in plain words: the cases it handled, the last deliverable]
