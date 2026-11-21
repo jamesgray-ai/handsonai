@@ -41,9 +41,3 @@ The rest of the message is model wording.
 ## 5. What gets written, and recorded
 
 Write instructions for each line the bare run missed; and, whatever it did, every must-have, every rule, every checkpoint and every safety line, plus everything in `carried-lines.md`. Record `[skill]: done` under `bare_run:`, in block form, and in the record's *Also* section what the plain model handled.
-
-## 6. Never said: the old Codex hand-over
-
-Kept here only because the approved-line record still lists it, until its retirement is approved. It is wrong (its override leaves every connection on, and Codex's global instructions and the leader's skills still load), so it is never said, in whole or in part, and its command is never given:
-
-- Codex, in the CLI (retired): "To see what the AI does with no instructions, open a new terminal and run this, which starts Codex in a new empty folder with no connections and nothing it can change: `cd "$(mktemp -d)" && codex --sandbox read-only -c 'mcp_servers={}'`. Paste this, copy back what it says, then close that session."

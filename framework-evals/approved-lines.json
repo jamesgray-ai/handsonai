@@ -1064,7 +1064,8 @@
    "files": {
     "build": "references/bare-run.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24)"
+   "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-21 (review J, approved by James): -c 'mcp_servers={}' leaves every MCP server on and global AGENTS.md and user skills load; no Codex bare run until release check 36 passes"
   },
   {
    "id": "N-T19",
@@ -6062,7 +6063,7 @@
   {
    "id": "N-B52",
    "form": "Numbered steps, each said as written",
-   "text": "[Agent] is made in Copilot's Agent Builder, not here in Cowork: 1. Open Copilot, choose Chat, then Agents, then New agent. 2. Paste this into the Message Agent Builder box:",
+   "text": "[Agent] is made in Copilot's Agent Builder, not here in Cowork: 1. Open Microsoft 365 Copilot and choose New agent in the left pane. 2. Paste this into the chat box on the Describe tab:",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6070,12 +6071,12 @@
    "files": {
     "build": "references/microsoft-365-agent.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); menu names matched to Microsoft's documentation (review J), approved by James 2026-11-21"
   },
   {
    "id": "N-B52",
    "form": "Then",
-   "text": "3. [Context files: 'Under Knowledge, add [file] from your OneDrive, in Documents/Cowork/[workflow-slug], if it isn't listed yet. Add it from there, not through Agent Builder's offer to attach it, which may pick the copy in your working folder. ']If Agent Builder asks you anything[ else], paste its question here. 4. Before you choose Create, check that Knowledge lists only [the context files / nothing], and remove anything else. Then open Work content and check that only [what the workflow uses / nothing] is switched on; switch off anything else, and tell me if something won't switch off. 5. Choose Create. 6. When [Agent] shows under Agents, open it, choose Edit, copy everything under Instructions, and paste it here, so I can check it kept the lines it must carry.",
+   "text": "3. [Context files: 'On the Configure tab, under Knowledge, choose Browse (Attach cloud files) and pick [file] from your OneDrive, in Documents/Cowork/[workflow-slug], if it isn't listed yet; it shows Preparing until it's ready. Add it from there, not through Agent Builder's offer to attach it, which may pick the copy in your working folder. ']If Agent Builder asks you anything[ else], paste its question here. 4. Before you choose Create, check that Knowledge lists only [the context files / nothing], and remove anything else. Then check that Search all websites and Reference people in organization are switched off unless the workflow uses them, and tell me if something won't switch off. 5. Choose Create. 6. When [Agent] shows under Agents, open the … menu next to it, choose Edit, then on the Configure tab copy everything under Instructions, and paste it here, so I can check it kept the lines it must carry.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6083,7 +6084,7 @@
    "files": {
     "build": "references/microsoft-365-agent.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); menu names matched to Microsoft's documentation (review J), approved by James 2026-11-21"
   },
   {
    "id": "N-B52",
@@ -6127,7 +6128,7 @@
   {
    "id": "N-B52",
    "form": "Recovery form",
-   "text": "That was Copilot's ordinary chat, which can describe an agent but can't make one. Go back to step 1: open Copilot, choose Chat, then Agents, then New agent, and paste the same text into the Message Agent Builder box.",
+   "text": "That was Copilot's ordinary chat, which can describe an agent but can't make one. Go back to step 1: open Microsoft 365 Copilot, choose New agent in the left pane, and paste the same text into the chat box on the Describe tab.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6135,7 +6136,7 @@
    "files": {
     "build": "references/microsoft-365-agent.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); menu names matched to Microsoft's documentation (review J), approved by James 2026-11-21"
   },
   {
    "id": "N-B52",
@@ -6153,7 +6154,7 @@
   {
    "id": "N-B52",
    "form": "and is asked for again",
-   "text": "That's the prompt I wrote, not [Agent]'s instructions. Open [Agent], choose Edit, copy everything under Instructions, and paste it here.",
+   "text": "That's the prompt I wrote, not [Agent]'s instructions. Open the … menu next to [Agent], choose Edit, then on the Configure tab copy everything under Instructions, and paste it here.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6161,7 +6162,7 @@
    "files": {
     "build": "references/microsoft-365-agent.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); menu names matched to Microsoft's documentation (review J), approved by James 2026-11-21"
   },
   {
    "id": "N-B52",
@@ -6205,7 +6206,7 @@
   {
    "id": "N-B53",
    "form": "main",
-   "text": "To [fix / update] [Agent], open Copilot, choose Chat, then Agents, open [Agent] and choose Edit, then paste this into the Agent Builder box:",
+   "text": "To [fix / update] [Agent], open the … menu next to [Agent], choose Edit, then paste this into the chat box on the Describe tab:",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6213,12 +6214,12 @@
    "files": {
     "build": "references/microsoft-365-agent.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); menu names matched to Microsoft's documentation (review J), approved by James 2026-11-21"
   },
   {
    "id": "N-B53",
    "form": "Then",
-   "text": "[Context file changed: 'Under Knowledge, remove [file] and add it again from your OneDrive, in Documents/Cowork/[workflow-slug], so the agent reads the new version. ']Before you save, check that Knowledge lists only [the context files / nothing], and that under Work content only [what it uses / nothing] is still on. Say 'done' when it's saved.",
+   "text": "[Context file changed: 'On the Configure tab, under Knowledge, remove [file] and add it again with Browse (Attach cloud files) from your OneDrive, in Documents/Cowork/[workflow-slug], so the agent reads the new version. ']Before you save, check that Knowledge lists only [the context files / nothing], and that Search all websites and Reference people in organization are still off unless the workflow uses them. Say 'done' when it's saved.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6226,7 +6227,7 @@
    "files": {
     "build": "references/microsoft-365-agent.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); menu names matched to Microsoft's documentation (review J), approved by James 2026-11-21"
   },
   {
    "id": "N-B53",
@@ -6284,7 +6285,7 @@
   {
    "id": "N-B53",
    "form": "main-9",
-   "text": "Now open [Agent], choose Edit, copy everything under Instructions, and paste it here, so I can check the change kept every line it must carry.",
+   "text": "Now open the … menu next to [Agent], choose Edit, then on the Configure tab copy everything under Instructions, and paste it here, so I can check the change kept every line it must carry.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6292,7 +6293,7 @@
    "files": {
     "build": "references/microsoft-365-agent.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); menu names matched to Microsoft's documentation (review J), approved by James 2026-11-21"
   },
   {
    "id": "N-B53",
@@ -6323,7 +6324,7 @@
   {
    "id": "N-B54",
    "form": "main",
-   "text": "Please delete [Agent]: in Copilot, open Agents, find [Agent], and choose Delete. Say 'done' when it's gone.",
+   "text": "Please delete [Agent]: select the … menu next to [Agent] and choose Delete. Say 'done' when it's gone.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6331,7 +6332,7 @@
    "files": {
     "build": "references/microsoft-365-agent.md"
    },
-   "source": "build.md 12; 3c-DI (2026-10-24), the wording the decision records"
+   "source": "build.md 12; 3c-DI (2026-10-24), the wording the decision records; menu names matched to Microsoft's documentation (review J), approved by James 2026-11-21"
   },
   {
    "id": "N-B55",
