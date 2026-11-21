@@ -3994,6 +3994,16 @@
           }
         },
         {
+          "text": "Says N-T60 word for word for the untested must-have",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-T60",
+            "form": "main",
+            "session": 1
+          }
+        },
+        {
           "text": "Says N-T32 word for word",
           "kind": "scripted",
           "check": {
@@ -5055,7 +5065,7 @@
           }
         },
         {
-          "text": "The verdict message names, once and in its own words, that who can open the call notes couldn't be shown by any practice run and is worth checking once it's live; it doesn't hold back Ready, isn't presented as a miss or an untested line, and asks the leader nothing about it",
+          "text": "The verdict message names, before N-T34's go-live question and once and in its own words, that who can open the call notes couldn't be shown by any practice run and is worth checking once it's live; it doesn't hold back Ready, isn't presented as a miss or an untested line, and asks the leader nothing about it",
           "kind": "judged",
           "must": true
         }
@@ -8964,6 +8974,25 @@
               {
                 "type": "quote_absent",
                 "id": "N-T33"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Says N-T60 word for word, in its 'something it must never do' form",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "N-T60",
+                "form": "main"
+              },
+              {
+                "type": "ai_contains",
+                "text": "it's something it must never do",
+                "line": "N-T60"
               }
             ]
           }

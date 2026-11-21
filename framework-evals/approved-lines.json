@@ -7207,7 +7207,7 @@
   {
    "id": "N-T34",
    "form": "Ready, not yet live",
-   "text": "It's ready: everything met[, apart from [n] misses you accepted]. Take it live?",
+   "text": "It's ready: everything met[, apart from [n] misses you accepted][, and [n] lines you accepted as untested: [each, in plain words]]. Take it live?",
    "kind": "question",
    "skills": [
     "test"
@@ -7215,7 +7215,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; reworded per independent review finding 2, approved by James 2026-11-21"
   },
   {
    "id": "N-T34",
@@ -7233,7 +7233,7 @@
   {
    "id": "N-T34",
    "form": "Ready, live",
-   "text": "It's ready: everything met[, apart from [n] misses you accepted].",
+   "text": "It's ready: everything met[, apart from [n] misses you accepted][, and [n] lines you accepted as untested: [each, in plain words]].",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7241,7 +7241,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; reworded per independent review finding 2, approved by James 2026-11-21"
   },
   {
    "id": "N-T34",
@@ -11160,6 +11160,19 @@
     "test": "SKILL.md"
    },
    "source": "independent review finding 1; approved by James 2026-11-21"
+  },
+  {
+   "id": "N-T60",
+   "form": "main",
+   "text": "Nothing in this round tested [the line], and [it's one you can't live without / it's something it must never do], so it can't go live untested. Add an input for it, or change or drop the rule?",
+   "kind": "question",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "independent review finding 3; approved by James 2026-11-21"
   }
  ]
 }
