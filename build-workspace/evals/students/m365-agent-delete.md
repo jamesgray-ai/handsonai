@@ -24,6 +24,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - If it offers to save a point in your folder's history, say "no thanks".
 - Follow every Agent Builder step and fix prompt on your screen and paste back what it shows.
 - When it asks you to delete the agent, delete it and say "done".
+- When it says everything is built and checked and asks whether it can save the parts where they start, say "Yes."
 
 ## When to stop
 Reply `END` when the AI tells you how to start testing in a new chat or session, or when it stops and tells you what to say next.

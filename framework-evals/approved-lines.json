@@ -11173,6 +11173,19 @@
     "test": "SKILL.md"
    },
    "source": "independent review finding 3; approved by James 2026-11-21"
+  },
+  {
+   "id": "N-B57",
+   "form": "main",
+   "text": "Everything is built and checked. I'll now save [N] parts where [platform] starts them: [names]. OK to go ahead?",
+   "kind": "question",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/package-and-install.md"
+   },
+   "source": "independent review finding 6; approved by James 2026-11-21"
   }
  ]
 }

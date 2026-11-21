@@ -8564,6 +8564,15 @@
    ],
    "expectations": [
     {
+     "text": "Says N-B57 word for word before the install",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-B57",
+      "form": "main"
+     }
+    },
+    {
      "text": "[JR-claude-code] Build's signposts, \"Part k of 3\", in order",
      "kind": "scripted",
      "check": {

@@ -23,6 +23,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it asks if you see the skill or the agent after saving it, say "Yes, I see it."
 - If it offers to save a point in your folder's history, say "no thanks".
 - When it gives you numbered steps for Agent Builder, follow them on your screen: paste the prompt, add each file under Knowledge, remove anything else listed there, choose Create, then copy the agent's instructions and paste them here.
+- When it says everything is built and checked and asks whether it can save the parts where they start, say "Yes."
 - If Agent Builder asks you something, paste its question here.
 
 ## When to stop

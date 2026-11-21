@@ -20,6 +20,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it asks something you don't know, say "Not sure."
 - When it offers to undo the check changes, say "Yes, undo them."
 - When it asks if you see the skill or the agent after saving it, say "Yes, I see it."
+- When it says everything is built and checked and asks whether it can save the parts where they start, say "Yes."
 - If it offers to save a point in your folder's history, say "no thanks".
 
 ## When to stop

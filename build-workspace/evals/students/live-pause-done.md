@@ -26,6 +26,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it asks you to pause a schedule, pause it and say "done". When it asks if it's still paused, say "yes".
 - When it asks whether you've edited the workflow's instructions or its files directly since it was built, say "No."
 - When it asks whether you have the copy you kept, download it as shown and say "done".
+- When it says everything is built and checked and asks whether it can save the parts where they start, say "Yes."
 
 ## When to stop
 Reply `END` when the AI tells you how to start testing in a new chat or session, or when it stops and tells you what to say next.

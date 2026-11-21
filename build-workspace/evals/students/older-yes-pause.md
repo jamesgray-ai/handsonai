@@ -25,6 +25,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it asks you to pause or switch off the older version, do it, then say "done".
 - When it asks whether its files are saved in a version history, say "No."
 - When it asks you to keep a copy, say "no copy".
+- When it says everything is built and checked and asks whether it can save the parts where they start, say "Yes."
 
 ## When to stop
 Reply `END` when the AI tells you how to start testing in a new chat or session, or when it stops and tells you what to say next.

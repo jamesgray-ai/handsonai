@@ -23,6 +23,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it asks if you see the skill or the agent after saving it, say "Yes, I see it."
 - If it offers to save a point in your folder's history, say "no thanks".
 - When it gives you numbered steps for Agent Builder, follow them. At step 6, the first time, paste back the prompt it gave you (it's still on your clipboard) instead of the agent's instructions. When it asks again, paste the agent's instructions.
+- When it says everything is built and checked and asks whether it can save the parts where they start, say "Yes."
 
 ## When to stop
 Reply `END` when the AI tells you how to start testing in a new chat or session, or when it stops and tells you what to say next.

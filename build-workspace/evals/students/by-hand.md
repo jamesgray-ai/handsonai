@@ -22,6 +22,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it asks if you see the skill or the agent after saving it, say "Yes, I see it."
 - If it offers to save a point in your folder's history, say "no thanks".
 - When it says a scheduled run won't hold a change for you, say "keep running it by hand".
+- When it says everything is built and checked and asks whether it can save the parts where they start, say "Yes."
 
 ## When to stop
 Reply `END` when the AI tells you how to start testing in a new chat or session, or when it stops and tells you what to say next.

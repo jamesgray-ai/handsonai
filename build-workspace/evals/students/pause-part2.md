@@ -22,6 +22,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it asks if you see the skill or the agent after saving it, say "Yes, I see it."
 - If it offers to save a point in your folder's history, say "no thanks".
 - When it asks you to pause a schedule, say "There's no schedule for it."
+- When it says everything is built and checked and asks whether it can save the parts where they start, say "Yes."
 - The first time the AI shows you what a practice run of your workflow produced (a draft or a change it would make, or a check's result), say "I need to stop here for today." Say it then, before anything else, even if the message also asks you something.
 
 ## When to stop
