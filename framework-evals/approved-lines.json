@@ -11227,6 +11227,45 @@
     "design": "SKILL.md"
    },
    "source": "independent review E (no print-to-save pause for Design); approved by James 2026-11-21"
+  },
+  {
+   "id": "N-B57",
+   "form": "With a miss",
+   "text": "Everything is built and checked, apart from [the miss, in plain words]. I'll now save [N] parts where [platform] starts them: [names]. OK to go ahead?",
+   "kind": "question",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/package-and-install.md"
+   },
+   "source": "independent review check B1-19/B1-20; approved by James 2026-11-21"
+  },
+  {
+   "id": "N-T60",
+   "form": "law",
+   "text": "Nothing in this round tested [the line], and it's required by [the law], so it can't go live untested. Add an input for it?",
+   "kind": "question",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "independent review check B1-19/B1-20; approved by James 2026-11-21"
+  },
+  {
+   "id": "N-T34",
+   "form": "Kept line, law",
+   "text": "Not ready yet: [the line, in plain words] can't be met as it's written, and [the law] requires it. To try a different approach, say 'change my workflow. My files are in [location].'",
+   "kind": "teaching",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "independent review check B1-19/B1-20; approved by James 2026-11-21"
   }
  ]
 }
