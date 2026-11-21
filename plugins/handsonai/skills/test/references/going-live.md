@@ -45,7 +45,7 @@ Said exactly, with its parts chosen from the files, in this order, and nothing e
 - **Other workflows paused for a shared skill** (the build record's "Also" lists "Paused for the shared skill [skill]: [workflow]"), at the first Ready round after the build that paused them, naming each, said exactly (N-T58): "You can switch [workflows] back on now; they use [skill], which just passed its test."
 - **A schedule, and no run log:** "Check its run history now and then for anything it flags."
 - **Re-check, and how to change it:** "Re-check it any time with 'test the workflow I built', especially if you find yourself editing more than you used to. To change it, say 'change my workflow. My files are in [location].'"
-- **Time saved:** never said now. Design has nowhere to record a time by hand, so N-T16's Baseline-Unknown form ("To see time saved later, note how long it takes you by hand next time and tell me with 'change my workflow. My files are in [location].'") would be a dead end; it stays here only until it is retired. A time saved is shown only where an older requirements file already holds a known Baseline (the time-saved line, Build's `carried-lines.md`).
+- **Time saved:** a Baseline of Unknown (every file Deconstruct writes now) gets no time-saved line at go-live, since Design has nowhere to record a time by hand. A time saved is shown only where an older requirements file already holds a known Baseline (the time-saved line, Build's `carried-lines.md`).
 
 ## 4. A re-check or change that passes
 

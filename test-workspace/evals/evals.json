@@ -5886,9 +5886,8 @@
             "type": "all",
             "checks": [
               {
-                "type": "quote_absent",
-                "id": "N-T16",
-                "form": "Run log, Baseline Unknown"
+                "type": "ai_not_contains",
+                "text": "To see time saved later"
               }
             ]
           }
@@ -5993,9 +5992,8 @@
             "type": "all",
             "checks": [
               {
-                "type": "quote_absent",
-                "id": "N-T16",
-                "form": "Run log, Baseline Unknown"
+                "type": "ai_not_contains",
+                "text": "To see time saved later"
               }
             ]
           }
@@ -6827,20 +6825,18 @@
         }
       ],
       "student": "students/default.md",
-      "expected_output": "Baseline Unknown with a run log: the time-saved line. A team workflow: N-T52, the SOP saved in the workflow's framework folder. N-T53 on a lasting insight. The Git offer only in a repository. No registry: Live since and recheck_after.",
+      "expected_output": "Baseline Unknown with a run log: no time-saved line (N-T16's Baseline-Unknown form is retired). A team workflow: N-T52, the SOP saved in the workflow's framework folder. N-T53 on a lasting insight. The Git offer only in a repository. No registry: Live since and recheck_after.",
       "files": [
         "students/default.md",
         "students/yes-to-offers.md"
       ],
       "expectations": [
         {
-          "text": "Says N-T16 (Run log, Baseline Unknown) word for word",
+          "text": "No time-saved line: N-T16's retired Baseline-Unknown form is never said",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-T16",
-            "form": "Run log, Baseline Unknown",
-            "session": 1
+           "type": "ai_not_contains",
+           "text": "To see time saved later"
           }
         },
         {

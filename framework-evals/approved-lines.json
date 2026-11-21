@@ -1301,7 +1301,7 @@
   {
    "id": "running-work",
    "form": "main",
-   "text": "This workflow already runs outside the framework. To bring it in, say 'run the deconstruct skill on [workflow]. My files are in [location].' Deconstruct pins down what it must produce and how it should go; until the new version is built and installed, keep running it as it is.",
+   "text": "This workflow already runs outside the framework. To bring it in, say 'run the deconstruct skill on [workflow]. My files are in [location].' Deconstruct pins down its goal, what it must get right, its rules and a few practice runs; until the new version is built and installed, keep running it as it is.",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -1317,7 +1317,7 @@
     "build": "references/routing.md",
     "test": "references/routing.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change; reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
   },
   {
    "id": "bring-in-line",
@@ -1536,7 +1536,7 @@
   {
    "id": "N-A3",
    "form": "main",
-   "text": "I'll register the workflows you name as **candidate workflows** in your registry's **backlog** (your list of workflows to build), with a report. Deconstruct, the next step, takes one you choose and pins down what it must produce and how it should go.",
+   "text": "I'll register the workflows you name as **candidate workflows** in your registry's **backlog** (your list of workflows to build), with a report. Deconstruct, the next step, takes one you choose and pins down its goal, what it must get right, its rules and a few practice runs.",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1544,12 +1544,12 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
   },
   {
    "id": "N-A3",
    "form": "With no registry",
-   "text": "I'll list the workflows you name as **candidate workflows** in a report. Deconstruct, the next step, takes one you choose and pins down what it must produce and how it should go.",
+   "text": "I'll list the workflows you name as **candidate workflows** in a report. Deconstruct, the next step, takes one you choose and pins down its goal, what it must get right, its rules and a few practice runs.",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1557,7 +1557,7 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
   },
   {
    "id": "N-A4",
@@ -1632,7 +1632,7 @@
   {
    "id": "N-A6",
    "form": "Then",
-   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat. Add your [storage service] to it, then say 'run the deconstruct skill. My files are in [location].' (you can also type `/deconstruct` in a new session and pick it from the list).",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs. Start Deconstruct in a new chat. Add your [storage service] to it, then say 'run the deconstruct skill. My files are in [location].' (you can also type `/deconstruct` in a new session and pick it from the list).",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1640,12 +1640,12 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; the `/deconstruct` clause without \"in Claude Code\", 3c-EB (2026-10-25); single quotes throughout, approved by James, 2026-11-12 (3c-EP round-2 fixes)"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; the `/deconstruct` clause without \"in Claude Code\", 3c-EB (2026-10-25); single quotes throughout, approved by James, 2026-11-12 (3c-EP round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
   },
   {
    "id": "N-A6",
    "form": "Then, Claude Code",
-   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new session in this project and say 'run the deconstruct skill.' (you can also type `/deconstruct` in a new session and pick it from the list).",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs. Start Deconstruct in a new session in this project and say 'run the deconstruct skill.' (you can also type `/deconstruct` in a new session and pick it from the list).",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1653,12 +1653,12 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
   },
   {
    "id": "N-A6",
    "form": "Then, Codex",
-   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new session in this project and say 'run the deconstruct skill.'",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs. Start Deconstruct in a new session in this project and say 'run the deconstruct skill.'",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1666,12 +1666,12 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
   },
   {
    "id": "N-A6",
    "form": "Then, Claude desktop",
-   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat with your working folder selected: 'run the deconstruct skill. My files are in [location].'",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs. Start Deconstruct in a new chat with your working folder selected: 'run the deconstruct skill. My files are in [location].'",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1679,12 +1679,12 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
   },
   {
    "id": "N-A6",
    "form": "Then, Microsoft 365",
-   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new Cowork chat with: 'run the deconstruct skill. My files are in OneDrive, in ai-workspace.'",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs. Start Deconstruct in a new Cowork chat with: 'run the deconstruct skill. My files are in OneDrive, in ai-workspace.'",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1692,12 +1692,12 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
   },
   {
    "id": "N-A6",
    "form": "Then, print-to-save",
-   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat with: 'run the deconstruct skill.' Then attach the latest zip I gave you, or paste or attach the files you saved.",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs. Start Deconstruct in a new chat with: 'run the deconstruct skill.' Then attach the latest zip I gave you, or paste or attach the files you saved.",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1705,12 +1705,12 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
   },
   {
    "id": "N-A6",
    "form": "Then, print-to-save, no registry",
-   "text": "**Next: Deconstruct.** You'll choose one workflow from your report, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat with: 'run the deconstruct skill.' Then attach the latest zip I gave you, or paste or attach the files you saved.",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your report, and we'll pin down its goal, what it must get right, its rules and a few practice runs. Start Deconstruct in a new chat with: 'run the deconstruct skill.' Then attach the latest zip I gave you, or paste or attach the files you saved.",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1718,7 +1718,7 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
   },
   {
    "id": "N-A6",
@@ -6916,7 +6916,8 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change",
+   "retired": "2026-11-21 (review section D, approved by James): Deconstruct records no by-hand time, so the line sent every new workflow to a dead end"
   },
   {
    "id": "N-T16",

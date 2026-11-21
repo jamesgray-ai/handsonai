@@ -1850,8 +1850,8 @@ class CoreRound1Corpus(unittest.TestCase):
 
 
 RUNNING_WORK = ("This workflow already runs outside the framework. To bring it in, say 'run the deconstruct skill "
-                "on client follow-up. My files are in framework.' Deconstruct pins down what it must produce and how "
-                "it should go; until the new version is built and installed, keep running it as it is.")
+                "on client follow-up. My files are in framework.' Deconstruct pins down its goal, what it must get right, "
+                "its rules and a few practice runs; until the new version is built and installed, keep running it as it is.")
 N_T25 = ("Testing waits for your plan to be approved: say 'run the design skill. "
          "My files are in framework/client-follow-up.'")
 
@@ -1878,7 +1878,7 @@ class ClauseMarks(unittest.TestCase):
 
     def test_other_marks_stay_strict(self):
         self.assertFalse(ok({"type": "quote", "id": "running-work"},
-                            run_of(RUNNING_WORK.replace("should go; until", "should go, until"))))
+                            run_of(RUNNING_WORK.replace("practice runs; until", "practice runs, until"))))
 
 
 class ScriptedMarks(unittest.TestCase):

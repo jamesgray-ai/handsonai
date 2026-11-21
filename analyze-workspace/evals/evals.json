@@ -2071,7 +2071,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go."
+            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
           }
         },
         {
@@ -2233,7 +2233,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go."
+            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
           }
         },
         {
@@ -2583,7 +2583,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go."
+            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
           }
         },
         {
@@ -3026,7 +3026,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go."
+            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
           }
         },
         {
@@ -3495,7 +3495,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go."
+            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
           }
         },
         {
@@ -3955,7 +3955,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go."
+            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
           }
         },
         {
@@ -4449,7 +4449,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go."
+            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
           }
         },
         {
@@ -5091,7 +5091,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go."
+            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
           }
         },
         {
@@ -5321,7 +5321,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go."
+            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
           }
         },
         {
@@ -5679,7 +5679,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go."
+            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
           }
         },
         {
