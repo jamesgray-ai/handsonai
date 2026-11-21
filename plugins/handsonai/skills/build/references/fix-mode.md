@@ -17,9 +17,9 @@ Nothing comes before it but the three-rounds line above. The part goes in its ow
 Then, before anything changes:
 - **A live workflow:** `live-change.md` (N-B41 straight after the opener).
 - **A direct edit** to a part fix mode will redo: `SKILL.md`'s entry check 7.
-- **The block** (Claude Code) is re-applied before any check, from a fresh list of each connection's tools, using the OK the record holds.
+- **The block** (Claude Code) is re-applied before any check, from a fresh list of each connection's tools, using the OK the record holds (the record's `## Claude Code profile` and `fingerprints.wrapper`, written only after the leader's OK to N-B20; with neither, ask N-B20 as Part 1 does). Re-applying it is no part of its own and asks nothing.
 
-Signposts count only the parts fix mode runs ("Part 1 of 2 in this fix").
+Signposts count only the parts fix mode runs: number them from 1, fix the total at the first one, and keep it across Claude Code's restart. Usually: "Part 1 of 2 in this fix — building and checking", then "Part 2 of 2 in this fix — save it and test". When a Cause sends a connection back to setup: "Part 1 of 3 in this fix — your setup", and the count carries on from there.
 
 ## 2. The fixes
 
