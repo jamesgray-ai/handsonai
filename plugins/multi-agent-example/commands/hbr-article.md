@@ -106,3 +106,9 @@ When the article is ready for a decision:
 The gate tells that agent exactly what to fix, and it will retry. Report the block to the
 human rather than working around it, and never satisfy a gate by doing the agent's work
 yourself.
+
+The gate sends work back at most twice. If it still falls short, the agent is allowed to
+finish and the gate writes a `QUALITY GATE FAILED` line to `<workspace>/run-log.md`.
+**After every subagent returns, check `run-log.md` for that line.** If it is there, stop
+and tell the human which stage failed and why before dispatching anything else — never
+carry failed work into the next stage silently.

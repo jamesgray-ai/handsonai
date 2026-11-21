@@ -11,25 +11,54 @@
 # that exists against its rule and blocks on the first violation. That makes it
 # stage-agnostic, idempotent, and impossible to fool by renaming an agent.
 #
-# Exit 0 = allow the subagent to stop.
+# Exit 0 = allow the subagent to stop (with a JSON systemMessage when the gate gave up).
 # Exit 2 = block; stderr is fed back to the subagent as instructions to fix its work.
+#
+# Retries are bounded. A failing subagent is sent back at most MAX_SEND_BACKS times; if
+# its work still fails after that, the gate lets it finish but records
+# "QUALITY GATE FAILED after N retries: <reason>" in run-log.md and shows the same line
+# to the person. It never passes failing work silently, and it can never loop forever.
+#
+# The payload is parsed with Node.js, which the plugin already needs for its Word
+# renderer. Node is only used to read `agent_id` and `stop_hook_active` (which key the
+# retry counter) and `cwd`; every quality rule below is plain shell, so a machine without
+# Node still gets every check — see the "Node.js missing" section.
 
 set -uo pipefail
 
 INPUT="$(cat)"
 
+HAVE_NODE=0
+command -v node > /dev/null 2>&1 && HAVE_NODE=1
+
 json_field() {
-  # Reads a top-level field from the hook payload. Falls back to empty on any error
-  # so a payload change can never crash the gate and wedge the session.
-  printf '%s' "$INPUT" | jq -r "try (.$1 // empty) catch empty" 2>/dev/null || true
+  # Prints a top-level field of the hook payload, or nothing. Falls back to empty on any
+  # error so a payload change can never crash the gate and wedge the session.
+  [ "$HAVE_NODE" = "1" ] || return 0
+  printf '%s' "$INPUT" | node -e '
+    let d = "";
+    process.stdin.on("data", c => d += c).on("end", () => {
+      try {
+        const v = JSON.parse(d)[process.argv[1]];
+        if (v !== undefined && v !== null) process.stdout.write(String(v));
+      } catch (e) {}
+    });' "$1" 2>/dev/null || true
+}
+
+json_string() {
+  # Encodes $1 as a JSON string without needing Node, so the gate can always emit its
+  # documented JSON output — including on a machine where Node is missing.
+  local s="$1"
+  s="${s//\\/\\\\}"
+  s="${s//\"/\\\"}"
+  s="${s//$'\n'/\\n}"
+  s="${s//$'\t'/\\t}"
+  s="${s//$'\r'/}"
+  printf '"%s"' "$s"
 }
 
 PROJECT_DIR="${CLAUDE_PROJECT_DIR:-$(json_field cwd)}"
 [ -n "$PROJECT_DIR" ] || PROJECT_DIR="$PWD"
-
-# Never re-enter: if we already blocked once and the subagent is stopping again as a
-# result, let it go rather than risk an infinite block loop.
-[ "$(json_field stop_hook_active)" = "true" ] && exit 0
 
 FLAG="$PROJECT_DIR/outputs/articles/.active-run"
 [ -f "$FLAG" ] || exit 0
@@ -47,26 +76,65 @@ esac
 RUN="$PROJECT_DIR/$RUN_REL"
 [ -d "$RUN" ] || exit 0
 
-# jq is how this gate reads `stop_hook_active` — the guard that stops a blocked subagent
-# from being blocked forever. Without jq that field always reads empty, the guard never
-# fires, and any block this gate issues can turn into an infinite loop.
+LOG="$RUN/run-log.md"
+
+log_line() {
+  # Appends one line to the run's audit trail, creating it with its header if needed.
+  # Never fails the gate: an unwritable log loses the line, not the decision.
+  {
+    [ -f "$LOG" ] || printf '# Run log\n\nOne line per completed stage, appended by the SubagentStop gate. A FAILED line records a stage that finished with work below the bar.\n\n' > "$LOG"
+    printf -- '- %s — %s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$1" >> "$LOG"
+  } 2>/dev/null
+}
+
+# ---------------------------------------------------------------------------
+# Retry budget
+# ---------------------------------------------------------------------------
+# This gate used to exit 0 whenever `stop_hook_active` was true. The hooks reference
+# defines that field as "true when Claude Code is already continuing as a result of a
+# stop hook" (https://code.claude.com/docs/en/hooks#stop-input) — so the agent's second
+# attempt, the one made after being sent back, was let through without any check. A
+# second weak attempt passed unseen.
 #
-# So this gate fails OPEN on a missing jq, loudly. That is the opposite of what
-# publish-gate.sh does with the same missing tool, and deliberately so: a publish gate
-# that blocks is recoverable in one step, whereas this gate blocking with a dead loop
-# guard can wedge the run entirely. Quality checks are worth losing; the session is not.
-if ! command -v jq > /dev/null 2>&1; then
-  cat >&2 <<'EOF'
-WARNING: the article pipeline quality gate is not running.
+# Instead, every stop is checked, and the number of send-backs is counted in a small
+# state file in the run workspace, next to run-log.md. The counter is keyed by the
+# payload's `agent_id` (one per subagent), so each agent gets its own budget and the
+# key never resets mid-sequence. Without an agent_id it falls back to one key for the
+# run, reset whenever a stop is NOT a hook-driven continuation.
+#
+# The bound is ours, and it sits well under Claude Code's own backstop: "Claude Code
+# overrides a Stop hook after it blocks eight times in a row with no tool call from
+# Claude in between" (https://code.claude.com/docs/en/hooks-guide, "Stop hook hits the
+# block cap"). We never rely on that cap.
 
-jq is not installed, so this hook cannot read the payload field that prevents an
-infinite block loop. It is allowing this subagent through unchecked rather than risk
-wedging the run — no artifact was validated.
+MAX_SEND_BACKS=2
 
-Install jq (macOS: brew install jq / Debian: sudo apt-get install jq) to restore the
-quality checks, and review the artifacts by hand for this run.
-EOF
-  exit 0
+AGENT_KEY="$(json_field agent_id | tr -cd 'A-Za-z0-9_-' | cut -c1-64)"
+if [ -z "$AGENT_KEY" ]; then
+  AGENT_KEY="run"
+  if [ "$HAVE_NODE" = "1" ] && [ "$(json_field stop_hook_active)" != "true" ]; then
+    rm -f "$RUN/.gate-send-backs-run" "$RUN/.gate-failed-run" 2>/dev/null
+  fi
+fi
+COUNTER="$RUN/.gate-send-backs-$AGENT_KEY"
+FAILED_MARK="$RUN/.gate-failed-$AGENT_KEY"
+
+# ---------------------------------------------------------------------------
+# Node.js missing
+# ---------------------------------------------------------------------------
+# Without Node the gate cannot read `agent_id` or `stop_hook_active`. It does NOT skip
+# the checks over that (the old behaviour, when its JSON parser was missing, was to wave
+# every subagent through unchecked). The rules below are plain shell and still run; the only thing lost is the
+# per-agent counter, so the retry budget is shared by the whole run. That is still
+# bounded, so still loop-free. The person is told once per run, in the run log and on
+# screen, so the degraded mode is never silent. (The project directory still resolves:
+# Claude Code exports CLAUDE_PROJECT_DIR to every hook process.)
+if [ "$HAVE_NODE" = "0" ] && [ ! -f "$RUN/.gate-node-missing" ]; then
+  : 2>/dev/null > "$RUN/.gate-node-missing"
+  log_line "NOTE: Node.js not found — the quality gate is running every check, but its retry limit is shared by the whole run instead of counted per agent. Install Node.js (https://nodejs.org) to restore it."
+  NODE_NOTICE="Article pipeline: Node.js is not installed. The quality gate is still checking every stage, but the plugin needs Node.js (https://nodejs.org) for its Word document and for per-agent retry limits. Install it before the publishing step."
+else
+  NODE_NOTICE=""
 fi
 
 # ---------------------------------------------------------------------------
@@ -117,10 +185,50 @@ sources() {
 }
 
 block() {
-  # $1 = human-readable instruction fed back to the subagent
-  printf 'BLOCKED by the article pipeline quality gate.\n\n%s\n\nWorkspace: %s\nFix this before finishing.\n' \
-    "$1" "$RUN_REL" >&2
-  exit 2
+  # $1 = human-readable instruction fed back to the subagent.
+  local reason="$1" count sent
+  count="$(tr -cd '0-9' 2>/dev/null < "$COUNTER")"
+  count="${count:-0}"
+  sent="$count"
+
+  if [ "$count" -lt "$MAX_SEND_BACKS" ]; then
+    count=$((count + 1))
+    printf '%s\n' "$count" 2>/dev/null > "$COUNTER"
+    # Send the work back only if the new count was really saved. Otherwise the next stop
+    # would read the old count and block again, so a read-only workspace could become a
+    # loop. If it was not saved, fall through to the give-up path below instead.
+    if [ "$(tr -cd '0-9' 2>/dev/null < "$COUNTER")" = "$count" ]; then
+      {
+        printf 'BLOCKED by the article pipeline quality gate (send-back %s of %s).\n\n%s\n\nWorkspace: %s\nFix this before finishing.\n' \
+          "$count" "$MAX_SEND_BACKS" "$reason" "$RUN_REL"
+        if [ "$count" -ge "$MAX_SEND_BACKS" ]; then
+          printf '\nThis is your last attempt. If the work still fails this check when you stop, the gate will let you finish but record QUALITY GATE FAILED in run-log.md. If you cannot fix it, say so plainly in the first line of your summary.\n'
+        fi
+        if [ -n "$NODE_NOTICE" ]; then printf '\nNote: %s\n' "$NODE_NOTICE"; fi
+      } >&2
+      exit 2
+    fi
+  fi
+
+  # Limit reached: stop sending the work back, but do not pass it silently.
+  #
+  # Blocking again is exactly what can loop. Exiting 0 lets the subagent stop, and the
+  # documented `systemMessage` field ("Warning message shown to the user",
+  # https://code.claude.com/docs/en/hooks#json-output) puts the failure in front of the
+  # person. `decision: "block"` and `additionalContext` are not options here: both keep
+  # the subagent running (https://code.claude.com/docs/en/hooks#stop-decision-control).
+  # A SubagentStop hook cannot write into the orchestrator's context, so the orchestrator
+  # learns of it from run-log.md, which both commands tell it to check after each stage.
+  local summary="QUALITY GATE FAILED after $sent retries: $reason"
+  summary="${summary//$'\n'/ }"
+  if [ ! -f "$FAILED_MARK" ]; then
+    : 2>/dev/null > "$FAILED_MARK"
+    log_line "$summary"
+  fi
+  local msg="Article pipeline ($RUN_REL): $summary See run-log.md before continuing."
+  [ -n "$NODE_NOTICE" ] && msg="$msg $NODE_NOTICE"
+  printf '{"systemMessage": %s}\n' "$(json_string "$msg")"
+  exit 0
 }
 
 # ---------------------------------------------------------------------------
@@ -232,8 +340,10 @@ fi
 # Passed — append to the audit trail
 # ---------------------------------------------------------------------------
 
-LOG="$RUN/run-log.md"
-[ -f "$LOG" ] || printf '# Run log\n\nOne line per completed stage, appended by the SubagentStop gate.\n\n' > "$LOG"
+# This agent's work now meets the bar, so its send-back budget is spent no further.
+rm -f "$COUNTER" "$FAILED_MARK" 2>/dev/null
+
+[ -f "$LOG" ] || printf '# Run log\n\nOne line per completed stage, appended by the SubagentStop gate. A FAILED line records a stage that finished with work below the bar.\n\n' > "$LOG"
 
 PRESENT=""
 for f in 01-research.md 02-draft.md 03-edited.md 03-editorial-memo.md 04-article.md 04-article.docx; do
@@ -263,4 +373,5 @@ done
 # If the lock was never acquired, the log entry is skipped rather than risking a
 # duplicate. The audit trail is a convenience; never block an agent over it.
 
+[ -n "$NODE_NOTICE" ] && printf '{"systemMessage": %s}\n' "$(json_string "$NODE_NOTICE")"
 exit 0

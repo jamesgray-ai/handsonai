@@ -328,8 +328,8 @@ claude
 
 Starting it *inside the project* is what loads the agents in `.claude/agents/`, the skill in `.claude/skills/`, and the hook in `.claude/settings.json`.
 
-:::caution[Hooks load only at startup]
-Claude Code reads hook configuration once, when the session begins. If you add or change a hook while a session is running, **it does not take effect until you exit and start a new session**. A gate you believe is protecting you but that never loaded is worse than no gate — it is silent. Run `/hooks` to confirm what is actually loaded.
+:::caution[Confirm the gates loaded]
+Type `/hooks` before you run anything and check that both gates are listed. Claude Code normally picks up changes to hooks in `.claude/settings.json` on its own; if they are not listed, restart Claude Code. (Installed the plugin instead? Run `/reload-plugins`, or restart, then check `/hooks`.) A gate you believe is protecting you but that never loaded is worse than no gate — it is silent.
 :::
 
 **3. Run the pipeline.** Either paste [the goal statement](#the-goal-statement) — better for a live audience — or use the saved version:
@@ -348,7 +348,7 @@ This is the automatic-delegation version: it states the outcome and lets Claude 
 
 **4. Watch the delegation happen.** This is the part to watch closely. Claude announces which agent it is dispatching and why, and each agent reports back a short summary and a file path. Open the files as they appear — that is where the learning is. `01-research.md` shows you the raw evidence; `02-draft.md` shows you what the writer made of it.
 
-Watch for a gate firing, too. If an agent returns something thin, you will see it blocked and sent back to work. That is the system defending itself, and it is worth pausing on.
+Watch for a gate firing, too. If an agent returns something thin, you will see it blocked and sent back to work. That is the system defending itself, and it is worth pausing on. The gate checks every attempt and sends work back at most twice; if it still falls short, the agent finishes, the gate records `QUALITY GATE FAILED` in `run-log.md` and shows it to you, and Claude stops to tell you rather than carrying it forward.
 
 **5. Answer the approval question.** Claude will ask whether to publish, with the headline editorial changes and file paths in front of you. Open `03-edited.md` and actually read it. Approve, or decline with notes and watch the editor revise.
 
@@ -376,9 +376,9 @@ bash .claude/hooks/test-publish-gate.sh
 bash scripts/test-article-to-docx.sh
 ```
 
-The first builds synthetic workspaces and asserts the `SubagentStop` gate blocks a thin dossier, an uncited dossier, a draft that is too short or too long, a revision missing its memo, a critique masquerading as a revision, stray wrapper tags in the article, a missing Word file, and a corrupt Word file — and that it stays completely inert when the pipeline is not running.
+The first builds synthetic workspaces and asserts the `SubagentStop` gate blocks a thin dossier, an uncited dossier, a draft that is too short or too long, a revision missing its memo, a critique masquerading as a revision, stray wrapper tags in the article, a missing Word file, and a corrupt Word file — that it checks retries too, sends work back at most twice and then records the failure instead of looping, keeps checking when Node.js is missing, and stays completely inert when the pipeline is not running.
 
-The second asserts the `PreToolUse` gate blocks a publisher dispatch without an approval marker, allows it with one, ignores every other agent and tool, stays inert outside a pipeline run, and fails *open* on a payload it does not recognise — because a gate that wedges a live demonstration is worse than one that occasionally misses.
+The second asserts the `PreToolUse` gate blocks a publisher dispatch without an approval marker, allows it with one, ignores every other agent and tool, stays inert outside a pipeline run, and fails *open* on a payload it does not recognise — because a gate that wedges a live demonstration is worse than one that occasionally misses. The one exception is a missing Node.js, where it blocks the publisher rather than let it through unread.
 
 The third renders a fixture article and asserts the output is a valid Word file with its heading styles, hyperlinks, and pagination intact.
 
