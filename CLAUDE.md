@@ -111,7 +111,7 @@ fixed sequence.
 - Redirects live in `astro.config.mjs` → `redirects`. Astro renders each as a 200 + `noindex` HTML stub, so `src/integrations/cloudflare-redirects.mjs` also writes them to `dist/_redirects` at build, which Cloudflare Pages answers with a real 301 (test: `node scripts/test-cloudflare-redirects.mjs`). A redirect whose source path still has a content file **shadows the real page** — the build warns `conflicts with higher priority route`; treat that warning as an error and delete the stale redirect
 - Meta descriptions: keep frontmatter `description` between 110 and 160 characters (Ahrefs flags outside that range). Q&A pages need an explicit `description` — `short_answer` is not used as a fallback
 - `public/robots.txt` exists only to carry the `Sitemap:` line; Cloudflare prepends its managed Content Signals block at the edge
-- `src/content/docs/llms.txt` and `llms-full.txt` are stale leftovers — the served `/llms.txt` is generated at build by `src/integrations/llms-txt.mjs` from questions and use-cases. Don't edit the `src/` copies
+- The served `/llms.txt` and `/llms-full.txt` are generated at build by `src/integrations/llms-txt.mjs` from questions and use-cases; there are no `src/` copies to edit
 
 ## Feature Development Workflow
 

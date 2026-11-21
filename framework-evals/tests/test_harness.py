@@ -213,6 +213,20 @@ class WordingChecks(unittest.TestCase):
                            run_of("- Ready within 30 minutes of the call ending *(my suggestion)*\nWhat would you change?")))
         self.assertFalse(ok({"type": "no_time_or_step_numbers"},
                             run_of("- Ready within 30 minutes of the call ending *(my suggestion)*\nThis takes about 10 minutes.")))
+        # only a check is exempt (review B1-17): the tag on a time in ordinary prose doesn't excuse it
+        for prose in ("This takes about 10 minutes (my suggestion).",
+                      "Here is the draft. This takes about 10 minutes *(my suggestion)*.\nWhat would you change?",
+                      "Checks:\n- Every draft names the client\nThis takes about 10 minutes (my suggestion).",
+                      # line breaks joined: a new sentence after a list item is prose again
+                      "Checks: - Every draft names the client. This takes about 10 minutes (my suggestion).",
+                      "- Ready within 30 minutes of the call ending *(my suggestion)* This takes about 10 minutes."):
+            self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of(prose)), prose)
+        # a numbered or starred check item, and one whose line breaks arrived joined, stays exempt
+        for item in ("1. Ready within 30 minutes of the call ending *(my suggestion)*\n2. Every draft names the client",
+                     "  * Ready within 2 hours of the call ending (my suggestion)\nWhat would you change?",
+                     "Checks: - Every draft names the client *(you said)* - Ready within 30 minutes of the call ending *(my suggestion)* What would you change?",
+                     "- Ready within 30 minutes of the call ending *(my suggestion)* 2. Sent the same day (my suggestion)"):
+            self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run_of(item)), item)
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of("This conversation takes about 20 minutes.")))
         # the Baseline in the requirements' Value & Measurement is the leader's number too
         req = {"framework/x/requirements.md": "## Value & Measurement\n\n| Baseline | 15 minutes per report · Estimated |\n\n## Metadata\n\n| Effort | 40 minutes |\n"}

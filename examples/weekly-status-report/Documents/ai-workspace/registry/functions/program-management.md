@@ -3,7 +3,7 @@ type: Function
 title: "Program Management"
 description: "Owns program tracking, status reporting, and stakeholder communication."
 generated: { by: process:scaffolding-registry, at: 2026-06-01T13:05:00Z }
-lead: "Maya R."
+lead: "Program Manager"
 ---
 # Program Management
 

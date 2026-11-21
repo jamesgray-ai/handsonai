@@ -2855,17 +2855,27 @@
       "fixture": "cc-live-batch",
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
       "student": "students/decline-allow.md",
-      "expected_output": "A re-check round on a live workflow asks N-T47 at Part 2's start; declined, the leader runs the practice inputs in a batch (N-T8), and no allow is added.",
+      "expected_output": "Once release check 6 is verified, a re-check round on a live workflow asks N-T47 at Part 2's start; declined, the leader runs the practice inputs in a batch (N-T8), and no allow is added. While it's open (today): no N-T47, the leader runs the practice inputs in a batch (N-T8), and no allow is added.",
       "files": [
         "students/decline-allow.md"
       ],
       "expectations": [
         {
-          "text": "Never says N-T47 while release check 6 is open (the AI runs no inputs, so no script to allow)",
+          "text": "Says N-T47 word for word when the AI runs the inputs (release check 6 verified); never says it while it's open (the AI runs no inputs, so no script to allow)",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "N-T47"
+            "type": "release_check",
+            "ids": [
+              6
+            ],
+            "passed": {
+              "type": "quote",
+              "id": "N-T47"
+            },
+            "open": {
+              "type": "quote_absent",
+              "id": "N-T47"
+            }
           }
         },
         {
@@ -7143,7 +7153,7 @@
       "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
       "student": "students/default.md",
       "platform": "claude-web",
-      "expected_output": "Deconstruct captured two: Test writes a third, plus the flag input; N-T3 without 'Two or three rounds is normal.'",
+      "expected_output": "Deconstruct captured two: Test writes a third, plus the flag input; N-T3 with 'Two or three rounds is normal.' (said to every leader)",
       "files": [
         "students/default.md"
       ],
@@ -7157,10 +7167,10 @@
           }
         },
         {
-          "text": "Never says N-T3 (main-2): no rounds line on the light track",
+          "text": "Says N-T3 (main-2): the rounds line, said to every leader",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
+            "type": "quote",
             "id": "N-T3",
             "form": "main-2"
           }

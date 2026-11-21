@@ -27,4 +27,4 @@ Read when the requirements say `AI works it out each time` (`Path: none`) and yo
 - **Safety & Permissions and Constraint Conformance** apply unchanged, and weigh more: with no fixed path to inspect, the Prohibited actions and checkpoints are the boundary the AI works inside. The checkpoint question is D5 for any change in a live system.
 - **Tasks:** one per distinct artifact, as for steps; *Meets* lists the AC, R, G, D and W IDs (there are no Step IDs).
 
-**In the review,** say D8′ (SKILL.md, Part 4). The self-check reads "Step ID" as "domain" throughout.
+**In the review,** say D8′ where `variants.md`, *The review*, says: after the level, only when no order the leader insisted on is kept. The self-check reads "Step ID" as "domain" throughout.

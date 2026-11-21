@@ -1,5 +1,6 @@
 source: deconstruct
 tests: AC1, AC2, AC3, R1, R2, G2
+expect: Each blocker with its owner and next action, and the ownerless one marked "owner needed"; no owner guessed for it
 
 # Tracker export — week of 2026-06-01
 

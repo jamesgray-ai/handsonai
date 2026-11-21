@@ -1,5 +1,6 @@
 source: deconstruct
 tests: AC1, AC2, AC3, AC4, R1, R2, R4, R5, G2
+expect: Every section filled, and the one blocker with its owner and next action; no status the tracker doesn't support
 
 # Tracker export — week of 2026-06-01
 

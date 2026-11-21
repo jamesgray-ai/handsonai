@@ -7,14 +7,14 @@ revisions: []
 # Weekly Status Report — Workflow Requirements
 
 ## Goal
-For each Friday, a one-page Markdown status report to the leadership team, ready for Maya to review and share by 10am.
+For each Friday, a one-page Markdown status report to the leadership team, ready for you to review and share by 10am.
 
 ## Value & Measurement
 
 | Field | Value |
 |---|---|
 | Business Objective | Keep leadership informed with less PM overhead |
-| Desired Outcome | Leadership gets the report before the 11am sync every week, blocked tasks stop slipping through, and Maya gets most of her Friday morning back. |
+| Desired Outcome | Leadership gets the report before the 11am sync every week, blocked tasks stop slipping through, and the program manager gets most of their Friday morning back. |
 | Measure | — |
 | Baseline | — · Unknown |
 | Target | — |
@@ -24,10 +24,10 @@ For each Friday, a one-page Markdown status report to the leadership team, ready
 | Field | Value |
 |---|---|
 | Workflow Name | Weekly Status Report |
-| Description | Drafts the Friday leadership status report from the team's project tracker (progress, blockers and next week's focus), ready for Maya's review by 10am. |
-| Trigger | Maya starts it on Friday mornings |
+| Description | Drafts the Friday leadership status report from the team's project tracker (progress, blockers and next week's focus), ready for the program manager's review by 10am. |
+| Trigger | The program manager starts it on Friday mornings |
 | Starts | you |
-| Owner | Maya R. (Program Manager) |
+| Owner | Program Manager |
 | Lens | Individual |
 
 ## Path
@@ -46,7 +46,7 @@ Path: none — the AI plans each run from the goal
 |---|---|---|---|---|---|---|---|---|
 | C1 | HubSpot project tracker | All | Exists | Internal | Authored | Yes | HubSpot list "Q2 Delivery Tracker" | Tasks, statuses, owners and comments |
 | C2 | Last status report | All | Exists | Internal | Authored | Yes | `context/C2-report-2026-05-22.md` | The report of 2026-05-22: the four sections, their order and their length, which every report follows |
-| C3 | Tone guide | All | Needs Creation | Internal | Authored | No | Create as `context/C3-tone-guide.md` | Maya's voice: direct, no hedging, leading with what changed |
+| C3 | Tone guide | All | Needs Creation | Internal | Authored | No | Create as `context/C3-tone-guide.md` | The program manager's voice: direct, no hedging, leading with what changed |
 
 ## Acceptance Criteria
 

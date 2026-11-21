@@ -16,4 +16,4 @@ Source: HubSpot list "Q2 Delivery Tracker", tasks updated 2026-05-29 to 2026-06-
 | Data migration — order history | In progress | Lena | 2026-06-03 | 60% complete |
 | Mobile app — crash fix 2.3.1 | Done | Marcus | 2026-05-29 | Released |
 | Mobile app — offline mode | In progress | Marcus | 2026-06-02 | Spike complete; estimate 3 weeks |
-| Reporting — leadership dashboard | In progress | Maya | 2026-06-04 | Draft shared with two stakeholders |
+| Reporting — leadership dashboard | In progress | Program manager | 2026-06-04 | Draft shared with two stakeholders |

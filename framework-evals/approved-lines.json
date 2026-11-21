@@ -818,12 +818,10 @@
    "kind": "safety or promise",
    "skills": [
     "design",
-    "build",
     "test"
    ],
    "files": {
     "design": "references/light-track.md",
-    "build": "SKILL.md",
     "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change; ending reworded, approved by James 2026-11-15 (no tracks are said to the leader)",
@@ -835,12 +833,14 @@
    "text": "Because this [the sign, in the leader's words], I'll also set its safety limits with you.",
    "kind": "safety or promise",
    "skills": [
-    "deconstruct"
+    "deconstruct",
+    "design"
    ],
    "files": {
-    "deconstruct": "references/interview.md"
+    "deconstruct": "references/interview.md",
+    "design": "SKILL.md"
    },
-   "source": "approved by James, 2026-11-15 (the single interview)"
+   "source": "approved by James, 2026-11-15 (the single interview); also Design's lead-in to drafted limits (James, 2026-11-21, B1-7)"
   },
   {
    "id": "deconstruct:safety-limits-line",

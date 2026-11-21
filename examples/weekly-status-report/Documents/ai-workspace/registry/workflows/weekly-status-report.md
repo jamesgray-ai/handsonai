@@ -1,17 +1,17 @@
 ---
 type: Workflow
 title: "Weekly Status Report"
-description: "Drafts the Friday leadership status report from the team's project tracker (progress, blockers and next week's focus), ready for Maya's review by 10am."
+description: "Drafts the Friday leadership status report from the team's project tracker (progress, blockers and next week's focus), ready for the program manager's review by 10am."
 generated: { by: process:test, at: 2026-06-08T15:40:00Z }
 status: in-production
 execution_mode: augmented
 autonomy: deterministic
-trigger: "Maya starts it on Friday mornings"
+trigger: "The program manager starts it on Friday mornings"
 stale_after: 2026-09-08
 ---
 # Weekly Status Report
 
-Drafts the Friday leadership status report from the team's project tracker (progress, blockers and next week's focus), ready for Maya's review by 10am.
+Drafts the Friday leadership status report from the team's project tracker (progress, blockers and next week's focus), ready for the program manager's review by 10am.
 
 # Artifacts
 

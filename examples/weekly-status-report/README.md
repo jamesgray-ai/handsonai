@@ -2,12 +2,12 @@
 
 > **Internal test fixture, not published.** The registry and folder tests use this folder (`scripts/test-compose-registry.sh`, `scripts/test-worked-example-folder.sh`); nothing on the playbook site links it or ships it. It will be replaced by James's real end-to-end run.
 
-This folder is what a program manager named Maya ends up with after taking one small workflow through the five steps of the AI Workflow Framework (Analyze, Deconstruct, Design, Build and Test) in the Claude desktop app, until it's live. Every file is hand-written in the formats the five skills write.
+This folder is what a program manager ends up with after taking one small workflow through the five steps of the AI Workflow Framework (Analyze, Deconstruct, Design, Build and Test) in the Claude desktop app, until it's live. Every file is hand-written in the formats the five skills write.
 
-`Documents/` holds Maya's two folders, kept apart as the framework keeps them on Claude desktop:
+`Documents/` holds the program manager's two folders, kept apart as the framework keeps them on Claude desktop:
 
-- **`Documents/ai-workspace/`** is her working folder, the one she selected in every framework chat. It holds `registry/` (the AI Registry bundle every step reads and writes), `REGISTRY.md` (the view the registry tools generate from it) and `framework/`, the framework folder: `framework/ai-opportunity-report.md` (Analyze's report) and `framework/weekly-status-report/`, the workflow's record: `requirements.md`, `design-plan.md`, `build-record.md` and `test-results.md`, with `inputs/` (the practice inputs), `context/` (the steps' copies of the files the workflow reads), `package/` (the kept copy of the skill Build made) and `history/` (round 1 of Test, kept when round 2 opened).
-- **`Documents/status-reports/`** is the workflow's folder, where it runs, outside the working folder: the two files it reads each week (the last report before it went live, and Maya's tone guide) and the five reports it has saved since it went live on 2026-06-08. It holds no framework file, and it keeps no run log: on Claude desktop, the workflow carries a flag line in each run's summary instead.
+- **`Documents/ai-workspace/`** is their working folder, the one they selected in every framework chat. It holds `registry/` (the AI Registry bundle every step reads and writes), `REGISTRY.md` (the view the registry tools generate from it) and `framework/`, the framework folder: `framework/ai-opportunity-report.md` (Analyze's report) and `framework/weekly-status-report/`, the workflow's record: `requirements.md`, `design-plan.md`, `build-record.md` and `test-results.md`, with `inputs/` (the practice inputs), `context/` (the steps' copies of the files the workflow reads), `package/` (the kept copy of the skill Build made) and `history/` (round 1 of Test, kept when round 2 opened).
+- **`Documents/status-reports/`** is the workflow's folder, where it runs, outside the working folder: the two files it reads each week (the last report before it went live, and the program manager's tone guide) and the five reports it has saved since it went live on 2026-06-08. It holds no framework file, and it keeps no run log: on Claude desktop, the workflow carries a flag line in each run's summary instead.
 
 ## Open it
 
@@ -31,4 +31,4 @@ In a chat opened in `Documents/status-reports`, say *practice run* and paste `Do
 
 ## Install the skill
 
-`Documents/ai-workspace/framework/weekly-status-report/package/skills/weekly-status-report/` is the kept copy of the skill Build saved into Maya's Claude skills. To install it the way she did, zip that folder and add it in Claude under Customize, then Skills — see the skills setup page above. It uses only the portable `name` and `description` fields, so it loads on any platform that takes Agent Skills.
+`Documents/ai-workspace/framework/weekly-status-report/package/skills/weekly-status-report/` is the kept copy of the skill Build saved into the program manager's Claude skills. To install it the way they did, zip that folder and add it in Claude under Customize, then Skills — see the skills setup page above. It uses only the portable `name` and `description` fields, so it loads on any platform that takes Agent Skills.

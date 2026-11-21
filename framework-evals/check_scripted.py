@@ -415,15 +415,34 @@ def _leaders_own(found, allowed, present=()):
     return all(near(x) for x in found)
 
 
+# James, 2026-11-14 (kept 2026-11-21; narrowed per review B1-17): a time the AI suggests inside a
+# check is a suggested check the leader keeps or drops, not a time estimate. Only a check counts: a
+# list item ("-", "*" or "N." first, after optional spaces or quote markers) tagged "(my suggestion)".
+# A time in ordinary prose stays an estimate, tag or no tag.
+_ITEM = r"(?:[-*]|\d+\.)[ \t]+"
+# with its line breaks: the item line up to its tag (a tag covers the words before it, so prose after
+# the tag on the same line is checked as prose)
+SUGGESTED_CHECK_LINE = re.compile(r"(?mi)^[ \t>]*" + _ITEM + r"[^\n]*?\(my suggestion\)")
+# with its line breaks joined: from a list marker that opens the text or follows the end of the item or
+# sentence before it, up to the tag, through no other marker and no new sentence (". " then a capital)
+SUGGESTED_CHECK_JOINED = re.compile(
+    r"(?i:(?:^|(?<=[.!?:)*_]\s))" + _ITEM + r")(?:(?!\s(?:[-*]|\d+\.)\s)(?![.!?]\s+[A-Z])[^\n])*?"
+    r"(?i:\(my suggestion\))")
+
+
+def _drop_suggested_checks(text):
+    return SUGGESTED_CHECK_JOINED.sub(" ", SUGGESTED_CHECK_LINE.sub(" ", text))
+
+
 def time_or_step_hits(message, allowed=frozenset()):
     # what fills an approved line's placeholder ("about [hours] saved") is part of that line here;
     # a size the leader gave for their own work ("about 20 minutes per follow-up") is theirs, not an estimate
-    text = corpus().strip_approved(leader_text(message), keep_fills=False)
-    # James, 2026-11-14 (kept 2026-11-21): a time the AI suggests inside a check, on a line tagged
-    # "(my suggestion)", is a suggested check the leader keeps or drops, not a time estimate
-    # (the text may arrive with its line breaks joined, so the check's own clause is cut back to the
-    # previous sentence end or line break, never the whole message)
-    timed = re.sub(r"[^.!?\n]*\(my suggestion\)", " ", text, flags=re.I)
+    shown = leader_text(message)
+    text = corpus().strip_approved(shown, keep_fills=False)
+    # strip_approved joins the line breaks, so the suggested checks are found in the text before it,
+    # with its lines (and found again in a message whose lines arrived already joined)
+    kept = _drop_suggested_checks(shown)
+    timed = text if kept == shown else corpus().strip_approved(kept, keep_fills=False)
     hits = [("time", timed[max(0, m.start() - 40):m.end() + 40].strip()) for m in TIME.finditer(timed)
             if not (sizes(timed[m.start():m.end() + 25])
                     and _leaders_own(sizes(timed[m.start():m.end() + 25]), allowed, set(sizes(timed))))]

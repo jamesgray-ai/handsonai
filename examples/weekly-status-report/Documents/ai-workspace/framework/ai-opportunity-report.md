@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Name** | Maya R. |
+| **Name** | Program Manager |
 | **Role** | Program Manager, software delivery team |
 | **Date** | 2026-06-01 |
 | **Lens** | Individual |
@@ -38,21 +38,21 @@ one-page summary in a fixed format, review, post. The inputs already exist, the
 format never varies, and the slow part is synthesis and formatting, not judgment.
 
 **Current pain point:**
-Every Friday Maya pulls updates from the team's HubSpot tracker, rewrites them into a
+Every Friday the program manager pulls updates from the team's HubSpot tracker, rewrites them into a
 one-page summary, and posts it for leadership. It takes 45–60 minutes; formatting is
-the tedious part, and she occasionally misses a blocked task because it is buried in
+the tedious part, and they occasionally miss a blocked task because it is buried in
 comments.
 
 **How AI helps:**
 Takes in the week's task updates and the standing report format; produces a drafted
-one-page report for Maya to review, edit, and post.
+one-page report for the program manager to review, edit, and post.
 
-**Value lever:** Streamline — Maya still reviews and posts the report; the gathering,
+**Value lever:** Streamline — the program manager still reviews and posts the report; the gathering,
 synthesis, and formatting drop away.
 
 **What changes for the business:**
 Leadership gets the report before the 11am sync every week, blocked tasks stop
-slipping through, and Maya gets most of her Friday morning back.
+slipping through, and the program manager gets most of their Friday morning back.
 
 **Systems involved today:** the HubSpot project tracker, the report template, the
 leadership channel.
@@ -66,12 +66,12 @@ leadership channel.
 **Found in:** your past chats show you asking for help compiling the month-end risk register.
 
 **Why it's a good candidate:**
-Once a month Maya consolidates every open risk from the tracker's comments into a
+Once a month the program manager consolidates every open risk from the tracker's comments into a
 single register for the steering group. The source is fixed, the format is fixed,
 and nobody reads the register until it is complete.
 
 **Current pain point:**
-Risks live in task comments across the tracker. Compiling them takes Maya about two
+Risks live in task comments across the tracker. Compiling them takes the program manager about two
 hours at month end, and risks raised mid-month are sometimes missed because they
 were never tagged.
 
@@ -79,7 +79,7 @@ were never tagged.
 Takes in the month's tracker comments; produces the consolidated risk register in
 the steering group's format, with each risk's owner and status.
 
-**Value lever:** Automate — Maya stops compiling the register; it exists before the
+**Value lever:** Automate — the program manager stops compiling the register; it exists before the
 steering meeting.
 
 **What changes for the business:**
@@ -101,20 +101,20 @@ Repeated for every stakeholder meeting, with a stable shape: agenda, open decisi
 talking points. The sources are known; the work is gathering and synthesis.
 
 **Current pain point:**
-Before each stakeholder meeting Maya assembles the agenda, open decisions, and talking
+Before each stakeholder meeting the program manager assembles the agenda, open decisions, and talking
 points from email, the project tracker, and the team chat — 30–40 minutes per meeting,
 often the night before.
 
 **How AI helps:**
 Takes in the meeting invite and the recent activity about that stakeholder; produces a
-prep brief Maya skims and corrects.
+prep brief the program manager skims and corrects.
 
 **Value lever:** Accelerate — the brief is ready in minutes instead of the evening
 before, so more meetings get prepared for at all.
 
 **What changes for the business:**
 Every stakeholder meeting starts with current context, and the preparation stops
-competing with Maya's evenings.
+competing with the program manager's evenings.
 
 **Systems involved today:** email, the HubSpot project tracker, the team chat.
 
@@ -155,12 +155,12 @@ misses that surface weeks in stop happening.
 | **Workflow** | Weekly Status Report |
 | **Process** | Program Delivery |
 | **Goal** | Keep leadership informed with less PM overhead |
-| **Description** | Drafts the Friday leadership status report from the team's project tracker for Maya to review and post |
-| **Trigger** | Manual — Maya starts it Friday mornings |
-| **Deliverable** | One-page status report ready for Maya's review |
+| **Description** | Drafts the Friday leadership status report from the team's project tracker for the program manager to review and post |
+| **Trigger** | Manual — the program manager starts it Friday mornings |
+| **Deliverable** | One-page status report ready for the program manager's review |
 | **Value lever** | Streamline |
 | **Pain point** | 45–60 min of manual synthesis and formatting weekly; blocked tasks occasionally missed |
-| **AI opportunity** | Draft the full report from the week's tracker updates in the standing format; Maya reviews and posts |
+| **AI opportunity** | Draft the full report from the week's tracker updates in the standing format; the program manager reviews and posts |
 | **Frequency** | Weekly |
 | **Lens** | Individual |
 
@@ -188,7 +188,7 @@ misses that surface weeks in stop happening.
 | **Deliverable** | Prep brief ready to skim |
 | **Value lever** | Accelerate |
 | **Pain point** | 30–40 minutes per meeting, often the night before; some meetings get no prep at all |
-| **AI opportunity** | Assemble the brief from the meeting invite and the recent activity about that stakeholder; Maya skims and corrects |
+| **AI opportunity** | Assemble the brief from the meeting invite and the recent activity about that stakeholder; the program manager skims and corrects |
 | **Frequency** | Weekly |
 | **Lens** | Individual |
 

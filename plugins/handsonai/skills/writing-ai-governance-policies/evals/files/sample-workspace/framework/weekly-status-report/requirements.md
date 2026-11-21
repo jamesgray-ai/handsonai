@@ -16,8 +16,8 @@ For each Friday, a one-page Markdown status report to the leadership team, ready
 | Business Objective | Keep leadership informed with less program-management overhead |
 | Desired Outcome | Maya gets her Friday mornings back, and leadership still has the week's picture before the 11am sync |
 | Measure | Minutes Maya spends producing the report, from opening the tracker to sharing the report |
-| Baseline | 50 minutes per report · Estimated |
-| Target | Under 25 minutes per report, including her review |
+| Baseline | — · Unknown |
+| Target | — |
 
 ## Metadata
 
@@ -26,35 +26,27 @@ For each Friday, a one-page Markdown status report to the leadership team, ready
 | Workflow Name | Weekly Status Report |
 | Description | Drafts the Friday leadership status report from the team's project tracker (progress, blockers and next week's focus), ready for Maya's review by 10am. |
 | Trigger | Maya starts it on Friday mornings |
+| Starts | you |
 | Owner | Maya R. (Program Manager) |
 | Lens | Individual |
 
 ## Path
 
-Method preference: same way every time
-
-- Step 1 — Pull updates · produces a list of this week's updated tasks, each with its status, owner and comments · uses C1 · fixed (your judgment)
-- Step 2 — Draft the report · produces a one-page draft report · uses C2, C3 · flexible
-- Step 3 — Review · produces the approved report · fixed (your judgment) · (you)
-- Step 4 — Save · produces the approved report saved as `status-report-YYYY-MM-DD.md` in the workflow's folder · fixed (your judgment)
-
-### Step 1 — Pull updates
-**Rule:** Include each task whose status changed or that gained a comment in the last seven days.
-
-### Step 4 — Save
-**Rule:** Save each week's report under its own date; a previous week's report is never overwritten.
+Method preference: AI works it out each time
+Path: none — the AI plans each run from the goal
 
 ## Inputs
 
-- I1 · this week's task updates · from C1, through the HubSpot connection · Status: available
+- I1 · this week's task updates: each task whose status changed or that gained a comment in the last seven days · from C1, through the HubSpot connection · Status: available
 
 ## Context Inventory
+*The sources it uses, what we call its context.*
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
-| C1 | HubSpot project tracker | Step 1 | Exists | Internal | Authored | Yes | HubSpot list "Q2 Delivery Tracker" | Tasks, statuses, owners and comments |
-| C2 | Last status report | Step 2 | Exists | Internal | Authored | Yes | `context/C2-report-2026-05-22.md` | The report of 2026-05-22: the four sections, their order and their length, which every report follows |
-| C3 | Tone guide | Step 2 | Needs Creation | Internal | Authored | No | Create as `context/C3-tone-guide.md` | Maya's voice: direct, no hedging, leading with what changed |
+| C1 | HubSpot project tracker | All | Exists | Internal | Authored | Yes | HubSpot list "Q2 Delivery Tracker" | Tasks, statuses, owners and comments |
+| C2 | Last status report | All | Exists | Internal | Authored | Yes | `context/C2-report-2026-05-22.md` | The report of 2026-05-22: the four sections, their order and their length, which every report follows |
+| C3 | Tone guide | All | Needs Creation | Internal | Authored | No | Create as `context/C3-tone-guide.md` | Maya's voice: direct, no hedging, leading with what changed |
 
 ## Acceptance Criteria
 
@@ -68,14 +60,16 @@ Each line is one thing a single run's output either does or doesn't do. Every pr
 Reference example: C2
 
 ## Example Scenarios
+*The practice runs: each input it's tested on, and what should happen.*
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
-| E1 | Typical week (real) | `inputs/E1-typical-week.md` — the tracker export for the week of 2026-06-01: nine updated tasks, one blocker | Every section filled, and the one blocker with its owner and next action | C2 |
-| E2 | Blocked-heavy week (proposed, hard) | `inputs/E2-blocked-heavy-week.md` — four blockers, one of them with no owner | Each blocker with its owner and next action, and the ownerless one marked "owner needed" | — |
-| E3 | Quiet week (proposed) | `inputs/E3-quiet-week.md` — two updates and no blockers | A short, honest report with nothing padded or invented | — |
+| E1 | Typical week (real) | `inputs/E1-typical-week.md` — the tracker export for the week of 2026-06-01: nine updated tasks, one blocker | Every section filled, and the one blocker with its owner and next action; no status the tracker doesn't support | C2 |
+| E2 | Blocked-heavy week (proposed, hard) | `inputs/E2-blocked-heavy-week.md` — four blockers, one of them with no owner | Each blocker with its owner and next action, and the ownerless one marked "owner needed"; no owner guessed for it | — |
+| E3 | Quiet week (proposed) | `inputs/E3-quiet-week.md` — two updates and no blockers | A short report that says it was a quiet week; nothing padded or invented | — |
 
 ## Rules & Constraints
+*Its rules: what it always does, never does, and does when something happens.*
 
 | ID | Kind | Rule |
 |---|---|---|
@@ -88,13 +82,14 @@ Reference example: C2
 | R7 | Fallback | When it can't tell a task's status from the tracker, it stops and asks you which it is. |
 
 ## Human Gates
+*The checkpoints: where a person checks or approves the work.*
 
 Runs: with you
 
 | ID | Where | Checkpoint |
 |---|---|---|
-| G1 | Step 2 | When a task's status is unclear in the tracker, it stops until you say which it is. · (you) |
-| G2 | Step 3 | When the draft is ready, it stops until you approve or edit it. · (you) |
+| G1 | When a task's status is unclear in the tracker | When a task's status is unclear in the tracker, it stops until you say which it is. · (you) |
+| G2 | After the draft is ready | When the draft is ready, it stops until you approve or edit it. · (you) |
 
 ## Security, Privacy & Safety
 

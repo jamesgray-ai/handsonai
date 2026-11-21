@@ -13,7 +13,7 @@ Each goes in its own section's table, in the leader's words, in this shape:
 - **A G line,** in `## Human Gates`: `| G2 | After the draft is ready | When the draft is ready, it stops until you approve it. · (you) |`. `Where` is the moment in plain words; only in an older file whose Path has steps is it `Step N` or the AI's part ("the AI's part after Step 2"). The checkpoint is in the "When… it…" shape, names who performs it, and ends with the role tag. The section's first line stays `Runs: with you` or `Runs: without you`; with no checkpoints left, under it: "No human gates — the workflow runs end-to-end with final review only."
 - **A P line,** in `## Security, Privacy & Safety`, under its category's table (`### Boundaries`, `### Access`, `### Traceability` or `### Prohibited actions`): `| P3 | [the constraint, in plain words] | [its source: a person, a policy, a control ID, or Self] |`. A table that doesn't exist yet is added with its heading and columns (`| ID | Constraint | Source |`), in that category order; a prohibited action reads "It never [acts], whoever asks." The `Governing regime:` line and `### Writes` stay where they are.
 
-- **The policy line,** after `Governing regime:` and before `### Writes`: Test only rewrites it, on the policy confirm question's answer: `Policy check: Allowed` on a yes, `Policy check: No — not live until approved` on a "no" (SKILL.md, *Changing a requirement*, step 7). It has no ID.
+- **The policy line,** after `Governing regime:` and before `### Writes`: Test only rewrites it, on the policy confirm question's answer: `Policy check: Allowed` on a yes, `Policy check: No — not live until approved` on a "no" (*Changing a requirement*, step 7, below). It has no ID.
 
 Every rule, checkpoint and decision keeps the "When… it…" shape; no "It never…" restates an "It always…"; a quality of the output is an AC line, a behaviour an R line, never both.
 
@@ -51,7 +51,7 @@ Switching `track:` to `full` doesn't raise `revision`.
 
 ## 5. The hand check
 
-Where code can run, `requirements-check.js` checks the file (SKILL.md). Where it can't, or it doesn't finish, check by hand before going on:
+Where code can run, `requirements-check.js` checks the file (*Changing a requirement*, step 3, below). Where it can't, or it doesn't finish, check by hand before going on:
 
 - the frontmatter holds `revision`, `revisions` and `track`, with a `revisions:` entry for every revision above 1;
 - the eleven `##` sections are unchanged in name and order;
@@ -89,6 +89,6 @@ N-T6 + N-T7's add or drop, a requirement-level miss and a what-change at the rea
    (`plan_unaffected: true` only as step 4 says); and the change under Requirement changes in the results (made before the file exists, its `revisions:` entry is copied in when the file is written; the next round's file when this one waits on the plan). **A line removed** also comes out of every `tests:` header in `inputs/` that names it. An input left testing nothing moves to `history/E[n]-[short-name]-YYYY-MM-DD-HHMM.md`, and its Example Scenarios row, if it has one, is removed in the same write, its E ID in the entry's `lines` (the table's last row stays: give its `tests:` the lines the input still exercises, by your reading). Then, where code can run, run `node [plugin root]/tools/requirements-check.js [workflow folder]` (never mentioned to the leader) and fix any problem it names before going on; where it can't, or it doesn't finish, check what you wrote by hand (section 5).
 4. **Settled by re-grading:** dropping or loosening a line the built workflow doesn't enforce. Mark the entry `plan_unaffected: true`, re-grade the runs already done in place, and carry on.
 5. **Needs the plan:** an added or tightened line, or a removed checkpoint the workflow still enforces. The raised `revision` sends the workflow to Design; write no change request. Re-grade the runs already done against the new line. In Part 1 the round waits (above); in Part 3 it's Not ready, with N-T34's plan clause.
-6. Recompute coverage; a new line with no input gets one.
+6. Recompute coverage; a new line with no input gets one, shown to the leader with N-T59 before it's saved, run or graded (SKILL.md, *The inputs you wrote*).
 7. **The policy check,** the answer to the policy confirm question (Phase 3): a yes rewrites the line as `Policy check: Allowed`; a "no" writes or keeps `Policy check: No — not live until approved`. Either way `revision` is raised and the entry is `by: test`, `lines: [Policy check]`, `plan_unaffected: true`, in block form as in step 3 (`Policy check` is a fixed token, since the line has no ID), logged under Requirement changes. Nothing goes to Design.
 

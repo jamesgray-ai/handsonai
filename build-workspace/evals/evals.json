@@ -2694,10 +2694,10 @@
      }
     },
     {
-     "text": "[P3-close-microsoft-365] The rounds sentence",
+     "text": "[P3-close-microsoft-365] No rounds sentence (Test's opening says it to every leader)",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
+      "type": "ai_not_contains",
       "text": "Two or three test rounds is normal."
      }
     }
@@ -8181,10 +8181,10 @@
      }
     },
     {
-     "text": "[P3-close-claude-web] The rounds sentence",
+     "text": "[P3-close-claude-web] No rounds sentence (Test's opening says it to every leader)",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
+      "type": "ai_not_contains",
       "text": "Two or three test rounds is normal."
      }
     },
@@ -8377,10 +8377,10 @@
      }
     },
     {
-     "text": "[P3-close-claude-desktop] The rounds sentence",
+     "text": "[P3-close-claude-desktop] No rounds sentence (Test's opening says it to every leader)",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
+      "type": "ai_not_contains",
       "text": "Two or three test rounds is normal."
      }
     },
@@ -8734,10 +8734,10 @@
      }
     },
     {
-     "text": "[P3-close-claude-code] The rounds sentence",
+     "text": "[P3-close-claude-code] No rounds sentence (Test's opening says it to every leader)",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
+      "type": "ai_not_contains",
       "text": "Two or three test rounds is normal."
      }
     },
@@ -8783,7 +8783,7 @@
     "P2-built-text-codex",
     "JR-codex"
    ],
-   "expected_output": "[P1-nb21-codex] codex: N-B21 once after the setup items, with its Codex sentence. [P2-bare-codex] Release check 9 verified: codex: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-codex-listing] A connection that can write: N-B21 with its Codex sentence; the workspace listed before and after; a changed file named and the task checked again. [P2-built-text-codex] Built for Codex: no save under the cue; a file's content in the closing block. [JR-codex] A first-time leader through Build on codex: three parts, the close with Test's phrase; leader actions reported by part, no time target.",
+   "expected_output": "[P1-nb21-codex] codex: N-B21 once after the setup items, with its Codex sentence. [P2-bare-codex] Release check 36 verified: codex: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-codex-listing] A connection that can write: N-B21 with its Codex sentence; the workspace listed before and after; a changed file named and the task checked again. [P2-built-text-codex] Built for Codex: no save under the cue; a file's content in the closing block. [JR-codex] A first-time leader through Build on codex: three parts, the close with Test's phrase; leader actions reported by part, no time target.",
    "files": [
     "students/default.md"
    ],
@@ -8921,7 +8921,7 @@
      "kind": "judged",
      "release_check": {
       "ids": [
-       9
+       36
       ],
       "passed": "The bare-run hand-over carries no Deny line",
       "open": null

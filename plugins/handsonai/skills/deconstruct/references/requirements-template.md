@@ -1,6 +1,6 @@
 # Workflow Requirements: the drafts and the file
 
-Read before the first draft (the sources) and again when writing the file. Every quoted line is said exactly. The format is fixed: later steps and scripts parse it.
+Read at entry, with the other files every interview needs (`saving-the-requirements.md`, its first paragraph), never between the leader's lines: it serves every draft and the file write from that one read. Every quoted line is said exactly. The format is fixed: later steps and scripts parse it.
 
 ## Contents
 
