@@ -34,7 +34,9 @@ fail-closed check on the real Claude config before and after (R12-3).
 
 Output, per eval and run, under <out-dir>/<eval-id>/run-<k>/: eval.json, result.json, grading.json,
 scripted.json, calls.json, and per session transcript.md, turns.json, events.jsonl, changes/,
-removed.txt (and the workspace for evals marked `keep_workspace`). Then <out-dir>/round.json and
+removed.txt, stub-calls.jsonl and stub-servers.json (every call the stand-in connections took in that
+session, and which were attached; result.json's `stub_writes` lists the calls that weren't reads and where
+each landed) (and the workspace for evals marked `keep_workspace`). Then <out-dir>/round.json and
 <out-dir>/summary.md, both reported per tier, with each run's leader-action count.
 
 Sessions: an eval's `sessions` list, or one session from `prompt`. `fixture_from` wins in any
@@ -331,6 +333,10 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             late_mcp = None
             if mcp and platform.key in CHAT_CONNECT:
                 late_mcp, mcp = mcp, None  # connected by the leader when Build asks (connect_now)
+            # every call the stand-ins take in this session is kept (review finding 19): the log is the run
+            # root's, so the session's share is what's added after these marks
+            stub_servers = list((mcp or late_mcp or {}).get("servers") or [])
+            stub_marks = H.stub_log_marks(root, stub_servers)
             prompt_tool = settings_prompt_for(platform, ws, root, data, s, ev)
             if "no_python3" in (s.get("platform_faults") or ev.get("platform_faults") or []):
                 (root / H.NO_PYTHON3).write_text("")  # this run's sessions find no python3 on PATH
@@ -385,6 +391,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             else:
                 cap_hit = "max_turns" not in s  # a session's own max_turns is a deliberate stop
             shutil.copytree(ws, sdir / "workspace")
+            stub_calls = H.stub_calls_since(root, stub_marks)
             start, end = CS.load_tree(sdir / "workspace-start"), CS.load_tree(sdir / "workspace")
             run["sessions"].append({"n": n, "turns": turns, "files_by_turn": files_by_turn,
                                     "files_start": start, "files_end": end, "cap_hit": cap_hit,
@@ -392,7 +399,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                                     "root": str(sdir / "workspace"), "platform": platform.key,
                                     "typed_history": platform.state.get("typed_history", ""),
                                     "grounding": platform.state.get("grounding", ""),
-                                    "script_quotes": CS.script_quotes(script)})
+                                    "script_quotes": CS.script_quotes(script),
+                                    "stub_servers": stub_servers, "stub_calls": stub_calls})
             again = restart_session(ev, data, platform, turns, sessions)
             if again:
                 sessions.append(again)  # the loop above picks it up as the next session
@@ -444,6 +452,9 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                               **({"replies_by_part": L.replies_by_part(run["sessions"], data.get("skill_name"))}
                                  if data.get("skill_name") == "deconstruct" else {})},
            "denials": [d for c in calls for d in c["permission_denials"]],
+           # every stand-in call that wasn't a read, and where it landed (review finding 19)
+           "stub_writes": [{"session": n, "server": c.get("server"), "tool": c.get("tool"), "args": c.get("args"),
+                            "lands": where or "only the leader sees it"} for n, where, c in CS.stub_writes(run)[0]],
            "usd": round(H.calls_usd(calls), 4)}
     for sess in run["sessions"]:  # copy back named outputs only
         n = sess["n"]
@@ -452,6 +463,10 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
         if (root / f"session-{n}" / "events.jsonl").exists():
             shutil.copy2(root / f"session-{n}" / "events.jsonl", out_s / "events.jsonl")
         (out_s / "turns.json").write_text(json.dumps(sess["turns"], indent=2, ensure_ascii=False))
+        # what reached the stand-ins in this session, kept even when empty so a re-grade knows it was read
+        (out_s / "stub-calls.jsonl").write_text("".join(json.dumps(c, ensure_ascii=False, default=str) + "\n"
+                                                        for c in sess.get("stub_calls") or []))
+        (out_s / "stub-servers.json").write_text(json.dumps(sess.get("stub_servers") or []))
         if sess.get("fixture"):  # so a re-grade can tell a fixture changed since (regrade.py)
             (out_s / "start-tree.json").write_text(json.dumps(
                 {rel: hashlib.sha256(body.encode()).hexdigest() for rel, body in sess["files_start"].items()}, indent=1))

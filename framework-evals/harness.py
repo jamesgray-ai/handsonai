@@ -387,6 +387,9 @@ SHEETS_ALLOW = ["mcp__google_sheets__get_profile", "mcp__google_sheets__list_spr
 
 # The stand-in Slack (GMAIL_STUB_KIND=slack): its reads, the post and the delete allowed as the leader's click
 # would allow them (the post is W2's own action, as create_draft is W1's); the block's deny rules still win.
+# Allowed is not approved: every call the stand-ins take is kept per session (stub_calls_since), and
+# check_scripted's no_team_visible_writes, built into every Build run, fails a post anywhere but the
+# private #build-check or a message to the leader, and any HubSpot change (review finding 19).
 SLACK_ALLOW = ["mcp__slack__get_profile", "mcp__slack__list_channels", "mcp__slack__read_channel",
                "mcp__slack__post_message", "mcp__slack__delete_message"]
 
@@ -424,6 +427,40 @@ def stub_mcp(root, specs):
     cfg = root / f"mcp-{'-'.join(servers)}.json"
     cfg.write_text(json.dumps({"mcpServers": servers}))
     return {"config": cfg, "servers": list(servers), "allow": [t for sp in specs for t in sp["allow"]]}
+
+
+def stub_log_marks(root, servers):
+    """How many calls each stand-in's log (root/<server>-calls.jsonl) holds now, so a session's own share
+    can be read after it (stub_calls_since): the log is the run root's, kept across sessions."""
+    marks = {}
+    for sv in servers:
+        p = Path(root) / f"{sv}-calls.jsonl"
+        marks[sv] = len(p.read_text(errors="replace").splitlines()) if p.exists() else 0
+    return marks
+
+
+def stub_calls_since(root, marks):
+    """Every call the stand-ins logged since `marks`, as [{server, tool, args, result, t}] in time order
+    (review finding 19: every stand-in call is recorded per session, and check_scripted's
+    no_team_visible_writes reads it). A log line that can't be read raises HarnessFailure: a call
+    nobody can read is never taken as no call."""
+    out = []
+    for sv, k in marks.items():
+        p = Path(root) / f"{sv}-calls.jsonl"
+        if not p.exists():
+            continue
+        for n, line in enumerate(p.read_text(errors="replace").splitlines()[k:], k + 1):
+            if not line.strip():
+                continue
+            try:
+                e = json.loads(line)
+            except ValueError:
+                raise HarnessFailure(f"stand-in {sv}: call log line {n} can't be read")
+            if not isinstance(e, dict) or "tool" not in e:
+                raise HarnessFailure(f"stand-in {sv}: call log line {n} names no tool")
+            out.append({"server": sv, "tool": e["tool"], "args": e.get("args") or {}, "result": e.get("result"),
+                        "t": e.get("t")})
+    return sorted(out, key=lambda e: e.get("t") or 0)
 
 
 def gmail_mcp(root, account="alex@brightline.example", server="gmail", service="Gmail", extra=()):

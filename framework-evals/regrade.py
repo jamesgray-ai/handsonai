@@ -187,6 +187,25 @@ def _write_tree(files, folder):
         p.write_text(body)
 
 
+def _stub_calls(sdir):
+    p = sdir / "stub-calls.jsonl"
+    if not p.exists():
+        return None
+    out = []
+    for n, line in enumerate(p.read_text(errors="replace").splitlines(), 1):
+        if line.strip():
+            try:
+                out.append(json.loads(line))
+            except ValueError:
+                raise H.HarnessFailure(f"{sdir}: stub-calls.jsonl line {n} can't be read")
+    return out
+
+
+def _stub_servers(sdir):
+    p = sdir / "stub-servers.json"
+    return json.loads(p.read_text()) if p.exists() else None
+
+
 def rebuild_run(rdir, evals_dir, data, work):
     """The run dict run_eval.run_once graded, rebuilt from a run folder into `work` (each session's
     end tree at work/session-n/workspace, its events.jsonl beside it). The eval is the run's own
@@ -238,7 +257,10 @@ def rebuild_run(rdir, evals_dir, data, work):
                                 "root": str(wroot / "workspace"), "platform": platform.key,
                                 "typed_history": platform.state.get("typed_history", ""),
                                 "grounding": platform.state.get("grounding", ""),
-                                "script_quotes": CS.script_quotes(script), "fixture": fresh})
+                                "script_quotes": CS.script_quotes(script), "fixture": fresh,
+                                # what reached the stand-in connections (review finding 19); a round from before
+                                # 2026-11-21 has no record, and its check reads events.jsonl alone
+                                "stub_calls": _stub_calls(sdir), "stub_servers": _stub_servers(sdir)})
         prev_end = end
     return run
 

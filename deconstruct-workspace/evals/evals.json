@@ -16807,11 +16807,12 @@
           "prompt": "Run the deconstruct skill on Customer Reply Drafting.",
           "replies": [
             "No, nothing written down.",
-            "When a customer emails our support inbox, it reads their email and sends a reply straight back to them. That's it."
+            "When a customer emails our support inbox, it reads their email and sends a reply straight back to them. That's it.",
+            "Yes, that's right. Go with the name you suggested."
           ]
         }
       ],
-      "expected_output": "A sign of risk known from the cold-entry answer (it sends replies itself): the interview's first message is the same line that says how it will go, with the name and description; no track line and nothing about a fuller version.",
+      "expected_output": "A sign of risk known from the cold-entry answer (it sends replies itself): the interview's first message is the same line that says how it will go, with the name and description; no track line and nothing about a fuller version. Once the leader confirms the name and description, the progress file is first saved, and it records the risk: `Track: full` (interview.md, What the file records about risk: it sends something other people see), never said to the leader.",
       "files": [],
       "expectations": [
         {
@@ -16879,9 +16880,21 @@
             "max": 170,
             "containing": "deconstruct:light-line"
           }
+        },
+        {
+          "text": "The risk is recognised: once the name and description are confirmed, the progress file is saved with `Track: full` (it sends replies to customers itself), as its third line",
+          "kind": "scripted",
+          "check": {
+            "type": "file_line",
+            "path": "framework/*/deconstruct-in-progress.md",
+            "line": 3,
+            "pattern": "^Track: full[ \\t]*$",
+            "session": 1
+          },
+          "must": true
         }
       ],
-      "est_turns": 3
+      "est_turns": 4
     },
     {
       "id": "LS-draft-own-email",
