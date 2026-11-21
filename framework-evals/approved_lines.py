@@ -478,7 +478,8 @@ class Corpus:
                         continue
                     if len(seg) < SHORT_RUN_WORDS and best[0] == 1 and not _rest_said(ln, k, ws):
                         continue
-                    if any(_contains(s2, win) for other in SAID_AS.get(ln.id, ())
+                    # only when that other line is actually said here (review H4, 2026-11-21)
+                    if any(_contains(s2, win) and _contains(ws, s2) for other in SAID_AS.get(ln.id, ())
                            for o in self.by_id.get(other, []) for s2 in o.segments):
                         continue
                     if any(min(a + L, e) - max(a, s) >= min(L, e - s) * 0.5 for s, e in exact):

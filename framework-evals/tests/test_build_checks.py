@@ -85,11 +85,18 @@ class NF2InsideNF10(unittest.TestCase):
     def ids(self, msg):
         return [(ln.id, got) for ln, _, got in AL.load().near_misses(msg, "build")]
 
+    # review H4 (James, 2026-11-21): the skip holds only when N-F10 itself is said; these two runs
+    # dropped "To pick up," so they are reworded lines and are reported
     def test_claude_code_form(self):
-        self.assertNotIn(("N-F2", "start a new session in this project and say"), self.ids(self.CC))
+        said = "Your progress is saved. To pick up, start a new session in this project and say 'run the build skill.'"
+        self.assertNotIn(("N-F2", "start a new session in this project and say"), self.ids(said))
+        self.assertIn("N-F2", [i for i, _ in self.ids(self.CC)])
 
     def test_desktop_form(self):
-        self.assertNotIn(("N-F2", "open a new chat with your working folder selected"), self.ids(self.DESKTOP))
+        said = ("Your progress is saved. To pick up, open a new chat with your working folder selected and say "
+                "'run the build skill. My files are in ai-workspace/framework/client-follow-up.'")
+        self.assertNotIn(("N-F2", "open a new chat with your working folder selected"), self.ids(said))
+        self.assertIn("N-F2", [i for i, _ in self.ids(self.DESKTOP)])
 
     def test_a_real_n_f2_rewording_is_still_caught(self):
         # N-F2's Claude Code form with "in" said as "open": no N-F10 form holds those words

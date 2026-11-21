@@ -198,7 +198,7 @@ BUILTIN_TEXT = {"scripted_lines": "Every scripted line the AI says is the approv
 # core batch 2 (2026-11-14): "Let me suggest one, then: …" offers the leader a suggestion; it is not a note to itself
 # round 4 (2026-11-16): "Read and edit, then send it yourself: that's your checkpoint." plays the leader's
 # own checkpoint back; "Read " is a note only when a file, a reference or the notes follow it
-NARRATION = re.compile(r"^(Now (the|I'll|writing|update)|Read (?=(the |its |progress|routing|references?\b|`|[\w/-]+\.md))"
+NARRATION = re.compile(r"^(Now (the|I'll|writing|update)|Read (?=(the |its |both |all |each |these |those |every |progress|routing|references?\b|files?\b|`|[\w/-]+\.md))"
                        r"|Ask N-|Let me (?!suggest\b)|I need )")
 # a file named on its own; a path with folders (the close's report path, a fill) is left out
 BARE_MD = re.compile(r"(?<![\w/.-])[\w.-]*\w\.md\b(?![\w/])")
@@ -400,14 +400,16 @@ def leader_files(run):
     return out
 
 
-def _leaders_own(found, allowed):
+def _leaders_own(found, allowed, present=()):
     """Every size found is one the leader gave, or sits one unit either side of one: a practice run
     built on the leader's own limit ("exactly 48 hours, and one has 49") is their data, not an estimate."""
     def near(size):
         if size in allowed:
             return True
         try:
-            return any(u == size[1] and abs(float(n) - float(size[0])) <= 1 for n, u in allowed)
+            # ±1 only beside the leader's own exact size in the same message (review H3, 2026-11-21)
+            return any(u == size[1] and abs(float(n) - float(size[0])) <= 1 and (n, u) in present
+                       for n, u in allowed)
         except ValueError:
             return False
     return all(near(x) for x in found)
@@ -423,7 +425,8 @@ def time_or_step_hits(message, allowed=frozenset()):
     # previous sentence end or line break, never the whole message)
     timed = re.sub(r"[^.!?\n]*\(my suggestion\)", " ", text, flags=re.I)
     hits = [("time", timed[max(0, m.start() - 40):m.end() + 40].strip()) for m in TIME.finditer(timed)
-            if not (sizes(timed[m.start():m.end() + 25]) and _leaders_own(sizes(timed[m.start():m.end() + 25]), allowed))]
+            if not (sizes(timed[m.start():m.end() + 25])
+                    and _leaders_own(sizes(timed[m.start():m.end() + 25]), allowed, set(sizes(timed))))]
     hits += [("step number", text[max(0, m.start() - 40):m.end() + 40].strip()) for m in STEP_NUMBER.finditer(text)]
     return hits
 

@@ -1741,6 +1741,8 @@ class CoreRound1Corpus(unittest.TestCase):
         # a practice run built on the leader's own limit is their data; an unrelated figure still counts
         own = frozenset({("48", "hour")})
         self.assertEqual(CS.time_or_step_hits("One person has exactly 48 hours, and one has 49 hours.", own), [])
+        # review H3 (2026-11-21): one unit off the leader's size passes only beside that exact size
+        self.assertTrue(CS.time_or_step_hits("This part takes about 49 hours.", own))
         self.assertTrue(CS.time_or_step_hits("This part should take 20 minutes.", own))
         self.assertTrue(CS.time_or_step_hits("One person has 60 hours.", own))
         d2 = next(f for f in AL.load().get("N-D2") if f.text).text

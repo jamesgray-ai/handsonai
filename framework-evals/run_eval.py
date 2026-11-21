@@ -372,8 +372,12 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                     calls.append(srec)
                     msg, reported = L.strip_actions(raw)
                     if not msg:  # only on-screen actions reported: the leader says they're done
-                        # (an empty message ended JR-claude-web r3 as a harness failure, 2026-11-19)
-                        msg = "Done." if reported else "OK."
+                        # (an empty message ended JR-claude-web r3 as a harness failure, 2026-11-19).
+                        # With nothing reported, an empty reply stops the run (review H1, James
+                        # 2026-11-21): a made-up "OK." could approve a question the script never did.
+                        if not reported:
+                            raise H.HarnessFailure(f"session {n} turn {turn + 1}: the simulated leader replied with nothing")
+                        msg = "Done."
                     acts = sum(a for _, a in screens) + reported + platform.on_leader(msg, ws)
                     msg_kind = "student"
                     for w in s.get("run_writes", []):
