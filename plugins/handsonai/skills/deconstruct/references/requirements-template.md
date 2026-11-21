@@ -168,7 +168,7 @@ For each [trigger], a [format] [deliverable] to [who], ready for you to [review]
 Method preference: AI works it out each time
 Path: none — the AI plans each run from the goal
 
-(Every file this interview writes has this form, with no `### Decisions`: no question in this interview captures a decision line, and a decision the law gives a person is a checkpoint. An older file with steps, kept on a re-run, may have step lines, `### Decisions` and `### Step N` blocks: *Format rules*, `## Path`, below.)
+(Every file this interview writes has this form, with no `### Decisions`: no question in this interview captures a decision line, and a decision the law gives a person is a checkpoint. An older file with steps, kept on a re-run, may have step lines, `### Decisions` and `### Step N` blocks: *Line formats*, `## Path`, below.)
 
 ## Inputs
 

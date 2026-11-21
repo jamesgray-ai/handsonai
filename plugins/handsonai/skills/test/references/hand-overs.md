@@ -35,18 +35,18 @@ Read at every hand-over: whenever the leader runs an input (the batch, the new i
 
 One message, each line said whole as written, as running text in this order: never split into numbered steps, recast into sentences of your own ("Paste the block below. The session is told to save nothing, so…") or its "below" changed:
 1. **The opening sentence** for the platform (section 4), naming any file to attach (an input that is itself a file is attached, not pasted).
-2. **For the batch:** "It runs [N] inputs one after another."
+2. **For the batch** (N-T8): "It runs [N] inputs one after another."
 3. **The Deny line,** where the run can reach a connection that can send, post or change something (section 5).
-4. **The protection clause,** on the round's first hand-over, when the workflow has a connection that can change something, and for an agent Agent Builder made whatever its connections (unless the release check shows such an agent can't send, post or change anything without asking first), on every platform, Claude Code included: "Your workflow shows each change instead of making it; on [platform] that relies on it following its instructions, not a hard block."
-5. **The first-line check:** "If its first line isn't 'Practice run: nothing will be sent or changed.', stop the chat and tell me."
+4. **The protection clause** (N-T8), on the round's first hand-over, when the workflow has a connection that can change something, and for an agent Agent Builder made whatever its connections (unless the release check shows such an agent can't send, post or change anything without asking first), on every platform, Claude Code included: "Your workflow shows each change instead of making it; on [platform] that relies on it following its instructions, not a hard block."
+5. **The first-line check** (N-T8): "If its first line isn't 'Practice run: nothing will be sent or changed.', stop the chat and tell me."
 6. **How results come back** (section 6).
 7. **A carry-over input you couldn't copy the store for:** one sentence in model wording asking the leader, before pasting, to point this practice run at a test copy of [the store, in plain words] holding [the `Earlier run:` paragraph's state, in plain words], never the real one.
-8. **On the print-to-save fallback:** "If you need to stop partway, say 'pause' here."
+8. **On the print-to-save fallback** (N-T8): "If you need to stop partway, say 'pause' here."
 9. **The block** (section 7), in a fenced block, last.
 
 ## 4. The opening sentence, by platform
 
-Said exactly, each clause filled or left out. [folder] (Claude Code and Codex) is the workspace's full path, the folder this session runs in, in code formatting: never "your workspace folder", "this workspace" or "the same folder". Every hand-over says its opening sentence whole with the place filled, a re-run after a refusal (SKILL.md, *Keeping runs cold*) and a smaller batch included: never "as before".
+Said exactly (N-T8), each clause filled or left out. [folder] (Claude Code and Codex) is the workspace's full path, the folder this session runs in, in code formatting: never "your workspace folder", "this workspace" or "the same folder". Every hand-over says its opening sentence whole with the place filled, a re-run after a refusal (SKILL.md, *Keeping runs cold*) and a smaller batch included: never "as before".
 
 - **Claude, ChatGPT and Microsoft 365 Cowork:** "Open a new chat [in your [workflow] Project / in Cowork][Claude: ', and before typing, open + and switch off memory, then switch off every connector under Connectors[ except [its connectors]]'][ChatGPT: ', and add [its apps] and no other apps' / with no apps: ', and don't add any apps'][Microsoft 365, once its release check passes: ', and switch off every connector it doesn't use for this chat: [steps]'], then paste the block below[ and attach [files]]."
 - **Microsoft 365, an agent Agent Builder made:** "Open Copilot, choose Chat, then Agents, and start a new chat with [Agent], then paste the block below."

@@ -12,7 +12,7 @@ Read in fix mode (the last round is Not ready with Issues rows at Level `build` 
 
 "Test found [what, in plain words] in [the part, in plain words]. I'll redo just that[, and re-check what uses it], and leave everything else as it is."
 
-Nothing comes before it but the three-rounds line above. The part goes in its own place after "in", never into a sentence of your own, and the comma before "and leave" stays (wrong: "Test found that your follow-up draft added a renewal amount your call notes never mentioned. The problem is in the skill that drafts your follow-up email. I'll redo just that and leave everything else as it is."; right: "Test found a renewal amount your call notes never mentioned in the skill that drafts your follow-up email. I'll redo just that, and leave everything else as it is.").
+Nothing comes before it but the three-rounds line above. The part goes in its own place after "in", never into a sentence of your own, and the comma before "and leave" stays (never split into sentences of your own that name the part separately; right: "Test found a renewal amount your call notes never mentioned in the skill that drafts your follow-up email. I'll redo just that, and leave everything else as it is.").
 
 Then, before anything changes:
 - **A live workflow:** `live-change.md` (N-B41 straight after the opener).
@@ -50,12 +50,12 @@ Two triggers mean the same thing: `direct_edit: undo` in the results, and a `cha
 For each part any of these touches, reinstall the version you built, from the staged package, the built copy in `history/built-…/`, the kept copy or Git, **never regenerated from the blueprint**, so the leader gets back exactly what was built; record the new `rev` as built; reset the fingerprint; and check it again. A part that's no longer installed is simply put back. Where you find no staged package, kept copy or Git version to put back, say so in one line (model wording) and rebuild those tasks from the plan. An agent on Microsoft 365 is put back by building it again from its kept prompts (`microsoft-365-agent.md` section 6). A task another change in the same update also touches is rebuilt from the plan instead, which leaves the edit out too. Tasks with no part to reinstall:
 - **a setup task:** its read-back again; anything missing goes back to Part 1 for that item only;
 - **`KW`:** its lines come back with the parts that carry them; find each one in the reinstalled text;
-- **`SCH`:** its five points and N-B49 re-checked against the reinstalled build, its switch-on steps kept, and the schedule left paused until Test gives the switch-back steps.
+- **`SCH`:** its five points and N-B49 (`standard-tasks.md`) re-checked against the reinstalled build, its switch-on steps kept, and the schedule left paused until Test gives the switch-back steps.
 
 It's a change to a live workflow when the workflow is live (`live-change.md`); a retired workflow brought back gets N-B41 first too. The Build close after that round settles it; nothing is cleared, since Build never writes the results, and Test decides the next round.
 
 ## 5. The close
 
 - **"What was built"** is rewritten, and the close shows what changed in one line. **"What it can access"** is rewritten when a connection or permission changed.
-- **N-B37** is repeated for the new version (keep the old copy too).
+- **N-B37** (`package-and-install.md`, section 4) is repeated for the new version (keep the old copy too).
 - **The Test sentence** gives Test's start phrase with the location; Test decides what runs again. No rounds sentence. On a live workflow, N-B38. **Where N-B34 is said at this close,** its last sentence (Test's phrase) is the Test sentence: the close doesn't say Test's phrase a second time.

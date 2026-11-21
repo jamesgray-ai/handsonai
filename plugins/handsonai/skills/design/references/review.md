@@ -2,7 +2,7 @@
 
 Read at the start of Part 4, before writing the review, and whenever the review is shown again. The consequential points, the approval question and the close are in SKILL.md (*Phase 4*).
 
-**The review** opens with "Here's the plan in brief. The full plan is in [location]." (no files: "Here's the plan in brief. Say 'show me the full plan' to see all of it; you'll get the approved version to save at the end.") and covers the eight points below, in plain words, with no requirement or task IDs. Say only what the plan and the requirements hold: add no detail, name or figure that neither states, and claim nothing about your own work that the files don't show.
+**The review** opens with "Here's the plan in brief. The full plan is in [location]." (N-4; no files: "Here's the plan in brief. Say 'show me the full plan' to see all of it; you'll get the approved version to save at the end.") and covers the eight points below, in plain words, with no requirement or task IDs. Say only what the plan and the requirements hold: add no detail, name or figure that neither states, and claim nothing about your own work that the files don't show.
 
 1. **How it will run, and how much it decides on its own:** where it runs, how the leader starts it, and whether it runs with or without them. Then the level, named once, said exactly, its lead-in included:
    - "How much it decides on its own: Deterministic. You give it instructions: it carries out each step you set, and what it produces never changes what happens next."
@@ -15,7 +15,7 @@ Read at the start of Part 4, before writing the review, and whenever the review 
 3. **What it can read and change,** one line per connection, naming any change that can't be undone and where it asks first. State a limit as the rule the workflow keeps, never as a fact about a place you haven't seen.
 4. **How each part will be checked,** from the tasks' *Done when*, each requirement said with its own verb ("the brief covers every competitor the question applies to", never "coverage of every competitor"), with any practice inputs you added for a risk.
 5. **Keeping it working,** in one line: each run flags anything it wasn't designed for (plus the re-check line, and the time-saved line where an older file's known Baseline gives one). For a scheduled workflow: Build prepares the schedule but never switches it on, and the leader runs it once by hand before its schedule goes on, and again after any change to it while it's live.
-6. **The plan check,** said exactly: "I checked the plan against your requirements: [nothing needed fixing. | I found and fixed [N] things; they're listed in the plan.]" With one fix: "I checked the plan against your requirements: I found and fixed 1 thing; it's listed in the plan."
+6. **The plan check,** said exactly (N-19): "I checked the plan against your requirements: [nothing needed fixing. | I found and fixed [N] things; they're listed in the plan.]" With one fix: "I checked the plan against your requirements: I found and fixed 1 thing; it's listed in the plan."
 7. **Anything assumed:** every assumption and default from over the cap, each easy to change.
 8. **Open items,** each as one statement of what is still unknown and what waits for it, never a question, with no label or heading: "[Whether, which or who: the unknown] is still open, so [the parts that wait, in plain words] wait[s] for it." The review has no question mark anywhere before its closing ask; an open item is asked when the leader comes back for it.
 

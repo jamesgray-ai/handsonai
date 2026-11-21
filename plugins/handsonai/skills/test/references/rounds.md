@@ -35,7 +35,7 @@ An input's result carries from the round it last ran in only when every line gra
 - **A team workflow** (the requirements' lens is Organizational): before the opening, as its own message, **Ask:** "Is the team using it, and is anyone stuck?" (N-T35) "Stuck": the SOP offer comes at a Ready round's close (Part 4, `going-live.md` section 4); a round that isn't Ready makes no SOP offer. "Not using it": give "change my workflow" with the location in N-F2's form (model wording), and carry on with the re-check unless the leader stops it.
 - **The opening** (the re-check form, or the after-change form after a change) shows the Target again when there is one, and how it's doing only where there's a run log (its runs since the comparison round, the time saved only where the built workflow has the time-saved line (an older file's known Baseline), its flags). When the Target is "—", the Target sentence is left out and the run-log sentence stays.
 - **Flags from the run log** are offered as practice inputs (N-T49, in SKILL.md).
-- **On Claude Code,** every round on a live workflow adds the wrapper's allow back at the start of Part 2, with N-T47, and removes it at its close (`claude-code-runs.md`).
+- **On Claude Code,** a round on a live workflow where the AI runs the inputs adds the wrapper's allow back at the start of Part 2, with N-T47, and removes it at its close; when the leader runs them (release check 6 open, or N-T42), nothing is allowed and N-T47 isn't asked (`claude-code-runs.md`, section 1).
 - **Ready:** `going-live.md` section 4. **Not ready:** SKILL.md's live verdict lines.
 
 ## 5. A round that pauses, is set aside or waits on the policy check

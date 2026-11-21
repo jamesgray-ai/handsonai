@@ -12,7 +12,7 @@ Before the first run, and again before every run and every resume:
 
 1. **Headless runs.** Release check 6 is open in this release, so the AI doesn't run the inputs: N-T42 (section 6).
 2. **The fingerprint.** `shasum -a 256 framework/.bin/test-run.sh <this skill's folder>/scripts/test-run.sh`. Both must equal the build record's `fingerprints.wrapper`. A mismatch fails closed: N-T42. Nothing is ever edited to make them match.
-3. **The allow, on a live workflow.** Go-live removed the wrapper's allow. At the start of Part 2 of a round on a live workflow, ask N-T47:
+3. **The allow, on a live workflow, only when the AI will run the inputs.** Go-live removed the wrapper's allow. At the start of Part 2 of a round on a live workflow, once checks 1 and 2 pass (never while release check 6 is open, or after N-T42, when the leader runs the inputs and nothing is allowed), ask N-T47:
 
    > "For this round I need to allow my test script again in this project's settings, so I can run your practice inputs in separate sessions. I'll remove it when the round ends. Shall I go ahead?"
 
@@ -54,7 +54,7 @@ Grade from that output. Hold a file the run saved to the same standard as its cl
 
 **A carry-over input** (its body opens with an `Earlier run:` paragraph) goes to the leader, never to a headless run: a practice run never touches the workflow's real store, and the wrapper can't put a copy of the store in the run folder it makes. The leader runs it in the batch, with the store copy in its practice subfolder (SKILL.md, *The practice set*).
 
-**An input whose path writes through a command line** goes to the leader, never to a headless run. Say N-T43, then N-T8:
+**An input whose path writes through a command line** goes to the leader, never to a headless run. Say N-T43, then N-T8 (`hand-overs.md`):
 
 > "I can't let a practice run use the command line without risking a change, so you'll run [input] yourself:"
 

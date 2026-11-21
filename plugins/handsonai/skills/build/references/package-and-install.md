@@ -9,7 +9,7 @@ Read at Part 3, and whenever a fix or a live change installs. Nothing is package
 By the plan's `packaging`:
 - **Standalone Skill:** each skill saved on its own, in the form the platform takes.
 - **Plugin:** one plugin, with nothing from the record in it. On Claude it's uploaded as a .zip (Customize, then Plugins, then Upload plugin); no marketplace. On Microsoft 365 a Claude plugin .zip is converted on upload. Use the platform's own plugin builder where one exists; never hand-zip a plugin there.
-- **Workspace Agent** (ChatGPT, guided): an instruction document for what the leader creates in the platform's interface, from your skills and the plan's configuration. It carries everything in `carried-lines.md` and sets every write action to "Always ask". Until release check 18 passes, its protection is the instruction only, said in N-B21.
+- **Workspace Agent** (ChatGPT, guided): an instruction document for what the leader creates in the platform's interface, from your skills and the plan's configuration. It carries everything in `carried-lines.md` and sets every write action to "Always ask". Until release check 18 passes, its protection is the instruction only, said in N-B21 (`SKILL.md`).
 - **Loose Files:** written to their places.
 - **Codex, until release check 8 passes** (skill loading across the CLI, the desktop app and the IDE extension): whatever the plan's `packaging`, install standalone skills in `.agents/skills/`, never a plugin, and name in the close the surfaces where they load. Record the change from the plan's packaging as a ruling ("what, why, cost if wrong").
 
@@ -59,7 +59,7 @@ In one Edit of the record after the last install, mark each row `Saved: yes` wit
 
 ## 4. Keep a copy
 
-Inside the close, before its Test sentence, say where the copy is, exactly, in the form that fits:
+Inside the close, before its Test sentence, say where the copy is (N-B37), exactly, in the form that fits:
 - Where the leader downloads and saves it: "Keep a copy of what I built: [download steps for the package]. Save it with your build record, outside [platform]. You'll need it to share with teammates, to go back to this version, or when you change it later."
 - Where you kept it yourself: "A copy of what I built is in [folder], with your build record."
 - An agent on Microsoft 365, whose kept copy is its build and fix prompts in `package/`: "The prompts that made [Agent] are in [folder], with your build record. Pasting them into Agent Builder again makes it again, close to how it is now but not word for word." Say the same in the record's "Put back the kept copy".

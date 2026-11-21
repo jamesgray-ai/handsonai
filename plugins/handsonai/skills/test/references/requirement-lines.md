@@ -45,7 +45,9 @@ revisions:
     by: test
     lines: [Policy check]
     plan_unaffected: true
-``` Switching `track:` to `full` doesn't raise `revision`.
+```
+
+Switching `track:` to `full` doesn't raise `revision`.
 
 ## 5. The hand check
 

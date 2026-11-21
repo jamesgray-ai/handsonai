@@ -1,6 +1,6 @@
 # Capability domains (`decomposition: domains`)
 
-Read when the requirements say `AI works it out each time` (`Path: none`) and your own breakdown makes every part Autonomous with nothing fixed. Otherwise plan your own steps (`Step Pa`, `Step Pb`…) and say B54 in the review: a workflow with one input and rules that settle each decision is more reliable as a fixed set of steps.
+Read when the requirements say `AI works it out each time` (`Path: none`) and your own breakdown makes every part Autonomous with nothing fixed. Otherwise plan your own steps (`Step Pa`, `Step Pb`…) and say B54 (`variants.md`) in the review: a workflow with one input and rules that settle each decision is more reliable as a fixed set of steps.
 
 **What a capability domain is.** A durable ability the AI draws on at runtime ("researching each section", "synthesis"), not a pipeline stage or a fixed sequence. Domains come from the requirements' Goal, Inputs, Rules & Constraints and Acceptance Criteria; the requirements never list them.
 - **Altitude:** one domain per competency. Researching four report sections is one "section research" domain run as a fan-out, not four domains.
