@@ -11147,6 +11147,19 @@
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
    "retired": "2026-11-13 (Deconstruct 3.3): retired; the explanations line; 'not sure' moves into N-D3, 'skip the explanations' still works (R-O1, D1). Catalogued as a record"
+  },
+  {
+   "id": "N-T59",
+   "form": "main",
+   "text": "Here are the practice inputs I wrote to test it, with what each should do. [Every input I wrote, in full, each under a plain label saying what it checks and what it should do.] Does each look like something you could really get?",
+   "kind": "question",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "independent review finding 1; approved by James 2026-11-21"
   }
  ]
 }

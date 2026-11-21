@@ -3773,6 +3773,20 @@
       ],
       "expectations": [
         {
+          "text": "Says N-T59 (main) word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-T59",
+            "form": "main"
+          }
+        },
+        {
+          "text": "Every practice input Test wrote (the gap-fillers, the first round's two, the flag input) is shown in full with what it should do, in one message before any is saved, run or graded and before N-T6+N-T7",
+          "kind": "judged",
+          "must": true
+        },
+        {
           "text": "Says N-T6+N-T7 (main) word for word",
           "kind": "scripted",
           "check": {
