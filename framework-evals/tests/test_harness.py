@@ -1320,7 +1320,7 @@ class StubbedHarness(unittest.TestCase):
     def test_platform_skills_are_denied_and_a_run_one_stops_the_run(self):
         """build-full-1 (2026-11-21): Skill("schedule", "list") reached the real claude.ai account."""
         rnd = H.Round(binary=str(self.stub_dir / "claude"), version="9.9.9")
-        rnd.bundled_skills, rnd.bundled_plugins = ["schedule", "some-new-cli-skill"], []
+        rnd.bundled_skills, rnd.bundled_plugins = ["schedule", "some-new-cli-skill", "deconstruct", "design"], []
         root = H.new_run_root(str(self.plugin))
         ws = root / "workspace"
         (ws / ".claude" / "skills" / "client-follow-up").mkdir(parents=True)
@@ -1333,6 +1333,10 @@ class StubbedHarness(unittest.TestCase):
         for n in ("schedule", "some-new-cli-skill", "loop", "send-to-project"):
             self.assertIn(f"Skill({n})", denied)
         self.assertFalse([d for d in denied if "handsonai" in d or "client-follow-up" in d], denied)
+        # a built-in sharing a plugin skill's bare name isn't denied by name: its rule blocked
+        # handsonai:design (final-deconstruct, 2026-11-21); check_skill_calls catches it if it runs
+        for n in ("deconstruct", "design"):
+            self.assertNotIn(f"Skill({n})", denied)
         # no Skill tool, no skill rules
         H.call(rnd, "student", root, "x", cwd=ws, tools=["Read"], prompt_tool=None)
         self.assertNotIn("--disallowedTools", json.loads((self.stub_dir / "last-args.json").read_text()))
@@ -2246,3 +2250,17 @@ class DesignBaselineFixes(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class LaunchedSkillName(unittest.TestCase):
+    """final-deconstruct (2026-11-21): Claude Code 2.1.330 ships a built-in `design`; what launched is
+    read from the result's commandName, so a built-in that shares a plugin skill's name still stops the run."""
+
+    def test_built_in_launch_stops_the_run(self):
+        ev = [{"type": "user", "tool_use_result": {"success": True, "commandName": "design"}}]
+        with self.assertRaisesRegex(H.HarnessFailure, "a skill outside the plugin ran: design"):
+            H.check_skill_calls("skill", ev, "/nonexistent")
+
+    def test_plugin_launch_passes(self):
+        ev = [{"type": "user", "tool_use_result": {"success": True, "commandName": "handsonai:design"}}]
+        H.check_skill_calls("skill", ev, "/nonexistent")

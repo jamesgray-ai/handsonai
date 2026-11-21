@@ -78,12 +78,21 @@ KNOWN_CLI_SKILLS = {"schedule", "loop", "claude-api", "update-config", "keybindi
                     "release-notes", "compact", "memory", "agents", "batch", "debug", "insights"}
 
 
-def skill_denies(rnd, cwd, tools):
-    """The permission rules that deny every non-plugin skill a session could call: [] without the Skill tool."""
+PLUGIN_SKILLS = {p.parent.name for p in (Path(__file__).resolve().parent.parent / "plugins" / "handsonai" / "skills").glob("*/SKILL.md")}
+
+
+def skill_denies(rnd, cwd, tools, plugin=None):
+    """The permission rules that deny every non-plugin skill a session could call: [] without the Skill tool.
+    A built-in skill sharing a plugin skill's bare name (Claude Code 2.1.330 ships a `design` skill) isn't
+    denied by name: its rule also blocked `handsonai:design` (final-deconstruct, 2026-11-21, R4-continue).
+    check_skill_calls still stops the run if that built-in one ever runs: fail closed."""
     if "Skill" not in tools:
         return []
+    plugin_names = set(PLUGIN_SKILLS)
+    if plugin:
+        plugin_names |= {p.parent.name for p in Path(plugin).glob("skills/*/SKILL.md")}
     names = set(rnd.bundled_skills or []) | KNOWN_CLI_SKILLS | CLI_BUILTIN_SKILLS
-    names = sorted(n for n in names - own_skills(cwd) if not n.startswith("handsonai:"))
+    names = sorted(n for n in names - own_skills(cwd) - plugin_names if not n.startswith("handsonai:"))
     return [r for n in names for r in (f"Skill({n})", f"Skill({n} *)")]
 
 
@@ -91,11 +100,19 @@ def check_skill_calls(role, events, cwd, own_before=(), plugin=None):
     """Fail closed: a Skill call that ran (its result "Launching skill…") for a skill that is neither
     the plugin's (handsonai:*) nor the workspace's own stops the run, as an isolation problem: its
     deny didn't hold. A denied call (a permission denial) is the session's to handle."""
-    own = set(own_before) | own_skills(cwd)
+    workspace_own = set(own_before) | own_skills(cwd)
+    own = set(workspace_own)
     if plugin:  # the plugin's skills, called without the handsonai: prefix
         own |= {p.parent.name for p in Path(plugin).glob("skills/*/SKILL.md")}
     calls = {}
     for e in events:
+        # what actually launched, as Claude Code records it: a plugin skill is "handsonai:[name]", so a
+        # built-in that shares a plugin skill's bare name (2.1.330's `design`) is caught here even when
+        # its call looked like ours (final-deconstruct, 2026-11-21)
+        launched = (e.get("tool_use_result") or {}) if isinstance(e, dict) and isinstance(e.get("tool_use_result"), dict) else {}
+        cmd = str(launched.get("commandName") or "")
+        if cmd and launched.get("success") and not cmd.startswith("handsonai:") and cmd not in workspace_own:
+            raise HarnessFailure(f"{role}: a skill outside the plugin ran: {cmd} (its deny rule didn't hold)")
         msg = e.get("message") if isinstance(e, dict) else None
         content = msg.get("content") if isinstance(msg, dict) else None
         for b in content if isinstance(content, list) else []:
@@ -712,7 +729,7 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
     configs = [str(m["config"]) for m in (mcp, prompt_tool) if m]
     if configs:
         args += ["--mcp-config", *configs]
-    disallowed = skill_denies(rnd, cwd, tools)
+    disallowed = skill_denies(rnd, cwd, tools, plugin)
     if prompt_tool:
         # The session's model never calls the click itself: only Claude Code's prompt does.
         args += ["--permission-prompt-tool", prompt_tool["tool"]]
