@@ -20,27 +20,27 @@
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
-          "fixture": "dir:../../framework-fixtures/states/s02-redo-pending/with-registry"
+          "fixture": "s02"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
-          "fixture": "dir:../../framework-fixtures/states/s03-requirements-needed/with-registry"
+          "fixture": "s03"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
-          "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry"
+          "fixture": "s04"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
-          "fixture": "dir:../../framework-fixtures/states/s05-plan-to-approve/with-registry"
+          "fixture": "s05"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
-          "fixture": "dir:../../framework-fixtures/states/s06-build-needed/with-registry"
+          "fixture": "s06"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
-          "fixture": "dir:../../framework-fixtures/states/s07-waiting-on-open-item/with-registry"
+          "fixture": "s07"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
@@ -48,22 +48,22 @@
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
-          "fixture": "dir:../../framework-fixtures/states/s00-retired/with-registry"
+          "fixture": "s00-retired"
         },
         {
           "prompt": "Test the workflow I built: client follow-up. My files are in framework.",
-          "fixture": "dir:../../framework-fixtures/states/s00-running-work/with-registry"
+          "fixture": "s00-running-work"
         },
         {
           "prompt": "Run the test skill: continue my workflow. My files are in framework.",
-          "fixture": "dir:../../framework-fixtures/continue/c-one-live/with-registry"
+          "fixture": "c-one-live"
         },
         {
           "prompt": "Run the test skill: change my workflow for client follow-up. My files are in framework.",
-          "fixture": "dir:../../framework-fixtures/states/s00-running-work/with-registry"
+          "fixture": "s00-running-work"
         }
       ],
-      "expected_output": "One session per entry Test refuses: the wrong place (N-F7), the wrong platform (N-T15), then each state Test doesn't own: the right line with the owner's start phrase and the location, then stop, with no opening and no file written.",
+      "expected_output": "One session per entry Test refuses: the wrong place (N-F7), the wrong platform (N-T15), then each state Test doesn't own (each on today's `Path: none` requirements, except the earlier-version session, which keeps its older file): the right line with the owner's start phrase and the location, then stop, with no opening and no file written.",
       "files": [],
       "expectations": [
         {
@@ -2861,10 +2861,10 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T47 word for word",
+          "text": "Never says N-T47 while release check 6 is open (the AI runs no inputs, so no script to allow)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
+            "type": "quote_absent",
             "id": "N-T47"
           }
         },
@@ -4777,6 +4777,84 @@
       "est_turns": 6
     },
     {
+      "id": "TV-law-rule-stays",
+      "name": "law-rule-stays",
+      "tier": "core",
+      "spec_item": "13 Changing a requirement: a rule or checkpoint that names a law as its reason stays, never removed or loosened, whatever the leader says (requirement-lines.md, Changing a requirement, step 1)",
+      "sessions": [
+        {
+          "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
+          "fixture": "law-web-first",
+          "platform": "claude-web",
+          "student": "students/drop-law-rule.md",
+          "max_turns": 6
+        }
+      ],
+      "expected_output": "Asked what to add or drop, the leader asks to drop the disclosure line, R5 (\"It always ends each draft with the disclosure line in C2, as FINRA Rule 2210 requires.\"). Test says N-T37 (\"[The step] is required by [the rules], so it stays.\") and carries on: R5 and the law-named checkpoint G2 stay word for word, no removal question (N-T18) is asked, and no revision is written.",
+      "files": [
+        "students/drop-law-rule.md"
+      ],
+      "expectations": [
+        {
+          "text": "Says N-T37 word for word",
+          "kind": "scripted",
+          "must": true,
+          "check": {
+            "type": "quote",
+            "id": "N-T37",
+            "session": 1
+          }
+        },
+        {
+          "text": "Never asks whether to remove it (N-T18)",
+          "kind": "scripted",
+          "must": true,
+          "check": {
+            "type": "quote_absent",
+            "id": "N-T18",
+            "session": 1
+          }
+        },
+        {
+          "text": "R5 stays word for word",
+          "kind": "scripted",
+          "must": true,
+          "check": {
+            "type": "file_regex",
+            "path": "framework/client-follow-up/requirements.md",
+            "pattern": "\\| R5 \\| Always \\| It always ends each draft with the disclosure line in C2, as FINRA Rule 2210 requires\\. \\|",
+            "session": 1
+          }
+        },
+        {
+          "text": "G2 stays word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/client-follow-up/requirements.md",
+            "pattern": "as FINRA Rule 2210 requires\\. · \\(registered principal\\) \\|",
+            "session": 1
+          }
+        },
+        {
+          "text": "No revision written by Test",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_regex",
+            "path": "framework/client-follow-up/requirements.md",
+            "pattern": "by: test",
+            "session": 1
+          }
+        },
+        {
+          "text": "The reply names the rules as the reason in one line and moves on; it never offers a softer version of the line, never asks the leader to choose, and never removes the disclosure line from a check",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "est_turns": 6
+    },
+    {
       "id": "TV-declined",
       "name": "declined-cannot-meet",
       "tier": "regression",
@@ -5372,7 +5450,7 @@
       "id": "TR-recheck",
       "name": "re-check-live",
       "tier": "regression",
-      "spec_item": "13 Round kinds: a re-check with N-T35 ('stuck' and 'not using it'), the Target, run-log flags offered and saved on a yes",
+      "spec_item": "13 Round kinds: a re-check with N-T35 ('stuck' and 'not using it'), the Target sentence left out (a new file's Target is \"—\"), run-log flags offered and saved on a yes",
       "sessions": [
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
@@ -5386,7 +5464,7 @@
           "max_turns": 4
         }
       ],
-      "expected_output": "A team workflow's re-check: N-T35 first, as its own message; 'stuck' leads to N-T52 at the close; 'not using it' gets 'change my workflow' with the location and carries on. N-T26 shows the Target and the run log's runs and flags; N-T49 offered, saved on yes.",
+      "expected_output": "A team workflow's re-check: N-T35 first, as its own message; 'stuck' leads to N-T52 at the close; 'not using it' gets 'change my workflow' with the location and carries on. N-T26 shows the run log's runs and flags, with no Target sentence (Deconstruct now always writes Target \"—\", so only an older file has one); N-T49 offered, saved on yes.",
       "files": [
         "students/not-using.md",
         "students/stuck.md"
@@ -5411,11 +5489,11 @@
           }
         },
         {
-          "text": "The Target",
+          "text": "No Target sentence: the requirements' Target is \"—\"",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "You set 5 minutes per call",
+            "type": "ai_not_contains",
+            "text": "You set",
             "session": 1
           }
         },
@@ -8747,7 +8825,7 @@
       "fixture": "d-line-expect",
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
       "student": "students/default.md",
-      "expected_output": "E2 names D1 and expects \"asks you for a next step before it drafts anything; no draft until you answer\": D1 is in the check list as a path line graded against expect:, and E2's results grade it; no expect: line reaches a hand-over block.",
+      "expected_output": "An older file, kept on its step-shaped requirements on purpose (today's Deconstruct writes no D line). E2 names D1 and expects \"asks you for a next step before it drafts anything; no draft until you answer\": D1 is in the check list as a path line graded against expect:, and E2's results grade it; no expect: line reaches a hand-over block.",
       "files": [
         "students/default.md"
       ],
@@ -8798,7 +8876,7 @@
       "fixture": "d-line-expect-web",
       "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
       "student": "students/default.md",
-      "expected_output": "On Claude on the web every input goes through a hand-over block: no block carries a source:, tests: or expect: line.",
+      "expected_output": "On Claude on the web every input goes through a hand-over block: no block carries a source:, tests: or expect: line. (Its fixture is the older, step-shaped file d-line-expect-web, kept on purpose: E2 is aimed at a D line.)",
       "files": [
         "students/default.md"
       ],

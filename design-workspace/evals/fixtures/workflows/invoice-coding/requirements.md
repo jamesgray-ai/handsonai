@@ -16,8 +16,8 @@ For each supplier invoice, a coded invoice line for the bookkeeper, ready to ent
 | Business Objective | Keep the books current without month-end catch-up |
 | Desired Outcome | Every invoice carries the right account and cost centre before it's entered |
 | Measure | Minutes per invoice |
-| Baseline | 6 minutes per invoice · Estimated |
-| Target | 1 minute per invoice |
+| Baseline | — · Unknown |
+| Target | — |
 
 ## Metadata
 
@@ -32,19 +32,14 @@ For each supplier invoice, a coded invoice line for the bookkeeper, ready to ent
 ## Path
 
 Method preference: AI works it out each time
-
 Path: none — the AI plans each run from the goal
-
-### Decisions
-
-- D1: When the supplier is on the coding table, it uses that supplier's account and cost centre · settled by: a rule on a value · value read by AI
-- D2: When the supplier isn't on the table, it marks the invoice for you to code · settled by: a rule on a value
 
 ## Inputs
 
 - I1 · one supplier invoice (PDF text) · from the accounts inbox, pasted into the chat · Status: available
 
 ## Context Inventory
+*The sources it uses, what we call its context.*
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
@@ -61,6 +56,7 @@ Each line is one thing a single run's output either does or doesn't do. Every pr
 Reference example: —
 
 ## Example Scenarios
+*The practice runs: each input it's tested on, and what should happen.*
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
@@ -68,13 +64,17 @@ Reference example: —
 | E2 | New supplier (proposed, hard) | `inputs/E2-new-supplier.md` — an invoice from a supplier not on the table | Marked for you, no account guessed | — |
 
 ## Rules & Constraints
+*Its rules: what it always does, never does, and does when something happens.*
 
 | ID | Kind | Rule |
 |---|---|---|
 | R1 | Never | It never guesses an account. |
 | R2 | Fallback | When it can't confidently handle a case, it skips that item and flags it. |
+| R3 | When | When the supplier is on the coding table, it uses that supplier's account and cost centre. |
+| R4 | When | When the supplier isn't on the table, it marks the invoice for you to code. |
 
 ## Human Gates
+*The checkpoints: where a person checks or approves the work.*
 
 Runs: with you
 

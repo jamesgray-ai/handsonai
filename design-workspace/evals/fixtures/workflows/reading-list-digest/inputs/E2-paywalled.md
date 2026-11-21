@@ -1,5 +1,6 @@
 source: deconstruct
 tests: R1, R2
+expect: That article flagged as unread, not summarised from its title
 
 Saved this week:
 1. "The state of AI budgets" (paywalled: thejournal.example/ai-budgets)

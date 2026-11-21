@@ -9,7 +9,7 @@
    "name": "state-5-plan-not-approved",
    "tier": "core",
    "spec_item": "13 Entry and routing: state 5",
-   "fixture": "dir:../../framework-fixtures/states/s05-plan-to-approve/with-registry",
+   "fixture": "s05",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "A plan not yet approved: one line saying so with Design's start phrase and the location, then stop; nothing written.",
@@ -76,7 +76,7 @@
    "name": "state-7-open-item-line",
    "tier": "core",
    "spec_item": "13 Entry and routing: state 7",
-   "fixture": "dir:../../framework-fixtures/states/s07-waiting-on-open-item/with-registry",
+   "fixture": "s07",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Every buildable task built; one waits on an open item: the open-item line from routing.md, then stop.",
@@ -117,7 +117,7 @@
    "name": "state-8-to-test",
    "tier": "core",
    "spec_item": "13 Entry and routing: state 8",
-   "fixture": "dir:../../framework-fixtures/states/s08-test-needed/with-registry",
+   "fixture": "s08",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "State 8 is Test's: Test's start phrase with the location, then stop; nothing changes.",
@@ -158,7 +158,7 @@
    "name": "state-9-to-test",
    "tier": "core",
    "spec_item": "13 Entry and routing: state 9",
-   "fixture": "dir:../../framework-fixtures/states/s09-waiting-on-access/with-registry",
+   "fixture": "s09",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "State 9 is Test's: Test's start phrase with the location, then stop; nothing changes.",
@@ -197,7 +197,7 @@
    "id": "EN-s10",
    "name": "state-10-to-test",
    "tier": "core",
-   "fixture": "dir:../../framework-fixtures/states/s10-ready-to-go-live/with-registry",
+   "fixture": "s10",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "spec_item": "13 Entry and routing: state 10",
@@ -263,7 +263,7 @@
    "name": "state-11-continue",
    "tier": "core",
    "spec_item": "13 Entry and routing; rules 14 routing",
-   "fixture": "dir:../../framework-fixtures/states/s11-live/with-registry",
+   "fixture": "s11",
    "prompt": "Continue my workflow. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "\"Continue my workflow\" on a live workflow: N-T19, no re-check started, nothing written.",
@@ -296,7 +296,7 @@
    "name": "state-3-not-build",
    "tier": "core",
    "spec_item": "13 Entry and routing: state 3",
-   "fixture": "dir:../../framework-fixtures/states/s03-requirements-needed/with-registry",
+   "fixture": "s03",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "State 3 isn't Build's: the owner's start phrase with the location, then stop.",
@@ -349,7 +349,7 @@
    "name": "state-4-not-build",
    "tier": "core",
    "spec_item": "13 Entry and routing: state 4",
-   "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
+   "fixture": "s04",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "State 4 isn't Build's: the owner's start phrase with the location, then stop.",
@@ -402,7 +402,7 @@
    "name": "state-4-unlogged-request",
    "tier": "core",
    "spec_item": "13 Entry and routing (a request Design hasn't logged)",
-   "fixture": "dir:../../framework-fixtures/edge/e-unlogged-change-request/with-registry",
+   "fixture": "e-unlogged-change-request",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "An unlogged change request goes to Design: Design's phrase with the location, nothing built.",
@@ -434,7 +434,7 @@
    "name": "state-0-retired",
    "tier": "core",
    "spec_item": "rules 14 routing: retired",
-   "fixture": "dir:../../framework-fixtures/states/s00-retired/with-registry",
+   "fixture": "s00-retired",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "A retired workflow: the retired line, then stop.",
@@ -466,7 +466,7 @@
    "name": "running-work-bring-in-line",
    "tier": "core",
    "spec_item": "rules 14 routing: running work by \"change my workflow\"",
-   "fixture": "dir:../../framework-fixtures/states/s00-running-work/with-registry",
+   "fixture": "s00-running-work",
    "expected_output": "\"Change my workflow\" on running work Analyze recorded reaches Build as the first thing asked on Claude Code: Build starts Deconstruct directly, with no text first; never the bring-in line or the running-work message.",
    "files": [],
    "expectations": [
@@ -584,7 +584,7 @@
    "fixture": "dir:../../framework-fixtures/earlier-version/v1-design-spec/with-registry",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "A 9.x design-spec.md: Design owns it; Build says N-T22 with Design's phrase and changes nothing.",
+   "expected_output": "A 9.x design-spec.md: Design owns it; Build says N-T22 with Design's phrase and changes nothing. (Older-file case: the library's step-shaped earlier version, kept on purpose.)",
    "files": [
     "students/default.md"
    ],
@@ -647,7 +647,7 @@
    "fixture": "dir:../../framework-fixtures/earlier-version/v1-results-no-record/with-registry",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/live-no-schedule.md",
-   "expected_output": "Results with no record: N-B44 first (it has results), the results moved to history/earlier-version-*/, then a fresh build from N-B4.",
+   "expected_output": "Results with no record: N-B44 first (it has results), the results moved to history/earlier-version-*/, then a fresh build from N-B4. (Older-file case: the library's step-shaped earlier version, kept on purpose.)",
    "files": [
     "students/live-no-schedule.md"
    ],
@@ -1701,7 +1701,7 @@
    "name": "nothing-for-build",
    "tier": "core",
    "spec_item": "13 Entry and routing: nothing for Build",
-   "fixture": "dir:../../framework-fixtures/edge/e-declined-only-miss/with-registry",
+   "fixture": "e-declined-only-miss",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "A Not ready round whose only miss Design declined: Build named after it gives Test's line and writes no close.",
@@ -1744,7 +1744,7 @@
    "name": "saved-never-closed",
    "tier": "core",
    "spec_item": "13 Entry and routing: a Build saved but never closed",
-   "fixture": "dir:../../framework-fixtures/edge/e-build-saved-never-closed/with-registry",
+   "fixture": "e-build-saved-never-closed",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Every task saved but no close: Build closes (plan_revision and last_close_after_round set) before Test.",
@@ -1849,7 +1849,7 @@
    "name": "three-rounds-request-logged",
    "tier": "core",
    "spec_item": "13 Entry and routing: three rounds, N-B10 already logged",
-   "fixture": "dir:../../framework-fixtures/edge/e-three-not-ready-rounds/with-registry",
+   "fixture": "e-three-not-ready-rounds",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Three Not ready rounds whose Build request Design already logged: N-B10 not raised again; fix mode goes on.",
@@ -3338,7 +3338,7 @@
    "id": "P1-older-skip-retired",
    "name": "older-version-skipped-retired",
    "tier": "core",
-   "fixture": "dir:../../framework-fixtures/edge/e-retired-brought-back/with-registry",
+   "fixture": "e-retired-brought-back",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/live-pause-done.md",
    "spec_item": "13 Part 1: the older-version question not asked",
@@ -4529,6 +4529,65 @@
    "smaller_model_round": true
   },
   {
+   "id": "P2-law-lines-carried",
+   "name": "law-named-lines-carried",
+   "tier": "core",
+   "spec_item": "13 Part 2: a rule and a checkpoint that name a law as their reason (\"…, as [the law] requires.\") are built into the part that keeps them, never softened or dropped",
+   "fixture": "law-first",
+   "prompt": "Run the build skill. My files are in framework/client-follow-up.",
+   "student": "students/default.md",
+   "expected_output": "The requirements hold R5 (\"It always ends each draft with the disclosure line in C2, as FINRA Rule 2210 requires.\") and G2 (\"When you approve the draft, it waits for a registered principal to approve it before it goes to the client, as FINRA Rule 2210 requires.\"). The built skill carries both, naming FINRA Rule 2210: every draft ends with C2's disclosure line, and after the leader approves a draft the run waits for a registered principal's approval. The requirements are unchanged.",
+   "files": [
+    "students/default.md"
+   ],
+   "expectations": [
+    {
+     "text": "The built skill names FINRA Rule 2210",
+     "kind": "scripted",
+     "must": true,
+     "check": {
+      "type": "file_regex",
+      "path": ".claude/skills/client-follow-up/**",
+      "pattern": "FINRA Rule 2210"
+     }
+    },
+    {
+     "text": "The built skill keeps the registered principal's approval (G2)",
+     "kind": "scripted",
+     "must": true,
+     "check": {
+      "type": "file_regex",
+      "path": ".claude/skills/client-follow-up/**",
+      "pattern": "(?i)registered principal"
+     }
+    },
+    {
+     "text": "The disclosure line (C2) is where the built skill reads it at runtime",
+     "kind": "scripted",
+     "check": {
+      "type": "file_regex",
+      "path": ".claude/skills/client-follow-up/**",
+      "pattern": "Brightline Advisory LLC is a member of FINRA and SIPC"
+     }
+    },
+    {
+     "text": "The requirements are unchanged: Build never drops or loosens R5 or G2",
+     "kind": "scripted",
+     "must": true,
+     "check": {
+      "type": "file_unchanged",
+      "path": "framework/client-follow-up/requirements.md"
+     }
+    },
+    {
+     "text": "R5 and G2 are built as lines the workflow keeps on every run, each with FINRA Rule 2210 as its reason: every draft ends with the disclosure line, and after the leader's approval the run waits for a registered principal before the draft goes to the client; neither is softened, made optional or left to the model's judgement",
+     "kind": "judged",
+     "must": true
+    }
+   ],
+   "est_turns": 30
+  },
+  {
    "id": "P2-dry-run-once",
    "name": "dry-run-once-per-place",
    "tier": "regression",
@@ -4939,11 +4998,11 @@
    "id": "P2-kw",
    "name": "kw-lines",
    "tier": "regression",
-   "spec_item": "13 Part 2: KW",
-   "fixture": "cc-first",
+   "spec_item": "13 Part 2: KW, on an older file (step-shaped, a known Baseline): the only kind that still gets the time-saved line",
+   "fixture": "cc-first-older",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "Claude Code: the flag line with the location, the re-check line and the time-saved line (a time Measure with a known Baseline).",
+   "expected_output": "Older file, kept on its step-shaped requirements on purpose (Deconstruct now writes Baseline `— · Unknown`, so a new file gets no time-saved line). Claude Code: the flag line with the location, the re-check line and the time-saved line (a time Measure with a known Baseline).",
    "files": [
     "students/default.md"
    ],

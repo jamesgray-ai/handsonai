@@ -16,7 +16,7 @@ For each week, a list of customers at risk of not renewing, each with a task for
 | Business Objective | Keep customers who would otherwise leave |
 | Desired Outcome | Account owners act on renewal risk months before the renewal date |
 | Measure | Customers lost at renewal per quarter |
-| Baseline | Not measured yet · Unknown |
+| Baseline | — · Unknown |
 | Target | — |
 
 ## Metadata
@@ -33,13 +33,7 @@ For each week, a list of customers at risk of not renewing, each with a task for
 ## Path
 
 Method preference: AI works it out each time
-
 Path: none — the AI plans each run from the goal
-
-### Decisions
-
-- D1: When a customer shows two or more warning signs from the playbook, it counts as at risk · settled by: your criteria
-- D2: When the signs conflict, it weighs them as an experienced account owner would · settled by: open judgment
 
 ## Inputs
 
@@ -48,6 +42,7 @@ Path: none — the AI plans each run from the goal
 - I3 · renewal dates and account owners · from HubSpot · Status: available
 
 ## Context Inventory
+*The sources it uses, what we call its context.*
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
@@ -65,6 +60,7 @@ Each line is one thing a single run's output either does or doesn't do. Every pr
 Reference example: —
 
 ## Example Scenarios
+*The practice runs: each input it's tested on, and what should happen.*
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
@@ -72,14 +68,18 @@ Reference example: —
 | E2 | One bad week (proposed, hard) | `inputs/E2-one-bad-week.md` — one angry ticket and normal usage | Not at risk | — |
 
 ## Rules & Constraints
+*Its rules: what it always does, never does, and does when something happens.*
 
 | ID | Kind | Rule |
 |---|---|---|
 | R1 | Never | It never contacts a customer. |
 | R2 | Never | It never copies a patient's health details into a task or the list. |
 | R3 | Fallback | When it can't confidently handle a case, it does its best and flags it. |
+| R4 | When | When a customer shows two or more warning signs from the playbook, it counts as at risk. |
+| R5 | When | When the signs conflict, it weighs them as an experienced account owner would. |
 
 ## Human Gates
+*The checkpoints: where a person checks or approves the work.*
 
 Runs: without you
 

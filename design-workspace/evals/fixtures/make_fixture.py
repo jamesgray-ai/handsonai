@@ -12,10 +12,21 @@ platforms. Two sources:
   variant folder directly (`dir:../../framework-fixtures/...`); the names here are the combinations
   that library doesn't hold (a built earlier-version plan, an edited skill, change requests of each
   kind, a requirements file missing a section, and so on).
-- workflows/ (this folder): hand-written requirements in the 10.0 format, one per route and choice
-  design.md 14 tests, each added beside Client Follow-Up in the state-4 registry. Every one passes
+- workflows/ (this folder): hand-written requirements, one per route and choice design.md 14 tests,
+  each added beside Client Follow-Up in the state-4 registry. Every one passes
   tools/requirements-check.js. They stand in for files the finished Deconstruct produced until T45
-  and T71 regenerate them from real runs.
+  and T71 regenerate them from real runs, so eleven are in the shape it writes now (`Path: none`, no
+  steps or decisions, the glosses, `Used By: All`, moments for Where and `after [moment]`, Baseline
+  `— · Unknown` and Target "—", `expect:` on every input; a decision the leader gave is a `When` rule). Three keep
+  the older, step-shaped form on purpose, because their routes need steps, which only a file kept on
+  a re-run still has: expense-report-approval (steps a regulation fixes; also under cannot-meet and
+  no-connection), vendor-onboarding (some of each) and board-update (a split part).
+
+Client Follow-Up is in the shape today's Deconstruct writes (`Path: none`, no steps or decisions, moments
+for Where and `after [moment]`, Baseline `— · Unknown`, `expect:` on every input): `ff` lays
+`framework-fixtures/path-none/` over the library's step-shaped copy, with the plan Design writes for it
+(planned steps `Step Pa`, `Step Pb`, `Step Pc`). A fixture about an older file keeps the library's copy
+(`ff(t, rel, steps=True)`, every `earlier-version/` folder, and the `dir:` fixtures), and its eval says so.
 
 Every fixture with a registry ends with its views recomposed (compose-registry.js), so the
 registry lints clean and compose --check passes before the eval starts; a node never links a file
@@ -40,11 +51,19 @@ CFU = "client-follow-up"
 S04 = "states/s04-plan-needed/with-registry"
 S11 = "states/s11-live/with-registry"
 
+sys.dont_write_bytecode = True
+sys.path.insert(0, str(FF / "path-none"))
+import path_none as PN  # noqa: E402
+
 
 # ---------- helpers ----------
 
-def ff(t, rel):
+def ff(t, rel, steps=False):
+    """Copy a library folder. Client Follow-Up becomes the `Path: none` file today's Deconstruct writes,
+    unless the fixture is about an older file (`steps=True`, or an `earlier-version/` folder)."""
     shutil.copytree(FF / rel, t, symlinks=True)
+    if not steps and not rel.startswith("earlier-version/"):
+        PN.apply(t)
 
 
 def wf_dir(t, slug):
@@ -156,8 +175,8 @@ def real_fingerprints(t, slug=CFU):
     rec.write_text(text)
 
 
-def live(t, rel=S11):
-    ff(t, rel)
+def live(t, rel=S11, steps=False):
+    ff(t, rel, steps=steps)
     real_fingerprints(t)
 
 
@@ -176,6 +195,7 @@ def on_s04(slug, title, description, trigger):
     return build
 
 
+# Older files, on purpose (see the docstring): the routes for a file with steps.
 fx_regulated_same_way = on_s04(
     "expense-report-approval", "Expense Report Approval",
     "Checks each submitted expense report against the expense policy and recommends approve or return, for the controller to sign off.",
@@ -320,7 +340,7 @@ def fx_built_missing_section(t):  # the same, on a live workflow
 
 
 def fx_earlier_plan_built(t):  # a live workflow whose plan is a 9.x design-spec.md: Design owns state 1, N-B44 first
-    live(t)
+    live(t, steps=True)  # an earlier version: its requirements are the older, step-shaped file too
     d = wf_dir(t, CFU)
     shutil.copy(FF / "earlier-version/v1-design-spec/with-registry/framework/client-follow-up/design-spec.md", d / "design-spec.md")
     (d / "design-plan.md").unlink()
@@ -364,14 +384,13 @@ def fx_rerun_consequential(t):  # a Deconstruct re-run before anything is built 
     # The consequential point is a change other people see that the connection can make. (The first
     # version had it send the email itself; Claude's Gmail connection only drafts, so Design rightly
     # asked N-14, the leader sent it themselves, and no consequential point was left, 10-28.)
+    # The re-run's file has no steps (`Path: none`), so the new write names its moment.
     ff(t, "states/s06-build-needed/with-registry")
     req = wf_dir(t, CFU) / "requirements.md"
-    sub(req, "- Step 3 — Review and send · produces the sent email · fixed (your judgment) · (you)",
-        "- Step 3 — Review and send · produces the sent email · fixed (your judgment) · (you)\n"
-        "- Step 4 — Log the call · produces the call's next steps on the client's record in HubSpot · flexible · writes W2")
-    sub(req, "- W1 · Gmail · create a draft · Step 2",
-        "- W1 · Gmail · create a draft · Step 2\n- W2 · HubSpot · add the call's next steps, each with its owner, to the client's record · Step 4")
-    bump_requirements(t, CFU, ["Step 4", "W2"])
+    sub(req, "- W1 · Gmail · create a draft · after the email is drafted",
+        "- W1 · Gmail · create a draft · after the email is drafted\n"
+        "- W2 · HubSpot · add the call's next steps, each with its owner, to the client's record · after you approve the draft")
+    bump_requirements(t, CFU, ["W2"])
 
 
 # ---------- "change my workflow" and direct edits (item 9) ----------
@@ -391,36 +410,38 @@ def fx_live_edited_context(t):
     ctx.write_text(ctx.read_text() + "\n- Sign off with 'Warm regards' rather than 'Best'.\n")
 
 
-def policy_step_one(t):
-    sub(wf_dir(t, CFU) / "requirements.md",
-        "- Step 1 — Read the call notes · produces a list of decisions and next steps · fixed (your judgment)",
-        "- Step 1 — Read the call notes · produces a list of decisions and next steps · fixed (policy)")
+def law_lines(t):
+    """The live Client Follow-Up with a law-named rule (R5, the disclosure line) and checkpoint (G2, a registered
+    principal's approval), both naming FINRA Rule 2210 (path_none.add_law), its built skill and plan to match.
+    With no steps (`Path: none`), a line a law requires is what Design may never drop (updating-the-plan.md)."""
+    PN.add_law(t)
+    real_fingerprints(t)
 
 
-SKIP_EDIT = "\n5. Skip reading the call notes in full: draft from the notes' first three lines only.\n"
+SKIP_EDIT = "\n5. Leave the disclosure line off the end of the draft: clients find it stiff.\n"
 
 
-def fx_live_declined_edit(t):  # an installed edit Design already declined (it changes Step 1, fixed by policy)
+def fx_live_declined_edit(t):  # an installed edit Design already declined (it drops R5, which FINRA Rule 2210 requires)
     live(t)
-    policy_step_one(t)
+    law_lines(t)
     skill = Path(t) / ".claude" / "skills" / CFU / "SKILL.md"
     skill.write_text(skill.read_text() + SKIP_EDIT)
     plan = wf_dir(t, CFU) / "design-plan.md"
     sub(plan, "changes: []\n",
-        "changes:\n  - { id: T2.1, source: direct edit, what: \"5. Skip reading the call notes in full: draft from the notes' first three lines only.\", "
+        "changes:\n  - { id: T2.1, source: direct edit, what: \"5. Leave the disclosure line off the end of the draft: clients find it stiff.\", "
         "why: \"Found at Test's entry; kept\", tasks: [T2], after_round: 1, "
-        "outcome: \"declined: it changes Step 1, which your policy fixes\" }\n")
+        "outcome: \"declined: it drops the disclosure line, which FINRA Rule 2210 requires (R5)\" }\n")
 
 
 def fx_declined_edit_request(t):  # a kept direct edit, raised by Test, that Design must decline (N-29)
     live(t)
-    policy_step_one(t)
+    law_lines(t)
     skill = Path(t) / ".claude" / "skills" / CFU / "SKILL.md"
     skill.write_text(skill.read_text() + SKIP_EDIT)
     res = wf_dir(t, CFU) / "test-results.md"
     text = res.read_text()
     text = re.sub(r"(?m)^change_requests:.*\n(?:  - .*\n)*", "", text)
-    text = text.replace("\nresults:", "\nchange_requests:\n  - { id: T2.1, source: direct edit, what: \"5. Skip reading the call notes in full: draft from the notes' first three lines only.\", "
+    text = text.replace("\nresults:", "\nchange_requests:\n  - { id: T2.1, source: direct edit, what: \"5. Leave the disclosure line off the end of the draft: clients find it stiff.\", "
                         "why: \"Found at Test's entry; you chose to keep it\", tasks: [T2], after_round: 1 }\nresults:", 1)
     res.write_text(text)
 
@@ -472,6 +493,12 @@ def fx_leader_at_test(t):  # a change to what it does, asked for at the leader's
                        "why: \"She asked to see each follow-up\", tasks: [T2], after_round: 1 }")
 
 
+def fx_law_drop_request(t):  # the leader asked at Test to drop the law-named rule R5: Design declines it in one line
+    results_request(t, "  - { id: T1.1, source: leader at test, what: \"Drop the disclosure line at the end of each draft; clients find it stiff\", "
+                       "why: \"Said at the real example\", tasks: [T2], after_round: 1 }")
+    law_lines(t)
+
+
 def fx_several_requests(t):  # Test's plan miss and a Build request at once
     ff(t, "edge/e-unlogged-change-request/with-registry")
     add_record_request(t, "  - { id: B1, source: build, what: \"Name the Gmail label the drafts go under\", "
@@ -496,8 +523,8 @@ def fx_draft_with_gaps(t):  # a saved draft with one gap of each kind the plan c
     ff(t, "states/s05-plan-to-approve/with-registry")
     plan = wf_dir(t, CFU) / "design-plan.md"
     # a requirement: AC3 and R3 met by no task
-    sub(plan, "- **Meets:** Step 1, Step 2, Step 3, D1, AC1, AC2, AC3, R1, R2, R3, G1, W1, P1",
-        "- **Meets:** Step 1, Step 2, Step 3, D1, AC1, AC2, R1, R2, G1, W1, P1")
+    sub(plan, "- **Meets:** Step Pa, Step Pb, Step Pc, AC1, AC2, AC3, R1, R2, R3, R4, G1, W1, P1",
+        "- **Meets:** Step Pa, Step Pb, Step Pc, AC1, AC2, R1, R2, R4, G1, W1, P1")
     sub(plan, "- **Done when:** practice runs E1 and E2 meet AC1, AC2, AC3, R1, R3", "- **Done when:** practice runs E1 and E2 meet AC1, AC2, R1")
     # a rule or checkpoint: the outline no longer stops at G1
     sub(plan, "3. Stop for your review (G1); an unattended run stops here and leaves a draft.", "3. Save the draft and finish.")
@@ -580,8 +607,8 @@ def fx_live_chatgpt(t):  # a live workflow built on ChatGPT: the skill lives in 
             ("| Claude Code connector (Gmail) |", "| ChatGPT app (Gmail) |"),
             ("| client-follow-up skill | `.claude/skills/client-follow-up/SKILL.md` |", "| client-follow-up skill | ChatGPT account (Plugins > Skills) |"),
             ("| `.claude/skills/client-follow-up/references/follow-up-style.md` |", "| inside the skill's zip (`references/follow-up-style.md`) |"),
-            ("| flag, re-check and time-saved lines | `.claude/skills/client-follow-up/SKILL.md` |",
-             "| flag, re-check and time-saved lines | ChatGPT account (Plugins > Skills) |"),
+            ("| flag and re-check lines | `.claude/skills/client-follow-up/SKILL.md` |",
+             "| flag line | ChatGPT account (Plugins > Skills) |"),
             (" saves nothing outside `practice/[input]-[run]/`.", " saves nothing and changes nothing.")):
         if old not in text:
             sys.exit(f"live-chatgpt: {old!r} not in the build record")
@@ -646,17 +673,32 @@ FIXTURES = {
     "declined-edit-request": fx_declined_edit_request, "build-request-before-close": fx_build_request_before_close,
     "build-request-after-close": fx_build_request_after_close, "floor-request": fx_floor_request,
     "test-request-needs-requirement": fx_test_request_needs_requirement, "leader-at-test": fx_leader_at_test,
-    "several-requests": fx_several_requests, "schedule-by-hand": fx_schedule_by_hand,
+    "several-requests": fx_several_requests, "law-drop-request": fx_law_drop_request, "schedule-by-hand": fx_schedule_by_hand,
     "draft-with-gaps": fx_draft_with_gaps, "draft-safety-gap": fx_draft_safety_gap,
     "open-item-consequential": fx_open_item_consequential, "live-context-unreadable": fx_live_context_unreadable,
     "live-m365-agent": fx_live_m365_agent, "live-chatgpt": fx_live_chatgpt, "agent-failed-check": fx_agent_failed_check,
 }
+
+# The library's routing states as today's Deconstruct leaves Client Follow-Up (`Path: none`): the folders the
+# core evals used to point at directly (`dir:`), now named so the overlay runs (and the views recompose). A
+# `dir:` fixture keeps the library's step-shaped copy, for an eval about an older file.
+for _name, _rel in {"s00-running-work": "states/s00-running-work/with-registry", "s02": "states/s02-redo-pending/with-registry",
+                    "s03": "states/s03-requirements-needed/with-registry", "s04": S04,
+                    "s05": "states/s05-plan-to-approve/with-registry", "s06": "states/s06-build-needed/with-registry",
+                    "s07": "states/s07-waiting-on-open-item/with-registry", "s08": "states/s08-test-needed/with-registry",
+                    "s10": "states/s10-ready-to-go-live/with-registry", "s11": S11,
+                    "e-requirements-revision-above-plan": "edge/e-requirements-revision-above-plan/with-registry",
+                    "e-platform-change-stopped-after-plan": "edge/e-platform-change-stopped-after-plan/with-registry"}.items():
+    FIXTURES[_name] = (lambda rel: lambda t: ff(t, rel))(_rel)
 
 STATE_TOOL = ROOT / "plugins" / "handsonai" / "tools" / "framework-state.js"
 CHECK_TOOL = ROOT / "plugins" / "handsonai" / "tools" / "requirements-check.js"
 # the fixtures whose requirements are broken on purpose; every other one must pass requirements-check,
 # or Design rightly stops at its entry check and the eval tests a fixture fault (rerun-consequential, 10-28)
 BROKEN_REQUIREMENTS = {"missing-section", "built-missing-section"}
+# a library folder whose registry doesn't lint on purpose (its node still links a file the interrupted set-aside
+# moved; framework-fixtures/README.md), so it's left uncomposed, as the `dir:` copy was
+NO_COMPOSE = {"e-platform-change-stopped-after-plan"}
 
 
 def check_requirements(t, name):
@@ -679,6 +721,7 @@ if __name__ == "__main__":
         sys.exit(f"{target} already exists; pass a new folder")
     target.parent.mkdir(parents=True, exist_ok=True)
     FIXTURES[sys.argv[1]](target)
-    compose(target)
+    if sys.argv[1] not in NO_COMPOSE:
+        compose(target)
     check_requirements(target, sys.argv[1])
     print(target)

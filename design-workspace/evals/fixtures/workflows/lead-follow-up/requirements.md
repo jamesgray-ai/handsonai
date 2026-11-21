@@ -16,8 +16,8 @@ For each new inbound lead, a first-reply email draft in your Drafts folder, read
 | Business Objective | Win more of the leads that come to us |
 | Desired Outcome | Every new lead gets a first reply drafted before the day ends |
 | Measure | Hours from a lead arriving to a reply drafted |
-| Baseline | 26 hours · Estimated |
-| Target | Same day |
+| Baseline | — · Unknown |
+| Target | — |
 
 ## Metadata
 
@@ -34,16 +34,8 @@ For each new inbound lead, a first-reply email draft in your Drafts folder, read
 
 ## Path
 
-Method preference: same way every time
-
-- Step 1 — Read the lead's form · produces the lead's name, company and what they asked for · uses C2 · flexible
-- Step 2 — Choose the reply · produces which of your reply types fits the lead · uses C1 · flexible
-- Step 3 — Draft the reply · produces a first-reply email draft · uses C1 · flexible · writes W1
-
-### Decisions
-
-- D1 (Step 2): When the lead asks for pricing, it uses the pricing reply; otherwise it uses the general reply · settled by: your criteria · criteria: the form mentions price, cost, quote or budget · value read by AI
-- D2 (Step 1): When a lead has already had a reply drafted, it skips that lead · settled by: a rule on a value · criteria: the lead's email is on the list of leads already handled
+Method preference: AI works it out each time
+Path: none — the AI plans each run from the goal
 
 ## Inputs
 
@@ -54,8 +46,8 @@ Method preference: same way every time
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
-| C1 | Reply guide | Step 2, Step 3 | Exists | Internal | Authored | Yes | `context/C1-reply-guide.md` | The two reply types, tone and sign-off |
-| C2 | Lead forms | Step 1 | Exists | Confidential | External | Yes | HubSpot, the website contact form's leads | What each lead wrote, with their name and company |
+| C1 | Reply guide | All | Exists | Internal | Authored | Yes | `context/C1-reply-guide.md` | The two reply types, tone and sign-off |
+| C2 | Lead forms | All | Exists | Confidential | External | Yes | HubSpot, the website contact form's leads | What each lead wrote, with their name and company |
 
 ## Acceptance Criteria
 
@@ -81,6 +73,8 @@ Reference example: —
 |---|---|---|
 | R1 | Never | It never sends an email to a lead. |
 | R2 | Fallback | When the form is empty or it can't tell what the lead wants, it does its best and flags it in an email to you. |
+| R3 | When | When the lead asks for pricing (the form mentions price, cost, quote or budget), it uses the pricing reply; otherwise it uses the general reply. |
+| R4 | When | When a lead has already had a reply drafted (the lead's email is on the list of leads already handled), it skips that lead. |
 
 ## Human Gates
 *The checkpoints: where a person checks or approves the work.*
@@ -117,5 +111,5 @@ Governing regime: None
 Policy check: Allowed
 
 ### Writes
-- W1 · Gmail (your Drafts folder) · create a reply draft · Step 3
+- W1 · Gmail (your Drafts folder) · create a reply draft · after the reply is drafted
 - W2 · email to you · send a flag · after each run

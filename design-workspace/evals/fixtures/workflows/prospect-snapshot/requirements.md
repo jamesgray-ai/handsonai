@@ -16,8 +16,8 @@ For each new prospect, a half-page snapshot for you, ready before your first cal
 | Business Objective | Better first calls with new prospects |
 | Desired Outcome | You open every first call knowing what the prospect does and what they announced lately |
 | Measure | Minutes of preparation per first call |
-| Baseline | 25 minutes · Estimated |
-| Target | 5 minutes |
+| Baseline | — · Unknown |
+| Target | — |
 
 ## Metadata
 
@@ -31,20 +31,19 @@ For each new prospect, a half-page snapshot for you, ready before your first cal
 
 ## Path
 
-Method preference: same way every time
-
-- Step 1 — Read what you pasted · produces what the prospect does and its recent news · flexible
-- Step 2 — Write the snapshot · produces a half-page snapshot · uses C1 · flexible
+Method preference: AI works it out each time
+Path: none — the AI plans each run from the goal
 
 ## Inputs
 
 - I1 · the prospect's website pages and two or three recent news articles · from the web, copied and pasted into the chat by you · Status: available
 
 ## Context Inventory
+*The sources it uses, what we call its context.*
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
-| C1 | Snapshot format | Step 2 | Exists | Internal | Authored | Yes | `context/C1-snapshot-format.md` | The four headings and the length |
+| C1 | Snapshot format | All | Exists | Internal | Authored | Yes | `context/C1-snapshot-format.md` | The four headings and the length |
 
 ## Acceptance Criteria
 
@@ -56,6 +55,7 @@ Each line is one thing a single run's output either does or doesn't do. Every pr
 Reference example: —
 
 ## Example Scenarios
+*The practice runs: each input it's tested on, and what should happen.*
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
@@ -63,6 +63,7 @@ Reference example: —
 | E2 | A thin website (proposed) | `inputs/E2-thin-website.md` — a one-page site and no news | A short snapshot that says little is public | — |
 
 ## Rules & Constraints
+*Its rules: what it always does, never does, and does when something happens.*
 
 | ID | Kind | Rule |
 |---|---|---|
@@ -70,6 +71,7 @@ Reference example: —
 | R2 | Fallback | When it can't confidently handle a case, it does its best and flags it. |
 
 ## Human Gates
+*The checkpoints: where a person checks or approves the work.*
 
 Runs: with you
 

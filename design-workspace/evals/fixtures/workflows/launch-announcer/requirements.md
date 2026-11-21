@@ -16,8 +16,8 @@ For each product release marked ready, the release announced everywhere it shoul
 | Business Objective | Every customer hears about new features the day they ship |
 | Desired Outcome | No release goes unannounced in any channel |
 | Measure | Hours from release to the last announcement |
-| Baseline | 2 days · Estimated |
-| Target | 1 hour |
+| Baseline | — · Unknown |
+| Target | — |
 
 ## Metadata
 
@@ -32,27 +32,20 @@ For each product release marked ready, the release announced everywhere it shoul
 
 ## Path
 
-Method preference: same way every time
-
-- Step 1 — Read the release notes · produces the headline and three highlights · uses C1 · flexible
-- Step 2 — Write each announcement · produces one announcement per channel · uses C2 · flexible
-- Step 3 — Publish the changelog entry · produces an entry on the changelog page · flexible · writes W1
-- Step 4 — Update the in-app banner · produces a new banner · flexible · writes W2
-- Step 5 — Post on the partner portal · produces a partner portal post · flexible · writes W3
-- Step 6 — Update the sales battlecard · produces an updated battlecard · flexible · writes W4
-- Step 7 — Post in the support wiki · produces a support wiki entry · flexible · writes W5
-- Step 8 — Post in #announcements · produces a Slack post · flexible · writes W6
+Method preference: AI works it out each time
+Path: none — the AI plans each run from the goal
 
 ## Inputs
 
 - I1 · the release notes · from the release tracker · Status: available
 
 ## Context Inventory
+*The sources it uses, what we call its context.*
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
-| C1 | Release notes format | Step 1 | Exists | Internal | Authored | Yes | `context/C1-release-notes-format.md` | Where the headline and highlights sit |
-| C2 | Channel style guide | Step 2 | Exists | Internal | Authored | Yes | `context/C2-channel-style.md` | Length and tone for each channel |
+| C1 | Release notes format | All | Exists | Internal | Authored | Yes | `context/C1-release-notes-format.md` | Where the headline and highlights sit |
+| C2 | Channel style guide | All | Exists | Internal | Authored | Yes | `context/C2-channel-style.md` | Length and tone for each channel |
 
 ## Acceptance Criteria
 
@@ -65,6 +58,7 @@ Each line is one thing a single run's output either does or doesn't do. Every pr
 Reference example: —
 
 ## Example Scenarios
+*The practice runs: each input it's tested on, and what should happen.*
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
@@ -72,6 +66,7 @@ Reference example: —
 | E2 | Bug-fix release (proposed) | `inputs/E2-bug-fix-release.md` — a release with fixes only | Only the changelog entry and the support wiki entry | — |
 
 ## Rules & Constraints
+*Its rules: what it always does, never does, and does when something happens.*
 
 | ID | Kind | Rule |
 |---|---|---|
@@ -80,6 +75,7 @@ Reference example: —
 | R3 | Fallback | When it can't confidently handle a case, it does its best and flags it. |
 
 ## Human Gates
+*The checkpoints: where a person checks or approves the work.*
 
 Runs: without you
 
@@ -102,9 +98,9 @@ No human gates — the workflow runs end-to-end with final review only.
 Governing regime: None
 
 ### Writes
-- W1 · the changelog page (our own website's CMS; it has no connection) · publish the entry · Step 3
-- W2 · the in-app banner (set in our admin console; it has no connection) · replace the banner · Step 4
-- W3 · the partner portal (it has no connection) · post the announcement · Step 5
-- W4 · the sales battlecard (a page in our in-house wiki; it has no connection) · overwrite the "What's new" section · Step 6
-- W5 · the support wiki (it has no connection) · post the entry · Step 7
-- W6 · Slack · post in #announcements · Step 8
+- W1 · the changelog page (our own website's CMS; it has no connection) · publish the entry · after it writes the announcements
+- W2 · the in-app banner (set in our admin console; it has no connection) · replace the banner · after it writes the announcements
+- W3 · the partner portal (it has no connection) · post the announcement · after it writes the announcements
+- W4 · the sales battlecard (a page in our in-house wiki; it has no connection) · overwrite the "What's new" section · after it writes the announcements
+- W5 · the support wiki (it has no connection) · post the entry · after it writes the announcements
+- W6 · Slack · post in #announcements · after it writes the announcements

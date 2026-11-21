@@ -16,8 +16,8 @@ For each week, a pipeline summary posted for the sales team, ready before the Mo
 | Business Objective | Run the Monday sales meeting from one shared picture |
 | Desired Outcome | The team reads the same pipeline summary before the meeting |
 | Measure | Minutes the sales manager spends preparing the summary |
-| Baseline | 45 minutes a week · Measured |
-| Target | 10 minutes a week, including the approval |
+| Baseline | — · Unknown |
+| Target | — |
 
 ## Metadata
 
@@ -32,22 +32,19 @@ For each week, a pipeline summary posted for the sales team, ready before the Mo
 
 ## Path
 
-Method preference: same way every time
-
-- Step 1 — Pull the open deals · produces the open deals by stage · flexible
-- Step 2 — Write the summary · produces a summary of the week's movement · uses C1 · flexible
-- Step 3 — Approve the summary · produces an approved summary · fixed (your judgment) · (sales manager)
-- Step 4 — Post the summary · produces a post in #sales · flexible · writes W1
+Method preference: AI works it out each time
+Path: none — the AI plans each run from the goal
 
 ## Inputs
 
 - I1 · the open deals · from HubSpot · Status: available
 
 ## Context Inventory
+*The sources it uses, what we call its context.*
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
-| C1 | Summary format | Step 2 | Exists | Internal | Authored | Yes | `context/C1-summary-format.md` | Headings and what goes under each |
+| C1 | Summary format | All | Exists | Internal | Authored | Yes | `context/C1-summary-format.md` | Headings and what goes under each |
 
 ## Acceptance Criteria
 
@@ -59,6 +56,7 @@ Each line is one thing a single run's output either does or doesn't do. Every pr
 Reference example: —
 
 ## Example Scenarios
+*The practice runs: each input it's tested on, and what should happen.*
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
@@ -66,6 +64,7 @@ Reference example: —
 | E2 | Nothing moved (proposed) | `inputs/E2-nothing-moved.md` — no deal moved stage | Says plainly nothing moved | — |
 
 ## Rules & Constraints
+*Its rules: what it always does, never does, and does when something happens.*
 
 | ID | Kind | Rule |
 |---|---|---|
@@ -73,12 +72,13 @@ Reference example: —
 | R2 | Fallback | When it can't confidently handle a case, it does its best and flags it. |
 
 ## Human Gates
+*The checkpoints: where a person checks or approves the work.*
 
 Runs: without you
 
 | ID | Where | Checkpoint |
 |---|---|---|
-| G1 | Step 3 | When the summary is ready, it stops until the sales manager approves it before anything is posted. · (sales manager) |
+| G1 | After the summary is ready | When the summary is ready, it stops until the sales manager approves it before anything is posted. · (sales manager) |
 
 ## Security, Privacy & Safety
 
@@ -97,4 +97,4 @@ Runs: without you
 Governing regime: None
 
 ### Writes
-- W1 · Slack · post the summary in #sales · Step 4
+- W1 · Slack · post the summary in #sales · after the sales manager approves the summary

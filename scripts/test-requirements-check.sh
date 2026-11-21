@@ -11,6 +11,10 @@
 #    and the line. Planted variants are made in a mktemp dir from
 #    framework-fixtures/states/s08-test-needed/ and removed on exit; nothing
 #    planted is committed.
+#    3b and 3c add the fields Deconstruct 3.3 brought and the shape the single
+#    interview writes now (framework-fixtures/path-none/: Path: none, moments,
+#    `· after [moment]`, an emptied category, law-named lines), each with its
+#    valid forms and the step references such a file can't hold.
 # 4. The plugin copy is byte-for-byte the canonical one.
 #
 # Follows the ok/bad + summary house style of scripts/test-compose-registry.sh.
@@ -522,6 +526,48 @@ wf=$(newf gloss-reworded); edit "$wf/$R" 's/^\*The sources it uses, what we call
 expect "glosses: reworded" "$wf" "^$R:[0-9]+ · ## Context Inventory · the line under \`## Context Inventory\` is its fixed gloss"
 wf=$(newf gloss-moved); edit "$wf/$R" 's/^\*Its rules: what it always does, never does, and does when something happens\.\*\n//m; s/^(## Human Gates\n)\*The checkpoints[^\n]*\*\n/$1*Its rules: what it always does, never does, and does when something happens.*\n/m'
 expect "glosses: one under the wrong heading" "$wf" "^$R:[0-9]+ · ## Human Gates · the line under \`## Human Gates\` is its fixed gloss"
+
+# ---------------------------------------------------------------- 3c. the shape today's Deconstruct writes
+# Every file the single interview saves has `Path: none` (no steps, no decisions): a checkpoint's Where is a
+# moment, a write ends `· after [moment]`, a category whose every line the leader dropped stays as its heading and
+# an empty table, and a law answer gives a rule and a checkpoint that name the law ("…, as [the law] requires.").
+# Base: the committed fixture framework-fixtures/path-none/client-follow-up (also the Design, Build and Test
+# evals' base). Its planted misses are the step references a `Path: none` file can't hold.
+echo "Today's Deconstruct shape (Path: none: moments, after [moment], an emptied category, law-named lines)"
+PN_SRC="$FIXTURES/path-none/client-follow-up"
+pnf() {  # <case name>: a fresh copy of the Path: none workflow folder; echoes it
+  local d="$TMP/pn-$1"
+  rm -rf "$d"; mkdir -p "$d"; cp -R "$PN_SRC/." "$d/"
+  echo "$d"
+}
+R=requirements.md
+wf=$(pnf ok); expect_ok "the Path: none base passes" "$wf"
+expect_ok "...and passes Deconstruct's pre-save run" "$wf" --before-save
+
+wf=$(pnf gate-moment); edit "$wf/$R" 's/(\| G1 \| After the draft is ready \| [^\n]*\n)/$1| G2 | Before the email goes to the client | When you have edited the draft, it waits for you to confirm the recipient before it goes to the client. · (you) |\n/'
+expect_ok "Human Gates: a G line whose Where is a moment, under Path: none" "$wf" --before-save
+
+wf=$(pnf write-moment); edit "$wf/$R" 's/(- W1 · Gmail · create a draft · after the email is drafted\n)/$1- W2 · Slack #client-updates · post a one-line note · after you approve the draft\n/'
+expect_ok "Writes: a W line ending \`· after [moment]\`, under Path: none" "$wf" --before-save
+
+wf=$(pnf emptied-category); edit "$wf/$R" 's/(### Traceability\n\| ID \| Constraint \| Source \|\n\|---\|---\|---\|\n)\| P1 [^\n]*\n/$1/'
+expect_ok "Security: a worked category whose every line was dropped is its heading and an empty table" "$wf" --before-save
+
+wf=$(pnf law-lines)
+edit "$wf/$R" 's/^track: light$/track: full/m;
+  s/(\| R4 \| When \| [^\n]*\n)/$1| R5 | Always | It always ends each draft with the firm\x27s disclosure line, as FINRA Rule 2210 requires. |\n/;
+  s/(\| G1 \| After the draft is ready \| [^\n]*\n)/$1| G2 | After you approve the draft | When you approve the draft, it waits for a registered principal to approve it before it goes to the client, as FINRA Rule 2210 requires. · (registered principal) |\n/;
+  s/^Governing regime: None$/Governing regime: FINRA Rule 2210 (communications with the public)/m'
+expect_ok "a law-named rule and a law-named checkpoint (\`…, as [the law] requires.\`), with the regime named" "$wf" --before-save
+
+wf=$(pnf gate-step); edit "$wf/$R" 's/\| G1 \| After the draft is ready \|/| G1 | Step 3 |/'
+expect "Human Gates: \`Where: Step 3\` under Path: none" "$wf" "^$R:[0-9]+ · ## Human Gates · \"Step 3\" matches no step line in ## Path"
+
+wf=$(pnf write-step); edit "$wf/$R" 's/ · after the email is drafted$/ · Step 2/m'
+expect "Writes: a W line naming \`Step 2\` under Path: none" "$wf" "^$R:[0-9]+ · ## Security, Privacy & Safety › ### Writes · \"Step 2\" matches no step line in ## Path"
+
+wf=$(pnf usedby-step); edit "$wf/$R" 's/\| C1 \| Follow-up style guide \| All \|/| C1 | Follow-up style guide | Step 2 |/'
+expect "Context Inventory: \`Used By: Step 2\` under Path: none" "$wf" "^$R:[0-9]+ · ## Context Inventory · \"Step 2\" matches no step line in ## Path"
 
 # ---------------------------------------------------------------- 4. usage and the plugin copy
 echo "Usage and the plugin copy"
