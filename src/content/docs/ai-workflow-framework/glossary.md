@@ -1,6 +1,6 @@
 ---
 title: Framework Glossary
-description: "Every term you meet in the five-step AI Workflow Framework, in plain language: practice runs, checkpoints, tracks, the Design Plan, re-checks and more."
+description: "Every term you meet in the five-step AI Workflow Framework, in plain language: practice runs, checkpoints, must-haves, the Design Plan, re-checks and more."
 ---
 
 Every term you'll meet across the five steps, in plain language, each linked to the page that introduces it.
@@ -29,7 +29,7 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **Context** — The documents, examples and reference material a workflow reads while it runs, such as a style guide or a template. Captured in [Deconstruct](../deconstruct/), kept in the workflow's `context/` folder, and placed where the workflow runs by [Build](../build/).
 
-**"Continue my workflow"** — The phrase that moves a workflow on from wherever it is. Say it in a new chat; any of the five skills reads your files, works out which step is next, and either picks up there or gives you the phrase to start that step in a new chat. See [Moving From Step to Step](../#moving-from-step-to-step).
+**"Continue my workflow"** — The phrase that moves a workflow on from wherever it is. Any of the five skills reads your files and works out which step is next. If it's that skill's step, it picks up there. If not, it gives you the phrase that starts the right step: to say in the same chat when you haven't started anything else there, otherwise in a new chat. See [Moving From Step to Step](../#moving-from-step-to-step).
 
 **Design Plan** — The plan [Design](../design/) writes (`design-plan.md`) for how AI will do the work: where it runs, how much it decides on its own, which parts are skills or agents, what it connects to, and the task list Build follows. You approve it before anything is built.
 
@@ -45,7 +45,7 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **Must-have** — A check the output can't pass without. Marked among what every output must get right in [Deconstruct](../deconstruct/); a miss on a must-have is never accepted.
 
-**Practice inputs** — Realistic examples, based on your real work, that [Test](../test/) runs the workflow on. Captured in [Deconstruct](../deconstruct/) and saved in the workflow's `inputs/` folder. Each round also includes one new input the workflow hasn't seen, ideally a real one.
+**Practice inputs** — Realistic examples, based on your real work, that [Test](../test/) runs the workflow on. Captured in [Deconstruct](../deconstruct/) and saved in the workflow's `inputs/` folder; you see each one Deconstruct or Test writes before it's used. Each round also includes one new input the workflow hasn't seen, ideally a real one.
 
 **Practice run** — A run of the workflow that's built never to send or change anything. It goes up to each change, shows exactly what it would send or change and where, and stops there. Every workflow [Build](../build/) makes has one, and every run in [Test](../test/) is one.
 
@@ -55,13 +55,13 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **Registry** — Your AI Registry: a folder of Markdown cards describing your business, its processes and its workflows, which every framework step reads and updates so you never describe your work twice. See the [AI Registry Setup guide](../../builder-setup/ai-registry-setup/).
 
-**Round** — One pass of [Test](../test/): the practice inputs that need running and one new input, each requirement checked with proof, then a verdict of Ready, Not ready, or waiting on a connection's access. A later round re-runs only what a fix or change could affect. On the full track, two or three rounds is normal.
+**Round** — One pass of [Test](../test/): the practice inputs that need running and one new input, each requirement checked with proof, then a verdict of Ready, Not ready, or waiting on a connection's access. A later round re-runs only what a fix or change could affect. For a workflow with more at stake, such as one that sends or changes something other people see, runs without you, or handles confidential or regulated details, two or three rounds is normal.
 
 **Rules it follows** — Sentences in your requirements that say how the workflow must behave: "It always…", "It never…", "When…, it…". One of the [three kinds of line](../#how-it-fits-together), captured in [Deconstruct](../deconstruct/).
 
-**Run log** — A one-line-per-run record the workflow keeps in its own place, where the platform lets it write one. Re-check reminders and time saved come from it. Not every workflow keeps one; those that don't still end each run with the flag line.
+**Run log** — A one-line-per-run record the workflow keeps in its own place, where the platform lets it write one. Re-check reminders come from it. Not every workflow keeps one; those that don't still end each run with the flag line.
 
-**Skill (how it runs)** — A workflow you start yourself that follows your steps and your criteria, stopping at its checkpoints. [Design](../design/) chooses a skill unless the workflow must work out its own path, use tools on its own judgment, or run without you.
+**Skill (how it runs)** — A workflow you start yourself that follows set steps and your criteria, stopping at its checkpoints. [Design](../design/) chooses a skill unless the workflow must work out its own path, use tools on its own judgment, or run without you.
 
 **Skill (building block)** — Any reusable set of instructions the AI follows, including smaller skills a workflow uses for one part of the job. See [Agentic Building Blocks](../../agentic-building-blocks/).
 

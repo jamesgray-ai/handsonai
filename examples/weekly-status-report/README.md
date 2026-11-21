@@ -17,7 +17,7 @@ This folder is what a program manager named Maya ends up with after taking one s
 
 Install the Hands-on AI plugin first if you have not — https://handsonai.info/ai-workflow-framework/skills/ has the steps for every platform.
 
-You do not need HubSpot. The skill works from a pasted tracker export, and the five files in `Documents/ai-workspace/framework/weekly-status-report/inputs/` are exactly what to paste (each file's first two lines are for the framework; paste from the line that starts `# Tracker export`).
+You do not need HubSpot. The skill works from a pasted tracker export, and the five files in `Documents/ai-workspace/framework/weekly-status-report/inputs/` are exactly what to paste (each file's opening lines, down to the first blank line, are for the framework; paste from the line that starts `# Tracker export`).
 
 ## Three things to try
 

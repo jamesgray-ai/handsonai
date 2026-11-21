@@ -16,13 +16,13 @@ changes: []
 
 ## Source
 - **Requirements:** `requirements.md`
-- **Approach:** One skill reads the pasted summary, drafts the kickoff email in the style guide's voice and stops for your review. Nothing is sent by the workflow.
+- **Approach:** The requirements leave the method to the AI; with one input and rules that settle each decision, the plan sets three steps. One skill reads the pasted summary, drafts the kickoff email in the style guide's voice and stops for your review. Nothing is sent by the workflow.
 - **Platform:** Claude Code
 
 ## Architecture
 
 ### Execution Pattern
-A `Skill`: a fixed order with one drafting step, started by hand.
+A `Skill`: the plan's steps in a fixed order, with one drafting step, started by hand.
 
 ### Architecture Decisions
 | Decision | Choice | Reason |
@@ -36,16 +36,18 @@ A `Skill`: a fixed order with one drafting step, started by hand.
 | Trigger | You paste in a signed contract's summary | Started by hand |
 
 ### Autonomy Summary
-Guided: Step 2 decides how to word the email by your method in C1 (prompt chaining; playbook: Prompt Chaining; Anthropic, *Building effective agents*).
+Guided: Step Pb decides how to word the email by your method in C1 (prompt chaining; playbook: Prompt Chaining; Anthropic, *Building effective agents*).
 
 ### Safety & Permissions
-1. **Write access:** none. 2. **Outside content:** none. 3. **Unattended runs:** none. 4. **The worst realistic outcome:** a wrong date in a client email; the review checkpoint stands before anything is sent.
+1. **Write access:** none; it never sends (P1). 2. **Outside content:** none. 3. **Unattended runs:** none. 4. **The worst realistic outcome:** a wrong date in a client email; the review checkpoint stands before anything is sent.
 
 #### Writes
 None.
 
 #### Constraint Conformance
-None: the requirements carry no security constraints.
+| Constraint | Met by | State |
+|---|---|---|
+| P1 | T1 | Satisfied |
 
 ### Integration Options
 No integrations — the workflow is text-only.
@@ -56,14 +58,14 @@ The session's default model.
 ## Decomposition
 | Step | Autonomy | Orchestration | Integration | Intelligence | Build Output | Checkpoint | Role |
 |---|---|---|---|---|---|---|---|
-| Step 1 | Deterministic | S1 | — | default tier | Handled by orchestrator | — | AI |
-| Step 2 | Guided | S1 | — | default tier; C1 | New skill: S1 | — | AI |
-| Step 3 | Human | — | — | — | Human (no artifact) | G1 | You |
+| Step Pa — Read the summary | Deterministic | S1 | — | default tier | Handled by orchestrator | — | AI |
+| Step Pb — Draft the email | Guided | S1 | — | default tier; C1 | New skill: S1 | — | AI |
+| Step Pc — Review | Human | — | — | — | Human (no artifact) | G1 | You |
 
 ### Orchestrator Prompt Outline
-1. Step 1, then Step 2, then G1.
+1. Step Pa, then Step Pb, then G1 at Step Pc.
 2. Stop at G1 until you approve.
-3. Step 1 hands Step 2 the name, date and deliverable as a short list.
+3. Step Pa hands Step Pb the name, date and deliverable as a short list.
 4. Close with "What I did".
 5. Under the practice-run cue, files go in `practice/[input]-[run]/`.
 
@@ -79,7 +81,7 @@ The session's default model.
 - **Name:** some-skill
 - **Description:** This skill should be used when the user says "draft the kickoff email" or pastes a signed contract's summary.
 - **Purpose:** Drafts the kickoff email for each newly signed client.
-- **Covers Steps:** Step 1, Step 2, Step 3
+- **Covers Steps:** Step Pa, Step Pb, Step Pc
 - **Inputs:** I1; C1
 - **Outputs:** the draft, then the "What I did" summary
 - **Decision Logic:** the Orchestrator Prompt Outline
@@ -112,7 +114,7 @@ None.
 ### T1 — First Workflow
 - **Builds:** New skill: S1 (`some-skill`)
 - **Uses / hands on:** I1; C1
-- **Meets:** Step 1, Step 2, Step 3, AC1, AC2, R1, R2, G1
+- **Meets:** Step Pa, Step Pb, Step Pc, AC1, AC2, R1, R2, G1, P1
 - **Done when:** practice runs E1 and E2 meet AC1, AC2 and R1
 - **Depends on:** —
 - **rev:** 1

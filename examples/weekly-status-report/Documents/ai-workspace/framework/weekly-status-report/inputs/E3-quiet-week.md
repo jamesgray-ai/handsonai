@@ -1,5 +1,6 @@
 source: deconstruct
 tests: AC1, AC2, AC4, R1, R3, G2
+expect: A short report that says it was a quiet week; nothing padded or invented
 
 # Tracker export — week of 2026-06-22
 
