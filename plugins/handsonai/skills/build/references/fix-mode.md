@@ -6,11 +6,11 @@ Read in fix mode (the last round is Not ready with Issues rows at Level `build` 
 
 ## 1. The opener
 
-**First, three rounds in a row not ready** (counted from `test-results.md` and `history/test-results-round-*.md`, skipping `history/set-aside-*/`, `history/earlier-version-*/` and any round marked `round_status: abandoned`), unless the plan's `changes:` already logs a Build request whose `after_round` is the last round's number: before the opener, record a plan-only change request pointing to the results, and say exactly (N-B10): "Three test rounds in a row haven't reached Ready, so the problem is probably in the plan, not the build. I recommend going back to Design with what Test found. I've noted it for Design: say 'run the design skill. My files are in [location].'" Only if the leader insists on fixing anyway, withdraw your request and give the opener; otherwise nothing else is said.
+**First, three rounds in a row not ready** (counted from `test-results.md` and `history/test-results-round-*.md`, skipping `history/set-aside-*/`, `history/earlier-version-*/` and any round marked `round_status: abandoned`), unless the plan's `changes:` already logs a Build request whose `after_round` is the last round's number: before the opener, record a plan-only change request pointing to the results, and say exactly (N-B10): "Three test rounds in a row haven't reached Ready, so the problem is probably in the plan, not the build. I recommend going back to Design with what Test found. I've noted it for Design: say 'run the design skill. My files are in [location].'" (N-B10) Only if the leader insists on fixing anyway, withdraw your request and give the opener; otherwise nothing else is said.
 
 **The opener** (N-B14), said exactly, naming what Test found and what will be redone in plain words ("the main skill that writes the summary", never an ID):
 
-"Test found [what, in plain words] in [the part, in plain words]. I'll redo just that[, and re-check what uses it], and leave everything else as it is."
+"Test found [what, in plain words] in [the part, in plain words]. I'll redo just that[, and re-check what uses it], and leave everything else as it is." (N-B14)
 
 Nothing comes before it but the three-rounds line above. The part goes in its own place after "in", never into a sentence of your own, and the comma before "and leave" stays (never split into sentences of your own that name the part separately; right: "Test found a renewal amount your call notes never mentioned in the skill that drafts your follow-up email. I'll redo just that, and leave everything else as it is.").
 
