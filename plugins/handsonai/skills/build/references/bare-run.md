@@ -15,18 +15,18 @@ One practice input from `inputs/` whose `tests:` lines the main skill's task mee
 The plain model, with only the context the main skill will read and no skill instructions. The prompt holds the practice-run cue ("practice run"), the never-made rule (`carried-lines.md`), the workflow's goal in one plain line, and the input. **It saves nothing,** on every platform: a file the main skill would produce comes back as its content in the answer; the practice folder isn't used.
 
 - **Claude Code:** a headless session through the wrapper's `bare` profile, in a fresh folder recorded in `run_folders`, with no connections or only read-only ones (`setup.md` section 2 item 7). Check the wrapper's fingerprint first (`claude-code-block.md` section 5); the wrapper runs its start-up check before the prompt. A settings file that would allow a write is ignored: the `bare` profile builds its own settings from the record.
-- **Claude, ChatGPT and Codex:** the leader runs it. Say the hand-over for this platform exactly, then the block to paste, in one fenced block. No N-F4 follows: the bare run's connections are all off.
+- **Claude and ChatGPT:** the leader runs it. Say the hand-over for this platform exactly, then the block to paste, in one fenced block. No N-F4 follows: the bare run's connections are all off.
   - Claude on the web and ChatGPT: "To see what the AI does with no instructions, open a new chat in your workflow's Project, so it has nothing it could send or change with. Paste this, and copy back what it says. Then delete that chat." with, after "Project", on Claude ", and before typing, switch off connectors and memory under +", and on ChatGPT ", and don't add any apps".
   - Claude desktop, a chat with no folder selected, the context the main skill reads pasted into the block: "To see what the AI does with no instructions, open a new chat with no folder selected, and before typing, switch off connectors and memory under +, so it has nothing it could send or change with. Paste this, and copy back what it says. Then delete that chat."
-  - Codex, in the CLI: "To see what the AI does with no instructions, open a new terminal and run this, which starts Codex in a new empty folder with no connections and nothing it can change: `cd "$(mktemp -d)" && codex --sandbox read-only -c 'mcp_servers={}'`. Paste this, copy back what it says, then close that session."
   - The leader copies the answer back; if they say "skip", record it and write instructions for every line.
+- **Codex: no bare run in this release.** It's skipped (section 3) while release check 36 is open. No command is confirmed that starts Codex with nothing it could send or change with and no instructions: a `-c 'mcp_servers={}'` override leaves every configured connection (MCP server) on, so the plain model could still use one that sends, and Codex's global `AGENTS.md` and the leader's own skills still load. So never give the leader a Codex command for a bare run, and never tell them a Codex session has no connections or no instructions. The old Codex hand-over is kept only in section 6, never said.
 - **No older skill on:** an older skill the leader named at N-B51 is already switched off (Part 2 waits for its "done"), so it can't load in place of no instructions.
 
 ## 3. When it's skipped
 
 Record it under `bare_run:` in block form, one line per main skill, the reason in double quotes (`[skill]: "skipped: [why]"`, as the record template shows; never a `{ … }` map, which a comma in the reason would break), and write instructions for every line (for an agent on Microsoft 365 you write none: Agent Builder writes them from the plan). Say a skip to the leader in one clause at most, with its reason, and never what the instructions will hold in its place (no promise that they cover your rules instead): nothing is known of them until they're checked.
 - on a rebuild or in fix mode, where the workflow's own installed skill would load;
-- where the platform's bare-run release check hasn't passed: Microsoft 365 (release check 25), ChatGPT (16), Codex (9), Claude's own (13);
+- where the platform's bare-run release check hasn't passed: Microsoft 365 (release check 25), ChatGPT (16), Codex (36: a Codex command that starts with no connections, no global `AGENTS.md` and no user skills), Claude's own (13);
 - on Codex when the leader works only in the Codex app or the IDE extension (`skipped: no terminal`);
 - on Claude Code when the leader didn't OK the wrapper, the headless release check (6) hasn't passed, `python3` is missing, or the wrapper's fingerprint doesn't match.
 
@@ -41,3 +41,9 @@ The rest of the message is model wording.
 ## 5. What gets written, and recorded
 
 Write instructions for each line the bare run missed; and, whatever it did, every must-have, every rule, every checkpoint and every safety line, plus everything in `carried-lines.md`. Record `[skill]: done` under `bare_run:`, in block form, and in the record's *Also* section what the plain model handled.
+
+## 6. Never said: the old Codex hand-over
+
+Kept here only because the approved-line record still lists it, until its retirement is approved. It is wrong (its override leaves every connection on, and Codex's global instructions and the leader's skills still load), so it is never said, in whole or in part, and its command is never given:
+
+- Codex, in the CLI (retired): "To see what the AI does with no instructions, open a new terminal and run this, which starts Codex in a new empty folder with no connections and nothing it can change: `cd "$(mktemp -d)" && codex --sandbox read-only -c 'mcp_servers={}'`. Paste this, copy back what it says, then close that session."

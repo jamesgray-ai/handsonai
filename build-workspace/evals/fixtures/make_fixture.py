@@ -674,10 +674,11 @@ def fx_m365_skills_first(t):
     set_platform(t, "microsoft-365")
 
 
-def fx_m365_agent_first(t):
+def fx_m365_agent_first(t):  # Agent Builder agents only read (vendor check 2026-11-21): no write, draft shown in chat
     ff(t, S06)
     full(t)
-    agent_m365(t)
+    agent_m365(t, connection=False)
+    _no_write(t)
 
 
 def fx_m365_agent_no_context(t):  # an agent with no context file and no connection: N-F4 still said on Microsoft 365
@@ -695,21 +696,32 @@ def fx_no_connection(t):  # nothing to send, post or change: no N-F4 at Part 2's
     prohibition the leader kept, under its opening line (requirements-template.md section 2), and P1, a trace
     record a write needed, is gone (its number isn't reused). Writes reads `None`."""
     ff(t, S06)
+    _no_write(t)
+
+
+def _maybe(path, pattern, new):
+    """resub for a line some plan shapes don't carry (the Path-none overlay plans has no Gmail tool row)."""
+    p = Path(path)
+    p.write_text(re.sub(pattern, new, p.read_text(), flags=re.M))
+
+
+def _no_write(t):
+    """The no-write body, on whatever platform the plan already names."""
     p, r = plan(t), req(t)
     resub(r, r"^\*Scope: writes to a live system\*\n\n### Traceability\n(?:\|.*\n)+\n",
           "No sensitivity constraints beyond the prohibition below — personal data only, read-only, human-triggered.\n\n")
     sub(r, f"\n### Writes\n{W1}\n", "\n### Writes\nNone\n")
     sub(p, "| W1 | Gmail | create a draft | undoable (you can delete the draft) | G1 before you send |\n", "")
-    sub(p, f"{PA} Deterministic | S1 | Gmail (use) |", f"{PA} Deterministic | S1 | — |")
-    sub(p, "Gmail: the Claude Code connector (use).", "None: the draft is shown in the chat.")
-    sub(p, "- **Required Tools:** Gmail", "- **Required Tools:** none")
-    sub(p, "- Gmail connected in Claude Code.", "- None.")
+    _maybe(p, r"(\| Step Pa — [^|\n]+\| Deterministic \| (?:S1|A1) \|) Gmail \(use\) \|", r"\1 — |")
+    _maybe(p, r"Gmail: [^\n]*?\(use\)\.", "None: the draft is shown in the chat.")
+    _maybe(p, r"- \*\*Required Tools:\*\* Gmail", "- **Required Tools:** none")
+    resub(p, r"- Gmail connected in [^\n]*?\.\n", "- None.\n")
     t1 = re.search(r"(?ms)^### T1 — Connect Gmail for drafts\n.*?(?=^### T2)", p.read_text()).group(0)
     p.write_text(p.read_text().replace(t1, ""))
     sub(p, MEETS, MEETS.replace(", W1, P1", ""))
     sub(p, "- **Depends on:** T1\n- **rev:** 1\n\n### KW", "- **Depends on:** —\n- **rev:** 1\n\n### KW")
     sub(p, "| P1 | T2 | Met by design |\n| P2 | T1 | Met by design |", "| P2 | T1 | Met by design |")
-    sub(p, "- **Depends On:** T1", "- **Depends On:** —")
+    _maybe(p, r"- \*\*Depends On:\*\* T1", "- **Depends On:** —")
     sub(p, "### T2 — Client Follow-Up", "### T1 — Client Follow-Up")
     sub(p, "- **Depends on:** T2\n", "- **Depends on:** T1\n")
 
@@ -998,17 +1010,25 @@ def fx_fix_chatgpt_unreadable(t):  # ChatGPT: Build can't read the skill in the 
 def fx_fix_m365_agent(t):  # the agent on Microsoft 365, Not ready on AC2
     ff(t, S08)
     shutil.rmtree(Path(t) / ".claude")
-    agent_m365(t)
+    agent_m365(t, connection=False)  # Agent Builder agents only read (vendor check 2026-11-21)
+    _no_write(t)
     rec = record(t)
     text = rec.read_text()
     text = re.sub(r"(?m)^fingerprints:\n(?:  .*\n)+", "fingerprints: {}\n", text)
     text = text.replace("| T2 | New skill: S1 |", "| T2 | New agent: A1 |")
+    # no connection: the plan's T1 (Gmail) is gone and T2 became T1 (_no_write); the record follows
+    text = re.sub(r"(?m)^\| T1 \|[^\n]*connection[^\n]*\n", "", text)
+    text = re.sub(r"(?m)^(\| )T2( \|)", r"\1T1\2", text)
+    text = re.sub(r"(?m)^live_checks:\n(?:  .*\n)+", "live_checks: {}\n", text)
+    text = text.replace("drafts the follow-up email in Gmail Drafts for you to review and send", "drafts the follow-up email in the chat for you to review, copy and send")
+    text = re.sub(r"(?m)^\*\*Gmail \(your work account\)\.\*\*[^\n]*\n", "**Nothing outside the chat.** It reads only the notes you paste and its knowledge file, and changes nothing.\n", text)
+    text = re.sub(r"(?m)^- Quick real check: [^\n]*Gmail[^\n]*\n", "", text)
     text = re.sub(r"`\.claude/skills/client-follow-up/SKILL\.md`", "Agents in Copilot's Chat tab", text)
     text = text.rstrip("\n") + ("\n- Instructions the leader last pasted back: \"Practice run: nothing will be sent or changed.\" "
                                 "… (the agent's instructions, as pasted after Create)\n")
-    rec.write_text(text.replace("Gmail", "Outlook"))  # the agent drafts in Outlook (agent_m365)
+    rec.write_text(text)
     write(wf(t) / "package" / "client-follow-up-build-prompt.md",
-          "Build the agent described in task T2 of design-plan.md, using the requirements in requirements.md. Both files are in my OneDrive, in ai-workspace/framework/client-follow-up. …\n")
+          "Build the agent described in task T1 of design-plan.md, using the requirements in requirements.md. Both files are in my OneDrive, in ai-workspace/framework/client-follow-up. …\n")
     fix_round(t)
 
 

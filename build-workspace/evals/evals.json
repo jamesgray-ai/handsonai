@@ -4386,12 +4386,12 @@
    ],
    "expectations": [
     {
-     "text": "skipped: no terminal (once release check 9 is verified; while it's open, skipped for the release check)",
+     "text": "skipped: no terminal (once release check 36 is verified; while it's open, skipped for the release check)",
      "kind": "scripted",
      "check": {
       "type": "release_check",
       "ids": [
-       9
+       36
       ],
       "passed": {
        "type": "file_regex",
@@ -8861,12 +8861,12 @@
      }
     },
     {
-     "text": "[P2-bare-codex] N-B45 (Codex, in the CLI) (release check 9 verified; while it's open: no N-B45, skipped with its reason in bare_run)",
+     "text": "[P2-bare-codex] N-B45 (Codex, in the CLI) (release check 36 verified; while it's open: no N-B45, skipped with its reason in bare_run)",
      "kind": "scripted",
      "check": {
       "type": "release_check",
       "ids": [
-       9
+       36
       ],
       "passed": {
        "type": "quote",
@@ -8890,12 +8890,12 @@
      }
     },
     {
-     "text": "[P2-bare-codex] N-B43 (release check 9 verified; while it's open: no N-B45, skipped with its reason in bare_run)",
+     "text": "[P2-bare-codex] N-B43 (release check 36 verified; while it's open: no N-B45, skipped with its reason in bare_run)",
      "kind": "scripted",
      "check": {
       "type": "release_check",
       "ids": [
-       9
+       36
       ],
       "passed": {
        "type": "quote",
