@@ -34,7 +34,7 @@ import sys
 from pathlib import Path
 
 FIVE = ["analyze", "deconstruct", "design", "build", "test"]
-SKILL_NAMES = FIVE + ["scaffolding-registry", "indexing-registry"]
+SKILL_NAMES = FIVE + ["scaffolding-registry", "indexing-registry", "naming-workflows"]
 
 # ---------------------------------------------------------------- markdown helpers
 
@@ -378,14 +378,70 @@ LTA_SECTIONS = [r"^## Shared lines", r"^## Analyze", r"^## Deconstruct", r"^## D
                 r"^## Registry skills"]
 
 
-def table_rows(spec):
-    """Every row of every line table: (table label, id, used-by, cell text, status, step)."""
+def explicit_tables(lines):
+    """A line section written one form per row (header "ID | Form | ... | Line"), as deconstruct.md 19
+    has been since the single interview: (rows, retired rows). Tables under a "### Retired lines"
+    heading are retired; their "Retired" column, when there is one, says when and why."""
+    active, retired, in_retired, cur = [], [], False, []
+    blocks = []
+    for l in lines:
+        if re.match(r"^### Retired lines", l):
+            in_retired = True
+        if l.startswith("|"):
+            cur.append(l)
+            continue
+        if cur:
+            blocks.append((in_retired, cur))
+            cur = []
+    if cur:
+        blocks.append((in_retired, cur))
+    for ret, block in blocks:
+        t = tables_in(block)[0]
+        hdr = [h.lower() for h in t[0]]
+        if len(hdr) < 3 or hdr[0] != "id" or hdr[1] != "form" or "line" not in hdr:
+            continue
+        li = hdr.index("line")
+        ri = hdr.index("retired") if "retired" in hdr else None
+        wi = hdr.index("where") if "where" in hdr else None
+        ui = hdr.index("used by") if "used by" in hdr else None
+        fi = hdr.index("file") if "file" in hdr else None
+        for r in t[1:]:
+            row = {"id": norm_id(r[0]), "form": r[1].strip(), "text": r[li].strip(),
+                   "where": r[wi].strip() if wi is not None else None,
+                   "used_by": r[ui].strip() if ui is not None else None,
+                   "file": r[fi].strip().strip("`") if fi is not None else None}
+            if ret:
+                row["retired"] = r[ri].strip() if ri is not None else "retired"
+                retired.append(row)
+            else:
+                active.append(row)
+    return active, retired
+
+
+def table_rows(spec, with_retired=False):
+    """Every row of every line table: (table label, id, used-by, cell text, status, step). A section
+    written one form per row gives one row per form ("explicit"), with its form and text."""
     rows = []
     for fname, head, idx, (ci, cu, ct, cs), label in TABLES:
-        t = tables_in(section_lines(read(spec, fname), head))[idx]
+        sec = section_lines(read(spec, fname), head)
+        t = tables_in(sec)[idx]
+        if len(t[0]) > 1 and t[0][1].strip().lower() == "form":
+            active, retired = explicit_tables(sec)
+            for r in active + (retired if with_retired else []):
+                rows.append({"table": label, "id": r["id"], "used_by": r["used_by"], "cell": None, "status": "",
+                             "step": STEP_OF.get(fname), "explicit": True, "form": r["form"],
+                             "text": r["text"], "where": r["where"], "retired": r.get("retired"),
+                             "file": r["file"]})
+            continue
         for r in t[1:]:
             rows.append({"table": label, "id": norm_id(r[ci]), "used_by": r[cu] if cu is not None else None,
                          "cell": r[ct], "status": r[cs], "step": STEP_OF.get(fname)})
+        if with_retired:
+            # a "### Retired lines" table in a section otherwise written with quoted forms
+            for r in explicit_tables(sec)[1]:
+                rows.append({"table": label, "id": r["id"], "used_by": r["used_by"], "cell": None, "status": "",
+                             "step": STEP_OF.get(fname), "explicit": True, "form": r["form"],
+                             "text": r["text"], "where": None, "retired": r["retired"], "file": r["file"]})
     return rows
 
 
@@ -457,6 +513,7 @@ def descriptions(spec):
     out = []
     for fname, sid, head in (("analyze.md", "analyze:description", r"^## 3\. The flow"),
                              ("deconstruct.md", "deconstruct:description", r"^## 17\. The skill's files"),
+                             ("design.md", "design:description", r"^## 13\. The skill"),
                              ("build.md", "build:description", r"^## 15\. The skill's files"),
                              ("test.md", "test:description", r"^## 15\. The skill's files")):
         body = section_lines(read(spec, fname), head)
@@ -494,7 +551,7 @@ def routing_text(spec):
 def extract(spec):
     spec_ctx = {"build_files": parse_file_table(spec, "build.md", "build"),
                 "test_files": parse_file_table(spec, "test.md", "test")}
-    rows = table_rows(spec)
+    rows = table_rows(spec, with_retired=True)
     lta = lta_rows(spec)
     lta_by_id = {}
     for r in lta:
@@ -502,10 +559,20 @@ def extract(spec):
     entries, warnings = [], []
     shared_skills = {}
 
-    def add(eid, form, text, skills, source, section=None, note=""):
+    def add(eid, form, text, skills, source, section=None, note="", retired=None, file=None):
         files, fnote = files_for(eid, skills, form, spec_ctx, section)
+        if file:
+            # an explicit "File" column: one file for every skill, or "skill: file; skill: file"
+            if ":" in file:
+                files = {k.strip(): v.strip().strip("`") for k, v in
+                         (pair.split(":", 1) for pair in file.split(";"))}
+            else:
+                files = {sk: file for sk in skills}
+            fnote = ""
         e = {"id": eid, "form": form, "text": text, "kind": kind_of(eid, form, text or "", skills),
              "skills": skills, "files": files, "source": source}
+        if retired:
+            e["retired"] = retired
         if text and is_fragment(text):
             e["fragment"] = True
         n = "; ".join(x for x in (note, fnote) if x)
@@ -514,8 +581,16 @@ def extract(spec):
         entries.append(e)
 
     # 1. every row of every line table
+    explicit_steps = {r["step"] for r in rows if r.get("explicit")}
     for r in rows:
         eid = r["id"]
+        if r.get("explicit"):
+            # one form per row: the row is the line, its form and its status; nothing to infer
+            sk = skills_from(r["used_by"]) if r["used_by"] else [r["step"]]
+            shared_skills.setdefault(eid, sk)
+            add(eid, r["form"], r["text"], sk, f"{r['table']}" + (f" ({r['where']})" if r["where"] else ""),
+                section=r["where"], retired=r.get("retired"), file=r.get("file"))
+            continue
         skills = skills_from(r["used_by"]) if r["used_by"] is not None else [r["step"]]
         if eid == "N-A7":
             skills = ["scaffolding-registry"]
@@ -561,7 +636,11 @@ def extract(spec):
                 sk, src = ["indexing-registry"], "3c-DP (2026-10-24), build T31 from eval IR1"
             else:
                 sk, src = ["deconstruct"], "3c-DJ (2026-10-24), open point 20"
+            in_corpus = {qn(e["text"]) for e in entries if e["text"]}
             for form, text in forms_of(r["cell"]):
+                # a later-change row ("N-5 (one-point form)") records a form a line table already holds
+                if qn(text) in in_corpus:
+                    continue
                 add(r["id"], form, text, sk, f"{r['table']}; {src}")
 
     # 3. cross-check: every lines-to-approve form is in the corpus under its id
@@ -569,9 +648,10 @@ def extract(spec):
     for e in entries:
         if e["text"]:
             have.setdefault(e["id"], set()).add(qn(e["text"]))
+    every = set().union(*have.values()) if have else set()
     for r in lta:
         for form, text in forms_of(r["cell"]):
-            if qn(text) not in have.get(r["id"], set()):
+            if qn(text) not in have.get(r["id"], set()) and qn(text) not in every:
                 warnings.append(f"lines-to-approve {r['id']} form {form!r} differs from the line table: {text[:90]!r}")
 
     # 4. build's kept-word-for-word lines (D12; the Git offer already has a row via design/test)
@@ -586,7 +666,7 @@ def extract(spec):
         if "deconstruct" in e["skills"] and e["text"]:
             known[qn(e["text"])] = e["id"]
     seen_alias = {}
-    for b in deconstruct_body(spec):
+    for b in ([] if "deconstruct" in explicit_steps else deconstruct_body(spec)):
         q = qn(b["text"])
         bid = b["id"]
         if bid in seen_alias:
@@ -629,8 +709,15 @@ def count_check(spec, corpus):
     rows = table_rows(spec)
     lta = lta_rows(spec)
     ids = {e["id"] for e in corpus["lines"]}
+    texts = {qn(e["text"]) for e in corpus["lines"] if e["text"]}
+
+    def lta_covered(r):
+        # a later-change row ("N-5 (one-point form)") is covered when each of its forms is in the corpus
+        forms = forms_of(r["cell"])
+        return r["id"] in ids or (forms and all(qn(t) in texts for _, t in forms))
+
     missing = [f"{r['table']}: {r['id']}" for r in rows if r["id"] not in ids]
-    missing += [f"{r['table']}: {r['id']}" for r in lta if r["id"] not in ids]
+    missing += [f"{r['table']}: {r['id']}" for r in lta if not lta_covered(r)]
     by_table = {}
     for r in rows:
         by_table.setdefault(r["table"], [0, 0])
@@ -645,7 +732,7 @@ def count_check(spec, corpus):
     print("Count check against the spec's line tables:")
     for t, (n, ok) in by_table.items():
         print(f"  {t}: {ok} of {n} rows have an entry")
-    print(f"  lines-to-approve.md: {sum(r['id'] in ids for r in lta)} of {len(lta)} rows have an entry")
+    print(f"  lines-to-approve.md: {sum(bool(lta_covered(r)) for r in lta)} of {len(lta)} rows have an entry")
     print("Entries per skill (lines / line-and-form entries):")
     for s in FIVE + ["scaffolding-registry", "indexing-registry", "built-workflow"]:
         if s in by_step:
