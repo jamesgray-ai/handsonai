@@ -716,10 +716,12 @@ def main():
         for f in cf.as_completed(futs):
             try:
                 r = f.result()
-            except Exception as e:  # a bug in the runner: record it as a harness failure
+            except Exception as e:  # a bug in the runner: record it as a harness failure, with where
                 ev, k = futs[f]
+                import traceback
+                where = " | ".join(l.strip() for l in traceback.format_exception(type(e), e, e.__traceback__)[-4:-1])
                 r = {"eval": ev["id"], "run": k, "tier": tier_of(ev, data), "status": "harness_failure",
-                     "note": H.scrub(repr(e))[:500]}
+                     "note": H.scrub(f"{e!r} at {where}")[:800]}
             results.append(r)
             print(f"[{r.get('tier')}] {r['eval']} run-{r['run']}: {r['status']}"
                   + (f" {r['passed']}/{r['total']}" if "total" in r else "")

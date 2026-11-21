@@ -576,11 +576,20 @@ def where_skill(root, name):
     """Where a skill named `name` sits now, as paths relative to the run root (never a home path):
     so an unexpected-skill stop says where the session could have found it."""
     hits = []
-    for f in Path(root).rglob("SKILL.md"):
+    # A session writes and deletes files under the run root while this walks it (build-full-1-fix,
+    # 2026-11-21: two runs stopped on a FileNotFoundError here), so a file gone mid-walk is skipped.
+    for dirpath, _dirs, files in os.walk(root, onerror=lambda e: None):
+        if "SKILL.md" not in files:
+            continue
+        f = Path(dirpath) / "SKILL.md"
         rel = f.relative_to(root)
         if rel.parts[0] == "plugin":
             continue
-        if f.parent.name == name or re.search(rf"(?m)^name:\s*{re.escape(name)}\s*$", f.read_text(errors="replace")[:2000]):
+        try:
+            text = f.read_text(errors="replace")[:2000]
+        except OSError:
+            continue
+        if f.parent.name == name or re.search(rf"(?m)^name:\s*{re.escape(name)}\s*$", text):
             hits.append(str(rel))
     return hits or ["nowhere in the run root"]
 
@@ -824,6 +833,20 @@ ANTHROPIC_SYNC_SOURCES = {"anthropic", "anthropic-example"}
 
 
 def _synced_manifests():
+    """Each account's manifest skills. The account sync rewrites manifest.json in place; a read that
+    lands mid-rewrite is retried (build-full-1-fix, 2026-11-21: a round voided on a synced change
+    nothing in the folder dates to), and only a manifest unreadable three times counts as such."""
+    first = _synced_manifests_once()
+    for _ in range(2):
+        if first is None or "unreadable manifest" not in json.dumps(
+                {str(k): v for k, v in first.items()}, default=str):
+            return first
+        time.sleep(1)
+        first = _synced_manifests_once()
+    return first
+
+
+def _synced_manifests_once():
     root = REAL_CLAUDE / "skills" / "synced"
     if not root.exists():
         return None
@@ -863,6 +886,18 @@ def _synced_skills():
     return hashlib.sha256(json.dumps(out, sort_keys=True).encode()).hexdigest()
 
 
+def _synced_summary():
+    """What the fail-closed hash of skills/synced covers, in words, so a void can say what changed."""
+    manifests = _synced_manifests() or {}
+    out = []
+    for acct, skills in manifests.items():
+        theirs = {str(x.get(k)) for x in skills if _is_anthropic(x) for k in ("skillId", "name")}
+        out += [f"folder {p.name}" for p in acct.iterdir() if p.is_dir() and p.name not in theirs]
+        out += [f"skill {x.get('name')} {x.get('source')} {x.get('updatedAt')}" if isinstance(x, dict) else f"entry {x}"
+                for x in skills if not _is_anthropic(x)]
+    return sorted(out)
+
+
 def _anthropic_synced():
     """Anthropic's own synced skills, by name, with their updatedAt: logged, never voiding."""
     manifests = _synced_manifests() or {}
@@ -888,6 +923,7 @@ def real_config_snapshot():
         "settings.json": _hash_tree(REAL_CLAUDE / "settings.json"),
         "skills/": _hash_tree(REAL_CLAUDE / "skills", skip=("synced",)),
         "skills/synced": _synced_skills(),
+        "_synced_summary": _synced_summary(),
         "_anthropic_synced": _anthropic_synced(),
         "agents/": _hash_tree(REAL_CLAUDE / "agents"),
         "mcpServers": hashlib.sha256(json.dumps(cj.get("mcpServers"), sort_keys=True).encode()).hexdigest(),
@@ -947,7 +983,11 @@ def compare_snapshots(before, after):
     bad = []
     for k in ("settings.json", "skills/", "skills/synced", "agents/", "mcpServers", "oauthAccount"):
         if before[k] != after[k]:
-            bad.append(f"{k} changed")
+            if k == "skills/synced" and "_synced_summary" in before:
+                b, a = set(before["_synced_summary"]), set(after.get("_synced_summary", []))
+                bad.append(f"{k} changed (gone: {sorted(b - a)}; new: {sorted(a - b)})")
+            else:
+                bad.append(f"{k} changed")
     new_plugins = sorted(set(after["plugin_keys"]) - set(before["plugin_keys"]))
     if new_plugins:
         bad.append(f"new plugins installed: {new_plugins}")

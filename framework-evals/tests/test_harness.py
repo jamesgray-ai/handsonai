@@ -1469,13 +1469,24 @@ class StubbedHarness(unittest.TestCase):
         before = H.real_config_snapshot()
         other = {"skillId": "other", "name": "other", "source": "plugin", "updatedAt": "1"}
         self._sync([mine, other], ["mine", "other"])
-        self.assertEqual(H.compare_snapshots(before, H.real_config_snapshot()), ["skills/synced changed"])
+        bad = H.compare_snapshots(before, H.real_config_snapshot())
+        self.assertEqual(len(bad), 1)
+        self.assertTrue(bad[0].startswith("skills/synced changed"))
+        self.assertIn("folder other", bad[0])
 
     def test_folder_named_like_an_anthropic_skill_but_unlisted_still_voids(self):
         self._sync([], [])
         before = H.real_config_snapshot()
         self._sync([], ["google-workspace"])
-        self.assertEqual(H.compare_snapshots(before, H.real_config_snapshot()), ["skills/synced changed"])
+        bad = H.compare_snapshots(before, H.real_config_snapshot())
+        self.assertEqual(len(bad), 1)
+        self.assertIn("folder google-workspace", bad[0])
+
+    def test_where_skill_skips_a_file_gone_mid_walk(self):
+        root = self.tmp / "root"
+        (root / "a").mkdir(parents=True)
+        (root / "a" / "SKILL.md").symlink_to(root / "missing")
+        self.assertEqual(H.where_skill(root, "a"), ["nowhere in the run root"])
 
     def test_round_reports_per_tier(self):
         import run_eval as R
