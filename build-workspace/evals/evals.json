@@ -4031,7 +4031,7 @@
      "text": "[P1-read-floor] The mixed tool denied",
      "kind": "scripted",
      "check": {
-      "type": "file_regex",
+      "type": "tool_write",
       "path": ".claude/settings.local.json",
       "pattern": "manage_crm_objects"
      }
@@ -4258,7 +4258,7 @@
    "fixture": "cc-edited-wrapper",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "The wrapper's fingerprint doesn't match: check agents only, no bare run; never fixed by editing.",
+   "expected_output": "The wrapper's fingerprint doesn't match: with the block on, check agents only, no bare run; with the block not yet on, nothing is checked and the leader is told how to get a fresh copy; never fixed by editing.",
    "files": [
     "students/default.md"
    ],
@@ -4273,7 +4273,7 @@
      }
     },
     {
-     "text": "Build says the wrapper changed; check agents only, no bare run; never hand-edits the wrapper (a byte-for-byte copy from the plugin is allowed)",
+     "text": "Build says the wrapper changed and never hand-edits it (a byte-for-byte copy from the plugin is allowed); with the block already on, it checks with check agents only and skips the bare run; with the block not yet on (the block needs the wrapper), it checks nothing, leaves the block off and tells the leader how to get a fresh copy",
      "kind": "judged"
     }
    ],

@@ -70,6 +70,8 @@ Inputs marked `not available yet` (the D12 line in `SKILL.md`), and in the recor
 
 ## 6. Finish the record and the registry
 
+Steps 1 to 4 make no text between their tool calls: no line on what you're writing, saving, lifting or recording. Your only text is step 1's own (N-B21a and the settings message), then the Git offer and the close.
+
 1. **Settings and folders** (Claude Code): lift the block with N-B21a and clear the run folders (`claude-code-block.md` section 8). Then say, in one short message of your own words, what's left in the leader's settings and how to remove each if they drop the workflow: the wrapper's allow and the rules protecting its folder, which stay for Test and are removed at go-live, and any allow rule the leader added during Build.
 2. **"What was built" and "What it can access"** at the top of the record, written with step 3's values and the lift's `write_block: off` in one Write of the whole record, keeping Test's "Live since" and "How to switch it off" lines and the older-version line (`build-record-template.md`).
 3. **Set `plan_revision` and `last_close_after_round`** (the last round's number, 0 before any round). Only at a close.

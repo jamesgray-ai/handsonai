@@ -732,7 +732,9 @@ def fx_cc_mixed_tool(t):  # the workflow reads deals through HubSpot, whose only
     with the call notes; W2, a call note logged on that deal, which the account team sees (P1-qrc-crm: no place only
     the leader sees, so N-B26's no-private-place form); T3, HubSpot's setup task with a read-back. On Claude
     Code the stand-in HubSpot (run_eval.connections_for) offers one CRM tool, `manage_crm_objects`, that
-    both reads and changes records (P1-read-floor)."""
+    both reads and changes records (P1-read-floor). final-build fix (2026-11-22): W2 was classed undoable with no
+    checkpoint, though the team sees the note at once, so Build rightly sent the plan back (the floor) before
+    the quick real check this test is for; it is now can't-be-undone with G1 before it's logged."""
     ff(t, S06)
     full(t)
     p, r = plan(t), req(t)
@@ -744,7 +746,7 @@ def fx_cc_mixed_tool(t):  # the workflow reads deals through HubSpot, whose only
         "Gmail: the Claude Code connector (use). HubSpot: the HubSpot connector, to read the account's open deal and log a call note on it (use); its `manage_crm_objects` tool both reads and changes records.")
     sub(p, "| W1 | Gmail | create a draft | undoable (you can delete the draft) | G1 before you send |",
         "| W1 | Gmail | create a draft | undoable (you can delete the draft) | G1 before you send |\n"
-        "| W2 | HubSpot | log a call note on the account's open deal (the account team sees it) | undoable (you can delete the note) | — |")
+        "| W2 | HubSpot | log a call note on the account's open deal (the account team sees it) | can't be undone (the account team sees it as soon as it's logged) | G1 before it's logged |")
     sub(p, f"{PA} Deterministic | S1 | Gmail (use) |", f"{PA} Deterministic | S1 | Gmail (use); HubSpot (read the open deal) |")
     sub(p, f"{PB} Guided | S1 | — |", f"{PB} Guided | S1 | HubSpot (log a call note) |")
     sub(p, "- **Inputs:** I1\n", "- **Inputs:** I1, I2\n")

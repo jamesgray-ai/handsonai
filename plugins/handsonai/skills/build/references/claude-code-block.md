@@ -118,7 +118,7 @@ Before every headless session, and before every other wrapper call:
 shasum -a 256 framework/.bin/test-run.sh <this skill's folder>/scripts/test-run.sh
 ```
 
-Both must equal the record's `fingerprints.wrapper`. Any mismatch fails closed: no headless session in this entry, check agents only, and the bare run skipped (`bare_run: skipped: wrapper fingerprint`). The wrapper repeats the check against the record and `--plugin-copy` itself and refuses (exit 4) on a mismatch, but that self-check only catches a stale copy: your check comes first. A mismatch is never fixed by editing anything; at the next block, step 2 copies the plugin's file again.
+Both must equal the record's `fingerprints.wrapper`. Any mismatch fails closed: no headless session in this entry, check agents only, and the bare run skipped (`bare_run: skipped: wrapper fingerprint`). Before the block is on (putting it on needs the wrapper), a mismatch means no block, so check nothing: leave the block off and tell the leader in plain words that the test helper was changed and how to get a fresh copy. The wrapper repeats the check against the record and `--plugin-copy` itself and refuses (exit 4) on a mismatch, but that self-check only catches a stale copy: your check comes first. A mismatch is never fixed by editing anything; at the next block, step 2 copies the plugin's file again.
 
 Every release check in section 10 is open in this release: each takes its fallback. No version is read to decide it.
 
