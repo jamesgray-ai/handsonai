@@ -181,14 +181,16 @@ STEP_NUMBER = re.compile(
     rf"|\b(?:first|second|third|fourth|fifth)\s+step\s+of\s+the\s+(?:AI\s+Workflow\s+)?[Ff]ramework\b")
 
 # One interview for every workflow (2026-11-15): Deconstruct has no parts and so no signposts
-SIGNPOST_IDS = {"design": (4, ["N-0"]), "test": (4, ["N-T1"]), "build": (3, ["N-B1"])}
+# Build announces no parts either (2026-11-22, James, after final-build-2): its opening says what comes
+SIGNPOST_IDS = {"design": (4, ["N-0"]), "test": (4, ["N-T1"])}
 # Deconstruct gives one figure, once: the count in the line that says how the interview will go
 # (deconstruct:light-line). "About [M] questions left." is never said after it; leader.replies_by_part still
 # reports it as a count point when a run says it, so a stray count shows up in the measurement
 COUNT_LINE_ID = "deconstruct:questions-left"
 COUNT_CARRIERS = [("deconstruct:light-line", "main")]
 BUILTIN =("scripted_lines", "vocabulary", "no_time_or_step_numbers")
-BUILTIN_TEXT = {"scripted_lines": "Every scripted line the AI says is the approved line, word for word (the quote check)",
+BUILTIN_TEXT = {"scripted_lines": "Every scripted line the AI says is the approved line, word for word (the quote check; "
+                                  "a line that doesn't protect the leader may have a word or two changed)",
                 "vocabulary": "No word from the vocabulary's Never column in anything the leader reads",
                 "no_time_or_step_numbers": "No time estimate and no framework step number in anything the leader reads",
                 "narration": "No narration: no AI paragraph that is a note to itself ('Now the…', 'Read …', 'Ask N-…', "
@@ -929,10 +931,15 @@ def check(c, run):
                              if s.get("platform") in ("claude-code", "codex") else [])
             for i, m in enumerate(_ai_turns(s, which), 1):
                 hit = next((f for f in local if f.matches(m)), None)
-                if hit:
+                # final-build-2 (2026-11-22, James): a line that isn't strict counts as said with a word or
+                # two changed, none of them a protected word (approved_lines.STRICT_CUES)
+                loose = None if hit else next((f for f in local if f.loose_matches(m)), None)
+                if hit or loose:
+                    got = hit or loose
+                    how = "" if hit else ", with a small edit"
                     if t == "quote":
-                        return True, f"{hit.label()} in session {s['n']} AI message {i}"
-                    return False, f"{hit.label()} said in session {s['n']} AI message {i}"
+                        return True, f"{got.label()} in session {s['n']} AI message {i}{how}"
+                    return False, f"{got.label()} said in session {s['n']} AI message {i}{how}"
         return (False, f"{c['id']} not said word for word") if t == "quote" else (True, f"{c['id']} not said")
     if t == "scripted_lines":
         skill = c.get("skill") or run.get("skill")

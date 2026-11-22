@@ -2,6 +2,8 @@
 
 Read in fix mode (the last round is Not ready with Issues rows at Level `build` and no Build close since, reached by name or by "continue my workflow"), for a put-back of the built version, and for adopted direct edits. Fix mode runs in one pass with any other work this entry has: tasks whose `rev` rose after Design handled a change request, adopted direct edits, and an undo.
 
+Reading this file, the record and the round is tool calls with no text: never a line naming fix mode, the files you read or what you'll do next. Your first text is a line for the leader (`SKILL.md`, its first rule), usually the opener (N-B14).
+
 **Contents:** 1. The opener · 2. The fixes · 3. Adopted direct edits · 4. Putting back the built version · 5. The close
 
 ## 1. The opener
@@ -17,9 +19,9 @@ Nothing comes before it but the three-rounds line above. The part goes in its ow
 Then, before anything changes:
 - **A live workflow:** `live-change.md` (N-B41 straight after the opener).
 - **A direct edit** to a part fix mode will redo: `SKILL.md`'s entry check 7.
-- **The block** (Claude Code) is re-applied before any check, from a fresh list of each connection's tools, using the OK the record holds (the record's `## Claude Code profile` and `fingerprints.wrapper`, written only after the leader's OK to N-B20; with neither, ask N-B20 as Part 1 does). Re-applying it is no part of its own and asks nothing.
+- **The block** (Claude Code) is re-applied before any check, from a fresh list of each connection's tools, using the OK the record holds (the record's `## Claude Code profile` and `fingerprints.wrapper`, written only after the leader's OK to N-B20; with neither, ask N-B20 as Part 1 does). Re-applying it is `claude-code-block.md` section 4's steps 4 to 8 in full, never step 4 alone: the rules asked for, written to the settings, recorded, the check agent files written, and the settings read back with `settings-check`, all before the first check. It is no part of its own and asks nothing.
 
-Signposts count only the parts fix mode runs: number them from 1, fix the total at the first one, and keep it across Claude Code's restart. Usually: "Part 1 of 2 in this fix — building and checking", then "Part 2 of 2 in this fix — save it and test". When a Cause sends a connection back to setup: "Part 1 of 3 in this fix — your setup", and the count carries on from there.
+Fix mode announces no parts either (`SKILL.md`, before *Phase 1*): no part name or count, in any words.
 
 ## 2. The fixes
 

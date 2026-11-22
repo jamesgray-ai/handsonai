@@ -26,7 +26,7 @@
      }
     },
     {
-     "text": "No opening and no signpost",
+     "text": "No opening and no part count",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -36,8 +36,8 @@
         "id": "N-B4"
        },
        {
-        "type": "quote_absent",
-        "id": "N-B1"
+        "type": "ai_not_regex",
+        "pattern": "\\bPart [0-9] of [0-9]\\b"
        }
       ]
      }
@@ -3559,11 +3559,11 @@
    ],
    "expectations": [
     {
-     "text": "Build's signposts, \"Part k of 3\", in order",
+     "text": "No part count ('Part k of N'): Build announces no parts",
      "kind": "scripted",
      "check": {
-      "type": "signposts",
-      "skill": "build"
+      "type": "ai_not_regex",
+      "pattern": "\\bPart [0-9] of [0-9]\\b"
      }
     },
     {
@@ -4052,7 +4052,7 @@
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
       "section": "## What it can access",
-      "pattern": "(?i)manage_crm_objects.*write|write.*manage_crm_objects",
+      "pattern": "(?i)(manage[_ ]crm[_ ]objects|crm records).*\\ba write\\b",
       "must": true
      }
     }
@@ -6419,12 +6419,11 @@
      }
     },
     {
-     "text": "Build's signposts, \"Part k of 3\", in order",
+     "text": "No part count ('Part k of N'): Build announces no parts",
      "kind": "scripted",
      "check": {
-      "type": "signposts",
-      "skill": "build",
-      "of": 2
+      "type": "ai_not_regex",
+      "pattern": "\\bPart [0-9] of [0-9]\\b"
      }
     }
    ],
@@ -6641,22 +6640,21 @@
    "id": "FX-block-reapplied",
    "name": "fix-block-reapplied",
    "tier": "core",
-   "spec_item": "13 Fix mode: the block re-applied; signposts count only the parts run",
+   "spec_item": "13 Fix mode: the block re-applied; no part count",
    "fixture": "fix-mode",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "The block re-applied before any check from a fresh tool list; the signposts count only the parts run.",
+   "expected_output": "The block re-applied before any check from a fresh tool list; no part count is said.",
    "files": [
     "students/default.md"
    ],
    "expectations": [
     {
-     "text": "Build's signposts, \"Part k of 3\", in order",
+     "text": "No part count ('Part k of N'): Build announces no parts",
      "kind": "scripted",
      "check": {
-      "type": "signposts",
-      "skill": "build",
-      "of": 2
+      "type": "ai_not_regex",
+      "pattern": "\\bPart [0-9] of [0-9]\\b"
      }
     },
     {
@@ -7556,11 +7554,11 @@
    ],
    "expectations": [
     {
-     "text": "[JR-chatgpt] Build's signposts, \"Part k of 3\", in order",
+     "text": "[JR-chatgpt] No part count ('Part k of N'): Build announces no parts",
      "kind": "scripted",
      "check": {
-      "type": "signposts",
-      "skill": "build"
+      "type": "ai_not_regex",
+      "pattern": "\\bPart [0-9] of [0-9]\\b"
      }
     },
     {
@@ -7886,11 +7884,11 @@
    ],
    "expectations": [
     {
-     "text": "[JR-claude-web] Build's signposts, \"Part k of 3\", in order",
+     "text": "[JR-claude-web] No part count ('Part k of N'): Build announces no parts",
      "kind": "scripted",
      "check": {
-      "type": "signposts",
-      "skill": "build"
+      "type": "ai_not_regex",
+      "pattern": "\\bPart [0-9] of [0-9]\\b"
      }
     },
     {
@@ -8229,11 +8227,11 @@
    ],
    "expectations": [
     {
-     "text": "[JR-claude-desktop] Build's signposts, \"Part k of 3\", in order",
+     "text": "[JR-claude-desktop] No part count ('Part k of N'): Build announces no parts",
      "kind": "scripted",
      "check": {
-      "type": "signposts",
-      "skill": "build"
+      "type": "ai_not_regex",
+      "pattern": "\\bPart [0-9] of [0-9]\\b"
      }
     },
     {
@@ -8446,11 +8444,11 @@
    ],
    "expectations": [
     {
-     "text": "[JR-microsoft-365] Build's signposts, \"Part k of 3\", in order",
+     "text": "[JR-microsoft-365] No part count ('Part k of N'): Build announces no parts",
      "kind": "scripted",
      "check": {
-      "type": "signposts",
-      "skill": "build"
+      "type": "ai_not_regex",
+      "pattern": "\\bPart [0-9] of [0-9]\\b"
      }
     },
     {
@@ -8624,11 +8622,11 @@
      }
     },
     {
-     "text": "[JR-claude-code] Build's signposts, \"Part k of 3\", in order",
+     "text": "[JR-claude-code] No part count ('Part k of N'): Build announces no parts",
      "kind": "scripted",
      "check": {
-      "type": "signposts",
-      "skill": "build"
+      "type": "ai_not_regex",
+      "pattern": "\\bPart [0-9] of [0-9]\\b"
      }
     },
     {
@@ -8781,11 +8779,11 @@
    ],
    "expectations": [
     {
-     "text": "[JR-codex] Build's signposts, \"Part k of 3\", in order",
+     "text": "[JR-codex] No part count ('Part k of N'): Build announces no parts",
      "kind": "scripted",
      "check": {
-      "type": "signposts",
-      "skill": "build"
+      "type": "ai_not_regex",
+      "pattern": "\\bPart [0-9] of [0-9]\\b"
      }
     },
     {
@@ -8958,11 +8956,11 @@
    "expected_output": "python3 missing: the block can't be written or read back, so Build stops before Part 2, checks nothing and changes nothing, and gives N-B55, the stop line with Build's start phrase and the location.",
    "expectations": [
     {
-     "text": "No Part 2",
+     "text": "Nothing checked: no part is written to the package",
      "kind": "scripted",
      "check": {
-      "type": "ai_not_contains",
-      "text": "Part 2 of 3"
+      "type": "file_absent",
+      "path": "framework/client-follow-up/package/*"
      }
     },
     {

@@ -32,6 +32,31 @@ DEFAULT_CORPUS = HERE / "approved-lines.json"
 MIN_SEGMENT_WORDS = 6
 SHORT_RUN_WORDS = 8
 
+# final-build-2 (2026-11-22, James): word for word is kept only for the lines that protect the leader. A line is
+# strict when it carries a safety cue below (a button to choose, an approval, what can't be undone, a pause, a
+# kept copy, a delete or overwrite, regulated or confidential content, a password or key) or is a line every
+# built part carries. Any other line may be said with a word or two changed (cap as near_misses), unless the
+# change touches a protected word: a negation, "only", a button name, a number, a sentence mark or a start
+# phrase's words.
+STRICT_CUES = re.compile(r"\b(?:Deny|Allow once|Always allow|allow|approv\w*|undone|undo|hard block|practice run|"
+                         r"pause\w*|a copy|delet\w*|overwrit\w*|regulat\w*|confidential|sensitive|password)\b", re.I)
+PUNCT_WORD = re.compile(r"[A-Za-z0-9]+(?:'[A-Za-z]+)?|[.:;?!]")
+PROTECTED = {".", ":", ";", "?", "!", "not", "no", "never", "don't", "won't", "can't", "isn't", "aren't", "nothing", "only", "deny",
+             "allow", "always", "once", "stop",
+             # a start phrase stays exact: its step, "skill", "run" and the routing words
+             "analyze", "deconstruct", "design", "build", "test", "skill", "run", "change", "continue", "workflow", "my"}
+
+
+def _pwords(s):
+    """Words and sentence marks (. : ; ? !), lower-cased: a loose match keeps a line's sentences as they are."""
+    return [w.lower() for w in PUNCT_WORD.findall(norm(s))]
+
+
+def _protected_change(seg, win):
+    """True when the edit from seg to win adds, drops or swaps a protected word or a number."""
+    key = lambda ws: sorted(w for w in ws if w in PROTECTED or any(ch.isdigit() for ch in w))
+    return key(seg) != key(win)
+
 
 def norm(s):
     s = (s.replace("‘", "'").replace("’", "'").replace("“", '"').replace("”", '"')
@@ -221,6 +246,10 @@ class Line:
         req = [norm(x) for x in literal_segments([t if t[0] != "opt" else ("hole", "") for t in self.toks])]
         self.longest = max(req, key=len, default="") or max(
             (norm(x) for x in literal_segments(self.toks)), key=len, default="")
+        self.strict = self.kind == "carried" or bool(self.text and STRICT_CUES.search(self.text))
+        # the fixed runs a loose match needs, with sentence marks kept and optional clauses left out
+        self.loose_segments = [s for s in (_pwords(x) for x in literal_segments(
+            [t if t[0] != "opt" else ("hole", "") for t in self.toks])) if s]
 
     @property
     def regex(self):
@@ -239,6 +268,33 @@ class Line:
         if longest and _pre(longest).lstrip(".;:, ") not in _pre(nm):
             return False
         return bool(self.regex.search(nm))
+
+    def loose_matches(self, message):
+        """A line that isn't strict, said with a word or two changed in its fixed runs (never a protected
+        word or a sentence mark, and only in a run of three or more), each run in order: it counts as said.
+        Strict lines never match loosely."""
+        if self.strict or not self.text or not self.loose_segments:
+            return False
+        ws, pos = _pwords(message), 0
+        for seg in self.loose_segments:
+            cap = 1 if len(seg) < 12 else 2
+            hit = None
+            for a in range(pos, len(ws)):
+                for d in sorted(range(-cap, cap + 1), key=abs):
+                    L = len(seg) + d
+                    if L < 1 or a + L > len(ws):
+                        continue
+                    win = ws[a:a + L]
+                    if win == seg or (len(seg) >= 3 and _edit_distance(seg, win, cap) <= cap
+                                      and not _protected_change(seg, win)):
+                        hit = a + L
+                        break
+                if hit is not None:
+                    break
+            if hit is None:
+                return False
+            pos = hit
+        return True
 
     def label(self):
         return f"{self.id} ({self.form})"
@@ -291,13 +347,6 @@ class Corpus:
                 if e.get("text") and "choose Deny" in e["text"]:
                     self.lines.append(Line(dict(e, form=f"{e['form']}, {platform}",
                                                 text=e["text"].replace("choose Deny", f"choose {label}"), files={}, derived=True)))
-            # a later entry's signpost counts the parts it runs (build.md 171: "Part 1 of 2 in this fix" is
-            # the example), so every count is the same line
-            if e.get("text") and re.fullmatch(r"Part \d of \d in this fix", e["text"]):
-                for n, m in [(a, b) for b in (1, 2, 3) for a in range(1, b + 1)]:
-                    if f"Part {n} of {m} in this fix" != e["text"]:
-                        self.lines.append(Line(dict(e, form=f"{e['form']}, {n} of {m}",
-                                                    text=f"Part {n} of {m} in this fix", files={}, derived=True)))
         # N-B8's [the content] is often the draft itself, block-quoted, which ends on its sign-off ("> Alex")
         # with no full stop before "I haven't…": the stop after the content is then optional (Build rounds
         # 2026-11-18, JR-claude-web and JR-chatgpt). Every word stays the approved line's own.
@@ -474,6 +523,8 @@ class Corpus:
                     if best is None:
                         continue
                     _, a, L, win = best
+                    if not ln.strict and not _protected_change(seg, win):
+                        continue
                     if _edge_word_only(seg, win) or _start_phrase_only(seg, win):
                         continue
                     if len(seg) < SHORT_RUN_WORDS and best[0] == 1 and not _rest_said(ln, k, ws):

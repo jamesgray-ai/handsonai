@@ -85,24 +85,23 @@ class NF2InsideNF10(unittest.TestCase):
     def ids(self, msg):
         return [(ln.id, got) for ln, _, got in AL.load().near_misses(msg, "build")]
 
-    # review H4 (James, 2026-11-21): the skip holds only when N-F10 itself is said; these two runs
-    # dropped "To pick up," so they are reworded lines and are reported
+    # final-build-2 (2026-11-22, James): N-F2 and N-F10 point the way and protect nothing, so a word or two
+    # changed ("start a new session" for "in a new session") is no near miss; a protected word changed still is
     def test_claude_code_form(self):
         said = "Your progress is saved. To pick up, start a new session in this project and say 'run the build skill.'"
-        self.assertNotIn(("N-F2", "start a new session in this project and say"), self.ids(said))
-        self.assertIn("N-F2", [i for i, _ in self.ids(self.CC)])
+        self.assertNotIn("N-F2", [i for i, _ in self.ids(said)])
+        self.assertNotIn("N-F2", [i for i, _ in self.ids(self.CC)])
 
     def test_desktop_form(self):
         said = ("Your progress is saved. To pick up, open a new chat with your working folder selected and say "
                 "'run the build skill. My files are in ai-workspace/framework/client-follow-up.'")
-        self.assertNotIn(("N-F2", "open a new chat with your working folder selected"), self.ids(said))
-        self.assertIn("N-F2", [i for i, _ in self.ids(self.DESKTOP)])
+        self.assertNotIn("N-F2", [i for i, _ in self.ids(said)])
+        self.assertNotIn("N-F2", [i for i, _ in self.ids(self.DESKTOP)])
 
-    def test_a_real_n_f2_rewording_is_still_caught(self):
-        # N-F2's Claude Code form with "in" said as "open": no N-F10 form holds those words
-        msg = "Then open a new session in this project and say 'run the build skill.'"
+    def test_a_protected_word_changed_in_n_f2_is_still_caught(self):
+        msg = ("Start Design in a new chat. Never add your Google Drive to it, then say 'run the design skill. "
+               "My files are in Google Drive, in ai-workspace/framework/client-follow-up.'")
         self.assertIn("N-F2", [i for i, _ in self.ids(msg)])
-
 
 
 class NamedFormIncludesItsDerivedForms(unittest.TestCase):
@@ -177,31 +176,30 @@ class ShortRunNeedsTheRestOfItsLine(unittest.TestCase):
             self.assertNotIn(lid, [i for i, _ in self.misses(msg)], msg)
 
     def test_a_rewording_with_the_rest_of_the_line_is_still_caught(self):
+        # final-build-2 (2026-11-22): only a protected word changed is a near miss of a line that protects nothing
+        msg = "Test found a typo in the draft step. I'll redo just that, and leave nothing else as it is."
+        self.assertIn("N-B14", [i for i, _ in self.misses(msg, None)])
         msg = "Test found a typo in the draft step. I'll redo just that, and leave everything as it is."
-        self.assertIn("N-B14", [i for i, _ in self.misses(msg)])
-        msg = ("Start Design in the new chat. Add your Google Drive to it, then say 'run the design skill. My files "
-               "are in Google Drive, in ai-workspace/framework/client-follow-up.'")
-        self.assertIn("N-F2", [i for i, _ in self.misses(msg, None)])
+        self.assertNotIn("N-B14", [i for i, _ in self.misses(msg, None)])
 
     def test_a_short_line_on_its_own_is_still_caught(self):
-        self.assertIn("N-D16", [i for i, _ in self.misses("It keeps running as is.", None)])
+        msg = "OK, Client Follow-Up stays as it was: its plan are back in place, and something has changed."
+        self.assertIn("N-D16", [i for i, _ in self.misses(msg, None)])
+        self.assertNotIn("N-D16", [i for i, _ in self.misses("It keeps running as is.", None)])
 
 
-class SignpostsOfAnotherCount(unittest.TestCase):
-    """build-full-1 (2026-11-21): with `of`, every part 1..N is expected, in any approved form."""
+class BuildAnnouncesNoParts(unittest.TestCase):
+    """final-build-2 (2026-11-22, James): Build says no part name or count; its tests check that none is said."""
 
-    C = {"type": "signposts", "skill": "build", "of": 2}
+    C = {"type": "ai_not_regex", "pattern": "\\bPart [0-9] of [0-9]\\b"}
 
-    def test_both_parts_of_a_fix_are_wanted(self):
-        self.assertFalse(CS.check(self.C, _run_of("Part 1 of 2 in this fix"))[0])
-        self.assertTrue(CS.check(self.C, _run_of("Part 1 of 2 in this fix", "Part 2 of 2 in this fix — save it and test"))[0])
-        self.assertFalse(CS.check(self.C, _run_of("Part 2 of 2 in this fix — save it and test", "Part 1 of 2 in this fix"))[0])
+    def test_a_part_count_fails(self):
+        self.assertFalse(CS.check(self.C, _run_of("Part 2 of 3 — building and checking"))[0])
+        self.assertFalse(CS.check(self.C, _run_of("**Part 1 of 2 in this fix**"))[0])
+        self.assertTrue(CS.check(self.C, _run_of("1 of 3: Gmail connection — built and checked"))[0])
 
-    def test_a_three_part_fix_takes_its_own_first_form(self):
-        c = {"type": "signposts", "skill": "build"}
-        self.assertTrue(CS.check(c, _run_of("Part 1 of 3 in this fix — your setup", "Part 2 of 3 — building and checking",
-                                            "Part 3 of 3 — save it and test"))[0])
-        self.assertFalse(CS.check(c, _run_of("Part 1 of 3 — your setup", "Part 3 of 3 — save it and test"))[0])
+    def test_build_has_no_signposts_check(self):
+        self.assertFalse(CS.check({"type": "signposts", "skill": "build"}, _run_of("Part 1 of 3 — your setup"))[0])
 
 
 if __name__ == "__main__":

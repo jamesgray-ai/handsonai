@@ -61,8 +61,12 @@ class QuoteCheck(unittest.TestCase):
 
     def test_exact_line_passes_and_one_word_changed_fails(self):
         good = run_of("Thanks. " + N_D1)
-        bad = run_of("Thanks. " + N_D1.replace("past example", "past sample"))
+        # final-build-2 (2026-11-22): a line that protects nothing may have a word changed; a protected word may not
+        bad = run_of("Thanks. " + N_D1.replace("anything", "nothing"))
         self.assertTrue(ok({"type": "scripted_lines"}, good))
+        self.assertTrue(ok({"type": "scripted_lines"}, run_of("Thanks. " + N_D1.replace("past example", "past sample"))))
+        self.assertTrue(ok({"type": "quote", "id": "N-D1"}, run_of("Thanks. " + N_D1.replace("past example", "past sample"))))
+        self.assertFalse(ok({"type": "quote", "id": "N-D1"}, bad))
         passed, why = CS.check({"type": "scripted_lines"}, bad)
         self.assertFalse(passed)
         self.assertIn("N-D1", why)
@@ -83,7 +87,7 @@ class QuoteCheck(unittest.TestCase):
                 "My files are in Google Drive, in ai-workspace/framework/client-follow-up.'")
         self.assertTrue(ok({"type": "quote", "id": "N-F2", "form": "main"}, run_of(said)))
         self.assertTrue(ok({"type": "scripted_lines"}, run_of(said)))
-        wrong = said.replace("in a new chat", "in a fresh chat")
+        wrong = said.replace("in a new chat.", "in a new chat only.")
         self.assertFalse(ok({"type": "quote", "id": "N-F2", "form": "main"}, run_of(wrong)))
 
     def test_label_clause_is_optional(self):
@@ -100,12 +104,6 @@ class QuoteCheck(unittest.TestCase):
                            run_of(head + "I'll offer to undo the check changes together at the end.")))
         self.assertTrue(ok({"type": "quote", "id": "N-B27"}, run_of(head + "That one stays.")))
 
-    def test_fix_signpost_counts_the_parts_it_runs(self):
-        # build.md 171: a later entry counts only the parts it runs; "Part 1 of 2 in this fix" is the example
-        for said in ("**Part 1 of 3 in this fix — your setup**", "Part 2 of 2 in this fix"):
-            self.assertTrue(ok({"type": "scripted_lines", "skill": "build"}, run_of(said)), said)
-        self.assertFalse(ok({"type": "scripted_lines", "skill": "build"}, run_of("Part 1 of 3 in the fix")))
-
     def test_a_block_quoted_paste_back_isnt_the_ais_wording(self):
         # microsoft-365-agent.md: an agent's reworded line is block-quoted as the leader pasted it; the
         # same words in the AI's own sentence, or in a prompt to paste, still fail the quote check
@@ -119,7 +117,7 @@ class QuoteCheck(unittest.TestCase):
         with tempfile.TemporaryDirectory() as t:
             good, bad = Path(t, "good.md"), Path(t, "bad.md")
             good.write_text(f"## Student\n\nhi\n\n## AI\n\n{N_D1}\n")
-            bad.write_text(f"## Student\n\nhi\n\n## AI\n\n{N_D1.replace('checklist', 'list')}\n")
+            bad.write_text(f"## Student\n\nhi\n\n## AI\n\n{N_D1.replace('anything', 'nothing')}\n")
             with redirect_stdout(io.StringIO()):
                 self.assertEqual(CQ.main(["transcript", str(good)]), 0)
             out = io.StringIO()
@@ -137,7 +135,8 @@ class QuoteCheck(unittest.TestCase):
         old = "To bring Client Follow-Up into the framework, start Deconstruct in a new session with: 'run the deconstruct skill on Client Follow-Up. My files are in framework.'"
         self.assertFalse(ok(cc, run_of(old)))  # the old derivation: location kept, "in this project" dropped
         self.assertFalse(ok({"type": "quote", "id": "bring-in-line", "form": "main"}, run_of(said)))
-        self.assertFalse(ok(cc, run_of(said.replace("start Deconstruct", "open Deconstruct"))))
+        self.assertFalse(ok(cc, run_of(said.replace("start Deconstruct", "start Design"))))
+        self.assertTrue(ok(cc, run_of(said.replace("start Deconstruct", "open Deconstruct"))))  # a small edit
         desk = {"type": "quote", "id": "bring-in-line", "form": "Claude desktop, whole line"}
         self.assertTrue(ok(desk, run_of("To bring Client Follow-Up into the framework, start Deconstruct in a new chat with your working folder selected: 'run the deconstruct skill on Client Follow-Up. My files are in ai-workspace.'")))
 
@@ -300,9 +299,8 @@ class WordingChecks(unittest.TestCase):
         tst = ["Part 1 of 4 — open the round", "Part 2 of 4 — run it", "Part 3 of 4 — the verdict", "Part 4 of 4 — go live"]
         self.assertTrue(ok({"type": "signposts", "skill": "test"}, run_of(*tst)))
         self.assertFalse(ok({"type": "signposts", "skill": "test"}, run_of(*tst[:3])))
-        bld = ["Part 1 of 3 — your setup", "Part 2 of 3 — building and checking", "Part 3 of 3 — save it and test"]
-        self.assertTrue(ok({"type": "signposts", "skill": "build"}, run_of(*bld)))
-        self.assertFalse(ok({"type": "signposts", "skill": "build"}, run_of(bld[0], "Part 2 of 3 — building", bld[2])))
+        # Build announces no parts (2026-11-22): it has no signposts check
+        self.assertFalse(ok({"type": "signposts", "skill": "build"}, run_of("Part 1 of 3 — your setup")))
 
     def test_signposts_across_sessions(self):
         # smoke-1 fix: a stop after Part 2 and a resume that says Parts 3 and 4 count, in order across sessions
@@ -1557,7 +1555,7 @@ class StubbedHarness(unittest.TestCase):
 
     def test_core_fails_when_a_scripted_line_is_misquoted(self):
         import run_eval as R
-        self.mode({"skill_replies": [N_D1.replace("checklist", "list")]})
+        self.mode({"skill_replies": [N_D1.replace("anything", "nothing")]})
         evdir = self.tmp / "evals"
         evdir.mkdir()
         data = {"skill_name": "x", "how_to_run": "t", "evals": [
@@ -1830,12 +1828,12 @@ class CoreRound1Corpus(unittest.TestCase):
         self.assertFalse(ok(c, run(shown + " Anything else?", preview)))
         # the two parts swapped: fails
         self.assertFalse(ok(c, run(ask + "\n\n" + inputs + "\n\n" + lead, preview)))
-        # the split form is the approved line, word for word; a word changed in either part is a near miss
+        # the split form is the approved line, word for word; a protected word changed in either part is a near miss
         self.assertTrue(ok({"type": "quote", "id": "N-D25"}, run_of(shown)))
         self.assertFalse(ok({"type": "scripted_lines", "skill": "deconstruct"},
-                            run_of(shown.replace("practice inputs", "sample inputs"))))
+                            run_of(shown.replace("the practice inputs", "the only practice inputs"))))
         self.assertFalse(ok({"type": "scripted_lines", "skill": "deconstruct"},
-                            run_of(shown.replace("really get?", "actually get?"))))
+                            run_of(shown.replace("really get?", "really not get?"))))
         # never shown, shown after the preview, or said twice: fails
         self.assertFalse(ok(c, run("Here are the practice runs we'll test it on.", preview)))
         self.assertFalse(ok(c, run(preview, shown)))
@@ -1938,7 +1936,7 @@ class NearMissScope(unittest.TestCase):
     """Near misses count only the skill under test's lines, and skip edge-word changes on short runs."""
 
     def test_only_the_skill_under_tests_lines(self):
-        msg = "Thanks. " + N_D1.replace("past example", "past sample")  # N-D1 is Deconstruct's
+        msg = "Thanks. " + N_D1.replace("anything", "nothing")  # N-D1 is Deconstruct's
         c = AL.load()
         self.assertTrue(c.near_misses(msg))
         self.assertTrue(c.near_misses(msg, skill="deconstruct"))
@@ -1959,22 +1957,25 @@ class NearMissScope(unittest.TestCase):
         self.assertFalse([x for x in c.near_misses(first) if x[0].id == "N-D16"])
         last = "For now it keeps running as it was before."
         self.assertFalse([x for x in c.near_misses(last) if x[0].id == "N-D16"])
+        # final-build-2 (2026-11-22): a word changed in the middle is a small edit to a line that protects nothing
         middle = "For now it keeps working as it is."
-        self.assertTrue([x for x in c.near_misses(middle) if x[0].id == "N-D16"])
+        self.assertFalse([x for x in c.near_misses(middle) if x[0].id == "N-D16"])
 
     def test_shared_start_phrase_alone_is_not_a_near_miss(self):
         c = AL.load()
         own = ("Its plan hasn't been approved. To review and approve it, say 'run the design skill. "
                "My files are in framework/client-follow-up.'")
         self.assertFalse([x for x in c.near_misses(own, skill="build") if x[0].id == "open-item-line"])
-        wrong = ("Sending waits for the price. To answer them, say 'run the design skill. "
+        wrong = ("Sending waits for the price. To answer it, never say 'run the design skill. "
                  "My files are in framework/client-follow-up.'")
         self.assertTrue([x for x in c.near_misses(wrong, skill="build") if x[0].id == "open-item-line"])
 
     def test_edge_word_on_a_long_run_still_counts(self):
         c = AL.load()
-        msg = N_D1.replace("Do you have", "Did you have")  # first word changed, a run of eight or more
+        msg = N_D1.replace("Do you have anything", "Do you have nothing")  # a protected word, in a run of eight or more
         self.assertTrue(c.near_misses(msg))
+        # final-build-2 (2026-11-22): its first word changed is a small edit to a line that protects nothing
+        self.assertFalse(c.near_misses(N_D1.replace("Do you have", "Did you have")))
 
 
 class StandInGmail(unittest.TestCase):
