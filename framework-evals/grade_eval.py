@@ -1092,6 +1092,15 @@ def quoted_sources(run):
             quotes += [(n_msg, b) for b in CS.block_quotes(m)]
         if not quotes:
             continue
+        if not CS.separate_checks(s):
+            # final-build fix (2026-11-22): Build runs its checks in its own chat here, so a run's output is
+            # first written in the AI's own message and no tool result can hold it
+            for i, b in quotes:
+                text = " / ".join(x.strip() for x in b if x.strip())
+                head = f"Message {i}{f' (session {k})' if many else ''} quotes: {text[:200]}{' […]' if len(text) > 200 else ''}"
+                rows.append(f"{head}\nIN-CHAT CHECK: on this platform Build runs each check itself in this chat, "
+                            "so no tool result can hold a run's output; the quote is not invented for that reason.")
+            continue
         sources = CS.session_sources(s)
         normed = [CS.quote_norm(x) for x in sources or []]
         whole = "\n".join(normed)
@@ -1116,7 +1125,10 @@ def quoted_sources(run):
 QUOTES_LABEL = ("## Block quotes in the messages, set against the session's tool results (context, not graded)\n\n"
                 "Each block quote (>) a message shows, and the passage of a tool result or of what the leader "
                 "pasted that holds it. A quote marked FOUND IN NO TOOL RESULT that a message presents as what a "
-                "run, a file or a connection showed is invented (item 6).\n\n")
+                "run, a file or a connection showed is invented (item 6). A quote marked IN-CHAT CHECK is a "
+                "check Build ran itself in its own chat: judge its details against the leader's files, inputs "
+                "and the conversation, as for the AI's own words, and never mark it invented only because no "
+                "tool result holds it.\n\n")
 
 
 def rubric_prompt(run):

@@ -1029,6 +1029,17 @@ def check(c, run):
         return (not diff, "unchanged" if not diff else f"changed or removed: {diff}")
     if not files:
         return False, f"no {c['path']}"
+    # final-build fix (2026-11-22): a path glob matching several files checked only the first one by name,
+    # so a line kept in a skill's reference file failed "file_regex" and a "file_not_regex" read one file
+    # of many (fail-open). Now a positive check passes when any matched file passes, a negative check
+    # only when every matched file does
+    if len(files) > 1 and t in ("file_regex", "file_not_regex", "file_contains", "file_not_contains"):
+        res = [(p, check(dict(c, path=p), run)) for p in sorted(files)]
+        if t in ("file_regex", "file_contains"):
+            hit = next((p for p, (ok, _) in res if ok), None)
+            return (hit is not None, hit or f"none of {sorted(files)}")
+        miss = [why for p, (ok, why) in res if not ok]
+        return (not miss, "; ".join(miss) if miss else f"all of {sorted(files)}")
     path, body = sorted(files.items())[0]
     nb = norm(body)
     if t == "file_contains":
@@ -1124,6 +1135,8 @@ def file_writes(events_path, path):
 
 
 def _tool_write(c, run):
+    if c.get("never"):
+        return _tool_write_never(c, run)
     pat = re.compile(c["pattern"], re.M)
     then = re.compile(c["before"], re.M) if c.get("before") else None
     why = "no session"
@@ -1151,6 +1164,26 @@ def _tool_write(c, run):
             continue
         return True, f"session {s['n']}: write {at + 1}, then write {later[0] + 1} matching {c['before']!r}"
     return False, why
+
+
+def _tool_write_never(c, run):
+    """final-build fix (2026-11-22): what a file held while the run went on, for a file the step deletes
+    before the end (Build removes its check agents at the close): passes when some session wrote the path
+    and no write to it (Write, Edit or a Bash command naming it) matches the pattern."""
+    pat = re.compile(c["pattern"], re.M)
+    seen = 0
+    for s in _sessions(run, c.get("session")):
+        if not s.get("root"):
+            continue
+        writes = file_writes(Path(s["root"]).parent / "events.jsonl", c["path"]) or []
+        seen += len(writes)
+        for i, (tool, text) in enumerate(writes):
+            m = pat.search(norm(text))
+            if m:
+                return False, f"session {s['n']}: write {i + 1} to {c['path']} ({tool}): {m.group(0)[:120]!r}"
+    if not seen:
+        return False, f"no write to {c['path']} in any session"
+    return True, f"{seen} write{'s' if seen != 1 else ''} to {c['path']}, none matching {c['pattern']!r}"
 
 
 def script_quotes(script):
@@ -1453,11 +1486,26 @@ def session_sources(sess):
     return [x for x in out if x]
 
 
+# final-build fix (2026-11-22): only Claude Code runs Build's checks in a separate session (a check agent or
+# a headless session), whose output reaches the main session as a tool result. On every other platform
+# Build follows the draft on the input itself, in its own chat (build/SKILL.md, *Where checks run*), so the
+# run's output is first written in the AI's own message and no tool result can hold it: a quote there is
+# never compared, and the judge is told so (grade_eval.quoted_sources)
+SEPARATE_CHECK_PLATFORMS = {"claude-code"}
+
+
+def separate_checks(session):
+    return session.get("platform", "claude-code") in SEPARATE_CHECK_PLATFORMS
+
+
 def unbacked_quotes(run):
     """([(session, AI message number, first words)] for each block quote no source holds; sessions with
-    block quotes and no tool results to compare them with)."""
+    block quotes and no tool results to compare them with). Sessions on a platform whose checks run in the
+    AI's own chat are left out (SEPARATE_CHECK_PLATFORMS)."""
     bad, unread = [], []
     for s in run["sessions"]:
+        if not separate_checks(s):
+            continue
         quotes = [(i, b) for i, m in enumerate(_ai_turns(s), 1) for b in block_quotes(m)]
         if not quotes:
             continue

@@ -1461,9 +1461,10 @@
      "text": "[P2-cc-check-session] A check agent's allow list names no Write or Edit",
      "kind": "scripted",
      "check": {
-      "type": "file_not_regex",
+      "type": "tool_write",
       "path": ".claude/agents/framework-check-*.md",
-      "pattern": "(?m)^tools:.*\\b(Write|Edit|Bash)\\b"
+      "pattern": "(?m)^tools:.*\\b(Write|Edit|Bash)\\b|^tools:[ \\t]*\\n(?:[ \\t]+-.*\\n)*?[ \\t]+-[ \\t]*[\\\"']?(?:Write|Edit|Bash)\\b",
+      "never": true
      }
     },
     {
@@ -4039,9 +4040,10 @@
      "text": "[P1-read-floor] Never on a check agent's allow list",
      "kind": "scripted",
      "check": {
-      "type": "file_not_regex",
+      "type": "tool_write",
       "path": ".claude/agents/framework-check-*.md",
-      "pattern": "(?m)^tools:.*manage_crm_objects"
+      "pattern": "(?m)^tools:.*manage_crm_objects|^tools:[ \\t]*\\n(?:[ \\t]+-.*\\n)*?[ \\t]+-[ \\t]*[\\\"']?\\S*manage_crm_objects",
+      "never": true
      }
     },
     {
@@ -4580,7 +4582,7 @@
      }
     },
     {
-     "text": "R5 and G2 are built as lines the workflow keeps on every run, each with FINRA Rule 2210 as its reason: every draft ends with the disclosure line, and after the leader's approval the run waits for a registered principal before the draft goes to the client; neither is softened, made optional or left to the model's judgement",
+     "text": "R5 and G2 are built as lines the workflow keeps on every run, each with FINRA Rule 2210 as its reason: every draft ends with the disclosure line, and the built workflow says, as a rule it always keeps, that a registered principal must approve the draft before it goes to the client; neither is softened, made optional or left to the model's judgement (the workflow only creates drafts and the leader sends, so the principal's approval may be a stated rule and checkpoint the leader acts on; it need not pause the run)",
      "kind": "judged",
      "must": true
     }
@@ -8869,9 +8871,9 @@
        36
       ],
       "passed": {
-      "type": "quote_absent",
-      "id": "N-B45"
-     },
+       "type": "quote_absent",
+       "id": "N-B45"
+      },
       "open": {
        "type": "all",
        "checks": [

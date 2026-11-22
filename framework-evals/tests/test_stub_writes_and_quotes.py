@@ -339,5 +339,81 @@ class RubricText(unittest.TestCase):
         self.assertIn("vague words", item2)
 
 
+class InChatChecks(unittest.TestCase):
+    """final-build fix (2026-11-22): off Claude Code, Build runs each check in its own chat, so no tool
+    result can hold a run's output; the quote check leaves those sessions out and the judge is told so."""
+
+    def run_on(self, platform):
+        run = build_run([])
+        run["sessions"][0]["platform"] = platform
+        return run
+
+    def test_a_chat_platforms_quote_is_not_compared(self):
+        for platform in ("claude-web", "chatgpt", "claude-desktop", "codex", "microsoft-365"):
+            ok, why = check(self.run_on(platform), "quoted_output_seen")
+            self.assertTrue(ok, f"{platform}: {why}")
+
+    def test_claude_code_still_compares(self):
+        self.assertFalse(check(self.run_on("claude-code"), "quoted_output_seen")[0])
+        self.assertFalse(check(build_run([]), "quoted_output_seen")[0])  # no platform: Claude Code
+
+    def test_the_judge_sees_in_chat_check_not_found_nowhere(self):
+        head = G.rubric_prompt(self.run_on("chatgpt"))[1].split("## Message 1")[0]
+        self.assertIn("IN-CHAT CHECK", head)
+        self.assertNotIn("FOUND IN NO TOOL RESULT and nothing", head)
+        self.assertIn("IN-CHAT CHECK", RUBRIC.read_text())
+
+
+def files_run(files):
+    s = session(events=[])
+    s["files_end"] = files
+    return {"sessions": [s]}
+
+
+class GlobFileChecks(unittest.TestCase):
+    """final-build fix (2026-11-22): a glob matching several files reads them all."""
+
+    FILES = {".claude/skills/x/SKILL.md": "Read disclosure-line.md and end with it.",
+             ".claude/skills/x/disclosure-line.md": "Brightline is a member of FINRA and SIPC."}
+
+    def test_positive_passes_when_any_file_holds_it(self):
+        c = {"type": "file_regex", "path": ".claude/skills/x/**", "pattern": "member of FINRA"}
+        self.assertTrue(CS.check(c, files_run(self.FILES))[0])
+        c = {"type": "file_contains", "path": ".claude/skills/x/*", "text": "member of FINRA"}
+        self.assertTrue(CS.check(c, files_run(self.FILES))[0])
+
+    def test_negative_fails_when_any_file_holds_it(self):
+        c = {"type": "file_not_regex", "path": ".claude/skills/x/*", "pattern": "member of FINRA"}
+        ok, why = CS.check(c, files_run(self.FILES))
+        self.assertFalse(ok)
+        self.assertIn("disclosure-line.md", why)
+        c = {"type": "file_not_contains", "path": ".claude/skills/x/*", "text": "nowhere at all"}
+        self.assertTrue(CS.check(c, files_run(self.FILES))[0])
+
+
+class ToolWriteNever(unittest.TestCase):
+    """final-build fix (2026-11-22): a file Build deletes at the close is checked as it was written."""
+
+    PAT = r"(?m)^tools:.*\b(Write|Edit|Bash)\b|^tools:[ \t]*\n(?:[ \t]+-.*\n)*?[ \t]+-[ \t]*[\"']?(?:Write|Edit|Bash)\b"
+    C = {"type": "tool_write", "never": True, "path": ".claude/agents/framework-check-*.md"}
+
+    def write(self, content):
+        return {"sessions": [session(events=[use(1, "Write", {
+            "file_path": "/w/.claude/agents/framework-check-x-t2.md", "content": content})])]}
+
+    def test_a_safe_allow_list_passes(self):
+        ok, why = CS.check(dict(self.C, pattern=self.PAT), self.write("---\nname: x\ntools: Read, Grep\n---\n"))
+        self.assertTrue(ok, why)
+
+    def test_write_on_the_list_fails_in_either_form(self):
+        for body in ("---\ntools: Read, Write\n---\n", "---\ntools:\n  - Read\n  - Edit\n---\n"):
+            self.assertFalse(CS.check(dict(self.C, pattern=self.PAT), self.write(body))[0], body)
+
+    def test_no_write_at_all_fails_closed(self):
+        ok, why = CS.check(dict(self.C, pattern=self.PAT), {"sessions": [session(events=[])]})
+        self.assertFalse(ok)
+        self.assertIn("no write", why)
+
+
 if __name__ == "__main__":
     unittest.main()
