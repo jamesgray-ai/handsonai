@@ -730,13 +730,13 @@
     "EN-earlier-live-no-sch",
     "P1-older-skip-earlier"
    ],
-   "expected_output": "[EN-earlier-live-no-sch] An earlier version that is live: N-B44 answered, then N-B41 still asked before the install even with no SCH task, and a kept copy before the install. [P1-older-skip-earlier] Not asked on an earlier-version replacement.",
+   "expected_output": "[EN-earlier-live-no-sch] An earlier version that is live: N-B44 answered at entry and its pause kept in the record (asked once: never again before the install, James 2026-11-22), and a kept copy before the install. [P1-older-skip-earlier] Not asked on an earlier-version replacement.",
    "files": [
     "students/live-pause-done.md"
    ],
    "expectations": [
     {
-     "text": "[EN-earlier-live-no-sch] N-B44, then N-B41 before the install in the form that fits the record (no-steps; or still-paused once N-B44's answer set schedule: paused before a restart)",
+     "text": "[EN-earlier-live-no-sch] N-B44 at entry, and the record holds schedule: paused from its answer (the pause is asked once, never again before the install)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -746,19 +746,9 @@
         "id": "N-B44"
        },
        {
-        "type": "any",
-        "checks": [
-         {
-          "type": "quote",
-          "id": "N-B41",
-          "form": "No switch-on steps in the record"
-         },
-         {
-          "type": "quote",
-          "id": "N-B41",
-          "form": "paused` set since the last go-live"
-         }
-        ]
+        "type": "file_regex",
+        "path": "framework/client-follow-up/build-record.md",
+        "pattern": "(?m)^schedule: paused"
        }
       ]
      }

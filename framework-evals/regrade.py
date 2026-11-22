@@ -114,6 +114,28 @@ def start_hashes(files):
     return {rel: hashlib.sha256(body.encode()).hexdigest() for rel, body in files.items()}
 
 
+# final-build fix (2026-11-22): a fixture that writes its own temporary folder into a file (the block's
+# settings, a record's connection line) rebuilt with a new path every time, so its hash never matched and
+# every run of it read as a changed fixture. The rebuilt path is put back to the round's, read from the
+# session's events, before the comparison and the grading.
+ROUND_ROOT = re.compile(r"(/[^\s\"'\\]*/tmp[a-z0-9_]{8})/workspace\b")
+
+
+def round_root(events_path):
+    """The round's temporary folder (the parent of its workspace), from the session's events; None if unseen."""
+    try:
+        m = ROUND_ROOT.search(Path(events_path).read_text(errors="replace"))
+    except OSError:
+        return None
+    return m.group(1) if m else None
+
+
+def put_back_root(files, rebuilt, original):
+    if not original or rebuilt == original:
+        return files
+    return {rel: body.replace(rebuilt, original) for rel, body in files.items()}
+
+
 def fixture_drift(start, events_path, recorded=None):
     """The files whose rebuilt start differs from the round's, as paths: a fixture changed since the
     round under the same name. Exact when the round recorded its start tree's hashes (start-tree.json,
@@ -233,7 +255,7 @@ def rebuild_run(rdir, evals_dir, data, work):
             else:
                 RE.build_fixture(s.get("fixture", ran.get("fixture")), ws, evals_dir, data.get("fixture_builder"))
                 platform.prepare(ws)
-            start = CS.load_tree(ws)
+            start = put_back_root(CS.load_tree(ws), str(ws.parent), round_root(sdir / "events.jsonl"))
             rec = sdir / "start-tree.json"
             drift = fixture_drift(start, sdir / "events.jsonl",
                                   json.loads(rec.read_text()) if rec.exists() else None)
