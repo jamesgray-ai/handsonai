@@ -4052,7 +4052,7 @@
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
       "section": "## What it can access",
-      "pattern": "(?i)(manage[_ ]crm[_ ]objects|crm records).*\\ba write\\b",
+      "pattern": "(?i)(manage[_ ]crm[_ ]objects|crm records?).*\\ba write\\b",
       "must": true
      }
     }
@@ -6658,7 +6658,7 @@
      }
     },
     {
-     "text": "The block is re-applied before the first check, using the OK the record holds, with no new question",
+     "text": "The block is re-applied before the first check, using the OK the record holds, with no new question: in whichever session the fix starts (before a restart counts; after the restart, asking the wrapper for the rules with nothing to add and reading the settings back is enough)",
      "kind": "judged"
     }
    ],
