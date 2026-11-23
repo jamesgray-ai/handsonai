@@ -1,3 +1,4 @@
+import re
 #!/usr/bin/env python3
 """Build's scripted checks against real snippets from rounds build-single-interview-1 and -2
 (2026-11-18), where the checker, not the skill, failed the run.
@@ -200,6 +201,35 @@ class BuildAnnouncesNoParts(unittest.TestCase):
 
     def test_build_has_no_signposts_check(self):
         self.assertFalse(CS.check({"type": "signposts", "skill": "build"}, _run_of("Part 1 of 3 — your setup"))[0])
+
+
+class MeaningChangingSwapsFail(unittest.TestCase):
+    """Review of 3c05a9783 (business b1e38a79): a swap that changes what a protective line means is never a
+    small edit. Each case: the line filled, said as approved (passes), then with the one swap (fails)."""
+
+    CASES = [
+        ("N-B8", "main", "I haven't Acme it.", "I have Acme it."),
+        ("N-T9", "main", "(nothing is sent or changed)", "(nothing is kept or changed)"),
+        ("N-T48", "main", "Switch it off for good", "Switch it on for good"),
+        ("N-SR4", "main", "nothing is saved until you confirm it", "nothing is saved after you confirm it"),
+        ("N-23", "On a live workflow", "keeps running as it is until Build", "keeps running as it is after Build"),
+        ("git-save-point", "main", "nothing is shared", "nothing is kept"),
+        ("N-B21a", "main", "I've lifted that now", "I've kept that now"),
+        ("deconstruct:policy", "not-sure", "it won't go live until you've checked", "it won't go live unless you've checked"),
+    ]
+
+    @staticmethod
+    def filled(text):
+        return re.sub(r"\[[^\]]*\]", "Acme", text)
+
+    def test_each_swap_fails(self):
+        for lid, form, old, new in self.CASES:
+            line = next(l for l in AL.load().get(lid, form) if l.text)
+            said = self.filled(line.text)
+            self.assertIn(old, said, (lid, said))
+            c = {"type": "quote", "id": lid, "form": form}
+            self.assertTrue(CS.check(c, _run_of(said))[0], (lid, said))
+            self.assertFalse(CS.check(c, _run_of(said.replace(old, new)))[0], (lid, new))
 
 
 if __name__ == "__main__":

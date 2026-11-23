@@ -33,16 +33,20 @@ MIN_SEGMENT_WORDS = 6
 SHORT_RUN_WORDS = 8
 
 # final-build-2 (2026-11-22, James): word for word is kept only for the lines that protect the leader. A line is
-# strict when it carries a safety cue below (a button to choose, an approval, what can't be undone, a pause, a
-# kept copy, a delete or overwrite, regulated or confidential content, a password or key) or is a line every
+# strict when it carries a safety cue below (a button to choose, an approval, what can't be undone, a block, a
+# pause, a kept copy, a delete or overwrite, posting, sending, switching off, saving or sharing, going live,
+# regulated or confidential content, a password or key) or is a line every
 # built part carries. Any other line may be said with a word or two changed (cap as near_misses), unless the
-# change touches a protected word: a negation, "only", a button name, a number, a sentence mark or a start
-# phrase's words.
-STRICT_CUES = re.compile(r"\b(?:Deny|Allow once|Always allow|allow|approv\w*|undone|undo|hard block|practice run|"
-                         r"pause\w*|a copy|delet\w*|overwrit\w*|regulat\w*|confidential|sensitive|password)\b", re.I)
+# change touches a protected word: a negation (the n't forms and "without" included), "only", a button name,
+# on/off, before/after/until/unless, a number, a sentence mark or a start phrase's words. Review of 3c05a9783
+# (business b1e38a79): 8 of 20 meaning-changing swaps passed before the cues and words were widened.
+STRICT_CUES = re.compile(r"\b(?:Deny|Allow once|Always allow|allow|approv\w*|undone|undo|block\w*|lift\w*|practice run|"
+                         r"pause\w*|a copy|delet\w*|overwrit\w*|regulat\w*|confidential|sensitive|password|"
+                         r"post\w*|send\w*|sent|switch\w* (?:it )?off|sav(?:e|ed|es|ing)|shar(?:e|ed|es|ing)|go live)\b", re.I)
 PUNCT_WORD = re.compile(r"[A-Za-z0-9]+(?:'[A-Za-z]+)?|[.:;?!]")
-PROTECTED = {".", ":", ";", "?", "!", "not", "no", "never", "don't", "won't", "can't", "isn't", "aren't", "nothing", "only", "deny",
-             "allow", "always", "once", "stop",
+PROTECTED = {".", ":", ";", "?", "!", "not", "no", "never", "don't", "won't", "can't", "isn't", "aren't", "haven't",
+             "hasn't", "doesn't", "didn't", "wasn't", "wouldn't", "without", "nothing", "only", "deny",
+             "allow", "always", "once", "stop", "off", "on", "before", "after", "until", "unless",
              # a start phrase stays exact: its step, "skill", "run" and the routing words
              "analyze", "deconstruct", "design", "build", "test", "skill", "run", "change", "continue", "workflow", "my"}
 

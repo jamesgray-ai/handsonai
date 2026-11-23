@@ -1215,7 +1215,7 @@
    ],
    "expectations": [
     {
-     "text": "[EN-version-outside] Each fallback the leader hears is in its own line (N-B21 in Part 1, the bare-run skip clause, N-B21a's instruction-only form); no version or range is named.",
+     "text": "[EN-version-outside] Each fallback the leader hears is a paragraph of its own: N-B21 in Part 1, said whole (its two sentences together are one line); the bare-run skip, one sentence with its reason; N-B21a's instruction-only form. No version or range is named.",
      "kind": "judged"
     },
     {

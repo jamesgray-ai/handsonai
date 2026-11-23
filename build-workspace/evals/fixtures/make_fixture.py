@@ -986,8 +986,12 @@ def fx_fix_mode_artifact(t):  # the Issues row names no task: mapped through the
 def fx_fix_requirement(t):  # after Build's first close, the fix needs AC3 changed (a must-have can't fit in 150 words)
     ff(t, S08)
     real_fingerprints(t)
-    fix_round(t, line="AC3", cause="Thirty-two next steps with owners can't fit in 150 words", change="Allow a longer draft when there are many next steps",
-              input_id="E3")
+    # each step in the notes' own words (final-build-2: with AC1 as it was, Build grouped the steps by owner in a
+    # few words each and fit 124 words in 2 of 3 runs, a real fix; now no fix keeps AC1 and AC3 both)
+    resub(req(t), r"(The draft lists every next step named in the notes, each with its owner)\.",
+          r"\1, in the notes' own words.")
+    fix_round(t, line="AC3", cause="Thirty-two next steps in the notes' own words, each with its owner, can't fit in 150 words",
+              change="Allow a longer draft when there are many next steps", input_id="E3")
     cc_close_state(t)
 
 
