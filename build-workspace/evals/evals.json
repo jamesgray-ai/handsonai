@@ -4059,7 +4059,7 @@
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
       "section": "## What it can access",
-      "pattern": "(?i)(manage[_ ]crm[_ ]objects|crm[- ]records?).*\\ba write\\b",
+      "pattern": "(?i)(manage[_ ]crm[_ ]objects|crm[- ]records?|records tool).*\\ba write\\b",
       "must": true
      }
     }
