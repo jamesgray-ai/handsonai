@@ -250,7 +250,10 @@ class Line:
         req = [norm(x) for x in literal_segments([t if t[0] != "opt" else ("hole", "") for t in self.toks])]
         self.longest = max(req, key=len, default="") or max(
             (norm(x) for x in literal_segments(self.toks)), key=len, default="")
-        self.strict = self.kind == "carried" or bool(self.text and STRICT_CUES.search(self.text))
+        # word for word (James, 2026-11-22, review of 390f375b8): carried, "safety or promise" and question lines,
+        # except N-F2 and N-F10, which only say how to carry on; and any line with a protective cue. Only teaching
+        # and structure lines (and those two) may be said with a small edit.
+        self.strict = (self.kind in ("carried", "safety or promise", "question") and self.id not in ("N-F2", "N-F10")) or bool(self.text and STRICT_CUES.search(self.text))
         # the fixed runs a loose match needs, with sentence marks kept and optional clauses left out
         self.loose_segments = [s for s in (_pwords(x) for x in literal_segments(
             [t if t[0] != "opt" else ("hole", "") for t in self.toks])) if s]

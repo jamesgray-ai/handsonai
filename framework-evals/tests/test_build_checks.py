@@ -1,4 +1,3 @@
-import re
 #!/usr/bin/env python3
 """Build's scripted checks against real snippets from rounds build-single-interview-1 and -2
 (2026-11-18), where the checker, not the skill, failed the run.
@@ -6,6 +5,7 @@ import re
 No model is called. Run: python3 -m unittest discover -s framework-evals/tests -v
 """
 import json
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -177,16 +177,17 @@ class ShortRunNeedsTheRestOfItsLine(unittest.TestCase):
             self.assertNotIn(lid, [i for i, _ in self.misses(msg)], msg)
 
     def test_a_rewording_with_the_rest_of_the_line_is_still_caught(self):
-        # final-build-2 (2026-11-22): only a protected word changed is a near miss of a line that protects nothing
+        # review of 390f375b8 (James, 2026-11-22): N-B14 is held word for word, so any word changed is a near miss
         msg = "Test found a typo in the draft step. I'll redo just that, and leave nothing else as it is."
         self.assertIn("N-B14", [i for i, _ in self.misses(msg, None)])
         msg = "Test found a typo in the draft step. I'll redo just that, and leave everything as it is."
-        self.assertNotIn("N-B14", [i for i, _ in self.misses(msg, None)])
+        self.assertIn("N-B14", [i for i, _ in self.misses(msg, None)])
 
     def test_a_short_line_on_its_own_is_still_caught(self):
         msg = "OK, Client Follow-Up stays as it was: its plan are back in place, and something has changed."
         self.assertIn("N-D16", [i for i, _ in self.misses(msg, None)])
-        self.assertNotIn("N-D16", [i for i, _ in self.misses("It keeps running as is.", None)])
+        # review of 390f375b8 (James, 2026-11-22): N-D16 is a safety line, so a word left out is a near miss too
+        self.assertIn("N-D16", [i for i, _ in self.misses("It keeps running as is.", None)])
 
 
 class BuildAnnouncesNoParts(unittest.TestCase):
@@ -231,6 +232,47 @@ class MeaningChangingSwapsFail(unittest.TestCase):
             self.assertTrue(CS.check(c, _run_of(said))[0], (lid, said))
             self.assertFalse(CS.check(c, _run_of(said.replace(old, new)))[0], (lid, new))
 
+
+
+class SafetyOrPromiseLinesAreWordForWord(MeaningChangingSwapsFail):
+    """Review of 390f375b8 (business 9b286fbc): a word list can't catch every swap, so a line approved-lines.json
+    labels "safety or promise" is held word for word, cues or not. A fresh set of swaps, none in the list above."""
+
+    CASES = [
+        ("N-B21", "Codex", "keeps them from changing anything", "lets them keep changing anything"),
+        ("N-T58", "main", "which just passed its test", "which just failed its test"),
+        ("N-B26", "No private place", "would reach your team", "would miss your team"),
+        ("N-B50", "main", "is built and checked", "is built and unchecked"),
+        ("N-B40", "main", "can't draw on our conversations", "can draw on our conversations"),
+        ("N-B35", "main", "That didn't work", "That did work"),
+        ("N-D16", "main", "are back in place", "are out of place"),
+        ("N-A19", "left out", "I left out", "I added in"),
+    ]
+
+
+class ApprovalQuestionsAreWordForWord(MeaningChangingSwapsFail):
+    """Review of 390f375b8 (James, 2026-11-22): a question is where the leader approves something, so every
+    question line is held word for word too. N-F2 and N-F10, which only say how to carry on, keep a small edit."""
+
+    CASES = [
+        ("N-B42", "main", "download it now", "delete it now"),
+        ("N-T18", "main", "Remove it?", "Keep it?"),
+        ("N-T34", "Ready, not yet live", "everything met", "everything missed"),
+        ("N-16", "main", "with someone named who owns that risk", "with nobody named who owns that risk"),
+        ("N-T32", "main", "Accept it as untested for now", "Accept it as tested for now"),
+        ("N-E2", "main", "put back the built version", "remove the built version"),
+        ("N-B25", "main", "It changes those workflows too", "It spares those workflows too"),
+    ]
+
+    def test_only_teaching_and_structure_lines_and_the_way_on_take_a_small_edit(self):
+        c = AL.load()
+        for ln in c.lines:
+            if ln.text and not ln.strict:
+                self.assertTrue(ln.kind in ("teaching", "structure") or ln.id in ("N-F2", "N-F10"), (ln.id, ln.kind))
+        line = next(l for l in c.get("N-B5", "why") if l.text)
+        said = self.filled(line.text)
+        q = {"type": "quote", "id": "N-B5", "form": "why"}
+        self.assertTrue(CS.check(q, _run_of(said.replace("reads your real", "reads your actual")))[0])
 
 if __name__ == "__main__":
     unittest.main()

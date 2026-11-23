@@ -61,11 +61,11 @@ class QuoteCheck(unittest.TestCase):
 
     def test_exact_line_passes_and_one_word_changed_fails(self):
         good = run_of("Thanks. " + N_D1)
-        # final-build-2 (2026-11-22): a line that protects nothing may have a word changed; a protected word may not
+        # review of 390f375b8 (James, 2026-11-22): N-D1 is a question, held word for word: any word changed fails
         bad = run_of("Thanks. " + N_D1.replace("anything", "nothing"))
         self.assertTrue(ok({"type": "scripted_lines"}, good))
-        self.assertTrue(ok({"type": "scripted_lines"}, run_of("Thanks. " + N_D1.replace("past example", "past sample"))))
-        self.assertTrue(ok({"type": "quote", "id": "N-D1"}, run_of("Thanks. " + N_D1.replace("past example", "past sample"))))
+        self.assertFalse(ok({"type": "scripted_lines"}, run_of("Thanks. " + N_D1.replace("past example", "past sample"))))
+        self.assertFalse(ok({"type": "quote", "id": "N-D1"}, run_of("Thanks. " + N_D1.replace("past example", "past sample"))))
         self.assertFalse(ok({"type": "quote", "id": "N-D1"}, bad))
         passed, why = CS.check({"type": "scripted_lines"}, bad)
         self.assertFalse(passed)
@@ -136,7 +136,8 @@ class QuoteCheck(unittest.TestCase):
         self.assertFalse(ok(cc, run_of(old)))  # the old derivation: location kept, "in this project" dropped
         self.assertFalse(ok({"type": "quote", "id": "bring-in-line", "form": "main"}, run_of(said)))
         self.assertFalse(ok(cc, run_of(said.replace("start Deconstruct", "start Design"))))
-        self.assertTrue(ok(cc, run_of(said.replace("start Deconstruct", "open Deconstruct"))))  # a small edit
+        # review of 390f375b8 (James, 2026-11-22): the bring-in line is a safety line, held word for word
+        self.assertFalse(ok(cc, run_of(said.replace("start Deconstruct", "open Deconstruct"))))
         desk = {"type": "quote", "id": "bring-in-line", "form": "Claude desktop, whole line"}
         self.assertTrue(ok(desk, run_of("To bring Client Follow-Up into the framework, start Deconstruct in a new chat with your working folder selected: 'run the deconstruct skill on Client Follow-Up. My files are in ai-workspace.'")))
 
@@ -1957,9 +1958,9 @@ class NearMissScope(unittest.TestCase):
         self.assertFalse([x for x in c.near_misses(first) if x[0].id == "N-D16"])
         last = "For now it keeps running as it was before."
         self.assertFalse([x for x in c.near_misses(last) if x[0].id == "N-D16"])
-        # final-build-2 (2026-11-22): a word changed in the middle is a small edit to a line that protects nothing
+        # review of 390f375b8 (James, 2026-11-22): N-D16 is a safety line, so a word changed in the middle is a miss
         middle = "For now it keeps working as it is."
-        self.assertFalse([x for x in c.near_misses(middle) if x[0].id == "N-D16"])
+        self.assertTrue([x for x in c.near_misses(middle) if x[0].id == "N-D16"])
 
     def test_shared_start_phrase_alone_is_not_a_near_miss(self):
         c = AL.load()
@@ -1974,8 +1975,9 @@ class NearMissScope(unittest.TestCase):
         c = AL.load()
         msg = N_D1.replace("Do you have anything", "Do you have nothing")  # a protected word, in a run of eight or more
         self.assertTrue(c.near_misses(msg))
-        # final-build-2 (2026-11-22): its first word changed is a small edit to a line that protects nothing
-        self.assertFalse(c.near_misses(N_D1.replace("Do you have", "Did you have")))
+        # review of 390f375b8 (James, 2026-11-22): N-D1 is a question, held word for word, so its first word changed
+        # is a miss too
+        self.assertTrue(c.near_misses(N_D1.replace("Do you have", "Did you have")))
 
 
 class StandInGmail(unittest.TestCase):
