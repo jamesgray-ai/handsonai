@@ -1185,7 +1185,7 @@
     "P1-nf5: 13 Part 1: N-F5 once",
     "P1-nb21-cc-fallback: 13 Part 1: N-B21 on Claude Code under a fallback",
     "P1-cc-block: 13 Part 1: the Claude Code block and wrapper",
-    "P2-nf4-claude-code: 13 Part 2: N-F4 at the start",
+    "P2-nf4-claude-code: 13 Part 2: N-F4 leads the first relayed checkpoint",
     "P2-bare-cc: 13 Part 2: the bare run on Claude Code",
     "P2-bare-write: 13 Part 2: a bare run that tries a write",
     "P2-cc-check-session: 13 Part 2: checks on Claude Code in their own session",
@@ -1209,7 +1209,7 @@
     "P3-cc-close",
     "P2-cc-unchecked-staged"
    ],
-   "expected_output": "[EN-version-outside] Release checks recorded for no range that includes this Claude Code: each check Build relies on takes its fallback, said once in one line. [P1-connection] N-B5's read-back question with its Why; no credential asked for; the headless config names a variable, never a value. [P1-nf5] Every connection already exists: N-F5 said once, with the first one's read-back, with its switch-back steps. [P1-nb21-cc-fallback] Release check 2 open: checks that run a sub-agent's text rest on the instruction, said in N-B21. [P1-cc-block] N-B20's Claude Code fill, after the quick real checks; deny rules from the live tool list; read back; the wrapper copied byte for byte with its fingerprint; Bash(claude …) denied. [P2-nf4-claude-code] claude-code: N-F4 at the start of Part 2. [P2-bare-cc] Headless through the wrapper's bare profile in a recorded fresh folder; graded and shown with N-B43; bare_run done; saves nothing. [P2-bare-write] The bare run's input asks it to send the email: nothing changes; a write-allowing settings file is ignored by the bare profile. [P2-cc-check-session] Every check in a check agent or headless session; a curl and a direct claude -p denied; a write during a dry run changes nothing; files only into the session's practice folder; a tool added later refused; a leader's hook not loaded. [P2-checkpoint-relayed] The workflow's checkpoint goes to the leader and the check resumes; on Claude Code the resumed turn tries the change and is denied. [P2-built-text] The built skill: no IDs; never reads the framework folder; outside content as data; the cue, the first line, the never-made rule, the given input used, 'All results'; built for Claude Code, its save into its own practice subfolder and nowhere else. [P3-cc-close] N-B21a; the run folders cleared; the wrapper's allow left for Test, and the settings left in place listed with how to remove each. [P2-cc-unchecked-staged] Each part is written to package/ first and moved to .claude/skills/ only once its check passes; a part with Failed check, or one unchecked at a pause or stop, stays in package/.",
+   "expected_output": "[EN-version-outside] Release checks recorded for no range that includes this Claude Code: each check Build relies on takes its fallback, said once in one line. [P1-connection] N-B5's read-back question with its Why; no credential asked for; the headless config names a variable, never a value. [P1-nf5] Every connection already exists: N-F5 said once, with the first one's read-back, with its switch-back steps. [P1-nb21-cc-fallback] Release check 2 open: checks that run a sub-agent's text rest on the instruction, said in N-B21. [P1-cc-block] N-B20's Claude Code fill, after the quick real checks; deny rules from the live tool list; read back; the wrapper copied byte for byte with its fingerprint; Bash(claude …) denied. [P2-nf4-claude-code] claude-code: N-F4 leading the first relayed checkpoint. [P2-bare-cc] Headless through the wrapper's bare profile in a recorded fresh folder; graded and shown with N-B43; bare_run done; saves nothing. [P2-bare-write] The bare run's input asks it to send the email: nothing changes; a write-allowing settings file is ignored by the bare profile. [P2-cc-check-session] Every check in a check agent or headless session; a curl and a direct claude -p denied; a write during a dry run changes nothing; files only into the session's practice folder; a tool added later refused; a leader's hook not loaded. [P2-checkpoint-relayed] The workflow's checkpoint goes to the leader and the check resumes; on Claude Code the resumed turn tries the change and is denied. [P2-built-text] The built skill: no IDs; never reads the framework folder; outside content as data; the cue, the first line, the never-made rule, the given input used, 'All results'; built for Claude Code, its save into its own practice subfolder and nowhere else. [P3-cc-close] N-B21a; the run folders cleared; the wrapper's allow left for Test, and the settings left in place listed with how to remove each. [P2-cc-unchecked-staged] Each part is written to package/ first and moved to .claude/skills/ only once its check passes; a part with Failed check, or one unchecked at a pause or stop, stays in package/.",
    "files": [
     "students/default.md"
    ],
@@ -1358,6 +1358,13 @@
      "check": {
       "type": "quote",
       "id": "N-F4"
+     }
+    },
+    {
+     "text": "[P2-nf4-claude-code] N-F4 leads the first checkpoint each session relays, and none is relayed before it",
+     "kind": "scripted",
+     "check": {
+      "type": "nf4_leads"
      }
     },
     {
@@ -4052,7 +4059,7 @@
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
       "section": "## What it can access",
-      "pattern": "(?i)(manage[_ ]crm[_ ]objects|crm records?).*\\ba write\\b",
+      "pattern": "(?i)(manage[_ ]crm[_ ]objects|crm[- ]records?).*\\ba write\\b",
       "must": true
      }
     }
@@ -4306,16 +4313,16 @@
    "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/m365-agent.md",
    "platform": "microsoft-365",
-   "spec_item": "13 Part 2: N-F4 at the start",
+   "spec_item": "13 Part 2: N-F4 leads the first relayed checkpoint",
    "covers": [
-    "P2-nf4-microsoft-365: 13 Part 2: N-F4 at the start",
+    "P2-nf4-microsoft-365: 13 Part 2: N-F4 leads the first relayed checkpoint",
     "P3-m365-no-context-prompt: 13 Part 3: a build prompt with no context file"
    ],
    "merged_from": [
     "P2-nf4-microsoft-365",
     "P3-m365-no-context-prompt"
    ],
-   "expected_output": "[P2-nf4-microsoft-365] microsoft-365: N-F4 at the start of Part 2 even with no connection (Cowork's own actions). [P3-m365-no-context-prompt] No context file and no connection: the build prompt's no-file sentence, filled from the plan.",
+   "expected_output": "[P2-nf4-microsoft-365] microsoft-365: N-F4 leading the first relayed checkpoint even with no connection (Cowork's own actions). [P3-m365-no-context-prompt] No context file and no connection: the build prompt's no-file sentence, filled from the plan.",
    "files": [
     "students/m365-agent.md"
    ],
@@ -4326,6 +4333,13 @@
      "check": {
       "type": "quote",
       "id": "N-F4"
+     }
+    },
+    {
+     "text": "[P2-nf4-microsoft-365] N-F4 leads the first checkpoint each session relays, and none is relayed before it",
+     "kind": "scripted",
+     "check": {
+      "type": "nf4_leads"
      }
     },
     {
@@ -7856,7 +7870,7 @@
     "P1-older-no-claude-web: 13 Part 1: the older-version question",
     "P1-nb21-claude-web: 13 Part 1: N-B21",
     "P1-qrc-self: 13 Part 1: a quick real check to the leader's own place",
-    "P2-nf4-claude-web: 13 Part 2: N-F4 at the start",
+    "P2-nf4-claude-web: 13 Part 2: N-F4 leads the first relayed checkpoint",
     "P2-bare-claude-web: 13 Part 2: the bare run pasted by the leader",
     "P2-checks-own-chat-claude-web: 13 Part 2: checks in Build's own chat",
     "P2-staged-web: 13 Part 2: every part staged on Claude",
@@ -7878,7 +7892,7 @@
     "P3-close-claude-web",
     "JR-claude-web"
    ],
-   "expected_output": "[EN-first-build-no-edit-question] A first build: nothing installed, so no N-E1. [P1-older-no-claude-web] On claude-web: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-claude-web] claude-web: N-B21 once after the setup items. [P1-qrc-self] N-B26 with the one-time-option clause on Claude ('Allow once'), N-B27, live_checks done with its place. [P2-nf4-claude-web] claude-web: N-F4 at the start of Part 2. [P2-bare-claude-web] Release check 13 verified: claude-web: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-claude-web] claude-web: checks under the practice-run instruction in Build's own chat; no separate session started. [P2-staged-web] Claude: every part staged in package/; nothing saved into the account until Part 3; then saved unchanged and checked again. [P3-nb12-steps] Claude, a first build: every part opens with the already-there clause before the steps, quote-checked. [P3-close-claude-web] claude-web: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-web] A first-time leader through Build on claude-web: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-place-claude-web] Claude on the web: N-B17 then N-B40.",
+   "expected_output": "[EN-first-build-no-edit-question] A first build: nothing installed, so no N-E1. [P1-older-no-claude-web] On claude-web: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-claude-web] claude-web: N-B21 once after the setup items. [P1-qrc-self] N-B26 with the one-time-option clause on Claude ('Allow once'), N-B27, live_checks done with its place. [P2-nf4-claude-web] claude-web: N-F4 leading the first relayed checkpoint. [P2-bare-claude-web] Release check 13 verified: claude-web: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-claude-web] claude-web: checks under the practice-run instruction in Build's own chat; no separate session started. [P2-staged-web] Claude: every part staged in package/; nothing saved into the account until Part 3; then saved unchanged and checked again. [P3-nb12-steps] Claude, a first build: every part opens with the already-there clause before the steps, quote-checked. [P3-close-claude-web] claude-web: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-web] A first-time leader through Build on claude-web: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-place-claude-web] Claude on the web: N-B17 then N-B40.",
    "files": [
     "students/default.md"
    ],
@@ -8029,6 +8043,13 @@
      "check": {
       "type": "quote",
       "id": "N-F4"
+     }
+    },
+    {
+     "text": "[P2-nf4-claude-web] N-F4 leads the first checkpoint each session relays, and none is relayed before it",
+     "kind": "scripted",
+     "check": {
+      "type": "nf4_leads"
      }
     },
     {

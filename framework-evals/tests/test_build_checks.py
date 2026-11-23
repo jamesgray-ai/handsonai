@@ -274,5 +274,33 @@ class ApprovalQuestionsAreWordForWord(MeaningChangingSwapsFail):
         q = {"type": "quote", "id": "N-B5", "form": "why"}
         self.assertTrue(CS.check(q, _run_of(said.replace("reads your real", "reads your actual")))[0])
 
+
+class NF4LeadsTheFirstRelayedCheckpoint(unittest.TestCase):
+    """James, 2026-11-23 (after final-build-3): N-F4 leads the first checkpoint each session relays."""
+
+    NF4 = ("This is a practice run: if Claude itself asks you to approve sending, posting or changing something, "
+           "choose Deny and tell me. Answer the workflow's own questions as you would at work.")
+    Q = "> Here's the draft to Dana. Approve it, or tell me what to change?"
+    C = {"type": "nf4_leads"}
+
+    def runs(self, *msgs):
+        return {"sessions": [{"n": 1, "turns": [t for m in msgs for t in (
+            {"role": "student", "text": "ok", "student": True}, {"role": "ai", "text": m})]}]}
+
+    def test_leading_the_first_checkpoint_passes(self):
+        self.assertTrue(CS.check(self.C, self.runs(self.NF4 + "\n\n" + self.Q,
+                                                   "Answer it as you would at work:\n\n" + self.Q))[0])
+
+    def test_a_checkpoint_relayed_without_it_fails(self):
+        self.assertFalse(CS.check(self.C, self.runs("Answer it as you would at work:\n\n" + self.Q,
+                                                    self.NF4 + "\n\n" + self.Q))[0])
+
+    def test_said_after_the_quote_or_after_the_short_lead_in_fails(self):
+        self.assertFalse(CS.check(self.C, self.runs(self.Q + "\n\n" + self.NF4))[0])
+        self.assertFalse(CS.check(self.C, self.runs("Answer it as you would at work: " + self.NF4 + "\n\n" + self.Q))[0])
+
+    def test_no_checkpoint_relayed_passes(self):
+        self.assertTrue(CS.check(self.C, self.runs("1 of 3: Gmail connection — built and checked"))[0])
+
 if __name__ == "__main__":
     unittest.main()

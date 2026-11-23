@@ -883,6 +883,36 @@ def resolve_release_items(ev):
 
 # ---------------------------------------------------------------- dispatch
 
+LEAD_IN = re.compile(r"answer it as you would at work", re.I)
+
+
+def _nf4_leads(run):
+    """N-F4 leads the first workflow checkpoint each session relays (in place of "Answer it as you would at
+    work:"), and no checkpoint is relayed before it (James, 2026-11-23, after final-build-3). A relayed
+    checkpoint is a message with a quoted block and either lead-in."""
+    forms = [ln for ln in corpus().lines if ln.id == "N-F4" and ln.text]
+    seen = 0
+    for s in run["sessions"]:
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            quote = re.search(r"^\s*>", m, re.M)
+            nf4 = next((f for f in forms if f.matches(m)), None)
+            lead = LEAD_IN.search(m)
+            if not quote or not (nf4 or lead):
+                continue
+            seen += 1
+            where = f"session {s['n']} AI message {i}"
+            if not nf4:
+                return False, f"{where}: a checkpoint relayed without N-F4 leading it"
+            at = m.lower().find("this is a practice run")
+            if at > quote.start():
+                return False, f"{where}: N-F4 said after the quoted checkpoint"
+            if lead and lead.start() < at:
+                return False, f"{where}: 'Answer it as you would at work:' before N-F4"
+            break  # only each session's first relayed checkpoint
+    return True, ("N-F4 leads the first relayed checkpoint in every session that relays one" if seen
+                  else "no checkpoint relayed")
+
+
 def check(c, run):
     """Return (passed, evidence)."""
     t = c["type"]
@@ -959,6 +989,8 @@ def check(c, run):
         return _no_team_visible_writes(run)
     if t == "quoted_output_seen":
         return _quoted_output_seen(run)
+    if t == "nf4_leads":
+        return _nf4_leads(run)
     if t == "no_time_or_step_numbers":
         allowed = leader_sizes(run)
         return _scan(run, n, lambda m: time_or_step_hits(m, allowed), "time estimate or step number")
