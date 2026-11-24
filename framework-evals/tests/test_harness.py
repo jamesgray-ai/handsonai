@@ -1187,6 +1187,15 @@ class RestartContinues(unittest.TestCase):
         self.assertEqual(web.on_leader("Yes.", ws), 1)
         self.assertIn("new", (acct / "SKILL.md").read_text())
         self.assertEqual(web.on_leader("Yes.", ws), 0)  # once per install line
+        for q in ("Do you see client-follow-up in your skills list, with the updated version?",
+                  "Do you see client-follow-up in your skills list, with the new text in it?",
+                  "Do you see client-follow-up in your skills list with the new text?"):
+            self.assertRegex(q, L.INSTALL_LINE)  # the questions as Build asked them in final-test-1a
+        for no in ("No, I don't see it.", "I can't see it in the list.", "I'm not done yet.", "It isn't saved."):
+            (acct / "SKILL.md").write_text("old")
+            web.screen("Do you see client-follow-up in your skills list, with the updated version?", ws)
+            self.assertEqual(web.on_leader(no, ws), 0, no)  # fails closed
+            self.assertEqual((acct / "SKILL.md").read_text(), "old")
         cc = L.ClaudeCode()
         cc.screen("Do you see client-follow-up in your skills list?", ws)
         self.assertFalse(cc.state.get("install"))  # Claude Code saves skills itself

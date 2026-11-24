@@ -94,8 +94,13 @@ def strip_actions(msg):
 
 # Build's install line on a platform where the leader saves the skill (N-B12: "Do you see [skill] in your
 # skills list?"), and the replace form a fix gives ("Replace its instructions with…", "it replaces the … skill").
-INSTALL_LINE = re.compile(r"in your skills list\?|\breplace (?:its|the) (?:instructions|contents|skill)\b|\bit replaces the [\w-]+ skill\b",
+INSTALL_LINE = re.compile(r"in your skills list\b[^?\n]*\?|\breplace (?:its|the) (?:instructions|contents|skill)\b|\bit replaces the [\w-]+ skill\b",
                           re.I)
+
+
+# A negated answer to the install line ("No, I don't see it.", "I'm not done yet."): nothing is installed.
+NEGATED = re.compile(r"\b(no|not|never|can't|cannot|can ?not|don't|doesn't|didn't|isn't|aren't|wasn't|haven't|hasn't|won't)\b|n't\b",
+                     re.I)
 
 
 class Platform:
@@ -147,8 +152,9 @@ class Platform:
         "done" to Build's install line saves what Build staged into the stand-in account (`.claude/skills`,
         what a new chat loads), as the leader's own save would. No install line, nothing saved: a Build
         that never has its fix installed is still caught by the next Test round."""
-        if not self.state.pop("install", False) or not re.search(r"\b(yes|done|i do|i see|see it|replaced|saved)\b", msg, re.I):
-            return 0
+        if not self.state.pop("install", False) or not re.search(r"\b(yes|done|i do|i see|see it|replaced|saved)\b", msg, re.I) \
+                or NEGATED.search(msg):
+            return 0  # fail closed: a refusal or a "not yet" installs nothing
         account = Path(ws) / ".claude" / "skills"
         saved = 0
         for pkg in sorted(Path(ws).glob("**/framework/*/package")):
