@@ -63,7 +63,10 @@ TRANSIENT_RE = re.compile(r"overloaded|API Error: 5\d\d|ECONNRESET|socket hang u
 # didn't (a gradual rollout: seen 2026-11-12, `send-to-project`, in some sessions of one round and not
 # its control). Allowed only by name and only when no SKILL.md in the run root carries that name, so a
 # planted or leaked skill of the same name still stops the run.
-CLI_BUILTIN_SKILLS = {"send-to-project"}
+# Skills the CLI itself lists in some sessions and not in the no-plugin control, found in no folder of the run
+# root (final-build-4b, 2026-11-23: Claude Code 2.1.331 lists claude-approvals in the leader session). Allowed
+# only from nowhere in the run root, and denied by name like every CLI skill.
+CLI_BUILTIN_SKILLS = {"send-to-project", "claude-approvals"}
 
 # Claude Code's own skills, denied by name in every session that has the Skill tool (build-full-1,
 # 2026-11-21: two Build sessions ran Skill("schedule", "list"), which reached the real claude.ai account).
