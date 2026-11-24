@@ -7268,8 +7268,7 @@
           "check": {
             "type": "signposts",
             "skill": "test",
-            "of": 4,
-            "session": 1
+            "of": 4
           }
         },
         {
@@ -7404,8 +7403,7 @@
           "check": {
             "type": "signposts",
             "skill": "test",
-            "of": 4,
-            "session": 1
+            "of": 4
           }
         },
         {
@@ -7496,8 +7494,7 @@
           "check": {
             "type": "signposts",
             "skill": "test",
-            "of": 4,
-            "session": 1
+            "of": 4
           }
         },
         {
@@ -7589,8 +7586,7 @@
           "check": {
             "type": "signposts",
             "skill": "test",
-            "of": 4,
-            "session": 1
+            "of": 4
           }
         },
         {
@@ -7677,8 +7673,7 @@
           "check": {
             "type": "signposts",
             "skill": "test",
-            "of": 4,
-            "session": 1
+            "of": 4
           }
         },
         {
@@ -7781,8 +7776,7 @@
           "check": {
             "type": "signposts",
             "skill": "test",
-            "of": 4,
-            "session": 1
+            "of": 4
           }
         },
         {

@@ -1200,6 +1200,27 @@ class RestartContinues(unittest.TestCase):
         cc.screen("Do you see client-follow-up in your skills list?", ws)
         self.assertFalse(cc.state.get("install"))  # Claude Code saves skills itself
 
+    def test_inserted_marker_reaches_the_saved_session_and_regrade_reads_it(self):
+        """Review of 8a158fbdf: the marker is written in the saved session folder, and regrade's rebuild
+        puts the inserted session back at its place."""
+        import run_eval as R
+        out = Path(tempfile.mkdtemp())
+        for n, ins in ((1, False), (2, False), (3, True), (4, False)):
+            d = out / f"session-{n}"
+            d.mkdir()
+            (d / "turns.json").write_text("[]")
+            R.mark_inserted(d, {"inserted": ins})
+        self.assertTrue((out / "session-3" / R.INSERTED_MARKER).exists())
+        self.assertFalse((out / "session-2" / R.INSERTED_MARKER).exists())
+        listed = [{"prompt": "Test."}, {"prompt": "Run the build skill."}, {"prompt": "Test."}]
+        sessions = list(listed)
+        for k in range(1, 100):  # regrade.rebuild_run's restore, as written there
+            if not (out / f"session-{k}" / "turns.json").exists():
+                break
+            if (out / f"session-{k}" / "inserted").exists():
+                sessions.insert(k - 1, {"restart": True, "inserted": True})
+        self.assertEqual([bool(x.get("inserted")) for x in sessions], [False, False, True, False])
+
     def test_restart_after_build_inside_another_skills_journey(self):
         """final-test-1a (2026-11-24): Test's journeys run Build as a session; on Claude Code its restart
         gets a session straight after it, once, and only after the Build session."""

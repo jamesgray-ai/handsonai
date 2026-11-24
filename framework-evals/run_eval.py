@@ -207,6 +207,17 @@ RESTART_RE = re.compile(r"\brestart|\b(?:take|takes) effect\b[^.?!]{0,40}\b(?:fr
 PICKUP_RE = re.compile(r"say '(run the build skill\.(?: My files are in [^']+?\.)?)'")
 
 
+INSERTED_MARKER = "inserted"
+
+
+def mark_inserted(out_s, sess):
+    """A restart the harness inserted (restart_session, inside another skill's journey) leaves a marker in
+    its saved session folder, so regrade.py puts it back at its place (review of 8a158fbdf: it was written
+    only in the temp root and never reached the saved results)."""
+    if sess.get("inserted"):
+        (Path(out_s) / INSERTED_MARKER).write_text("restart inserted after a Build session (run_eval.restart_session)\n")
+
+
 def restart_session(ev, data, platform, turns, sessions, session=None):
     """Build on Claude Code, where release check 1 hasn't passed, asks the leader to restart the
     session once before Part 2 (claude-code-block.md step 10), and its message gives the pick-up
@@ -408,8 +419,6 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             else:
                 cap_hit = "max_turns" not in s  # a session's own max_turns is a deliberate stop
             shutil.copytree(ws, sdir / "workspace")
-            if s.get("inserted"):
-                (sdir / "inserted").write_text("restart inserted after a Build session (run_eval.restart_session)\n")
             stub_calls = H.stub_calls_since(root, stub_marks)
             start, end = CS.load_tree(sdir / "workspace-start"), CS.load_tree(sdir / "workspace")
             run["sessions"].append({"n": n, "turns": turns, "files_by_turn": files_by_turn,
@@ -483,6 +492,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
         if (root / f"session-{n}" / "events.jsonl").exists():
             shutil.copy2(root / f"session-{n}" / "events.jsonl", out_s / "events.jsonl")
         (out_s / "turns.json").write_text(json.dumps(sess["turns"], indent=2, ensure_ascii=False))
+        mark_inserted(out_s, sess)
         # what reached the stand-ins in this session, kept even when empty so a re-grade knows it was read
         (out_s / "stub-calls.jsonl").write_text("".join(json.dumps(c, ensure_ascii=False, default=str) + "\n"
                                                         for c in sess.get("stub_calls") or []))
