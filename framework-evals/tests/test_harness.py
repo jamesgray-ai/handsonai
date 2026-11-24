@@ -1169,6 +1169,26 @@ class RestartContinues(unittest.TestCase):
     """Build's restart before Part 2 on Claude Code: a one-session eval gets the leader's second
     session with the pick-up phrase, once; never on another platform, step or listed sessions."""
 
+    def test_restart_after_build_inside_another_skills_journey(self):
+        """final-test-1a (2026-11-24): Test's journeys run Build as a session; on Claude Code its restart
+        gets a session straight after it, once, and only after the Build session."""
+        import run_eval as R
+        cc, web = L.ClaudeCode(), L.PLATFORMS["claude-web"]()
+        last = ("That's all I need from you for now. Please restart Claude Code once so the safety settings for my "
+                "checks take effect. To pick up, start a new session in this project and say 'run the build skill.'")
+        turns = [{"role": "student", "text": "Run the build skill."}, {"role": "ai", "text": last},
+                 {"role": "student", "text": "END", "end": True}]
+        test = {"skill_name": "test"}
+        sessions = [{"prompt": "Test the workflow I built."}, {"prompt": "Run the build skill. My files are in x."},
+                    {"prompt": "Test the workflow I built."}]
+        ev = {"sessions": sessions}
+        s = R.restart_session(ev, test, cc, turns, sessions, sessions[1])
+        self.assertEqual(s["prompt"], "Run the build skill.")
+        self.assertTrue(s["restart"])
+        self.assertIsNone(R.restart_session(ev, test, cc, turns, sessions, s))           # once
+        self.assertIsNone(R.restart_session(ev, test, cc, turns, sessions, sessions[0]))  # not after Test
+        self.assertIsNone(R.restart_session(ev, test, web, turns, sessions, sessions[1]))  # Claude Code only
+
     def test_restart_session(self):
         import run_eval as R
         cc, web = L.ClaudeCode(), L.PLATFORMS["claude-web"]()

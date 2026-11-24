@@ -203,14 +203,21 @@ RESTART_RE = re.compile(r"\brestart|\b(?:close|quit|exit|end)\b[^.?!]{0,80}\b(?:
 PICKUP_RE = re.compile(r"say '(run the build skill\.(?: My files are in [^']+?\.)?)'")
 
 
-def restart_session(ev, data, platform, turns, sessions):
+def restart_session(ev, data, platform, turns, sessions, session=None):
     """Build on Claude Code, where release check 1 hasn't passed, asks the leader to restart the
     session once before Part 2 (claude-code-block.md step 10), and its message gives the pick-up
     phrase. A leader restarts and says it: an eval written as one session gets that second session
     (from the session before), once, so Part 2 and Part 3 are reached as they are for a real leader.
-    An eval that lists its own sessions decides for itself (EN-fix-by-name)."""
-    if data.get("skill_name") != "build" or platform.key != "claude-code" or ev.get("sessions") \
-            or ev.get("restart_continues") is False or len(sessions) > 1:
+    An eval that lists its own sessions decides for itself (EN-fix-by-name), except where another skill's
+    eval runs Build as one of its sessions: there the leader restarts too, straight after that session
+    (final-test-1a, 2026-11-24: Test's journeys never got their fix built, 6 of 6 runs)."""
+    if platform.key != "claude-code" or ev.get("restart_continues") is False:
+        return None
+    own_build = data.get("skill_name") == "build" and not ev.get("sessions") and len(sessions) == 1
+    build_inside = (data.get("skill_name") != "build" and bool(ev.get("sessions")) and session is not None
+                    and not session.get("restart")
+                    and re.match(r"\s*run the build skill\b", session.get("prompt", ""), re.I))
+    if not (own_build or build_inside):
         return None
     ai = [t["text"] for t in turns if t["role"] == "ai"]
     if not ai or not turns[-1].get("end") or not RESTART_RE.search(ai[-1]):
@@ -405,9 +412,9 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                                     "grounding": platform.state.get("grounding", ""),
                                     "script_quotes": CS.script_quotes(script),
                                     "stub_servers": stub_servers, "stub_calls": stub_calls})
-            again = restart_session(ev, data, platform, turns, sessions)
+            again = restart_session(ev, data, platform, turns, sessions, s)
             if again:
-                sessions.append(again)  # the loop above picks it up as the next session
+                sessions.insert(n, again)  # the loop above picks it up as the next session
         # Grade inside the run root's lifetime (the graders run from run-root/grader).
         scripted = CS.run_checks(ev, run, data)
         if any(s["cap_hit"] for s in run["sessions"]):
