@@ -7272,12 +7272,12 @@
           }
         },
         {
-          "text": "Says N-T34 (Not ready) word for word",
+          "text": "Says N-T34 (Not ready, its web form) word for word",
           "kind": "scripted",
           "check": {
             "type": "quote",
             "id": "N-T34",
-            "form": "Not ready",
+            "form": "Not ready, web",
             "session": 1
           }
         },
@@ -7407,12 +7407,12 @@
           }
         },
         {
-          "text": "Says N-T34 (Not ready) word for word",
+          "text": "Says N-T34 (Not ready, its web form) word for word",
           "kind": "scripted",
           "check": {
             "type": "quote",
             "id": "N-T34",
-            "form": "Not ready",
+            "form": "Not ready, web",
             "session": 1
           }
         },

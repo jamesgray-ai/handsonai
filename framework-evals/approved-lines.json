@@ -7266,6 +7266,19 @@
   },
   {
    "id": "N-T34",
+   "form": "Not ready, web",
+   "text": "Not ready yet: [n] to fix[ and [n] to change][; your plan needs to catch up with [the change]]. Start [Design / Build] in a new chat. Add your [storage service] to it, then say '[run the design skill / run the build skill]. My files are in [location].'",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "final-test-1b (TJ-claude-web 3 of 3): the Not ready form with N-F2's new-chat sentence on Claude on the web and ChatGPT; approved by James 2026-11-24"
+  },
+  {
+   "id": "N-T34",
    "form": "Older version paused",
    "text": "Your older version stays paused until this one goes live, so keep doing that work by hand.",
    "kind": "safety or promise",
