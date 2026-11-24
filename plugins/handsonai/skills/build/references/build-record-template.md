@@ -72,7 +72,7 @@ change_requests: []
 
 The keys above and no others, in that order:
 - **`live_checks`:** per kind of change, `done: [the place it landed]`, `declined`, `skipped` or `not yet`.
-- **`skills_on`:** `yes` once checked.
+- **`skills_on`:** `yes` once checked; left out when the plan builds no skill (a Microsoft 365 agent only), since nothing needs skills on.
 - **`write_block`** (Claude Code): `off`, or a mapping with `on:` (this workflow's own deny rules, a rule another workflow also lists included), `leader_rules:` (deny rules the leader already had, never removed), `leader_allow:` (the leader's allow rules when the block went on) and `check_agents:` (each check agent file written, removed with the block), as `claude-code-block.md` section 4 shows. Elsewhere, `off`.
 - **`schedule`:** `none` with no `SCH` task (a first build with no set-aside); carried over from a set-aside record (missing there, or no record in the set-aside folder, counts as not `none`); `not-on` once every safety point passes; `safety-incomplete: [points]` when one fails, including a checkpoint the leader chose to keep running by hand; `paused` when the leader confirms a pause. There is no value for "on".
 - **`fingerprints`:** at install, one per installed skill and agent (none for an agent Agent Builder made on Microsoft 365), one per runtime context copy you can read back, and on Claude Code `wrapper: sha256:<64 hex>` for `framework/.bin/test-run.sh`. Where no code can run, a part's size and date.
