@@ -7266,7 +7266,7 @@
   },
   {
    "id": "N-T34",
-   "form": "Not ready, web",
+   "form": "On the web, not ready",
    "text": "Not ready yet: [n] to fix[ and [n] to change][; your plan needs to catch up with [the change]]. Start [Design / Build] in a new chat. Add your [storage service] to it, then say '[run the design skill / run the build skill]. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
