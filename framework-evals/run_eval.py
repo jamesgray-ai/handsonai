@@ -160,7 +160,11 @@ def tools_for(ev, s, data=None, platform=None):
         return H.WEB_TOOLS
     if kind == "agent":
         return H.AGENT_TOOLS
-    if kind is None and (data or {}).get("skill_name") == "build" and getattr(platform, "key", None) == "claude-code":
+    # final-test-1b (2026-11-24): a Build session inside another skill's journey is Build too, and its
+    # checks need check agents just the same (TJ-claude-code: none could run, 3 of 3)
+    is_build = (data or {}).get("skill_name") == "build" or s.get("restart") \
+        or re.match(r"\s*run the build skill\b", s.get("prompt") or "", re.I)
+    if kind is None and is_build and getattr(platform, "key", None) == "claude-code":
         return H.AGENT_TOOLS
     return H.SKILL_TOOLS
 
@@ -194,7 +198,7 @@ def connect_now(ai_text, leader_msg):
 # opening it again ("quit Claude Code and open it again", "close this session and open a new one").
 # Five trial runs (2026-11-19) asked in those words and lost their second session; trial 2 added
 # "end this session and start Claude Code again".
-RESTART_RE = re.compile(r"\brestart|\b(?:close|quit|exit|end)\b[^.?!]{0,80}\b(?:open|start|launch)\b[^.?!]{0,40}"
+RESTART_RE = re.compile(r"\brestart|\b(?:take|takes) effect\b[^.?!]{0,40}\b(?:fresh|new) session\b|\b(?:close|quit|exit|end)\b[^.?!]{0,80}\b(?:open|start|launch)\b[^.?!]{0,40}"
                         r"\b(?:again|a new one|a new session|a fresh one)\b", re.I)
 # The pick-up phrase in the restart line: with "My files are in [location]." where a location is
 # said, and without it on Claude Code, where [location] is nothing (build SKILL.md: "To pick up, start a

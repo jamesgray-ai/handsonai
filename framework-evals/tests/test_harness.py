@@ -1219,6 +1219,15 @@ class RestartContinues(unittest.TestCase):
         self.assertIsNone(R.restart_session(ev, test, cc, turns, sessions, s))           # once
         self.assertIsNone(R.restart_session(ev, test, cc, turns, sessions, sessions[0]))  # not after Test
         self.assertIsNone(R.restart_session(ev, test, web, turns, sessions, sessions[1]))  # Claude Code only
+        fresh = [{"role": "student", "text": "Run the build skill."}, {"role": "ai", "text": (
+            "The settings that stop my checks only take effect in a fresh session. To pick up, start a new "
+            "session in this project and say 'run the build skill.'")}, {"role": "student", "text": "END", "end": True}]
+        self.assertTrue(R.restart_session(ev, test, cc, fresh, sessions, sessions[1]))  # final-test-1b run 2
+        # a Build session inside the journey, and its restart, get the Agent tool its checks need
+        self.assertIn("Agent", R.tools_for(ev, sessions[1], test, cc))
+        self.assertIn("Agent", R.tools_for(ev, s, test, cc))
+        self.assertNotIn("Agent", R.tools_for(ev, sessions[0], test, cc))
+        self.assertNotIn("Agent", R.tools_for(ev, sessions[1], test, web))
 
     def test_restart_session(self):
         import run_eval as R
