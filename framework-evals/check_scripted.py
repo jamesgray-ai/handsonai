@@ -1037,6 +1037,8 @@ def check(c, run):
         return False, f"{c['path']} never present after any turn"
     if t == "tool_write":
         return _tool_write(c, run)
+    if t == "bash_count":
+        return _bash_count(c, run)
     if t == "release_check":
         passed = release_checks_passed(c["ids"])
         ok, why = check(c["passed" if passed else "open"], run)
@@ -1171,6 +1173,42 @@ def file_writes(events_path, path):
                 if any(fnmatch.fnmatch(tok, "*" + name) for tok in re.findall(r"[^\s'\";|&<>]+", cmd)):
                     out.append((tool, re.sub(r"\bs([/|#])(?:\\.|(?!\1).)*\1", r"s\1\1", cmd)))
     return out
+
+
+def bash_commands(events_path):
+    """Every Bash command the session's tool calls ran, in order; None when there's no events.jsonl."""
+    try:
+        lines = Path(events_path).read_text(errors="replace").splitlines()
+    except OSError:
+        return None
+    out = []
+    for line in lines:
+        try:
+            e = json.loads(line)
+        except ValueError:
+            continue
+        content = (e.get("message") or {}).get("content") if e.get("type") == "assistant" else None
+        for b in content if isinstance(content, list) else []:
+            if isinstance(b, dict) and b.get("type") == "tool_use" and b.get("name") == "Bash":
+                out.append(str((b.get("input") or {}).get("command", "")))
+    return out
+
+
+def _bash_count(c, run):
+    """final-build-4c review (2026-11-24): what Build ran, not what the leader read. Passes when the
+    session's Bash commands hold the pattern at least `min` times (JR-codex: the workspace listed by
+    command before Build's checks and again after them)."""
+    pat = re.compile(c["pattern"], re.M)
+    total, why = 0, "no session with an events.jsonl"
+    for s in _sessions(run, c.get("session")):
+        if not s.get("root"):
+            continue
+        cmds = bash_commands(Path(s["root"]).parent / "events.jsonl")
+        if cmds is None:
+            continue
+        total += sum(len(pat.findall(x)) for x in cmds)
+        why = f"{total} match{'es' if total != 1 else ''} of {c['pattern']!r} in Bash commands"
+    return total >= c.get("min", 1), why
 
 
 def _tool_write(c, run):

@@ -302,5 +302,28 @@ class NF4LeadsTheFirstRelayedCheckpoint(unittest.TestCase):
     def test_no_checkpoint_relayed_passes(self):
         self.assertTrue(CS.check(self.C, self.runs("1 of 3: Gmail connection — built and checked"))[0])
 
+
+class CodexListingReadFromTheCommands(unittest.TestCase):
+    """final-build-4c review (2026-11-24): the workspace listing is read from Build's Bash commands."""
+
+    C = {"type": "bash_count", "pattern": "\\bfind \\.[^\\n|;]*-type f", "min": 2}
+
+    def run_with(self, *cmds):
+        import tempfile
+        d = Path(tempfile.mkdtemp())
+        (d / "changes").mkdir()
+        lines = [json.dumps({"type": "assistant", "message": {"content": [
+            {"type": "tool_use", "name": "Bash", "input": {"command": c}}]}}) for c in cmds]
+        (d / "events.jsonl").write_text("\n".join(lines))
+        return {"sessions": [{"n": 1, "turns": [], "root": str(d / "changes")}]}
+
+    def test_listed_before_and_after_passes(self):
+        self.assertTrue(CS.check(self.C, self.run_with("find . -type f | sort > /tmp/a", "cat x",
+                                                        "find . -type f | sort > /tmp/b; diff /tmp/a /tmp/b"))[0])
+
+    def test_listed_once_or_never_fails(self):
+        self.assertFalse(CS.check(self.C, self.run_with("find . -type f | sort > /tmp/a", "cat x"))[0])
+        self.assertFalse(CS.check(self.C, self.run_with("ls", "cat x"))[0])
+
 if __name__ == "__main__":
     unittest.main()

@@ -8939,8 +8939,13 @@
      }
     },
     {
-     "text": "[P2-codex-listing] Build lists the workspace's files before and after its checks",
-     "kind": "judged"
+     "text": "[P2-codex-listing] Build lists the workspace's files by command before its checks and again after them",
+     "kind": "scripted",
+     "check": {
+      "type": "bash_count",
+      "pattern": "\\bfind \\.[^\\n|;]*-type f",
+      "min": 2
+     }
     },
     {
      "text": "[P2-built-text-codex] The first line in the built skill",
