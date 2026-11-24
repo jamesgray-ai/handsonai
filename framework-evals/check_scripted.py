@@ -249,8 +249,14 @@ def corpus():
     return AL.load()
 
 
+def _listed(run):
+    """The sessions the eval lists, in order: a restart the harness inserted after a Build session inside
+    another skill's journey isn't one of them, so a check's "session": n keeps meaning the eval's nth."""
+    return [s for s in run["sessions"] if not s.get("inserted")]
+
+
 def _sessions(run, n):
-    return [run["sessions"][n - 1]] if n else run["sessions"]
+    return [_listed(run)[n - 1]] if n else run["sessions"]
 
 
 def _ai_turns(sess, which="any"):
@@ -272,7 +278,7 @@ def files_all(sess):
 
 
 def _file_session(run, n):
-    return run["sessions"][(n or len(run["sessions"])) - 1]
+    return _listed(run)[n - 1] if n else run["sessions"][-1]
 
 
 def leader_text(message):

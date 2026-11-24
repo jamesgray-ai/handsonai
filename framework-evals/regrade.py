@@ -236,6 +236,13 @@ def rebuild_run(rdir, evals_dir, data, work):
     sessions = list(ran.get("sessions") or [{"prompt": ran.get("prompt"), "student": True}])
     # a session the runner added after Build's restart (run_eval.restart_session) has no entry in
     # eval.json, only its folder: it continues from the session before
+    # a restart inserted after a Build session inside another skill's journey leaves an `inserted` marker
+    # in its folder: put it back at its place, so the eval's own sessions keep their folders
+    for k in range(1, 100):
+        if not (rdir / f"session-{k}" / "turns.json").exists():
+            break
+        if (rdir / f"session-{k}" / "inserted").exists():
+            sessions.insert(k - 1, {"from_previous": True, "student": True, "restart": True, "inserted": True})
     while (rdir / f"session-{len(sessions) + 1}" / "turns.json").exists():
         sessions.append({"from_previous": True, "student": True, "restart": True})
     run, prev_end = {"sessions": []}, None
@@ -280,6 +287,7 @@ def rebuild_run(rdir, evals_dir, data, work):
                                 "typed_history": platform.state.get("typed_history", ""),
                                 "grounding": platform.state.get("grounding", ""),
                                 "script_quotes": CS.script_quotes(script), "fixture": fresh,
+                                "inserted": bool(s.get("inserted")),
                                 # what reached the stand-in connections (review finding 19); a round from before
                                 # 2026-11-21 has no record, and its check reads events.jsonl alone
                                 "stub_calls": _stub_calls(sdir), "stub_servers": _stub_servers(sdir)})

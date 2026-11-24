@@ -325,5 +325,21 @@ class CodexListingReadFromTheCommands(unittest.TestCase):
         self.assertFalse(CS.check(self.C, self.run_with("find . -type f | sort > /tmp/a", "cat x"))[0])
         self.assertFalse(CS.check(self.C, self.run_with("ls", "cat x"))[0])
 
+
+class InsertedRestartKeepsSessionNumbers(unittest.TestCase):
+    """Review of 11a620994: a restart the harness inserts after a Build session in another skill's
+    journey isn't one of the eval's sessions, so "session": n still names the eval's nth."""
+
+    def test_session_numbers_skip_the_inserted_restart(self):
+        mk = lambda n, text, ins=False: {"n": n, "inserted": ins, "turns": [{"role": "ai", "text": text}],
+                                         "files_start": {}, "files_end": {}}
+        run = {"sessions": [mk(1, "round one"), mk(2, "build asks for a restart"), mk(3, "build after it", True),
+                            mk(4, "round two"), mk(5, "go live")]}
+        self.assertTrue(CS.check({"type": "ai_contains", "text": "round two", "session": 3}, run)[0])
+        self.assertTrue(CS.check({"type": "ai_contains", "text": "go live", "session": 4}, run)[0])
+        self.assertFalse(CS.check({"type": "ai_contains", "text": "build after it", "session": 3}, run)[0])
+        self.assertIs(CS._file_session(run, 4), run["sessions"][4])
+        self.assertIs(CS._file_session(run, None), run["sessions"][-1])
+
 if __name__ == "__main__":
     unittest.main()

@@ -210,7 +210,8 @@ def restart_session(ev, data, platform, turns, sessions, session=None):
     (from the session before), once, so Part 2 and Part 3 are reached as they are for a real leader.
     An eval that lists its own sessions decides for itself (EN-fix-by-name), except where another skill's
     eval runs Build as one of its sessions: there the leader restarts too, straight after that session
-    (final-test-1a, 2026-11-24: Test's journeys never got their fix built, 6 of 6 runs)."""
+    (final-test-1a, 2026-11-24: TJ-claude-code never got its fix built, 3 of 3 runs). That inserted session
+    is marked, so a check's session number still counts only the eval's own sessions."""
     if platform.key != "claude-code" or ev.get("restart_continues") is False:
         return None
     own_build = data.get("skill_name") == "build" and not ev.get("sessions") and len(sessions) == 1
@@ -226,7 +227,8 @@ def restart_session(ev, data, platform, turns, sessions, session=None):
     if not m:
         return None
     phrase = m.group(1)
-    return {"prompt": phrase[0].upper() + phrase[1:], "from_previous": True, "student": True, "restart": True}
+    return {"prompt": phrase[0].upper() + phrase[1:], "from_previous": True, "student": True, "restart": True,
+            **({"inserted": True} if build_inside else {})}
 
 
 def connections_for(platform, ws, root, data, extra=()):
@@ -402,6 +404,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             else:
                 cap_hit = "max_turns" not in s  # a session's own max_turns is a deliberate stop
             shutil.copytree(ws, sdir / "workspace")
+            if s.get("inserted"):
+                (sdir / "inserted").write_text("restart inserted after a Build session (run_eval.restart_session)\n")
             stub_calls = H.stub_calls_since(root, stub_marks)
             start, end = CS.load_tree(sdir / "workspace-start"), CS.load_tree(sdir / "workspace")
             run["sessions"].append({"n": n, "turns": turns, "files_by_turn": files_by_turn,
@@ -411,7 +415,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                                     "typed_history": platform.state.get("typed_history", ""),
                                     "grounding": platform.state.get("grounding", ""),
                                     "script_quotes": CS.script_quotes(script),
-                                    "stub_servers": stub_servers, "stub_calls": stub_calls})
+                                    "stub_servers": stub_servers, "stub_calls": stub_calls,
+                                    "inserted": bool(s.get("inserted"))})
             again = restart_session(ev, data, platform, turns, sessions, s)
             if again:
                 sessions.insert(n, again)  # the loop above picks it up as the next session
