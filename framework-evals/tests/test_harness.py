@@ -1169,6 +1169,28 @@ class RestartContinues(unittest.TestCase):
     """Build's restart before Part 2 on Claude Code: a one-session eval gets the leader's second
     session with the pick-up phrase, once; never on another platform, step or listed sessions."""
 
+    def test_leader_install_saves_the_staged_skill_into_the_account(self):
+        """final-test-1a (2026-11-24): a yes to Build's install line saves what Build staged into the stand-in
+        account, so the next Test round runs the fixed copy; without an install line nothing is saved."""
+        web = L.PLATFORMS["claude-web"]()
+        ws = Path(tempfile.mkdtemp())
+        acct = ws / ".claude" / "skills" / "client-follow-up"
+        acct.mkdir(parents=True)
+        (acct / "SKILL.md").write_text("old: add the usual renewal amount")
+        pkg = ws / "drive" / "ai-workspace" / "framework" / "client-follow-up" / "package" / "skills" / "client-follow-up"
+        pkg.mkdir(parents=True)
+        (pkg / "SKILL.md").write_text("new: only what the notes say")
+        self.assertEqual(web.on_leader("Yes.", ws), 0)  # no install line yet
+        self.assertIn("old", (acct / "SKILL.md").read_text())
+        web.screen("In Claude, go to Customize › Skills and open client-follow-up. Replace its contents with "
+                   "what you copied, then save.", ws)
+        self.assertEqual(web.on_leader("Yes.", ws), 1)
+        self.assertIn("new", (acct / "SKILL.md").read_text())
+        self.assertEqual(web.on_leader("Yes.", ws), 0)  # once per install line
+        cc = L.ClaudeCode()
+        cc.screen("Do you see client-follow-up in your skills list?", ws)
+        self.assertFalse(cc.state.get("install"))  # Claude Code saves skills itself
+
     def test_restart_after_build_inside_another_skills_journey(self):
         """final-test-1a (2026-11-24): Test's journeys run Build as a session; on Claude Code its restart
         gets a session straight after it, once, and only after the Build session."""

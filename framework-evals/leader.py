@@ -50,6 +50,7 @@ says, the replies still to come (Deconstruct says one: in the line that says how
 import json
 import re
 import shutil
+import zipfile
 import subprocess
 from pathlib import Path
 
@@ -90,6 +91,12 @@ def strip_actions(msg):
 
 
 # ---------------------------------------------------------------- platforms
+
+# Build's install line on a platform where the leader saves the skill (N-B12: "Do you see [skill] in your
+# skills list?"), and the replace form a fix gives ("Replace its instructions with…", "it replaces the … skill").
+INSTALL_LINE = re.compile(r"in your skills list\?|\breplace (?:its|the) (?:instructions|contents|skill)\b|\bit replaces the [\w-]+ skill\b",
+                          re.I)
+
 
 class Platform:
     key = "claude-code"
@@ -133,11 +140,46 @@ class Platform:
 
     def on_leader(self, msg, ws):
         """React to what the leader typed (an attach, say). Returns platform actions to count."""
-        return 0
+        return self.apply_install(msg, ws)
+
+    def apply_install(self, msg, ws):
+        """final-test-1a (2026-11-24): on a platform where the leader installs by hand (paste_back), a yes or
+        "done" to Build's install line saves what Build staged into the stand-in account (`.claude/skills`,
+        what a new chat loads), as the leader's own save would. No install line, nothing saved: a Build
+        that never has its fix installed is still caught by the next Test round."""
+        if not self.state.pop("install", False) or not re.search(r"\b(yes|done|i do|i see|see it|replaced|saved)\b", msg, re.I):
+            return 0
+        account = Path(ws) / ".claude" / "skills"
+        saved = 0
+        for pkg in sorted(Path(ws).glob("**/framework/*/package")):
+            for f in sorted(pkg.rglob("SKILL.md")):
+                target = account / f.parent.name
+                if target.exists():
+                    shutil.rmtree(target)
+                shutil.copytree(f.parent, target)
+                saved += 1
+            for z in sorted(pkg.rglob("*.zip")):
+                with zipfile.ZipFile(z) as zf:
+                    names = [n for n in zf.namelist() if n.endswith("SKILL.md")]
+                    for n in names:
+                        top = Path(n).parent
+                        target = account / (top.name or z.stem)
+                        if target.exists():
+                            shutil.rmtree(target)
+                        prefix = "" if str(top) == "." else str(top) + "/"
+                        for m in zf.namelist():
+                            if m.startswith(prefix) and not m.endswith("/"):
+                                dest = target / m[len(prefix):]
+                                dest.parent.mkdir(parents=True, exist_ok=True)
+                                dest.write_bytes(zf.read(m))
+                        saved += 1
+        return 1 if saved else 0
 
     def screen(self, ai_text, ws, run_chat=None):
         """What the leader's screen shows after this AI message: [(observation, actions)]."""
         out = []
+        if self.paste_back and INSTALL_LINE.search(ai_text or ""):
+            self.state["install"] = True
         if (self.paste_back or self.leader_runs) and run_chat is not None:
             block = handover_block(ai_text)
             if block and self.scripted_runs:
@@ -350,7 +392,7 @@ class ClaudeDesktop(Platform):
         if self.state.get("hidden") and re.search(r"\bdone\b", msg, re.I):
             shutil.move(str(self.state.pop("hidden")), str(Path(ws) / "ai-workspace"))
             return 1
-        return 0
+        return self.apply_install(msg, ws)
 
     def leader_notes(self):
         if "no_folder_added" in self.faults:
