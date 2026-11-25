@@ -14,7 +14,10 @@ For the full teaching walkthrough — why multi-agent design works, the two ways
 /plugin install multi-agent-example@handsonai
 ```
 
-**Restart Claude Code after installing.** Hooks load only when a session starts, so the gates will not exist until you do. Confirm with `/hooks`.
+Then:
+
+1. Run `/reload-plugins` (or restart Claude Code) so the plugin's agents, commands, and hooks load into the session you are in.
+2. Type `/hooks` and confirm both gates are listed as coming from this plugin: a `SubagentStop` hook running `subagent-gate.sh` and a `PreToolUse` hook running `publish-gate.sh`.
 
 ### Prerequisites
 
@@ -22,6 +25,8 @@ For the full teaching walkthrough — why multi-agent design works, the two ways
 |---|---|
 | **Claude** | Nothing — the document skill is already included |
 | **Claude Code** | Node.js, plus Anthropic's document skills: `/plugin install document-skills@anthropic-agent-skills` |
+
+Node.js runs the Word renderer and both gates, which use it to read what Claude Code sends them — there is no other developer tool to install. Check with `node --version`; if it is missing, install it from [nodejs.org](https://nodejs.org).
 
 The `docx` npm package the renderer uses installs itself the first time you produce a document — into the plugin's own directory, never into your project. That needs network access once.
 
@@ -33,21 +38,23 @@ This is also why it is a separate plugin from [Hands-on AI](../handsonai/) — i
 
 ## Run it
 
+Plugin commands are named after the plugin, so the full command is `/multi-agent-example:hbr-article`. You can also type `/hbr-article` and pick it from the menu.
+
 ```
-/hbr-article
+/multi-agent-example:hbr-article
 ```
 
 Or with your own topic:
 
 ```
-/hbr-article how mid-market manufacturers are using AI agents in procurement
+/multi-agent-example:hbr-article how mid-market manufacturers are using AI agents in procurement
 ```
 
 Deliverables land in `outputs/articles/<slug>/` as `04-article.md` and `04-article.docx`.
 
 For a live demonstration, paste [the goal statement](../../../ai-workflow-framework/examples/autonomous-agent/#the-goal-statement) instead of the slash command — the command is that same prompt saved, and an audience learns more from watching plain English produce four delegated agents.
 
-Then run `/hbr-article-strict` on the same topic and compare the transcripts. Same agents, same hooks, same deliverables — but you chose the sequence instead of Claude. That contrast is the most instructive thing in the plugin.
+Then run `/multi-agent-example:hbr-article-strict` on the same topic and compare the transcripts. Same agents, same hooks, same deliverables — but you chose the sequence instead of Claude. That contrast is the most instructive thing in the plugin.
 
 ## Agents
 
@@ -89,11 +96,15 @@ A `SubagentStop` hook that validates each stage's artifacts before that agent is
 
 It validates **workspace state rather than agent identity**, because the hook payload does not reliably name the agent that just stopped. Checking which files exist and whether they are sound is more robust than trusting metadata.
 
+Retries are bounded. The gate sends a stage's work back **at most twice**, and it checks every attempt, including the retries. If the work still falls short after two send-backs, the agent is allowed to finish, because an endless loop would be worse. The gate writes `QUALITY GATE FAILED after 2 retries: <reason>` to `run-log.md` and shows it to you on screen, and both commands tell the orchestrator to stop and report it before going on. Failing work is never passed silently.
+
+If Node.js is missing, the gate still runs every check and tells you once per run that Node.js needs installing.
+
 ### publish-gate.sh
 
 A `PreToolUse` hook that inspects every subagent dispatch. If the target is `hbr-publisher` and no approval marker exists in the workspace, the harness refuses to launch it and tells Claude to ask the human first.
 
-It is deliberately **fail-open**: an unrecognised payload, a missing field, malformed input, or no active run all allow the dispatch. A gate that wedges a live session would be worse than one that occasionally misses.
+It is deliberately **fail-open**: an unrecognised payload, a missing field, malformed input, or no active run all allow the dispatch. A gate that wedges a live session would be worse than one that occasionally misses. The one exception is a missing Node.js during a run: the gate cannot read the dispatch at all then, so it blocks and says Node.js is required rather than let the publisher through unchecked.
 
 Be clear about what it is: a **guardrail against drift, not a security boundary.** The orchestrator could write the approval marker itself. What the hook guarantees is that skipping the human is a deliberate act rather than an accident, and that every dispatch attempt is logged.
 
@@ -101,9 +112,13 @@ Be clear about what it is: a **guardrail against drift, not a security boundary.
 
 ### /hbr-article
 
+Full name `/multi-agent-example:hbr-article` when installed as a plugin.
+
 **Automatic delegation.** States the topic and the delegation constraint, and deliberately does not name a sequence. Claude decides which specialists to use and when. This is the [goal statement](../../../ai-workflow-framework/examples/autonomous-agent/#the-goal-statement) plus the workspace setup, so it works in any project.
 
 ### /hbr-article-strict
+
+Full name `/multi-agent-example:hbr-article-strict` when installed as a plugin.
 
 **Deterministic orchestration.** The same pipeline with the four stages spelled out in order, each with its input and output file. Use it when you need the same path every run, and as the contrast that makes the automatic version legible.
 
@@ -112,10 +127,12 @@ Be clear about what it is: a **guardrail against drift, not a security boundary.
 Every enforcement mechanism ships with tests:
 
 ```bash
-bash hooks/test-subagent-gate.sh      # 27 assertions on the quality gate
-bash hooks/test-publish-gate.sh       # 17 assertions on the approval gate
-bash scripts/test-article-to-docx.sh  # 16 assertions on the renderer
+bash hooks/test-subagent-gate.sh      # the quality gate, including its retry limit
+bash hooks/test-publish-gate.sh       # the approval gate
+bash scripts/test-article-to-docx.sh  # the renderer
 ```
+
+Each suite prints how many checks passed and failed.
 
 ## Adapting it
 

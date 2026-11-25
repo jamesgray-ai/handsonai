@@ -107,3 +107,7 @@ before reporting.
   to show the human.
 - **If the gate blocks a subagent,** it will tell that agent what to fix and the agent
   will retry. Report a block to the human rather than working around it.
+- **Check `run-log.md` after every stage.** The gate sends work back at most twice; if it
+  still falls short, the agent finishes and the gate writes a `QUALITY GATE FAILED` line
+  to the log. If that line is there, stop and tell the human which stage failed and why
+  before moving to the next stage.

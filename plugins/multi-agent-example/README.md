@@ -18,15 +18,18 @@ Full walkthrough: **https://handsonai.info/ai-workflow-framework/examples/autono
 | `editing-hbr-articles` | Skill — the editorial standards the editor loads |
 | `subagent-gate.sh` | Hook (`SubagentStop`) — validates each stage's artifacts before the agent may finish |
 | `publish-gate.sh` | Hook (`PreToolUse`) — blocks publishing until a human approves |
-| `/hbr-article` | Command — automatic delegation: states the outcome, lets Claude pick the specialists |
-| `/hbr-article-strict` | Command — deterministic: the same pipeline driven by an explicit sequence |
+| `/multi-agent-example:hbr-article` | Command — automatic delegation: states the outcome, lets Claude pick the specialists |
+| `/multi-agent-example:hbr-article-strict` | Command — deterministic: the same pipeline driven by an explicit sequence |
 | `article-to-docx.js` | Script — pinned Word layout, so every run produces an identical document |
 
 ## Prerequisites
 
 **Claude:** nothing. The document skill is already included.
 
-**Claude Code:** you need Anthropic's document skills plugin, and Node.js.
+**Claude Code:** you need Anthropic's document skills plugin, and Node.js. Node.js runs
+the Word renderer and both gates, which use it to read what Claude Code sends them —
+there is no other developer tool to install. Check with `node --version`; if it is
+missing, install it from https://nodejs.org.
 
 ```
 /plugin marketplace add anthropics/skills
@@ -36,6 +39,22 @@ Full walkthrough: **https://handsonai.info/ai-workflow-framework/examples/autono
 The `docx` npm package the renderer uses is installed automatically the first time you
 produce a document — into this plugin's own directory, never into your project. That step
 needs network access once.
+
+## Install
+
+```
+/plugin marketplace add jamesgray-ai/handsonai-plugins
+/plugin install multi-agent-example@handsonai
+```
+
+Then:
+
+1. Run `/reload-plugins` (or restart Claude Code) so the plugin's agents, commands, and
+   hooks load into the session you are in.
+2. Type `/hooks` and confirm both gates are listed as coming from this plugin: a
+   `SubagentStop` hook running `subagent-gate.sh` and a `PreToolUse` hook running
+   `publish-gate.sh`. A gate you believe is protecting you but that never loaded is worse
+   than no gate.
 
 ## Installing hooks changes your environment — here is exactly how
 
@@ -47,19 +66,23 @@ project.** That flag is created only when you start a pipeline run and deleted w
 ends. With no run in progress, the hooks do nothing to any other subagent or tool call in
 any project.
 
-Hooks load when a Claude Code session starts. **Restart Claude Code after installing**, or
-the gates will not exist. Confirm with `/hooks`.
+The hooks join your session when the plugin loads — that is the `/reload-plugins` (or
+restart) step above, and `/hooks` is how you confirm it happened.
 
 ## Running it
 
+Plugin commands are named after the plugin, so the full command is
+`/multi-agent-example:hbr-article`. You can also type `/hbr-article` and pick it from
+the menu.
+
 ```
-/hbr-article
+/multi-agent-example:hbr-article
 ```
 
 Or with your own topic:
 
 ```
-/hbr-article how mid-market manufacturers are using AI agents in procurement
+/multi-agent-example:hbr-article how mid-market manufacturers are using AI agents in procurement
 ```
 
 ### Or type the prompt
@@ -94,17 +117,20 @@ rather than pasting its work back, a gate blocks anything that falls short, and 
 asked to approve before anything is published. Deliverables land in
 `outputs/articles/<slug>/` as `04-article.md` and `04-article.docx`.
 
-To see the contrast that makes the example worth studying, run `/hbr-article-strict` on the
-same topic and compare the two transcripts. Same agents, same hooks, same deliverables —
-but you chose the sequence instead of Claude.
+To see the contrast that makes the example worth studying, run
+`/multi-agent-example:hbr-article-strict` on the same topic and compare the two
+transcripts. Same agents, same hooks, same deliverables — but you chose the sequence
+instead of Claude.
 
 ## Verifying it before you trust it
 
 ```bash
-bash hooks/test-subagent-gate.sh     # 27 assertions on the quality gate
-bash hooks/test-publish-gate.sh      # 17 assertions on the approval gate
-bash scripts/test-article-to-docx.sh # 16 assertions on the renderer
+bash hooks/test-subagent-gate.sh     # the quality gate, including its retry limit
+bash hooks/test-publish-gate.sh      # the approval gate
+bash scripts/test-article-to-docx.sh # the renderer
 ```
+
+Each suite prints how many checks passed and failed.
 
 ## Adapting it
 
@@ -129,9 +155,14 @@ The five things to change, in order:
   orchestrator could write the approval marker itself. What the hook guarantees is that
   skipping the human is a deliberate act rather than an accident, and that every dispatch
   attempt is logged.
+- The quality gate sends a stage's work back **at most twice**. If it still falls short,
+  the agent is allowed to finish — an endless loop would be worse — but the gate writes
+  `QUALITY GATE FAILED after 2 retries: <reason>` to `run-log.md` and shows it to you on
+  screen, and both commands tell the orchestrator to stop and report it. Failing work is
+  never passed silently.
 - Automatic delegation is not deterministic. It can skip a stage or reorder one. The gates
   are what make that acceptable — they enforce the outcome whatever path was taken. Use
-  `/hbr-article-strict` when you need the same path every time.
+  `/multi-agent-example:hbr-article-strict` when you need the same path every time.
 - Visual verification of the Word file needs LibreOffice and Poppler. Without them the
   publisher skips that check and says so.
 
