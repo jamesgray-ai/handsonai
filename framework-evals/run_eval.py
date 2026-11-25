@@ -34,7 +34,9 @@ fail-closed check on the real Claude config before and after (R12-3).
 
 Output, per eval and run, under <out-dir>/<eval-id>/run-<k>/: eval.json, result.json, grading.json,
 scripted.json, calls.json, and per session transcript.md, turns.json, events.jsonl, changes/,
-removed.txt (and the workspace for evals marked `keep_workspace`). Then <out-dir>/round.json and
+removed.txt, stub-calls.jsonl and stub-servers.json (every call the stand-in connections took in that
+session, and which were attached; result.json's `stub_writes` lists the calls that weren't reads and where
+each landed) (and the workspace for evals marked `keep_workspace`). Then <out-dir>/round.json and
 <out-dir>/summary.md, both reported per tier, with each run's leader-action count.
 
 Sessions: an eval's `sessions` list, or one session from `prompt`. `fixture_from` wins in any
@@ -80,7 +82,13 @@ SMOKE = False  # --smoke: one run each, verdicts marked SMOKE and never counted 
 
 # Rough API-equivalent cost per call (USD), for the estimate printed before each round. A subscription
 # isn't billed it; --cost-from replaces it with a previous round's measured usage.
-EST_USD = {"skill_turn": 0.30, "leader_turn": 0.04, "grader": 0.50, "rubric": 0.40, "control": 0.05, "run_chat": 0.30}
+# Basis (2026-11-14): the deconstruct-smoke-1 round (5 runs, 7 skill sessions, 278 skill turns, Opus 5.5),
+# costed with harness.calls_usd. A session's first skill turn loads the skill (avg 0.435); each later,
+# resumed turn adds avg 0.064; a leader call (fresh, the whole transcript each time) avg 0.038; grader
+# 0.215 and rubric 0.217 per run. Analyze's shorter rounds measured less per leader and grader call
+# (0.012, 0.06), so these lean high for the shorter steps.
+EST_USD = {"skill_first": 0.44, "skill_turn": 0.064, "leader_turn": 0.038, "grader": 0.22, "rubric": 0.22,
+           "control": 0.05, "run_chat": 0.30}
 EST_TURNS_WITH_LEADER = 25
 
 
@@ -140,13 +148,23 @@ def build_fixture(fixture, target, evals_dir, builder=None):
         raise H.HarnessFailure(f"fixture {fixture}: {r.stderr[-800:]}")
 
 
-def tools_for(ev, s):
+def tools_for(ev, s, data=None, platform=None):
+    """The skill session's tools: an eval's (or session's) `tools` kind, else SKILL_TOOLS. Build on
+    Claude Code gets the Agent tool by default (AGENT_TOOLS): its checks run in check agents, which a
+    leader's Claude Code always offers; without it every check stopped (2026-11-18, 105 of 105
+    Claude Code sessions). `tools: "skill"` asks for SKILL_TOOLS explicitly."""
     kind = s.get("tools", ev.get("tools"))
     if kind == "no_file":
         return H.NO_FILE_TOOLS
     if kind == "web":
         return H.WEB_TOOLS
     if kind == "agent":
+        return H.AGENT_TOOLS
+    # final-test-1b (2026-11-24): a Build session inside another skill's journey is Build too, and its
+    # checks need check agents just the same (TJ-claude-code: none could run, 3 of 3)
+    is_build = (data or {}).get("skill_name") == "build" or s.get("restart") \
+        or re.match(r"\s*run the build skill\b", s.get("prompt") or "", re.I)
+    if kind is None and is_build and getattr(platform, "key", None) == "claude-code":
         return H.AGENT_TOOLS
     return H.SKILL_TOOLS
 
@@ -166,7 +184,8 @@ def leader_prompt(turns, screens):
 # "done" to Build's "[Tool] isn't connected yet." (connect_now). Before, none are there, as for a
 # leader who hasn't connected them; without them Build could never pass Part 1 on these platforms.
 CHAT_CONNECT = ("claude-web", "chatgpt", "claude-desktop")
-NOT_CONNECTED_RE = re.compile(r"\b(Gmail|Google Sheets) isn't connected yet\b")
+# build-full-1 fix (2026-11-21): "Gmail isn't connected in this chat yet" too
+NOT_CONNECTED_RE = re.compile(r"\b(Gmail|Google Sheets|Slack) (?:isn't|is not) connected\b")
 DONE_RE = re.compile(r"\bdone\b", re.I)
 
 
@@ -175,18 +194,46 @@ def connect_now(ai_text, leader_msg):
     return bool(NOT_CONNECTED_RE.search(ai_text or "")) and bool(DONE_RE.search(leader_msg or ""))
 
 
-RESTART_RE = re.compile(r"\brestart\b", re.I)
-PICKUP_RE = re.compile(r"say '(run the build skill\. My files are in [^']+?\.)'")
+# The restart, in Build's own wording: "restart", "needs restarting", or closing Claude Code and
+# opening it again ("quit Claude Code and open it again", "close this session and open a new one").
+# Five trial runs (2026-11-19) asked in those words and lost their second session; trial 2 added
+# "end this session and start Claude Code again".
+RESTART_RE = re.compile(r"\brestart|\b(?:take|takes) effect\b[^.?!]{0,40}\b(?:fresh|new) session\b|\b(?:close|quit|exit|end)\b[^.?!]{0,80}\b(?:open|start|launch)\b[^.?!]{0,40}"
+                        r"\b(?:again|a new one|a new session|a fresh one)\b", re.I)
+# The pick-up phrase in the restart line: with "My files are in [location]." where a location is
+# said, and without it on Claude Code, where [location] is nothing (build SKILL.md: "To pick up, start a
+# new session in this project and say 'run the build skill.'"). Missing that form left every Claude
+# Code first build at Part 1 (2026-11-18).
+PICKUP_RE = re.compile(r"say '(run the build skill\.(?: My files are in [^']+?\.)?)'")
 
 
-def restart_session(ev, data, platform, turns, sessions):
+INSERTED_MARKER = "inserted"
+
+
+def mark_inserted(out_s, sess):
+    """A restart the harness inserted (restart_session, inside another skill's journey) leaves a marker in
+    its saved session folder, so regrade.py puts it back at its place (review of 8a158fbdf: it was written
+    only in the temp root and never reached the saved results)."""
+    if sess.get("inserted"):
+        (Path(out_s) / INSERTED_MARKER).write_text("restart inserted after a Build session (run_eval.restart_session)\n")
+
+
+def restart_session(ev, data, platform, turns, sessions, session=None):
     """Build on Claude Code, where release check 1 hasn't passed, asks the leader to restart the
     session once before Part 2 (claude-code-block.md step 10), and its message gives the pick-up
     phrase. A leader restarts and says it: an eval written as one session gets that second session
     (from the session before), once, so Part 2 and Part 3 are reached as they are for a real leader.
-    An eval that lists its own sessions decides for itself (EN-fix-by-name)."""
-    if data.get("skill_name") != "build" or platform.key != "claude-code" or ev.get("sessions") \
-            or ev.get("restart_continues") is False or len(sessions) > 1:
+    An eval that lists its own sessions decides for itself (EN-fix-by-name), except where another skill's
+    eval runs Build as one of its sessions: there the leader restarts too, straight after that session
+    (final-test-1a, 2026-11-24: TJ-claude-code never got its fix built, 3 of 3 runs). That inserted session
+    is marked, so a check's session number still counts only the eval's own sessions."""
+    if platform.key != "claude-code" or ev.get("restart_continues") is False:
+        return None
+    own_build = data.get("skill_name") == "build" and not ev.get("sessions") and len(sessions) == 1
+    build_inside = (data.get("skill_name") != "build" and bool(ev.get("sessions")) and session is not None
+                    and not session.get("restart")
+                    and re.match(r"\s*run the build skill\b", session.get("prompt", ""), re.I))
+    if not (own_build or build_inside):
         return None
     ai = [t["text"] for t in turns if t["role"] == "ai"]
     if not ai or not turns[-1].get("end") or not RESTART_RE.search(ai[-1]):
@@ -195,12 +242,13 @@ def restart_session(ev, data, platform, turns, sessions):
     if not m:
         return None
     phrase = m.group(1)
-    return {"prompt": phrase[0].upper() + phrase[1:], "from_previous": True, "student": True, "restart": True}
+    return {"prompt": phrase[0].upper() + phrase[1:], "from_previous": True, "student": True, "restart": True,
+            **({"inserted": True} if build_inside else {})}
 
 
 def connections_for(platform, ws, root, data, extra=()):
     """The stand-in connections a Claude Code (or Codex) session of Build sees: Gmail, when the
-    workflow's plan uses it, and Google Sheets, when it does, as a leader who connected them would
+    workflow's plan uses it, and Google Sheets and Slack, when it does, as a leader who connected them would
     have (harness.stub_mcp); on Microsoft 365, the Outlook the Cowork chat reaches, when the plan uses
     Outlook. Test's evals don't get them yet: its waiting-on-access cases need a way to show Gmail not
     connected first. `extra`: the mail stand-in's optional tools an eval asks for with `stub_tools`
@@ -221,6 +269,10 @@ def connections_for(platform, ws, root, data, extra=()):
         specs.append(H.stub_spec(extra=extra))
     if re.search(r"(?m)(^|\. )Google Sheets: ", plans):
         specs.append(H.stub_spec("google_sheets", "Google Sheets", "sheets"))
+    if re.search(r"(?m)(^|\. )Slack: ", plans):  # the plans that post to #client-updates (W2)
+        specs.append(H.stub_spec("slack", "Slack", "slack"))
+    if re.search(r"(?m)(^|\. )HubSpot: ", plans):  # cc-mixed-tool: reads the open deal, logs a note (W2)
+        specs.append(H.stub_spec("hubspot", "HubSpot", "hubspot"))
     return H.stub_mcp(root, specs) if specs else None
 
 
@@ -297,7 +349,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                 script = load_script(evals_dir, ev["student"])
             replies = list(s.get("replies", []))
             cap = s.get("max_turns", ev.get("max_turns", args.max_turns))
-            tools = tools_for(ev, s)
+            tools = tools_for(ev, s, data, platform)
             if "no_gmail" in (s.get("platform_faults") or ev.get("platform_faults") or []):
                 mcp = None  # a leader who hasn't connected Gmail
             else:
@@ -305,6 +357,10 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             late_mcp = None
             if mcp and platform.key in CHAT_CONNECT:
                 late_mcp, mcp = mcp, None  # connected by the leader when Build asks (connect_now)
+            # every call the stand-ins take in this session is kept (review finding 19): the log is the run
+            # root's, so the session's share is what's added after these marks
+            stub_servers = list((mcp or late_mcp or {}).get("servers") or [])
+            stub_marks = H.stub_log_marks(root, stub_servers)
             prompt_tool = settings_prompt_for(platform, ws, root, data, s, ev)
             if "no_python3" in (s.get("platform_faults") or ev.get("platform_faults") or []):
                 (root / H.NO_PYTHON3).write_text("")  # this run's sessions find no python3 on PATH
@@ -339,6 +395,13 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                     srec.update(session=n, turn=turn + 1)
                     calls.append(srec)
                     msg, reported = L.strip_actions(raw)
+                    if not msg:  # only on-screen actions reported: the leader says they're done
+                        # (an empty message ended JR-claude-web r3 as a harness failure, 2026-11-19).
+                        # With nothing reported, an empty reply stops the run (review H1, James
+                        # 2026-11-21): a made-up "OK." could approve a question the script never did.
+                        if not reported:
+                            raise H.HarnessFailure(f"session {n} turn {turn + 1}: the simulated leader replied with nothing")
+                        msg = "Done."
                     acts = sum(a for _, a in screens) + reported + platform.on_leader(msg, ws)
                     msg_kind = "student"
                     for w in s.get("run_writes", []):
@@ -356,15 +419,20 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             else:
                 cap_hit = "max_turns" not in s  # a session's own max_turns is a deliberate stop
             shutil.copytree(ws, sdir / "workspace")
+            stub_calls = H.stub_calls_since(root, stub_marks)
             start, end = CS.load_tree(sdir / "workspace-start"), CS.load_tree(sdir / "workspace")
             run["sessions"].append({"n": n, "turns": turns, "files_by_turn": files_by_turn,
                                     "files_start": start, "files_end": end, "cap_hit": cap_hit,
                                     "fixture": fresh,  # its start tree is the files the leader brought
                                     "root": str(sdir / "workspace"), "platform": platform.key,
-                                    "script_quotes": CS.script_quotes(script)})
-            again = restart_session(ev, data, platform, turns, sessions)
+                                    "typed_history": platform.state.get("typed_history", ""),
+                                    "grounding": platform.state.get("grounding", ""),
+                                    "script_quotes": CS.script_quotes(script),
+                                    "stub_servers": stub_servers, "stub_calls": stub_calls,
+                                    "inserted": bool(s.get("inserted"))})
+            again = restart_session(ev, data, platform, turns, sessions, s)
             if again:
-                sessions.append(again)  # the loop above picks it up as the next session
+                sessions.insert(n, again)  # the loop above picks it up as the next session
         # Grade inside the run root's lifetime (the graders run from run-root/grader).
         scripted = CS.run_checks(ev, run, data)
         if any(s["cap_hit"] for s in run["sessions"]):
@@ -408,9 +476,15 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
            "expectations": exp,
            "passed": sum(1 for e in exp if e["passed"]), "total": len(exp),
            "leader_actions": {**counts, "report": L.action_report(counts, ev.get("action_target")),
-                              "target": ev.get("action_target")},
+                              "target": ev.get("action_target"),
+                              # Deconstruct 3.3 (T3, T4): replies per part and still to come at each count said
+                              **({"replies_by_part": L.replies_by_part(run["sessions"], data.get("skill_name"))}
+                                 if data.get("skill_name") == "deconstruct" else {})},
            "denials": [d for c in calls for d in c["permission_denials"]],
-           "usd": round(sum(c.get("total_cost_usd") or 0 for c in calls), 4)}
+           # every stand-in call that wasn't a read, and where it landed (review finding 19)
+           "stub_writes": [{"session": n, "server": c.get("server"), "tool": c.get("tool"), "args": c.get("args"),
+                            "lands": where or "only the leader sees it"} for n, where, c in CS.stub_writes(run)[0]],
+           "usd": round(H.calls_usd(calls), 4)}
     for sess in run["sessions"]:  # copy back named outputs only
         n = sess["n"]
         out_s = rdir / f"session-{n}"
@@ -418,6 +492,11 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
         if (root / f"session-{n}" / "events.jsonl").exists():
             shutil.copy2(root / f"session-{n}" / "events.jsonl", out_s / "events.jsonl")
         (out_s / "turns.json").write_text(json.dumps(sess["turns"], indent=2, ensure_ascii=False))
+        mark_inserted(out_s, sess)
+        # what reached the stand-ins in this session, kept even when empty so a re-grade knows it was read
+        (out_s / "stub-calls.jsonl").write_text("".join(json.dumps(c, ensure_ascii=False, default=str) + "\n"
+                                                        for c in sess.get("stub_calls") or []))
+        (out_s / "stub-servers.json").write_text(json.dumps(sess.get("stub_servers") or []))
         if sess.get("fixture"):  # so a re-grade can tell a fixture changed since (regrade.py)
             (out_s / "start-tree.json").write_text(json.dumps(
                 {rel: hashlib.sha256(body.encode()).hexdigest() for rel, body in sess["files_start"].items()}, indent=1))
@@ -548,8 +627,10 @@ def estimate(evs, args, data):
     if args.cost_from:
         for f in Path(args.cost_from).glob("*/run-*/result.json"):
             r = json.loads(f.read_text())
-            if r.get("usd"):
-                measured.setdefault(r["eval"], []).append(r["usd"])
+            calls = f.parent / "calls.json"  # recomputed: rounds before 2026-11-14 summed running totals
+            usd = H.calls_usd(json.loads(calls.read_text())) if calls.exists() else r.get("usd")
+            if usd:
+                measured.setdefault(r["eval"], []).append(usd)
     rows, total = [], 0.0
     for ev in evs:
         runs = runs_for(ev, args, data)
@@ -562,7 +643,8 @@ def estimate(evs, args, data):
             for s in sessions:
                 leads = bool(s.get("student")) or bool(s.get("replies"))
                 turns = ev.get("est_turns") or (EST_TURNS_WITH_LEADER if leads else 1)
-                per += turns * EST_USD["skill_turn"] + (turns * EST_USD["leader_turn"] if s.get("student") else 0)
+                per += EST_USD["skill_first"] + (turns - 1) * EST_USD["skill_turn"] \
+                    + (turns * EST_USD["leader_turn"] if s.get("student") else 0)
             per += EST_USD["grader"] + (EST_USD["rubric"] if data.get("judge_rubric", True) and ev.get("judge_rubric", True) else 0)
             basis = "rough, per-call rates"
         cost = per * runs
@@ -679,10 +761,12 @@ def main():
         for f in cf.as_completed(futs):
             try:
                 r = f.result()
-            except Exception as e:  # a bug in the runner: record it as a harness failure
+            except Exception as e:  # a bug in the runner: record it as a harness failure, with where
                 ev, k = futs[f]
+                import traceback
+                where = " | ".join(l.strip() for l in traceback.format_exception(type(e), e, e.__traceback__)[-4:-1])
                 r = {"eval": ev["id"], "run": k, "tier": tier_of(ev, data), "status": "harness_failure",
-                     "note": H.scrub(repr(e))[:500]}
+                     "note": H.scrub(f"{e!r} at {where}")[:800]}
             results.append(r)
             print(f"[{r.get('tier')}] {r['eval']} run-{r['run']}: {r['status']}"
                   + (f" {r['passed']}/{r['total']}" if "total" in r else "")
@@ -690,6 +774,7 @@ def main():
 
     after = H.real_config_snapshot()
     problems = H.compare_snapshots(before, after)
+    anthropic_sync = H.anthropic_sync_changes(before, after)
     tiers = summarize(out, evs, results, data)
     try:
         evals_rel = str(evals_path.relative_to(ROOT))
@@ -701,6 +786,7 @@ def main():
                   "grader_model": H.GRADER_MODEL, "evals_file": evals_rel,
                   "estimate_usd": round(total, 2), "usd_reported": round(budget["usd"], 4),
                   "fail_closed_check": "pass" if not problems else problems,
+                  "anthropic_sync_changes": anthropic_sync,
                   "tiers": tiers,
                   "results": [{k: r.get(k) for k in ("eval", "run", "tier", "status", "passed", "total", "note")}
                               for r in results]}
@@ -709,6 +795,9 @@ def main():
         vs = list(verdicts.values())
         print(f"tier {t}: {vs.count('PASS')} pass, {vs.count('FAIL')} fail, "
               f"{len(vs) - vs.count('PASS') - vs.count('FAIL')} not counted, of {len(vs)}")
+    if anthropic_sync:
+        print("note: Anthropic's account sync changed its own skills mid-round (logged, not voiding):",
+              anthropic_sync)
     if problems:
         print("FAIL-CLOSED CHECK FAILED: the round is void:", problems)
         sys.exit(2)

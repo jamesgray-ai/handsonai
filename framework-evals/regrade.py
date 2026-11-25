@@ -114,6 +114,28 @@ def start_hashes(files):
     return {rel: hashlib.sha256(body.encode()).hexdigest() for rel, body in files.items()}
 
 
+# final-build fix (2026-11-22): a fixture that writes its own temporary folder into a file (the block's
+# settings, a record's connection line) rebuilt with a new path every time, so its hash never matched and
+# every run of it read as a changed fixture. The rebuilt path is put back to the round's, read from the
+# session's events, before the comparison and the grading.
+ROUND_ROOT = re.compile(r"(/[^\s\"'\\]*/tmp[a-z0-9_]{8})/workspace\b")
+
+
+def round_root(events_path):
+    """The round's temporary folder (the parent of its workspace), from the session's events; None if unseen."""
+    try:
+        m = ROUND_ROOT.search(Path(events_path).read_text(errors="replace"))
+    except OSError:
+        return None
+    return m.group(1) if m else None
+
+
+def put_back_root(files, rebuilt, original):
+    if not original or rebuilt == original:
+        return files
+    return {rel: body.replace(rebuilt, original) for rel, body in files.items()}
+
+
 def fixture_drift(start, events_path, recorded=None):
     """The files whose rebuilt start differs from the round's, as paths: a fixture changed since the
     round under the same name. Exact when the round recorded its start tree's hashes (start-tree.json,
@@ -187,6 +209,25 @@ def _write_tree(files, folder):
         p.write_text(body)
 
 
+def _stub_calls(sdir):
+    p = sdir / "stub-calls.jsonl"
+    if not p.exists():
+        return None
+    out = []
+    for n, line in enumerate(p.read_text(errors="replace").splitlines(), 1):
+        if line.strip():
+            try:
+                out.append(json.loads(line))
+            except ValueError:
+                raise H.HarnessFailure(f"{sdir}: stub-calls.jsonl line {n} can't be read")
+    return out
+
+
+def _stub_servers(sdir):
+    p = sdir / "stub-servers.json"
+    return json.loads(p.read_text()) if p.exists() else None
+
+
 def rebuild_run(rdir, evals_dir, data, work):
     """The run dict run_eval.run_once graded, rebuilt from a run folder into `work` (each session's
     end tree at work/session-n/workspace, its events.jsonl beside it). The eval is the run's own
@@ -195,6 +236,13 @@ def rebuild_run(rdir, evals_dir, data, work):
     sessions = list(ran.get("sessions") or [{"prompt": ran.get("prompt"), "student": True}])
     # a session the runner added after Build's restart (run_eval.restart_session) has no entry in
     # eval.json, only its folder: it continues from the session before
+    # a restart inserted after a Build session inside another skill's journey leaves an `inserted` marker
+    # in its folder: put it back at its place, so the eval's own sessions keep their folders
+    for k in range(1, 100):
+        if not (rdir / f"session-{k}" / "turns.json").exists():
+            break
+        if (rdir / f"session-{k}" / "inserted").exists():
+            sessions.insert(k - 1, {"from_previous": True, "student": True, "restart": True, "inserted": True})
     while (rdir / f"session-{len(sessions) + 1}" / "turns.json").exists():
         sessions.append({"from_previous": True, "student": True, "restart": True})
     run, prev_end = {"sessions": []}, None
@@ -214,7 +262,7 @@ def rebuild_run(rdir, evals_dir, data, work):
             else:
                 RE.build_fixture(s.get("fixture", ran.get("fixture")), ws, evals_dir, data.get("fixture_builder"))
                 platform.prepare(ws)
-            start = CS.load_tree(ws)
+            start = put_back_root(CS.load_tree(ws), str(ws.parent), round_root(sdir / "events.jsonl"))
             rec = sdir / "start-tree.json"
             drift = fixture_drift(start, sdir / "events.jsonl",
                                   json.loads(rec.read_text()) if rec.exists() else None)
@@ -236,7 +284,13 @@ def rebuild_run(rdir, evals_dir, data, work):
                                 "files_by_turn": None, "files_start": start, "files_end": end,
                                 "cap_hit": "Stopped at the turn cap." in transcript,
                                 "root": str(wroot / "workspace"), "platform": platform.key,
-                                "script_quotes": CS.script_quotes(script), "fixture": fresh})
+                                "typed_history": platform.state.get("typed_history", ""),
+                                "grounding": platform.state.get("grounding", ""),
+                                "script_quotes": CS.script_quotes(script), "fixture": fresh,
+                                "inserted": bool(s.get("inserted")),
+                                # what reached the stand-in connections (review finding 19); a round from before
+                                # 2026-11-21 has no record, and its check reads events.jsonl alone
+                                "stub_calls": _stub_calls(sdir), "stub_servers": _stub_servers(sdir)})
         prev_end = end
     return run
 
@@ -308,7 +362,7 @@ def regrade_run(rnd, rdir, ev, data, evals_dir, tag, scripted_only):
            "regrade": {"tag": tag, "scripted_only": scripted_only, "judged_carried": scripted_only,
                        "round_status": old_res.get("status"), "round_passed": old_res.get("passed"),
                        "round_total": old_res.get("total")},
-           "usd": round(sum(c.get("total_cost_usd") or 0 for c in calls), 4)}
+           "usd": round(H.calls_usd(calls), 4)}
     (rdir / f"scripted-{tag}.json").write_text(json.dumps(scripted, indent=2, ensure_ascii=False))
     if not scripted_only:
         (rdir / f"grading-{tag}.json").write_text(json.dumps({"expectations": judged}, indent=2, ensure_ascii=False))
@@ -400,8 +454,8 @@ def main():
     smoke = args.smoke if args.smoke is not None else (
         (out / "summary.md").exists() and "SMOKE " in (out / "summary.md").read_text())
 
-    per_run = [sum(c.get("total_cost_usd") or 0 for c in json.loads((rdir / "calls.json").read_text())
-                   if c.get("role") in ("grader", "rubric"))
+    per_run = [H.calls_usd([c for c in json.loads((rdir / "calls.json").read_text())
+                            if c.get("role") in ("grader", "rubric")])
                for _, rdir in jobs if (rdir / "calls.json").exists()]
     if per_run and any(per_run):
         est, basis = sum(per_run) / len(per_run) * len(jobs), "the round's own grader and rubric calls"
@@ -454,7 +508,11 @@ def main():
     summary(out, [by_id[i] for i in ids], data, args.tag, results, smoke, skipped)
     usd = sum(r.get("usd") or 0 for r in results)
     if rnd is not None:
-        problems = H.compare_snapshots(before, H.real_config_snapshot())
+        after = H.real_config_snapshot()
+        problems = H.compare_snapshots(before, after)
+        if H.anthropic_sync_changes(before, after):
+            print("note: Anthropic's account sync changed its own skills mid-re-grade (logged, not voiding):",
+                  H.anthropic_sync_changes(before, after))
         if problems:
             print("FAIL-CLOSED CHECK FAILED: the re-grade is void:", problems)
             sys.exit(2)

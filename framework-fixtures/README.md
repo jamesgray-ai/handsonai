@@ -53,6 +53,10 @@ Expected values are the routing rule's (rules 4.2): the state number and its own
 | `edge/e-interrupted-redo-with-progress/` | 3 · Deconstruct | 3 · Deconstruct |
 | `edge/e-interrupted-redo-no-progress/` | 3 · Deconstruct | 3 · Deconstruct |
 | `edge/e-run-guide-not-a-sign/` | 11 · Test | 11 · Test |
+| `edge/e-policy-wait/` | 8 · Test | 8 · Test |
+| `edge/e-policy-confirmed/` | 10 · Test | 10 · Test |
+| `edge/e-safety-input/` | 10 · Test | 10 · Test |
+| `edge/e-new-fields/` | 4 · Design | 4 · Design |
 
 ## State 1: earlier versions
 
@@ -91,6 +95,10 @@ Moved unchanged from `deconstruct-workspace/evals/fixtures/new-format/` for rege
 | `seeds/expenses-in-production/` | T25 | 1 · Deconstruct · N-B44 |
 | `seeds/expenses-regression-done/` | T25 | 1 · Deconstruct · N-B44 |
 | `seeds/sales-stale-tools/` | T31 | 1 · Deconstruct (both workflows) |
+
+## Today's Deconstruct shape (`path-none/`)
+
+Every Client Follow-Up above is the older, step-shaped file (three steps, a `### Decisions` line, a measured Baseline). The redesigned Deconstruct writes only `Path: none — the AI plans each run from the goal`: no steps or decisions, the four glosses, `Used By: All`, a moment for a checkpoint's Where and a write's `after [moment]`, Baseline `— · Unknown`, and `expect:` on every practice input. `path-none/client-follow-up/` is Client Follow-Up as today's Deconstruct writes it (D1 is the `When` rule R4; every other ID kept); it passes `requirements-check.js --before-save`. `path-none/path_none.py` lays it over a library workspace (`apply`, with the plan Design writes for it: planned steps `Step Pa`, `Step Pb`, `Step Pc`, and no time-saved line) and adds a law-named rule and checkpoint (`add_law`). The Design, Build and Test fixture builders apply it by default; an eval about an older file keeps the library's copy and says so. The routing table above is unchanged: the overlay changes no state.
 
 ## Notes
 

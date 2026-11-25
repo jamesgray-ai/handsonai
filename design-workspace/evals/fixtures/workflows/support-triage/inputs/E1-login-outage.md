@@ -1,5 +1,6 @@
 source: deconstruct
 tests: AC1, AC2, AC3
+expect: Urgent, an escalation post, a draft reply
 
 From: dana@harbourfreight.example
 Subject: Nobody can log in

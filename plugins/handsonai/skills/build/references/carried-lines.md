@@ -21,7 +21,7 @@ Into the orchestrator (or the main skill, where there's no orchestrator), and ev
 
 - **The given input,** word for word:
 
-> When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only.
+> When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only. Where you're given a practice copy of what the workflow remembers, read that copy, never the real one.
 - **No run log:** run logging is skipped under the cue.
 - **The closing block:** it ends with one block, labelled with the input's name and the round, holding the output, the "What I did" summary, the input's name and the round. Given several inputs, it treats each on its own and ends with one combined block headed:
 
@@ -56,7 +56,7 @@ Its other platforms' forms put that platform's clause in place of "open a new ch
 - Microsoft 365: "It's been [3 months] since this was last checked. To re-check it, open a new Cowork chat and say 'test the workflow I built. My files are in [location].'"
 - Claude Code and Codex: "It's been [3 months] since this was last checked. To re-check it, open a new session in your working folder and say 'test the workflow I built.'"
 
-**The time-saved line,** only where the workflow writes its own run log and the requirements' Measure is time per run with a known Baseline, added to the closing line: "Run [n]; about [hours] saved so far." Otherwise no time line, and never an invented figure.
+**The time-saved line,** only where the workflow writes its own run log and the requirements' Measure is time per run with a known Baseline (an older file only: Deconstruct now writes Baseline `— · Unknown`), added to the closing line: "Run [n]; about [hours] saved so far." Otherwise no time line, and never an invented figure.
 
 **How to change or re-check it,** when the leader asks the workflow itself:
 
@@ -68,7 +68,7 @@ Inside the workflow, the same line follows the platform's clause, word for word:
 
 ## 5. The two facts compiled in
 
-Beyond the instructions, exactly two facts come from the framework's files into the workflow: the location, in every line that points to a framework step ("Google Drive, in ai-workspace/framework/[workflow-slug]", or the storage service's own name; "OneDrive, in ai-workspace/framework/[workflow-slug]"; "ai-workspace/framework/[workflow-slug]" on Claude desktop, each with the working folder's own name; "framework/[workflow-slug]" on Claude Code and Codex); and the time saved per run, for the time-saved line: the Baseline, less the Target when the Target is a time per run.
+Beyond the instructions, exactly two facts come from the framework's files into the workflow: the location, in every line that points to a framework step ("Google Drive, in ai-workspace/framework/[workflow-slug]", or the storage service's own name; "OneDrive, in ai-workspace/framework/[workflow-slug]"; "ai-workspace/framework/[workflow-slug]" on Claude desktop, each with the working folder's own name; "framework/[workflow-slug]" on Claude Code and Codex); and, only where the time-saved line applies, the time saved per run: the Baseline, less the Target when the Target is a time per run.
 
 ## 6. What a build prompt quotes
 

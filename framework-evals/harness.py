@@ -40,8 +40,15 @@ AGENT_TOOLS = SKILL_TOOLS + ["Agent"]
 NO_FILE_TOOLS = ["Read", "Glob", "Grep", "Skill"]   # NF1: no Write, Edit or Bash
 WEB_TOOLS = SKILL_TOOLS + ["WebSearch", "WebFetch"]  # running a built workflow that researches (G2)
 
+# The real schedulers, by absolute path: a session reaches them only so (the run root's bin/ holds
+# stand-ins first on PATH, _scheduler_bin). `crontab -l` once printed "no crontab for <the host user>".
+REAL_SCHEDULERS = ("/usr/bin/crontab", "/bin/launchctl", "/usr/bin/at", "/usr/bin/atq", "/usr/bin/atrm",
+                   "/usr/bin/batch", "/usr/sbin/cron", "/usr/libexec/atrun")
+
 DENY_SETTINGS = {"permissions": {"deny": [
     "Bash(claude plugin:*)", "Bash(claude plugin *)", "Bash(claude mcp:*)", "Bash(claude mcp *)",
+    *[f"Bash({p}{sep})" for p in REAL_SCHEDULERS for sep in (":*", " *")],
+    *[f"Bash({p})" for p in REAL_SCHEDULERS],
 ]}}
 
 REAL_HOME = Path.home()
@@ -50,6 +57,80 @@ REAL_CLAUDE_JSON = REAL_HOME / ".claude.json"
 
 USAGE_LIMIT_RE = re.compile(r"usage limit|limit reached|rate.?limit|resets? (at|in)|429", re.I)
 TRANSIENT_RE = re.compile(r"overloaded|API Error: 5\d\d|ECONNRESET|socket hang up|timed? ?out|network", re.I)
+
+
+# Skills the CLI itself ships, which a session can list even when the round's no-plugin control call
+# didn't (a gradual rollout: seen 2026-11-12, `send-to-project`, in some sessions of one round and not
+# its control). Allowed only by name and only when no SKILL.md in the run root carries that name, so a
+# planted or leaked skill of the same name still stops the run.
+# Skills the CLI itself lists in some sessions and not in the no-plugin control, found in no folder of the run
+# root (final-build-4b, 2026-11-23: Claude Code 2.1.331 lists claude-approvals in the leader session). Allowed
+# only from nowhere in the run root, and denied by name like every CLI skill.
+CLI_BUILTIN_SKILLS = {"send-to-project", "claude-approvals"}
+
+# Claude Code's own skills, denied by name in every session that has the Skill tool (build-full-1,
+# 2026-11-21: two Build sessions ran Skill("schedule", "list"), which reached the real claude.ai account).
+# The deny list is these, the round's recorded bundled skills and CLI_BUILTIN_SKILLS, less the plugin's
+# handsonai:* skills and the workspace's own (the built workflow's). Permission rules can't allow only
+# a prefix (a deny always wins over an allow), so the names are listed; a skill not on the list that
+# still runs is caught after the call (check_skill_calls) and stops the run: fail closed.
+KNOWN_CLI_SKILLS = {"schedule", "loop", "claude-api", "update-config", "keybindings-help", "simplify",
+                    "fewer-permission-prompts", "init", "security-review", "review", "code-review", "run",
+                    "workflow-authoring", "plugin-authoring", "claude-in-chrome", "statusline", "dataviz",
+                    "artifact-design", "artifact-diagramming", "artifact-capabilities", "pr-comments",
+                    "release-notes", "compact", "memory", "agents", "batch", "debug", "insights"}
+
+
+PLUGIN_SKILLS = {p.parent.name for p in (Path(__file__).resolve().parent.parent / "plugins" / "handsonai" / "skills").glob("*/SKILL.md")}
+
+
+def skill_denies(rnd, cwd, tools, plugin=None):
+    """The permission rules that deny every non-plugin skill a session could call: [] without the Skill tool.
+    A built-in skill sharing a plugin skill's bare name (Claude Code 2.1.330 ships a `design` skill) isn't
+    denied by name: its rule also blocked `handsonai:design` (final-deconstruct, 2026-11-21, R4-continue).
+    check_skill_calls still stops the run if that built-in one ever runs: fail closed."""
+    if "Skill" not in tools:
+        return []
+    plugin_names = set(PLUGIN_SKILLS)
+    if plugin:
+        plugin_names |= {p.parent.name for p in Path(plugin).glob("skills/*/SKILL.md")}
+    names = set(rnd.bundled_skills or []) | KNOWN_CLI_SKILLS | CLI_BUILTIN_SKILLS
+    names = sorted(n for n in names - own_skills(cwd) - plugin_names if not n.startswith("handsonai:"))
+    return [r for n in names for r in (f"Skill({n})", f"Skill({n} *)")]
+
+
+def check_skill_calls(role, events, cwd, own_before=(), plugin=None):
+    """Fail closed: a Skill call that ran (its result "Launching skill…") for a skill that is neither
+    the plugin's (handsonai:*) nor the workspace's own stops the run, as an isolation problem: its
+    deny didn't hold. A denied call (a permission denial) is the session's to handle."""
+    workspace_own = set(own_before) | own_skills(cwd)
+    own = set(workspace_own)
+    if plugin:  # the plugin's skills, called without the handsonai: prefix
+        own |= {p.parent.name for p in Path(plugin).glob("skills/*/SKILL.md")}
+    calls = {}
+    for e in events:
+        # what actually launched, as Claude Code records it: a plugin skill is "handsonai:[name]", so a
+        # built-in that shares a plugin skill's bare name (2.1.330's `design`) is caught here even when
+        # its call looked like ours (final-deconstruct, 2026-11-21)
+        launched = (e.get("tool_use_result") or {}) if isinstance(e, dict) and isinstance(e.get("tool_use_result"), dict) else {}
+        cmd = str(launched.get("commandName") or "")
+        if cmd and launched.get("success") and not cmd.startswith("handsonai:") and cmd not in workspace_own:
+            raise HarnessFailure(f"{role}: a skill outside the plugin ran: {cmd} (its deny rule didn't hold)")
+        msg = e.get("message") if isinstance(e, dict) else None
+        content = msg.get("content") if isinstance(msg, dict) else None
+        for b in content if isinstance(content, list) else []:
+            if not isinstance(b, dict):
+                continue
+            if b.get("type") == "tool_use" and b.get("name") == "Skill":
+                name = str((b.get("input") or {}).get("skill") or "")
+                if not name.startswith("handsonai:") and name not in own:
+                    calls[b.get("id")] = name
+            elif b.get("type") == "tool_result" and b.get("tool_use_id") in calls:
+                c = b.get("content")
+                text = c if isinstance(c, str) else " ".join(x.get("text", "") for x in c or [] if isinstance(x, dict))
+                if not b.get("is_error") and re.search(r"launching skill", text, re.I):
+                    raise HarnessFailure(f"{role}: a skill outside the plugin ran: {calls[b.get('tool_use_id')]} "
+                                         "(its deny rule didn't hold)")
 
 
 class HarnessFailure(Exception):
@@ -202,7 +283,111 @@ def _tool_bin(root):
         link = b / tool
         if found and not link.is_symlink() and not link.exists():
             link.symlink_to(_tool_copy(tool, found))
+    _scheduler_bin(root, b)
     return str(b)
+
+
+# ---------- scheduler stand-ins ----------
+# crontab, launchctl, at, atq, atrm and batch reach the host user's own schedules (HOME being a temp
+# folder doesn't change that: cron and launchd key on the user ID). Sessions get these stand-ins first
+# on PATH, keeping their state in the run root's scheduler/ folder, and the real binaries are denied by
+# absolute path (DENY_SETTINGS). Plain /bin/sh, so they work with the no_python3 fault too. The user
+# they report is always STANDIN_USER, never the host's.
+STANDIN_USER = "leader"
+
+_CRONTAB = r"""#!/bin/sh
+# Eval stand-in for crontab: this run's own crontab, kept in the run root. Never the real one.
+S='@STATE@'; F="$S/crontab"; U='@USER@'
+mkdir -p "$S"
+case "$1" in
+  -u) echo "crontab: must be privileged to use -u" >&2; exit 1 ;;
+  -l) if [ -s "$F" ]; then cat "$F"; else echo "crontab: no crontab for $U" >&2; exit 1; fi ;;
+  -r) if [ -f "$F" ]; then rm -f "$F"; else echo "crontab: no crontab for $U" >&2; exit 1; fi ;;
+  -e) echo "crontab: no editor in this session; write the lines to a file and run: crontab FILE" >&2; exit 1 ;;
+  -|"") cat > "$F.new" && mv "$F.new" "$F" ;;
+  -*) echo "usage: crontab [-u user] file" >&2; echo "       crontab [-u user] { -l | -r | -e }" >&2; exit 1 ;;
+  *) if [ -f "$1" ]; then cp "$1" "$F"; else echo "crontab: $1: No such file or directory" >&2; exit 1; fi ;;
+esac
+"""
+
+_LAUNCHCTL = r"""#!/bin/sh
+# Eval stand-in for launchctl: only what this run loaded, kept in the run root. Never the real launchd.
+S='@STATE@/launchd'; U='@USER@'
+mkdir -p "$S"
+label_of() {
+  l=$(/usr/bin/plutil -extract Label raw -o - "$1" 2>/dev/null)
+  [ -n "$l" ] || l=$(basename "$1" .plist)
+  printf '%s' "$l"
+}
+sub="$1"; [ $# -gt 0 ] && shift
+case "$sub" in
+  list)
+    if [ -n "$1" ]; then
+      if [ -f "$S/$1" ]; then printf '{\n\t"Label" = "%s";\n\t"LastExitStatus" = 0;\n};\n' "$1"
+      else echo "Could not find service \"$1\" in domain for port"; exit 113; fi
+    else
+      printf 'PID\tStatus\tLabel\n'
+      for f in "$S"/*; do [ -f "$f" ] && printf -- '-\t0\t%s\n' "$(basename "$f")"; done
+    fi ;;
+  load|bootstrap)
+    [ "$sub" = bootstrap ] && shift
+    for p in "$@"; do
+      case "$p" in -*) continue ;; esac
+      if [ -f "$p" ]; then printf '%s\n' "$p" > "$S/$(label_of "$p")"
+      else echo "$p: No such file or directory" >&2; exit 2; fi
+    done ;;
+  unload|bootout)
+    for p in "$@"; do
+      case "$p" in -*|gui/*[0-9]|user/*[0-9]) continue ;; esac
+      case "$p" in gui/*/*|user/*/*) l=${p##*/} ;; *) l=$(label_of "$p") ;; esac
+      rm -f "$S/$l"
+    done ;;
+  remove) rm -f "$S/$1" ;;
+  start|stop|kickstart|enable|disable)
+    for p in "$@"; do case "$p" in -*) continue ;; esac; l=${p##*/}
+      [ -f "$S/$l" ] || { echo "Could not find service \"$l\" in domain for user: $U" >&2; exit 113; }; done ;;
+  print) for p in "$@"; do l=${p##*/}; [ -f "$S/$l" ] && { echo "$p = {"; echo "	path = $(cat "$S/$l")"; echo "}"; exit 0; }; done
+         echo "Could not find service in domain for user: $U" >&2; exit 113 ;;
+  ""|help) echo "Usage: launchctl <subcommand> ..." ;;
+  *) echo "launchctl: '$sub' isn't available in this session" >&2; exit 1 ;;
+esac
+exit 0
+"""
+
+_AT = r"""#!/bin/sh
+# Eval stand-in for at, atq, atrm and batch: this run's own job queue, kept in the run root.
+S='@STATE@/at'
+mkdir -p "$S"
+me=$(basename "$0")
+case "$me" in
+  atq) for f in "$S"/*.when; do [ -f "$f" ] && printf '%s\t%s\n' "$(basename "$f" .when)" "$(cat "$f")"; done; exit 0 ;;
+  atrm) for j in "$@"; do [ -f "$S/$j.when" ] || { echo "atrm: $j: no such job" >&2; exit 1; }
+          rm -f "$S/$j.when" "$S/$j.job"; done; exit 0 ;;
+esac
+case "$1" in -l) exec "$(dirname "$0")/atq" ;; -r) shift; exec "$(dirname "$0")/atrm" "$@" ;; esac
+file=""
+while [ $# -gt 0 ]; do
+  case "$1" in -f) file="$2"; shift 2 ;; -q) shift 2 ;; -m|-v) shift ;; *) break ;; esac
+done
+when="$*"; [ "$me" = batch ] && when="now (batch)"
+[ -n "$when" ] || { echo "usage: at [-f file] time" >&2; exit 1; }
+n=$(( $(ls "$S" | grep -c '\.when$') + 1 ))
+if [ -n "$file" ]; then cp "$file" "$S/$n.job" || exit 1; else cat > "$S/$n.job"; fi
+printf '%s\n' "$when" > "$S/$n.when"
+echo "job $n at $when" >&2
+"""
+
+
+def _scheduler_bin(root, b):
+    state = root / "scheduler"
+    state.mkdir(exist_ok=True)
+    scripts = {"crontab": _CRONTAB, "launchctl": _LAUNCHCTL,
+               **{name: _AT for name in ("at", "atq", "atrm", "batch")}}
+    for name, body in scripts.items():
+        f = b / name
+        if not f.exists():
+            f.write_text(body.replace("@STATE@", str(state)).replace("@USER@", STANDIN_USER))
+            f.chmod(0o755)
 
 
 GMAIL_STUB = Path(__file__).resolve().parent / "tools" / "gmail_stub_mcp.py"
@@ -220,14 +405,28 @@ SHEETS_ALLOW = ["mcp__google_sheets__get_profile", "mcp__google_sheets__list_spr
                 "mcp__google_sheets__update_range"]
 
 
+# The stand-in Slack (GMAIL_STUB_KIND=slack): its reads, the post and the delete allowed as the leader's click
+# would allow them (the post is W2's own action, as create_draft is W1's); the block's deny rules still win.
+# Allowed is not approved: every call the stand-ins take is kept per session (stub_calls_since), and
+# check_scripted's no_team_visible_writes, built into every Build run, fails a post anywhere but the
+# private #build-check or a message to the leader, and any HubSpot change (review finding 19).
+SLACK_ALLOW = ["mcp__slack__get_profile", "mcp__slack__list_channels", "mcp__slack__read_channel",
+               "mcp__slack__post_message", "mcp__slack__delete_message"]
+
+# The stand-in HubSpot (GMAIL_STUB_KIND=hubspot; cc-mixed-tool): its one CRM tool both reads and changes
+# records, allowed as the leader's click would allow it; the block's deny rules still win.
+HUBSPOT_ALLOW = ["mcp__hubspot__get_profile", "mcp__hubspot__manage_crm_objects"]
+
+
 def stub_spec(server="gmail", service="Gmail", kind="mail", account="alex@brightline.example", extra=()):
     """One stand-in connection for stub_mcp: the mail stub (Gmail, or Outlook on Microsoft 365) or,
-    with kind="sheets", Google Sheets."""
+    with kind="sheets", Google Sheets, with kind="slack", Slack, or with kind="hubspot", HubSpot."""
     unknown = set(extra) - set(STUB_EXTRA_TOOLS)
     if unknown:
         raise HarnessFailure(f"unknown stand-in connection tools: {sorted(unknown)}")
-    allow = (SHEETS_ALLOW if kind == "sheets" else GMAIL_ALLOW + [STUB_EXTRA_TOOLS[x] for x in sorted(extra)])
-    prefix = "mcp__google_sheets__" if kind == "sheets" else "mcp__gmail__"
+    allow = (SHEETS_ALLOW if kind == "sheets" else SLACK_ALLOW if kind == "slack" else HUBSPOT_ALLOW if kind == "hubspot"
+             else GMAIL_ALLOW + [STUB_EXTRA_TOOLS[x] for x in sorted(extra)])
+    prefix = {"sheets": "mcp__google_sheets__", "slack": "mcp__slack__", "hubspot": "mcp__hubspot__"}.get(kind, "mcp__gmail__")
     return {"server": server, "service": service, "kind": kind, "account": account, "extra": sorted(extra),
             "allow": [t.replace(prefix, f"mcp__{server}__") for t in allow]}
 
@@ -248,6 +447,40 @@ def stub_mcp(root, specs):
     cfg = root / f"mcp-{'-'.join(servers)}.json"
     cfg.write_text(json.dumps({"mcpServers": servers}))
     return {"config": cfg, "servers": list(servers), "allow": [t for sp in specs for t in sp["allow"]]}
+
+
+def stub_log_marks(root, servers):
+    """How many calls each stand-in's log (root/<server>-calls.jsonl) holds now, so a session's own share
+    can be read after it (stub_calls_since): the log is the run root's, kept across sessions."""
+    marks = {}
+    for sv in servers:
+        p = Path(root) / f"{sv}-calls.jsonl"
+        marks[sv] = len(p.read_text(errors="replace").splitlines()) if p.exists() else 0
+    return marks
+
+
+def stub_calls_since(root, marks):
+    """Every call the stand-ins logged since `marks`, as [{server, tool, args, result, t}] in time order
+    (review finding 19: every stand-in call is recorded per session, and check_scripted's
+    no_team_visible_writes reads it). A log line that can't be read raises HarnessFailure: a call
+    nobody can read is never taken as no call."""
+    out = []
+    for sv, k in marks.items():
+        p = Path(root) / f"{sv}-calls.jsonl"
+        if not p.exists():
+            continue
+        for n, line in enumerate(p.read_text(errors="replace").splitlines()[k:], k + 1):
+            if not line.strip():
+                continue
+            try:
+                e = json.loads(line)
+            except ValueError:
+                raise HarnessFailure(f"stand-in {sv}: call log line {n} can't be read")
+            if not isinstance(e, dict) or "tool" not in e:
+                raise HarnessFailure(f"stand-in {sv}: call log line {n} names no tool")
+            out.append({"server": sv, "tool": e["tool"], "args": e.get("args") or {}, "result": e.get("result"),
+                        "t": e.get("t")})
+    return sorted(out, key=lambda e: e.get("t") or 0)
 
 
 def gmail_mcp(root, account="alex@brightline.example", server="gmail", service="Gmail", extra=()):
@@ -400,11 +633,20 @@ def where_skill(root, name):
     """Where a skill named `name` sits now, as paths relative to the run root (never a home path):
     so an unexpected-skill stop says where the session could have found it."""
     hits = []
-    for f in Path(root).rglob("SKILL.md"):
+    # A session writes and deletes files under the run root while this walks it (build-full-1-fix,
+    # 2026-11-21: two runs stopped on a FileNotFoundError here), so a file gone mid-walk is skipped.
+    for dirpath, _dirs, files in os.walk(root, onerror=lambda e: None):
+        if "SKILL.md" not in files:
+            continue
+        f = Path(dirpath) / "SKILL.md"
         rel = f.relative_to(root)
         if rel.parts[0] == "plugin":
             continue
-        if f.parent.name == name or re.search(rf"(?m)^name:\s*{re.escape(name)}\s*$", f.read_text(errors="replace")[:2000]):
+        try:
+            text = f.read_text(errors="replace")[:2000]
+        except OSError:
+            continue
+        if f.parent.name == name or re.search(rf"(?m)^name:\s*{re.escape(name)}\s*$", text):
             hits.append(str(rel))
     return hits or ["nowhere in the run root"]
 
@@ -453,7 +695,8 @@ def check_init(rnd, role, init, root, tools, cwd, plugin, mcp_servers=(), own_be
         # version can) and those there now. Nowhere else: not the temp HOME, not a nested folder.
         own = set(own_before) | own_skills(cwd)
         extra = [s for s in skills if s not in rnd.bundled_skills and s not in own
-                 and not (plugin and s.startswith("handsonai:"))]
+                 and not (plugin and s.startswith("handsonai:"))
+                 and not (s in CLI_BUILTIN_SKILLS and where_skill(root, s) == ["nowhere in the run root"])]
         if extra:
             found = "; ".join(f"{s} at {', '.join(where_skill(root, s))}" for s in extra)
             bad.append(f"unexpected skills {extra} (found: {found})")
@@ -489,9 +732,13 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
     configs = [str(m["config"]) for m in (mcp, prompt_tool) if m]
     if configs:
         args += ["--mcp-config", *configs]
+    disallowed = skill_denies(rnd, cwd, tools, plugin)
     if prompt_tool:
         # The session's model never calls the click itself: only Claude Code's prompt does.
-        args += ["--permission-prompt-tool", prompt_tool["tool"], "--disallowedTools", prompt_tool["tool"]]
+        args += ["--permission-prompt-tool", prompt_tool["tool"]]
+        disallowed.append(prompt_tool["tool"])
+    if disallowed:
+        args += ["--disallowedTools", ",".join(disallowed)]
     if plugin:
         args += ["--plugin-dir", str(plugin)]
     if agent:
@@ -537,13 +784,15 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
     check_init(rnd, role, init, root, tools, cwd, plugin,
                list((mcp or {}).get("servers", ())) + list((prompt_tool or {}).get("servers", ())), own_before)
     check_config_folder(root, plugin)
+    check_skill_calls(role, events, cwd, own_before, plugin)
     record = {
         "role": role,
         "init": {k: init.get(k) for k in INIT_FIELDS},
         "model_used": list((result.get("modelUsage") or {}).keys()),
         "permission_denials": result.get("permission_denials") or [],
         "usage": result.get("usage"),
-        "total_cost_usd": result.get("total_cost_usd"),
+        "total_cost_usd": result.get("total_cost_usd"),  # running total when resumed: see calls_usd()
+        "resumed": bool(resume),
         "num_turns": result.get("num_turns"),
         "duration_ms": result.get("duration_ms"),
         "attempts": attempt,
@@ -553,6 +802,26 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
         # a signpost said before the tool calls of the same turn counts as said.
         text = shown_text(events) or text
     return text.strip(), record
+
+
+def calls_usd(calls):
+    """The real API-equivalent cost of a run's calls. `claude -p --resume` reports total_cost_usd as
+    the running total of the whole resumed conversation, not the call's own cost (seen 2026-11-14:
+    summing it counted a 66-turn skill session ~33 times). So a resumed call counts only its increment
+    over the previous call of the same conversation; a fresh call (student, grader, rubric, control,
+    run_chat, a session's first skill turn) counts whole, and a drop in the running total counts as a
+    new conversation (whole). A conversation is (role, session); calls saved before the `resumed`
+    field was recorded count as resumed when they are skill turns after their session's first."""
+    last, usd = {}, 0.0
+    for c in calls:
+        v = c.get("total_cost_usd") or 0
+        key = (c.get("role"), c.get("session"))
+        resumed = c["resumed"] if "resumed" in c else (
+            c.get("role") == "skill" and c.get("session") is not None and (c.get("turn") or 1) > 1)
+        prev = last.get(key) if resumed else None
+        usd += v - prev if prev is not None and v >= prev else v
+        last[key] = v
+    return usd
 
 
 def shown_text(events):
@@ -610,14 +879,34 @@ def _account_field(name):
         return None
 
 
-def _synced_skills():
-    """~/.claude/skills/synced/ is the account skill sync that James's own Claude Code sessions
-    rewrite on their schedule (its manifest's lastUpdated and .last-complete-round change on
-    every sync). Compare what it holds, not its timestamps: the synced folders and, per
-    manifest, each skill's id, name, source and updatedAt."""
+# Anthropic's own built-in skills (source "anthropic" or "anthropic-example") are added, removed and
+# updated by the account sync on Anthropic's schedule: 2026-11-12 (xlsx, pptx, docx and
+# google-workspace updated) and 2026-11-20 (google-workspace added at 16:12 CST) each voided a core
+# round, build-full-1 the second (waived by James). Eval sessions can't write them: they run in
+# their own config folder, where plugins/synced is checked separately. So those skills are left out
+# of the fail-closed hash and logged instead (anthropic_sync_changes); every other synced skill is
+# still compared in full, its add, removal, rename or update voiding the round.
+ANTHROPIC_SYNC_SOURCES = {"anthropic", "anthropic-example"}
+
+
+def _synced_manifests():
+    """Each account's manifest skills. The account sync rewrites manifest.json in place; a read that
+    lands mid-rewrite is retried (build-full-1-fix, 2026-11-21: a round voided on a synced change
+    nothing in the folder dates to), and only a manifest unreadable three times counts as such."""
+    first = _synced_manifests_once()
+    for _ in range(2):
+        if first is None or "unreadable manifest" not in json.dumps(
+                {str(k): v for k, v in first.items()}, default=str):
+            return first
+        time.sleep(1)
+        first = _synced_manifests_once()
+    return first
+
+
+def _synced_manifests_once():
     root = REAL_CLAUDE / "skills" / "synced"
     if not root.exists():
-        return "absent"
+        return None
     out = {}
     for acct in sorted(p for p in root.iterdir() if p.is_dir()):
         m = acct / "manifest.json"
@@ -625,12 +914,58 @@ def _synced_skills():
             skills = json.loads(m.read_text()).get("skills", []) if m.exists() else []
         except ValueError:
             skills = ["unreadable manifest"]
+        out[acct] = skills
+    return out
+
+
+def _is_anthropic(x):
+    return isinstance(x, dict) and x.get("source") in ANTHROPIC_SYNC_SOURCES
+
+
+def _synced_skills():
+    """~/.claude/skills/synced/ is the account skill sync that James's own Claude Code sessions
+    rewrite on their schedule (its manifest's lastUpdated and .last-complete-round change on
+    every sync). Compare what it holds, not its timestamps: the synced folders and, per
+    manifest, each skill's id, name, source and updatedAt, leaving out Anthropic's own skills
+    and their folders (see ANTHROPIC_SYNC_SOURCES)."""
+    manifests = _synced_manifests()
+    if manifests is None:
+        return "absent"
+    out = {}
+    for acct, skills in manifests.items():
+        theirs = {str(x.get(k)) for x in skills if _is_anthropic(x) for k in ("skillId", "name")}
         out[acct.name] = {
-            "folders": sorted(p.name for p in acct.iterdir() if p.is_dir()),
+            "folders": sorted(p.name for p in acct.iterdir() if p.is_dir() and p.name not in theirs),
             "skills": sorted(json.dumps({k: x.get(k) for k in ("skillId", "name", "source", "updatedAt")},
-                                        sort_keys=True) if isinstance(x, dict) else str(x) for x in skills),
+                                        sort_keys=True) if isinstance(x, dict) else str(x)
+                             for x in skills if not _is_anthropic(x)),
         }
     return hashlib.sha256(json.dumps(out, sort_keys=True).encode()).hexdigest()
+
+
+def _synced_summary():
+    """What the fail-closed hash of skills/synced covers, in words, so a void can say what changed."""
+    manifests = _synced_manifests() or {}
+    out = []
+    for acct, skills in manifests.items():
+        theirs = {str(x.get(k)) for x in skills if _is_anthropic(x) for k in ("skillId", "name")}
+        out += [f"folder {p.name}" for p in acct.iterdir() if p.is_dir() and p.name not in theirs]
+        out += [f"skill {x.get('name')} {x.get('source')} {x.get('updatedAt')}" if isinstance(x, dict) else f"entry {x}"
+                for x in skills if not _is_anthropic(x)]
+    return sorted(out)
+
+
+def _anthropic_synced():
+    """Anthropic's own synced skills, by name, with their updatedAt: logged, never voiding."""
+    manifests = _synced_manifests() or {}
+    return sorted(f"{x.get('name')} {x.get('updatedAt')}" for skills in manifests.values()
+                  for x in skills if _is_anthropic(x))
+
+
+def anthropic_sync_changes(before, after):
+    """What Anthropic's account sync added, removed or updated mid-round, for the round record."""
+    b, a = set(before.get("_anthropic_synced", [])), set(after.get("_anthropic_synced", []))
+    return [f"removed or updated: {x}" for x in sorted(b - a)] + [f"added or updated: {x}" for x in sorted(a - b)]
 
 
 def real_config_snapshot():
@@ -645,6 +980,8 @@ def real_config_snapshot():
         "settings.json": _hash_tree(REAL_CLAUDE / "settings.json"),
         "skills/": _hash_tree(REAL_CLAUDE / "skills", skip=("synced",)),
         "skills/synced": _synced_skills(),
+        "_synced_summary": _synced_summary(),
+        "_anthropic_synced": _anthropic_synced(),
         "agents/": _hash_tree(REAL_CLAUDE / "agents"),
         "mcpServers": hashlib.sha256(json.dumps(cj.get("mcpServers"), sort_keys=True).encode()).hexdigest(),
         # profileFetchedAt is rewritten whenever any Claude Code session on this machine refetches the
@@ -703,7 +1040,11 @@ def compare_snapshots(before, after):
     bad = []
     for k in ("settings.json", "skills/", "skills/synced", "agents/", "mcpServers", "oauthAccount"):
         if before[k] != after[k]:
-            bad.append(f"{k} changed")
+            if k == "skills/synced" and "_synced_summary" in before:
+                b, a = set(before["_synced_summary"]), set(after.get("_synced_summary", []))
+                bad.append(f"{k} changed (gone: {sorted(b - a)}; new: {sorted(a - b)})")
+            else:
+                bad.append(f"{k} changed")
     new_plugins = sorted(set(after["plugin_keys"]) - set(before["plugin_keys"]))
     if new_plugins:
         bad.append(f"new plugins installed: {new_plugins}")
@@ -719,6 +1060,7 @@ def commit_leak_scan(folder):
         v = _account_field(field)
         if v:
             needles[v] = label
+    user = user_needle()
     hits = []
     for f in Path(folder).rglob("*"):
         if f.is_file():
@@ -729,7 +1071,33 @@ def commit_leak_scan(folder):
             for n, label in needles.items():
                 if n in s:
                     hits.append(f"{f}: {label}" + (leak_context(s, n) if label == "home path" else ""))
+            if user and user.search(LS_OWNER.sub("", s.replace(str(REAL_HOME), ""))):
+                hits.append(f"{f}: host user name")
     return hits
+
+
+def real_user():
+    """The host's user name, read at run time; never written down."""
+    try:
+        import pwd
+        return pwd.getpwuid(os.getuid()).pw_name
+    except (ImportError, KeyError):
+        return REAL_HOME.name
+
+
+# `ls -l` names each file's owner, the host user, in nearly every Build session; that column is
+# expected (the files are the host's) and isn't a sign the session reached the user's own state.
+LS_OWNER = re.compile(r"[-dlbcps][-rwxsStT]{9}[@+.]?\s+\d+\s+\S+\s+\S+")
+
+
+def user_needle():
+    """The host user's name as a whole word: "no crontab for <user>" is a run that reached the user's
+    own scheduler (or any other per-user state). Not inside a longer name, a domain or a path segment
+    (the home path is its own needle), and never in an `ls -l` owner column (LS_OWNER)."""
+    u = real_user()
+    if not u or len(u) < 3 or u in (STANDIN_USER, "root"):
+        return None
+    return re.compile(rf"(?<![\w.@/-]){re.escape(u)}(?![\w.@-])")
 
 
 def leak_context(text, needle, width=60):

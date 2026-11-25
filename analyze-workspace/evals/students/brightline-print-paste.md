@@ -51,12 +51,12 @@ The owner of Brightline Advisory, a four-person analytics consulting firm. You s
   owner: account-management
   ---
   ```
-- If asked whether anything in the registry summary is wrong or missing, say it's right.
-- On the point of view (lens), take the AI's recommendation.
-- If asked to look through what your AI already knows, say no.
-- Pick Client Relationship Management to start, by its number.
-- When asked how much time renewals take, say you're not sure.
-- When asked about another process, say "stop here for now".
+- If asked whether it's your company or you work inside it, say it's your own company.
+- If the AI says which point of view it will take, go along with it.
+- If asked whether the AI may look through what your AI already knows, say no.
+- If asked where time went or things slipped lately, talk about the late follow-up emails after client calls, in a sentence.
+- If asked what the problem is with it, or what kicks it off, answer from the facts in a few words.
+- To the next question after that, whatever it is, say "stop here for now".
 
 ## When to stop
 Reply `END` after the AI's message that answers "stop here for now".

@@ -33,6 +33,7 @@ These come first, where they apply:
 - When it asks you to connect a tool or allow a permission and say 'done', say "I can't find that setting."
 - When asked for a real example from your recent work, paste your real example.
 - When it asks whether there's anything to add or drop, or whether you're ready, say "No changes. Ready."
+- When it shows you practice inputs it wrote and asks whether each looks like something you could really get, say "Yes, they do."
 - When it asks you to open a new chat or session, or a second terminal, and paste a block, do it as your screen allows. If your screen shows the run's answer, paste what it shows. If it doesn't, paste the matching block from "Your runs". On Claude Code, when it says to say "next" when it finishes, say "next".
 - When the workflow itself asks you something during a run, answer as you would at work: approve the draft; for the Northwind call, say no next step was agreed.
 - When it asks whether that chat saw your requirements or plan, say "No."

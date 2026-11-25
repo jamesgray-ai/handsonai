@@ -16,8 +16,8 @@ For each night, a competitor tracker that records every change our tracked compe
 | Business Objective | Make product bets with current knowledge of the market |
 | Desired Outcome | No competitor change sits unnoticed for more than a day |
 | Measure | Competitor changes the team learned of more than a week late |
-| Baseline | About 4 a month · Estimated |
-| Target | Under 1 a month |
+| Baseline | — · Unknown |
+| Target | — |
 
 ## Metadata
 
@@ -33,13 +33,7 @@ For each night, a competitor tracker that records every change our tracked compe
 ## Path
 
 Method preference: AI works it out each time
-
 Path: none — the AI plans each run from the goal
-
-### Decisions
-
-- D1: When sources disagree, it records both and says which is newer · settled by: open judgment
-- D2: When a lead points somewhere new (a release note, a job post, a partner's announcement), it decides whether to follow it · settled by: open judgment
 
 ## Inputs
 
@@ -47,6 +41,7 @@ Path: none — the AI plans each run from the goal
 - I2 · competitor newsletters · from your Gmail inbox · Status: available
 
 ## Context Inventory
+*The sources it uses, what we call its context.*
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
@@ -66,6 +61,7 @@ Each line is one thing a single run's output either does or doesn't do. Every pr
 Reference example: —
 
 ## Example Scenarios
+*The practice runs: each input it's tested on, and what should happen.*
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
@@ -73,14 +69,18 @@ Reference example: —
 | E2 | A rumoured launch (proposed, hard) | `inputs/E2-rumoured-launch.md` — a newsletter rumour the competitor's own pages don't back | Recorded as a rumour, kept apart from what was announced, or not recorded | — |
 
 ## Rules & Constraints
+*Its rules: what it always does, never does, and does when something happens.*
 
 | ID | Kind | Rule |
 |---|---|---|
 | R1 | Never | It never records a claim it can't source. |
 | R2 | Always | It always separates what a competitor announced from what it shipped. |
 | R3 | Fallback | When it can't confidently handle a case, it skips that item and flags it. |
+| R4 | When | When sources disagree, it records both and says which is newer. |
+| R5 | When | When a lead points somewhere new (a release note, a job post, a partner's announcement), it decides whether to follow it. |
 
 ## Human Gates
+*The checkpoints: where a person checks or approves the work.*
 
 Runs: without you
 

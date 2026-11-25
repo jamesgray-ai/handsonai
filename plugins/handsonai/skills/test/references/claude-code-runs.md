@@ -12,7 +12,7 @@ Before the first run, and again before every run and every resume:
 
 1. **Headless runs.** Release check 6 is open in this release, so the AI doesn't run the inputs: N-T42 (section 6).
 2. **The fingerprint.** `shasum -a 256 framework/.bin/test-run.sh <this skill's folder>/scripts/test-run.sh`. Both must equal the build record's `fingerprints.wrapper`. A mismatch fails closed: N-T42. Nothing is ever edited to make them match.
-3. **The allow, on a live workflow.** Go-live removed the wrapper's allow. At the start of Part 2 of a round on a live workflow, ask N-T47:
+3. **The allow, on a live workflow, only when the AI will run the inputs.** Go-live removed the wrapper's allow. At the start of Part 2 of a round on a live workflow, once checks 1 and 2 pass (never while release check 6 is open, or after N-T42, when the leader runs the inputs and nothing is allowed), ask N-T47:
 
    > "For this round I need to allow my test script again in this project's settings, so I can run your practice inputs in separate sessions. I'll remove it when the round ends. Shall I go ahead?"
 
@@ -44,7 +44,7 @@ framework/.bin/test-run.sh test <slug> --plugin-copy <this skill's folder>/scrip
 
 Start both runs of each input, and the inputs, in parallel. The wrapper:
 
-- refuses any input outside `framework/<slug>/inputs/`, and strips its `source:` and `tests:` header, so no line ID reaches the run;
+- refuses any input outside `framework/<slug>/inputs/`, and strips its header lines, `source:`, `tests:` and `expect:`, only while they lead the file, then one blank line, then a leading `Earlier run:` paragraph and the blank line after it, so no line ID, expected result or set-up reaches the run (a real input whose own text opens with an "Earlier run:" paragraph loses it: an accepted edge);
 - makes a fresh run folder outside the repository holding the installed skills and agents, their context and the input, and prints `run_folder:` first: record it in the round's Environment at once;
 - builds the session's settings from the record: every write action of every connection denied, the connections' reads and the context allowed, Write and Edit only inside the run folder's `practice/` (where release check 3 has passed), only the commands and domains the plan names, Bash and WebFetch denied otherwise, the permission mode fixed, and the connection config naming each variable, never a value;
 - runs the start-up check for every session: the settings read back, then a probe session with the same settings, then the real one, each checked from its start-up message before anything else (the tool list, the connections, the permission mode, any plugin, any hook);
@@ -52,7 +52,9 @@ Start both runs of each input, and the inputs, in parallel. The wrapper:
 
 Grade from that output. Hold a file the run saved to the same standard as its closing block. A run that shows signs of reading the framework folder or a practice folder is refused and run again (the transcript check).
 
-**An input whose path writes through a command line** goes to the leader, never to a headless run. Say N-T43, then N-T8:
+**A carry-over input** (its body opens with an `Earlier run:` paragraph) goes to the leader, never to a headless run: a practice run never touches the workflow's real store, and the wrapper can't put a copy of the store in the run folder it makes. The leader runs it in the batch, with the store copy in its practice subfolder (SKILL.md, *The practice set*).
+
+**An input whose path writes through a command line** goes to the leader, never to a headless run. Say N-T43, then N-T8 (`hand-overs.md`):
 
 > "I can't let a practice run use the command line without risking a change, so you'll run [input] yourself:"
 
@@ -106,7 +108,7 @@ Never retry with other settings, and never start a session another way. A refusa
 
 Whatever the verdict, and when a round is set aside:
 
-1. **The practice folder:** clear the one this round created, at the path recorded in its Environment:
+1. **The practice folder:** clear the one this round created, at the path recorded in its Environment (a carry-over input's store copy in it goes with it):
 
    ```bash
    framework/.bin/test-run.sh practice-clear <slug> --plugin-copy … --path <recorded path>

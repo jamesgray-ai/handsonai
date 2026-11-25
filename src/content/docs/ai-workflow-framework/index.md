@@ -27,8 +27,6 @@ Each step is a skill in the `handsonai` plugin. [Install the plugin](skills/) on
 
 Design plans against these lines, Build checks each task against them, and Test grades every one.
 
-**Two tracks.** Small, low-risk workflows take the **light** track; everything else takes the **full** track. Both use the same steps and the same files. Deconstruct, Design and Test are shorter on the light track; Build works the same way on both. Deconstruct proposes a track early and you can switch. Any sign of risk keeps a workflow on the full track: a change that can't be undone, a change to a system other people use, running without you, regulated work, or confidential or outside content such as inbound email.
-
 **Three stages prove a workflow.**
 
 1. **Build's quick real checks** prove each kind of change works, with one small real change somewhere only you can see.
@@ -54,7 +52,7 @@ Run each step in a new chat (a new session on Claude Code and Codex). Start a st
 
 > run the design skill. My files are in Google Drive, in ai-workspace/framework/weekly-status-report.
 
-Or say **"continue my workflow"** in any step's chat. The skill reads your files and works out where the workflow is. If it's that step's turn, it picks up there; if not, it gives you the phrase to start the right step in a new chat. Every step ends by giving you the phrase that starts the next one, so you never need to remember the order. Stopping partway is safe: progress is saved as you go (in Deconstruct, from the moment the workflow has a name).
+Or say **"continue my workflow"** in any step's chat. The skill reads your files and works out where the workflow is. If it's that step's turn, it picks up there; if not, it gives you the phrase that starts the right step: to say right there in the same chat when you haven't started anything else in it, otherwise in a new chat. Every step ends by giving you the phrase that starts the next one, so you never need to remember the order. Stopping partway is safe: progress is saved as you go (in Deconstruct, from the moment the workflow has a name).
 
 **Started a workflow with an earlier version of the framework?** The framework sends it back to the earliest step whose files are in the old format, usually Deconstruct. Deconstruct offers your old requirements as something you've already written down, so you don't start from a blank page. Your old files are moved into the workflow's `history` folder, not deleted. If the old workflow runs on a schedule, the step first asks you to pause it.
 

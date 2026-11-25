@@ -1,4 +1,4 @@
-# Maya's Program Office
+# Program Office
 
 ## Program Delivery Services
 
@@ -19,7 +19,7 @@
 
 | Skill | Description | Used by |
 |---|---|---|
-| [weekly-status-report](framework/weekly-status-report/package/skills/weekly-status-report/SKILL.md) | This skill should be used when Maya asks to run her weekly status report, draft the Friday leadership report, or write this week's status update from the project tracker. It reads the week's updates from HubSpot, drafts the one-page report, stops for her review and saves the approved report. | [Weekly Status Report](registry/workflows/weekly-status-report.md) |
+| [weekly-status-report](framework/weekly-status-report/package/skills/weekly-status-report/SKILL.md) | This skill should be used when the program manager asks to run their weekly status report, draft the Friday leadership report, or write this week's status update from the project tracker. It reads the week's updates from HubSpot, drafts the one-page report, stops for their review and saves the approved report. | [Weekly Status Report](registry/workflows/weekly-status-report.md) |
 
 ## Agents (0)
 

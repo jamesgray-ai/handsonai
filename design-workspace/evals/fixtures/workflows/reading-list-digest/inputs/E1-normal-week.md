@@ -1,5 +1,6 @@
 source: deconstruct
 tests: AC1, AC2
+expect: Six short summaries on one page
 
 Saved this week:
 1. "Why small models win at the edge" (example.org/edge)

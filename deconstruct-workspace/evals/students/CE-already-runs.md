@@ -6,13 +6,12 @@ Jo Park, operations lead at a small firm. You named a workflow that isn't in any
 ## What you know
 - **Anything written down:** no.
 - **The workflow, when asked to describe it:** "Every Friday it reads my own notes for the week and drafts a short update for my team, which I read and send in Slack. It's already set up as a Claude agent that runs every Friday at 4."
-- **The light or full version:** if it says this looks like a light workflow, say "OK, the shorter version is fine."
 - **Name and description:** accept the AI's suggestion if it's close to "Weekly Team Update".
 - **Process** (only if asked what set of related work it belongs to and which function looks after it): "Team Communications, looked after by Operations."
 - **A real past output:** no.
 - **Good one:** "Three or four bullet points, what's done and what's next, under 120 words." Send back: anything not in my notes.
 - **Typical week:** five or six short notes.
-- **Sources:** just my notes, pasted in.
+- **Sources:** just my notes for the week, which I keep in one notes file the agent reads.
 - **Rules:** never makes up progress.
 - **Review:** yes, I read it before I send it.
 - **What it sends or changes:** "nothing, I post it myself".

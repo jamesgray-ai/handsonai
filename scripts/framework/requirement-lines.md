@@ -1,0 +1,24 @@
+
+# Requirement lines Design writes
+
+Where Design may change the requirements (`questions.md`, *Requirement writes*; `updating-the-plan.md`, section 5's table), it writes these formats exactly. They are the requirements template's formats, carried here so this skill needs no other skill's file. Every new line takes the next number in its series; numbers are never reused or renumbered.
+
+- **An R line,** in `## Rules & Constraints`: `| R6 | When | When [this happens], it [does that]. |`. `Kind` is `Always`, `Never`, `When` or `Fallback`; the rule is in the "When… it…" shape (an `Always` rule as "It always…", a `Never` rule as "It never…"). A rule a person carries out ends with ` · (you)` or ` · ([role])`.
+- **A G line,** in `## Human Gates`: `| G2 | After the draft is ready | When the draft is ready, it stops until you approve it. · (you) |`. `Where` is the moment in plain words; only in an older file whose Path has steps is it `Step N` or the AI's part ("the AI's part after Step 2"). The checkpoint names who performs it and ends with the role tag.
+- **The `Runs:` line,** the first line under `## Human Gates`: exactly `Runs: with you` or `Runs: without you`.
+- **An AC line,** in `## Acceptance Criteria`: `[n]. **AC5 (must)** — [yes-or-no statement]`; ` (must)` only on a must-have.
+- **A P line,** in `## Security, Privacy & Safety`, under its category's table (`### Boundaries`, `### Access`, `### Traceability` or `### Prohibited actions`), in one `P` series across the four tables: `| P3 | [the constraint, in plain words] | [its source: a person, a policy, a control ID, or Self] |`. A table that doesn't exist yet is added with its heading and columns (`| ID | Constraint | Source |`), in that category order; when Boundaries, Access or Traceability is added, an opening "No sensitivity constraints…" sentence is removed; a prohibited action reads "It never [acts], whoever asks." The `Governing regime:` line and `### Writes` stay where they are.
+- **The security limits after a switch to full** (`light-track.md`): the categories to work come from the Context Inventory and the writes, never asked: a `Confidential` row works Boundaries and Access; an `External` row, Boundaries and Prohibited actions; a write, or `Runs: without you`, Prohibited actions and Traceability; a `Regulated` row, Boundaries and Access with the regime named. Draft one or two limits per category in one message, each in plain words under its category, each kept or dropped by the leader; write what's kept as P lines above, with N-15 (`questions.md`).
+- **A removed line** comes out of its table, out of every `tests:` header in `inputs/` that names it, and its ID goes in the `revisions` entry's `lines`.
+- **The `revisions` entry,** in the frontmatter, in block form, never as `{ … }`, after the existing entries (keep every entry other steps wrote), with `revision` raised by one:
+
+  ```yaml
+  revisions:
+    - revision: 3
+      by: design
+      lines: [G2, R6]
+  ```
+
+**Formats you read and keep, never rewrite** (Design writes none of them, but a write must leave them valid): the optional Metadata rows `Starts` (`you`, `you, when …`, `schedule: …`, or `event: … · checked …`), `Per run` (`one …` or `a batch of …`) and `Remembers` (not empty), in the order Workflow Name, Description, Trigger, Starts, Per run, Owner, Lens, Stakeholders, Runs today, Remembers; a decision line's optional `· criteria: [text]` after its `settled by:` value (`a rule on a value`, `your criteria` or `open judgment`), with no " · " inside the text; `tests:` naming D lines that exist under `### Decisions`; an input's optional `expect:` third header line, then the blank line; a `W` line's `· after each run` (only that phrase, for the flag); one `Policy check:` line after `Governing regime:` and before `### Writes`, with one of its five values (`Allowed`, `No — [source] left out`, `No — details removed first (Step [N])` or `(R[n])`, `No — not live until approved`, `Not sure — to check`), its step or rule existing in the file; and the four optional gloss lines right under their headings.
+
+**Checking by hand** (where the requirements check can't run, isn't there, or exits with anything but 0 or 1): the frontmatter's `revision` is one above the last entry's and every revision above 1 has an entry; each line you wrote is in its table's columns with a valid `Kind` and the next unused number; Human Gates opens with the `Runs:` line; every P line has a Source and its number follows the series; no `tests:` header in `inputs/` names a line the file no longer has; every format in the paragraph above still reads as it did; a risk input you wrote has `source: design`, `tests:` and, where it needs one, `expect:`, then one blank line.

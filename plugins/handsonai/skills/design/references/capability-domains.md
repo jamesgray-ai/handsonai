@@ -1,6 +1,6 @@
 # Capability domains (`decomposition: domains`)
 
-Read when the requirements say `AI works it out each time` (`Path: none`) and your own breakdown makes every part Autonomous with nothing fixed. Otherwise plan your own steps (`Step Pa`, `Step Pb`…) and say B54 in the review: a workflow with one input and rules that settle each decision is more reliable as a fixed set of steps.
+Read when the requirements say `AI works it out each time` (`Path: none`) and your own breakdown makes every part Autonomous with nothing fixed. Otherwise plan your own steps (`Step Pa`, `Step Pb`…) and say B54 (`variants.md`) in the review: a workflow with one input and rules that settle each decision is more reliable as a fixed set of steps.
 
 **What a capability domain is.** A durable ability the AI draws on at runtime ("researching each section", "synthesis"), not a pipeline stage or a fixed sequence. Domains come from the requirements' Goal, Inputs, Rules & Constraints and Acceptance Criteria; the requirements never list them.
 - **Altitude:** one domain per competency. Researching four report sections is one "section research" domain run as a fan-out, not four domains.
@@ -23,8 +23,8 @@ Read when the requirements say `AI works it out each time` (`Path: none`) and yo
   ```
 
   Build Output takes the same canonical values; expect `New skill: S[n]`, `New agent: A[n]` or `Handled by orchestrator`. On a primary-loop platform the orchestrator is the primary loop, captured as the orchestrator skill S1 (`orchestrator-on-primary-loop.md`): its blueprint's Decision Logic is the Orchestrator Prompt Outline, which follows the Capability Domain Mapping, and it has a task of its own (`plan-template.md`, sections 6 and 7).
-- **Blueprints:** skills list `Covers Steps` as domain names. Agents are the workers the orchestrator dispatches, never the orchestrator itself; a primary-loop design may have no agent at all (orchestration logic plus skills), and then has no agent blueprint and no Multi-Agent Configuration, while S1 keeps its blueprint and task. On Microsoft 365, never map some domains to Cowork skills and others to an Agent Builder agent: an agent takes no skill and no skill hands work to it, so the plan is one agent or skills alone.
+- **Blueprints:** skills list `Covers Steps` as domain names. Agents are the workers the orchestrator dispatches, never the orchestrator itself; a primary-loop design may have no agent at all (orchestration logic plus skills), and then has no agent blueprint and no Multi-Agent Configuration, while S1 keeps its blueprint and task. On Microsoft 365, never map some domains to Cowork skills and others to an Agent Builder agent: an agent takes no skill and no skill hands work to it, so the plan is one agent or skills alone, and skills alone when the workflow writes anything (an Agent Builder agent only reads: `microsoft-365.md`). On Claude, worker agents only for a workflow run in Cowork (`orchestrator-on-primary-loop.md`).
 - **Safety & Permissions and Constraint Conformance** apply unchanged, and weigh more: with no fixed path to inspect, the Prohibited actions and checkpoints are the boundary the AI works inside. The checkpoint question is D5 for any change in a live system.
 - **Tasks:** one per distinct artifact, as for steps; *Meets* lists the AC, R, G, D and W IDs (there are no Step IDs).
 
-**In the review,** say D8′ (SKILL.md, Part 4). The self-check reads "Step ID" as "domain" throughout.
+**In the review,** say D8′ where `variants.md`, *The review*, says: after the level, only when no order the leader insisted on is kept. The self-check reads "Step ID" as "domain" throughout.

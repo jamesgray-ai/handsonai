@@ -1,29 +1,57 @@
-# Part 1: reading what's known and the lens
+# Reading what's known and the lens
 
-Read at the start of Part 1 on the standard path (Phases 1 and 2).
+Read before you write the opening on the standard path, with `evidence-pass.md`: the opening says the registry clause and the lens statement, then ends with the permission question.
 
-## Phase 1 — Read what's known
+## Reading what's known
 
-Read the registry bundle (the Business node and its `## Objectives`, which every later question ties back to; Lines of Business; Functions; Processes and owners; Workflow nodes), and this conversation and any files shared in it. Never make the user repeat what's there. Saved memory and past chats wait for the history pass. Ignore the session's tools, connectors, and MCP servers (they bias discovery), except to tell whether saved memory or past-chat search exists, and which skills the student set up.
+Read the registry bundle (the Business node and its goals, its `## Objectives`, which every candidate's **Goal** ties back to; Lines of Business; Functions; Processes and owners; Workflow nodes), and this conversation and any files shared in it. Never make the student repeat what's there. Saved memory, past chats and memory files wait for a yes to N-A12 (`evidence-pass.md`). Ignore the session's tools, connectors and MCP servers (they bias discovery), except to tell whether saved memory or past chats exist, and which skills the student set up.
 
-**Same-session skip.** If `scaffolding-registry` ran earlier in this conversation, say "I'll use the registry we just built" and go to Phase 2. Otherwise summarize: "Your registry says you run [business] with [LOBs], working toward [objectives, if present]; the processes you named are [grouped by line of business — X, Y under A; Z under B], and you have [N] workflows — [N] in the backlog, [N] under development, [N] in production, [N] retired (omit zero counts; drop the workflows clause when there are none). Here's what else I know about your work: …" Drop the "what else I know" clause when there is nothing beyond the registry. Then, exactly:
+Nothing is summarized back: there's no registry summary and no question about it. **The student can correct the registry at any time.** A missing process they name is marked "(new)" and written only if it ends up holding a workflow, by *A workflow with no process* (`registering-candidates.md`; its function is asked then). A wrong entry: note it and say the registry can be reshaped later ("ask me to rename or move it").
 
-**Ask:** "Is anything here wrong or missing?"
-- *Why:* Analyze only looks inside the processes listed here, so a missing one means missed workflows.
+## Which process serves which goal
 
-A missing process the student names joins the walk's list marked "(new)" (picking up the rest too); write it only if it ends up holding a workflow, by *A workflow with no process* (ask its function then). A wrong entry: note it and say the registry can be reshaped later ("ask me to rename or move it"). Skip later questions the summary answers. With no registry, summarize what you know instead: "Here's what I know about your work so far: … Is anything here wrong or missing?" (*Why:* anything I've got wrong here would steer the questions that follow.); with no context either, say so and go to Phase 2.
+A judgment, made once per registry and then reused: match the goal's words to each process's description and the outcome it delivers (a goal to book more projects is served by the processes that win and start projects). A process can serve more than one goal; one that serves none gets no goal. Record the map in the progress file and the report's **Goals and processes** row (`report-format.md`). A later run, the other lens and Deconstruct reuse the recorded map rather than guessing again; it changes only when the student corrects it or a goal or process is added.
 
-## Phase 2 — Lens selection
+## The registry clause (R2)
 
-Unless a lens was named (*Entry*), infer and recommend; never ask cold. Infer from `registry/log.md`'s founding entry and the Business node (or Phase 1's context): a company or unit the user owns or leads → Organizational; a team they work inside → Individual (their part of its processes); a household or their own life → Individual. If nothing says how the user relates to the business, ask first:
+Said after N-A10 in the opening (SKILL.md, *The opening*), exactly:
+
+> "I'll start from your registry: [N] processes[ and your [N] goals]."
+
+With no goals, it ends after "processes"; with one goal, "and your goal". [N] counts the Process nodes and the goals in the Business node's `## Objectives`.
+
+- **In the same chat as setup** (`scaffolding-registry` ran earlier in this conversation): "I'll use the registry we just built."
+- **A later run** (an existing report, no progress file, and no "start over"; `resuming-and-picking-up.md`): "I'll start from your registry: [N] processes, your [N] goals, and the [k] workflows already in your backlog." [k] counts the backlog nodes; add "and the [m] that already run" when there are any.
+- **A registry with no Process nodes:** "I'll start from your registry[ and your [N] goals]."
+- **No registry:** not said.
+
+## The lens (R3)
+
+The lens is stated, never asked. N-A11 says it in one line, after the registry clause; the student switches by saying so. Unless a lens was named at entry, read it from `registry/log.md`'s founding entry and the Business node. The founding entry's fixed forms decide it:
+
+| Founding log line, or the run | Lens | N-A11, exactly |
+|---|---|---|
+| "a business the owner runs alone"; "a business the owner runs with a team" | Organizational | "I'll look at this from the business's point of view: the processes that drive your goals." |
+| "the company or unit the owner leads" | Organizational | "I'll look at this from [your company's / [unit name]'s] point of view: the processes that drive your goals." The unit's name comes from the Business node; with none, "your company's". |
+| "the team the owner leads inside a larger organization" | Organizational, team | "I'll look at this from your team's point of view: the processes your team runs." |
+| "the team the owner works in" | Individual | "I'll look at this from your point of view: your part of your team's work." |
+| "the owner's personal life" | Individual | "This registry is about your own life, so we'll look at the routines you run each day." |
+| A lens named at entry, or the other-lens run: Individual, for any registry that isn't personal life | Individual | "I'll look at this from your point of view: the work you personally do each day." |
+| The same, Organizational, for a team member | Organizational, team | "I'll look at this from your team's point of view: the processes your team runs." |
+| An older log line in other words, or none | The older mapping below, or the relationship answer | The matching row |
+
+The two team forms may end with "; the team's own functions: [names]": the lens is the same, and those functions, with the work the evidence shows the team doing, decide which processes the team lens offers (`the-walk.md`, *The team's own work*). The older mapping, for a founding entry in other words: a company or unit the student owns or leads → Organizational; a team they work inside → Individual (their part of its processes); a household or their own life → Individual. A lens named at entry for a company owner or unit lead, Organizational, uses the first or second row. The lens just run is never offered back (the close names the other one).
+
+**When nothing says how the student relates to the business** (a registry with no founding log line, or no registry), ask the relationship question first, in its own message (SKILL.md, *The opening*, gives the message order), exactly:
 
 **Ask:** "Your registry describes [business name]. Is it your company, or do you work inside it?" (No registry: "Is the work we're looking at your own business's, or do you work inside an organization?")
 
-Say exactly this (Organizational recommended):
+Map the answer by the older mapping, then say N-A11's matching row at the top of the message that follows.
 
-**Ask:** "I'd look at this from the business's point of view: the processes that drive your goals, end to end. That's the **organizational lens**. Does that fit, or would you rather start with the work you personally do each day, the **individual lens**?"
-- *Why:* the lens decides which work we look at — processes across the business, or your own tasks — so the candidates match what you want to improve.
-- *Example:* a clinic owner might pick organizational to fix patient booking across the front desk; a sales manager might pick individual to cut their own weekly reporting.
-- *Not sure?* Keep my suggestion. You can run the other lens afterwards.
+**The role question,** with no registry, or a registry with no Process nodes (there are no processes to anchor on), in its own message, exactly:
 
-Recommending Individual, say instead: "I'd look at this from your point of view: the work you personally do each day. That's the **individual lens**. Does that fit, or would you rather look at the processes across the business, end to end, the **organizational lens**?" (same *Why*, *Example*, and *Not sure?*). The other lens comes up again only in the close. Save the progress file (*Resuming and picking up*).
+**Ask:** "What's your role, and what are you accountable for?"
+
+Its answer is the filter for the shortlist and the open question: work that fits it is kept.
+
+**A role already said.** When the student has already said their role in the business ("I own Brightline Advisory", "I'm the founder", "I lead the sales team"), never ask the role question: state it back instead, in one sentence of your own at the top of the next message, before N-A11 ("You own Brightline Advisory, so I'll look across all of its work."), and use it as the filter. An answer that only says whose business it is ("it's my own business") doesn't give a role: ask the role question.

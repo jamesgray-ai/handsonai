@@ -1,4 +1,4 @@
-# Leader: light track, a second workflow (PR-standing-first)
+# Leader: the newsletter, a second workflow (PR-standing-first)
 
 ## Who you are
 Sam Okoro again (see the facts below), running Deconstruct on the Weekly Newsletter Draft.

@@ -16,8 +16,8 @@ For each week, a one-page digest of the articles you saved, ready to read on Fri
 | Business Objective | Keep up with the field without reading everything |
 | Desired Outcome | You read the week's saved articles in one sitting |
 | Measure | Minutes spent on the week's reading |
-| Baseline | 90 minutes a week · Estimated |
-| Target | 20 minutes a week |
+| Baseline | — · Unknown |
+| Target | — |
 
 ## Metadata
 
@@ -31,11 +31,8 @@ For each week, a one-page digest of the articles you saved, ready to read on Fri
 
 ## Path
 
-Method preference: same way every time
-
-- Step 1 — Gather the week's saved articles · produces a list of articles · flexible
-- Step 2 — Summarise each article · produces a three-line summary per article · uses C1 · flexible
-- Step 3 — Write the digest · produces a one-page digest · flexible · writes W1
+Method preference: AI works it out each time
+Path: none — the AI plans each run from the goal
 
 ## Inputs
 
@@ -43,10 +40,11 @@ Method preference: same way every time
 - I2 · your topics of interest · from C1 · Status: not available yet
 
 ## Context Inventory
+*The sources it uses, what we call its context.*
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
-| C1 | Topics of interest | Step 2 | Needs Creation | Internal | Authored | No | Create as `context/C1-topics.md` | The topics to put first |
+| C1 | Topics of interest | All | Needs Creation | Internal | Authored | No | Create as `context/C1-topics.md` | The topics to put first |
 
 ## Acceptance Criteria
 
@@ -58,6 +56,7 @@ Each line is one thing a single run's output either does or doesn't do. Every pr
 Reference example: —
 
 ## Example Scenarios
+*The practice runs: each input it's tested on, and what should happen.*
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
@@ -65,6 +64,7 @@ Reference example: —
 | E2 | A paywalled article (proposed, hard) | `inputs/E2-paywalled.md` — one article behind a paywall | That article flagged as unread, not summarised from its title | — |
 
 ## Rules & Constraints
+*Its rules: what it always does, never does, and does when something happens.*
 
 | ID | Kind | Rule |
 |---|---|---|
@@ -72,6 +72,7 @@ Reference example: —
 | R2 | Fallback | When it can't confidently handle a case, it skips that item and flags it. |
 
 ## Human Gates
+*The checkpoints: where a person checks or approves the work.*
 
 Runs: with you
 
@@ -94,4 +95,4 @@ No human gates — the workflow runs end-to-end with final review only.
 Governing regime: None
 
 ### Writes
-- W1 · Google Drive · save the digest as a document in your own Drive (which folder isn't decided yet) · Step 3
+- W1 · Google Drive · save the digest as a document in your own Drive (which folder isn't decided yet) · after the digest is written

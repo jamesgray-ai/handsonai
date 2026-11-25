@@ -16,8 +16,8 @@ For each competitor question the product team asks, a researched brief with sour
 | Business Objective | Make product bets with current knowledge of the market |
 | Desired Outcome | Product decisions cite what competitors actually do today |
 | Measure | Hours per brief |
-| Baseline | 8 hours per brief · Estimated |
-| Target | 2 hours per brief, including your reading |
+| Baseline | — · Unknown |
+| Target | — |
 
 ## Metadata
 
@@ -33,18 +33,14 @@ For each competitor question the product team asks, a researched brief with sour
 ## Path
 
 Method preference: AI works it out each time
-
 Path: none — the AI plans each run from the goal
-
-### Decisions
-
-- D1: When sources disagree, it reports both and says which is newer · settled by: open judgment
 
 ## Inputs
 
 - I1 · the competitor question, in a sentence or two · from the product lead, pasted into the chat · Status: available
 
 ## Context Inventory
+*The sources it uses, what we call its context.*
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
@@ -62,6 +58,7 @@ Each line is one thing a single run's output either does or doesn't do. Every pr
 Reference example: —
 
 ## Example Scenarios
+*The practice runs: each input it's tested on, and what should happen.*
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
@@ -69,14 +66,17 @@ Reference example: —
 | E2 | A rumoured launch (proposed, hard) | `inputs/E2-rumoured-launch.md` — whether a rival has launched an AI assistant | Rumour and announcement kept apart, each sourced | — |
 
 ## Rules & Constraints
+*Its rules: what it always does, never does, and does when something happens.*
 
 | ID | Kind | Rule |
 |---|---|---|
 | R1 | Never | It never states a claim it can't source. |
 | R2 | Always | It always separates what a competitor announced from what it shipped. |
 | R3 | Fallback | When it can't confidently handle a case, it does its best and flags it. |
+| R4 | When | When sources disagree, it reports both and says which is newer. |
 
 ## Human Gates
+*The checkpoints: where a person checks or approves the work.*
 
 Runs: with you
 

@@ -466,6 +466,45 @@ W runs-clear wf-a --plugin-copy "$PLUGIN/test-run.sh" --path "$RUN"
 expect_rc 0 "clears its own run folder"
 [ ! -e "$RUN" ] && [ ! -e "$RUN.config" ] && ok "run folder and its config gone" || bad "run folder left"
 
+echo "test-run.sh: no practice input's header or set-up reaches a run (T14)"
+# The header lines (source:, tests:, expect:) are stripped only while they lead the file,
+# then one blank line, then the strip stops; then a leading "Earlier run:" paragraph (a
+# carry-over input's set-up) and the blank line after it.
+fresh
+strip_case() {  # $1 label, $2 input file's content, $3 what the run must receive, exactly
+  printf '%s' "$2" > "$WS/framework/wf-a/inputs/E9-strip.md"
+  printf '%s' "$3" > "$TMP/strip.want"
+  W test wf-a --plugin-copy "$PLUGIN/test-run.sh" --prompt-file "$TMP/prompt.md" --input framework/wf-a/inputs/E9-strip.md
+  local got
+  got="$(sed -n 's/^run_folder: //p' "$TMP/out")/input/E9-strip.md"
+  if [ "$RC" = 0 ] && [ -f "$got" ] && cmp -s "$got" "$TMP/strip.want"; then ok "$1"
+  else bad "$1 (exit $RC): got [$(head -c 200 "$got" 2>/dev/null | tr '\n' '|')]"; fi
+}
+strip_case "all three header lines (source, tests, expect) are stripped" \
+  $'source: deconstruct\ntests: AC1, D1\nexpect: routes it to the review queue\n\nThe input text.\n' \
+  $'The input text.\n'
+strip_case "expect: after source: is stripped (^expect: absent from the run)" \
+  $'source: test\nexpect: declines it and says why\n\nAnother input.\n' \
+  $'Another input.\n'
+strip_case "an input whose own text opens with expect: reaches the run whole" \
+  $'source: deconstruct\ntests: AC1\nexpect: drafts a reply\n\nexpect: delivery by Friday\nThe rest of the customer note.\n' \
+  $'expect: delivery by Friday\nThe rest of the customer note.\n'
+strip_case "an input whose own text opens with source: reaches the run whole" \
+  $'source: deconstruct\ntests: AC1\n\nsource: the vendor portal\ntests: none run yet\nBody.\n' \
+  $'source: the vendor portal\ntests: none run yet\nBody.\n'
+strip_case "only one blank line is stripped after the header, then the strip stops" \
+  $'source: deconstruct\ntests: AC1\n\n\nIndented start.\n' \
+  $'\nIndented start.\n'
+strip_case "a carry-over input's Earlier run: paragraph is set-up, never input" \
+  $'source: deconstruct\ntests: R3\nexpect: skips the case an earlier run already handled\n\nEarlier run: handled case 14 and case 15;\nthe last summary went out on the 3rd.\n\nCase 15, sent again.\n' \
+  $'Case 15, sent again.\n'
+strip_case "accepted edge (L4): a real input that opens with an Earlier run: paragraph loses it" \
+  $'source: test\ntests: AC1\n\nEarlier run: our notes from the kickoff.\n\nThe real request.\n' \
+  $'The real request.\n'
+strip_case "an input with no header lines reaches the run whole" \
+  $'Plain input with no header.\nexpect: kept\n' \
+  $'Plain input with no header.\nexpect: kept\n'
+
 echo "test-run.sh: the kit names no secret's value"
 for f in "$CANON" "${KIT_DOCS[@]}"; do
   if [ ! -f "$f" ]; then bad "missing kit file $f"; continue; fi

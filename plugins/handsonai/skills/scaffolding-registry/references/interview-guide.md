@@ -1,148 +1,145 @@
 # Scaffolding Interview Guide
 
-Six phases (0–5), run in order. Keep each phase brief: sources shorten
-them, and the student never hears how long anything takes.
+Four phases (0–3), run in order. The student hears an opening with one open
+question, one card to confirm, one message per line of business for its
+processes, and the close. Sources shorten it further, and the student never
+hears how long anything takes.
 
-**Pacing rule:** If a phase stalls, write what the student has confirmed,
-mark the gap in the close-out summary, and move on — missing nodes are
-homework; unconfirmed or fictional nodes are never a fallback.
+**Pacing rule:** if the student stops or can't answer, write what they have
+confirmed, mark the gap in the close-out summary, and move on: missing pages
+are homework; unconfirmed or fictional ones are never a fallback.
 
-**Question blocks.** Questions the student hears are marked **Ask:**. A
-question with a *Why*, *Example*, and *Not sure?* gets all three in the same
-message: the *Why* always, the *Example* and *Not sure?* unless the student
-said "skip the explanations". If the student works in the field an
-*Example* comes from, skip that *Example* and go straight to *Not sure?*.
-One question per message. **Exact wording:** say each definition, each
-**Ask:** line, and each *Why*, *Example*, and *Not sure?* line exactly as
-written here (or as the persona wording in `personas.md` gives it) — don't
-paraphrase them and don't add your own reassurance. The outline is exact
-too. Only the opening and playbacks may be put in your own words, as long as
-every part is there. When a question opens with a draft built from the
-student's own source or earlier answers, leave out its *Example* — the draft
-already shows the shape; the *Example* is for the blank-page path.
-**Persona wording** (`personas.md`) works in two ways, on every path:
-(1) its definitions and its name and description questions replace the
-guide's; its other questions replace the guide's blank-page question only —
-when a draft is on screen, ask the guide's question about the draft;
-(2) its nouns replace the guide's nouns everywhere, including draft
-questions, playback labels, and *Why* / *Not sure?* lines — for example
-"team" and "services" for a professional, "areas", "routines", and "roles"
-for personal life (the list is in `personas.md` § Nouns). Apart from those
-nouns and the few words around them that grammar needs, the wording stays exact.
-Wherever a phase says **Example to show**, describe that example page in plain words (its name, what it covers, who owns it), as formatted text in the chat; never paste the file, and never use a code block.
+**Question blocks.** Questions the student hears are marked **Ask:**. Each
+has a one-line *Why*, said with the question every time. An *Example* or
+*Not sure?* line, where a question has one, is said only when the student
+says "not sure", asks what is meant, or gives an answer that shows the
+question wasn't clear. If the student says "skip the explanations", drop the
+*Why* too. Save confirmations (N-SR6, "Shall I save this?", "Shall I save these?") carry no *Why*: the card or list above them is the reason. One question per message. **Exact wording:** say each definition,
+each **Ask:** line and each *Why*, *Example* and *Not sure?* line exactly as
+written here (or as `personas.md` gives it), with only its [brackets] filled;
+don't paraphrase them and don't add your own reassurance. Only playbacks and
+the card's contents are in your own words, as long as every part is there.
+**Persona nouns** (`personas.md` § Nouns) replace the guide's nouns
+everywhere once the persona is known: in the card, the process messages, the
+*Why* lines and the close. Apart from those nouns and the few words around
+them that grammar needs, the wording stays exact.
 
-**The opening (first message, before anything else but the storage
-question):** when the storage question (N-F1, or N-F12 on Claude desktop) is
-needed, it comes first, as SKILL.md's *Where the files live* says, and the
-opening follows the student's answer. When there's no registry yet, the first thing the student
-hears is this opening (with a registry already there, N-SR2 comes first: SKILL.md, *Before scaffolding*) — nothing before it about refreshing, maintenance,
-checks, or what the folder is missing.
+**The example business** (`example-registry.md`, Brightwork) is shown only
+when the student says "not sure", asks for an example, or asks what a page
+looks like: describe the page in plain words (its name, what it covers, who
+owns it), as formatted text in the chat; never paste the file, never use a
+code block, and never copy it into the student's registry.
 
-> "This sets up your **registry**: a structured record of your business — what you offer, how it's organized, and the processes that deliver it. Every step of the framework uses it: Analyze walks your processes to find where AI can help, and each workflow you build is recorded here. By the end you'll have a `registry` folder describing your business, its lines of business, who does the work, and your key processes. It runs in four parts: (1) your business, (2) how it's organized, (3) who does the work, and (4) the processes that deliver it. I'll draft from anything you already have, like your website, and you confirm or correct. Stopping early is safe. Progress is saved."
->
-> "I'll explain each question as I ask it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'."
-
-Leave out "Stopping early is safe. Progress is saved." on print-to-save,
-where a new chat can't read the files.
-
-In the same first message, confirm where the files go in one line (N-F3):
-model wording carrying the promise clause "I'll read and save your files in
-[location]." — locally the workspace (Claude Code, Codex) or the working
-folder the student selected (Claude desktop); on the web and in Cowork, the
-working folder in their drive (`ai-workspace` unless they keep another). On the web and in Cowork, add: "When
-[platform] asks to save to your drive here, choose Always allow for this
-chat; I'll only read and save inside your working folder." (in Cowork, [platform] is
-"Cowork"). On Claude Code, add: "When Claude Code asks before I save a file,
-you can allow edits for this session; I'll only change the files this step
-needs." On Codex, add: "When Codex asks before I save a file, you can allow
-it for this session; I'll only change the files this step needs." On
-print-to-save, say N-F6 in its place (below).
-
-**The outline (right after the persona answer),** in that persona's words
-from `personas.md` § Outline wording — the founder form. Show it as this
-nested list, never as an arrow chain (functions don't sit inside lines of
-business; they own processes across all of them):
-
-> "Here's the map of your business we'll build, top to bottom:
-> - **Business** — the whole of what you run
->   - **Lines of business** — what you offer
->     - **Processes** — how each line gets delivered
-> - **Functions** — who does the work. Each process is owned by one function, and a function can own processes in any line of business.
->
-> Workflows come later, when Analyze finds them inside your processes."
 ---
 
-## Phase 0 — Home and sources
+## Phase 0 — Opening and the first question
 
-**First, detect — don't ask.** Where the files go was settled before the
-opening (SKILL.md, *Where the files live*):
+**Where the files go was settled before this** (SKILL.md, *Where the files
+live*): the storage question (N-F1, N-F12 or N-F16), when it's needed, comes
+first, and the opening follows the student's answer. With a registry already
+there, N-SR2 comes first instead (SKILL.md, *Before scaffolding*). Detect,
+don't ask, how files are saved:
 
 - **Locally (Claude Code, Codex, Claude desktop with a folder selected):** the
-  registry goes at `registry/` in the workspace, or inside the working
-  folder the student selected. Don't ask the student to approve the path.
+  registry goes at `registry/` in the workspace, or inside the working folder
+  the student selected. Don't ask the student to approve the path.
 - **On the web and in Cowork:** the registry goes in `registry/` in the
   working folder in the student's drive, written through the connection.
-- **No files and no connection that can save (Gemini, or on the web after the leader says 'continue' to N-F16) → print-to-save.** Say N-F6
-  once, up front: "I can't save files here, so I'll give you the files to save as we go. Where I can, I'll give you one zip of your working folder at each save point; keep the latest and attach it when you start the next step."
+- **No files and no connection that can save (Gemini, or on the web after the
+  student says 'continue' to N-F16) → print-to-save.** Say N-F6 in the
+  opening: "I can't save files here, so I'll give you the files to save as we go. Where I can, I'll give you one zip of your working folder at each save point; keep the latest and attach it when you start the next step."
   Where you can create a file to download, give one zip of the working
   folder, its folders intact, at each save point, each replacing the last
   (`references/saving.md`, rule 5); otherwise, on **every** file, give its
   location inside that folder (`registry/…`) and remind them to save it as
-  plain `.md`. Never say "I've created" for a file you only gave. (A file
-  the student would have to download does not count as saved.)
+  plain `.md`. Never say "I've created" for a file you only gave. (A file the
+  student would have to download does not count as saved.)
 
-**Follow-up (print-to-save only — otherwise, look instead of asking):**
-- "Do you already have the empty registry skeleton — from the template
-  repository or its Download ZIP?" If yes, do not give again or recreate
-  `SCHEMA.md`, `index.md`, `log.md`, or the typed `index.md` stubs.
+**Scan first, silently (wherever you can read the files).** Before the
+opening, look for `knowledge/`, `sops/`, `process-guides/`, `CLAUDE.md` or
+`AGENTS.md`, a prior opportunity report (`framework/ai-opportunity-report*.md`
+in the working folder), and any loose documents in the folder (a pasted org
+chart, a services page). Map what you find with `intake-sources.md`. Never
+write to `knowledge/`. Never list folders that aren't there.
 
-**Then, in this order:**
+**The opening (the first message after the storage question).** Nothing
+before it about refreshing, maintenance, checks, or what the folder is
+missing. It is N-SR4, then N-SR1, then the save line, then the first
+question, all in one message:
 
-1. **Persona.**
-   **Ask:** "Who is this registry for — a business you own, a company or unit you lead, your role inside an organization, or your personal life?"
-   - *Why:* your answer sets the words I use for every question that follows, and how Analyze looks at your work later.
-   - *Example:* a hospital operations manager might say "my role inside an organization — the patient scheduling team I run."
-   - *Not sure?* Pick the one you'd use to describe your work to a stranger. If it turns out not to fit, just tell me and I'll switch.
+> "This sets up your registry: a map of what your business offers and the processes that deliver it. Every step of the framework builds on it. I'll draft it from what you tell me, and nothing is saved until you confirm it. Stopping early is safe. Progress is saved."
 
-   Open `personas.md` and use that persona's openings for Phases 1–4. For
-   the personal persona, add its privacy line now.
-2. **Scan (wherever you can read the files).** Look for `knowledge/`,
-   `sops/`, `process-guides/`, `CLAUDE.md` or `AGENTS.md`, a prior
-   opportunity report (`framework/ai-opportunity-report*.md` locally,
-   `framework/ai-opportunity-report*.md` in the working folder on a drive), and any
-   loose documents sitting in the folder (a pasted org chart, a services
-   page). If you found something
-   you will draft from, say so in one plain sentence ("I found your services
-   page and will draft from it"). If you found nothing, say nothing — never
-   list folders that aren't there. Never write to `knowledge/`.
-3. **Documents.**
-   **Ask:** "Do you have anything that already describes [the business / your team / the areas you want to run] — [the persona's examples from `personas.md` § Documents to ask for]? Paste it, upload it, or give me a link, and I'll draft from it for you to confirm."
-   - *Why:* drafting from something you already have is faster than starting from a blank page, and you only have to correct it.
-   - *Example:* a property manager might share the company website's "Services" page and a one-page team list.
-   - *Not sure?* A website link is enough. If you have nothing, we'll build it together from your answers.
+Leave out "Stopping early is safe. Progress is saved." (N-SR1) on
+print-to-save, where a new chat can't read the files.
 
-   A link you can't open: say so in one line, ask them to paste the key text or answer from memory; never propose changing the environment, network, permissions or credentials.
+Then confirm where the files go in one line (N-F3): model wording carrying
+the promise clause "I'll read and save your files in [location]." — locally
+the workspace (Claude Code, Codex) or the working folder the student selected
+(Claude desktop); on the web and in Cowork, the working folder in their drive
+(`ai-workspace` unless they keep another). On the web and in Cowork, add:
+"When [platform] asks to save to your drive here, choose Always allow for
+this chat; I'll only read and save inside your working folder." (in Cowork,
+[platform] is "Cowork"). On Claude Code, add: "When Claude Code asks before I
+save a file, you can allow edits for this session; I'll only change the files
+this step needs." On Codex, add: "When Codex asks before I save a file, you
+can allow it for this session; I'll only change the files this step needs."
+On print-to-save, say N-F6 in its place.
 
-   Map each source with `intake-sources.md`.
-   An answer the student gives here in words ("the areas are household,
-   money, and the kids") counts as a source for the phase it covers: open
-   that phase with the draft, still in phase order.
-4. **The rule, once.** "I'll propose, you confirm. Nothing about your
-   business gets saved until you confirm it."
+Then the first question, N-SR5:
 
-**Then write the skeleton** — after the four steps above and before Phase 1.
+**Ask (blank page):** "To start, tell me about the work this registry is for, whether that's a business you own, a company or team you lead or work in, or your personal life. In a few sentences: what it offers, who does the work (just you, or which roles), and the two or three goals that matter most this year. Or paste your website's About or Services text, and I'll draft from that."
+- *Why:* I'll draft your whole map from this, so you only have to correct it.
+- *Not sure?* Say it the way you'd tell a new client. I'll ask about anything I need.
 
-**Example to show:** none — this phase is about the student's environment,
-not the registry's content.
+**When the scan found a source** that covers part of this, open with it
+instead, in your own words: "From your [source], I can see [what it covers,
+in one short sentence]." Then ask the blank-page question for only what the
+source lacks (for example, only who does the work and the goals), keeping the
+*Why*. Never draft goals from a website or a services page.
 
-**What to write:** nothing until the steps above are done. Then, before
-Phase 1, create `registry/` + `SCHEMA.md` + `index.md` +
-`log.md` + the six typed directories with stub `index.md` files (each stub
-is its heading, a blank line, and `_No entries yet — your AI assistant fills this index as nodes are added._` — the exact empty body compose
-writes), unless they already exist. The root `index.md` and `log.md` have
-fixed bodies — lint requires the root index to link every typed index and
-to carry the two GENERATED inventory blocks compose fills. Write them
-exactly as the template repository ships them:
+**A link you can't open:** say so in one line and ask them to paste the key
+text or answer in their own words; never propose changing the environment,
+network, permissions or credentials.
+
+**Read the answer for the persona** (`personas.md` § Working out who it's
+for). When the signals are clear, carry the persona into the card without
+asking. When they conflict or are missing, ask one follow-up:
+
+**Ask (only when unclear):** "Is this registry for a business you own, a whole company or division you run, a team you lead or work in inside a larger organization, or your personal life?"
+- *Why:* it sets the words I use from here on, and how Analyze looks at your work later.
+
+For the personal-life persona, say its privacy line (`personas.md`) before
+the card, so it comes before anything is saved.
+
+**Follow up only on gaps,** one question per message, in this order, and
+only for what the answer left out:
+
+**Ask (what it offers, only if missing):** "What does [the business] offer, in a sentence or two?"
+- *Why:* each thing you offer becomes a section of your dashboard, and every process sits under one.
+
+**Ask (goals, only if missing):** "What are the two or three goals that matter most for [the business] this year?"
+- *Why:* Analyze uses these to suggest where to look first and to tie each workflow it finds to a goal, so you won't be asked for them again.
+- *Example:* a dental practice might say "fill the new evening clinic" and "cut no-shows by half".
+- *Not sure?* Think about what would make this a good year for the business. Write that down in your own words; it doesn't need to be a target or a number.
+
+Goals are asked at most once. Record what the student says as separate
+goals; if one answer could be two goals or three, ask. **Never invent goals,**
+even when asked to draft every part from what you know: with none given,
+record none and say N-SR3, "Your goals for this year aren't recorded yet; tell me them any time."
+
+Who does the work, if missing, isn't asked here: draft the owners in Phase 2
+from what you know, and the student corrects them there.
+
+**Then write the skeleton** (it holds nothing about the business yet, so it
+needs no confirmation): `registry/` + `SCHEMA.md` + `index.md` + `log.md` +
+the six typed directories with stub `index.md` files (each stub is its
+heading, a blank line, and `_No entries yet — your AI assistant fills this index as nodes are added._` — the exact empty body compose writes),
+unless they already exist. On print-to-save, ask first, once: "Have you saved
+any registry files before, such as a `registry` folder with a `SCHEMA.md`?"
+If yes, don't give again or recreate those files. The root
+`index.md` and `log.md` have fixed bodies — lint requires the root index to
+link every typed index and to carry the two GENERATED inventory blocks
+compose fills. Write them exactly as the template repository ships them:
 
 ```markdown
 ---
@@ -178,305 +175,209 @@ Setup decisions, schema changes, the dashboard's Claude Artifact link, and one l
 ```
 
 On print-to-save with no skeleton yet, give those same files first, in that
-order. If the student
-asks "where's the template repo?", the URL is
+order. If the student asks "where's the template repo?", the URL is
 `https://github.com/jamesgray-ai/ai-registry-template` — it ships this same
-skeleton plus a GitHub Action that checks the registry on every save, and is optional. Give this only when asked; never offer it, and never ask the leader to choose between it and the skill's own check.
-
-**Fast path:** if the student already has a full `registry/` bundle from a
-prior scaffolding run, skip straight to gap-filling — re-run only the phases
-that produced missing or incomplete nodes.
+skeleton plus a GitHub Action that checks the registry on every save, and is
+optional. Give this only when asked; never offer it, and never ask the
+student to choose between it and the skill's own check.
 
 ---
 
-## Phase 1 — Business
+## Phase 1 — The card: your business and what it offers
 
-**Signpost:** "Part 1 of 4 — Your business."
+One message: the card, then N-SR6. Show it as labeled plain text, never as
+the file, in the persona's nouns:
 
-**If a Phase 0 source covers this phase:** play the draft back in plain
-words, labeled — never the file:
-
-> **Name:** … · **What it does:** … · **Website:** … (add **Goals for this year:** … only when the source actually states goals — never draft goals from a website)
-
-then ask the questions below one at a time, starting from the draft. Write
-only what the student confirms.
-
-**Ask (name):** "What do you call your business day to day — the name you'd want at the top of your dashboard?" (persona wording from `personas.md`)
-- *Why:* this name labels everything the registry records about your business.
-- *Example:* a family-run garden center might say "Hillside Gardens", not the legal entity "Hillside Horticultural Holdings Ltd".
-- *Not sure?* Use the name your customers know you by. When a source offers several (brand, personal name, legal entity), list them and suggest the customer-facing one.
-
-**Ask (what it does):** "Here's one sentence on what it does: '[draft]'. Does that sound like you?" (Ask "What does it do, in one sentence?" when there's no source.)
-- *Why:* this sentence sits at the top of your dashboard and tells anyone reading it what the business is for.
-
-**Ask (goals for this year):** "What are the two or three goals that matter most for the business this year?"
-- *Why:* Analyze uses these to suggest where to look first and to tie each workflow it finds to a goal, so you won't be asked for them again.
-- *Example:* a dental practice might say "fill the new evening clinic" and "cut no-shows by half".
-- *Not sure?* Think about what would make this a good year for the business. Write that down in your own words; it doesn't need to be a target or a number.
-
-Record what the student says as separate goals; if one answer could be two
-goals or three, ask. **Never invent goals,** even when asked to draft every
-part from what you know: with none given, record none and say once, N-SR3,
-"Your goals for this year aren't recorded yet; tell me them any time." Then play back the complete entry once, before writing
-anything:
-
-> **Name:** … · **What it does:** … · **Website:** … · **Goals for this year:** (each goal)
-> "Shall I save your business entry like this?"
-
-Write the Business node only on yes. The same applies to every phase:
-confirm the whole entry (or list) once, then save it. When the student
-changes something (merges two lines, renames a process, answers a status
-question), play back the updated entry or list once more and save on yes —
-never save an edit straight from the answer. Set `status` to `active` without asking
-unless the student described something not yet launched or winding down.
-Use the website from the source as `url`; ask for one only when there's no
-source.
-
-**Example to show:** the Business node from `example-registry.md`
-(`registry/businesses/brightwork-consulting.md`).
-
-**What to write:** one `registry/businesses/<slug>.md` node — required
-frontmatter plus `status` and optional `url`, one identity sentence in the
-body, a `## Objectives` prose list of those outcomes placed after the
-identity sentence and before `# Lines of Business` (omit the block if the
-student has none — never invent one), and an empty `# Lines of Business`
-list (Phase 2 fills it).
-
-**Fast path:** one business per registry is the default — do not offer
-multi-business setup unless the student volunteers that they run more than
-one.
-
----
-
-## Phase 2 — Lines of Business
-
-**Signpost:** "Part 2 of 4 — How it's organized: your lines of business."
-
-**Define it first:** "A **line of business** is something distinct the
-business offers — like a product line, a service, or a training
-program. Some businesses have one; some have several."
-
-**If a Phase 0 source covers this phase:** draft the lines from it, ordered
-by the student's goals, each with a one-line description, and say why you
-grouped anything together or left anything out.
-
-**Ask:** "Does this grouping match how you think about the business? Merge, split, rename, or move any of them." (Without a source: "Does the business have distinct lines of business, or is it one thing end to end?" — persona wording from `personas.md`.)
-- *Why:* each line becomes a section of your dashboard, and every process you name later sits under one of them.
-- *Example:* a veterinary clinic might keep "Pet care" and "Grooming" separate but fold "Retail" into Pet care.
-- *Not sure?* Keep my draft. You can reshape it any time by asking.
-
-Don't ask a separate question about the order — the student can move lines
-in their answer above. Set each line's `status` to `active` unless a source
-suggests it is new or paused; only then ask about that line, before the
-final playback:
-
-**Ask:** "Is [line] something you're offering now, or just starting or paused?"
-- *Why:* so your map shows what's running today.
-
-**Example to show:** the two LineOfBusiness nodes from `example-registry.md`
-(`advisory.md` and `training.md`) — Advisory shows a populated
-`# Processes` list, Training shows the allowed-empty
-`_No processes captured yet._` form.
-
-**What to write:** one `registry/lines-of-business/<slug>.md` node per line,
-each with `status` and a prose sentence, plus an entry in the Business
-node's curated `# Lines of Business` list in the order given.
-
-**Fast path (solo consultant / single-line business):** write one default
-LOB named after the business itself and move on — don't force an artificial
-split.
-
----
-
-## Phase 3 — Functions
-
-**Signpost:** "Part 3 of 4 — Who does the work: your functions."
-
-**Define it first** (persona wording in `personas.md`; this is the founder
-form): "A **function** is a team or department in your
-organization — Marketing, Sales, Finance — that owns a kind of work across
-every line of business. Your lines of business are *what you offer*; your
-functions are *who does the work*. If you work alone, each function is one
-of the hats you wear."
-
-**Show the starter set (or the drafted list) as a table** — Function · What
-it would own — with the second column filled in from the student's own
-business.
-
-**Ask:** "Would you rename, drop, or add any of these? A partner, contractor, or assistant who owns a piece of the work counts too — named by their role, not their name."
-- *Why:* every process you name next gets one of these as its owner, so the dashboard shows who is responsible for what.
-- *Example:* a small law firm might rename "Product" to "Practice Development" and add "Paralegal Support".
-- *Not sure?* Keep the starter set. Any function that ends up owning no process, I'll ask about at the end.
-
-Whatever the student keeps or drops here stands: don't raise a kept
-function as a problem later unless it ends up owning no process.
-
-**Starter set (verbatim):** Marketing, Sales, Service Delivery, Operations,
-Product, Customer Success, IT/Engineering. Offer it only when no Phase 0
-source covers Functions — a drafted list from an org chart replaces it.
-Offer it as-is to founders and leaders; reframe as "who you hand work to
-and receive it from" for the professional persona; do not offer it to the
-personal persona — they name roles or helpers instead, at least one. A
-Function is named for the area or role ("Client Delivery", "Partner"),
-never for the person; the person, if the student wants them recorded, goes
-in `lead:`.
-
-**Example to show:** the Function node from `example-registry.md`
-(`registry/functions/service-delivery.md`) — note the empty GENERATED
-`# Owns` block written at creation time.
-
-**What to write:** one `registry/functions/<slug>.md` node per function the
-student keeps, written with Phase 4's processes once the question about
-functions that own none is settled, so a function the student drops is never
-written (nothing is deleted, and nothing is moved; if the interview stops
-before then, the pacing rule writes the confirmed functions as they are), `lead:` filled in or left empty — an empty value or an
-omitted key both read as unstaffed, an insight not an error — and every node written **with** its empty GENERATED
-`# Owns` marker block — the reference lints an error on a Function missing
-that block ("compose can't fill what doesn't exist").
-
-**Fast path (founder/leader, and only when no source covered Functions):** offer the starter set as-is; most students accept it with one
-or two renames rather than building from scratch — then, once Phase 4 has
-named the processes, leave unwritten the functions that own none (Close checks this).
-
----
-
-## Phase 4 — Processes
-
-**Signpost:** "Part 4 of 4 — The processes that deliver it."
-
-**Define it first:** "A **process** is a set of related work that delivers
-part of a line of business — like enrolling students or delivering a
-workshop. Each one sits under one line of business and is owned by one
-function. Later, Analyze finds the specific **workflows** inside each
-process: the repeatable pieces of work that AI can help with."
-
-**Draft three to five processes per line of business**, ordered yourself
-(value-chain order, then the student's goals). Each process sits under
-exactly one line; a shared one (a newsletter, invoicing) goes under the line
-it serves most — say so in those words, never "under the schema". Play it
-back in this layout, which labels each level so a student can't confuse
-them: say they're suggestions, give a count line when there are ten or more
-processes, keep each description to one short phrase, and put the owner
-last. The names below only show the shape — fill every line from the
-student's own registry, never reuse these. Show it as a formatted list in
-the chat, never in a code block:
-
-> "Here are my suggested processes, drafted from [the source — your website, your org chart, or your answers so far]. You decide what stays." (With ten or more: "14 processes across 4 lines of business.")
-
-> **Line of business: Cohort Courses**
-> - **Process:** Cohort Delivery — running live sessions week to week. **Owner:** Service Delivery
-> - **Process:** Cohort Launch & Enrollment — launch plan, promotion, waitlist, filling seats. **Owner:** Marketing
+> **For:** [a business you own / a company or unit you lead / your team, which you lead / a team you work in / your personal life] · **Name:** … · **What it does:** [one sentence] · **Website:** … (only when given) · **Goals for this year:** (each goal, or "none yet")
 >
-> **Line of business: Corporate Training**
-> - **Process:** Corporate Lead to Proposal — inquiry, qualification, scoping, proposal. **Owner:** Sales
+> **Lines of business** (each one is something distinct you offer), in this order:
+> - **[Line]** — [one-line description]
+> - …
+>
+> "Shall I save this? Change anything first."
 
-**Ask:** "What would you add, remove, rename, or move? Each line of business only needs its main processes for now."
-- *Why:* Analyze looks for work worth improving inside these processes, so anything missing here won't come up.
-- *Not sure?* Keep the draft. Analyze adds processes later when it finds work that doesn't fit.
+How to draft the card:
+- **Name:** the name customers know the business by. When the answer or a
+  source gives several (brand, personal name, legal entity), use the
+  customer-facing one and show the others in brackets so the student can
+  pick.
+- **What it does:** one sentence, drafted from the answer.
+- **Lines of business:** one per distinct offering, each with a one-line
+  description, ordered yourself by the student's goals. A shared offering (a
+  newsletter) goes under the line it serves most. Don't ask a separate
+  ordering question: the student can move lines in their answer. Decide the
+  number of lines by how many distinct things the business offers, never by
+  how many people do the work: a solo consultant with three offerings gets
+  three lines. **One offering:** one line named after the business, with no
+  split forced.
+- **Status:** set `active` yourself for the business and each line; ask only
+  when the student described something not yet launched, paused or winding
+  down: "Is [line] something you're offering now, or just starting or paused?"
+  (*Why:* so your map shows what's running today.)
 
-Never ask the student to rank processes — order them yourself; Analyze asks
-which matter most before it looks at them. When the student names an owner in
-shorthand ("training"), say which function you read it as before writing.
-Don't ask for SOPs or guides; set `guide:` only when a Phase 0 document
-turned one up.
-
-Then check every function against the confirmed processes. Only if some
-truly own none, ask once, naming them:
-
-**Ask:** "[Function] has no process yet. Add one, or drop it for now? You can add it back any time."
-- *Why:* every function in your registry should own some of the work, so the dashboard shows who's responsible for what.
-
-Functions have no `status`, and none is written until this question is
-settled, so a dropped function is simply never written: nothing is deleted,
-and nothing is moved anywhere. This is the only time the question is asked.
-
-**Example to show:** the Process node from `example-registry.md`
-(`registry/processes/client-delivery.md`).
-
-**What to write:** one `registry/processes/<slug>.md` node per process, each
-with a title, a description, required `owner:` (a function slug from Phase
-3), optional `guide:`, a `# Workflows` list that starts as
-`_No workflows captured yet._` (Analyze replaces it), and an entry added to
-its LOB's curated `# Processes` list.
-
-**Fast path:** three to five processes per LOB is enough for the lab —
-remind the student that Analyze decides where AI fits and grows this list
-later; don't try to be exhaustive here.
+When the student changes anything, play back only what changed, then
+"Shall I save this?" again; never save an edit straight from the answer.
+**Save on yes:** the Business page and one page per line of business, with
+their index entries.
 
 ---
 
-## Phase 5 — Close
+## Phase 2 — Processes and their owners, one line of business at a time
 
-**No new questions.** Don't prompt for a Note. Write one only if the
-student volunteered an insight during the interview (a constraint, a lesson
-learned) — and ask before saving it.
+One message per line of business, in the card's order. **With four or more
+lines, show two lines per message** (Lines 1 and 2 of 6), so a big business
+gets no more than three or four of these messages; never more than ten
+processes in one message.
 
-**Example to show (only when writing a volunteered Note):** the Note node
-from `example-registry.md` (`registry/notes/2026-08-status-report-timing.md`).
+**Draft three to five processes per line** (fewer when one person does all of
+a line's work as one piece of work: never split one person's single piece of
+work in two to reach three), ordered yourself (value-chain
+order, then the student's goals). Each sits under exactly one line; a shared
+one goes under the line it serves most — say so in those words, never "under
+the schema". Map how the business delivers, never where AI might help:
+Analyze decides that later. Each description is one short phrase, and the
+owner comes last.
+
+**Draft each owner** from what the student said about who does the work
+(`personas.md` § Owners):
+- **Working alone:** three or four broad hats, named for the area of work
+  (for example Sales, Delivery, Marketing, Operations). Use only the hats that
+  own a process.
+- **A team or company:** each role or team the student named becomes the
+  owner of the work it does ("two analysts" → Analytics; "a deal desk lead"
+  → Deal Desk), plus the groups the team hands work to or receives it from
+  (Sales, Finance). A process no named role does goes to the named role whose
+  work is closest; use the area of work only when none is close. Never merge the named
+  roles into one owner for the whole team. Named for the area or role, never
+  the person.
+- Reuse the same owner names across lines, so one owner can own processes in
+  several lines.
+
+**The first of these messages,** N-SR7, in the founder form (persona nouns
+elsewhere), with the list shown as a formatted list in the chat, never in a
+code block:
+
+> "Line 1 of [N]: [line]. A **process** is a set of related work that delivers part of a line of business, and its **owner** is who does it (for you, the hat you wear). Here's what I'd suggest, in the order the work flows:"
+>
+> - **Process:** [name] — [short phrase]. **Owner:** [owner]
+> - …
+>
+> "Anything to add, remove, rename, or change the owner?"
+> - *Why:* Analyze looks for work worth improving inside these processes, so anything missing here won't come up.
+
+With two lines in one message (four or more lines of business), the first
+message is N-SR7's two-line form, with a labeled list for each line:
+
+> "Lines 1 and 2 of [N]: [line] and [line]. A **process** is a set of related work that delivers part of a line of business, and its **owner** is who does it (for you, the hat you wear). Here's what I'd suggest for each, in the order the work flows:"
+
+and each later one "Lines [k] and [k+1] of [N]: [line] and [line]. Here's
+what I'd suggest for each, in the order the work flows:" (with an odd number
+of lines, the last message has one). Say "(for you, the hat you wear)" only to
+someone working alone; for a team, leave it out. **Each later message** is the shorter form: "Line [k] of [N]:
+[line]. Here's what I'd suggest, in the order the work flows:" then the list,
+then "Anything to add, remove, rename, or change the owner?" with the *Why*.
+
+- *Not sure?* (on "not sure" only) Keep the draft. Analyze adds processes later when it finds work that doesn't fit.
+
+Never ask the student to rank processes. When the student names an owner in
+shorthand ("training"), say which owner you read it as. Don't ask for SOPs or
+guides; set `guide:` only when a source turned one up. When the student
+changes something, play back only what changed, then "Shall I save these?";
+save on yes.
+
+**Save each line on yes:** one `registry/processes/<slug>.md` per process
+(title, description, required `owner:` naming a Function slug, optional
+`guide:`, a `# Workflows` list starting `_No workflows captured yet._`), an
+entry in its line's curated `# Processes` list, and the index entries. **The
+functions are the owners:** the first time an owner is used, write its
+Function page in the same save (named for the area or role, one sentence of
+what it takes care of, `lead:` only if the student asked for a person to be
+recorded, and its empty GENERATED `# Owns` block), with its index entry. A
+Function is never written before a process uses it, so none owns nothing and
+there is no question about unused ones. An owner the student renames or
+removes before saving is never written.
+
+---
+
+## Phase 3 — Close
+
+**No new questions,** except the close's one, below. A Note is never its own
+question and is never prompted for: when the student volunteers an insight (a
+constraint, a lesson learned), add one line to the next confirmation ("I'll
+also save your note that [insight].") and save it with that yes; volunteered
+after the last confirmation, leave it out and say nothing.
 
 **What to write:**
-- an optional `registry/notes/<slug>.md` node — only if a real insight
-  surfaced during the interview, never a manufactured one
-- a founding `registry/log.md` entry describing the scaffolding run — say
-  in plain words who the registry is for (the Phase 0 persona answer: "set
-  up for a business the owner runs" / "for the team the owner works in" /
-  "for the owner's personal life"), because `analyze` reads that line to
-  infer the lens; the log is not a concept node, so no schema is touched
+- a founding `registry/log.md` entry describing the setup run, saying who the
+  registry is for in exactly one of the fixed forms in `personas.md` (*The
+  founding log line*), such as "set up for a business the owner runs alone",
+  because `analyze` and `deconstruct` read that line (the lens, and
+  personal-life wording); never reword it. For a team, it ends with
+  "; the team's own functions: [names]" (`personas.md`)
 - directory `index.md` stubs for every typed directory that still has no
-  nodes, with the standard empty body (heading, blank line, `_No entries yet — your AI assistant fills this index as nodes are added._`)
-- `registry/workflows/index.md` with that same empty body — the directory
-  must have an index even when empty, and Analyze replaces the placeholder
-  line with its first entry
-- every Function written owns at least one process: one the student
-  dropped was never written (never delete or move a node to remove it),
-  and one kept must be assigned a process the student names — the lint warning `function owns no processes` must not appear on
-  a fresh scaffold
+  pages, with the standard empty body, including `registry/workflows/index.md`
+  (Analyze replaces the placeholder line with its first entry)
 
-Hand off to
-`indexing-registry` for the first maintenance pass: lint, generate the Tier
-1 `REGISTRY.md`, and **always** generate the Tier 2 dashboard
-(`registry-dashboard.html`) — never offer it as an option. On the web the
-pass saves through the drive connection. On print-to-save there is no
-maintenance hand-off: give the `log.md` entry, every typed `index.md` you
-updated, each Function page with its `# Owns` filled, and a complete `REGISTRY.md` composed per `indexing-registry`'s
-rules, each with its location, and say the set is complete.
+Then the check and the views (SKILL.md, *Close*). On print-to-save there is
+no hand-off: give the `log.md` entry, every typed `index.md` you updated,
+each Function page with its `# Owns` filled, and a complete `REGISTRY.md`
+composed per `indexing-registry`'s rules, each with its location, and say the
+set is complete.
+
+Before the check, if you say anything, say only this, word for word: "Now
+I'll check your registry and build your dashboard." Never a longer or more
+technical version: that sentence or nothing. Say nothing about the check when
+it passes, or about GENERATED blocks. Call the files pages, never nodes, and
+never say "maintenance pass" or name lint, compose, scripts, `tools/`, GitHub
+Actions or the template repository unless the student asks.
 
 **The close (last message) — files saved (locally or in the drive):**
 
-> "Your registry is set up in [where it's saved: locally the folder's name; in a drive, "your Google Drive, in [working folder]/registry" or "your OneDrive, in [working folder]/registry", with the storage service's own name, with the working folder's own name, ai-workspace unless the leader chose another]. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
+> "Your registry is set up in [where it's saved: on Claude Code and Codex, "this project's folder"; on Claude desktop, the folder's name; in a drive, "your Google Drive, in [working folder]/registry" or "your OneDrive, in [working folder]/registry", with the storage service's own name, with the working folder's own name, ai-workspace unless the leader chose another]. It holds your [business], [N lines of business] and [N processes], each with its owner — no workflows yet; Analyze adds those."
 >
-> "Two files give you a view of it. **`registry-dashboard.html`** is your visual dashboard: double-click it to open it in your browser (in a drive, download it first; in a cloud session, it's in your repository on GitHub to download, and the Claude page below is the easier way to see it), and click any line of business or process to see its details. **`REGISTRY.md`** is a one-page text summary of the same registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
+> [The dashboard, for this platform — below.]
 >
-> "You can reshape this any time — rename, merge, or move things — just ask, for example 'move [one of their processes] under [another of their lines of business]'." (Fill the example from the student's own registry.)
+> "You can reshape this any time — rename, merge, or move things — just ask, for example 'move [one of their processes] under [another of their lines of business]'." (Fill the example from the student's own registry; with one line of business, use a rename instead.)
 >
-> "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list)."
+> "Next is Analyze. With your permission, it looks through what you've given your AI and what it already knows about your work, asks you a few questions, and aims to save 3 to 5 workflows worth building to your backlog. When you're ready, say 'run the analyze skill. My files are in [location].'"
 
-That last paragraph is N-A7: say it exactly, and say Analyze's start phrase word for word ("run the analyze skill", never "Run Analyze"). [location] is the working
-folder, as Analyze's start phrase names it: "Google Drive, in ai-workspace" or
-"OneDrive, in ai-workspace" in a drive (the storage service by its own name; the folder's own name when the
-leader chose another folder at the storage question); on Claude desktop, the
-folder's own name (such as "ai-workspace"). On Claude Code and Codex the
-workspace is the working folder, so the phrase carries no location: say N-A7's
-Claude Code and Codex form, "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill.' (in Claude Code, you can also type `/analyze` and pick it from the list)." Leave out the
+**The dashboard paragraph, by platform.** The close names the dashboard only,
+never `REGISTRY.md` (unless the student asks what it is: `indexing-registry`,
+*Telling the leader about `REGISTRY.md`*).
+- **Claude Code and Codex (a shell that can open files):** "Your visual dashboard is ready: click any line of business or process in it to see its details." Then N-SR8: "Say 'open my dashboard' and I'll open it in your browser[, or 'make it a Claude page' for a private link you can open any time]." Include the bracketed clause only where this session can publish a Claude Artifact. On "open my dashboard", open `registry-dashboard.html` with the system's own command (`open` on macOS, `start ""` on Windows, `xdg-open` on Linux); once it's open, say "It's open in your browser."; if that fails, give the file's full path in one line and say to double-click it. On "make it a Claude page", publish it as the Claude Artifact offer below does on yes.
+- **Claude desktop:** "Your visual dashboard is `registry-dashboard.html`, in your [folder] folder: double-click it to open it in your browser, and click any line of business or process to see its details."
+- **In a drive:** "Your visual dashboard is `registry-dashboard.html`, in your [storage service], in [working folder]: download it, then double-click it to open it in your browser, and click any line of business or process to see its details."
+- **In a cloud session:** it's in the repository on GitHub to download; never "double-click it". The Claude Artifact offer then leads, as the one question.
+
+That last paragraph of the close is N-A7: say it exactly, and say Analyze's
+start phrase word for word ("run the analyze skill", never "Run Analyze").
+[location] is the working folder, as Analyze's start phrase names it: "Google
+Drive, in ai-workspace" or "OneDrive, in ai-workspace" in a drive (the
+storage service by its own name; the folder's own name when the leader chose
+another folder at the storage question); on Claude desktop, the folder's own
+name (such as "ai-workspace"). On Claude Code and Codex the workspace is the
+working folder, so the phrase carries no location. On Claude Code, say N-A7's
+Claude Code form, "Next is Analyze. With your permission, it looks through what you've given your AI and what it already knows about your work, asks you a few questions, and aims to save 3 to 5 workflows worth building to your backlog. When you're ready, say 'run the analyze skill.' (in Claude Code, you can also type `/analyze` and pick it from the list)". On Codex (and the Work tab in a local folder, treated
+as Codex), say its Codex form, which ends at "'run the analyze skill.'": "Next is Analyze. With your permission, it looks through what you've given your AI and what it already knows about your work, asks you a few questions, and aims to save 3 to 5 workflows worth building to your backlog. When you're ready, say 'run the analyze skill.'" Leave out the
 `/analyze` clause anywhere but Claude Code.
 
-**The close — print-to-save:** the same four parts, with two changes.
-Say where the files go: "Save each file I gave you into your `registry`
-folder, at the location shown above it." And for the dashboard, which can't
-be given usefully as text: "Your visual dashboard is created as soon as your files
-are in a folder I can save to. Then say 'generate my visual dashboard'."
+**The close — print-to-save:** the same parts, with two changes. Say where the
+files go: "Save each file I gave you into your `registry` folder, at the
+location shown above it." And for the dashboard, which can't be given usefully
+as text: "Your visual dashboard is created as soon as your files are in a
+folder I can save to. Then say 'generate my visual dashboard'."
 
-Before the check, if you say anything, say only this, word for word: "Now I'll check your registry and build your dashboard." Never a longer or more technical version (no "owner lists", "summary page" or file names): that sentence or nothing. Say nothing about the check when it passes, or about GENERATED blocks. Call the files pages, never nodes, and never say "maintenance pass" or name lint, compose, scripts, `tools/`, GitHub Actions or the template repository unless the leader asks.
+**In a cloud session** (*Where the files live*, in `SKILL.md`): commit and
+push the registry's files yourself first, name the repository, never a path
+on the machine ("Your registry is set up in your [repository] repository on
+GitHub"), and say N-F18 where the branch isn't the default.
 
-**In a cloud session** (*Where the files live*, in `SKILL.md`): commit and push the registry's files yourself first, name the repository, never a path on the machine ("Your registry is set up in your [repository] repository on GitHub"), say N-F18 where the branch isn't the default, and for the dashboard say it's in the repository to download, never "double-click it": the Claude Artifact offer below then leads, as the one question.
+**One question at most.** N-A7 gives Analyze's start phrase as the next step;
+it asks nothing. Then the close's one question, where it applies, as its last
+line:
 
-**One question at most.** N-A7 gives Analyze's start phrase as the next step; it asks nothing. Then the close's one question, where it applies, as its last line:
+- **On Claude on the web, Claude desktop, and in a cloud session:** "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." On print-to-save on Claude, this is the way to see the dashboard now, so offer it in place of "created as soon as your files are in a folder I can save to". On Claude Code (not a cloud session), N-SR8's bracketed clause makes this offer instead, as a choice rather than a question. This close is the only place the Artifact is offered; `indexing-registry` doesn't repeat it here. On yes, publish it and append a `registry/log.md` entry, `Dashboard Artifact: <link>`, so every later step can update the same page in any conversation. On print-to-save, give that one line and say: "Add this line to the end of your `registry/log.md`, so later steps can keep this page up to date."
+- **Elsewhere (Codex, or Claude Code where no Claude page can be published), only when the folder is a git repository** — locally, with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never on the web or in a connected drive: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; don't push as part of this offer (a student who asks to push or back up to GitHub gets that separately).
 
-- **On Claude:** "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." On print-to-save on Claude, this is the way to see the dashboard now, so offer it in place of "created as soon as your files are in a folder I can save to". This close is the only place the Artifact is offered; `indexing-registry` doesn't repeat it here. On yes, publish it and append a `registry/log.md` entry, `Dashboard Artifact: <link>`, so every later step can update the same page in any conversation. On print-to-save, give that one line and say: "Add this line to the end of your `registry/log.md`, so later steps can keep this page up to date."
-- **Elsewhere, only when the folder is a git repository** — locally, with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never on the web or in a connected drive: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; don't push as part of this offer (a student who asks to push or back up to GitHub gets that separately).
-
-With neither, the close ends on N-A7. When the leader then says Analyze's start phrase, or asks to run it here, invoke the `analyze` skill.
-
-**Fast path:** if no insight surfaced, skip the Note entirely and don't
-mention it — an absent Note is not a gap to flag; a forced one is worse than
-none.
+With neither, the close ends on N-A7. When the leader then says Analyze's
+start phrase, or asks to run it here, invoke the `analyze` skill.

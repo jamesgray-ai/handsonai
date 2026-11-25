@@ -10,6 +10,7 @@ Morgan Reyes, who does the family's weekly shop and built Weekly Grocery List as
 ## How you answer
 - When asked for a real example from your recent work, paste your real example.
 - When it asks whether there's anything to add or drop, or whether you're ready, say "No changes. Ready."
+- When it shows you practice inputs it wrote and asks whether each looks like something you could really get, say "Yes, they do."
 - When it asks you to open a new chat with the agent and paste a block, do it as your screen allows, then paste what your screen shows.
 - When it asks whether that chat saw your requirements or plan, say "No."
 - When it shows you a result and asks if you agree and how much you'd edit it: if it says something is missing, say "Agree, that's wrong. A little."; otherwise "Agree. Nothing."

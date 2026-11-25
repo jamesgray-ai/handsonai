@@ -16,8 +16,8 @@ For each new support email, a triaged ticket with the right priority and owner, 
 | Business Objective | Answer urgent customer problems first |
 | Desired Outcome | Urgent emails reach the escalation channel within minutes, day or night |
 | Measure | Minutes from arrival to triage |
-| Baseline | 90 minutes · Estimated |
-| Target | 10 minutes |
+| Baseline | — · Unknown |
+| Target | — |
 
 ## Metadata
 
@@ -32,30 +32,21 @@ For each new support email, a triaged ticket with the right priority and owner, 
 
 ## Path
 
-Method preference: same way every time
-
-- Step 1 — Read the email · produces the customer, product and problem · flexible
-- Step 2 — Set the priority · produces a priority of urgent, normal or low · uses C1 · flexible
-- Step 3 — Note the triage · produces a triage note, saved as a new file in your own triage folder · flexible · writes W3
-- Step 4 — Draft a first reply · produces a reply draft in Gmail Drafts · uses C2 · flexible · writes W2
-- Step 5 — Flag urgent emails · produces a post in #support-escalations · flexible · writes W1
-
-### Decisions
-
-- D1 (Step 2): When the email describes an outage, data loss or a security problem, it sets urgent; otherwise it sets the priority by your triage guide · settled by: your criteria
-- D2 (Step 5): When the priority is urgent, it posts to #support-escalations · settled by: a rule on a value
+Method preference: AI works it out each time
+Path: none — the AI plans each run from the goal
 
 ## Inputs
 
 - I1 · a new support email · from the support inbox in Gmail · Status: available
 
 ## Context Inventory
+*The sources it uses, what we call its context.*
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
-| C1 | Triage guide | Step 2 | Exists | Internal | Authored | Yes | `context/C1-triage-guide.md` | What makes an email urgent, normal or low |
-| C2 | Reply templates | Step 4 | Exists | Internal | Authored | Yes | `context/C2-reply-templates.md` | First replies for each kind of problem |
-| C3 | Customer support emails | Step 1 | Exists | Confidential | External | Yes | the support inbox in Gmail | What customers write |
+| C1 | Triage guide | All | Exists | Internal | Authored | Yes | `context/C1-triage-guide.md` | What makes an email urgent, normal or low |
+| C2 | Reply templates | All | Exists | Internal | Authored | Yes | `context/C2-reply-templates.md` | First replies for each kind of problem |
+| C3 | Customer support emails | All | Exists | Confidential | External | Yes | the support inbox in Gmail | What customers write |
 
 ## Acceptance Criteria
 
@@ -68,6 +59,7 @@ Each line is one thing a single run's output either does or doesn't do. Every pr
 Reference example: —
 
 ## Example Scenarios
+*The practice runs: each input it's tested on, and what should happen.*
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
@@ -75,13 +67,17 @@ Reference example: —
 | E2 | Feature question (proposed) | `inputs/E2-feature-question.md` — a question about exporting reports | Low, no escalation post, a draft reply | — |
 
 ## Rules & Constraints
+*Its rules: what it always does, never does, and does when something happens.*
 
 | ID | Kind | Rule |
 |---|---|---|
 | R1 | Never | It never sends a reply to a customer. |
 | R2 | Fallback | When it can't confidently handle a case, it does its best and flags it. |
+| R3 | When | When the email describes an outage, data loss or a security problem, it sets urgent; otherwise it sets the priority by your triage guide. |
+| R4 | When | When the priority is urgent, it posts to #support-escalations. |
 
 ## Human Gates
+*The checkpoints: where a person checks or approves the work.*
 
 Runs: without you
 
@@ -114,6 +110,6 @@ No human gates — the workflow runs end-to-end with final review only.
 Governing regime: None
 
 ### Writes
-- W1 · Slack · post a message in #support-escalations · Step 5
-- W2 · Gmail · create a reply draft · Step 4
-- W3 · Google Drive · save the triage note as a new file in your own triage folder, which only you can open · Step 3
+- W1 · Slack · post a message in #support-escalations · after it sets an urgent priority
+- W2 · Gmail · create a reply draft · after it sets the priority
+- W3 · Google Drive · save the triage note as a new file in your own triage folder, which only you can open · after it sets the priority

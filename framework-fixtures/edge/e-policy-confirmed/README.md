@@ -1,0 +1,1 @@
+The return visit's yes (Deconstruct 3.3, R-D7, M1): Test rewrote `Policy check:` to `Allowed` (revision 2, `by: test`, `lines: [Policy check]`, `plan_unaffected: true`) and rewrote round 1's results to `readiness: ready`, `go_live: pending`, with the Verdict reason "Policy check confirmed on 2026-10-09": no re-run, state 10.

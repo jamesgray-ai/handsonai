@@ -447,6 +447,35 @@ grep -q "^folder: lob-files/" "$WS/registry/lines-of-business/design-services.md
 run_lint_at "$WS" 2>&1 | grep -q "artifact link framework/" \
   && bad "LOB folder check exempts framework/: got an outside-LOB warning for a framework/ link" || ok "LOB folder check exempts framework/"
 
+# old links (R16): a relative link written before framework/ on every platform (first-workflow/...)
+# that resolves only under framework/ is accepted as is -- nothing rewritten, nothing said.
+WS=$(stage valid-bundle)
+sedi 's|(framework/first-workflow/|(first-workflow/|g' "$WS/registry/workflows/first-workflow.md"
+grep -q "(first-workflow/requirements.md)" "$WS/registry/workflows/first-workflow.md" || bad "old-link test setup: links not rewritten to the old form"
+run_lint_at "$WS" >/dev/null 2>&1 && ok "old relative link resolving only under framework/: lint exits 0" || bad "old relative link should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
+out=$(run_lint_at "$WS" 2>&1)
+grep -q "first-workflow/" <<<"$out" && bad "old relative link drew a lint message: $(grep first-workflow/ <<<"$out")" || ok "old relative link: no lint message names it"
+grep -q "(first-workflow/requirements.md)" "$WS/registry/workflows/first-workflow.md" && ok "old relative link is not rewritten" || bad "lint rewrote an old relative link"
+# the same, with the line of business's folder: set. The Run log link (runs.md) would be the first
+# outside-folder warning and stop the check, so drop it: the old links come next, and they must be
+# exempt through framework/, leaving .claude/skills/... as the one warning.
+sedi '/- \[Run log\](runs.md)/d' "$WS/registry/workflows/first-workflow.md"
+perl -0pi -e 's/^(status: .*)$/$1\nfolder: lob-files\//m' "$WS/registry/lines-of-business/design-services.md"
+out=$(run_lint_at "$WS" 2>&1)
+grep -q "artifact link first-workflow/" <<<"$out" \
+  && bad "old relative link with folder: set got an outside-LOB warning: $(grep 'outside derived' <<<"$out")" || ok "old relative link with folder: set: no outside-folder warning"
+grep -q "artifact link .claude/skills/some-skill/SKILL.md outside derived LOB folder" <<<"$out" \
+  && ok "old relative link with folder: set: the folder check still ran past it" || bad "old-link folder test: expected the .claude/skills outside-LOB warning, got: $(grep 'outside derived' <<<"$out")"
+# an old link to a renamed workflow folder: the node's slug no longer names the folder, so only the
+# link claims it -- through framework/
+WS=$(stage valid-bundle)
+mv "$WS/framework/first-workflow" "$WS/framework/client-intake"
+sedi 's|(framework/first-workflow/|(client-intake/|g' "$WS/registry/workflows/first-workflow.md"
+run_lint_at "$WS" >/dev/null 2>&1 && ok "old link to a renamed workflow folder: lint exits 0" || bad "old link to a renamed folder should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
+out=$(run_lint_at "$WS" 2>&1)  # variable capture: never pipe a lint that may exit 1 under pipefail
+grep -q "client-intake/: framework folder not claimed" <<<"$out" \
+  && bad "claims sweep warned about a folder an old link claims" || ok "old link to a renamed workflow folder: claims sweep doesn't warn"
+
 WS=$(stage valid-bundle); mkdir -p "$WS/framework/orphan-workflow"; : > "$WS/framework/orphan-workflow/requirements.md"
 run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework/orphan-workflow/: framework folder not claimed by any Workflow node" \
   && ok "unclaimed framework folder warned" || bad "expected unclaimed framework folder WARN"

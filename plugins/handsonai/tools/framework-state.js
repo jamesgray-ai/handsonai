@@ -853,7 +853,7 @@ function lineFor(r) {
       case 'ask': return `continue: ask which (N-F9): ${r.options.map((o) => o.workflow === 'analyze' ? 'the unfinished Analyze session' : `${o.workflow} (state ${o.state}, ${o.name})`).join(', ')}.`;
       case 'pick': return `continue: ${r.workflow}, state ${r.state} (${r.name}); ${r.state === 11 ? 'say N-T19' : `${r.owner}: "${START_PHRASES[r.owner]}"`}.`;
       case 'deconstruct-start-phrase': return `continue: no workflow folder yet, but backlog candidates; Deconstruct: "${START_PHRASES.Deconstruct}".`;
-      default: return `continue: nothing to continue yet; Analyze: "${START_PHRASES.Analyze}".`;
+      default: return 'continue: nothing to continue yet. Say N-F22 in its platform form as the whole message (N-F24 may come first, as its own paragraph, when the registry has no Workflow nodes), and stop.';
     }
   }
   const owner = r.owner ? `${r.owner}: "${START_PHRASES[r.owner]}"` : 'no owner';

@@ -7,7 +7,7 @@ In this exercise you run the AI Workflow Framework end-to-end yourself, live in 
 
 ## Lesson: Ship a Workflow Using the AI Workflow Framework
 
-Run the framework yourself with the Hands-on AI plugin installed, in Claude Code (or the Claude desktop app). Each step runs in a new chat (a new session on Claude Code). You don't need to remember which step comes next: say **"continue my workflow"**, with where your files are, and the skill works out which step is next. If it's that skill's step, it picks up there; if not, it gives you the phrase to start the right step in a new chat. Every step ends by giving you the phrase that starts the next one. In Claude Code you can also use the slash commands (`/handsonai:design`, `/handsonai:build`, `/handsonai:test`).
+Run the framework yourself with the Hands-on AI plugin installed, in Claude Code (or the Claude desktop app). Each step runs in a new chat (a new session on Claude Code). You don't need to remember which step comes next: say **"continue my workflow"**, with where your files are, and the skill works out which step is next. If it's that skill's step, it picks up there; if not, it gives you the phrase that starts the right step: to say right there in the same chat when you haven't started anything else in it, otherwise in a new chat. Every step ends by giving you the phrase that starts the next one. In Claude Code you can also use the slash commands (`/handsonai:design`, `/handsonai:build`, `/handsonai:test`).
 
 ### Hands-on assignment
 

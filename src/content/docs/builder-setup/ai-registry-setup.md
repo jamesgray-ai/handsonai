@@ -159,18 +159,16 @@ Bring one and the interview is shorter. Bring three and it is mostly confirmatio
 
 ## The Interview
 
-Whichever flow you're in, your assistant now runs the same **interview**: a short setup, **four parts**, and a close — working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
+Whichever flow you're in, your assistant now runs the same short **interview**: one open question, one summary to confirm, and your processes one line of business at a time. For a business with three lines of business that's about five answers; with one line, about three. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that part out rather than guessing.
 
-| Part | What it asks |
+| What you see | What happens |
 |---|---|
-| Setup | Tells you where it will save your registry and whether your assistant saves files or prints them (decided above), asks who the registry is for — a business you own, a company you lead, your role, or your personal life — and asks for anything you brought (see What to Bring) |
-| Part 1 — Your business | Your business's name, a one-sentence identity, and the two or three outcomes that matter most this year. For a professional the "business" is your team; for personal life it is you or your household |
-| Part 2 — How it's organized | The one or more lines of business inside it (solo founders usually get just one, named after the business itself) |
-| Part 3 — Who does the work | Which functions run your business — for a company, your assistant offers a starter list (Marketing, Sales, Service Delivery, Operations, Product, Customer Success, IT/Engineering) or drafts from your org chart, and you trim or rename it (any function left owning no process is added to one or dropped before you finish); for a team, the groups you hand work to; for personal life, the roles that own each routine |
-| Part 4 — The processes that deliver it | The three to five processes that deliver each line of business — where the time, money, and customer outcomes flow. Your assistant drafts and orders them; you add, remove, rename, or move. Not where AI helps: Analyze decides that, and asks which processes matter most before it looks at them |
-| Close | A wrap-up summary, your visual dashboard (always generated, with how to open it — if your assistant is printing files, it's created once your files are in a folder it can save to), and the offer to run Analyze right away |
+| Opening | Your assistant says where it will save your registry, then asks one open question: who the registry is for (a business you own, a company or team you lead or work in, or your personal life), what it offers, who does the work, and the two or three goals that matter most this year. Answer in a few sentences, or paste your website's About or Services text or anything from What to Bring. It asks a follow-up only for something you left out |
+| Your summary card | One card to confirm: who it's for, your business's name, a one-sentence identity, your goals, and your lines of business in order (solo founders usually get just one, named after the business itself). For a professional the "business" is your team; for personal life it is you or your household |
+| Your processes | One message per line of business: the three to five processes that deliver it, in the order the work flows, each with its owner — who does that work. A solo founder's owners are the few hats they wear (Sales, Delivery, Marketing, Operations); a team's are the roles you named. You add, remove, rename, or change an owner. Not where AI helps: Analyze decides that, and asks which processes matter most before it looks at them |
+| Close | A short summary, your visual dashboard (always generated: in Claude Code or Codex, say "open my dashboard" and your assistant opens it; if your assistant is printing files, it's created once your files are in a folder it can save to), and the phrase to start Analyze |
 
-While it interviews you, your assistant may show you a worked example from a fictional small consultancy to illustrate the shape of a good answer. That example is there to show you the *pattern* — it is never copied into your registry. Everything your assistant writes describes your real business.
+If you say "not sure", your assistant may show you a worked example from a fictional small consultancy to illustrate the shape of a good answer. That example is there to show you the *pattern* — it is never copied into your registry. Everything your assistant writes describes your real business.
 
 **You should now see**, at the end of the interview, at least one Business node, one Line of Business node, one Function node, and one Process node — and an empty Workflows table. [Analyze](../../ai-workflow-framework/analyze/) fills that table, and a fresh `REGISTRY.md` summarizes all of it (in the folder you picked, next to `registry/`).
 

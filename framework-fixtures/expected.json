@@ -632,5 +632,49 @@
       },
       "note": "seed; T31 regenerates it"
     }
+  },
+  "edge/e-policy-wait": {
+    "with-registry": {
+      "state": 8,
+      "owner": "Test",
+      "note": "the return visit: Test's one-line opening, then the policy confirm question; no new round, no re-run"
+    },
+    "no-registry": {
+      "state": 8,
+      "owner": "Test"
+    }
+  },
+  "edge/e-policy-confirmed": {
+    "with-registry": {
+      "state": 10,
+      "owner": "Test",
+      "note": "the return visit's yes rewrote round 1 to Ready with go_live pending (M1): Take it live?"
+    },
+    "no-registry": {
+      "state": 10,
+      "owner": "Test"
+    }
+  },
+  "edge/e-new-fields": {
+    "with-registry": {
+      "state": 4,
+      "owner": "Design",
+      "note": "every field Deconstruct 3.3 adds: Design reads them and asks no fact question they settle (T11)"
+    },
+    "no-registry": {
+      "state": 4,
+      "owner": "Design"
+    }
+  },
+  "edge/e-safety-input": {
+    "with-registry": {
+      "state": 10,
+      "owner": "Test",
+      "note": "a Ready round whose coverage map names the input presenting each safety must-have: R1 by the flag input, P2 by a source: flag safety input outside the cap"
+    },
+    "no-registry": {
+      "state": 10,
+      "owner": "Test"
+    }
   }
 }

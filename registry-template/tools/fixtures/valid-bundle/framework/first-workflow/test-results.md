@@ -12,7 +12,7 @@ change_requests: []
 results:
   E1: { runs: 2, run1: { AC1: met, AC2: met, R1: met }, run2: { AC1: met, AC2: met, R1: met }, edits: none }
   E2: { runs: 2, run1: { AC1: met, R1: met }, run2: { AC1: met, R1: met }, edits: none }
-  E3: { runs: 2, run1: { KW: met, R1: met }, run2: { KW: met, R1: met } }
+  E3: { runs: 2, run1: { KW: met, R1: met, P1: met }, run2: { KW: met, R1: met, P1: met } }
   new: { runs: 1, run1: { AC1: met, AC2: met, R1: met }, edits: none }
 ---
 
@@ -23,18 +23,20 @@ results:
 |---|---|---|
 | AC1 | output | yes |
 | AC2 | output | no |
-| R1 | output | no |
+| R1 | output | yes (safety) |
 | G1 | path | no |
+| P1 | path | yes (safety) |
 | KW | path | no |
 
 ## Coverage
-| Line | Tested by |
-|---|---|
-| AC1 | E1, E2 |
-| AC2 | E1 |
-| R1 | E2 |
-| G1 | E1 |
-| KW | E3 |
+| Line | Tested by | Presented by |
+|---|---|---|
+| AC1 | E1, E2 | — |
+| AC2 | E1 | — |
+| R1 | E2, E3 | E2 |
+| G1 | E1 | — |
+| P1 | E3 | E3 |
+| KW | E3 | — |
 
 ## Inputs
 | Input | Came from | Ran by | Runs | Carried from | Saved as |
@@ -63,4 +65,4 @@ None.
 None.
 
 ## Verdict
-Ready. 10 of 10 lines met across 4 inputs. It went live on 2026-07-01.
+Ready. 11 of 11 lines met across 4 inputs. It went live on 2026-07-01.

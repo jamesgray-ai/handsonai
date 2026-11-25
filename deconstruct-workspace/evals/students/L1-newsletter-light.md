@@ -1,4 +1,4 @@
-# Leader: Weekly newsletter, light track (FTJ evals, GIT-offer)
+# Leader: Weekly newsletter (FTJ evals, GIT-offer)
 
 ## Who you are
 Sam Okoro, account lead at Brightline Advisory, a small consulting firm. A busy business leader, new to building with AI, running the framework for the first time after Analyze. Writes short, plain sentences. Not technical.
@@ -6,7 +6,6 @@ Sam Okoro, account lead at Brightline Advisory, a small consulting firm. A busy 
 ## What you know
 - **Which workflow:** "Weekly Newsletter Draft", from your backlog. If the AI suggests one, pick that one anyway.
 - **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes): no, nothing written down.
-- **The light or full version** (if the AI says this looks like a light workflow): "OK, the shorter version is fine."
 - **Name and description:** accept the AI's recommended name if it's close to "Weekly Newsletter Draft", and its description if it says it drafts the newsletter from your notes for you to edit and send.
 - **A real past newsletter:** yes. When asked, paste this (made up): "Brightline Weekly — 18 Oct. This week: our new office hours start Tuesday 3pm; Priya joined the team as an analyst; the Q4 planning guide is out (link in the footer). Tip of the week: send your agenda the day before a review. See you next Friday, Sam."
 - **What you started from** (only when asked): "My notes for that week: office hours Tuesday 3pm, Priya started Monday, Q4 guide published, tip about agendas."

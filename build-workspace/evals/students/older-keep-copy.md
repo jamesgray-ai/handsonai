@@ -14,6 +14,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it asks for an OK to make a change or a quick check, say "OK, go ahead."
 - When it shows exactly what it would send or change and asks if that's the right place, say "Yes, that's the right place."
 - When the workflow itself asks you something during a check, answer as you would at work: approve the draft.
+- When it asks you to check that skills are turned on (in your account or settings), you check and they are: say "Yes."
 - When it asks whether an older version is already set up somewhere, say "Yes, a skill called client-follow-up in my account."
 - When it asks you to run something in a new chat and paste back what it says, do it as your screen allows, then paste.
 - When it recommends something, or gives choices with one recommended, take the recommendation.
@@ -24,6 +25,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it asks you to switch it off, do it and say "done".
 - When it asks about a version history, say "No."
 - When it asks you to keep a copy, do it and say "done".
+- When it says everything is built and checked and asks whether it can save the parts where they start, say "Yes."
 
 ## When to stop
 Reply `END` when the AI tells you how to start testing in a new chat or session, or when it stops and tells you what to say next.

@@ -23,7 +23,7 @@ def must_not(name, text, pattern):
     checks.append((name, re.search(pattern, text) is None))
 
 # Order: nothing before the storage question; N-F16 gated to Claude and ChatGPT on the web
-must("storage question comes first, nothing before it", SR, "**Nothing comes before it:** no greeting, no opening, no question about who the registry is for")
+must("storage question comes first, nothing before it", SR, "**Nothing comes before it:** no greeting, no opening, no first question")
 must("N-F16 gated to Claude and ChatGPT on the web", SR, "On Claude or ChatGPT on the web, in any tab or mode, ChatGPT's Work tab included (never Claude desktop, Microsoft 365 Cowork, Claude Code or Codex: any chat not working in a folder on the leader's computer counts as the web, and a sandbox or workspace the AI runs in online is not the leader's computer, and a folder the app made for this chat alone, named by date or after the chat, is never the working folder)")
 must("N-F16 said exactly", SR, "I can't see a drive I can save to in this chat. Add your cloud drive to this chat from the prompt box")
 must("print-to-save only for Gemini or after 'continue'", SR, "Gemini, or on the web after the leader says 'continue' to N-F16")
@@ -32,7 +32,7 @@ must_not("no old 'web chat with no storage connection' print-to-save trigger", S
 must("N-F17 offers to create a missing folder", SR, "I can't find [folder] in your [storage service]. Shall I create it there?")
 must("N-SR2 for a registry already there", SR, "You already have a registry here, so I'll check it for gaps instead of starting over.")
 must("no gaps: one line, then the close", SR, "With no gaps, say so in one line, then the close's check, the dashboard and N-A7.")
-must("the opening yields to N-SR2", IG, "with a registry already there, N-SR2 comes first")
+must("the opening yields to N-SR2", IG, "N-SR2 comes first instead (SKILL.md, *Before scaffolding*)")
 # The storage question: by situation, not platform name (ChatGPT Work-tab test, 2026-11-08)
 must("first message settles where the files go (top of skill)", SR, "**Your first message settles where the files go.**")
 must("any tab or mode counts as the web", SR, "in any tab or mode, ChatGPT's Work tab included")
@@ -51,14 +51,14 @@ must("N-F1 library form drops the drive-reach sentence", SR, "Where [storage ser
 # Batch 3 (2026-11-08): dashboard opened from a drive, pre-close sentence, list formatting, "the user"
 SV = (SK / "scaffolding-registry" / "references" / "saving.md").read_text()
 AN = (SK / "analyze" / "SKILL.md").read_text()
-HP = (SK / "analyze" / "references" / "history-pass.md").read_text()
+EP = (SK / "analyze" / "references" / "evidence-pass.md").read_text()
 WK = (SK / "analyze" / "references" / "the-walk.md").read_text()
 RC = (SK / "analyze" / "references" / "registering-candidates.md").read_text()
 must("saving: an HTML page in a drive is downloaded to open", SV, "An HTML page in a drive shows as code when it's opened there.")
 must("Analyze close: download the dashboard from the drive", AN, "download it from your drive and open it in your browser (clicked in the drive, it shows as code)")
 must("pre-close sentence word for word or nothing", IG, "that sentence or nothing.")
-must("history list stays a list", HP, "with a blank line after each label so the list shows as a list; never a plain line.")
-must("walk list stays a list", WK, "with a blank line after each label so the list shows as a list")
+must("shortlist stays a list", EP, "Put each label on its own line, with a blank line after each label so the list shows as a list; never a plain line.")
+must("'show my processes' list stays a list", WK, "under a \"**Line of business:** [name]\" label per line, with a blank line after each label so the list shows as a list")
 must("pages never say 'the user'", RC, "A page never calls the leader \"the user\"")
 # Gap-filling mode as ordered steps (ChatGPT test, 2026-11-08: found folder used unconfirmed, check skipped)
 must("gap mode: every step, in order", SR, "Then these steps, in this order, every one of them, with nothing said before the first:")
@@ -70,10 +70,11 @@ must("Owns: the earlier form is moved out of the markers", IX, "move it above th
 # Goals are never invented
 must("never invent goals (guide)", IG, "**Never invent goals,**")
 must("N-SR3 when no goals are given", IG, "Your goals for this year aren't recorded yet; tell me them any time.")
-must("goals only as the leader gives them (skill)", SR, "only as the leader gives them (never invented or drafted")
+must("goals never drafted from a website (guide; the card in SKILL.md defers to it)", IG, "Never draft goals from a website or a services page.")
 # Formatted examples, never code blocks, for anything played back
-must("processes draft shown as formatted text", IG, "Show it as a formatted list in\nthe chat, never in a code block")
-block = IG[IG.index("Here are my suggested processes"):IG.index("**Ask:** \"What would you add, remove, rename, or move?")]
+must("processes draft shown as formatted text", IG, "with the list shown as a formatted list in the chat, never in a\ncode block")
+# N-SR7: one line of business per message, its list, then the question; never a code fence in between
+block = IG[IG.index("> \"Line 1 of [N]: [line]."):IG.index("> \"Anything to add, remove, rename, or change the owner?\"")]
 checks.append(("processes draft isn't inside a code fence", "```" not in block))
 # Plain words
 must("never name a skill or a hand-off (rules for every message)", SR, "**Never name a skill, or a hand-off between skills.**")
@@ -89,8 +90,8 @@ checks.append(("example registry keeps the heading outside the markers", "# Owns
 must("cloud: name the repository, never a path", SR, "name the repository, never a path on the machine")
 must("cloud: commit and push after the close's check and after the Artifact line", SR, "commit `registry/`, `REGISTRY.md` and `registry-dashboard.html` and push them to the session's branch yourself, and again after the Artifact's log line")
 must("cloud: N-F18", SR, "Your work is saved on GitHub, on the branch [branch].")
-must("cloud: the dashboard is in the repository, inside the close template", IG, "in a cloud session, it's in your repository on GitHub to download")
-must("an unreachable link is pasted, never an environment change", IG, "never propose changing the environment, network, permissions or credentials")
+must("cloud: the dashboard is in the repository, inside the close template", IG, "**In a cloud session:** it's in the repository on GitHub to download; never \"double-click it\".")
+must("an unreachable link is pasted, never an environment change", IG, "never propose changing the environment,\nnetwork, permissions or credentials")
 # Start phrases
 must("start phrases word for word", IG, "never \"Run Analyze\"")
 must("N-A7's Claude Code and Codex form has no location", IG, "When you're ready, say 'run the analyze skill.' (in Claude Code")

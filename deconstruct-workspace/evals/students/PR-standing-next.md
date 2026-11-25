@@ -1,4 +1,4 @@
-# Leader: light track, standing rules suggested (PR-standing-next)
+# Leader: the newsletter, standing rules suggested (PR-standing-next)
 
 ## Who you are
 Sam Okoro again (see the facts below), running Deconstruct on the Weekly Newsletter Draft.

@@ -6,6 +6,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 ## What you know
 - Everything about the work is already written down in your folder; you have nothing to add.
 - Your work Gmail is alex@brightline.example; it's the account the workflow runs in.
+- A busy week brings you about 8 client calls. Asked the most a scheduled run should make, say "10 at most."
 
 ## How you answer
 - When the AI asks you to set something up, connect a tool or do something on your screen, do it as your screen allows, then say "done".
@@ -21,6 +22,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it asks if you see the skill or the agent after saving it, say "Yes, I see it."
 - If it offers to save a point in your folder's history, say "no thanks".
 - When it says a quick check can't be undone and asks to go ahead or skip, say "I'm not sure."
+- When it says everything is built and checked and asks whether it can save the parts where they start, say "Yes."
 
 ## When to stop
 Reply `END` when the AI tells you how to start testing in a new chat or session, or when it stops and tells you what to say next.

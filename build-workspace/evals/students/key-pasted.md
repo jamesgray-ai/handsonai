@@ -14,12 +14,14 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it asks for an OK to make a change or a quick check, say "OK, go ahead."
 - When it shows exactly what it would send or change and asks if that's the right place, say "Yes, that's the right place."
 - When the workflow itself asks you something during a check, answer as you would at work: approve the draft.
+- When it asks you to check that skills are turned on (in your account or settings), you check and they are: say "Yes."
 - When it asks whether an older version is already set up somewhere, say "No."
 - When it asks you to run something in a new chat and paste back what it says, do it as your screen allows, then paste.
 - When it recommends something, or gives choices with one recommended, take the recommendation.
 - When it asks something you don't know, say "Not sure."
 - When it offers to undo the check changes, say "Yes, undo them."
 - When it asks if you see the skill or the agent after saving it, say "Yes, I see it."
+- When it says everything is built and checked and asks whether it can save the parts where they start, say "Yes."
 - If it offers to save a point in your folder's history, say "no thanks".
 - The first time it asks you to connect a tool, paste your key into the chat with "here's my key: sk-live-4f9a2c71e0b3d8a6". After that, follow its steps and say "done".
 

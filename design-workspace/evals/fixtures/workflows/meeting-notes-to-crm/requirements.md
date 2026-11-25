@@ -16,8 +16,8 @@ For each sales meeting, the deal's next step updated in HubSpot from your notes,
 | Business Objective | Keep the pipeline current for the whole sales team |
 | Desired Outcome | Every deal shows the next step agreed at its last meeting |
 | Measure | Minutes per meeting spent updating HubSpot |
-| Baseline | 10 minutes per meeting · Estimated |
-| Target | 2 minutes per meeting, including your check |
+| Baseline | — · Unknown |
+| Target | — |
 
 ## Metadata
 
@@ -31,21 +31,19 @@ For each sales meeting, the deal's next step updated in HubSpot from your notes,
 
 ## Path
 
-Method preference: same way every time
-
-- Step 1 — Read the notes · produces the agreed next step, its owner and its date · flexible
-- Step 2 — Check the next step · produces a checked next step · fixed (your judgment) · (you)
-- Step 3 — Update the deal · produces the deal's updated "Next step" field in HubSpot · flexible · writes W1
+Method preference: AI works it out each time
+Path: none — the AI plans each run from the goal
 
 ## Inputs
 
 - I1 · your meeting notes · from you, pasted into the chat · Status: available
 
 ## Context Inventory
+*The sources it uses, what we call its context.*
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
-| C1 | Next-step format | Step 1 | Exists | Internal | Authored | Yes | `context/C1-next-step-format.md` | Who, what, by when |
+| C1 | Next-step format | All | Exists | Internal | Authored | Yes | `context/C1-next-step-format.md` | Who, what, by when |
 
 ## Acceptance Criteria
 
@@ -57,6 +55,7 @@ Each line is one thing a single run's output either does or doesn't do. Every pr
 Reference example: —
 
 ## Example Scenarios
+*The practice runs: each input it's tested on, and what should happen.*
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
@@ -64,6 +63,7 @@ Reference example: —
 | E2 | No date agreed (proposed, hard) | `inputs/E2-no-date.md` — notes with a next step but no date | The missing date flagged | — |
 
 ## Rules & Constraints
+*Its rules: what it always does, never does, and does when something happens.*
 
 | ID | Kind | Rule |
 |---|---|---|
@@ -71,12 +71,13 @@ Reference example: —
 | R2 | Fallback | When it can't confidently handle a case, it stops and asks you. |
 
 ## Human Gates
+*The checkpoints: where a person checks or approves the work.*
 
 Runs: with you
 
 | ID | Where | Checkpoint |
 |---|---|---|
-| G1 | Step 2 | When the next step is drafted, it stops until you approve it. · (you) |
+| G1 | After the next step is drafted | When the next step is drafted, it stops until you approve it. · (you) |
 
 ## Security, Privacy & Safety
 
@@ -95,4 +96,4 @@ Runs: with you
 Governing regime: None
 
 ### Writes
-- W1 · HubSpot · update the deal's "Next step" field, which the whole sales team sees · Step 3
+- W1 · HubSpot · update the deal's "Next step" field, which the whole sales team sees · after you approve the next step

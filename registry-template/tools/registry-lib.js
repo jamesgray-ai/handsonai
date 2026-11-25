@@ -13,7 +13,7 @@ const { execFileSync } = require('child_process');
 // the workspace's is missing or lower; package.json carries the same number.
 // Raise both together whenever compose, lint, this file, the dashboard
 // template or the data-island schema change.
-const TOOLS_VERSION = '10.0.0';
+const TOOLS_VERSION = '10.5.0';
 
 // Plural directories -> singular concept type. Directory<->type agreement is
 // lint-enforced (SCHEMA.md "Types and directories").
@@ -305,10 +305,10 @@ function scanSops(workspaceRoot) {
 }
 
 // --- The framework folder ----------------------------------------------------
-// The registry's parent folder is the workspace on Claude Code and Codex, which
-// holds framework/ beside registry/; on the web and Claude desktop it is the
-// framework folder itself, which holds registry/ beside the workflow folders.
-// (SCHEMA.md "Layered model".)
+// The framework folder is framework/ in the registry's parent folder (the working
+// folder), beside registry/, on every platform; the legacy layout with registry/
+// inside the framework folder still reads <slug>/; an old relative link resolves
+// through framework/ (resolveRepoLink). (SCHEMA.md "Layered model".)
 
 // A workflow folder holds at least one of these record files.
 const RECORD_MARKERS = ['requirements.md', 'deconstruct-in-progress.md', 'design-plan.md', 'build-record.md', 'test-results.md'];
@@ -318,7 +318,8 @@ const NOT_WORKFLOW_DIRS = new Set(['history', 'registry']);
 function isDirSafe(p) { try { return fs.statSync(p).isDirectory(); } catch { return false; } }
 
 // { dir: absolute framework folder, prefix: link prefix for its workflow
-// folders ('framework/' in a workspace, '' beside registry/) }. A workspace
+// folders ('framework/' on every platform, '' in the legacy layout with
+// registry/ inside the framework folder) }. A working folder
 // with no framework/ yet is treated as one (prefix 'framework/') when it has
 // no workflow-shaped sibling of registry/ either.
 function frameworkFolder(workspaceRoot) {
@@ -331,9 +332,9 @@ function frameworkFolder(workspaceRoot) {
 
 // Workflow folders directly under `dir` (relative path prefix `prefix`).
 // Skips anything that is not a readable folder: a broken symlink, an entry it
-// cannot stat. With an empty prefix (a drive-shaped framework folder) only
-// folders holding a record file count, so sops/, process-guides/ and the like
-// are never mistaken for workflows.
+// cannot stat. With an empty prefix (the legacy layout, registry/ inside the
+// framework folder, read as <slug>/) only folders holding a record file count,
+// so sops/, process-guides/ and the like are never mistaken for workflows.
 function scanWorkflowFolders(dir, prefix) {
   const out = [];
   let names;
@@ -355,6 +356,24 @@ function scanWorkflowFolders(dir, prefix) {
 function scanFrameworkFolders(workspaceRoot) {
   const fw = frameworkFolder(workspaceRoot);
   return fw.dir ? scanWorkflowFolders(fw.dir, fw.prefix) : [];
+}
+
+// The repo path a relative link resolves to from the registry's parent folder:
+// the link as written when it resolves, else framework/ + the link when the link
+// doesn't already start with framework/ and that resolves, so an old relative
+// link (such as <slug>/requirements.md) resolves through framework/. A trailing
+// '/' marks a directory target. A link that climbs with '..' never takes the
+// fallback. Returns null when neither resolves. Nothing is rewritten.
+function resolveRepoLink(href, workspaceRoot) {
+  const isDirLink = href.endsWith('/');
+  const resolves = (rel) => {
+    const target = path.join(workspaceRoot, rel);
+    return isDirLink ? isDirSafe(target) : fs.existsSync(target);
+  };
+  if (resolves(href)) return href;
+  if (href.startsWith('framework/') || href.split('/').includes('..')) return null;
+  const fallback = `framework/${href}`;
+  return resolves(fallback) ? fallback : null;
 }
 
 // A run log (runs.md or runs-<slug>.md) has at least one data row: a table
@@ -457,6 +476,6 @@ module.exports = {
   ARTIFACT_LABELS, LEGACY_LABELS, AT_INSTANT, AT_DATE, RECORD_MARKERS,
   normalizeLineEndings, parseFrontmatter, parseCapabilityFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
   findGeneratedBlocks, renderGeneratedBlock, replaceGeneratedBlock,
-  loadBundle, scanSops, frameworkFolder, scanFrameworkFolders, runLogHasEntries, artifactLabels, scanCapabilities,
+  loadBundle, scanSops, frameworkFolder, scanFrameworkFolders, resolveRepoLink, runLogHasEntries, artifactLabels, scanCapabilities,
   isGitIgnored, lastChanged,
 };

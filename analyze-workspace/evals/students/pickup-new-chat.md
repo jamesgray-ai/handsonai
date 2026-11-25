@@ -7,7 +7,7 @@ The owner of Brightline Advisory. You set up your registry and ran Analyze on on
 <!-- include-facts: students/brightline-owner.md -->
 
 ## How you answer
-- Answer the AI's first question as the facts say (if it offers to pick up with the rest, say yes).
+- Answer the AI's first question as the facts say.
 - To the AI's second question, whatever it is, say: "I have to go. Stop here for now."
 
 ## When to stop

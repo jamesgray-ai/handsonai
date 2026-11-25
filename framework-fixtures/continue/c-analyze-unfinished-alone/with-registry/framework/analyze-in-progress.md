@@ -1,6 +1,11 @@
 Lens: organizational
-Processes walked: Client Relationship Management
-Next: Sales Pipeline Management
+Run: picking up the rest
+History: checked; still to confirm:
+- Proposal Chasers (Sales Pipeline Management): your saved memory says you chase each sent proposal by email a week later. My guess: about 4 proposals a month, 20 minutes each.
+
+## Processes
+- Client Relationship Management: looked at
+- Sales Pipeline Management: in progress
 
 ## Noted so far
-- Client Follow-Up: drafting follow-ups after calls takes about 20 minutes each.
+- Sales Pipeline Management, Lead Hand-Off Notes: notes from first calls go missing before the proposal is written. Size: about 6 first calls a month, 30 minutes each. Goal: Win two new clients a quarter.

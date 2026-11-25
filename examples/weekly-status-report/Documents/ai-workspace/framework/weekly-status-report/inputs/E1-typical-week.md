@@ -1,5 +1,6 @@
 source: deconstruct
 tests: AC1, AC2, AC3, AC4, R1, R2, R4, R5, G2
+expect: Every section filled, and the one blocker with its owner and next action; no status the tracker doesn't support
 
 # Tracker export — week of 2026-06-01
 
@@ -15,4 +16,4 @@ Source: HubSpot list "Q2 Delivery Tracker", tasks updated 2026-05-29 to 2026-06-
 | Data migration — order history | In progress | Lena | 2026-06-03 | 60% complete |
 | Mobile app — crash fix 2.3.1 | Done | Marcus | 2026-05-29 | Released |
 | Mobile app — offline mode | In progress | Marcus | 2026-06-02 | Spike complete; estimate 3 weeks |
-| Reporting — leadership dashboard | In progress | Maya | 2026-06-04 | Draft shared with two stakeholders |
+| Reporting — leadership dashboard | In progress | Program manager | 2026-06-04 | Draft shared with two stakeholders |

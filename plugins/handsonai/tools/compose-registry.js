@@ -165,8 +165,9 @@ function scanSkillsAndAgents(workspaceRoot) {
 // State 0's one name covers two different things, so the views split it by the
 // script's kind: "Runs outside the framework" for running work Analyze recorded
 // (in-production, no folder), "Retired" for a retired workflow.
-// The folder is <framework folder>/<slug>/ (framework/<slug>/ in a workspace,
-// <slug>/ beside registry/ on the web and Claude desktop). Anything the script
+// The folder is <framework folder>/<slug>/ (framework/ on every platform; the
+// legacy layout with registry/ inside the framework folder still reads <slug>/;
+// an old relative link resolves through framework/). Anything the script
 // can't read or settle -> undefined, and the views leave progress blank rather
 // than guess. Deterministic: framework-state reads files only.
 const STATE_0_LABELS = { 'running-work': 'Runs outside the framework', retired: 'Retired' };

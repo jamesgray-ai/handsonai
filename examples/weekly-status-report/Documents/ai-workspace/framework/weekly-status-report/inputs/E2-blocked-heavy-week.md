@@ -1,5 +1,6 @@
 source: deconstruct
 tests: AC1, AC2, AC3, R1, R2, G2
+expect: Each blocker with its owner and next action, and the ownerless one marked "owner needed"; no owner guessed for it
 
 # Tracker export — week of 2026-06-01
 
@@ -12,4 +13,4 @@ Source: HubSpot list "Q2 Delivery Tracker", tasks updated 2026-05-29 to 2026-06-
 | Customer portal — SSO | Blocked | Priya | 2026-06-02 | Identity provider contract not signed — Legal owns, no date yet |
 | Data migration — attachments | Blocked |  | 2026-06-04 | Storage quota exceeded; nobody assigned to raise it |
 | Mobile app — offline mode | In progress | Marcus | 2026-06-02 | Week 1 of 3 |
-| Reporting — leadership dashboard | Done | Maya | 2026-06-04 | Published |
+| Reporting — leadership dashboard | Done | Program manager | 2026-06-04 | Published |

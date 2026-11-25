@@ -1,0 +1,1 @@
+A round closed Not ready on the policy wait alone (Deconstruct 3.3, R-D7): the requirements read `Policy check: Not sure — to check`, round 1 is `not-ready` with no Issues row and the Verdict reason "Waiting on the policy check (Not sure — to check)", nothing for Build: state 8, Test's return visit.

@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "notes": "Where to look, not what is true. Each platform lists the official pages for skills, plugins and installing, subagents and custom agents, scheduled and unattended runs, connectors and storage, and projects and memory. It makes no claim about what a platform can do: tools change too fast. When a skill needs a current fact, it reads the linked page if it can fetch one; otherwise it takes its own fail-safe rule and tells the leader which page to check. Skills read only this bundled copy. Links checked 2026-11-07 (help.openai.com pages refuse automated requests, so those weren't re-checked).",
+  "notes": "Where to look, not what is true. Each platform lists the official pages for skills, plugins and installing, subagents and custom agents, scheduled and unattended runs, connectors and storage, and projects and memory. It makes no claim about what a platform can do: tools change too fast. When a skill needs a current fact, it reads the linked page if it can fetch one; otherwise it takes its own fail-safe rule and tells the leader which page to check. Skills read only this bundled copy. Links checked 2026-11-21 (help.openai.com pages refuse automated requests, so those weren't re-checked).",
   "topics": [
     "skills",
     "plugins",
@@ -61,10 +61,11 @@
           "https://github.com/anthropics/skills/tree/main/skills/skill-creator"
         ],
         "plugins": [
-          "https://support.claude.com/en/articles/13837440-use-plugins-in-claude"
+          "https://support.claude.com/en/articles/13837440-use-plugins-in-claude",
+          "https://claude.com/docs/plugins/overview"
         ],
         "subagents": [
-          "https://claude.com/docs/third-party/claude-desktop/extensions"
+          "https://claude.com/docs/plugins/platform-support"
         ],
         "scheduled_runs": [
           "https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork"
@@ -104,9 +105,12 @@
         "scheduled_runs": [
           "https://learn.chatgpt.com/docs/automations.md?surface=app"
         ],
-        "connectors": [],
+        "connectors": [
+          "https://developers.openai.com/codex/mcp"
+        ],
         "projects": [
-          "https://learn.chatgpt.com/docs/agent-configuration/agents-md"
+          "https://learn.chatgpt.com/docs/agent-configuration/agents-md",
+          "https://learn.chatgpt.com/docs/developer-commands?surface=cli"
         ],
         "memory": [
           "https://learn.chatgpt.com/docs/customization/memories?surface=app"
@@ -158,13 +162,17 @@
       ],
       "docs": {
         "skills": [
-          "https://learn.microsoft.com/en-us/copilot/cowork/cowork-customize"
+          "https://learn.microsoft.com/en-us/copilot/cowork/cowork-customize",
+          "https://learn.microsoft.com/en-us/copilot/cowork/use-cowork"
         ],
         "plugins": [
           "https://learn.microsoft.com/en-us/copilot/cowork/cowork-plugins"
         ],
         "subagents": [
-          "https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-builder"
+          "https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-builder",
+          "https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-builder-build-agents",
+          "https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-builder-add-knowledge",
+          "https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-builder-share-manage-agents"
         ],
         "scheduled_runs": [
           "https://learn.microsoft.com/en-us/copilot/manage/scheduled-prompts",

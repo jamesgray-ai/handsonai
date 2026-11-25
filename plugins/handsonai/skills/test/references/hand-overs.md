@@ -6,10 +6,11 @@ Read at every hand-over: whenever the leader runs an input (the batch, the new i
 
 ## 1. Before each hand-over
 
-- **On Claude Code and Codex,** list the workspace's files with their modification times (leave out `.git/`), and keep the list for when the run comes back. Between this listing and the next, note every file you write yourself (the results file and its moves into `history/`, `inputs/`, `requirements.md`, the SOP, the registry's files, and `.claude/settings.local.json` for the wrapper's allow or a lifted block), with a hash of what you wrote. At the comparison, a noted file counts as unchanged only while it still holds exactly what you last wrote; anything else that changed refuses the run (SKILL.md, *Keeping runs cold*).
+- **On Claude Code and Codex,** list the workspace's files with their modification times (leave out `.git/`), and keep the list for when the run comes back. Between this listing and the next, note every file you write yourself (the results file and its moves into `history/`, `inputs/`, `requirements.md`, the SOP, the registry's files, `.claude/settings.local.json` for the wrapper's allow or a lifted block, and on Claude Code a carry-over input's store copy in the run's practice subfolder), with a hash of what you wrote. At the comparison, a noted file counts as unchanged only while it still holds exactly what you last wrote; anything else that changed refuses the run (SKILL.md, *Keeping runs cold*).
 - **Prompt and decision files** for the AI's runs never go in the workspace: write them in a scratch folder outside it (made with `mktemp -d`), recorded in the round's Environment and removed at the round's close, so they never enter the listing.
 - **On Claude Code,** the practice folder exists for this round (`claude-code-runs.md` section 2), and the block names it.
-- **Strip each input's header.** An input file's `source:` and `tests:` lines never go in a block, so no line ID reaches the run. Nothing from the requirements, the plan or the results file goes in either.
+- **Strip each input's header.** The header lines are one explicit list, `source:`, `tests:` and `expect:`: leave them out only while they lead the file, then leave out one blank line, and stop. A line further down that reads like one (`expect: …` in the input's own text) stays. So no line ID or expected result reaches the run. Nothing from the requirements, the plan or the results file goes in either.
+- **A carry-over input's `Earlier run:` paragraph** (the paragraph that opens its body after the header, and the blank line after it) is set-up, never input: it never goes in a block. A practice run never touches the workflow's real store, so the paragraph's state goes in a copy of the store the plan's `Stateful?` row names. On Claude Code, write that copy yourself in the run's own practice subfolder, `[practice folder]/[input]-1/`, under the store's own file name; on Codex, in the round's scratch folder outside the workspace. Where you can't (the chat platforms, or a store in an outside tool such as a sheet or a CRM), the hand-over asks the leader to make a test copy (section 3, item 7).
 - **A secret inside an input** is replaced with a placeholder before the block is written.
 
 ## 2. Where the run chat opens
@@ -24,7 +25,7 @@ Read at every hand-over: whenever the leader runs an input (the batch, the new i
 | Claude Code | A second terminal in the workspace, the everyday way | That the project's memory stays on there and Test checks the run; that the run saves only into the practice folder, so the leader allows Claude Code's saves there; once the `/mcp` release check passes, `/mcp` to switch off the servers the workflow doesn't use |
 | Codex | A new session in the workspace (a second terminal, or a new chat in the Codex app): the batch in one, the real example in its own | That it's told to save nothing, everything comes back in its last block, and Test checks the workspace afterwards |
 
-**Switching connections off.** The steps are the ones N-T8 gives word for word; never add a menu path of your own (`platform-facts.md`, rule 2). **On Claude and ChatGPT they're always given,** as approved N-T8 says (memory off and every other connector off on Claude; only the workflow's apps added on ChatGPT), whether or not their release checks (13, 16) have passed: an open check never removes a switch-off step, it only means N-F4 (the Deny line) is said as well, since the switch-off isn't yet proved to hold (section 5). **On Microsoft 365 and Claude Code** the steps are given only once their release checks pass (25 for Cowork's per-chat switch, 5 for `/mcp`). Codex has no per-session switch the framework relies on. Where no switch-off is given, the Deny line covers what stays in reach (section 5).
+**Switching connections off.** The steps are the ones N-T8 gives word for word; never add a menu path of your own (`platform-facts.md`, rule 2). **On Claude and ChatGPT they're always given,** as approved N-T8 says (memory off and every other connector off on Claude; only the workflow's apps added on ChatGPT), whether or not their release checks (13, 16) have passed: an open check never removes a switch-off step, it only means N-F4 (the Deny line) is said as well, since the switch-off isn't yet proved to hold (section 5). On Claude, memory for one chat can only be switched off before its first message, and the option isn't shown when the leader's memory is already off: a leader who has already typed starts a new chat, and one who doesn't see the option carries on, since their memory is already off. **On Microsoft 365 and Claude Code** the steps are given only once their release checks pass (25 for Cowork's per-chat switch, 5 for `/mcp`). Codex has no per-session switch the framework relies on. Where no switch-off is given, the Deny line covers what stays in reach (section 5).
 
 **A Microsoft 365 skill that can't read its file** says so and stops, never guessing; the leader then attaches that file to that run, and the run is handed over again with it attached.
 
@@ -34,17 +35,18 @@ Read at every hand-over: whenever the leader runs an input (the batch, the new i
 
 One message, each line said whole as written, as running text in this order: never split into numbered steps, recast into sentences of your own ("Paste the block below. The session is told to save nothing, so…") or its "below" changed:
 1. **The opening sentence** for the platform (section 4), naming any file to attach (an input that is itself a file is attached, not pasted).
-2. **For the batch:** "It runs [N] inputs one after another."
+2. **For the batch** (N-T8): "It runs [N] inputs one after another."
 3. **The Deny line,** where the run can reach a connection that can send, post or change something (section 5).
-4. **The protection clause,** on the round's first hand-over, when the workflow has a connection that can change something, and for an agent Agent Builder made whatever its connections (unless the release check shows such an agent can't send, post or change anything without asking first), on every platform, Claude Code included: "Your workflow shows each change instead of making it; on [platform] that relies on it following its instructions, not a hard block."
-5. **The first-line check:** "If its first line isn't 'Practice run: nothing will be sent or changed.', stop the chat and tell me."
+4. **The protection clause** (N-T8), on the round's first hand-over, when the workflow has a connection that can change something, and for an agent Agent Builder made whatever its connections (unless the release check shows such an agent can't send, post or change anything without asking first), on every platform, Claude Code included: "Your workflow shows each change instead of making it; on [platform] that relies on it following its instructions, not a hard block."
+5. **The first-line check** (N-T8): "If its first line isn't 'Practice run: nothing will be sent or changed.', stop the chat and tell me."
 6. **How results come back** (section 6).
-7. **On the print-to-save fallback:** "If you need to stop partway, say 'pause' here."
-8. **The block** (section 7), in a fenced block, last.
+7. **A carry-over input you couldn't copy the store for:** one sentence in model wording asking the leader, before pasting, to point this practice run at a test copy of [the store, in plain words] holding [the `Earlier run:` paragraph's state, in plain words], never the real one.
+8. **On the print-to-save fallback** (N-T8): "If you need to stop partway, say 'pause' here."
+9. **The block** (section 7), in a fenced block, last.
 
 ## 4. The opening sentence, by platform
 
-Said exactly, each clause filled or left out. [folder] (Claude Code and Codex) is the workspace's full path, the folder this session runs in, in code formatting: never "your workspace folder", "this workspace" or "the same folder". Every hand-over says its opening sentence whole with the place filled, a re-run after a refusal (SKILL.md, *Keeping runs cold*) and a smaller batch included: never "as before".
+Said exactly (N-T8), each clause filled or left out. [folder] (Claude Code and Codex) is the workspace's full path, the folder this session runs in, in code formatting: never "your workspace folder", "this workspace" or "the same folder". Every hand-over says its opening sentence whole with the place filled, a re-run after a refusal (SKILL.md, *Keeping runs cold*) and a smaller batch included: never "as before".
 
 - **Claude, ChatGPT and Microsoft 365 Cowork:** "Open a new chat [in your [workflow] Project / in Cowork][Claude: ', and before typing, open + and switch off memory, then switch off every connector under Connectors[ except [its connectors]]'][ChatGPT: ', and add [its apps] and no other apps' / with no apps: ', and don't add any apps'][Microsoft 365, once its release check passes: ', and switch off every connector it doesn't use for this chat: [steps]'], then paste the block below[ and attach [files]]."
 - **Microsoft 365, an agent Agent Builder made:** "Open Copilot, choose Chat, then Agents, and start a new chat with [Agent], then paste the block below."
@@ -83,7 +85,8 @@ Round [n]
 
 Input: [the input's name]
 [Claude Code only: Run: [input]-[run]]
-[the input itself, its header left out; or, for an input that comes through a connection: what to read and where, read-only]
+[a carry-over input only: one line naming the store copy as this run's store, in model wording]
+[the input itself, its header and any `Earlier run:` paragraph left out; or, for an input that comes through a connection: what to read and where, read-only]
 ```
 
 The input's name is its file name without `.md` (`E1-acme-renewal-call`; one held in the round's file, `E[n]-[short-name]` as it will be saved), and `new` for the round's new input, so the run label is that name and the run number (`E1-acme-renewal-call-1`). For the batch, every practice input follows in turn, each under its own `Input:` line, each to be handled on its own; the workflow ends with one combined block headed "All results" because its own instructions say so, so the block doesn't ask for it. A file input is named in the message and attached, not pasted. **On Claude Code,** each `Input:` line has its own `Run: [input]-1` line right under it (the leader runs each input once), so each input saves into its own `[practice folder]/[input]-1/`; the `Practice folder:` line is said once, at the top. The batch's "next" is said once, after the last input, and then each input's subfolder is read in turn.

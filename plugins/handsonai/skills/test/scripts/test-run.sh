@@ -1114,15 +1114,33 @@ def copy_into(src, dst):
         shutil.copy2(src, dst)
 
 
+INPUT_HEADER_LINES = ("source:", "tests:", "expect:")  # the one list; rules 6.8 and 8.11
+EARLIER_RUN = "Earlier run:"  # a carry-over input's set-up paragraph, never input
+
+
 def strip_input_header(text):
+    # The header lines are stripped only while they lead the file, then exactly one blank
+    # line, then the strip stops: an input whose own text opens with a header-like line
+    # keeps it. Then a leading "Earlier run:" paragraph and the blank line after it go
+    # too; a real input that opens with one loses it (an accepted edge, tested).
     lines = text.splitlines(True)
+    stripped = False
     if lines and lines[0].strip() == "---":
         for i in range(1, len(lines)):
             if lines[i].strip() == "---":
                 lines = lines[i + 1:]
+                stripped = True
                 break
-    while lines and (re.match(r"^(source|tests):", lines[0]) or not lines[0].strip()):
+    while lines and lines[0].startswith(INPUT_HEADER_LINES):
         lines = lines[1:]
+        stripped = True
+    if stripped and lines and not lines[0].strip():
+        lines = lines[1:]
+    if lines and lines[0].startswith(EARLIER_RUN):
+        while lines and lines[0].strip():
+            lines = lines[1:]
+        if lines:
+            lines = lines[1:]
     return "".join(lines)
 
 

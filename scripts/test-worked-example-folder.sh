@@ -40,16 +40,18 @@ st() { node "$TOOLS/framework-state.js" "$W" "$@" --json 2>/dev/null | node -e "
 [ "$(st)" = "11 Live" ] && ok "routing: state 11 (Live) with the registry" || bad "routing with the registry: $(st)"
 [ "$(st --no-registry)" = "11 Live" ] && ok "routing: Live from the build record's Live since line" || bad "routing with no registry: $(st --no-registry)"
 
-# -- practice inputs: the two header lines, a known source, line IDs that exist
+# -- practice inputs: the header lines (source:, tests:, an optional expect:), a known source, line IDs
+#    that exist (an AC line, a table row, or a decision's `- D<n>` line)
 for f in "$W"/inputs/E*.md; do
   n=$(basename "$f")
-  if head -1 "$f" | grep -qE '^source: (deconstruct|design|test|flag)$' && sed -n 2p "$f" | grep -qE '^tests: ' && [ -z "$(sed -n 3p "$f")" ]; then
+  blank=3; sed -n 3p "$f" | grep -qE '^expect: [^ ]' && blank=4
+  if head -1 "$f" | grep -qE '^source: (deconstruct|design|test|flag)$' && sed -n 2p "$f" | grep -qE '^tests: ' && [ -z "$(sed -n ${blank}p "$f")" ]; then
     missing=""; for id in $(sed -n 2p "$f" | sed 's/^tests: //; s/,//g'); do
       [ "$id" = "KW" ] && continue
-      grep -qE "\*\*$id( \(must\))?\*\*|^\| $id \|" "$W/requirements.md" || missing="$missing $id"
+      grep -qE "\*\*$id( \(must\))?\*\*|^\| $id \||^- $id[ :]" "$W/requirements.md" || missing="$missing $id"
     done
     [ -z "$missing" ] && ok "inputs/$n: header and line IDs" || bad "inputs/$n names lines the requirements don't have:$missing"
-  else bad "inputs/$n doesn't open with source:, tests: and a blank line"; fi
+  else bad "inputs/$n doesn't open with source:, tests:, an optional expect: and a blank line"; fi
 done
 grep -q '^source: flag$' "$W"/inputs/E*.md && ok "a flag input exists" || bad "no flag input (source: flag)"
 
@@ -62,7 +64,7 @@ cmp -s "$RUN/tone-guide.md" "$W/context/C3-tone-guide.md" && ok "C3's runtime co
 # -- the built skill carries the lines every built workflow carries, word for word, and no IDs
 for line in "Practice run: nothing will be sent or changed." \
   "Under the practice-run cue, never send, post or change anything: go up to each change, show exactly what you would send or change and where, and don't make it. A change that can't be undone is always shown, even when it's the last action in a batch." \
-  "When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only." \
+  "When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only. Where you're given a practice copy of what the workflow remembers, read that copy, never the real one." \
   "All results"; do
   grep -qF "$line" "$CARRIED" || { bad "carried-lines.md no longer has: $line"; continue; }
   grep -qF "$line" "$SKILL" && ok "skill carries: ${line:0:50}…" || bad "skill is missing: $line"

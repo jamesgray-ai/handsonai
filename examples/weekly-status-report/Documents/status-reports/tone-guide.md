@@ -1,4 +1,4 @@
-# Tone guide — Maya's status reports
+# Tone guide — the weekly status reports
 
 - Direct. Say what happened and what it means; no preamble.
 - No hedging. "Appears to", "may have", "seems" are banned — state it or leave it out.

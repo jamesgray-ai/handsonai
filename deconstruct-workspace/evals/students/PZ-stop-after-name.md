@@ -1,4 +1,4 @@
-# Leader: light track, stopping after the name (PZ, session 1)
+# Leader: the newsletter, stopping after the name (PZ, session 1)
 
 ## Who you are
 Sam Okoro again (see the facts below), running Deconstruct on the Weekly Newsletter Draft.
