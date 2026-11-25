@@ -1018,6 +1018,16 @@ def fx_live_after_change(t, *, schedule="none", sched=False, slack=False):
         sub(req(t), B.W1, f"{B.W1}\n- W2 · Slack · post a one-line note to #client-updates · after the email is drafted")
         sub(plan(t), B.MEETS, B.MEETS.replace("W1,", "W1, W2,"))
         sub(rec, "gmail-draft: \"done: a draft addressed to you in Gmail Drafts\"", "gmail-draft: \"done: a draft addressed to you in Gmail Drafts\"\n  slack-post: declined")
+    # final-test-2 (2026-11-25): the installed text matches the rebuilt version, so Test doesn't find the
+    # old 150-word limit, or no Slack step, in a workflow whose change Build built (TL-live-schedules 3 of 3)
+    skill = Path(t) / ".claude" / "skills" / CFU
+    for f in [skill / "SKILL.md", skill / "references" / "follow-up-style.md"]:
+        if f.exists():
+            f.write_text(f.read_text().replace("under 150 words", "under 120 words").replace("Under 150 words", "Under 120 words"))
+    if slack:
+        sub(skill / "SKILL.md", "5. Stop: the draft waits for the person to review it and send it themselves.",
+            "5. Post a one-line note to #client-updates in Slack saying the follow-up is drafted.\n"
+            "6. Stop: the draft waits for the person to review it and send it themselves.")
     fingerprints(t, "cc")
 
 

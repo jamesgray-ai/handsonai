@@ -5981,7 +5981,7 @@
           }
         },
         {
-          "text": "N-T48 comes as its own message, and no message before the leader's 'done' says 'It's live'; its steps switch off the ChatGPT scheduled task in ChatGPT's own place for scheduled tasks, and the record's 'How to switch it off' gives ChatGPT's own steps (the skill under Plugins › Skills, the workflow's Project), never Claude Code's or another platform's",
+          "text": "N-T48 comes as its own message, and no message before the leader's 'done' says 'It's live'; its steps switch off the ChatGPT scheduled task in ChatGPT's own place for scheduled tasks, and the record's 'How to switch it off' gives ChatGPT's own steps (the schedule, then the skill under Plugins › Skills, as going-live.md gives them), never Claude Code's or another platform's",
           "kind": "judged",
           "must": true
         }
@@ -6087,7 +6087,7 @@
           }
         },
         {
-          "text": "N-T48 comes as its own message, and no message before the leader's 'done' says 'It's live'; its steps switch off the Claude scheduled task in Claude's own place for scheduled tasks, and the record's 'How to switch it off' gives Claude's own steps (the skill under Customize › Skills, the workflow's Project), never Claude Code's or another platform's",
+          "text": "N-T48 comes as its own message, and no message before the leader's 'done' says 'It's live'; its steps switch off the Claude scheduled task in Claude's own place for scheduled tasks, and the record's 'How to switch it off' gives Claude's own steps (the schedule, then the skill under Customize › Skills, as going-live.md gives them), never Claude Code's or another platform's",
           "kind": "judged",
           "must": true
         }
@@ -7929,9 +7929,9 @@
       "spec_item": "13 Go live: the Git save point commits only the framework's own paths",
       "fixture": "ready-repo",
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
-      "student": "students/default.md",
+      "student": "students/git-save-yes.md",
       "files": [
-        "students/default.md"
+        "students/git-save-yes.md"
       ],
       "expected_output": "On a yes to the save point, Test stages framework/client-follow-up/, framework/.bin/ and registry/ by name; never -A, a practice folder, settings.local.json or other work.",
       "expectations": [
