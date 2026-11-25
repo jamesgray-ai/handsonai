@@ -1497,7 +1497,7 @@ class StubbedHarness(unittest.TestCase):
         """crontab, launchctl and at reach the host user's own schedules whatever HOME is (2026-11-18:
         `crontab -l` printed "no crontab for <the host user>"). A session finds the run root's
         stand-ins first on PATH; they keep their state in the run root and name a neutral user."""
-        cmds = ["command -v crontab launchctl at atq atrm batch", "crontab -l",
+        cmds = ["for t in crontab launchctl at atq atrm batch; do command -v $t; done", "crontab -l",
                 "launchctl list", "printf '0 16 * * 5 echo hi\\n' > c.txt && crontab c.txt && crontab -l",
                 "echo 'echo hi' | at 4pm friday", "atq", "crontab -r && crontab -l"]
         self.mode({"shell": cmds})
