@@ -10,15 +10,16 @@ Two words you will use constantly, and how to explain them if asked: a **type** 
 
 **Say first:** "I'm working in `<full path>`. Is this the project folder for your knowledge graph? It's the folder that will hold your rules file, your skills, a `raw/` folder for documents, and the `knowledge/` folder where the graph itself goes."
 
-**Then state the platform:** "You're on <Claude Code | the Claude desktop app | the ChatGPT app's Codex view | Cursor | Gemini CLI | …>, so your rules file will be `<CLAUDE.md | AGENTS.md>` and your skills will live in `<.claude/skills/ | .agents/skills/>`." On Cursor or Gemini CLI, the rules file is `AGENTS.md` (both tools read it; Gemini CLI also reads `GEMINI.md`, but `AGENTS.md` is the portable choice) and the skills folder is `.agents/skills/`.
+**Then state the platform:** "You're on <Claude Code | the Claude desktop app | the ChatGPT app's Codex view | Cursor | Google Antigravity | …>, so your rules file will be `<CLAUDE.md | AGENTS.md>` and your skills will live in `<.claude/skills/ | .agents/skills/>`." On Cursor or Google Antigravity (the `agy` CLI), the rules file is `AGENTS.md` (both tools read it; Antigravity also reads `GEMINI.md`, but `AGENTS.md` is the portable choice) and the skills folder is `.agents/skills/`.
 
-**Mode check (do not ask, detect):** can you create a file in this folder? If not: "This build needs an AI tool that can create and edit files in a folder, on your computer or in a cloud drive. I can't do that here. Open your folder in a tool that can (Claude Code, the Claude desktop app and the ChatGPT desktop app's Codex view all can) and say *build my knowledge graph* again." Then stop.
+**Mode check (do not ask, detect):** can you create a file in this folder and change it afterwards? If not: "This build needs an AI tool that can create and edit files in a folder, on your computer or in a cloud drive. I can't do that here. Open your folder in a tool that can (Claude Code, the Claude desktop app and the ChatGPT desktop app's Codex view all can) and say *build my knowledge graph* again." Then stop.
 
 **Report what is already here**, one line each, only for things that exist:
 - `registry/`: "You have an AI registry here. It stays untouched; it records what you build with AI. This build models the work itself and goes in `knowledge/` beside it."
 - `knowledge/SCHEMA.md`: "You already have a knowledge graph. I'll read its rulebook and fill gaps rather than rebuild." → gap-filling mode.
-  - If its `SCHEMA.md` has no `System of record:` lines (a graph built before this change), offer once: "Your graph was built before pages could link to their record in a system of record. Want me to add the `records:` convention to `SCHEMA.md` — a page may link to its record in a system of record, and facts that system keeps stay there — and replace the *Answering my questions* section of your rules file with the current version? Nothing else needs rebuilding." On a yes (or if the user asks for this in their own words, in which case skip the offer and make the change in that turn, asking the system-of-record test only for types `types.md` does not cover and never guessing a type's system): replace any convention that begins "A fact belongs in this knowledge graph if it would need correcting" with the test and `records:` bullets from `references/build-spec.md` § `knowledge/SCHEMA.md`; add each existing type's `System of record:` line, taken from `types.md` where it has one, asking the system-of-record test (Phase 3) only for types it does not cover; include the four `records:` bullets even if every type is `none`, because the user asked for the convention; replace the standing-rules file's *Answering my questions* section with the one in `references/build-spec.md`. Write a type's `System of record:` line only from the user's answers — the system's name, and the facts it keeps if they said them. If they named the system but not the facts, ask once which facts it keeps. Never write placeholder text. Change nothing else.
+  - If its `SCHEMA.md` has no `System of record:` lines (a graph built before this change), offer once: "Your graph was built before pages could link to their record in a system of record. Want me to add the `records:` convention to `SCHEMA.md` — a page may link to its record in a system of record, and facts that system keeps stay there — and replace the *Answering my questions* section of your rules file with the current version? Nothing else needs rebuilding." On a yes (or if the user asks for this in their own words, in which case skip the offer and make the change in that turn, asking the system-of-record test only for types whose `SCHEMA.md` entry has no `System of record:` line and never guessing a type's system): replace any convention that begins "A fact belongs in this knowledge graph if it would need correcting" with the test and `records:` bullets from `references/build-spec.md` § `knowledge/SCHEMA.md`; keep every `System of record:` line `SCHEMA.md` already has and add one for each type without, asking the system-of-record test (Phase 3) only for those types; include the four `records:` bullets even if every type is `none`, because the user asked for the convention; replace the standing-rules file's *Answering my questions* section with the one in `references/build-spec.md`. Write a type's `System of record:` line only from the user's answers — the system's name, and the facts it keeps if they said them. If they named the system but not the facts, ask once which facts it keeps. Never write placeholder text. Change nothing else.
   - If its root `index.md` declares an `okf_version` older than the current spec's, or none (a graph built to `"0.2"` or earlier), offer once: "Your graph was built to an earlier version of the Open Knowledge Format. Want me to bring it up to date? I'll update the version, two of the rulebook's notes (where sources live, and which files are reserved), the paths that point into `raw/`, your ingest and lint skills, and one line of your rules file, and change nothing else. Fixing those paths doesn't count as changing your pages, so they keep their confirmations." On a yes, or when the user asked for the OKF upgrade by name, make the changes SKILL.md lists under the OKF upgrade, then list them.
+- `types.md` beside `knowledge/SCHEMA.md` (left by an earlier build): don't read it. Offer once: "There's an old `types.md` next to your graph. Your rulebook, `knowledge/SCHEMA.md`, is the copy I keep up to date, so the old file can only drift out of date. Want me to delete it?" On a yes, make the changes SKILL.md lists.
 - `types.md` without `knowledge/`: "You have an approved type list from an earlier session but no graph yet. Want to revise the list first, or go straight to the build step? (When you're ready to build, send the single word **build**.)" → resume mode.
 
 **Actor id:** "One housekeeping question: when you confirm a page is right, I'll record that as verified by you. What name should I record? Your first name is fine." Form the id yourself as `human:<lowercase-slug>` (Pat → `human:pat`); never ask the user to type that form.
@@ -103,7 +104,7 @@ One question at a time. Before each, check whether Phase 1 already answered it; 
 Always include:
 > **Note** — anything you learn that doesn't belong to one of the others yet, and answers worth keeping. Starts empty; that's expected.
 
-**Then say:** "This is a draft to argue with. Rename anything that isn't a word you actually use. Tell me which to merge, drop, or add."
+**Then say:** "This is a draft we refine together. Rename anything that isn't a word you actually use. Tell me which to merge, drop, or add."
 
 **Pushback lines** (use them; the user needs to be challenged):
 - Over-modeling: "You named one Vendor. Until there are three, Vendor is a line on the pages that use it, not a kind of its own. Fold it in?"
@@ -177,11 +178,12 @@ Examples: none yet
 
 - A Client has Engagements. Heading: `# Engagements` on the Client page, `# Client` on the Engagement page. Order: by start date, oldest first.
 - An Engagement uses Playbooks. Heading: `# Playbooks used` on the Engagement page, `# Used in` on the Playbook page. Order: no.
+  Pairs: Acme AI Roadmap uses Kickoff Checklist, Discovery Interview
 ```
 
-Every type carries a `System of record:` line, `none` included. Record links the user pasted go at the end of the matching type's section, one per line, under `Record links:` (`- Acme Manufacturing: https://app.hubspot.com/contacts/00000000/record/0-2/12345678`); leave the heading out when there are none.
+A relationship's `Pairs:` line lists the specific pairings the user confirmed, so the build can link the pages; leave it out when none was confirmed. Every type carries a `System of record:` line, `none` included. Record links the user pasted go at the end of the matching type's section, one per line, under `Record links:` (`- Acme Manufacturing: https://app.hubspot.com/contacts/00000000/record/0-2/12345678`); leave the heading out when there are none.
 
-**Then say:** "That's your blueprint. Read it once, top to bottom. When you're ready for me to build the graph from it, send the single word **build** on its own."
+**Then say:** "That's your blueprint. Read it once, top to bottom. When I build, everything in it moves into your graph's rulebook and this file is deleted, so there's only one copy to keep up to date. When you're ready for me to build the graph from it, send the single word **build** on its own."
 
 ---
 
@@ -189,7 +191,7 @@ Every type carries a `System of record:` line, `none` included. Record links the
 
 **Trigger:** the word `build` as its own message. A go-word buried in a sentence does not count; if you get one, say "Send **build** on its own and I'll go."
 
-Follow `references/build-spec.md` exactly. Fetch the latest OKF spec first. Report at the end, grouped as graph, rules, skills, with paths.
+Follow `references/build-spec.md` exactly. Fetch the latest OKF spec first. Delete `types.md` once `SCHEMA.md` carries all of it, then write `log.md`. Report at the end, grouped as graph, rules, skills, with paths, and say that `types.md` is now part of `knowledge/SCHEMA.md`.
 
 ---
 
@@ -197,7 +199,8 @@ Follow `references/build-spec.md` exactly. Fetch the latest OKF spec first. Repo
 
 Follow SKILL.md § Close. Lines to use:
 
-- Claude desktop app check: "Type `/ingest` and tell me whether it offers to run. If nothing happens, we'll add the two skills to your Claude account so they load."
+- Skills check, on every platform: "Ask me to *ingest* by name (or type `/ingest`, if your tool has slash commands) and tell me whether the ingest skill starts. If nothing happens, we'll add the two skills where your tool keeps skills or saved instructions, so they load."
+- If the tool can't load skills: "Since the skills aren't loading, whenever you want one, say *read `<skills folder>/ingest/SKILL.md` and follow it*, or the same for `lint`."
 - Ingest: "Pick one document in `raw/`, or paste one, and say *ingest it*."
 - Query: "Ask me something that crosses a connection, like *which playbooks have we used with Acme?* I'll answer from your pages, plus a linked record if the question needs what that system keeps, and tell you which ones I read. If I can't find the answer in either, I'll say so rather than guess."
 - File the answer: "Want me to keep that answer as a Note so it's there next time?"

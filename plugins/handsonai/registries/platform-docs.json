@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "notes": "Where to look, not what is true. Each platform lists the official pages for skills, plugins and installing, subagents and custom agents, scheduled and unattended runs, connectors and storage, and projects and memory. It makes no claim about what a platform can do: tools change too fast. When a skill needs a current fact, it reads the linked page if it can fetch one; otherwise it takes its own fail-safe rule and tells the leader which page to check. Skills read only this bundled copy. Links checked 2026-11-21 (help.openai.com pages refuse automated requests, so those weren't re-checked).",
+  "notes": "Where to look, not what is true. Each platform lists the official pages for skills, plugins and installing, subagents and custom agents, scheduled and unattended runs, connectors and storage, and projects and memory. It makes no claim about what a platform can do: tools change too fast. When a skill needs a current fact, it reads the linked page if it can fetch one; otherwise it takes its own fail-safe rule and tells the leader which page to check. Skills read only this bundled copy. Links checked 2026-11-21 (help.openai.com pages refuse automated requests, so those weren't re-checked). Google Antigravity links added 2026-11-26.",
   "topics": [
     "skills",
     "plugins",
@@ -238,6 +238,30 @@
         "scheduled_runs": [],
         "connectors": [],
         "projects": [],
+        "memory": []
+      }
+    },
+    "google-antigravity": {
+      "name": "Google Antigravity",
+      "aliases": [
+        "Google Antigravity",
+        "Antigravity",
+        "Antigravity CLI",
+        "agy"
+      ],
+      "docs": {
+        "skills": [
+          "https://antigravity.google/docs/skills/"
+        ],
+        "plugins": [],
+        "subagents": [],
+        "scheduled_runs": [],
+        "connectors": [],
+        "projects": [
+          "https://antigravity.google/product/antigravity-cli",
+          "https://antigravity.google/docs/getting-started?tab=cli",
+          "https://antigravity.google/docs/rules/"
+        ],
         "memory": []
       }
     },

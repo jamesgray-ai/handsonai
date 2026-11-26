@@ -8,6 +8,8 @@ Scope: the work I do (a solo AI consultant). Named things: Acme Manufacturing, B
 
 ## `types.md`
 
+The blueprint approved in Phase 4. It exists only until the build, which copies all of it into `knowledge/SCHEMA.md` and deletes it.
+
 ```markdown
 # The types
 
@@ -35,6 +37,7 @@ Examples: none yet
 
 - A Client has Engagements. Heading: `# Engagements` on the Client page, `# Client` on the Engagement page. Order: by start date, oldest first.
 - An Engagement uses Playbooks. Heading: `# Playbooks used` on the Engagement page, `# Used in` on the Playbook page. Order: no.
+  Pairs: Acme AI Roadmap uses Kickoff Checklist, Discovery Interview; Acme Pilot uses Kickoff Checklist
 ```
 
 Tool and Contact were proposed and dropped. Two tools do not earn a type; they are lines on the pages that use them. Contacts did not pass the test: HubSpot already holds them and is updated when one changes, so the Client type declares HubSpot as its system of record and each client page links to its HubSpot record instead of listing contacts.
@@ -42,9 +45,10 @@ Tool and Contact were proposed and dropped. Two tools do not earn a type; they a
 ## The folder after `build`
 
 ```
-my-business/
+ai-workspace/
 ├── .claude/skills/ingest/SKILL.md
 ├── .claude/skills/lint/SKILL.md
+├── registry/                       the AI Registry, untouched by the build
 ├── raw/
 ├── knowledge/
 │   ├── clients/acme-manufacturing.md, bowman-foods.md, reston-health.md
@@ -54,10 +58,11 @@ my-business/
 │   ├── overview.md
 │   ├── index.md
 │   ├── log.md
-│   └── SCHEMA.md
-├── CLAUDE.md
-└── types.md
+│   └── SCHEMA.md                   now holds everything types.md held
+└── CLAUDE.md
 ```
+
+No `types.md`: the build folded it into `SCHEMA.md` and removed it.
 
 ## A client page after one ingest and one verification
 

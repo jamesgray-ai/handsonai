@@ -1,6 +1,6 @@
 # Build Spec — what Phase 5 writes
 
-Read `types.md` at the project root. Fetch the latest OKF spec (https://raw.githubusercontent.com/open-knowledge-format/open-knowledge-format/main/SPEC.md). If it is unreachable, use § OKF rules below. Then write everything in § The graph, § The standing rules, and § The two skills, in that order, leaving the `log.md` Creation entry until the end. Stamp every **concept page** you create with `generated: { by: process:building-knowledge-graph, at: <now as YYYY-MM-DDTHH:MM:SSZ> }` — that means `SCHEMA.md`, `overview.md`, and every page inside a type folder. `index.md`, `log.md`, `.gitkeep`, the standing-rules file, and the two `SKILL.md` files are not concepts and carry no `generated` key.
+Read `types.md` at the project root. Fetch the latest OKF spec (https://raw.githubusercontent.com/open-knowledge-format/open-knowledge-format/main/SPEC.md). If it is unreachable, use § OKF rules below. Then write everything in § The graph, § The standing rules, and § The two skills, in that order, then § Removing `types.md`, leaving the `log.md` Creation entry until the end. Stamp every **concept page** you create with `generated: { by: process:building-knowledge-graph, at: <now as YYYY-MM-DDTHH:MM:SSZ> }` — that means `SCHEMA.md`, `overview.md`, and every page inside a type folder. `index.md`, `log.md`, `.gitkeep`, the standing-rules file, and the two `SKILL.md` files are not concepts and carry no `generated` key.
 
 ## OKF rules (distilled fallback; the fetched spec wins where they differ)
 
@@ -19,7 +19,7 @@ Read `types.md` at the project root. Fetch the latest OKF spec (https://raw.gith
 
 ### `knowledge/SCHEMA.md`
 
-Frontmatter first (it is a concept too), then the rulebook. Fill from `types.md`; the example below shows the shape with the worked example's types. **Replace every Acme-flavoured value with the user's.**
+Frontmatter first (it is a concept too), then the rulebook. Fill from `types.md`; the example below shows the shape with the worked example's types. **Replace every Acme-flavoured value with the user's.** `SCHEMA.md` replaces `types.md`, which is deleted after the build, so everything the graph's rules need from `types.md` lands here: each type's definition, `System of record:` line and examples, and every relationship with its sentence, its heading on each side and whether order matters. Record links are not copied here: they exist in `types.md` only to seed each page's `records:` line (or a link in the page's text), and the pages keep them.
 
 ```markdown
 ---
@@ -90,6 +90,11 @@ System of record: none
 
 ## Relationships
 
+- A Client has Engagements. Heading: `# Engagements` on the Client page,
+  `# Client` on the Engagement page. Order: by start date, oldest first.
+- An Engagement uses Playbooks. Heading: `# Playbooks used` on the
+  Engagement page, `# Used in` on the Playbook page. Order: no.
+
 Declared relationships are recorded on BOTH pages, under the headings above.
 Lint reports a declared link with no reciprocal. Where order matters, the
 list order is the order. A link inside ordinary prose is a mention, not a
@@ -156,7 +161,7 @@ declared relationship, and may be one-way.
   individual HR records.
 ```
 
-Each type's `System of record:` line comes from `types.md`. On a fresh build, if every type's system is `none`, leave out the four `records:` bullets in Conventions (from "`records:` links a page" through "`records:` is this graph's own frontmatter key"); keep the test, the maintained-claims bullet, and the `System of record:` bullet. Adding the convention to an existing graph (SKILL.md Phase 0) always includes the four bullets, because the user asked for it. Otherwise, in the `records:` example, use the user's system name and one of the record links they gave, or keep the example's shape with `<placeholders>` if they gave none.
+Each type's `System of record:` line comes from `types.md`. The `## Relationships` list copies `types.md`'s `# How they connect` lines, one per declared relationship, in the same order. On a fresh build, if every type's system is `none`, leave out the four `records:` bullets in Conventions (from "`records:` links a page" through "`records:` is this graph's own frontmatter key"); keep the test, the maintained-claims bullet, and the `System of record:` bullet. Adding the convention to an existing graph (SKILL.md Phase 0) always includes the four bullets, because the user asked for it. Otherwise, in the `records:` example, use the user's system name and keep the link as `<placeholders>`: record links live on the pages, never in `SCHEMA.md`.
 
 ### Concept pages
 
@@ -254,14 +259,14 @@ Set `okf_version` to the version the fetched spec declares; `"0.3"` if unreachab
 # Knowledge Graph Log
 
 ## 2026-09-21
-* **Creation**: Built the graph from types.md — 4 types (Client, Engagement, Playbook, Note), 9 seeded pages, overview, index, schema. Standing rules written to CLAUDE.md; ingest and lint skills written to .claude/skills/.
+* **Creation**: Built the graph from types.md — 4 types (Client, Engagement, Playbook, Note), 9 seeded pages, overview, index, schema. Standing rules written to CLAUDE.md; ingest and lint skills written to .claude/skills/. types.md folded into SCHEMA.md and removed.
 ```
 
 Newest date first. Entries are prose; the bold word is Creation, Update, Ingest, Query, Lint, or Deprecation. Write the Creation entry last, after the standing rules and the two skills exist, and name only what was actually written.
 
 ## The standing rules — `CLAUDE.md` or `AGENTS.md` at the project root
 
-About thirty lines. If the file already exists (a course workspace often has one), **append** this block under a heading `# Knowledge graph` rather than overwriting. Item 3 of *Answering my questions* says **connector**: the connector to that system — what *Distinguish the Types of Context Your AI Needs* calls a connection (ChatGPT calls it an app; Claude Code and Codex, an MCP server). In this skill, a *connection* is a link between types, so never call the platform feature that.
+About thirty lines. If the file already exists (a course workspace often has one), **append** this block under a heading `# Knowledge graph` rather than overwriting; when starting the build again (SKILL.md Phase 5), replace the `# Knowledge graph` block you wrote instead. Item 3 of *Answering my questions* says **connector**: the connector to that system — what *Distinguish the Types of Context Your AI Needs* calls a connection (ChatGPT calls it an app; Claude Code and Codex, an MCP server). In this skill, a *connection* is a link between types, so never call the platform feature that.
 
 ```markdown
 # Knowledge graph
@@ -269,8 +274,7 @@ About thirty lines. If the file already exists (a course workspace often has one
 `knowledge/` holds the knowledge graph for <scope>: markdown concept pages
 about the work itself, one concept per file, following the Open Knowledge
 Format. `knowledge/SCHEMA.md` is the rulebook. `raw/` at the project root
-holds source documents: read them, never edit them. `types.md` is the
-original blueprint; when it and SCHEMA.md disagree, SCHEMA.md wins.
+holds source documents: read them, never edit them.
 
 I am `human:<id>`.
 
@@ -340,3 +344,7 @@ description: Health-check the knowledge graph. Use when the user says "lint", as
    - **Pages worth writing** (not errors): concepts mentioned on several pages that have no page of their own; links to pages that do not exist yet. Exempt `notes/` from any lonely-folder observation.
 3. Ask which fixes to apply. Apply only those, stamping `generated: { by: process:lint, at: <instant> }` on any page whose content a fix changes; a link, path or formatting repair alone leaves `generated` as it is. Append a `**Lint**` entry to `knowledge/log.md` with what was found and what was fixed.
 ```
+
+## Removing `types.md`
+
+After the two skills are written and before the `log.md` Creation entry, compare `types.md` with the `SCHEMA.md` you wrote. Every type in `# The types` has a `### <Type>` entry with the same definition, `System of record:` line and examples; every record link under a type's `Record links:` is on its page, as `records:` or, for a link that needs its `?` part, in the page's text; every line in `# How they connect` appears in `## Relationships` with the same headings and order. Add anything missing to `SCHEMA.md` (a missing record link goes on its page, never in `SCHEMA.md`), then delete `types.md`. If you cannot delete a file, say so and ask the user to delete it. From now on nothing reads `types.md`: `SCHEMA.md` is the only rulebook.
