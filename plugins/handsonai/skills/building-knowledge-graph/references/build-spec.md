@@ -119,8 +119,9 @@ declared relationship, and may be one-way.
 - Deprecate, don't delete: a page nothing should use any more gets
   status: deprecated and stays, so links keep resolving.
 - `index.md`, `log.md`, and `.gitkeep` are reserved — skip all concept
-  checks on them. the root `index.md` carries only bundle metadata (`okf_version`, plus `title`, `description` or `license` if present) and a subfolder `index.md` none; `log.md` carries
-  no frontmatter at all. Never propose adding `type` or other concept
+  checks on them. The root `index.md` carries only bundle metadata
+  (`okf_version`, plus `title`, `description` or `license` if present), a
+  subfolder `index.md` none, and `log.md` no frontmatter at all. Never propose adding `type` or other concept
   frontmatter to a reserved file.
 - Ask of any fact: **is there a system your team already updates when
   this changes?** Yes → that system owns it; the page links to the record.
@@ -307,7 +308,7 @@ description: Fold a new source into the knowledge graph. Use when the user says 
 1. Read `knowledge/log.md` to see what has already been folded in, so nothing is ingested twice. Read `knowledge/SCHEMA.md` and `knowledge/index.md`, so the question you ask of the source is "which of these types and pages does it touch", not "what is in here".
 2. Identify the source: the document the user named in `raw/`; or everything in `raw/` the log does not account for, if they named none; or the text they pasted or said.
 3. **Propose before writing.** List the pages that would change (existing and new) and, under each, the claims that would land there in one line each. Ask: "Shall I write these?" Change nothing until the user says yes. Steering such as "focus on how the commercials work" is welcome.
-4. Write. For each affected page: update what is now out of date, add what is new, leave the rest. Record the source in the page's `sources` with an `id` (kebab-case from the filename, e.g. `acme-msa-2026`; for spoken knowledge, from the occasion, e.g. `call-dana-2026-08-08`), a `resource` (the path to the file in `raw/` from the page's own folder: `../../raw/<file>` from a page in a type folder or `notes/`, `../raw/<file>` from a page at the bundle root; or a plain description of the occasion), and a `title`. Footnote each claim you added with `[^<id>]` and add the matching `[^<id>]: <title>` line at the end of the body. Set `stale_after` when the source gives a fact a real expiry. If the source reveals a declared relationship, add the link on BOTH pages under their agreed headings. Stamp `generated: { by: process:ingest, at: <instant> }` on every page you touch.
+4. Write. For each affected page: update what is now out of date, add what is new, leave the rest. Record the source in the page's `sources` with an `id` (kebab-case from the filename, e.g. `acme-msa-2026`; for spoken knowledge, from the occasion, e.g. `call-dana-2026-08-08`), a `resource` (the path to the file in `raw/` from the page's own folder: `../../raw/<file>` from a page in a type folder or `notes/`, `../raw/<file>` from a page at the bundle root; or a plain description of the occasion), and a `title`. Footnote each claim you added with `[^<id>]` and add the matching `[^<id>]: <title>` line at the end of the body. Set `stale_after` when the source gives a fact a real expiry. If the source reveals a declared relationship, add the link on BOTH pages under their agreed headings. Stamp `generated: { by: process:ingest, at: <instant> }` on every page whose content you change; a link, path or formatting repair alone leaves `generated` as it is.
 5. Update `knowledge/index.md` for any new page and append an `**Ingest**` entry to `knowledge/log.md`.
 6. Report every file changed and why, one line each.
 

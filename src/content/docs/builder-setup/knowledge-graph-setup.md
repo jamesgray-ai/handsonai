@@ -118,6 +118,6 @@ Tell your AI: *Use the building-knowledge-graph skill to upgrade my knowledge gr
 
 ### Built your graph to OKF 0.2?
 
-The Open Knowledge Format is now at version 0.3. Graphs built before December 2026 say `okf_version: "0.2"` at the top of `knowledge/index.md`. Tell your AI: *Use the building-knowledge-graph skill to do the OKF upgrade on my knowledge graph.* It updates the version, the rulebook's note on where sources live, the paths that point into `raw/`, and your ingest and lint skills. Nothing else changes, and every page you confirmed stays confirmed.
+The Open Knowledge Format is now at version 0.3. If `knowledge/index.md` says `okf_version: "0.2"` at the top, your graph was built to the earlier version. Tell your AI: *Use the building-knowledge-graph skill to do the OKF upgrade on my knowledge graph.* It updates the version, the rulebook's note on where sources live, the paths that point into `raw/`, and your ingest and lint skills. Nothing else changes, and fixing those paths doesn't count as changing your pages, so they keep their confirmations.
 
 To see the graph drawn: install [Obsidian](https://obsidian.md), choose **Open folder as vault**, pick `knowledge/`, and click the graph icon.
