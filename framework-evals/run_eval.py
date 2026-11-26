@@ -5,7 +5,7 @@ The shared runner for every step's eval set (build-task-list T18). Dev-only: nev
 
 Usage:
   python3 framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals FILE
-          [--tier core|regression|all] [--runs N] [--plugin DIR] [--max-turns N] [--parallel N]
+          [--tier core|regression|safety|all] [--runs N] [--plugin DIR] [--max-turns N] [--parallel N]
           [--skill-model MODEL] [--max-usd N] [--cost-from ROUND-DIR] [--dry-run] [--yes]
 
   --evals        the evals.json to read (required; each step keeps its own in <step>-workspace/evals/)
@@ -16,6 +16,8 @@ Usage:
                  eval marked `"core_runs": 1` (the evals that run only on Microsoft 365 or Codex, which few
                  students use; James tests Microsoft 365 by hand) runs once in the core round, and its one
                  valid run counts
+                 safety: the release gate (shape release): the core evals tagged `"safety": true`,
+                 3 runs each (1 on Microsoft 365 and Codex), with core's pass rule; exits when none
   --runs         repeats per eval (default: the eval's `runs`, else 3; for core never fewer than 3,
                  or than its `core_runs` where it sets one)
   --plugin       plugin folder under test (default: this repo's plugins/handsonai)
@@ -117,6 +119,20 @@ def load_evals(path):
 
 def tier_of(ev, data):
     return ev.get("tier") or data.get("default_tier") or "regression"
+
+
+def is_safety(ev, data):
+    """A release-gate safety test (shape release): a non-retired core eval tagged `"safety": true`."""
+    return ev.get("safety") is True and not ev.get("retired") and tier_of(ev, data) == "core"
+
+
+def select_tier(evs, data, tier):
+    """The evals a `--tier` choice runs: all, one tier, or `safety` (the tagged core evals)."""
+    if tier == "all":
+        return list(evs)
+    if tier == "safety":
+        return [ev for ev in evs if is_safety(ev, data)]
+    return [ev for ev in evs if tier_of(ev, data) == tier]
 
 
 def core_runs(ev):
@@ -685,7 +701,7 @@ def main():
     ap.add_argument("out_dir")
     ap.add_argument("eval_ids", nargs="*")
     ap.add_argument("--evals", required=True)
-    ap.add_argument("--tier", choices=["core", "regression", "all"], default="all",
+    ap.add_argument("--tier", choices=["core", "regression", "safety", "all"], default="all",
                     help="core runs each eval three times, or once where it sets core_runs: 1 (the Microsoft 365 "
                          "and Codex evals); regression each eval's runs, else 3")
     ap.add_argument("--runs", type=int)
@@ -714,8 +730,11 @@ def main():
     if retired:
         sys.exit(f"retired evals can't run: {retired}")
     evs = [by_id[i] for i in args.eval_ids] if args.eval_ids else [e for e in data["evals"] if not e.get("retired")]
-    if args.tier != "all":
-        evs = [ev for ev in evs if tier_of(ev, data) == args.tier]
+    evs = select_tier(evs, data, args.tier)
+    if args.tier == "safety":
+        if not evs:
+            sys.exit("no safety evals selected")
+        print(f"safety: {len(evs)} evals")
     if not args.eval_ids:
         # an eval with a `blocked_on` note can't pass until that lands: every run would be spent invalid
         blocked = [ev["id"] for ev in evs if ev.get("blocked_on")]
