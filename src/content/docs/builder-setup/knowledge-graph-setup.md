@@ -13,7 +13,7 @@ howto_steps:
     text: Ingest one document, ask one question across a connection, run lint, and confirm one page. Then seed the graph on your real material.
 ---
 
-Your **knowledge graph** is what your AI reads before it answers a question about your work: your clients, offerings, processes, people, tools, and policies, one Markdown page per concept, linked to each other, written and kept current by your AI assistant. It lives in a `knowledge/` folder on your computer, in an open format called the [Open Knowledge Format](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md), so it opens in any editor and moves to any tool. Your knowledge graph collects the knowledge that exists in none of your systems of record.
+Your **knowledge graph** is what your AI reads before it answers a question about your work: your clients, offerings, processes, people, tools, and policies, one Markdown page per concept, linked to each other, written and kept current by your AI assistant. It lives in a `knowledge/` folder on your computer, in an open format called the [Open Knowledge Format](https://github.com/open-knowledge-format/open-knowledge-format/blob/main/SPEC.md), so it opens in any editor and moves to any tool. Your knowledge graph collects the knowledge that exists in none of your systems of record.
 
 The pattern comes from [Andrej Karpathy's LLM wiki note](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): raw sources you never edit, a wiki of pages the AI maintains, and a schema that disciplines how it maintains them, with three operations — ingest, query, lint — that keep it alive.
 

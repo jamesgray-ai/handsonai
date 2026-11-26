@@ -1,17 +1,17 @@
 # Build Spec — what Phase 5 writes
 
-Read `types.md` at the project root. Fetch the latest OKF spec (https://raw.githubusercontent.com/GoogleCloudPlatform/open-knowledge-format/main/SPEC.md). If it is unreachable, use § OKF rules below. Then write everything in § The graph, § The standing rules, and § The two skills, in that order, leaving the `log.md` Creation entry until the end. Stamp every **concept page** you create with `generated: { by: process:building-knowledge-graph, at: <now as YYYY-MM-DDTHH:MM:SSZ> }` — that means `SCHEMA.md`, `overview.md`, and every page inside a type folder. `index.md`, `log.md`, `.gitkeep`, the standing-rules file, and the two `SKILL.md` files are not concepts and carry no `generated` key.
+Read `types.md` at the project root. Fetch the latest OKF spec (https://raw.githubusercontent.com/open-knowledge-format/open-knowledge-format/main/SPEC.md). If it is unreachable, use § OKF rules below. Then write everything in § The graph, § The standing rules, and § The two skills, in that order, leaving the `log.md` Creation entry until the end. Stamp every **concept page** you create with `generated: { by: process:building-knowledge-graph, at: <now as YYYY-MM-DDTHH:MM:SSZ> }` — that means `SCHEMA.md`, `overview.md`, and every page inside a type folder. `index.md`, `log.md`, `.gitkeep`, the standing-rules file, and the two `SKILL.md` files are not concepts and carry no `generated` key.
 
 ## OKF rules (distilled fallback; the fetched spec wins where they differ)
 
-- A bundle is a folder of markdown files. Every `.md` in it except `index.md` and `log.md` is a concept and MUST have YAML frontmatter with a non-empty `type`. `title` and `description` are recommended on every concept. Type names are not registered anywhere; the user chooses them.
-- Links between concepts are ordinary markdown links. Bundle-absolute form, starting with `/` at the bundle root (`/clients/acme.md`), is recommended. A link asserts a relationship; its kind is conveyed by the surrounding prose (for us: the section heading), not by the link. A link to a page that does not exist yet is legitimate, not an error.
-- `index.md` may appear in any folder and lists contents for progressive disclosure: sections with `* [Title](link) - description` lines. The bundle-root `index.md` may carry one frontmatter key, `okf_version`.
-- `log.md` is a flat list of date-grouped entries, newest first: `## YYYY-MM-DD` headings with `* **Word**: prose` bullets. The bold word (Creation, Update, Ingest, Query, Lint, Deprecation) is a convention.
-- Provenance: `sources` is a list; each entry has a required `resource` (a URL, a bundle-relative path, a relative path, or a plain descriptor), an optional stable `id`, and an optional `title`. A claim in the body is attributed with a footnote whose label equals a `sources[].id`: `…sharded daily.[^acme-msa-2026]` and `[^acme-msa-2026]: Master services agreement`.
-- Trust: `generated: { by, at }` records who wrote the current content and when. `verified: { by, at }` (or a list of them) records who confirmed it. Actors: `human:<id>` for people, `process:<id>` for automated processes, `<producer>/<version>` for agents. Trust tier is derived: no `verified` = unverified; non-human verifiers = machine-confirmed; a `human:` verifier = human-reviewed. A page whose `generated.at` is newer than its `verified.at` has changed since it was confirmed; the verification still stands as a fact about the earlier content, and lint reports it as changed since verified.
-- Lifecycle: `status: draft | stable | deprecated` (absent = stable). `stale_after: <instant>`: stale when now ≥ that instant.
-- Every timestamp is ISO 8601 with an explicit UTC offset: `2026-09-21T14:00:00Z`.
+- A bundle is a folder of markdown files. Every `.md` in it except `index.md` and `log.md` that has YAML frontmatter with a non-empty `type` is a concept; a `.md` without `type` is not a concept (consumers skip it; a validator warns), so every page this graph writes carries `type`. Any file that is not `.md` (a PDF, an image) is an asset: it can be linked, and it is never a concept. `title` and `description` are recommended on every concept. Type names are not registered anywhere; the user chooses them.
+- Links between concepts are ordinary markdown links. Two forms are valid: bundle-absolute, starting with `/` and resolved from the bundle root (`/clients/acme.md`), and relative, resolved from the folder of the page that holds it. This graph uses the bundle-absolute form for every link between concepts, because it survives moving the page that holds the link. Only `[text](target)` links count; `[[wikilinks]]` are not links in OKF. A link asserts a relationship; its kind is conveyed by the surrounding prose (for us: the section heading), not by the link. A link to a page that does not exist yet is legitimate, not an error.
+- `index.md` may appear in any folder and lists contents for progressive disclosure: sections with `* [Title](link) - description` lines. The bundle-root `index.md` may carry frontmatter: `okf_version` (this graph writes only that key; the standard also allows `title`, `description` and `license`, and a regenerated index keeps whatever is there). A subfolder `index.md` has no frontmatter.
+- `log.md` is a flat list of date-grouped entries, newest first: `## YYYY-MM-DD` headings with `* **Word**: prose` bullets. The bold word (Creation, Update, Ingest, Query, Lint, Deprecation) is a convention. `log.md` has no frontmatter.
+- Provenance: `sources` is a list; each entry has a required `resource` (a URL; a path, where a value starting with `/` resolves from the bundle root and any other from the page's own folder, and a path that leaves the bundle is external, so a consumer will not open it from disk; or a plain descriptor of something that cannot be followed), an optional stable `id`, and an optional `title`. A claim in the body is attributed with a footnote whose label equals a `sources[].id`: `…sharded daily.[^acme-msa-2026]` and `[^acme-msa-2026]: Master services agreement`.
+- Trust: `generated: { by, at }` records who wrote the current content and when. `verified: { by, at }` (or a list of them) records who confirmed it. Actors: `human:<id>` for people, `process:<id>` for automated processes, `<producer>/<version>` for agents. Trust tier is derived: no `verified` = unverified; non-human verifiers = machine-confirmed; a `human:` verifier = human-reviewed. Only **current** verifications count toward the tier: one whose `at` is at or after the page's `generated.at`. A page rewritten after it was confirmed drops back (a human check no longer counts for text the human has not read) until someone confirms it again; the older `verified` stays in the file as history, and lint reports the page as changed since verified.
+- Lifecycle: `status: draft | stable | deprecated` (absent = stable; any other value is not stable). A deprecated page may carry `superseded_by: /path/to/replacement.md`; to rename or move a page, keep a short deprecated page at the old path with `superseded_by` set to the new one. `stale_after: <instant>`: stale when now ≥ that instant; stale means check again, not false.
+- Timestamps are ISO 8601 (RFC 3339): a date-time with an offset (`2026-09-21T14:00:00Z`) or a date only, read as the start of that day in UTC. This graph always writes the full instant.
 - `resource` (top-level) is the canonical URI of the thing a concept describes (a tool's site, a client's site). It is a different field from `sources[].resource`, which is provenance. Never put a source in the top-level `resource`.
 - Extensions: a producer may add frontmatter keys, and a consumer must not reject a key it does not know. This graph adds one, `records:`, a map from a system's name to the link of the page's record in that system of record (`records: { hubspot: https://app.hubspot.com/contacts/00000000/record/0-2/12345678 }`). It is neither `resource` nor `sources`. `resource` is the one canonical URI of the thing the page describes, already the client's own website here; pointing it at a CRM record would claim the page *is* that record, and would allow only one system. `sources` is provenance, what the page's claims were derived from; a record where live facts are kept is not that.
 
@@ -31,7 +31,7 @@ generated: { by: process:building-knowledge-graph, at: 2026-09-21T14:00:00Z }
 # Knowledge Graph — SCHEMA
 
 This bundle follows the Open Knowledge Format (read the latest version at
-https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md
+https://github.com/open-knowledge-format/open-knowledge-format/blob/main/SPEC.md
 before setting up or checking this graph). Built to OKF <version the fetched spec declares>.
 Scope: the work of <person | team | company: name>.
 
@@ -106,8 +106,9 @@ declared relationship, and may be one-way.
   and when, newest first, in OKF §9 form.
 - Where a page's claims come from a document, that document is listed in
   sources with an id (kebab-case, from the filename: acme-msa-2026), a
-  resource path RELATIVE to the bundle pointing into the project's raw/
-  folder (../raw/acme-msa-2026.pdf), and a title. Each claim taken from it
+  resource path relative to the page's own folder, pointing into the
+  project's raw/ folder (../../raw/acme-msa-2026.pdf from a page in a type
+  folder; ../raw/… from a page at the bundle root), and a title. Each claim taken from it
   carries a footnote [^acme-msa-2026]. Knowledge dictated in conversation
   gets a sources entry whose resource describes the occasion
   ("Call with Dana, 8 August 2026") and whose id is a slug of it
@@ -220,7 +221,7 @@ This graph covers <the work you do | your team's work | the whole company>: <one
 
 ```markdown
 ---
-okf_version: "0.2"
+okf_version: "0.3"
 ---
 # Knowledge Graph Index
 
@@ -244,7 +245,7 @@ _None yet._
 * [Schema](/SCHEMA.md) - The types, relationships, and conventions for this knowledge graph.
 ```
 
-Set `okf_version` to the version the fetched spec declares; `"0.2"` if unreachable. One line per page, description copied from its frontmatter.
+Set `okf_version` to the version the fetched spec declares; `"0.3"` if unreachable. One line per page, description copied from its frontmatter.
 
 ### `knowledge/log.md`
 
@@ -306,7 +307,7 @@ description: Fold a new source into the knowledge graph. Use when the user says 
 1. Read `knowledge/log.md` to see what has already been folded in, so nothing is ingested twice. Read `knowledge/SCHEMA.md` and `knowledge/index.md`, so the question you ask of the source is "which of these types and pages does it touch", not "what is in here".
 2. Identify the source: the document the user named in `raw/`; or everything in `raw/` the log does not account for, if they named none; or the text they pasted or said.
 3. **Propose before writing.** List the pages that would change (existing and new) and, under each, the claims that would land there in one line each. Ask: "Shall I write these?" Change nothing until the user says yes. Steering such as "focus on how the commercials work" is welcome.
-4. Write. For each affected page: update what is now out of date, add what is new, leave the rest. Record the source in the page's `sources` with an `id` (kebab-case from the filename, e.g. `acme-msa-2026`; for spoken knowledge, from the occasion, e.g. `call-dana-2026-08-08`), a `resource` (`../raw/<file>`, or a plain description of the occasion), and a `title`. Footnote each claim you added with `[^<id>]` and add the matching `[^<id>]: <title>` line at the end of the body. Set `stale_after` when the source gives a fact a real expiry. If the source reveals a declared relationship, add the link on BOTH pages under their agreed headings. Stamp `generated: { by: process:ingest, at: <instant> }` on every page you touch.
+4. Write. For each affected page: update what is now out of date, add what is new, leave the rest. Record the source in the page's `sources` with an `id` (kebab-case from the filename, e.g. `acme-msa-2026`; for spoken knowledge, from the occasion, e.g. `call-dana-2026-08-08`), a `resource` (the path to the file in `raw/` from the page's own folder: `../../raw/<file>` from a page in a type folder or `notes/`, `../raw/<file>` from a page at the bundle root; or a plain description of the occasion), and a `title`. Footnote each claim you added with `[^<id>]` and add the matching `[^<id>]: <title>` line at the end of the body. Set `stale_after` when the source gives a fact a real expiry. If the source reveals a declared relationship, add the link on BOTH pages under their agreed headings. Stamp `generated: { by: process:ingest, at: <instant> }` on every page you touch.
 5. Update `knowledge/index.md` for any new page and append an `**Ingest**` entry to `knowledge/log.md`.
 6. Report every file changed and why, one line each.
 
@@ -327,14 +328,14 @@ description: Health-check the knowledge graph. Use when the user says "lint", as
 ---
 # Lint
 
-1. Fetch the latest OKF spec (https://raw.githubusercontent.com/GoogleCloudPlatform/open-knowledge-format/main/SPEC.md) if reachable. Read `knowledge/SCHEMA.md`. Read every file under `knowledge/`. `index.md`, `log.md`, and `.gitkeep` are reserved — skip all concept checks on them; never propose "fixing" them by adding `type` or other concept frontmatter.
+1. Fetch the latest OKF spec (https://raw.githubusercontent.com/open-knowledge-format/open-knowledge-format/main/SPEC.md) if reachable. Read `knowledge/SCHEMA.md`. Read every file under `knowledge/`. `index.md`, `log.md`, and `.gitkeep` are reserved — skip all concept checks on them; never propose "fixing" them by adding `type` or other concept frontmatter.
 2. Report, grouped, naming specific files:
    - **Rule violations**: a page missing `type`, `title`, `description`, or `generated`; a page in the wrong folder for its type; a relative link between concepts; a bare-date timestamp; tool configuration inside `knowledge/`. (Not reserved files — see step 1.)
    - **Contradictions**: two pages that disagree about a fact.
    - **Out of date**: any page whose `stale_after` has passed; claims a newer source superseded.
    - **Broken structure**: orphan pages nothing links to; a declared relationship with no reciprocal on the other page; links into `status: deprecated` pages; pages missing from `index.md`.
    - **Records**: a malformed `records:` (not a map of system name to link; a value that is not a full `https` link; a quoted value; a value containing `?`, a comma, or `}`); `records:` on a page whose type's `System of record:` is none; two pages linking to the same record; a page drifting into facts its system keeps (a deal amount, a contact's phone number) when it has a `records:` line or its type declares a system. A multi-line `records:` map is accepted; suggest the one-line form, never report it as an error. If you have the connector to that system, open each record read-only and report any that is not found as **broken pointer: <page>**, never as "no results"; without the connector, say the records were not checked.
-   - **Trust picture**: how many pages are unverified, machine-confirmed, and human-reviewed, and list every page whose `generated.at` is newer than its latest `verified.at` as **changed since verified**; those are the pages to re-read and re-confirm.
+   - **Trust picture**: how many pages are unverified, machine-confirmed, and human-reviewed, counting only current verifications (a `verified.at` at or after the page's `generated.at`), and list every page whose `generated.at` is newer than its latest `verified.at` as **changed since verified**; those are the pages to re-read and re-confirm.
    - **Pages worth writing** (not errors): concepts mentioned on several pages that have no page of their own; links to pages that do not exist yet. Exempt `notes/` from any lonely-folder observation.
 3. Ask which fixes to apply. Apply only those, stamping `generated: { by: process:lint, at: <instant> }` on any page you fix. Append a `**Lint**` entry to `knowledge/log.md` with what was found and what was fixed.
 ```
