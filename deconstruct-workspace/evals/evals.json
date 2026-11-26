@@ -4,6 +4,8 @@
   "evals": [
     {
       "id": "I1",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "sales-pre-call-brief",
       "kind": "interview",
       "runs": 3,
@@ -1280,6 +1282,8 @@
     },
     {
       "id": "I2",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "expense-approval-regulated",
       "kind": "interview",
       "runs": 3,
@@ -1921,6 +1925,8 @@
     },
     {
       "id": "I3",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "meal-planning-personal",
       "kind": "interview",
       "runs": 3,
@@ -2582,6 +2588,8 @@
     },
     {
       "id": "I4",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "rubber-stamp-not-sure",
       "kind": "interview",
       "runs": 3,
@@ -3979,6 +3987,8 @@
     },
     {
       "id": "I6",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "off-script-answers",
       "kind": "interview",
       "runs": 3,
@@ -4429,6 +4439,8 @@
     },
     {
       "id": "I7",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "skip-the-explanations",
       "kind": "interview",
       "runs": 3,
@@ -4991,6 +5003,8 @@
     },
     {
       "id": "I8",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "rename-stop-resume",
       "kind": "interview",
       "runs": 3,
@@ -6474,6 +6488,8 @@
     },
     {
       "id": "I10",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "outside-source",
       "kind": "interview",
       "runs": 3,
@@ -7000,6 +7016,8 @@
     },
     {
       "id": "I11",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "live-writes-without-you",
       "kind": "interview",
       "runs": 3,
@@ -7542,6 +7560,8 @@
     },
     {
       "id": "I12",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "no-real-example",
       "kind": "interview",
       "runs": 3,
@@ -7996,6 +8016,8 @@
     },
     {
       "id": "I13",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "team-workflow",
       "kind": "interview",
       "runs": 3,
@@ -8481,6 +8503,8 @@
     },
     {
       "id": "I14",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "cold-entry-no-registry",
       "kind": "interview",
       "runs": 3,
@@ -10740,6 +10764,8 @@
     },
     {
       "id": "R0-run-by-name",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "running-work-brought-in",
       "tier": "core",
       "kind": "interview",
@@ -11675,6 +11701,8 @@
     },
     {
       "id": "R3-new",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "state-3-new-backlog",
       "tier": "core",
       "kind": "routing",
@@ -11817,6 +11845,8 @@
     },
     {
       "id": "R4-by-name",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "state-4-rerun",
       "tier": "core",
       "kind": "routing",
@@ -11853,6 +11883,8 @@
     },
     {
       "id": "R5-by-name",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "state-5-rerun",
       "tier": "core",
       "kind": "routing",
@@ -11892,6 +11924,8 @@
     },
     {
       "id": "R6-by-name",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "state-6-rerun",
       "tier": "core",
       "kind": "routing",
@@ -11922,6 +11956,8 @@
     },
     {
       "id": "R7-open-item",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "state-7-open-item",
       "tier": "core",
       "kind": "routing",
@@ -11968,6 +12004,8 @@
     },
     {
       "id": "R8-by-name",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "state-8-asked-by-name",
       "tier": "core",
       "kind": "routing",
@@ -12022,6 +12060,8 @@
     },
     {
       "id": "R4-continue",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "state-4-continue-my-workflow",
       "tier": "core",
       "kind": "routing",
@@ -12206,6 +12246,8 @@
     },
     {
       "id": "R12-two-unfinished",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "two-interviews-partway",
       "tier": "core",
       "kind": "routing",
@@ -12299,6 +12341,8 @@
     },
     {
       "id": "R12-analyze-unfinished",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "analyze-unfinished",
       "tier": "core",
       "kind": "routing",
@@ -12349,6 +12393,8 @@
     },
     {
       "id": "R-wrong-place",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "wrong-place-big-change",
       "tier": "core",
       "kind": "routing",
@@ -12396,6 +12442,8 @@
     },
     {
       "id": "R-no-location",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "no-location-given",
       "tier": "core",
       "kind": "routing",
@@ -12468,6 +12516,8 @@
     },
     {
       "id": "R-m365-reads",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "m365-reads-with-nothing-attached",
       "tier": "core",
       "core_runs": 1,
@@ -12539,6 +12589,8 @@
     },
     {
       "id": "R-m365-cannot-read",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "m365-cannot-read",
       "tier": "core",
       "core_runs": 1,
@@ -12671,6 +12723,8 @@
     },
     {
       "id": "R-desktop-location-no-folder",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "desktop-location-no-folder",
       "tier": "core",
       "kind": "routing",
@@ -12843,6 +12897,8 @@
     },
     {
       "id": "FTJ-claude-code",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "first-time-leader-claude-code",
       "tier": "core",
       "kind": "interview",
@@ -13722,6 +13778,8 @@
     },
     {
       "id": "FTJ-codex",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "first-time-leader-codex",
       "tier": "core",
       "core_runs": 1,
@@ -14291,6 +14349,8 @@
     },
     {
       "id": "FTJ-claude-web",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "first-time-leader-claude-web",
       "tier": "core",
       "kind": "interview",
@@ -14841,6 +14901,8 @@
     },
     {
       "id": "FTJ-chatgpt",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "first-time-leader-chatgpt",
       "tier": "core",
       "kind": "interview",
@@ -15391,6 +15453,8 @@
     },
     {
       "id": "FTJ-claude-desktop",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "first-time-leader-claude-desktop",
       "tier": "core",
       "kind": "interview",
@@ -15935,6 +15999,8 @@
     },
     {
       "id": "FTJ-microsoft-365",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "first-time-leader-microsoft-365",
       "tier": "core",
       "core_runs": 1,
@@ -21466,6 +21532,8 @@
     },
     {
       "id": "SI-old-light-progress-rules",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "old-light-progress-at-the-rules-resumes",
       "tier": "regression",
       "kind": "interview",
@@ -21601,6 +21669,8 @@
     },
     {
       "id": "SI-rerun-old-full",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "rerun-of-a-file-the-earlier-full-interview-wrote",
       "tier": "regression",
       "kind": "interview",
@@ -22423,6 +22493,8 @@
     },
     {
       "id": "PR-sop",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "starting-from-an-sop",
       "tier": "regression",
       "kind": "interview",
@@ -22725,6 +22797,8 @@
     },
     {
       "id": "PR-past-output",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "past-output-at-n-d1",
       "tier": "regression",
       "kind": "interview",
@@ -22780,6 +22854,8 @@
     },
     {
       "id": "PR-standing-first",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "standing-rules-first-keep",
       "tier": "regression",
       "kind": "interview",
@@ -22916,6 +22992,8 @@
     },
     {
       "id": "CE-registry-runs-already",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "cold-entry-work-already-runs-registry",
       "tier": "core",
       "kind": "interview",
@@ -23092,6 +23170,8 @@
     },
     {
       "id": "CE-no-registry-runs-already",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "cold-entry-work-already-runs-no-registry",
       "tier": "core",
       "kind": "interview",
@@ -23271,6 +23351,8 @@
     },
     {
       "id": "BL-filter",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "backlog-leaves-out-under-way",
       "tier": "regression",
       "kind": "routing",
@@ -23441,6 +23523,8 @@
     },
     {
       "id": "SEC-print-to-save",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "print-to-save",
       "tier": "regression",
       "kind": "interview",
@@ -23682,6 +23766,8 @@
     },
     {
       "id": "RV-rerun",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "rerun-raises-revision",
       "tier": "regression",
       "kind": "interview",
@@ -24721,6 +24807,8 @@
     },
     {
       "id": "BL-retired-named",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "retired-workflow-named-at-backlog-choice",
       "tier": "regression",
       "kind": "routing",
@@ -24780,6 +24868,8 @@
     },
     {
       "id": "BL-backlog-md-beside-registry",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "backlog-md-left-beside-a-registry",
       "tier": "regression",
       "kind": "routing",
@@ -24822,6 +24912,8 @@
     },
     {
       "id": "DC-old-progress-resume",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "old-progress-file-resumes",
       "tier": "core",
       "kind": "interview",
@@ -24997,6 +25089,8 @@
     },
     {
       "id": "DC-card-full-to-part-2",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "card-playback-to-the-safety-questions",
       "tier": "regression",
       "kind": "interview",
@@ -25234,6 +25328,8 @@
     },
     {
       "id": "DC-card-not-clear",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "not-clear-yet-card",
       "tier": "regression",
       "kind": "interview",
@@ -25409,6 +25505,8 @@
     },
     {
       "id": "DC-light-scheduled",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "scheduled-backlog-pick-order",
       "tier": "regression",
       "kind": "interview",
@@ -25684,6 +25782,8 @@
     },
     {
       "id": "DC-light-leader-started-order",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "leader-started-order",
       "tier": "regression",
       "kind": "interview",
@@ -25773,6 +25873,8 @@
     },
     {
       "id": "DC-stop-part-4-resume",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "stop-mid-interview-then-resume",
       "tier": "regression",
       "kind": "interview",
@@ -25996,6 +26098,8 @@
     },
     {
       "id": "DC-old-light-progress",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "old-progress-no-safety-answers-resumes",
       "tier": "regression",
       "kind": "interview",
@@ -26328,6 +26432,8 @@
     },
     {
       "id": "DC-running-card",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "running-work-with-a-card",
       "tier": "regression",
       "kind": "interview",
@@ -26477,6 +26583,8 @@
     },
     {
       "id": "DC-batch-carry-over",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "batch-carry-over",
       "tier": "regression",
       "kind": "interview",
@@ -26884,6 +26992,8 @@
     },
     {
       "id": "DC-policy-remove-part-5",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): Deconstruct no longer writes practice inputs (N-D25); not in the release gate",
       "name": "policy-no-removal-rule-later-source",
       "tier": "regression",
       "kind": "interview",
@@ -27416,6 +27526,8 @@
     },
     {
       "id": "DC-monthly",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "monthly-non-gmail-non-slack",
       "tier": "regression",
       "kind": "interview",
@@ -27528,6 +27640,8 @@
     },
     {
       "id": "M-full-revops",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-revops-backlog-stop-resume",
       "tier": "regression",
       "kind": "interview",
@@ -27746,6 +27860,8 @@
     },
     {
       "id": "M-full-cold",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-cold-entry",
       "tier": "regression",
       "kind": "interview",
@@ -27999,6 +28115,8 @@
     },
     {
       "id": "M-full-regulated",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-regulated",
       "tier": "regression",
       "kind": "interview",
@@ -28176,6 +28294,8 @@
     },
     {
       "id": "M-full-running",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-running-work",
       "tier": "regression",
       "kind": "interview",
@@ -28301,6 +28421,8 @@
     },
     {
       "id": "M-light-stop",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-backlog-stop-resume",
       "tier": "regression",
       "kind": "interview",
@@ -28455,6 +28577,8 @@
     },
     {
       "id": "M-light-scheduled",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-scheduled",
       "tier": "regression",
       "kind": "interview",
@@ -28605,6 +28729,8 @@
     },
     {
       "id": "M-light-cold",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-cold-entry",
       "tier": "regression",
       "kind": "interview",
@@ -28766,6 +28892,8 @@
     },
     {
       "id": "M-light-running",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-running-work",
       "tier": "regression",
       "kind": "interview",
@@ -28890,6 +29018,8 @@
     },
     {
       "id": "M-light-personal",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-personal",
       "tier": "regression",
       "kind": "interview",
@@ -29004,6 +29134,8 @@
     },
     {
       "id": "M-switch-send",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-send",
       "tier": "regression",
       "kind": "interview",
@@ -29120,6 +29252,8 @@
     },
     {
       "id": "M-switch-without-you",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-without-you",
       "tier": "regression",
       "kind": "interview",
@@ -29236,6 +29370,8 @@
     },
     {
       "id": "M-switch-law",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-law-yes",
       "tier": "regression",
       "kind": "interview",
@@ -29415,6 +29551,8 @@
     },
     {
       "id": "M-switch-cold",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-cold-live-writes",
       "tier": "regression",
       "kind": "interview",
@@ -29539,6 +29677,8 @@
     },
     {
       "id": "M-switch-scheduled",
+      "retired": true,
+      "retired_note": "superseded by the shape release's Deconstruct (11.0, 2026-11-26): it checks the old interview's wording or order; not in the release gate",
       "name": "measure-scheduled-taking-part",
       "tier": "regression",
       "kind": "interview",

@@ -26,7 +26,7 @@ def must_not(name, text, pattern):
 must("storage question comes first, nothing before it", SR, "**Nothing comes before it:** no greeting, no opening, no first question")
 must("N-F16 gated to Claude and ChatGPT on the web", SR, "On Claude or ChatGPT on the web, in any tab or mode, ChatGPT's Work tab included (never Claude desktop, Microsoft 365 Cowork, Claude Code or Codex: any chat not working in a folder on the leader's computer counts as the web, and a sandbox or workspace the AI runs in online is not the leader's computer, and a folder the app made for this chat alone, named by date or after the chat, is never the working folder)")
 must("N-F16 said exactly", SR, "I can't see a drive I can save to in this chat. Add your cloud drive to this chat from the prompt box")
-must("print-to-save only for Gemini or after 'continue'", SR, "Gemini, or on the web after the leader says 'continue' to N-F16")
+must_not("no print-to-save (item 1, shape release 11.0)", SR, r"(?i)print-to-save|print to save")
 must_not("no old 'web chat with no storage connection' print-to-save trigger", SR, r"a web chat with no storage connection on")
 # Folder not found, existing registry
 must("N-F17 offers to create a missing folder", SR, "I can't find [folder] in your [storage service]. Shall I create it there?")
@@ -84,7 +84,7 @@ must_not("N-A7 asks nothing", IG, r"Want to run it now\?")
 # Owns blocks
 must("Owns form shown, heading outside the markers", IX, "# Owns\n\n<!-- GENERATED:owns -->\n- [")
 must("close's check covers the Owns block", IX, "each Function's `# Owns` block lists exactly the Processes it owns")
-must("print-to-save gives Function pages with Owns filled", IG, "each Function page with its `# Owns` filled")
+must_not("no print-to-save in the interview guide (item 1, shape release 11.0)", IG, r"(?i)print-to-save|print to save")
 checks.append(("example registry keeps the heading outside the markers", "# Owns\n\n<!-- GENERATED:owns -->" in EX))
 # Cloud sessions and unreachable sources
 must("cloud: name the repository, never a path", SR, "name the repository, never a path on the machine")

@@ -1657,7 +1657,7 @@ class StubbedHarness(unittest.TestCase):
     def test_no_yes_means_no_calls(self):
         import run_eval as R
         argv = sys.argv
-        sys.argv = ["run_eval.py", str(self.tmp / "o"), "I1", "--evals",  # a live eval (I16 retired with the two-track interview)
+        sys.argv = ["run_eval.py", str(self.tmp / "o"), "SI-plain-cold", "--evals",  # a live eval (I1 retired with the shape release)
                     str(ROOT / "deconstruct-workspace" / "evals" / "evals.json")]
         H.pin_binary = lambda: self.fail("a model call was set up without --yes")
         try:
@@ -1699,8 +1699,7 @@ class ExistingEvals(unittest.TestCase):
         # the evals the design names are there, and the whole file validates
         ids = {e["id"] for e in data["evals"] if not e.get("retired")}
         for i in ("SI-plain-cold", "SI-confidential", "SI-scheduled-without-you", "SI-law-yes", "SI-no-worth", "SI-fixed-order",
-                  "SI-old-light-progress-rules", "SI-rerun-old-full", "SI-draft-limits-looks-fine", "LS-draft-own-email",
-                  "DC-old-progress-resume"):
+                  "SI-draft-limits-looks-fine", "LS-draft-own-email", "SI-late-signal", "SI-no-signal-no-law"):
             self.assertIn(i, ids)
         self.assertEqual(V.validate_file(ROOT / "deconstruct-workspace" / "evals" / "evals.json"), [])
 
@@ -1878,6 +1877,7 @@ class CoreRound1Corpus(unittest.TestCase):
         self.assertFalse(ok(c, run_of(line, line + "\n\n" + close)))
         self.assertFalse(ok(dict(c, opens=False), run_of("go?", line + "\n\nOne thing is still open.\n\n" + close)))
 
+    @unittest.skip("N-D25 retired in the shape release (11.0): Deconstruct no longer writes practice inputs, and no live eval uses inputs_shown")
     def test_deconstruct_inputs_shown(self):
         # N-D25 (approved 2026-11-14): every proposed practice input is shown in full before saving
         # said in two parts around the inputs (smoke-3 fixes), so the message ends on the question

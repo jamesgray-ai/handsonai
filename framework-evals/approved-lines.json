@@ -27,7 +27,8 @@
    "N-8: no wording in design.md 12 (the row is a rule, not a line): 'No intro line: the opening, N-3, the first question and N-4 serve'"
   ],
   "deconstruct_3_3": "2026-11-13: Deconstruct 3.3's lines edited in by hand (retired, reworded, added; the 23 uncatalogued lines catalogued as deconstruct:<section>:l<n>), as the Analyze 3.1 build did; not a re-extraction, which would drop curated forms",
-  "deconstruct_single_interview": "2026-11-15: one interview for every workflow (James). Edited by hand, not re-extracted: N-D3, deconstruct:light-line, deconstruct:3.3:q1 and one Not sure? reworded; deconstruct:safety-limits-line added; the lines the interview no longer says are retired; lines Deconstruct still says are re-homed in references/interview.md"
+  "deconstruct_single_interview": "2026-11-15: one interview for every workflow (James). Edited by hand, not re-extracted: N-D3, deconstruct:light-line, deconstruct:3.3:q1 and one Not sure? reworded; deconstruct:safety-limits-line added; the lines the interview no longer says are retired; lines Deconstruct still says are re-homed in references/interview.md",
+  "shape_release": "2026-11-26: entries retired or narrowed by script for 11.0 (U1, item 1, seven-part Deconstruct); new Deconstruct lines added; N-F16 reworded. Mirrors business learning/framework-walkthrough/final/deconstruct.md 19."
  },
  "lines": [
   {
@@ -194,14 +195,12 @@
    "kind": "safety or promise",
    "skills": [
     "analyze",
-    "deconstruct",
     "design",
     "build",
     "test"
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "references/saving-the-requirements.md",
     "design": "references/location.md",
     "build": "references/package-and-install.md",
     "test": "SKILL.md"
@@ -267,7 +266,8 @@
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md"
    },
-   "source": "3c-DX (2026-10-24); said by Deconstruct too (R11), approved by James, 2026-11-12 (core round-1 fixes)"
+   "source": "3c-DX (2026-10-24); said by Deconstruct too (R11), approved by James, 2026-11-12 (core round-1 fixes)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-F3",
@@ -440,7 +440,8 @@
     "test": "references/no-files.md"
    },
    "source": "3c-EL, approved by James 2026-11-08",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-F7",
@@ -1706,7 +1707,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-A6",
@@ -1719,7 +1721,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-A6",
@@ -1745,7 +1748,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "3c-DX (2026-10-24)"
+   "source": "3c-DX (2026-10-24)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-A6",
@@ -3293,7 +3297,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "N-D6",
@@ -3349,7 +3354,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); text from lines-to-approve.md",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D7",
@@ -3363,7 +3369,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); text from lines-to-approve.md",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D7",
@@ -3377,7 +3384,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); text from lines-to-approve.md",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D7",
@@ -3391,7 +3399,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); text from lines-to-approve.md",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D8",
@@ -3435,7 +3444,8 @@
     "deconstruct": "references/requirements-template.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D10",
@@ -3449,7 +3459,8 @@
     "deconstruct": "references/requirements-template.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D10",
@@ -3463,7 +3474,8 @@
     "deconstruct": "references/requirements-template.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D11",
@@ -3492,7 +3504,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24), with the line review's change",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D12",
@@ -3521,7 +3534,8 @@
     "deconstruct": "references/requirements-template.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); reworded, 03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3) (R-D2, D8: the safety must-have sentence added, said always)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D13",
@@ -3535,7 +3549,8 @@
     "deconstruct": "references/requirements-template.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D14",
@@ -3549,7 +3564,8 @@
     "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D14",
@@ -3563,7 +3579,8 @@
     "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D14",
@@ -3605,7 +3622,8 @@
     "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D14",
@@ -3619,7 +3637,8 @@
     "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D14",
@@ -3633,7 +3652,8 @@
     "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D15",
@@ -3647,7 +3667,8 @@
     "deconstruct": "references/re-runs.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D16",
@@ -3793,7 +3814,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D20",
@@ -3807,7 +3829,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D21",
@@ -4031,7 +4054,8 @@
     "design": "references/review.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-5",
@@ -4155,7 +4179,8 @@
     "design": "references/no-files.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-8",
@@ -4490,7 +4515,8 @@
     "design": "references/no-files.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-20",
@@ -4504,7 +4530,8 @@
     "design": "references/no-files.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-20",
@@ -4518,7 +4545,8 @@
     "design": "references/no-files.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-21",
@@ -4936,7 +4964,8 @@
    "files": {
     "build": "references/no-files.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-B3",
@@ -5124,7 +5153,8 @@
    "files": {
     "build": "references/no-files.md"
    },
-   "source": "build.md 12; approved before 3c-DJ (with the location added)"
+   "source": "build.md 12; approved before 3c-DJ (with the location added)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-B10",
@@ -5163,7 +5193,8 @@
    "files": {
     "build": "references/no-files.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-B11",
@@ -5593,7 +5624,8 @@
    "files": {
     "build": "references/no-files.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-B25",
@@ -5726,7 +5758,8 @@
    "files": {
     "build": "references/no-files.md"
    },
-   "source": "build.md 12; approved before 3c-DJ (with the location added)"
+   "source": "build.md 12; approved before 3c-DJ (with the location added)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-B33",
@@ -6012,7 +6045,8 @@
    "files": {
     "build": "references/no-files.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-B51",
@@ -6611,7 +6645,8 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-T9",
@@ -7630,7 +7665,8 @@
     "deconstruct": "references/choosing-a-workflow.md"
    },
    "source": "lines-to-approve.md Deconstruct; 3c-DJ (2026-10-24), open point 20",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:map-part-1-after-signpost",
@@ -7701,7 +7737,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 3.3 (line 86); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 3.3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 3.3",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:3.3:q1",
@@ -7714,7 +7751,8 @@
    "files": {
     "deconstruct": "SKILL.md"
    },
-   "source": "deconstruct.md 3.3; approved by James 2026-11-14 (core batch 1: the two-item form)"
+   "source": "deconstruct.md 3.3; approved by James 2026-11-14 (core batch 1: the two-item form)",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:3.3:q2",
@@ -7728,7 +7766,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 3.3 (line 90); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 3.3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 3.3",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:3.3:q3",
@@ -7742,7 +7781,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 3.3 (line 90); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 3.3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 3.3",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:map-backlog-question",
@@ -7787,7 +7827,8 @@
     "deconstruct": "references/choosing-a-workflow.md"
    },
    "source": "deconstruct.md 5.1 (line 173); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 5.1"
+   "note": "deconstruct: inferred from deconstruct 17 by section 5.1",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:7:q1",
@@ -7801,7 +7842,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 7 (line 245); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 7"
+   "note": "deconstruct: inferred from deconstruct 17 by section 7",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:7:q2",
@@ -7815,7 +7857,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 7 (line 245); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 7"
+   "note": "deconstruct: inferred from deconstruct 17 by section 7",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:7:q3",
@@ -7829,7 +7872,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 7 (line 248); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 7"
+   "note": "deconstruct: inferred from deconstruct 17 by section 7",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:signpost-part-1",
@@ -7933,7 +7977,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-2 (line 311); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-2:q1",
@@ -7947,7 +7992,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-2 (line 312); approved: 'every other quoted line in this document is approved' (19); 'steps' reworded, approved by James 2026-11-15 (the interview records rules, not steps)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-2:q1",
@@ -7961,7 +8007,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-2 (line 313); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-2:q1",
@@ -7975,7 +8022,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-2 (line 314); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-2:q2",
@@ -7989,7 +8037,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-2 (line 316); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-2",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:signpost-part-3",
@@ -8033,7 +8082,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 328); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q1",
@@ -8047,7 +8097,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 329); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q1",
@@ -8061,7 +8112,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 330); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q2",
@@ -8075,7 +8127,8 @@
     "deconstruct": "references/from-a-document.md"
    },
    "source": "deconstruct.md 8.part-3 (line 332); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:8.part-3:q3",
@@ -8089,7 +8142,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 340); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q3",
@@ -8103,7 +8157,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 341); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q3",
@@ -8117,7 +8172,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 342); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q3",
@@ -8131,7 +8187,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 343); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q4",
@@ -8145,7 +8202,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 345); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q5",
@@ -8159,7 +8217,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 347); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q6",
@@ -8173,7 +8232,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 347); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q7",
@@ -8187,7 +8247,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 355); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q8",
@@ -8201,7 +8262,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 359); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q9",
@@ -8215,7 +8277,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 359); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q9",
@@ -8229,7 +8292,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 360); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q9",
@@ -8244,7 +8308,8 @@
    },
    "source": "deconstruct.md 8.part-3 (line 361); approved: 'every other quoted line in this document is approved' (19)",
    "fragment": true,
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:8.part-3:q10",
@@ -8258,7 +8323,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 369); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q10",
@@ -8272,7 +8338,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-3 (line 370); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-3",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:q11",
@@ -8541,7 +8608,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 413); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q8",
@@ -8555,7 +8623,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 414); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q8",
@@ -8569,7 +8638,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 415); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q9",
@@ -8778,7 +8848,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 452); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q18",
@@ -8807,7 +8878,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 455); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q19",
@@ -9001,7 +9073,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 479); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q24",
@@ -9015,7 +9088,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 480); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q25",
@@ -9029,7 +9103,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 484); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q26",
@@ -9043,7 +9118,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 486); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q26",
@@ -9057,7 +9133,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 487); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q26",
@@ -9071,7 +9148,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 488); approved: 'every other quoted line in this document is approved' (19); reworded 2026-11-14, approved by James (Deconstruct pre-eval review, M6: the input isn't always notes; lines-to-approve.md, 2026-11-14 note)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q27",
@@ -9130,7 +9208,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 494); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q29",
@@ -9144,7 +9223,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-4 (line 494); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:q30",
@@ -9264,7 +9344,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 533); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q3",
@@ -9278,7 +9359,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 533); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q3",
@@ -9292,7 +9374,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 534); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q4",
@@ -9306,7 +9389,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 538); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q4",
@@ -9320,7 +9404,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 539); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q5",
@@ -9334,7 +9419,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 542); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q6",
@@ -9438,7 +9524,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 559); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q8",
@@ -9452,7 +9539,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 560); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q8",
@@ -9466,7 +9554,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 561); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q8",
@@ -9479,7 +9568,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "3c-EB (2026-10-25)"
+   "source": "3c-EB (2026-10-25)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q8",
@@ -9492,7 +9582,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "3c-EB (2026-10-25)"
+   "source": "3c-EB (2026-10-25)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q9",
@@ -9506,7 +9597,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 563); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q10",
@@ -9535,7 +9627,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 581); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q12",
@@ -9549,7 +9642,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "deconstruct.md 8.part-5 (line 581); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:q13",
@@ -9624,7 +9718,8 @@
     "deconstruct": "references/from-a-document.md"
    },
    "source": "deconstruct.md 10.1 (line 645); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 10.1"
+   "note": "deconstruct: inferred from deconstruct 17 by section 10.1",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:15:q1",
@@ -9638,7 +9733,8 @@
     "deconstruct": "references/personal-life.md"
    },
    "source": "deconstruct.md 15 (line 1006); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 15"
+   "note": "deconstruct: inferred from deconstruct 17 by section 15",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:15:q2",
@@ -9652,7 +9748,8 @@
     "deconstruct": "references/personal-life.md"
    },
    "source": "deconstruct.md 15 (line 1006); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 15"
+   "note": "deconstruct: inferred from deconstruct 17 by section 15",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:15:q3",
@@ -9696,7 +9793,8 @@
     "deconstruct": "references/personal-life.md"
    },
    "source": "deconstruct.md 15 (line 1006); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 15"
+   "note": "deconstruct: inferred from deconstruct 17 by section 15",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:15:q6",
@@ -9725,7 +9823,8 @@
     "deconstruct": "references/personal-life.md"
    },
    "source": "deconstruct.md 15 (line 1006); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 15"
+   "note": "deconstruct: inferred from deconstruct 17 by section 15",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:description",
@@ -9851,7 +9950,7 @@
   {
    "id": "N-F16",
    "form": "main",
-   "text": "I can't see a drive I can save to in this chat. Add your cloud drive to this chat from the prompt box (or connect it first, if you haven't), with saving allowed, then say 'done'. Or say 'continue' and I'll give you the files to save as we go.",
+   "text": "I can't see a drive I can save to in this chat. Add your cloud drive to this chat from the prompt box (or connect it first, if you haven't), with saving allowed, then say 'done'. Your work is saved as you go, so it needs a place: a drive such as Google Drive or OneDrive, a folder on your computer, or GitHub.",
    "kind": "question",
    "skills": [
     "analyze",
@@ -9869,7 +9968,7 @@
     "test": "references/location.md",
     "scaffolding-registry": "SKILL.md"
    },
-   "source": "3c-EL, approved by James 2026-11-08",
+   "source": "3c-EL, approved by James 2026-11-08; reworded 2026-11-26 (item 1: no print-to-save, the continue escape removed)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
   },
   {
@@ -10269,7 +10368,8 @@
    "files": {
     "deconstruct": "references/choosing-a-workflow.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:map-backlog-question",
@@ -10282,7 +10382,8 @@
    "files": {
     "deconstruct": "references/choosing-a-workflow.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:map-backlog-question",
@@ -10295,7 +10396,8 @@
    "files": {
     "deconstruct": "references/choosing-a-workflow.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:ready-line",
@@ -10323,7 +10425,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "said in light-track.md's flow too; one home, SKILL.md (the track), as N-D17"
+   "note": "said in light-track.md's flow too; one home, SKILL.md (the track), as N-D17",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:questions-left",
@@ -10361,7 +10464,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "the five rows and the ending follow in the same message; said as light item 0 too (light-track.md points to part 2)"
+   "note": "the five rows and the ending follow in the same message; said as light item 0 too (light-track.md points to part 2)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D23",
@@ -10375,7 +10479,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "one of N-D23's five rows"
+   "note": "one of N-D23's five rows",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D23",
@@ -10389,7 +10494,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "one of N-D23's five rows"
+   "note": "one of N-D23's five rows",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D23",
@@ -10403,7 +10509,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "one of N-D23's five rows"
+   "note": "one of N-D23's five rows",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D23",
@@ -10417,7 +10524,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "one of N-D23's five rows"
+   "note": "one of N-D23's five rows",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D23",
@@ -10431,7 +10539,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "one of N-D23's five rows; only when known"
+   "note": "one of N-D23's five rows; only when known",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D23",
@@ -10444,7 +10553,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D24",
@@ -10472,7 +10582,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "approved by James, 2026-11-14 (Deconstruct smoke-2 fixes); said in two parts around the inputs (Deconstruct smoke-3 fixes, 2026-11-14): the approved words are unchanged, the placeholder marks where the inputs go, as N-B3 and N-T11 mark theirs",
-   "note": "both tracks, when a kept practice run is a proposed one: once the runs are confirmed (N-D11's reply and any re-ask) and the real inputs are in, its own message: N-D25's first sentence, then every input the AI wrote, in full, each under a plain label naming its run, then its second sentence, which ends the message; before the confidential check and the save"
+   "note": "both tracks, when a kept practice run is a proposed one: once the runs are confirmed (N-D11's reply and any re-ask) and the real inputs are in, its own message: N-D25's first sentence, then every input the AI wrote, in full, each under a plain label naming its run, then its second sentence, which ends the message; before the confidential check and the save",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:15:q2",
@@ -10486,7 +10597,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "the \"Not clear yet\" deliverable question on the Organizational lens, outside personal life (R-T2)"
+   "note": "the \"Not clear yet\" deliverable question on the Organizational lens, outside personal life (R-T2)",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:description-redraft",
@@ -10499,7 +10611,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-D22",
@@ -10525,7 +10638,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:starts",
@@ -10538,7 +10652,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:starts",
@@ -10551,7 +10666,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:starts-event",
@@ -10564,7 +10680,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:how-soon",
@@ -10577,7 +10694,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:how-soon",
@@ -10590,7 +10708,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:carry-over",
@@ -10604,7 +10723,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "on the light track asked after item 3 (light-track.md points to part 4)"
+   "note": "on the light track asked after item 3 (light-track.md points to part 4)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:carry-over",
@@ -10617,7 +10737,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:carry-over",
@@ -10630,7 +10751,8 @@
    "files": {
     "deconstruct": "references/interview.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:policy",
@@ -10804,7 +10926,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-2:l1",
@@ -10818,7 +10941,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged except the folder line, changed (R-S8, D11)"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged except the folder line, changed (R-S8, D11)",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:l1",
@@ -10832,7 +10956,8 @@
     "deconstruct": "SKILL.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:l2",
@@ -10846,7 +10971,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:l4",
@@ -10860,7 +10986,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:l5",
@@ -10874,7 +11001,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-4:l1",
@@ -11068,7 +11196,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3); reworded per independent review finding 17, approved by James 2026-11-21",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-26: shape release 11.0 (U1: Deconstruct holds only protective lines and start phrases; the rest is model wording)"
   },
   {
    "id": "deconstruct:8.part-5:l3",
@@ -11097,7 +11226,8 @@
     "deconstruct": "references/requirements-template.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:l5",
@@ -11111,7 +11241,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-5:l6",
@@ -11125,7 +11256,8 @@
     "deconstruct": "references/interview.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
-   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "deconstruct:8.part-3:l3",
@@ -11245,7 +11377,8 @@
    "files": {
     "design": "SKILL.md"
    },
-   "source": "independent review E (no print-to-save pause for Design); approved by James 2026-11-21"
+   "source": "independent review E (no print-to-save pause for Design); approved by James 2026-11-21",
+   "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
   },
   {
    "id": "N-B57",
@@ -11285,6 +11418,45 @@
     "test": "SKILL.md"
    },
    "source": "independent review check B1-19/B1-20; approved by James 2026-11-21"
+  },
+  {
+   "id": "deconstruct:privacy-short",
+   "form": "main",
+   "text": "Whenever you paste an example, swap real names and anything confidential for made-up ones.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "SKILL.md"
+   },
+   "source": "shape release 11.0 (D18, James 2026-11-25), deconstruct.md 19"
+  },
+  {
+   "id": "deconstruct:policy-founder",
+   "form": "main",
+   "text": "Do your agreements with clients allow [what you said these hold] to go into an AI tool?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/interview.md"
+   },
+   "source": "shape release 11.0 (D17, James 2026-11-26), deconstruct.md 19"
+  },
+  {
+   "id": "N-D14",
+   "form": "shape-main",
+   "text": "Workflow Requirements saved to [file]. It holds your goal, what it produces, its checks, its rules and [J] practice runs. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/saving-the-requirements.md"
+   },
+   "source": "shape release 11.0 (X3), deconstruct.md 19"
   }
  ]
 }

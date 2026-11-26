@@ -595,16 +595,15 @@ def replies_by_part(sessions, skill="deconstruct"):
     """Leader replies per part, on top of count_actions: every reply count_actions counts as a message, split
     at the skill's "Part k of N" signposts (check_scripted.SIGNPOST_IDS; replies before the first signpost are
     "entry"), plus, at each AI message that carries a count, the replies still to come after it: what that
-    count's [M] promises. Deconstruct's one count is in the line that says how the interview will go
-    (check_scripted.COUNT_CARRIERS); a run that also says "About [M] questions left." gets a count point for it,
+    count's [M] promises. Deconstruct's one count is in the line that says how the interview will go, found by
+    pattern (check_scripted.COUNT_CARRIER_RE); a run that also says "About [M] questions left." gets a count point for it,
     so the stray count shows. A skill with no signposts (Deconstruct, since its single interview) has only
     "entry". Never measures time."""
     import check_scripted as CS  # lazily: check_scripted doesn't import this module, but keep loading cheap
     total = CS.SIGNPOST_IDS.get(skill, (0, []))[0]
     signpost = re.compile(rf"\bPart ([1-9]) of {total}\b") if total else None
-    corpus = AL.load()
-    carriers = [(f, f"{lid}") for lid, form in CS.COUNT_CARRIERS for f in corpus.get(lid, form) if f.text]
-    count_line = [f for f in corpus.get(CS.COUNT_LINE_ID) if f.text]
+    carrier = re.compile(CS.COUNT_CARRIER_RE)
+    count_line = re.compile(CS.COUNT_LINE_RE)
     flat = [(s.get("n", k), t) for k, s in enumerate(sessions, 1) for t in s["turns"]]
     by_part, part, points, ai_no = {"entry": 0}, "entry", [], {}
     for at, (n, t) in enumerate(flat):
@@ -614,8 +613,8 @@ def replies_by_part(sessions, skill="deconstruct"):
             if hit:
                 part = f"Part {hit.group(1)}"
                 by_part.setdefault(part, 0)
-            said = [lid for f, lid in carriers if f.matches(t["text"])]
-            if any(f.matches(t["text"]) for f in count_line):
+            said = ["the how-it-will-go line"] if carrier.search(AL.norm(t["text"])) else []
+            if count_line.search(AL.norm(t["text"])):
                 said.append(f"{part} signpost" if hit else "the count line")
             if said:
                 still = sum(1 for _, x in flat[at + 1:] if _is_reply(x))

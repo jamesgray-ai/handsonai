@@ -183,11 +183,12 @@ STEP_NUMBER = re.compile(
 # One interview for every workflow (2026-11-15): Deconstruct has no parts and so no signposts
 # Build announces no parts either (2026-11-22, James, after final-build-2): its opening says what comes
 SIGNPOST_IDS = {"design": (4, ["N-0"]), "test": (4, ["N-T1"])}
-# Deconstruct gives one figure, once: the count in the line that says how the interview will go
-# (deconstruct:light-line). "About [M] questions left." is never said after it; leader.replies_by_part still
-# reports it as a count point when a run says it, so a stray count shows up in the measurement
-COUNT_LINE_ID = "deconstruct:questions-left"
-COUNT_CARRIERS = [("deconstruct:light-line", "main")]
+# Deconstruct gives one figure, once: the range in the line that says how the interview will go. Since the
+# shape release (11.0) that line is model wording, so the measurement finds it by pattern ("about 10 to 15
+# replies"); "About [M] questions left." is never said, and leader.replies_by_part reports a stray count by
+# pattern too, so it shows up in the measurement. Measurement only: nothing is graded on these.
+COUNT_CARRIER_RE = r"(?i)\babout \d+ to \d+ replies\b"
+COUNT_LINE_RE = r"(?i)\babout \d+ (?:more )?questions? (?:left|to go|remaining)\b"
 BUILTIN =("scripted_lines", "vocabulary", "no_time_or_step_numbers")
 BUILTIN_TEXT = {"scripted_lines": "Every scripted line the AI says is the approved line, word for word (the quote check; "
                                   "a line that doesn't protect the leader may have a word or two changed)",

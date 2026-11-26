@@ -2,6 +2,9 @@
 """Deconstruct's word counter (T1 and T2). Analyze's own is wc_v31.py, beside this one, unchanged.
 
   python3 framework-evals/tools/wc_deconstruct.py estimate
+      RETIRED in the shape release (11.0, 2026-11-26): the messages it built are model wording now (U1),
+      so there are no fixed lines left to build them from. It exits 2 with that note. What follows
+      describes the 10.5 tool, kept for the record:
       Builds Deconstruct's scripted messages from approved-lines.json, with illustrative fills, and counts
       them on every platform:
         T1 (at most 200 words), the first message: the opening (N-D2, the location line, N-D3 in the
@@ -20,6 +23,7 @@
 Words are counted by check_scripted.word_count, the count the `max_words` eval check uses. Exit 1 when a
 message is over its limit. Never calls a model.
 """
+import re
 import json
 import sys
 from pathlib import Path
@@ -151,7 +155,7 @@ def ai_turns(path):
 
 def transcript(paths):
     over = []
-    how = [f for f in AL.load().get("deconstruct:light-line") if f.text]
+    how = re.compile(CS.COUNT_CARRIER_RE)  # the how-it-will-go line is model wording since 11.0: found by its range
     for path in paths:
         for where, msgs in ai_turns(path):
             if not msgs:
@@ -161,7 +165,7 @@ def transcript(paths):
             if c > T1:
                 over.append((where, "first message", c))
             for i, m in enumerate(msgs, 1):
-                if any(f.matches(m) for f in how):
+                if how.search(AL.norm(m)):
                     c = CS.word_count(m)
                     print(f"{where}: AI message {i} says how the interview will go: {c} words (at most {T2})")
                     if c > T2:
@@ -173,7 +177,11 @@ def main(argv):
     if not argv or argv[0] not in ("estimate", "transcript") or (argv[0] == "transcript" and len(argv) < 2):
         print(__doc__)
         return 2
-    over = estimate() if argv[0] == "estimate" else transcript(argv[1:])
+    if argv[0] == "estimate":
+        print("estimate is retired (shape release 11.0): Deconstruct's messages are model wording now; "
+              "measure real runs with 'transcript'")
+        return 2
+    over = transcript(argv[1:])
     for what, where, c in over:
         print(f"OVER: {what} ({where}): {c} words")
     print("OK" if not over else f"{len(over)} over the limit")

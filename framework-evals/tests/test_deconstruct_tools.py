@@ -46,10 +46,13 @@ def line(lid, form="main"):
     return next(f.text for f in AL.load().get(lid, form) if f.text)
 
 
-# the line that says how the interview will go: the one count the single interview says (2026-11-15)
-HOW_LINE = line("deconstruct:light-line").replace("[M]", "30")
-# "About [M] questions left." is never said by the single interview; it stays in the corpus so a run that says it is seen
-COUNT = line("deconstruct:questions-left").replace("[M]", "12")
+# the line that says how the interview will go: model wording since the shape release (11.0), with its one
+# figure, a range of replies, found by pattern (check_scripted.COUNT_CARRIER_RE)
+HOW_LINE = ("We'll cover what it's for, what it produces, how we'll know it's good, what it works from, its rules "
+            "and limits, where you check it, and a few practice runs: about 10 to 15 replies.")
+# "About [M] questions left." is never said; a run that says it is seen by pattern (COUNT_LINE_RE)
+COUNT = "About 12 questions left."
+LIMITS = line("deconstruct:safety-limits-line").replace("[the sign, in the leader's words]", "sends the newsletter itself")
 
 
 class WordCount(unittest.TestCase):
@@ -76,11 +79,8 @@ class MaxWords(unittest.TestCase):
         self.assertFalse(ok({"type": "max_words", "max": 200, "turn": "first"}, session(1, ("go", None)))[0])
 
     def test_containing_a_line(self):
-        n_d23 = "\n".join([line("N-D23"), "Starts when: every Friday", "Ends with: a report",
-                           "Name: Weekly Report (rename it here if you like)", "Description: Drafts it.",
-                           line("N-D23", "ending")])
-        how_msg = "\n\n".join([HOW_LINE, n_d23])
-        c = {"type": "max_words", "max": 170, "containing": "deconstruct:light-line"}
+        how_msg = "\n\n".join([LIMITS, "Where data may go: only into this draft.", "What would you change or add?"])
+        c = {"type": "max_words", "max": 170, "containing": "deconstruct:safety-limits-line"}
         self.assertTrue(ok(c, session(1, ("go", "Hello."), ("1", how_msg)))[0])
         padded = how_msg + " extra" * (171 - CS.word_count(how_msg))
         self.assertFalse(ok(c, session(1, ("go", "Hello."), ("1", padded)))[0])
@@ -92,18 +92,20 @@ class MaxWords(unittest.TestCase):
     def test_validator_shapes(self):
         corpus = AL.load()
         good = [{"type": "max_words", "max": 200, "turn": "first"},
-                {"type": "max_words", "max": 170, "containing": "deconstruct:light-line"},
-                {"type": "max_words", "max": 170, "containing": "deconstruct:light-line", "form": "main"}]
+                {"type": "max_words", "max": 170, "containing": "deconstruct:safety-limits-line"},
+                {"type": "max_words", "max": 170, "containing": "deconstruct:safety-limits-line", "form": "main"}]
         bad = [{"type": "max_words", "turn": "first"},
                {"type": "max_words", "max": "200", "turn": "first"},
                {"type": "max_words", "max": 0, "turn": "first"},
                {"type": "max_words", "max": 200},
-               {"type": "max_words", "max": 200, "turn": "first", "containing": "deconstruct:light-line"},
+               {"type": "max_words", "max": 200, "turn": "first", "containing": "deconstruct:safety-limits-line"},
                {"type": "max_words", "max": 200, "turn": "last"},
                {"type": "max_words", "max": 200, "containing": "N-NOPE"},
                # retired with the two-track interview (2026-11-15): no longer approved lines
                {"type": "max_words", "max": 150, "containing": "N-L1"},
-               {"type": "max_words", "max": 150, "containing": "N-D17"}]
+               {"type": "max_words", "max": 150, "containing": "N-D17"},
+               # retired in the shape release (11.0): the how-it-will-go line is model wording now
+               {"type": "max_words", "max": 170, "containing": "deconstruct:light-line"}]
         for c in good:
             errs = []
             V.check_check(c, "x", errs, 1, corpus)
@@ -158,7 +160,7 @@ class RepliesByPart(unittest.TestCase):
         self.assertEqual(r["replies"], 6)
         # the one count point: the line that says how the interview will go, with the replies still to come
         self.assertEqual([(p["at"], p["message"], p["still_to_come"]) for p in r["count_points"]],
-                         [("deconstruct:light-line", 3, 3)])
+                         [("the how-it-will-go line", 3, 3)])
 
     def test_a_part_signpost_no_longer_splits_deconstruct(self):
         # the retired five-part interview's signposts and N-D17 mean nothing now: no part, no count point
@@ -169,7 +171,7 @@ class RepliesByPart(unittest.TestCase):
         self.assertEqual(r["by_part"], {"entry": 4})
         self.assertEqual(r["count_points"], [])
         self.assertNotIn("deconstruct", CS.SIGNPOST_IDS)
-        self.assertEqual(CS.COUNT_CARRIERS, [("deconstruct:light-line", "main")])
+        self.assertTrue(CS.COUNT_CARRIER_RE)
 
     def test_a_stray_count_line_shows_across_sessions(self):
         # "About [M] questions left." is never said now; a run that says it gets a count point, so it shows
@@ -180,7 +182,7 @@ class RepliesByPart(unittest.TestCase):
         r = L.replies_by_part([s1, s2])
         self.assertEqual(r["by_part"], {"entry": 6})
         self.assertEqual([(p["at"], p["session"], p["still_to_come"]) for p in r["count_points"]],
-                         [("deconstruct:light-line", 1, 3), ("the count line", 2, 1)])
+                         [("the how-it-will-go line", 1, 3), ("the count line", 2, 1)])
 
     def test_another_skill(self):
         s = session(1, ("go", "Part 1 of 4 — the plan."), ("ok", "Part 2 of 4 — safety."), ("fine", None))
@@ -188,6 +190,13 @@ class RepliesByPart(unittest.TestCase):
 
 
 class DeconstructWordCounter(unittest.TestCase):
+    def test_estimate_is_retired(self):
+        out = io.StringIO()
+        with redirect_stdout(out):
+            self.assertEqual(WC.main(["estimate"]), 2)
+        self.assertIn("retired", out.getvalue())
+
+    @unittest.skip("the 10.5 estimate: retired in the shape release (11.0); Deconstruct's messages are model wording")
     def test_estimate_builds_every_platform_from_the_corpus(self):
         rows = {p: WC.first_messages(p) for p in WC.LOCATION}
         for p, msgs in rows.items():
