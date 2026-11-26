@@ -39,7 +39,7 @@ standard and the spec differ, the spec wins: fix this file.
 These hold for scripted lines and model wording alike (rules 2.1).
 
 1. **Plain words.** Use the vocabulary below. Technical terms stay in the files. Design names the level of how much the workflow decides on its own once, in its plan review, with its plain meaning.
-2. **One question per message.** The only exceptions: Deconstruct's four grouped messages (the vague words, on the full track; the fixed-step reasons; the review points; the detail table), each item with a suggestion to keep or change, and its two-part target question; and Test's one reply per input (agree or not, and how much you'd edit it).
+2. **One question per message.** The only exceptions: Deconstruct's drafts (the goal and output, the checks, what it works from, the rules and limits, the checkpoints, the practice runs, the summary), each grouping its items and ending on one question; and Test's one reply per input (agree or not, and how much you'd edit it).
 3. **Every message ends with a question or a clear next action.**
 4. **No framework step numbers** anywhere the leader sees: questions, teaching lines, routing and orientation lines, openings and closes, skill descriptions (they appear in skill lists), and the registry's dashboard and `REGISTRY.md`. Name the step ("Design") and give its start phrase. Parts inside a step ("Part 2 of 4 — the plan") are fine, and so are the leader's own workflow steps where Deconstruct plays them back ("Step 3, your review, becomes a checkpoint").
 5. **No time estimates** anywhere: openings, closes, routing lines, course copy that describes the skills, eval targets. Effort is counted in leader actions. A count of rounds ("Two or three test rounds is normal") isn't a time estimate; it's said on the full track only.
@@ -51,7 +51,7 @@ These hold for scripted lines and model wording alike (rules 2.1).
 11. **Recommend, with a reason,** wherever the leader chooses between options. Fact questions carry no recommendation: only the leader knows the answer.
 12. **The leader does only what only they can do:** answer for their work, authorise a connection in their own account, provide or correct a document, OK a change in their accounts or a real check, judge a result, approve, and save or install.
 
-Step-specific runtime rules (Deconstruct's *(you said)* / *(my suggestion)* tags and its rubber-stamp guard, Design's approval rules) live in the step's own skill.
+Step-specific runtime rules (Deconstruct's italic suggestions and its "looks good" rule, Design's approval rules) live in the step's own skill.
 
 ### Vocabulary
 
@@ -60,7 +60,7 @@ Step-specific runtime rules (Deconstruct's *(you said)* / *(my suggestion)* tags
 | Workflow Requirements, your requirements | spec, PRD |
 | your plan, the Design Plan | Design Spec |
 | your build record; your test results | reconciliation table |
-| what every [deliverable] must get right; a must-have | acceptance criteria; "(must)" |
+| the checks; what a good [deliverable] has | acceptance criteria; must-have; "(must)" |
 | the rules it follows: "It always…", "It never…", "When…, it…" | must-always lines, M lines |
 | a checkpoint; where it asks first | human gate, gate |
 | a practice run; your practice inputs | test mode, test case, scenario, edge case |
@@ -80,11 +80,11 @@ Every line the leader sees is one of two kinds (rules 2.3). Mark which in the sk
 
 | Scripted: said as approved, word for word in the skill and the evals | Model wording: the model's own words, held to the runtime rules and graded by the judge rubric |
 |---|---|
-| Every question to the leader | Progress lines |
+| Questions and lines that protect the leader: approvals, sends, what can't be undone, deletes, go-live, data limits (the AI-use policy question), passwords (shape release, U1: James, 2026-11-26) | Every other question, and progress lines |
 | Every line carrying a safety rule or a promise: protection and honest-disclosure lines, the Deny line, the quick real check's permanent form, the practice run's first line, "stopping early is safe" | Resume and orientation lines |
 | The verdict and go-live lines | "Here's what I drafted" lines and playbacks |
 | Lines the built workflow carries (the flag, re-check, live and time-saved lines) | Acknowledgements |
-| Approved teaching lines (*Why*, *Example*, *Not sure?*) and other approved wording (Design's D-lines, the Git save-point offer) | The plan review's prose and other explanations |
+| Teaching lines (*Why*, *Example*, *Not sure?*) of a protective question, and start phrases | Other teaching lines, the plan review's prose and other explanations |
 | The files' structure: frontmatter keys, headings, table columns (later steps and scripts parse them) | Routing lines that aren't approved lines, which must carry the parts `references/routing.md` names |
 
 Three lines are model wording except a promise clause, which stays word for word: **N-F3** ("I'll read and save your files in [location]."), **N-L2** ("…, so I'll treat it as a full workflow.") and **N-B43** ("I'll write instructions only for what it missed, plus your rules.").
@@ -258,7 +258,7 @@ Every step has a light form for small, low-risk workflows and a full form for th
 
 | Step | Light form |
 |---|---|
-| Deconstruct | Five things (goal; output and three to five yes-or-no checks; what it works from; rules and where the leader approves; two or three examples), then three safety questions in the full track's wording. The track line, N-L1, comes early. |
+| Deconstruct | One interview for every workflow, in seven drafted parts; the questions a risk calls for (policy, access, carry-over, law) are added by their own triggers, and nothing is said about a track. |
 | Design | At most two or three questions; the plan review in one message; approval as usual. |
 | Build | As the full track: setup, one quick real check per kind of change, the bare run, checking each task; three parts. |
 | Test | One round. "Two or three test rounds is normal" isn't said. |
@@ -335,7 +335,7 @@ Every skill carries `SKILL.md` and `references/routing.md`. The rest follow each
 | Skill | Its other files |
 |---|---|
 | Analyze | `references/part-1-reading-and-the-lens.md` (N-A11), `evidence-pass.md` (N-A12, N-A13, N-A16, N-A19), `the-walk.md` (N-A14, N-A17, N-A20, N-A22, the do-more-of and walk questions), `registering-candidates.md` (N-A15, the value-lever definition line), `report-format.md`, `resuming-and-picking-up.md`; every other line in `SKILL.md` |
-| Deconstruct | `references/choosing-a-workflow.md`, `from-a-document.md`, `part-1-what-this-is-worth.md` to `part-5-rules-sources-and-practice-runs.md`, `light-track.md`, `re-runs.md`, `requirements-template.md`, `personal-life.md` |
+| Deconstruct | `references/choosing-a-workflow.md`, `from-a-document.md`, `interview.md`, `personal-life.md`, `re-runs.md`, `requirements-template.md`, `saving-the-requirements.md`, `storage.md`, `location.md`, `routing.md`, `routing-rare.md`, `saving.md`, `platform-facts.md` |
 | Design | `references/plan-template.md`, `self-test-checklist.md`, `updating-the-plan.md`, `capability-domains.md`, `orchestrator-on-primary-loop.md` |
 | Build | `references/setup.md`, `claude-code-block.md`, `bare-run.md`, `carried-lines.md`, `standard-tasks.md`, `package-and-install.md`, `microsoft-365-agent.md`, `fix-mode.md`, `live-change.md`, `build-record-template.md`, `skill-spec.md`, `agent-spec.md`; `scripts/test-run.sh` |
 | Test | `references/hand-overs.md`, `claude-code-runs.md`, `going-live.md`, `rounds.md`, `results-template.md`; `scripts/test-run.sh` |
