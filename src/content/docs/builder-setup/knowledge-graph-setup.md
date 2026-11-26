@@ -3,8 +3,8 @@ title: Knowledge Graph Setup
 description: Build your business knowledge graph — a Markdown knowledge bundle about the work you do, written and maintained by your AI assistant from an interview
 schema_type: HowTo
 howto_steps:
-  - name: Open your project folder in a tool that writes files
-    text: Claude Code, the Claude desktop app, or the ChatGPT desktop app's Codex view. Open the folder that will hold your knowledge graph. A browser chat window cannot build one.
+  - name: Open your working folder in a tool that writes files
+    text: Claude Code, the Claude desktop app, or the ChatGPT desktop app's Codex view. Open your working folder, ai-workspace, the one that holds registry/ (any folder works if you aren't on the course); the knowledge graph goes beside it. A browser chat window cannot build one.
   - name: Say "Build my knowledge graph."
     text: Your assistant confirms the folder, looks at what is already there, makes a raw/ folder for your documents, and interviews you about the work you, your team, or your company does (about 30 minutes end to end).
   - name: Approve the type list, then send the word build
@@ -24,10 +24,11 @@ New to Markdown? See [Markdown Basics](../markdown-basics/).
 A folder that looks like this once the build has run (Claude Code names; in the ChatGPT app, Cursor and Google Antigravity `.claude/` is `.agents/` and `CLAUDE.md` is `AGENTS.md`):
 
 ```
-my-business/                     ← you open your AI here
+ai-workspace/                    ← your working folder; you open your AI here
 ├── .claude/skills/              ← two procedures the build writes for you
 │   ├── ingest/SKILL.md             fold a document into the pages it affects
 │   └── lint/SKILL.md               sweep every page against the rulebook
+├── registry/                    ← your AI Registry, if you have one; the build leaves it untouched
 ├── raw/                         ← your documents, exactly as they arrived; read, never edited
 ├── knowledge/                   ← the graph itself
 │   ├── clients/                    one folder per kind of thing
@@ -68,7 +69,7 @@ The [AI Registry](../ai-registry-setup/) records what you build *with* AI: your 
 1. **The Hands-on AI skills are in your AI tool.** The build is run by a skill called `building-knowledge-graph`. If you installed the Hands-on AI plugin (Claude or ChatGPT), you already have it. If you add skills by uploading ZIP files (Cursor, Codex CLI, Google Antigravity, or a plan that blocks plugins), upload [building-knowledge-graph.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/building-knowledge-graph.zip).
 
    Haven't set up the skills yet? Follow [Install the Hands-on AI Plugin](../../ai-workflow-framework/skills/) for your tool, then come back here.
-2. **A folder for your project.** If you already keep your AI Registry and workflows in a working folder (for example `ai-workspace`), use that. Otherwise any folder works: on your computer, a synced cloud-drive folder, or a clone of a GitHub repository. Open your AI at that folder's root, not inside `knowledge/`. If you made a `my-business` repository for the course, use that.
+2. **Your working folder.** Use `ai-workspace`, the working folder you made in the course's Build Your Working Folder lesson, which holds your `registry/`. The graph's `knowledge/` folder goes beside it. Not on the course? Any folder works, on your computer or in a synced cloud-drive folder. Open your AI at the folder's root, not inside `knowledge/`.
 3. **Two or three real documents about your work** handy: a proposal, a client summary, a process doc, a team charter. The skill asks where they are and makes the `raw/` folder for them. Leave out anything with personal data about identifiable people: payroll, health, individual HR records.
 4. **A jotted list** of the five to ten most important named things in your work: clients, products, projects, tools, policies, teams. The interview starts there.
 

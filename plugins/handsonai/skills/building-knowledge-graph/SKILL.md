@@ -140,7 +140,7 @@ ONLY when the user sends the word **build** as its own message. Construct the gr
 
 Then report everything you built, grouped as **graph**, **rules**, and **skills**, say where each thing is, and say that `types.md` is now part of `knowledge/SCHEMA.md`.
 
-If the user says the build produced something they did not want and nothing of theirs is in `knowledge/` yet, offer to start the build again: rewrite `types.md` at the project root from `SCHEMA.md` and the seeded pages (which real items are linked), in the Phase 4 shape, then delete `knowledge/`, fix `types.md` with the user, show it with the Phase 4 line, and build when they send **build**. Replace the `# Knowledge graph` block and the two skills you wrote; never add second copies. Once real content is in the graph, never rebuild; fix the specific thing.
+If the user says the build produced something they did not want and nothing of theirs is in `knowledge/` yet, offer to start the build again: rewrite `types.md` at the project root from `SCHEMA.md` and the seeded pages (which real items are linked, and each page's record link from its `records:` line or its text), in the Phase 4 shape, then delete `knowledge/`, fix `types.md` with the user, show it with the Phase 4 line, and build when they send **build**. Replace the `# Knowledge graph` block and the two skills you wrote; never add second copies. Once real content is in the graph, never rebuild; fix the specific thing.
 
 Follow `references/interview-guide.md` § Phase 5.
 
