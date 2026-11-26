@@ -178,9 +178,10 @@ Examples: none yet
 
 - A Client has Engagements. Heading: `# Engagements` on the Client page, `# Client` on the Engagement page. Order: by start date, oldest first.
 - An Engagement uses Playbooks. Heading: `# Playbooks used` on the Engagement page, `# Used in` on the Playbook page. Order: no.
+  Pairs: Acme AI Roadmap uses Kickoff Checklist, Discovery Interview
 ```
 
-Every type carries a `System of record:` line, `none` included. Record links the user pasted go at the end of the matching type's section, one per line, under `Record links:` (`- Acme Manufacturing: https://app.hubspot.com/contacts/00000000/record/0-2/12345678`); leave the heading out when there are none.
+A relationship's `Pairs:` line lists the specific pairings the user confirmed, so the build can link the pages; leave it out when none was confirmed. Every type carries a `System of record:` line, `none` included. Record links the user pasted go at the end of the matching type's section, one per line, under `Record links:` (`- Acme Manufacturing: https://app.hubspot.com/contacts/00000000/record/0-2/12345678`); leave the heading out when there are none.
 
 **Then say:** "That's your blueprint. Read it once, top to bottom. When I build, everything in it moves into your graph's rulebook and this file is deleted, so there's only one copy to keep up to date. When you're ready for me to build the graph from it, send the single word **build** on its own."
 
@@ -199,7 +200,7 @@ Follow `references/build-spec.md` exactly. Fetch the latest OKF spec first. Dele
 Follow SKILL.md § Close. Lines to use:
 
 - Skills check, on every platform: "Ask me to *ingest* by name (or type `/ingest`, if your tool has slash commands) and tell me whether the ingest skill starts. If nothing happens, we'll add the two skills where your tool keeps skills or saved instructions, so they load."
-- If the tool can't load skills: "Your tool can't load skills, so whenever you want one, say *read `<skills folder>/ingest/SKILL.md` and follow it*, or the same for `lint`."
+- If the tool can't load skills: "Since the skills aren't loading, whenever you want one, say *read `<skills folder>/ingest/SKILL.md` and follow it*, or the same for `lint`."
 - Ingest: "Pick one document in `raw/`, or paste one, and say *ingest it*."
 - Query: "Ask me something that crosses a connection, like *which playbooks have we used with Acme?* I'll answer from your pages, plus a linked record if the question needs what that system keeps, and tell you which ones I read. If I can't find the answer in either, I'll say so rather than guess."
 - File the answer: "Want me to keep that answer as a Note so it's there next time?"

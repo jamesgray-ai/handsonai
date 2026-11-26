@@ -161,7 +161,7 @@ declared relationship, and may be one-way.
   individual HR records.
 ```
 
-Each type's `System of record:` line comes from `types.md`. The `## Relationships` list copies `types.md`'s `# How they connect` lines, one per declared relationship, in the same order. On a fresh build, if every type's system is `none`, leave out the four `records:` bullets in Conventions (from "`records:` links a page" through "`records:` is this graph's own frontmatter key"); keep the test, the maintained-claims bullet, and the `System of record:` bullet. Adding the convention to an existing graph (SKILL.md Phase 0) always includes the four bullets, because the user asked for it. Otherwise, in the `records:` example, use the user's system name and one of the record links they gave, or keep the example's shape with `<placeholders>` if they gave none.
+Each type's `System of record:` line comes from `types.md`. The `## Relationships` list copies `types.md`'s `# How they connect` lines, one per declared relationship, in the same order. On a fresh build, if every type's system is `none`, leave out the four `records:` bullets in Conventions (from "`records:` links a page" through "`records:` is this graph's own frontmatter key"); keep the test, the maintained-claims bullet, and the `System of record:` bullet. Adding the convention to an existing graph (SKILL.md Phase 0) always includes the four bullets, because the user asked for it. Otherwise, in the `records:` example, use the user's system name and keep the link as `<placeholders>`: record links live on the pages, never in `SCHEMA.md`.
 
 ### Concept pages
 
@@ -266,7 +266,7 @@ Newest date first. Entries are prose; the bold word is Creation, Update, Ingest,
 
 ## The standing rules — `CLAUDE.md` or `AGENTS.md` at the project root
 
-About thirty lines. If the file already exists (a course workspace often has one), **append** this block under a heading `# Knowledge graph` rather than overwriting. Item 3 of *Answering my questions* says **connector**: the connector to that system — what *Distinguish the Types of Context Your AI Needs* calls a connection (ChatGPT calls it an app; Claude Code and Codex, an MCP server). In this skill, a *connection* is a link between types, so never call the platform feature that.
+About thirty lines. If the file already exists (a course workspace often has one), **append** this block under a heading `# Knowledge graph` rather than overwriting; when starting the build again (SKILL.md Phase 5), replace the `# Knowledge graph` block you wrote instead. Item 3 of *Answering my questions* says **connector**: the connector to that system — what *Distinguish the Types of Context Your AI Needs* calls a connection (ChatGPT calls it an app; Claude Code and Codex, an MCP server). In this skill, a *connection* is a link between types, so never call the platform feature that.
 
 ```markdown
 # Knowledge graph

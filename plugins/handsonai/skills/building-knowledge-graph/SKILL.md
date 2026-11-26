@@ -122,7 +122,7 @@ Follow `references/interview-guide.md` § Phase 3.
 
 ## Phase 4 — Approve (1 min)
 
-This comes after the relationships round; the approval covers types and connections together. When the user approves the list: write exactly ONE file, `types.md`, at the ROOT of the project (NOT inside `knowledge/`, which does not exist yet and will hold only knowledge pages). Two sections: `# The types` (each type with its one-line definition, its `System of record:` line (the system and the facts it keeps, or `none`), the named examples agreed, and any record links the user pasted) and `# How they connect` (one line per declared relationship: the sentence, the heading on each side, and whether order matters). Replace any draft the user brought. Show it and stop. This file is the blueprint you build from; it lasts only until the build, which folds it into `SCHEMA.md` and deletes it.
+This comes after the relationships round; the approval covers types and connections together. When the user approves the list: write exactly ONE file, `types.md`, at the ROOT of the project (NOT inside `knowledge/`, which does not exist yet and will hold only knowledge pages). Two sections: `# The types` (each type with its one-line definition, its `System of record:` line (the system and the facts it keeps, or `none`), the named examples agreed, and any record links the user pasted) and `# How they connect` (one line per declared relationship: the sentence, the heading on each side, whether order matters, and any pairings the user confirmed). Replace any draft the user brought. Show it and stop. This file is the blueprint you build from; it lasts only until the build, which folds it into `SCHEMA.md` and deletes it.
 
 Follow `references/interview-guide.md` § Phase 4.
 
@@ -140,7 +140,7 @@ ONLY when the user sends the word **build** as its own message. Construct the gr
 
 Then report everything you built, grouped as **graph**, **rules**, and **skills**, say where each thing is, and say that `types.md` is now part of `knowledge/SCHEMA.md`.
 
-If the user says the build produced something they did not want and nothing of theirs is in `knowledge/` yet, offer to start the build again: rewrite `types.md` at the project root from `SCHEMA.md` and the seeded pages (which real items are linked, and each page's record link from its `records:` line or its text), in the Phase 4 shape, then delete `knowledge/`, fix `types.md` with the user, show it with the Phase 4 line, and build when they send **build**. Replace the `# Knowledge graph` block and the two skills you wrote; never add second copies. Once real content is in the graph, never rebuild; fix the specific thing.
+If the user says the build produced something they did not want and nothing of theirs is in `knowledge/` yet, offer to start the build again: rewrite `types.md` at the project root from `SCHEMA.md` and the seeded pages (their links, as `Pairs:`, and each page's record link from its `records:` line or its text), in the Phase 4 shape, then delete `knowledge/`, fix `types.md` with the user, show it with the Phase 4 line, and build when they send **build**. Replace the `# Knowledge graph` block and the two skills you wrote; never add second copies. Once real content is in the graph, never rebuild; fix the specific thing.
 
 Follow `references/interview-guide.md` § Phase 5.
 
