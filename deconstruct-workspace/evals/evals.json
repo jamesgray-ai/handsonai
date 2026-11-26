@@ -16705,7 +16705,7 @@
       "fixture": "newsletter",
       "prompt": "Run the deconstruct skill. My files are in framework.",
       "student": "students/LS-law-not-sure.md",
-      "expected_output": "The leader's notes name client contacts (customer personal data, a signal), so the law question comes; a \"not sure\" asks neither regulation question and says no N-D6; the file records `Governing regime: Not sure — to check` and `track: full`; the policy question is asked; no track is named.",
+      "expected_output": "The leader's sources hold customers' account records (records held about individual customers, a signal), so the law question comes; a \"not sure\" asks neither regulation question and says no N-D6; the file records `Governing regime: Not sure — to check` and `track: full`; the policy question is asked; no track is named.",
       "files": [
         "students/LS-law-not-sure.md"
       ],
@@ -16728,7 +16728,7 @@
           }
         },
         {
-          "text": "The law question is asked: the notes name client contacts with their email addresses (customer personal data), a signal",
+          "text": "The law question is asked: the sources hold customers' names, home addresses, dates of birth and account histories (records about individual customers), a signal",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
@@ -16737,7 +16737,7 @@
           "must": true
         },
         {
-          "text": "The law question comes before the one-screen summary, in its own message, from the signal in the leader's answer (the notes name client contacts); \"not sure\" is accepted as an answer",
+          "text": "The law question comes before the one-screen summary, in its own message, from the signal in the leader's answer (the customer account records); \"not sure\" is accepted as an answer",
           "kind": "judged",
           "must": true
         },
@@ -16868,7 +16868,7 @@
           }
         },
         {
-          "text": "The notes hold client contacts' personal details, so the policy question is asked word for word (its full form, or its founder form when the leader owns the business)",
+          "text": "The sources hold customers' personal details, so the policy question is asked word for word (its full form, or its founder form when the leader owns the business)",
           "kind": "scripted",
           "check": {
             "type": "any",
