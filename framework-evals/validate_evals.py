@@ -166,13 +166,18 @@ def validate_file(path, build=False, strict_tiers=False, only=None, warnings=Non
         if "core_runs" in ev and not (isinstance(ev["core_runs"], int) and not isinstance(ev["core_runs"], bool)
                                       and 1 <= ev["core_runs"] <= 3 and (tier or data.get("default_tier")) == "core"):
             errs.append(f"{w}: core_runs {ev['core_runs']!r} must be 1 to 3, on a core eval")
+        for k in ev:
+            if k != "safety" and k.lower() in ("safety", "safe", "safety_test", "is_safety"):
+                errs.append(f"{w}: unknown key {k!r}: did you mean safety?")
         if "safety" in ev:
             # the shape release's paid gate: tagged core evals, 3 runs each (1 on Microsoft 365 and Codex)
             if ev["safety"] is not True:
                 errs.append(f"{w}: safety must be true (or left out), not {ev['safety']!r}")
             elif (tier or data.get("default_tier")) != "core":
                 errs.append(f"{w}: safety is set only on a core eval")
-            elif ev.get("core_runs", 3) < 3 and not ({ev.get("platform")} | {s.get("platform") for s in ev.get("sessions") or []}) & {"microsoft-365", "codex"}:
+            elif ev.get("core_runs", 3) != 3 and not all(
+                    (s.get("platform") or ev.get("platform") or "claude-code") in ("microsoft-365", "codex")
+                    for s in ev.get("sessions") or [{}]):
                 errs.append(f"{w}: a safety eval runs 3 times (core_runs 1 only on Microsoft 365 or Codex)")
         for k in ("id", "name", "expected_output", "expectations", "files"):
             if k not in ev:

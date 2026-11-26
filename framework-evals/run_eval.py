@@ -735,6 +735,11 @@ def main():
         if not evs:
             sys.exit("no safety evals selected")
         print(f"safety: {len(evs)} evals")
+    if args.tier == "safety" and not args.eval_ids:
+        # the gate never shrinks quietly (Pass 0 review): a blocked safety eval fails the round
+        blocked = [ev["id"] for ev in evs if ev.get("blocked_on")]
+        if blocked:
+            sys.exit(f"blocked safety evals, so the gate can't run whole: {', '.join(blocked)}")
     if not args.eval_ids:
         # an eval with a `blocked_on` note can't pass until that lands: every run would be spent invalid
         blocked = [ev["id"] for ev in evs if ev.get("blocked_on")]
