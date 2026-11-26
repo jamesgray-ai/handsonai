@@ -336,7 +336,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
     root = H.new_run_root(args.plugin)
     plugin = root / "plugin"
     ws = root / "workspace"
-    calls, run = [], {"sessions": []}
+    calls, run = [], {"sessions": [], "skill": data.get("skill_name")}
     status, note = "valid", ""
     judged, scripted, fid = [], [], None
     sessions = list(ev.get("sessions") or [{"prompt": ev["prompt"], "student": True}])

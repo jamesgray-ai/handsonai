@@ -951,6 +951,28 @@ DOCS_LABEL = ("## The platform's official pages the step was given (its platform
               "The step is told to point the leader to these pages: a link to one is backed. They hold no fact "
               "about the leader's work.\n\n")
 
+FACTS_LABEL = ("## The skill's platform rules (its references/platform-facts.md; context, not graded)\n\n"
+               "A statement the step makes that these rules back is not invented.\n\n")
+
+
+def skill_platform_facts(run, skill):
+    """F4 (shape release): the skill's references/platform-facts.md, from the plugin copy the session
+    ran with (a `plugin/` folder beside or above the run root), else this repo's; "" when there's none."""
+    plugin = None
+    for s in run["sessions"]:
+        for up in list(Path(s["root"]).parents)[:2] if s.get("root") else ():
+            if (up / "plugin").is_dir():
+                plugin = up / "plugin"
+                break
+        if plugin:
+            break
+    f = (plugin or HERE.parent / "plugins" / "handsonai") / "skills" / str(skill or "") / "references" / "platform-facts.md"
+    try:
+        return f.read_text().strip() if skill and f.is_file() else ""
+    except OSError:
+        return ""
+
+
 COMMANDS_CAP = 6000
 COMMAND_LEN = 240
 RESULT_LEN = 500
@@ -1169,6 +1191,8 @@ def rubric_prompt(run):
     read += f"{INPUTS_LABEL}{inputs}\n\n" if inputs else ""
     docs = platform_docs(run, msgs)
     read += f"{DOCS_LABEL}````\n{docs}\n````\n\n" if docs else ""
+    facts = skill_platform_facts(run, run.get("skill"))
+    read += f"{FACTS_LABEL}````\n{facts}\n````\n\n" if facts else ""
     settings = settings_files(run)
     read += f"{SETTINGS_LABEL}````\n{settings}\n````\n\n" if settings else ""
     calls = tool_calls(run)
