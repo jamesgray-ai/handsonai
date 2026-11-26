@@ -7355,6 +7355,8 @@
   },
   {
    "id": "NF-start",
+   "retired": true,
+   "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
    "name": "no-files-start",
    "tier": "regression",
    "spec_item": "14",
@@ -7426,6 +7428,8 @@
   },
   {
    "id": "NF-pick-up",
+   "retired": true,
+   "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
    "name": "no-files-pick-up",
    "tier": "regression",
    "spec_item": "14",
@@ -7454,6 +7458,8 @@
   },
   {
    "id": "NF-change",
+   "retired": true,
+   "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
    "name": "no-files-change",
    "tier": "regression",
    "spec_item": "14",

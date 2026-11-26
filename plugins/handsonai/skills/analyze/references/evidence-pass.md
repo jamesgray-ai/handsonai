@@ -6,7 +6,7 @@ The evidence pass reads only what the student gave on purpose, drafts one shortl
 
 **Skip it:**
 - on the fast path (the report gets no **Sources** entry);
-- when there is **nothing to scan**: no source in this platform's row of the table below is present. That means no documents beyond `registry/`, `framework/`, `REGISTRY.md` and `registry-dashboard.html`, no memory or past chats the platform offers, and nothing named or attached. A general folder with no `knowledge/` and no memory or past chats is nothing to scan. N-A12 isn't asked, and the opening ends with N-A14's opening form (`the-walk.md`). It happens mainly on the web, Cowork, Claude desktop and print-to-save; Claude Code nearly always has memory files or typed requests.
+- when there is **nothing to scan**: no source in this platform's row of the table below is present. That means no documents beyond `registry/`, `framework/`, `REGISTRY.md` and `registry-dashboard.html`, no memory or past chats the platform offers, and nothing named or attached. A general folder with no `knowledge/` and no memory or past chats is nothing to scan. N-A12 isn't asked, and the opening ends with N-A14's opening form (`the-walk.md`). It happens mainly on the web, Cowork and Claude desktop; Claude Code nearly always has memory files or typed requests.
 
 With only memory and past chats (the web, Claude desktop), N-A12 uses its memory-only form.
 
@@ -19,7 +19,6 @@ With only memory and past chats (the web, Claude desktop), N-A12 uses its memory
 | Claude desktop | The selected working folder's documents, with the same exclusions | Saved memory and past chats, where available |
 | Claude Code; Codex; ChatGPT's Work tab working in a folder on the student's computer | Only the workspace's `knowledge/`, `sops/` and `process-guides/`, plus any folder or file the student names or adds to the session | Claude Code: the memory files (the workspace's and user's `CLAUDE.md`, and the project's memory file) and the requests typed into Claude Code in any project. Codex and the Work tab: the workspace's `AGENTS.md` only; no history is read |
 | Cloud session | The repository's `knowledge/`, `sops/` and `process-guides/`, plus anything the student names | The repository's `CLAUDE.md` or `AGENTS.md`; no typed requests |
-| Print-to-save | What the student pastes or attaches | Saved memory and past chats, where the platform has them |
 
 The Work tab on the web follows the web row; in a folder on the student's computer it follows Codex everywhere, as `location.md` decides (the routing rule's location step). The registry views (`REGISTRY.md`, `registry-dashboard.html`) are never evidence.
 
@@ -42,7 +41,7 @@ The Work tab on the web follows the web row; in a folder on the student's comput
 **Listing before asking.** On the web, Claude desktop and Cowork, you may list the working folder's file names to fill N-A12's [n] and [kinds]. List nothing else, anywhere. When the student asks "which ones?", you may list the file names in the chat, never in a file. On Claude Code, include the memory-files and typed-request clauses without first checking whether any exist (the user's `CLAUDE.md` and the history file are outside the workspace), so no prompt to read outside the workspace appears before the question. After a yes, a source with nothing in it is passed over in silence.
 
 **Attached files** are evidence wherever they came from, a drive's file picker included. Attaching is the act of giving, so they need no permission. In the shortlist, name them by kind ("your attached checklist"), never by title.
-- **The exception:** a folder or zip attached so the step can find its files (Cowork's N-F13 fallback, print-to-save's zip). Read it under the working-folder documents rule, and ask about it with N-A12's attached-folder form. It doesn't become the working folder.
+- **The exception:** a folder attached so the step can find its files (Cowork's N-F13 fallback). Read it under the working-folder documents rule, and ask about it with N-A12's attached-folder form. It doesn't become the working folder.
 
 **A document attached mid-flow,** in answer to the open question or its *Not sure?*, is read under *Drafting the shortlist*'s rules. Its items join the student's answer in one "So far I have: …" playback, each with its evidence clause and "(my guess, from your [document kind])". It gets no shortlist question of its own, and adds no question.
 
@@ -102,13 +101,13 @@ Every form ends with the same promise, filled:
 
 **Ask:** "Besides your registry, may I look through the [n] other documents in your working folder ([kinds])? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones."
 
-**Memory only** (the web or Claude desktop with no documents to read), **and print-to-save with nothing attached:**
+**Memory only** (the web or Claude desktop with no documents to read):
 
 **Ask:** "May I look through your saved memory and past chats in your [Claude/ChatGPT] account (not your drive)? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes or no. You can also attach a document that shows the work."
 
 On Claude desktop, without "(not your drive)".
 
-**An attached folder or zip** (Cowork's N-F13 fallback, print-to-save's zip):
+**An attached folder** (Cowork's N-F13 fallback):
 
 **Ask:** "Besides your registry, may I look through the [n] other documents in the folder you attached ([kinds]) and your saved memory and past chats in your [Claude/ChatGPT] account? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones."
 
@@ -292,4 +291,4 @@ The progress file (`resuming-and-picking-up.md`) saves, from this pass:
 - **after the shortlist answer,** never before it, so only kept items are ever saved: kept items as candidates (process, evidence clause, problem and its tag, goal), dropped items as a count, items never shown by name, and the **Sources** dates;
 - **after the already-runs answers:** running work (name, home, regular use, "works well" or the improvement) and registry workflows to record as running.
 
-On a create-only drive, save once here: after the already-runs answers, or after the shortlist answer when nothing runs. On print-to-save, keep no file.
+On a create-only drive, save once here: after the already-runs answers, or after the shortlist answer when nothing runs.

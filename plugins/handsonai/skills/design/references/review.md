@@ -2,7 +2,7 @@
 
 Read at the start of Part 4, before writing the review, and whenever the review is shown again. The consequential points, the approval question and the close are in SKILL.md (*Phase 4*).
 
-**The review** opens with "Here's the plan in brief. The full plan is in [location]." (N-4; no files: "Here's the plan in brief. Say 'show me the full plan' to see all of it; you'll get the approved version to save at the end.") and covers the eight points below, in plain words, with no requirement or task IDs. Say only what the plan and the requirements hold: add no detail, name or figure that neither states, and claim nothing about your own work that the files don't show.
+**The review** opens with "Here's the plan in brief. The full plan is in [location]." (N-4) and covers the eight points below, in plain words, with no requirement or task IDs. Say only what the plan and the requirements hold: add no detail, name or figure that neither states, and claim nothing about your own work that the files don't show.
 
 1. **How it will run, and how much it decides on its own:** where it runs, how the leader starts it, and whether it runs with or without them. Then the level, named once, said exactly, its lead-in included:
    - "How much it decides on its own: Deterministic. You give it instructions: it carries out each step you set, and what it produces never changes what happens next."

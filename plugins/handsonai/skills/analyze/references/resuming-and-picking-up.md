@@ -1,6 +1,6 @@
 # Resuming, later runs and the other lens
 
-Read at a resume (the progress file is there, or on print-to-save a pasted report with a **Report status** block), when saving the progress file, on a later run (an existing report with no progress file), when the student runs the other lens, and for a 10.4 progress file or report.
+Read at a resume (the progress file is there), when saving the progress file, on a later run (an existing report with no progress file), when the student runs the other lens, and for a 10.4 progress file or report.
 
 ## The progress file
 
@@ -37,11 +37,9 @@ Read at a resume (the progress file is there, or on print-to-save a pasted repor
 
 **Finish it** once the Workflow nodes are written (no registry: once `backlog.md` is written), or at the zero close: locally, delete it; on any drive, move it to `history/analyze-in-progress-YYYY-MM-DD-HHMM.md` in the framework folder, never delete it through the connection. Only the framework folder's own `analyze-in-progress.md` is ever resumed.
 
-**On print-to-save,** keep no file. The report so far, with its **Report status** block (`report-format.md`), plays its part: give it, complete, with where it goes, after the open-question playback, after the walk, and at any stop, and say in one line that pasting it into a new chat with "run the analyze skill" picks up from it. At the close, give every file complete.
-
 ## Resume
 
-The progress file exists (or a pasted report has a **Report status** block). It replaces the opening. Open with the one orientation line (SKILL.md, *Entry*), then say what was noted ("Last time I noted [candidates]."; with nothing noted yet, "Let's pick up where we left off."), then, when shortlist items not shown yet are saved, N-A19's "[n] more…" line for them, in its form (`evidence-pass.md`), so "show the rest" can bring them; then go to the saved stage, with the flags. The resume message asks one thing: the saved stage's question. N-A19's line in it is no second question: as on the shortlist, "show the rest" may be said in place of answering. When it is, the rest come as `evidence-pass.md` says, and after their answer the stage's question is not shown again in full: the open question, already shown in this chat, is repeated as its question sentence only (`the-walk.md`, *The open question*). The stages:
+The progress file exists. It replaces the opening. Open with the one orientation line (SKILL.md, *Entry*), then say what was noted ("Last time I noted [candidates]."; with nothing noted yet, "Let's pick up where we left off."), then, when shortlist items not shown yet are saved, N-A19's "[n] more…" line for them, in its form (`evidence-pass.md`), so "show the rest" can bring them; then go to the saved stage, with the flags. The resume message asks one thing: the saved stage's question. N-A19's line in it is no second question: as on the shortlist, "show the rest" may be said in place of answering. When it is, the rest come as `evidence-pass.md` says, and after their answer the stage's question is not shown again in full: the open question, already shown in this chat, is repeated as its question sentence only (`the-walk.md`, *The open question*). The stages:
 - **relationship** → the role question where it's needed, else N-A11 and the permission question (or N-A14's opening form);
 - **role** → N-A11 and the permission question (or N-A14's opening form);
 - **permission** → read again the sources the student said yes to, and draft the shortlist again, without asking N-A12 again;
@@ -55,7 +53,7 @@ The progress file exists (or a pasted report has a **Report status** block). It 
 - **list confirmed, nodes not written** → write the report and the nodes, then the close;
 - **fast path** → the fast path's next step.
 
-"Noted", for Deconstruct's unfinished-Analyze check, is any candidate. A pasted finished report (no **Report status** block) starts a later run.
+"Noted", for Deconstruct's unfinished-Analyze check, is any candidate.
 
 ## A later run
 
@@ -71,8 +69,6 @@ An existing report, no progress file, and no "start over". It merges into the sa
 - a source with nothing new isn't named.
 
 The evidence will meet the registered workflows' own documents and history, so expect the "Already in your registry" line (`evidence-pass.md`).
-
-**On print-to-save,** the pasted report's processes with no card play the part of "processes with no Workflow node".
 
 **"Start over"** on the same lens: first move the earlier report to `history/ai-opportunity-report-YYYY-MM-DD-HHMM.md` in the framework folder, then run as new and write a new report.
 

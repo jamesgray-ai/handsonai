@@ -11,7 +11,7 @@ Read once a session, before your first record write; later writes in the session
 - Each row written straight after its task's check; frontmatter values updated as they change.
 - `plan_revision` and `last_close_after_round` set only at a close, never at a stop or a pause.
 - "What was built" and "What it can access" written at every close, and "What it can access" again whenever a connection or permission changes.
-- Saved after each task (local files, a drive that updates in place); at each part's end, after each main skill's task, and at every pause and stop on a drive that can only create files (the current file moved into `history/build-record-YYYY-MM-DD-HHMM.md` first); given to the leader on print-to-save.
+- Saved after each task (local files, a drive that updates in place); at each part's end, after each main skill's task, and at every pause and stop on a drive that can only create files (the current file moved into `history/build-record-YYYY-MM-DD-HHMM.md` first).
 
 ## 2. The template
 
@@ -88,7 +88,7 @@ One row per task, `KW` and `SCH` included, its Task cell the plan's task ID exac
 | T3 | New skill: S2 | C1 | follow-up-drafter | package/skills/follow-up-drafter/ | Created | yes | 2 | 1 | E2: AC1–AC4 met | — |
 ```
 - **Status:** `Created`, `Reused`, `Extended` or `Installed by you`, for what was made; `Built, misses [line]`, for a task finished with a known miss; `Waiting on [the open item]`, `Waiting on change request [id]`, `Failed check`, `Not built yet` or `Removed from the plan`, for what wasn't. The `SCH` row is `Created` with `schedule: safety-incomplete` too.
-- **Saved:** `yes` once the part is kept where a later session can find it (installed, or staged in `package/`); on print-to-save, once the leader has the text; otherwise `no`.
+- **Saved:** `yes` once the part is kept where a later session can find it (installed, or staged in `package/`); otherwise `no`.
 - **Path or location:** `package/…` while a part is staged; its installed place once Part 3 installs it.
 - **Built rev:** the task's `rev` when built. **Last built after round:** the last round's number when you last built or rebuilt it (0 before any round).
 - **Check:** the result in one line ("E2: AC1–AC4 met"; "dry run confirmed: #sales-updates"; "read-back: 3 open deals"; for an agent that failed its paste-back, "Failed check, deleted" or "Failed check, not deleted").

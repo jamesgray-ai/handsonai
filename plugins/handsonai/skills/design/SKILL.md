@@ -28,7 +28,6 @@ In `references/`. Read a file only when its row applies.
 | Any platform but Claude Code and Codex; or this chat can't find or read the framework files | `location.md` |
 | The leader says "change my workflow", in any form | `changes.md` |
 | An update (*What Design takes*, below, names them) | `updating-the-plan.md` |
-| A surface with neither files nor a writable drive | `no-files.md`, before the opening |
 | The requirements say `track: light`; or Build reports a track switch | `light-track.md` |
 | The plan's platform is Microsoft 365 Copilot | `microsoft-365.md`, before drafting |
 | The workflow starts on a schedule, or by checking for an event | `schedules.md`, before drafting |
@@ -39,7 +38,7 @@ In `references/`. Read a file only when its row applies.
 | The start of Part 4, and whenever the review is shown again | `review.md` (it says when to read `variants.md`, *The review*) |
 | The registry refresh fails; or, at the close, the workflow folder is in a Git repository | `shared-lines.md` |
 | You need a fact about the leader's platform (a menu path, whether a feature exists, how it behaves) | `platform-facts.md` |
-| Before the first save, and every read of a file you'll save again, through a connection (on the web, and on Claude desktop after "use my drive"); on print-to-save, its rule 5 | `saving.md` |
+| Before the first save, and every read of a file you'll save again, through a connection (on the web, and on Claude desktop after "use my drive"); with nothing that can save, its rule 5 | `saving.md` |
 
 ## Workflow
 
@@ -88,7 +87,7 @@ Said only when Design starts fresh: never before a routing line, never on a resu
 
 1. Said exactly: "Design turns your Workflow Requirements for [Name] into a plan for building it: what it's built from, how much it decides on its own, and how each part will be checked. I'll do the design work and ask you only what I can't work out; then you review the plan and approve it." No time.
 2. **The location (N-F3):** one line of model wording carrying "I'll read and save your files in [location]." and its platform clause. On Claude Code: "When Claude Code asks before I save a file, you can allow edits for this session; I'll only change the files this step needs." On Codex: "When Codex asks before I save a file, you can allow it for this session; I'll only change the files this step needs." On every other platform: the clause in `references/location.md`.
-3. **Picking up,** only where a new session can read the files (never on print-to-save): "Stopping early is safe: I'll save the plan once it's drafted, then as we go." then "To pick up, say 'run the design skill. My files are in [location].'" (Claude Code and Codex: "To pick up, start a new session in this project and say 'run the design skill.'") Claude desktop and Microsoft 365: N-F10's form in `references/location.md`, with 'run the design skill'.
+3. **Picking up,** only where a new session can read the files: "Stopping early is safe: I'll save the plan once it's drafted, then as we go." then "To pick up, say 'run the design skill. My files are in [location].'" (Claude Code and Codex: "To pick up, start a new session in this project and say 'run the design skill.'") Claude desktop and Microsoft 365: N-F10's form in `references/location.md`, with 'run the design skill'.
 4. "Part 1 of 4 — where it runs", then Phase 1's line.
 
 Signposts are for the full flow only, each said exactly with no intro line beyond its part's own first message. When Part 3 has nothing to ask, Part 4 follows with no announcement and keeps its number.
@@ -127,7 +126,7 @@ Say "Part 4 of 4 — review and approve" (when resuming in state 5, after the re
 2. The registry write (*Output*), with no text about it (the level is never named again).
 3. The close, said exactly, its two sentences together with nothing between them: "Plan approved. Next, Build makes the workflow from it, task by task, checking each part as it goes." It is the line itself, never a report of what you saved or recorded in its place: it starts with "Plan approved.", never "I've approved the plan and saved it…". Any other note, such as a registry refresh that failed, goes before "Plan approved.".
 4. With open items, add "[N] tasks wait for [the open item, in plain words]; Build does everything else first."
-5. The start phrase in its platform's form, to say in a new chat: "Start Build in a new chat. Add your [storage service] to it, then say 'run the build skill. My files are in [location].'" Claude Code and Codex: "Start Build in a new session in this project and say 'run the build skill.'" (on Claude Code, you may add that typing `/build` and picking it from the list works too). Claude desktop and Microsoft 365: N-F2's form in `references/location.md`, with Build and 'run the build skill'. Print-to-save, after the approved plan (`references/no-files.md`), N-F2's print-to-save form: "Start Build in a new chat with: 'run the build skill.' Then attach the latest zip I gave you, or paste or attach the files you saved."
+5. The start phrase in its platform's form, to say in a new chat: "Start Build in a new chat. Add your [storage service] to it, then say 'run the build skill. My files are in [location].'" Claude Code and Codex: "Start Build in a new session in this project and say 'run the build skill.'" (on Claude Code, you may add that typing `/build` and picking it from the list works too). Claude desktop and Microsoft 365: N-F2's form in `references/location.md`, with Build and 'run the build skill'.
 
 Anything else the leader needs comes before the close; nothing comes after it but the Git offer.
 
@@ -136,7 +135,7 @@ Anything else the leader needs comes before the close; nothing comes after it bu
 ### Saving and resuming
 
 - **Save** the draft at the end of Part 2, then each Part 3 answer as it comes where the connection updates files in place. On a connection that can only create files (but can move them), move the current file into `history/design-plan-YYYY-MM-DD-HHMM.md` before each save and save only at the end of Part 2, at the end of Part 3, at a pause and at approval. Every move is yours, never the leader's.
-- **Pausing:** one line (model wording) saying what's saved, then "To pick up, say 'run the design skill. My files are in [location].'" in its platform's form. Before the draft is saved, say plainly that nothing is saved yet. On print-to-save, where nothing is saved for the leader, say instead, with the plan as it stands below it: "Before you go, save the plan below. To pick up, paste it into a new chat with the other files you saved, and say 'run the design skill'." (N-D-pause)
+- **Pausing:** one line (model wording) saying what's saved, then "To pick up, say 'run the design skill. My files are in [location].'" in its platform's form. Before the draft is saved, say plainly that nothing is saved yet.
 - **Resuming** (state 5): your first text is one line of model wording for the leader in place of the opening (never a note on the state or what you'll read), saying where Design is picking up, with N-F3's promise clause ("I'll read and save your files in [location]."), and no signpost unless the part changes (one that's said comes after the resume line, never in its place); then the first question still "to ask", or, with none left, the self-check, the plan check and Part 4.
 
 ## Output

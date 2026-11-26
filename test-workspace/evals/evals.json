@@ -1846,6 +1846,8 @@
     },
     {
       "id": "TP-print-to-save",
+      "retired": true,
+      "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
       "name": "print-to-save",
       "tier": "regression",
       "spec_item": "13 Each platform's path: the print-to-save fallback",

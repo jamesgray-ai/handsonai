@@ -850,6 +850,8 @@
     },
     {
       "id": "A07k",
+      "retired": true,
+      "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
       "name": "continue-nothing",
       "tier": "core",
       "covers": [
@@ -4686,6 +4688,8 @@
     },
     {
       "id": "A18-registry-offer",
+      "retired": true,
+      "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
       "name": "registry-offer-before-the-opening",
       "tier": "core",
       "covers": [
@@ -6042,6 +6046,8 @@
     },
     {
       "id": "A06-print",
+      "retired": true,
+      "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
       "name": "print-to-save-with-no-way-to-save",
       "tier": "regression",
       "covers": [
@@ -6431,6 +6437,8 @@
     },
     {
       "id": "A09-no-update-no-move",
+      "retired": true,
+      "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
       "name": "connection-cant-update-or-move",
       "tier": "regression",
       "covers": [
@@ -6509,6 +6517,8 @@
     },
     {
       "id": "A09-unlisted-service",
+      "retired": true,
+      "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
       "name": "unlisted-service-that-can-save",
       "tier": "regression",
       "covers": [
@@ -6621,6 +6631,8 @@
     },
     {
       "id": "A09-cannot-save",
+      "retired": true,
+      "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
       "name": "connection-cannot-save-prints",
       "tier": "core",
       "covers": [
@@ -8037,6 +8049,8 @@
     },
     {
       "id": "A15-print-paste",
+      "retired": true,
+      "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
       "name": "print-to-save-with-a-pasted-registry",
       "tier": "regression",
       "covers": [
@@ -9032,6 +9046,8 @@
     },
     {
       "id": "A30-zero-close-leaves-nothing-unfinished",
+      "retired": true,
+      "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
       "name": "zero-close-routing",
       "tier": "core",
       "covers": [
@@ -9243,6 +9259,8 @@
     },
     {
       "id": "A31-deconstruct-reads-pasted-report-status",
+      "retired": true,
+      "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
       "name": "deconstruct-reads-a-pasted-unfinished-report",
       "tier": "core",
       "covers": [
@@ -10384,6 +10402,8 @@
     },
     {
       "id": "A40-print-to-save-pasted-reports",
+      "retired": true,
+      "retired_note": "retired in the shape release (11.0, 2026-11-26): print-to-save was removed (item 1); with nothing that can save, every step says N-F16 and waits",
       "name": "print-to-save-unfinished-versus-finished-report",
       "tier": "regression",
       "covers": [

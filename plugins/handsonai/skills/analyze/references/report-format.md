@@ -1,11 +1,10 @@
 # The opportunity report
 
-Read after the list is confirmed, before writing the report; on print-to-save, also before giving the report so far; and when merging a later run into an existing report.
+Read after the list is confirmed, before writing the report; and when merging a later run into an existing report.
 
-The report is written once the list is confirmed, in one batch with the nodes (`registering-candidates.md`; SKILL.md's *After the list is confirmed*). On print-to-save, a report so far is also given at the points in `resuming-and-picking-up.md`, with its **Report status** block at the top.
+The report is written once the list is confirmed, in one batch with the nodes (`registering-candidates.md`; SKILL.md's *After the list is confirmed*).
 
 ## Contents
-- Report status (print-to-save only, while unfinished)
 - Report Header
 - Summary Table
 - Detailed Opportunity Cards
@@ -13,20 +12,6 @@ The report is written once the list is confirmed, in one batch with the nodes (`
 - Appendix: Value Lever Definitions
 
 The report, in order:
-
-## Report status (print-to-save only)
-
-On print-to-save, while the report is a report so far (the list not yet confirmed), it starts with this block, which is the progress file there. Remove it at the final write. Locally and on drives, the report is written only after the list is confirmed, so it never has this block.
-
-> **Report status:** unfinished — list not confirmed
-> **Stage:** [the last step whose answer is saved, in plain words, as `resuming-and-picking-up.md` lists them]
-> **Run:** [new / later / other lens] · **Lens:** [Individual / Organizational / Organizational, team]
-> **Working folder:** [dedicated / general] (the web, Claude desktop and Cowork only)
-> **This run's cards:** [the card numbers]
-> **Already runs:** [the already-runs answers: name, home, regular use, works well or the improvement]
-> **Relationship and role:** [the answers, when asked]
-> **Flags:** do-more-of asked: [yes / no]; follow-ups used: [0–2]; offers made: [0–2]
-> **Walking:** [every process walked in this run, in order, or "none"]
 
 ## Report Header
 
@@ -42,7 +27,7 @@ On print-to-save, while the report is a report so far (the list not yet confirme
 
 The fast path has no **Sources** row. Never a file or folder title in **Sources**: kinds only.
 
-**The other-lens note**, under the header table, unless both lenses are done or the registry is personal-life, exactly: "This report covers the [lens just run] lens only. [The close's lens sentence.]" [lens just run] is "organizational" or "individual"; [The close's lens sentence.] is the close's lens sentence for this run, word for word in its platform's form (SKILL.md, *The close*: on Claude Code and Codex, and on print-to-save, its start phrases carry no location), for example: "This report covers the organizational lens only. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say 'run the analyze skill with the individual lens.'" Once both lenses are done, remove it.
+**The other-lens note**, under the header table, unless both lenses are done or the registry is personal-life, exactly: "This report covers the [lens just run] lens only. [The close's lens sentence.]" [lens just run] is "organizational" or "individual"; [The close's lens sentence.] is the close's lens sentence for this run, word for word in its platform's form (SKILL.md, *The close*: on Claude Code and Codex, its start phrases carry no location), for example: "This report covers the organizational lens only. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say 'run the analyze skill with the individual lens.'" Once both lenses are done, remove it.
 
 ## Summary Table
 

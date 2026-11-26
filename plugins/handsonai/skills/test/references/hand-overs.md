@@ -41,8 +41,7 @@ One message, each line said whole as written, as running text in this order: nev
 5. **The first-line check** (N-T8): "If its first line isn't 'Practice run: nothing will be sent or changed.', stop the chat and tell me."
 6. **How results come back** (section 6).
 7. **A carry-over input you couldn't copy the store for:** one sentence in model wording asking the leader, before pasting, to point this practice run at a test copy of [the store, in plain words] holding [the `Earlier run:` paragraph's state, in plain words], never the real one.
-8. **On the print-to-save fallback** (N-T8): "If you need to stop partway, say 'pause' here."
-9. **The block** (section 7), in a fenced block, last.
+8. **The block** (section 7), in a fenced block, last.
 
 ## 4. The opening sentence, by platform
 
