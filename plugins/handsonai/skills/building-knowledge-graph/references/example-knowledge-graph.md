@@ -8,6 +8,8 @@ Scope: the work I do (a solo AI consultant). Named things: Acme Manufacturing, B
 
 ## `types.md`
 
+The blueprint approved in Phase 4. It exists only until the build, which copies all of it into `knowledge/SCHEMA.md` and deletes it.
+
 ```markdown
 # The types
 
@@ -54,10 +56,11 @@ my-business/
 │   ├── overview.md
 │   ├── index.md
 │   ├── log.md
-│   └── SCHEMA.md
-├── CLAUDE.md
-└── types.md
+│   └── SCHEMA.md                   now holds everything types.md held
+└── CLAUDE.md
 ```
+
+No `types.md`: the build folded it into `SCHEMA.md` and removed it.
 
 ## A client page after one ingest and one verification
 
