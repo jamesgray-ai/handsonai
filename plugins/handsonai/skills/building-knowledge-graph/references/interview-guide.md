@@ -104,7 +104,7 @@ One question at a time. Before each, check whether Phase 1 already answered it; 
 Always include:
 > **Note** — anything you learn that doesn't belong to one of the others yet, and answers worth keeping. Starts empty; that's expected.
 
-**Then say:** "This is a draft to argue with. Rename anything that isn't a word you actually use. Tell me which to merge, drop, or add."
+**Then say:** "This is a draft we refine together. Rename anything that isn't a word you actually use. Tell me which to merge, drop, or add."
 
 **Pushback lines** (use them; the user needs to be challenged):
 - Over-modeling: "You named one Vendor. Until there are three, Vendor is a line on the pages that use it, not a kind of its own. Fold it in?"
