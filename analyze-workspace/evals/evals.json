@@ -2074,7 +2074,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
+            "text": "You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs."
           }
         },
         {
@@ -2236,7 +2236,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
+            "text": "You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs."
           }
         },
         {
@@ -2586,7 +2586,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
+            "text": "You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs."
           }
         },
         {
@@ -3029,7 +3029,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
+            "text": "You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs."
           }
         },
         {
@@ -3498,7 +3498,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
+            "text": "You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs."
           }
         },
         {
@@ -3958,7 +3958,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
+            "text": "You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs."
           }
         },
         {
@@ -4452,7 +4452,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
+            "text": "You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs."
           }
         },
         {
@@ -5096,7 +5096,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
+            "text": "You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs."
           }
         },
         {
@@ -5326,7 +5326,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
+            "text": "You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs."
           }
         },
         {
@@ -5684,7 +5684,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "You'll choose one workflow from your backlog, and we'll pin down its goal, what it must get right, its rules and a few practice runs."
+            "text": "You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs."
           }
         },
         {
