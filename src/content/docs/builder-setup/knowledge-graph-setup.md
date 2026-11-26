@@ -13,7 +13,7 @@ howto_steps:
     text: Ingest one document, ask one question across a connection, run lint, and confirm one page. Then seed the graph on your real material.
 ---
 
-Your **knowledge graph** is what your AI reads before it answers a question about your work: your clients, offerings, processes, people, tools, and policies, one Markdown page per concept, linked to each other, written and kept current by your AI assistant. It lives in a `knowledge/` folder on your computer, in an open format called the [Open Knowledge Format](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md), so it opens in any editor and moves to any tool. Your knowledge graph collects the knowledge that exists in none of your systems of record.
+Your **knowledge graph** is what your AI reads before it answers a question about your work: your clients, offerings, processes, people, tools, and policies, one Markdown page per concept, linked to each other, written and kept current by your AI assistant. It lives in a `knowledge/` folder on your computer, in an open format called the [Open Knowledge Format](https://github.com/open-knowledge-format/open-knowledge-format/blob/main/SPEC.md), so it opens in any editor and moves to any tool. Your knowledge graph collects the knowledge that exists in none of your systems of record.
 
 The pattern comes from [Andrej Karpathy's LLM wiki note](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): raw sources you never edit, a wiki of pages the AI maintains, and a schema that disciplines how it maintains them, with three operations — ingest, query, lint — that keep it alive.
 
@@ -115,5 +115,9 @@ An example question: *"Where does the Acme deal stand?"* Your assistant opens `k
 ### Built your graph before this change?
 
 Tell your AI: *Use the building-knowledge-graph skill to upgrade my knowledge graph: add the `records:` convention to `SCHEMA.md` — a page may link to its record in a system of record, and facts that system keeps stay there — and replace the Answering my questions section of my standing-rules file with the skill's current version.* Nothing else needs rebuilding.
+
+### Built your graph to OKF 0.2?
+
+The Open Knowledge Format is now at version 0.3. If `knowledge/index.md` says `okf_version: "0.2"` at the top, your graph was built to the earlier version. Tell your AI: *Use the building-knowledge-graph skill to do the OKF upgrade on my knowledge graph.* It updates the version, the rulebook's note on where sources live, the paths that point into `raw/`, your ingest and lint skills, and one line of your rules file. Nothing else changes, and fixing those paths doesn't count as changing your pages, so they keep their confirmations.
 
 To see the graph drawn: install [Obsidian](https://obsidian.md), choose **Open folder as vault**, pick `knowledge/`, and click the graph icon.

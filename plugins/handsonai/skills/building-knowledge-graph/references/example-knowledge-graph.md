@@ -74,7 +74,7 @@ verified: { by: human:jamesgray, at: 2026-09-21T15:20:00Z }
 stale_after: 2027-03-31T00:00:00Z
 sources:
   - id: acme-msa-2026
-    resource: ../raw/acme-msa-2026.pdf
+    resource: ../../raw/acme-msa-2026.pdf
     title: Master services agreement, signed March 2026
   - id: call-dana-2026-08-08
     resource: "Call with Dana, 8 August 2026"
