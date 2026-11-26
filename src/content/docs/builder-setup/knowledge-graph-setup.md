@@ -116,4 +116,8 @@ An example question: *"Where does the Acme deal stand?"* Your assistant opens `k
 
 Tell your AI: *Use the building-knowledge-graph skill to upgrade my knowledge graph: add the `records:` convention to `SCHEMA.md` — a page may link to its record in a system of record, and facts that system keeps stay there — and replace the Answering my questions section of my standing-rules file with the skill's current version.* Nothing else needs rebuilding.
 
+### Built your graph to OKF 0.2?
+
+The Open Knowledge Format is now at version 0.3. Graphs built before December 2026 say `okf_version: "0.2"` at the top of `knowledge/index.md`. Tell your AI: *Use the building-knowledge-graph skill to do the OKF upgrade on my knowledge graph.* It updates the version, the rulebook's note on where sources live, the paths that point into `raw/`, and your ingest and lint skills. Nothing else changes, and every page you confirmed stays confirmed.
+
 To see the graph drawn: install [Obsidian](https://obsidian.md), choose **Open folder as vault**, pick `knowledge/`, and click the graph icon.
