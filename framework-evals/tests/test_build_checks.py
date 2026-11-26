@@ -326,6 +326,33 @@ class CodexListingReadFromTheCommands(unittest.TestCase):
         self.assertFalse(CS.check(self.C, self.run_with("ls", "cat x"))[0])
 
 
+class CodexListingAnchoredToTheChecks(unittest.TestCase):
+    """F9 (shape release): with `around`, a listing must come before the first check command and
+    after the last; on Codex the checks are the commands that read the practice inputs."""
+
+    C = {"type": "bash_count", "pattern": "\\bfind \\.[^\\n|;]*-type f", "min": 2, "around": "\\binputs/"}
+    LIST, CHECK = "find . -type f | sort > /tmp/a", "cat framework/x/inputs/E1-acme.md"
+
+    run_with = CodexListingReadFromTheCommands.run_with
+
+    def test_bash_count_around_both_sides(self):
+        self.assertTrue(CS.check(self.C, self.run_with(self.LIST, self.CHECK, self.CHECK, self.LIST))[0])
+
+    def test_bash_count_around_missing_after(self):
+        ok, why = CS.check(self.C, self.run_with(self.LIST, self.LIST, self.CHECK))
+        self.assertFalse(ok)
+        self.assertIn("after the last", why)
+
+    def test_bash_count_around_missing_before(self):
+        ok, why = CS.check(self.C, self.run_with(self.CHECK, self.LIST, self.LIST))
+        self.assertFalse(ok)
+        self.assertIn("before the first", why)
+
+    def test_bash_count_no_around_unchanged(self):
+        C = {k: v for k, v in self.C.items() if k != "around"}
+        self.assertTrue(CS.check(C, self.run_with(self.CHECK, self.LIST, self.LIST))[0])
+
+
 class InsertedRestartKeepsSessionNumbers(unittest.TestCase):
     """Review of 11a620994: a restart the harness inserts after a Build session in another skill's
     journey isn't one of the eval's sessions, so "session": n still names the eval's nth."""

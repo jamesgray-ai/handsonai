@@ -8939,12 +8939,13 @@
      }
     },
     {
-     "text": "[P2-codex-listing] Build lists the workspace's files by command before its checks and again after them",
+     "text": "[P2-codex-listing] Build lists the workspace's files by command before its first check and again after its last",
      "kind": "scripted",
      "check": {
       "type": "bash_count",
       "pattern": "\\bfind \\.[^\\n|;]*-type f",
-      "min": 2
+      "min": 2,
+      "around": "\\binputs/"
      }
     },
     {

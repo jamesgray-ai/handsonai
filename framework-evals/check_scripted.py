@@ -1203,18 +1203,32 @@ def bash_commands(events_path):
 def _bash_count(c, run):
     """final-build-4c review (2026-11-24): what Build ran, not what the leader read. Passes when the
     session's Bash commands hold the pattern at least `min` times (JR-codex: the workspace listed by
-    command before Build's checks and again after them)."""
+    command before Build's checks and again after them). With `around` (F9, shape release), one match
+    must come before the first command matching `around` and one after the last."""
     pat = re.compile(c["pattern"], re.M)
-    total, why = 0, "no session with an events.jsonl"
+    around = re.compile(c["around"], re.M) if c.get("around") else None
+    total, why, cmds_all = 0, "no session with an events.jsonl", []
     for s in _sessions(run, c.get("session")):
         if not s.get("root"):
             continue
         cmds = bash_commands(Path(s["root"]).parent / "events.jsonl")
         if cmds is None:
             continue
+        cmds_all += cmds
         total += sum(len(pat.findall(x)) for x in cmds)
         why = f"{total} match{'es' if total != 1 else ''} of {c['pattern']!r} in Bash commands"
-    return total >= c.get("min", 1), why
+    if total < c.get("min", 1) or not around:
+        return total >= c.get("min", 1), why
+    # F9 (shape release): a listing before the first command matching `around` and after the last
+    at = [i for i, x in enumerate(cmds_all) if around.search(x)]
+    hits = [i for i, x in enumerate(cmds_all) if pat.search(x)]
+    if not at:
+        return False, f"no Bash command matches {c['around']!r}"
+    if not any(i < at[0] for i in hits):
+        return False, f"no {c['pattern']!r} before the first {c['around']!r} command"
+    if not any(i > at[-1] for i in hits):
+        return False, f"no {c['pattern']!r} after the last {c['around']!r} command"
+    return True, why + f", before the first and after the last {c['around']!r} command"
 
 
 def _tool_write(c, run):
