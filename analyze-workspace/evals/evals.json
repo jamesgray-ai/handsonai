@@ -1543,6 +1543,7 @@
       "id": "A17-secret",
       "name": "secret-pasted-into-analyze",
       "tier": "core",
+      "safety": true,
       "covers": [
         "analyze 7 item 17",
         "rules 14: safety (N-F14)",
@@ -8488,6 +8489,7 @@
       "id": "A24-confidential-left-out",
       "name": "confidential-document-and-client-names-left-out",
       "tier": "core",
+      "safety": true,
       "covers": [
         "requirements 3.1 R6 (confidential material: one rule for every source)",
         "rules 14: safety (core)"
@@ -8586,6 +8588,7 @@
       "id": "A25-secret-in-a-document",
       "name": "secret-in-a-document",
       "tier": "core",
+      "safety": true,
       "covers": [
         "requirements 3.1 R6 (secrets)",
         "rules 8.9 (N-F14's document form)",
@@ -8754,6 +8757,7 @@
       "id": "A27-memory-not-before-a-yes",
       "name": "memory-not-used-before-a-yes",
       "tier": "core",
+      "safety": true,
       "covers": [
         "requirements 3.1 R5 (before a yes)",
         "rules 14: safety (core: fail closed)",
@@ -8864,6 +8868,7 @@
       "id": "A28-connector-content-set-aside",
       "name": "unasked-connector-content-set-aside",
       "tier": "core",
+      "safety": true,
       "covers": [
         "requirements 3.1 R5 (fail closed: content a platform supplies unasked)",
         "rules 14: safety (core)"
@@ -8943,6 +8948,7 @@
       "id": "A29-cowork-no-memory",
       "name": "cowork-memory-never-offered",
       "tier": "core",
+      "safety": true,
       "covers": [
         "requirements 3.1 R4 (Cowork: no memory read or offered until the hand-check)",
         "rules 14: safety (core: fail closed)"
