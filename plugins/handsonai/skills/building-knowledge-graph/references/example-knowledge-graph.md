@@ -45,9 +45,10 @@ Tool and Contact were proposed and dropped. Two tools do not earn a type; they a
 ## The folder after `build`
 
 ```
-my-business/
+ai-workspace/
 ├── .claude/skills/ingest/SKILL.md
 ├── .claude/skills/lint/SKILL.md
+├── registry/                       the AI Registry, untouched by the build
 ├── raw/
 ├── knowledge/
 │   ├── clients/acme-manufacturing.md, bowman-foods.md, reston-health.md
