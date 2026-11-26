@@ -331,7 +331,7 @@ description: Health-check the knowledge graph. Use when the user says "lint", as
 
 1. Fetch the latest OKF spec (https://raw.githubusercontent.com/open-knowledge-format/open-knowledge-format/main/SPEC.md) if reachable. Read `knowledge/SCHEMA.md`. Read every file under `knowledge/`. `index.md`, `log.md`, and `.gitkeep` are reserved — skip all concept checks on them; never propose "fixing" them by adding `type` or other concept frontmatter.
 2. Report, grouped, naming specific files:
-   - **Rule violations**: a page missing `type`, `title`, `description`, or `generated`; a page in the wrong folder for its type; a relative link between concepts; a bare-date timestamp; tool configuration inside `knowledge/`. (Not reserved files — see step 1.)
+   - **Rule violations**: a page missing `type`, `title`, `description`, or `generated`; a page in the wrong folder for its type; a relative link between concepts; a `sources[].resource` meant to point into `raw/` that does not reach the project's `raw/` from the page's own folder (`../../raw/<file>` from a type folder or `notes/`, `../raw/<file>` from the bundle root); a bare-date timestamp; tool configuration inside `knowledge/`. (Not reserved files — see step 1.)
    - **Contradictions**: two pages that disagree about a fact.
    - **Out of date**: any page whose `stale_after` has passed; claims a newer source superseded.
    - **Broken structure**: orphan pages nothing links to; a declared relationship with no reciprocal on the other page; links into `status: deprecated` pages; pages missing from `index.md`.
