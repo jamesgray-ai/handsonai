@@ -417,3 +417,25 @@ class ToolWriteNever(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RemovedLineLeavesNoQuoteCheck(unittest.TestCase):
+    """U1 (shape release, G2): when a line stops being held fixed and leaves the corpus, every quote
+    check that still names it is flagged, so no eval keeps checking wording that is no longer fixed."""
+
+    def test_removed_line_flags_its_quote_check(self):
+        import tempfile
+        import check_quotes as CQ
+        import approved_lines as AL
+        full = json.loads(Path(AL.DEFAULT_CORPUS).read_text())
+        cut = {**full, "lines": [x for x in full["lines"] if x["id"] != "N-F1"]}
+        self.assertLess(len(cut["lines"]), len(full["lines"]))
+        with tempfile.TemporaryDirectory() as t:
+            corpus = Path(t) / "lines.json"
+            corpus.write_text(json.dumps(cut))
+            evals = Path(t) / "evals.json"
+            evals.write_text(json.dumps({"skill_name": "analyze", "evals": [
+                {"id": "X1", "expectations": [{"kind": "scripted", "text": "says N-F1",
+                                               "check": {"type": "quote", "id": "N-F1"}}]}]}))
+            self.assertEqual(CQ.main(["evals", str(evals), "--corpus", str(corpus)]), 1)
+            self.assertEqual(CQ.main(["evals", str(evals)]), 0)
