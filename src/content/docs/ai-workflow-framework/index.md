@@ -21,7 +21,7 @@ Each step is a skill in the `handsonai` plugin. [Install the plugin](skills/) on
 
 **Three kinds of line.** Your Workflow Requirements hold three kinds of line, and every later step works from them:
 
-- **What it must get right:** yes-or-no checks every output is graded against, such as "Every update names an owner and a date." The one or two you can never let go out wrong are must-haves.
+- **What it must get right:** yes-or-no checks every output is graded against, such as "Every update names an owner and a date." Every one is required.
 - **The rules it follows:** "It always…", "It never…" and "When…, it…" sentences.
 - **Where a person checks:** the checkpoints where the workflow stops and asks you first, such as before it sends anything.
 
