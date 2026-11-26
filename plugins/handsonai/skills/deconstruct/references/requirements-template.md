@@ -112,7 +112,7 @@ The file reads like a requirements document, not an interview transcript:
 
 ## 6. The file: frontmatter, sections and line formats
 
-`requirements.md` in the workflow folder. Frontmatter, then the title, then exactly these `##` sections, named exactly, in this order, and no others.
+`requirements.md` in the workflow folder. Frontmatter, then the title, then exactly these twelve `##` sections, named exactly, in this order, and no others. (A 10.x file has no `## Output` and is still read; Deconstruct converts it on its next save, `re-runs.md`.)
 
 **Frontmatter:**
 
@@ -137,6 +137,16 @@ revisions:
 
 ## Goal
 For each [trigger], a [format] [deliverable] to [who], ready for you to [review] [when].
+
+## Output
+
+What: [the deliverable]
+For: [who receives or acts on it]
+Form: [its form: length, format and any fixed parts, such as a subject line]
+Voice: [whose voice, and the source that sets it, if any]
+Structure:
+    [a short Markdown skeleton of the deliverable, drafted from the checks]
+Delivered as: set in Design
 
 ## Value & Measurement
 
@@ -179,14 +189,14 @@ Path: none — the AI plans each run from the goal
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
-| C1 | [name] | [All, or —; in an older file with steps, Step N or the AI's part after Step N] | Exists / Needs Creation | Public / Internal / Confidential / Regulated | Authored / External | Yes / Partial / No | [`context/C1-[short-name].md`, a system or a URL, or "Create as `context/C1-[short-name].md`"] | [what's in it] |
+| C1 | [name] | [All, or —; in an older file with steps, Step N or the AI's part after Step N] | Exists / Needs Creation | Public / Internal / Confidential / Regulated | Authored / External | Yes / Partial / No | [`context/C1-[short-name].md`, a system or a URL, or "Create as `context/C1-[short-name].md` · by [who], [when]"] | [what's in it] |
 
 ## Acceptance Criteria
 
-Each line is one thing a single run's output either does or doesn't do. Every practice run is checked against every line; one miss on a must-have sends it back.
+Each line is one thing a single run's output either does or doesn't do. Every practice run is checked against every line.
 
-1. **AC1 (must)** — [yes-or-no statement]
-2. **AC2** — [yes-or-no statement]
+1. **AC1** — [yes-or-no statement] · from: [I#, C#, R# it needs, or "the output alone"]
+2. **AC2** — [yes-or-no statement] · from: [I#, C#, R#, or "the output alone"]
 
 Reference example: [C# of the real output, or "—"]
 
@@ -196,7 +206,9 @@ Reference example: [C# of the real output, or "—"]
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
 | E1 | [short name] (real) | `inputs/E1-[short-name].md` — [description] | [the input's `expect:` line, word for word] | [C#, or "—"] |
-| E2 | [short name] (proposed, hard) | `inputs/E2-[short-name].md` — [description] | [the input's `expect:` line, word for word] | — |
+| E2 | [short name] (made up) | Test writes it — [what the input holds] | [what should happen, in plain words] | — |
+
+Every check is required: there are no must-haves, and `(must)` is never written. A form item (a subject line, a length) is in `## Output`, not a check. Each check's `from:` names where its information comes from; a check whose information nothing supplies is an open item in the summary, never saved with a guessed source. A scenario is `(real)` only when the leader gave a real input; otherwise `(made up)` and `Test writes it`.
 
 ## Rules & Constraints
 *Its rules: what it always does, never does, and does when something happens.*
@@ -276,7 +288,7 @@ Policy check: Allowed | No — [source] left out | No — details removed first 
 
 ## 7. `inputs/`, `context/` and `history/`
 
-**Practice inputs** are `inputs/E[n]-[short-name].md` (a short name of three or four words, in kebab-case), numbered in one series with any inputs Design or Test write later. Each file Deconstruct writes opens with three header lines, then a blank line, then the input itself; a carry-over input's body opens with its `Earlier run:` paragraph and a blank line:
+**Practice inputs** are `inputs/E[n]-[short-name].md` (a short name of three or four words, in kebab-case), numbered in one series with any inputs Design or Test write later. Deconstruct writes one only when the leader gives a real input (it never asks for one, and never writes a made-up one: Test writes those from the scenario). Each file Deconstruct writes opens with three header lines, then a blank line, then the input itself; a carry-over input's body opens with its `Earlier run:` paragraph and a blank line:
 
 ```
 source: deconstruct
@@ -309,7 +321,10 @@ Every move is Deconstruct's own, never the leader's. On a connection that can on
 After writing, check the file and fix any miss before the close. Where code can run, the requirements validator does these checks: run `node [plugin root]/tools/requirements-check.js [workflow folder] --before-save` (the plugin root is two folders above this skill's folder); it exits 0 when the file is valid; exit 1 names each problem by section and line: fix them and run it again. Any other non-zero exit means it couldn't run or couldn't read the file: check every item below by hand, as you would where it can't run or isn't there, since this list is its written fallback. A run that didn't finish is never a pass. Never mention the validator to the leader.
 
 - The frontmatter holds `revision`, `revisions` and `track` with valid values, a `revisions:` entry for every revision above 1, and no `big_change`.
-- Exactly the eleven `##` sections, in order and exactly named, under the title.
+- Exactly the twelve `##` sections, in order and exactly named, under the title; `## Output` holds What, For, Form, Voice, Structure (with its skeleton or a context file) and `Delivered as: set in Design`, in that order.
+- Every check reads `**AC[n]** — [statement] · from: [sources]`, with no `(must)`; every I, C and R it names exists in the file, or it reads `the output alone`.
+- Every scenario is `(real)` with its `inputs/` file, or `(made up)` with `Test writes it — [what it holds]`.
+- Every `Needs Creation` row names who creates it and when.
 - Every step line has a name, `produces` and a fixed-or-flexible mark, with its tags in the stated order; steps you added carry `· proposed by AI`.
 - `## Path` opens with the `Method preference:` line; `Path: none` has no step lines; "some of each" has at least one fixed step and at least one `The AI plans this part` line; every `Step N` reference (decisions, writes, `Used By`, `Where`) matches a step line or names the AI's part.
 - Every rule, checkpoint and decision is in the "When… it…" shape; no "It never…" restates an "It always…"; a decision is never restated as a rule.

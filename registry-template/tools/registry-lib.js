@@ -13,7 +13,7 @@ const { execFileSync } = require('child_process');
 // the workspace's is missing or lower; package.json carries the same number.
 // Raise both together whenever compose, lint, this file, the dashboard
 // template or the data-island schema change.
-const TOOLS_VERSION = '10.5.0';
+const TOOLS_VERSION = '11.0.0';
 
 // Plural directories -> singular concept type. Directory<->type agreement is
 // lint-enforced (SCHEMA.md "Types and directories").

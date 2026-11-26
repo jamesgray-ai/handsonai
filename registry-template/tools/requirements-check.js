@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // registry-template/tools/requirements-check.js
 // Check a workflow's requirements.md against Deconstruct's requirements
-// template (AI Workflow Framework 10.5.0). Deconstruct runs it before it saves
+// template (AI Workflow Framework 11.0.0). Deconstruct runs it before it saves
 // the file; Design runs it on entry. Deconstruct's self-check is its
 // specification and its written fallback, so every check here has a line there.
 //
@@ -23,6 +23,12 @@ const SECTIONS = [
   'Acceptance Criteria', 'Example Scenarios', 'Rules & Constraints', 'Human Gates',
   'Security, Privacy & Safety',
 ];
+// 11.0 (shape release): an optional ## Output after the Goal. A file with it is checked as 11.0;
+// a file without it is a 10.x file, checked on the old rules, unless --before-save (a file
+// Deconstruct is about to save is always 11.0).
+const ALL_SECTIONS = ['Goal', 'Output', ...SECTIONS.slice(1)];
+const OUTPUT_LINES = ['What', 'For', 'Form', 'Voice', 'Structure', 'Delivered as'];
+const AC_INTRO_11 = "Each line is one thing a single run's output either does or doesn't do. Every practice run is checked against every line.";
 const FM_KEYS = ['revision', 'revisions', 'track', 'big_change'];
 const METHOD_PREFS = ['same way every time', 'AI works it out each time', 'some of each'];
 const PATH_PROPOSED = 'Path: proposed by AI';
@@ -236,18 +242,20 @@ function check(file, opts = {}) {
     if (firstContent + 1 !== title.line) add(firstContent + 1, 'title', 'text before the title; the title comes first, under the frontmatter');
   }
   const names = heads.map((h) => h.name);
+  const is11 = names.includes('Output') || !!opts.beforeSave;
+  const required = is11 ? ALL_SECTIONS : SECTIONS;
   for (const h of heads) {
-    if (!SECTIONS.includes(h.name)) add(h.index + 1, `## ${h.name}`, `unexpected section "## ${h.name}" (exactly the eleven sections, named exactly)`);
+    if (!ALL_SECTIONS.includes(h.name)) add(h.index + 1, `## ${h.name}`, `unexpected section "## ${h.name}" (exactly the twelve sections, named exactly)`);
   }
-  for (const s of SECTIONS) {
+  for (const s of required) {
     const count = names.filter((n) => n === s).length;
     if (count === 0) add(heads.length ? heads[heads.length - 1].index + 1 : 1, `## ${s}`, `section "## ${s}" is missing`);
     if (count > 1) add(heads.filter((h) => h.name === s)[1].index + 1, `## ${s}`, `section "## ${s}" appears ${count} times`);
   }
-  const known = heads.filter((h) => SECTIONS.includes(h.name));
+  const known = heads.filter((h) => ALL_SECTIONS.includes(h.name));
   for (let i = 1; i < known.length; i++) {
-    if (SECTIONS.indexOf(known[i].name) < SECTIONS.indexOf(known[i - 1].name)) {
-      add(known[i].index + 1, `## ${known[i].name}`, `"## ${known[i].name}" is out of order: it comes before "## ${known[i - 1].name}" (order: ${SECTIONS.join('; ')})`);
+    if (ALL_SECTIONS.indexOf(known[i].name) < ALL_SECTIONS.indexOf(known[i - 1].name)) {
+      add(known[i].index + 1, `## ${known[i].name}`, `"## ${known[i].name}" is out of order: it comes before "## ${known[i - 1].name}" (order: ${required.join('; ')})`);
     }
   }
   const sec = {};
@@ -287,6 +295,14 @@ function check(file, opts = {}) {
 
   // ---- Goal
   if (sec.Goal && !body('Goal').length) add(heads.find((h) => h.name === 'Goal').index + 1, '## Goal', 'the goal is empty');
+  if (sec.Output) {  // What, For, Form, Voice, Structure (a skeleton below it, or a context file), Delivered as
+    const W = '## Output';
+    const at = heads.find((h) => h.name === 'Output').index + 1;
+    const got = body('Output').map((l) => (l.t.match(/^([A-Z][a-z]+(?: as)?):/) || [])[1]).filter(Boolean);
+    for (const k of OUTPUT_LINES) if (!got.includes(k)) add(at, W, `Output: ${k}: is missing`);
+    const order = got.filter((k) => OUTPUT_LINES.includes(k));
+    if (order.join() !== OUTPUT_LINES.filter((k) => order.includes(k)).join()) add(at, W, `Output: the lines read ${OUTPUT_LINES.join(', ')}, in that order`);
+  }
 
   // ---- Value & Measurement, Metadata (field tables)
   const fieldTable = (name, required, optional, rowOrder) => {
@@ -414,8 +430,9 @@ function check(file, opts = {}) {
 
   // ---- Inputs
   const ctxIds = new Map();
+  const inputIds = new Set();
   if (sec.Inputs) {
-    const seen = new Set();
+    const seen = inputIds;
     for (const { n, t } of body('Inputs')) {
       const m = t.match(/^- I(\d+) · (.+?) · from (.+?) · Status: (.+)$/);
       if (!m) { add(n, '## Inputs', 'input lines read `- I1 · [what comes in] · from [source or C#] · Status: available`'); continue; }
@@ -462,11 +479,12 @@ function check(file, opts = {}) {
 
   // ---- Acceptance Criteria
   const acIds = new Set();
+  const acFrom = []; // { ac, id, n }: 11.0's `· from:` sources, checked once Rules are read
   if (sec['Acceptance Criteria']) {
     const W = '## Acceptance Criteria';
     let refLine = null;
     for (const { n, t } of body('Acceptance Criteria')) {
-      if (t === AC_INTRO) continue;
+      if (t === AC_INTRO || (is11 && t === AC_INTRO_11)) continue;
       const rm = t.match(/^Reference example: (.+)$/);
       if (rm) {
         refLine = n;
@@ -474,7 +492,18 @@ function check(file, opts = {}) {
         continue;
       }
       const m = t.match(/^\d+\. \*\*AC(\d+)( \(must\))?\*\* — (\S.*)$/);
-      if (!m) { add(n, W, 'acceptance criteria read `1. **AC1 (must)** — [yes-or-no statement]`'); continue; }
+      if (!m) { add(n, W, is11 ? 'acceptance criteria read `1. **AC1** — [yes-or-no statement] · from: [I#, C#, R# | the output alone]`' : 'acceptance criteria read `1. **AC1 (must)** — [yes-or-no statement]`'); continue; }
+      if (is11) {
+        if (m[2]) add(n, W, `AC${m[1]}: no (must) in this format; every check is required`);
+        const fm = m[3].match(/ · from: (.+)$/);
+        if (!fm) add(n, W, `AC${m[1]}: add "· from:" naming where its information comes from (I#, C#, R#) or "the output alone"`);
+        else if (fm[1] !== 'the output alone') {
+          for (const id of fm[1].split(',').map((x) => x.trim())) {
+            if (/^(I|C|R)\d+$/.test(id)) acFrom.push({ ac: `AC${m[1]}`, id, n });
+            else add(n, W, `AC${m[1]}: from names "${id}"; use I#, C#, R# or "the output alone"`);
+          }
+        }
+      }
       if (refLine) add(n, W, '`Reference example:` comes after the AC lines');
       if (acIds.has(`AC${m[1]}`)) add(n, W, `AC${m[1]} is used twice`);
       acIds.add(`AC${m[1]}`);
@@ -515,9 +544,12 @@ function check(file, opts = {}) {
       count++;
       if (eSeen.has(c[0])) add(n, W, `${c[0]} is used twice`);
       eSeen.add(c[0]);
-      if (!/\((real|proposed)(, hard)?\)$/.test(c[1])) add(n, W, `${c[0]}: Scenario ends "(real)" or "(proposed)", with ", hard" where it is`);
+      if (is11 ? !/\((real|made up)\)$/.test(c[1]) : !/\((real|proposed)(, hard)?\)$/.test(c[1])) {
+        add(n, W, is11 ? `${c[0]}: Scenario ends "(real)" or "(made up)"` : `${c[0]}: Scenario ends "(real)" or "(proposed)", with ", hard" where it is`);
+      }
       const im = c[2].match(/^`([^`]+)` — \S/);
-      if (!im) { add(n, W, `${c[0]}: Input reads \`inputs/${c[0]}-[short-name].md\` — [description], path first`); }
+      if (is11 && /^Test writes it — \S/.test(c[2])) { /* 11.0: Test writes the practice input; no file yet */ }
+      else if (!im) { add(n, W, `${c[0]}: Input reads \`inputs/${c[0]}-[short-name].md\` — [description], path first`); }
       else if (!new RegExp(`^inputs/${c[0]}-[a-z0-9]+(-[a-z0-9]+)*\\.md$`).test(im[1])) {
         add(n, W, `${c[0]}: the input's path must be \`inputs/${c[0]}-[short-name].md\` (relative to the workflow folder, kebab-case)`);
       } else inputChecks.push({ id: c[0], rel: im[1], n });
@@ -673,6 +705,11 @@ function check(file, opts = {}) {
   }
   for (const r of ctxRefs) {
     if (!ctxIds.has(r.id)) add(r.n, r.where, `${r.id} isn't in the Context Inventory`);
+  }
+  for (const f of acFrom) {
+    const [has, where] = f.id[0] === 'I' ? [inputIds.has(f.id.slice(1)), 'Inputs']
+      : f.id[0] === 'C' ? [ctxIds.has(f.id), 'the Context Inventory'] : [rIds.has(f.id), 'Rules & Constraints'];
+    if (!has) add(f.n, '## Acceptance Criteria', `${f.ac}: from names ${f.id}, which isn't in ${where}`);
   }
   for (const r of writeRefs) {
     if (!writes.has(r.id)) add(r.n, r.where, `${r.id} isn't under ### Writes`);
