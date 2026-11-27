@@ -6476,7 +6476,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; approved before 3c-DJ"
+   "source": "test.md 12; approved before 3c-DJ",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T3",
@@ -6838,7 +6839,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; approved before 3c-DJ"
+   "source": "test.md 12; approved before 3c-DJ",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T15",
@@ -6969,7 +6971,8 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change",
+   "retired": "2026-11-27: shape release Pass 2 (U1)"
   },
   {
    "id": "N-T16",
@@ -7087,7 +7090,8 @@
    "files": {
     "test": "references/rounds.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T18",
@@ -7139,7 +7143,8 @@
    "files": {
     "test": "references/rounds.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T26",
@@ -7152,7 +7157,8 @@
    "files": {
     "test": "references/rounds.md"
    },
-   "source": "3c-DY (2026-10-24)"
+   "source": "3c-DY (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T29",
@@ -7165,7 +7171,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; approved before 3c-DJ"
+   "source": "test.md 12; approved before 3c-DJ",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T29",
@@ -7178,7 +7185,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; approved before 3c-DJ"
+   "source": "test.md 12; approved before 3c-DJ",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T29",
@@ -7191,7 +7199,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; approved before 3c-DJ"
+   "source": "test.md 12; approved before 3c-DJ",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T30",
@@ -7256,7 +7265,8 @@
    "files": {
     "test": "references/claude-code-runs.md"
    },
-   "source": "test.md 12; approved before 3c-DJ"
+   "source": "test.md 12; approved before 3c-DJ",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T32",
@@ -7412,7 +7422,8 @@
    "files": {
     "test": "references/rounds.md"
    },
-   "source": "test.md 12; approved before 3c-DJ"
+   "source": "test.md 12; approved before 3c-DJ",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T36",
@@ -7477,7 +7488,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T45",
@@ -7490,7 +7502,8 @@
    "files": {
     "test": "references/rounds.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T46",
@@ -7555,7 +7568,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T50",
@@ -7568,7 +7582,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T51",
@@ -7607,7 +7622,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T53",
@@ -7620,7 +7636,8 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T54",
@@ -7659,7 +7676,8 @@
    "files": {
     "test": "references/rounds.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: ordinary lines said in Test's own words)"
   },
   {
    "id": "N-T58",

@@ -527,13 +527,8 @@
           "kind": "judged"
         },
         {
-          "text": "Says N-T26 word for word: live, so a re-check opening",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T26",
-            "session": 2
-          }
+          "text": "The re-check's opening says, in its own words, what it re-checks against and since when, and asks for the new input",
+          "kind": "judged"
         }
       ],
       "est_turns": 2,
@@ -965,13 +960,8 @@
           }
         },
         {
-          "text": "Never says N-T17: not an after-fix opening",
-          "kind": "scripted",
-          "check": {
-            "type": "quote_absent",
-            "id": "N-T17",
-            "session": 2
-          }
+          "text": "Doesn't say the old fixed line N-T17 (retired; its content is checked by behaviour)",
+          "kind": "judged"
         }
       ],
       "est_turns": 8
@@ -1080,12 +1070,8 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T2 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T2"
-          }
+          "text": "Asks, in its own words, whether the workflow is installed in this account or place, offering the steps",
+          "kind": "judged"
         },
         {
           "text": "The N-T2 message opens with one line naming Test and the workflow, with 'I'll read and save your files in [location].'",
@@ -3684,12 +3670,8 @@
           }
         },
         {
-          "text": "Says N-T17 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T17"
-          }
+          "text": "The after-fix round's opening says, in its own words, how many inputs it re-runs (the failed ones, those the fix could affect, and one new one) and asks for the new input",
+          "kind": "judged"
         }
       ],
       "est_turns": 12,
@@ -3991,12 +3973,8 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T50 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T50"
-          }
+          "text": "Offers, in its own words, to keep the real example as a practice input, with names and details changed",
+          "kind": "judged"
         },
         {
           "text": "The flag input stays",
@@ -4183,32 +4161,14 @@
       ],
       "expectations": [
         {
-          "text": "If the two runs of an input disagree, Test says N-T31, shows the weaker run's output before N-T11, and records the edits word for it",
+          "text": "If the two runs of an input disagree, Test says, in its own words, that the input passed once and missed once, shows the weaker run's output in the grading message, and records the edits word for it",
           "kind": "judged",
           "release_check": {
             "ids": [
               6
             ],
-            "passed": "If the two runs of an input disagree, Test says N-T31, shows the weaker run's output before N-T11, and records the edits word for it",
-            "open": "Release check 6 is open, so the leader runs each input once: no input has two runs, N-T31 is never said, and each input's results show one run"
-          }
-        },
-        {
-          "text": "N-T31 never said while release check 6 is open (no input runs twice)",
-          "kind": "scripted",
-          "check": {
-            "type": "release_check",
-            "ids": [
-              6
-            ],
-            "passed": {
-              "type": "all",
-              "checks": []
-            },
-            "open": {
-              "type": "quote_absent",
-              "id": "N-T31"
-            }
+            "passed": "If the two runs of an input disagree, Test says, in its own words, that the input passed once and missed once, shows the weaker run's output in the grading message, and records the edits word for it",
+            "open": "Release check 6 is open, so the leader runs each input once: no input has two runs, nothing is said about runs disagreeing, and each input's results show one run"
           }
         }
       ],
@@ -4382,12 +4342,8 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T44 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T44"
-          }
+          "text": "After the real example's reply, asks in its own words whether they'd change anything about how it works or what it does",
+          "kind": "judged"
         },
         {
           "text": "How-change: an Issues row at Level build",
@@ -4463,13 +4419,8 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T50 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T50",
-            "session": 1
-          }
+          "text": "Offers, in its own words, to keep the real example as a practice input, with names and details changed",
+          "kind": "judged"
         },
         {
           "text": "Yes: saved as source: test",
@@ -4492,13 +4443,8 @@
           }
         },
         {
-          "text": "Says N-T50 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T50",
-            "session": 2
-          }
+          "text": "Offers, in its own words, to keep the real example as a practice input, with names and details changed",
+          "kind": "judged"
         },
         {
           "text": "No: nothing saved",
@@ -5215,13 +5161,8 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T17 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T17",
-            "session": 1
-          }
+          "text": "The after-fix round's opening says, in its own words, how many inputs it re-runs (the failed ones, those the fix could affect, and one new one) and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "after-fix",
@@ -5281,12 +5222,8 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T45 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T45"
-          }
+          "text": "The after-change round's opening says, in its own words, what this round checks and why the rest is carried, and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "after-change",
@@ -5340,22 +5277,12 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T35 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T35",
-            "session": 1
-          }
+          "text": "Asks, in its own words, whether the team is using it and whether anyone is stuck",
+          "kind": "judged"
         },
         {
-          "text": "Says N-T26 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T26",
-            "session": 1
-          }
+          "text": "The re-check's opening says, in its own words, what it re-checks against and since when, and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "No Target sentence: the requirements' Target is \"—\"",
@@ -5367,31 +5294,16 @@
           }
         },
         {
-          "text": "Says N-T49 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T49",
-            "session": 1
-          }
+          "text": "Offers, in its own words, to add the runs the workflow flagged since the last round as practice inputs, with names and details changed",
+          "kind": "judged"
         },
         {
-          "text": "Says N-T52 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T52",
-            "session": 1
-          }
+          "text": "Offers, in its own words, to write a short SOP for the team, saying where it'll be saved",
+          "kind": "judged"
         },
         {
-          "text": "Says N-T35 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T35",
-            "session": 2
-          }
+          "text": "Asks, in its own words, whether the team is using it and whether anyone is stuck",
+          "kind": "judged"
         },
         {
           "text": "Not using it: Design's change phrase",
@@ -5442,13 +5354,8 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T26 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T26",
-            "session": 1
-          }
+          "text": "The re-check's opening says, in its own words, what it re-checks against and since when, and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "No Target sentence",
@@ -5469,13 +5376,8 @@
           }
         },
         {
-          "text": "Says N-T45 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T45",
-            "session": 2
-          }
+          "text": "The after-change round's opening says, in its own words, what this round checks and why the rest is carried, and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "No how-it's-doing sentence",
@@ -6266,13 +6168,8 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T16 (A schedule, and no run log) word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T16",
-            "form": "A schedule, and no run log"
-          }
+          "text": "Where it runs on a schedule with no run log, says in its own words to check its run history now and then",
+          "kind": "judged"
         },
         {
           "text": "No run log",
@@ -6683,20 +6580,12 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T57 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T57"
-          }
+          "text": "On Claude Code, before a cloud routine's re-check, asks in its own words to pull the run log from the remote repository",
+          "kind": "judged"
         },
         {
-          "text": "Says N-T26 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T26"
-          }
+          "text": "The re-check's opening says, in its own words, what it re-checks against and since when, and asks for the new input",
+          "kind": "judged"
         }
       ],
       "est_turns": 3
@@ -6786,13 +6675,8 @@
           }
         },
         {
-          "text": "Says N-T52 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T52",
-            "session": 2
-          }
+          "text": "Offers, in its own words, to write a short SOP for the team, saying where it'll be saved",
+          "kind": "judged"
         },
         {
           "text": "The SOP in the framework folder",
@@ -6957,13 +6841,8 @@
           }
         },
         {
-          "text": "Says N-T17 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T17",
-            "session": 3
-          }
+          "text": "The after-fix round's opening says, in its own words, how many inputs it re-runs (the failed ones, those the fix could affect, and one new one) and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "Session 3 re-runs every practice input that uses the agent, carrying none",
@@ -7131,13 +7010,8 @@
           }
         },
         {
-          "text": "Says N-T17 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T17",
-            "session": 3
-          }
+          "text": "The after-fix round's opening says, in its own words, how many inputs it re-runs (the failed ones, those the fix could affect, and one new one) and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "Says N-T16 word for word",
@@ -7149,13 +7023,8 @@
           }
         },
         {
-          "text": "Says N-T26 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T26",
-            "session": 4
-          }
+          "text": "The re-check's opening says, in its own words, what it re-checks against and since when, and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "The leader never needs an evaluation term to finish, sees every safety line the hand-overs carry on this platform, and is never asked something the files already answer",
@@ -7266,13 +7135,8 @@
           }
         },
         {
-          "text": "Says N-T17 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T17",
-            "session": 3
-          }
+          "text": "The after-fix round's opening says, in its own words, how many inputs it re-runs (the failed ones, those the fix could affect, and one new one) and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "Says N-T16 word for word",
@@ -7284,13 +7148,8 @@
           }
         },
         {
-          "text": "Says N-T26 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T26",
-            "session": 4
-          }
+          "text": "The re-check's opening says, in its own words, what it re-checks against and since when, and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "The leader never needs an evaluation term to finish, sees every safety line the hand-overs carry on this platform, and is never asked something the files already answer",
@@ -7357,13 +7216,8 @@
           }
         },
         {
-          "text": "Says N-T17 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T17",
-            "session": 3
-          }
+          "text": "The after-fix round's opening says, in its own words, how many inputs it re-runs (the failed ones, those the fix could affect, and one new one) and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "Says N-T16 word for word",
@@ -7375,13 +7229,8 @@
           }
         },
         {
-          "text": "Says N-T26 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T26",
-            "session": 4
-          }
+          "text": "The re-check's opening says, in its own words, what it re-checks against and since when, and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "The leader never needs an evaluation term to finish, sees every safety line the hand-overs carry on this platform, and is never asked something the files already answer",
@@ -7449,13 +7298,8 @@
           }
         },
         {
-          "text": "Says N-T17 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T17",
-            "session": 3
-          }
+          "text": "The after-fix round's opening says, in its own words, how many inputs it re-runs (the failed ones, those the fix could affect, and one new one) and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "Says N-T16 word for word",
@@ -7467,13 +7311,8 @@
           }
         },
         {
-          "text": "Says N-T26 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T26",
-            "session": 4
-          }
+          "text": "The re-check's opening says, in its own words, what it re-checks against and since when, and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "The leader never needs an evaluation term to finish, sees every safety line the hand-overs carry on this platform, and is never asked something the files already answer",
@@ -7536,13 +7375,8 @@
           }
         },
         {
-          "text": "Says N-T17 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T17",
-            "session": 3
-          }
+          "text": "The after-fix round's opening says, in its own words, how many inputs it re-runs (the failed ones, those the fix could affect, and one new one) and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "Says N-T16 word for word",
@@ -7554,13 +7388,8 @@
           }
         },
         {
-          "text": "Says N-T26 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T26",
-            "session": 4
-          }
+          "text": "The re-check's opening says, in its own words, what it re-checks against and since when, and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "The leader never needs an evaluation term to finish, sees every safety line the hand-overs carry on this platform, and is never asked something the files already answer",
@@ -7639,13 +7468,8 @@
           }
         },
         {
-          "text": "Says N-T17 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T17",
-            "session": 3
-          }
+          "text": "The after-fix round's opening says, in its own words, how many inputs it re-runs (the failed ones, those the fix could affect, and one new one) and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "Says N-T16 word for word",
@@ -7657,13 +7481,8 @@
           }
         },
         {
-          "text": "Says N-T26 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T26",
-            "session": 4
-          }
+          "text": "The re-check's opening says, in its own words, what it re-checks against and since when, and asks for the new input",
+          "kind": "judged"
         },
         {
           "text": "The leader never needs an evaluation term to finish, sees every safety line the hand-overs carry on this platform, and is never asked something the files already answer",

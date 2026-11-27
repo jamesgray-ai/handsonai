@@ -14,8 +14,8 @@ In this order:
 4. **Nothing left switched on** (Claude Code): any block lifted, and the wrapper's allow removed (`claude-code-runs.md` section 7), then the settings read back.
 5. **Replacing another version** (section 2), as its own message, before the go-live message.
 6. **The go-live message** (section 3), once item 5 is answered.
-7. **A team workflow:** the SOP offer (N-T52, in SKILL.md).
-8. **A lasting insight** from the round, where there's a registry: **Ask:** "This round showed [the insight]. Shall I keep that as a note in your registry, for future workflows?" (N-T53) On a yes, write a Note node linked to the Workflow. The reply to the answer, when nothing else is left (no SOP, no Git save point), is the last message: a few words of acknowledgement (on a yes, that the note is saved), then, as its next action, model wording such as "Re-check it any time with 'test the workflow I built. My files are in [location].'"; never a summary of the round, of what you saved or of the registry, and never again that it's live or passed. That reply is one text, and the turn ends on it.
+7. **A team workflow:** the SOP offer (N-T52, *your words*, in SKILL.md).
+8. **A lasting insight** from the round, where there's a registry: **Ask:** "This round showed [the insight]. Shall I keep that as a note in your registry, for future workflows?" (N-T53, *your words*) On a yes, write a Note node linked to the Workflow. The reply to the answer, when nothing else is left (no SOP, no Git save point), is the last message: a few words of acknowledgement (on a yes, that the note is saved), then, as its next action, model wording such as "Re-check it any time with 'test the workflow I built. My files are in [location].'"; never a summary of the round, of what you saved or of the registry, and never again that it's live or passed. That reply is one text, and the turn ends on it.
 9. **The results:** `go_live: done`, the last write, made once nothing of the go-live is left to answer, as the last tool call of the turn whose message ends the go-live, just before that message (the go-live message when no question follows it; otherwise item 8's reply, or the SOP's close), never after it: so a go-live that stops before it (at a replacement question, the SOP or the note) still reads as state 10, and the next entry finishes what's left (SKILL.md, state 10).
 10. **The Git save point,** where the folder is a repository (SKILL.md). On Claude Code with a schedule, the go-live message says to switch the schedule on after this save; for a cloud routine, Build's switch-on steps include the leader pushing it.
 
@@ -43,7 +43,7 @@ Said exactly, with its parts chosen from the files, in this order, and nothing e
   - The leader chose at Build to keep running it by hand (the schedule's safety record says so): "It runs by hand, as you chose. To put it on its schedule later, say 'change my workflow: [the schedule point]. My files are in [location].'"
   - No schedule in its plan: nothing, unless a timer fits the work (the requirements' `Starts` or Trigger names a time, or an event checked on a schedule); then: "To run it on a schedule later, say 'change my workflow: run it on a schedule. My files are in [location].', so the schedule is checked before it runs without you."
 - **Other workflows paused for a shared skill** (the build record's "Also" lists "Paused for the shared skill [skill]: [workflow]"), at the first Ready round after the build that paused them, naming each, said exactly (N-T58): "You can switch [workflows] back on now; they use [skill], which just passed its test."
-- **A schedule, and no run log:** "Check its run history now and then for anything it flags."
+- **A schedule, and no run log:** "Check its run history now and then for anything it flags." *(your words)*
 - **Re-check, and how to change it:** "Re-check it any time with 'test the workflow I built', especially if you find yourself editing more than you used to. To change it, say 'change my workflow. My files are in [location].'"
 - **Time saved:** a Baseline of Unknown (every file Deconstruct writes now) gets no time-saved line at go-live, since Design has nowhere to record a time by hand. A time saved is shown only where an older requirements file already holds a known Baseline (the time-saved line, Build's `carried-lines.md`).
 
@@ -62,7 +62,7 @@ On a Ready round of a live workflow (a re-check, a change, or a fix after either
    - **After N-T48** (section 2), `paused` reads as `none`: the first go-live's schedule sentence (or its no-schedule line), and write `not-on` where switch-on steps were given.
    - **Other workflows paused for a shared skill:** N-T58, as in section 3.
    - Then: "To change it, say 'change my workflow. My files are in [location].'"
-4. **A team workflow** whose team question got "stuck": the SOP offer (N-T52, in SKILL.md).
+4. **A team workflow** whose team question got "stuck": the SOP offer (N-T52, *your words*, in SKILL.md).
 5. Lift the settings (Claude Code), write `go_live: done`, and offer the Git save point, as at a first go-live.
 
 **Running work brought in** counts as live throughout (its node is `in-production`), so its first Ready round, after a `first` round, takes this live form: N-T48's running-work form first where the work was set up somewhere or scheduled, then "Live since" and "How to switch it off" written, and every first-time item named.

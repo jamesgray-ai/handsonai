@@ -81,7 +81,7 @@ The second run of the same input reuses the leader's decision. Show the leader i
 
 Both runs must meet a line for it to count as met. When they disagree, show both and say N-T31:
 
-> "[Input] passed once and missed once ([the line]), so it isn't reliable yet. It's on the list for Build to tighten."
+> "[Input] passed once and missed once ([the line]), so it isn't reliable yet. It's on the list for Build to tighten." *(your words)*
 
 Then the next input, or the verdict. The disagreement is a build miss, with Cause `two runs differ`. Before the per-input reply, show the leader what the run produced (the weaker run's, when the two differ).
 

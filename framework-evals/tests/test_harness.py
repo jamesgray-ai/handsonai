@@ -1722,7 +1722,7 @@ class Corpus(unittest.TestCase):
     def test_shape(self):
         c = AL.load()
         ids = set(c.by_id)
-        for must in ("N-F1", "N-F13", "N-B52", "N-B53", "N-B54", "N-T2", "N-T35", "N-T42", "N-R1", "git-save-point",
+        for must in ("N-F1", "N-F13", "N-B52", "N-B53", "N-B54", "N-T42", "N-T60", "N-R1", "git-save-point",
                      "D5", "D10", "practice-run-line"):
             self.assertIn(must, ids)
         for e in json.loads(AL.DEFAULT_CORPUS.read_text())["lines"]:
