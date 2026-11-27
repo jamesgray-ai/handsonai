@@ -586,6 +586,18 @@ class FileChecks(unittest.TestCase):
         self.assertFalse(self.structure("plan", changed, start=self.plan), "an old-form plan the run changed is checked as written")
         self.assertTrue(self.structure("plan", new, start=self.plan), "a plan the run rewrote in the new form passes")
 
+    def test_not_contains_can_skip_a_fenced_brief(self):
+        # build-smoke-2 (Pass 4): Build's "Never Test's phrase" matched the brief's own quoted line; a check
+        # may skip fenced blocks whose first line opens with one of `outside_fences` ("Skill brief:")
+        brief = "Here's the brief.\n\n```\nSkill brief: drafting-follow-ups\nKeep these exactly:\nsay 'test the workflow I built.'\n```\n"
+        c = {"type": "ai_not_contains", "text": "test the workflow I built", "outside_fences": ["Skill brief:", "Agent brief:"]}
+        self.assertTrue(ok(c, run_of(brief)))
+        self.assertFalse(ok(c, run_of(brief + "\nThen say 'test the workflow I built.'")))
+        self.assertFalse(ok(c, run_of("```\nrun this\ntest the workflow I built\n```")), "only a brief's fence is skipped")
+        self.assertFalse(ok({"type": "ai_not_contains", "text": "test the workflow I built"}, run_of(brief)))
+        r = {"type": "ai_not_regex", "pattern": "test the workflow", "outside_fences": ["Skill brief:"]}
+        self.assertTrue(ok(r, run_of(brief)))
+
     def test_plan_left_untouched_keeps_the_old_form(self):
         # a plan the run left as it found it (a fixture's older plan) still passes in the old form
         self.assertTrue(self.structure("plan", self.plan, start=self.plan))

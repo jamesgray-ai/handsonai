@@ -5,7 +5,9 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
 
   ai_contains      {text, session?, turn?: first|any|all|last, line?}  an AI message contains the text
                                                                   (`line`: the approved line it quotes)
-  ai_not_contains  {text, session?}                               no AI message contains it
+  ai_not_contains  {text, session?, outside_fences?}               no AI message contains it (outside_fences: a
+                                                                  list of openers; a fenced block whose first line
+                                                                  starts with one is skipped, as Build's brief)
   ai_regex         {pattern, session?, turn?}                     an AI message matches
   ai_not_regex     {pattern, session?}                            no AI message matches
   quote            {id, form?, session?, turn?, ending?}          an AI message says that approved line
@@ -270,6 +272,18 @@ def _listed(run):
 
 def _sessions(run, n):
     return [_listed(run)[n - 1]] if n else run["sessions"]
+
+
+def _strip_fences(text, openers):
+    """The text without each fenced block whose first line inside the fence starts with one of `openers`
+    (Build's `Skill brief:` block quotes lines the AI must never say outside it; Pass 4)."""
+    out, i = [], 0
+    for m in re.finditer(r"(?ms)^[ \t]*(`{3,}|~{3,})[^\n]*\n(.*?)^[ \t]*\1[ \t]*$", text):
+        if m.group(2).lstrip().startswith(openers):
+            out.append(text[i:m.start()])
+            i = m.end()
+    out.append(text[i:])
+    return "".join(out)
 
 
 def _ai_turns(sess, which="any"):
@@ -1004,8 +1018,11 @@ def check(c, run):
                     return True, f"the leader said it in session {s['n']}"
         return False, "not in any leader message"
     if t in ("ai_not_contains", "ai_not_regex"):
+        skip = tuple(c.get("outside_fences") or ())
         for s in _sessions(run, n):
             for i, m in enumerate(_ai_turns(s)):
+                if skip:
+                    m = _strip_fences(m, skip)
                 hit = (qnorm(c["text"]) in qnorm(m)) if t == "ai_not_contains" else re.search(norm(c["pattern"]), norm(m), re.M)
                 if hit:
                     return False, f"session {s['n']} AI message {i + 1}: {m[:200]!r}"

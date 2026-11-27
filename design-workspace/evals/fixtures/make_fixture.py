@@ -673,6 +673,40 @@ def fx_format11(t):  # P7: Client Follow-Up as 11.0's Deconstruct writes it, at 
     shutil.copy(F11 / "requirements.md", w / "requirements.md")
 
 
+
+def f11_req(t):
+    return wf_dir(t, CFU) / "requirements.md"
+
+
+def fx_format11_all_test_writes(t):  # Review Focus 1: every scenario is one Test writes, so there's no inputs/ folder
+    """No real input: E1 becomes `(made up)` with `Test writes it`, and inputs/ goes. Complete as it stands: the
+    hand check passes it, Design plans from the rows, and nothing goes back to Deconstruct."""
+    fx_format11(t)
+    shutil.rmtree(wf_dir(t, CFU) / "inputs")
+    sub(f11_req(t), "| E1 | Renewal call (real) | `inputs/E1-acme-renewal-call.md` — notes from a renewal call with three next steps |",
+        "| E1 | Renewal call (made up) | Test writes it — notes from a renewal call with three next steps |")
+
+
+def fx_format11_from_rule(t):  # Review Focus 3: AC1's `· from:` names R4, the rule the leader asks to drop
+    fx_format11(t)
+    sub(f11_req(t), "each with its owner. · from: I1\n", "each with its owner. · from: I1, R4\n")
+
+
+def fx_format11_booking(t):  # Review Focus 5: the email ends with the leader's booking link, which no file holds
+    fx_format11(t)
+    sub(f11_req(t), "    Next steps, each with its owner\n", "    Next steps, each with its owner\n    Your booking link for the next call\n")
+
+
+def fx_format11_no_write(t):  # Review Focus 6: the Output says "email", but the requirements hold no write
+    """`### Writes` reads None, and no Traceability limit names Gmail: nothing in the requirements creates a draft
+    anywhere, so the email is shown in the chat unless a write is added through a requirement change."""
+    fx_format11(t)
+    r = f11_req(t)
+    sub(r, "*Scope: writes to a live system*\n\n### Traceability\n| ID | Constraint | Source |\n|---|---|---|\n"
+           "| P1 | Each run's closing summary names the draft it created in Gmail Drafts. | Self |\n\n", "*Scope: no writes*\n\n")
+    sub(r, "\n### Writes\n- W1 · Gmail · create a draft · after the email is drafted\n", "\n### Writes\nNone\n")
+
+
 FIXTURES = {
     "event-30min": fx_event_30min, "event-as-often": fx_event_as_often, "place-to-confirm": fx_place_to_confirm,
     "regulated-same-way": fx_regulated_same_way, "regulated-some-of-each": fx_regulated_some_of_each,
@@ -693,7 +727,8 @@ FIXTURES = {
     "several-requests": fx_several_requests, "law-drop-request": fx_law_drop_request, "schedule-by-hand": fx_schedule_by_hand,
     "draft-with-gaps": fx_draft_with_gaps, "draft-safety-gap": fx_draft_safety_gap,
     "open-item-consequential": fx_open_item_consequential, "live-context-unreadable": fx_live_context_unreadable,
-    "live-m365-agent": fx_live_m365_agent, "format-11": fx_format11, "live-chatgpt": fx_live_chatgpt, "agent-failed-check": fx_agent_failed_check,
+    "live-m365-agent": fx_live_m365_agent, "format-11": fx_format11, "format-11-all-test-writes": fx_format11_all_test_writes,
+    "format-11-from-rule": fx_format11_from_rule, "format-11-booking": fx_format11_booking, "format-11-no-write": fx_format11_no_write, "live-chatgpt": fx_live_chatgpt, "agent-failed-check": fx_agent_failed_check,
 }
 
 # The library's routing states as today's Deconstruct leaves Client Follow-Up (`Path: none`): the folders the

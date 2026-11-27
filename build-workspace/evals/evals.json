@@ -8905,11 +8905,15 @@
      }
     },
     {
-     "text": "Never Test's phrase",
+     "text": "Never Test's phrase, outside the fenced brief (the brief quotes the how-to-change line word for word; build-smoke-2's false positive)",
      "kind": "scripted",
      "check": {
       "type": "ai_not_contains",
-      "text": "test the workflow I built"
+      "text": "test the workflow I built",
+      "outside_fences": [
+       "Skill brief:",
+       "Agent brief:"
+      ]
      }
     },
     {

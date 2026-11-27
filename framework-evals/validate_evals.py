@@ -92,6 +92,9 @@ def check_check(c, where, errs, nsessions, corpus):
             errs.append(f"{where}: max_words containing names no approved line {c['containing']} ({c.get('form', 'any form')})")
     if t == "ai_contains" and c.get("line") and not corpus.get(c["line"]):
         errs.append(f"{where}: ai_contains names unknown line {c['line']}")
+    if "outside_fences" in c and not (t in ("ai_not_contains", "ai_not_regex") and isinstance(c["outside_fences"], list)
+                                      and c["outside_fences"] and all(isinstance(x, str) and x for x in c["outside_fences"])):
+        errs.append(f"{where}: outside_fences is a list of fence openers, on ai_not_contains or ai_not_regex only")
     if t == "structure" and c.get("kind") not in ("plan", "build_record", "results", "requirements"):
         errs.append(f"{where}: structure kind {c.get('kind')!r}")
     if t == "fill_check" and c.get("kind") not in ("build", "fix"):
