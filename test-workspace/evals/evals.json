@@ -95,13 +95,8 @@
           }
         },
         {
-          "text": "Never says N-T3: no opening",
-          "kind": "scripted",
-          "check": {
-            "type": "quote_absent",
-            "id": "N-T3",
-            "session": 1
-          }
+          "text": "Doesn't give the first round's opening here (this session resumes or routes; no opening)",
+          "kind": "judged"
         },
         {
           "text": "Says N-T15 word for word",
@@ -131,13 +126,8 @@
           }
         },
         {
-          "text": "Never says N-T3: no opening",
-          "kind": "scripted",
-          "check": {
-            "type": "quote_absent",
-            "id": "N-T3",
-            "session": 2
-          }
+          "text": "Doesn't give the first round's opening here (this session resumes or routes; no opening)",
+          "kind": "judged"
         },
         {
           "text": "Says N-T25 word for word",
@@ -359,68 +349,8 @@
           }
         },
         {
-          "text": "Never says N-T3: no opening in any session",
-          "kind": "scripted",
-          "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "quote_absent",
-                "id": "N-T3",
-                "session": 3
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T3",
-                "session": 4
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T3",
-                "session": 5
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T3",
-                "session": 6
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T3",
-                "session": 7
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T3",
-                "session": 8
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T3",
-                "session": 9
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T3",
-                "session": 10
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T3",
-                "session": 11
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T3",
-                "session": 12
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T3",
-                "session": 13
-              }
-            ]
-          }
+          "text": "Doesn't give the first round's opening here (this session resumes or routes; no opening)",
+          "kind": "judged"
         },
         {
           "text": "Never says N-T1: no signpost in any session",
@@ -593,13 +523,8 @@
           }
         },
         {
-          "text": "Says N-T3 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T3",
-            "session": 1
-          }
+          "text": "The first round's opening says, in its own words, that Test checks the workflow against what the leader wrote and they make the call, that it runs their practice runs plus one new input it hasn't seen, and asks for one real input or 'write one for me'",
+          "kind": "judged"
         },
         {
           "text": "Says N-T26 word for word: live, so a re-check opening",
@@ -647,12 +572,8 @@
           "must": true
         },
         {
-          "text": "Says N-T3 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T3"
-          }
+          "text": "The first round's opening says, in its own words, that Test checks the workflow against what the leader wrote and they make the call, that it runs their practice runs plus one new input it hasn't seen, and asks for one real input or 'write one for me'",
+          "kind": "judged"
         }
       ],
       "est_turns": 4,
@@ -693,12 +614,8 @@
           }
         },
         {
-          "text": "Says N-T3 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T3"
-          }
+          "text": "The first round's opening says, in its own words, that Test checks the workflow against what the leader wrote and they make the call, that it runs their practice runs plus one new input it hasn't seen, and asks for one real input or 'write one for me'",
+          "kind": "judged"
         },
         {
           "text": "Says N-F10 (Claude desktop, with the files in a local folder) word for word",
@@ -3805,13 +3722,8 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T59 (main) word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T59",
-            "form": "main"
-          }
+          "text": "The practice inputs Test wrote are shown before any is saved, run or graded: one line each, saying what it is and what it should do, with an offer to show any in full ('show me'), and a question whether each looks like something the leader could really get",
+          "kind": "judged"
         },
         {
           "text": "Every practice input Test wrote (the gap-fillers, the first round's two, the flag input) is shown in full with what it should do, in one message before any is saved, run or graded and before N-T6+N-T7",
@@ -3819,22 +3731,8 @@
           "must": true
         },
         {
-          "text": "Says N-T6+N-T7 (main) word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T6+N-T7",
-            "form": "main"
-          }
-        },
-        {
-          "text": "N-T6+N-T7 carries its 3.3 clause about anything it must never do",
-          "kind": "scripted",
-          "check": {
-            "type": "ai_contains",
-            "text": "Missing one you can't live without, or anything it must never do, always sends it back",
-            "line": "N-T6+N-T7"
-          }
+          "text": "Before anything runs, one message says the practice inputs cover the leader's checks plus their rules and limits (never a bare count of requirements), states the passing rule once (every check met; a miss can be fixed or accepted, except anything it must never do), and asks whether to add or drop anything",
+          "kind": "judged"
         },
         {
           "text": "The flag input saved",
@@ -6951,8 +6849,8 @@
           "text": "No time-saved line: N-T16's retired Baseline-Unknown form is never said",
           "kind": "scripted",
           "check": {
-           "type": "ai_not_contains",
-           "text": "To see time saved later"
+            "type": "ai_not_contains",
+            "text": "To see time saved later"
           }
         },
         {
@@ -7187,21 +7085,12 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T3 word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T3"
-          }
+          "text": "The first round's opening says, in its own words, that Test checks the workflow against what the leader wrote and they make the call, that it runs their practice runs plus one new input it hasn't seen, and asks for one real input or 'write one for me'",
+          "kind": "judged"
         },
         {
-          "text": "Says N-T3 (main-2): the rounds line, said to every leader",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T3",
-            "form": "main-2"
-          }
+          "text": "On a full-track workflow, says once that two or three rounds is normal; on a light workflow, never",
+          "kind": "judged"
         },
         {
           "text": "Test writes a third practice input before any run, and the batch runs three practice inputs plus the flag input",
@@ -8139,16 +8028,6 @@
             "checks": [
               {
                 "type": "quote_absent",
-                "id": "N-T6+N-T7",
-                "form": "main"
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T6+N-T7",
-                "form": "Later rounds"
-              },
-              {
-                "type": "quote_absent",
                 "id": "N-T8",
                 "form": "Claude Code"
               },
@@ -8444,23 +8323,8 @@
           }
         },
         {
-          "text": "Opens no round",
-          "kind": "scripted",
-          "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "quote_absent",
-                "id": "N-T6+N-T7",
-                "form": "main"
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T6+N-T7",
-                "form": "Later rounds"
-              }
-            ]
-          }
+          "text": "Doesn't say the old fixed line N-T6+N-T7 (retired; its content is checked by behaviour)",
+          "kind": "judged"
         },
         {
           "text": "It treats the workflow as ready to go live and asks about taking it live",
@@ -8513,16 +8377,6 @@
           "check": {
             "type": "all",
             "checks": [
-              {
-                "type": "quote_absent",
-                "id": "N-T6+N-T7",
-                "form": "main"
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T6+N-T7",
-                "form": "Later rounds"
-              },
               {
                 "type": "file_unchanged",
                 "path": "framework/client-follow-up/requirements.md"
@@ -8631,13 +8485,8 @@
           }
         },
         {
-          "text": "Says N-T6+N-T7 (main) word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T6+N-T7",
-            "form": "main"
-          }
+          "text": "Before anything runs, one message says the practice inputs cover the leader's checks plus their rules and limits (never a bare count of requirements), states the passing rule once (every check met; a miss can be fixed or accepted, except anything it must never do), and asks whether to add or drop anything",
+          "kind": "judged"
         },
         {
           "text": "No narration: no line IDs, no 'Saving…', no notes to itself",

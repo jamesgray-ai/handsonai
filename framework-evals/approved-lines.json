@@ -6476,7 +6476,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: said in Test's own words; T1, T2, T3)"
   },
   {
    "id": "N-T3",
@@ -6489,7 +6490,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: said in Test's own words; T1, T2, T3)"
   },
   {
    "id": "N-T6+N-T7",
@@ -6502,7 +6504,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24); reworded, 03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3) (R-D2, D8f: \"or anything it must never do\" added, said always)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); reworded, 03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3) (R-D2, D8f: \"or anything it must never do\" added, said always)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: said in Test's own words; T1, T2, T3)"
   },
   {
    "id": "N-T6+N-T7",
@@ -6515,7 +6518,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (U1: said in Test's own words; T1, T2, T3)"
   },
   {
    "id": "N-T8",
@@ -11312,7 +11316,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "independent review finding 1; approved by James 2026-11-21"
+   "source": "independent review finding 1; approved by James 2026-11-21",
+   "retired": "2026-11-27: shape release Pass 2 (U1: said in Test's own words; T1, T2, T3)"
   },
   {
    "id": "N-T60",
