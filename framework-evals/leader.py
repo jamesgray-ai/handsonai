@@ -569,8 +569,9 @@ def scripted_runs(session=None, ev=None):
 
 
 def handover_block(ai_text):
-    """The block a hand-over asks the leader to paste into a new chat (Test's N-T8, Build's N-B45)."""
-    if not re.search(r"(?i)paste (the block below|this)", ai_text):
+    """The block a hand-over asks the leader to paste into a new chat (Test's N-T8, Build's N-B45). On the chat
+    platforms Test sends it in a message of its own, after the leader says 'ready': "…paste it into that chat"."""
+    if not re.search(r"(?i)paste (the block below|this|it into that chat)", ai_text):
         return None
     m = re.findall(r"```[^\n]*\n(.*?)```", ai_text, re.S)
     return m[-1].strip() if m else None

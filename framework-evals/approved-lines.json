@@ -1301,6 +1301,19 @@
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change"
   },
   {
+   "id": "N-T28",
+   "form": "Claude, the clean chat",
+   "text": "In an incognito chat, Claude doesn't use your memory or see your files, and I'll still check each run for signs it saw your requirements.",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "references/hand-overs.md"
+   },
+   "source": "2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
+  },
+  {
    "id": "running-work",
    "form": "main",
    "text": "This workflow already runs outside the framework. To bring it in, say 'run the deconstruct skill on [workflow]. My files are in [location].' Deconstruct pins down its goal, what it must get right, its rules and a few practice runs; until the new version is built and installed, keep running it as it is.",
@@ -6524,7 +6537,7 @@
   {
    "id": "N-T8",
    "form": "Chat platforms",
-   "text": "Open a new chat [in your [workflow] Project / in Cowork][Claude: ', and before typing, open + and switch off memory, then switch off every connector under Connectors[ except [its connectors]]'][ChatGPT: ', and add [its apps] and no other apps' / with no apps: ', and don't add any apps'][Microsoft 365, once its release check passes: ', and switch off every connector it doesn't use for this chat: [steps]'], then paste the block below[ and attach [files]].",
+   "text": "Open a new chat [in your [workflow] Project / in Cowork][Claude: ', and before typing, open + and switch off memory, then switch off everything under Plugins[ except [its plugins]]'][ChatGPT: ', and add [its apps] and no other apps' / with no apps: ', and don't add any apps'][Microsoft 365, once its release check passes: ', and switch off every connection it doesn't use for this chat: [steps]'][ and attach [files]], then say 'ready' here.",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -6532,12 +6545,12 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
   },
   {
    "id": "N-T8",
    "form": "Microsoft 365, an agent Agent Builder made",
-   "text": "Open Copilot, choose Chat, then Agents, and start a new chat with [Agent], then paste the block below.",
+   "text": "Open Copilot, choose Chat, then Agents, and start a new chat with [Agent], then say 'ready' here.",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -6545,12 +6558,12 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
   },
   {
    "id": "N-T8",
    "form": "Claude desktop",
-   "text": "Open a new chat in your [workflow] folder, and before typing, open + and switch off memory, then switch off every connector under Connectors[ except [its connectors]], then paste the block below. It's told to save nothing in that folder; if its summary shows it saved or changed a file there, tell me.",
+   "text": "Open a new chat in your [workflow] folder, and before typing, open + and switch off memory, then switch off everything under Plugins[ except [its plugins]]. If it asks to access another folder, click Cancel. It's told to save nothing in that folder; if its summary shows it saved or changed a file there, tell me. Then say 'ready' here.",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -6558,7 +6571,7 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
   },
   {
    "id": "N-T8",
@@ -6610,7 +6623,8 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (one practice chat; said in Test's own words)"
   },
   {
    "id": "N-T8",
@@ -6651,6 +6665,19 @@
    },
    "source": "test.md 12; 3c-DJ (2026-10-24)",
    "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
+  },
+  {
+   "id": "N-T8",
+   "form": "Claude, the clean chat",
+   "text": "Open an incognito chat in Claude, outside any Project, and before typing, open + and switch off everything under Plugins[ except [its plugins]], then say 'ready' here.",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "references/hand-overs.md"
+   },
+   "source": "2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
   },
   {
    "id": "N-T9",
@@ -7176,7 +7203,7 @@
   {
    "id": "N-T30",
    "form": "Refused",
-   "text": "That run drew on your [requirements / plan / framework files] ([evidence]), so it would look better than real use. Run it again in a new chat:",
+   "text": "That run shows signs it saw your [requirements / plan / framework files] ([evidence]), so it would look better than real use. Run it again in a new chat:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7184,7 +7211,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
   },
   {
    "id": "N-T30",
@@ -7202,7 +7229,7 @@
   {
    "id": "N-T30",
    "form": "Refused, Codex",
-   "text": "That run drew on your [requirements / plan / framework files] ([evidence]), so it would look better than real use. Run it again in a new session:",
+   "text": "That run shows signs it saw your [requirements / plan / framework files] ([evidence]), so it would look better than real use. Run it again in a new session:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7210,7 +7237,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "3c-EB (2026-10-25)"
+   "source": "3c-EB (2026-10-25); 2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
   },
   {
    "id": "N-T31",

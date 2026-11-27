@@ -1352,7 +1352,7 @@
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
       "student": "students/default.md",
       "platform": "codex",
-      "expected_output": "The leader runs every input once: the batch in one new session in the workspace, the real example in its own; each block copied back; N-T28's Codex form; N-F4 in every hand-over; no practice folder.",
+      "expected_output": "The leader runs every input once: every input in one new session in the workspace, the new one after the practice inputs and the flag input last; each block copied back; N-T28's Codex form; N-F4 in every hand-over; no practice folder.",
       "files": [
         "students/default.md"
       ],
@@ -1376,13 +1376,8 @@
           }
         },
         {
-          "text": "Says N-T8 (Batch) word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T8",
-            "form": "Batch"
-          }
+          "text": "Says, in its own words, that the practice chat runs all the round's inputs one after another",
+          "kind": "judged"
         },
         {
           "text": "Says N-T10 (Batch) word for word",
@@ -1476,7 +1471,7 @@
       "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
       "student": "students/default.md",
       "platform": "chatgpt",
-      "expected_output": "A batch in one new chat in the Project with only the workflow's apps added; the real example in its own chat; one block back per chat; N-T28's main form.",
+      "expected_output": "One practice chat in the Project with only the workflow's apps added, every input in it, the new one after the practice inputs; one block back; N-T28's main form.",
       "files": [
         "students/default.md"
       ],
@@ -1606,7 +1601,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "switch off memory, then switch off every connector under Connectors"
+            "text": "switch off memory, then switch off everything under Plugins"
           }
         },
         {
@@ -2811,13 +2806,8 @@
           }
         },
         {
-          "text": "Says N-T8 (Batch) word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T8",
-            "form": "Batch"
-          }
+          "text": "Says, in its own words, that the practice chat runs all the round's inputs one after another",
+          "kind": "judged"
         },
         {
           "text": "No allow added",
@@ -2890,7 +2880,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "switch off every connector under Connectors except",
+            "text": "switch off everything under Plugins except",
             "session": 1
           }
         },
