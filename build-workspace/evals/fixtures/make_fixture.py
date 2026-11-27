@@ -1402,6 +1402,13 @@ def fx_web_format11_no_place(t):  # RF2 (B3): the plan puts C1 in the skill's ow
         "- S1 saved to your Claude account, with C1 in the skill's own folder.")
 
 
+def fx_web_no_connection(t):  # Pass 5 (plan review C1): Claude on the web, no connection that can send or change
+    """The workflow drafts in the chat and holds no connection, but the leader's own plugins and connections stay on
+    (nothing is switched off), so the fresh-chat run's hand-over still says the Deny line."""
+    fx_web_first(t)
+    _no_write(t)
+
+
 def fx_web_format11_already_runs(t):  # RF7 (B6): 11.0, and the leader told Deconstruct it already runs
     fx_web_format11(t)
     already_runs_flag(t)
@@ -1505,6 +1512,8 @@ FIXTURES = {
     "web-format11": fx_web_format11, "web-format11-no-place": fx_web_format11_no_place,
     "web-format11-already-runs": fx_web_format11_already_runs, "cc-done-e1-e3-no-inputs": fx_cc_done_e1_e3_no_inputs,
     "codex-agent": fx_codex_agent,
+    # Pass 5 (shape release): every plugin left on, a workflow with no sending connection
+    "web-no-connection": fx_web_no_connection,
 }
 
 # The library's routing states as today's Deconstruct leaves Client Follow-Up (`Path: none`): the folders the

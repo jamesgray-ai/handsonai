@@ -1151,6 +1151,16 @@ def fx_connection_input(t):  # the call notes come through a connection: Google 
     sub(req(t), "| Trigger | You finish a client call and paste in your notes |", "| Trigger | You finish a client call and your notes are in the Call notes folder |")
 
 
+def fx_drive_in_use(t):  # Pass 5 (Drive case 2): the workflow itself reads its call notes from Google Drive
+    """The framework files are in Google Drive and the workflow uses Google Drive too, so the hand-over switches
+    nothing off and the cold-run question asks whether the run opened anything in the framework folder."""
+    fx_connection_input(t)
+    sub(plan(t), "Gmail: Claude's own Gmail connection (use).",
+        "Gmail: Claude's own Gmail connection (use).\nGoogle Drive: Claude's own Google Drive connection (use), to read the Call notes folder.")
+    sub(record(t), "## What it can access\n",
+        "## What it can access\n**Google Drive (your work account).** It reads the Call notes folder. It changes nothing there.\n\n")
+
+
 def fx_golden(t):  # a real past follow-up in context/, tied to E1
     in_progress(t, "web", "batch")
     write(wf(t) / "context" / "C2-acme-follow-up-sent.md",
@@ -1862,7 +1872,7 @@ FIXTURES = {
     "platform-change": fx_platform_change, "platform-change-answered": fx_platform_change_answered,
     # light, inputs
     "light-two-inputs": fx_light_two_inputs, "light-gains-risk": fx_light_gains_risk, "not-available": fx_not_available,
-    "connection-input": fx_connection_input, "golden": fx_golden,
+    "connection-input": fx_connection_input, "drive-in-use": fx_drive_in_use, "golden": fx_golden,
     # Microsoft 365
     "m365-agent-first": fx_m365_agent_first, "m365-agent-noconn": fx_m365_agent_noconn,
     "m365-agent-no-first-line": fx_m365_agent_no_first_line, "m365-agent-ids": fx_m365_agent_ids,

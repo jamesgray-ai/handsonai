@@ -29,10 +29,10 @@ These come first, where they apply:
 - When it asks whether there's anything to add or drop, or whether you're ready, say "No changes. Ready."
 - When it shows you practice inputs it wrote and asks whether each looks like something you could really get, say "Yes, they do."
 - When it says a rule can't go live untested and asks whether to add an input for it or change or drop the rule, say "Not today; leave the rule as it is."
-- When it asks you to open a chat and say 'ready', say "ready"; then copy the block it gives you into that chat.
+- When it gives you setup steps for a new chat and a box to paste into it, do the steps, then copy the box into that chat.
 - When it asks you to open a new chat or session, or a second terminal, and paste a block, do it as your screen allows. If your screen shows the run's answer, paste what it shows. If it doesn't, paste the matching block from "Your runs". On Claude Code, when it says to say "next" when it finishes, say "next".
 - When the workflow itself asks you something during a run, answer as you would at work: approve the draft; for the Northwind call, say no next step was agreed.
-- When it asks whether that chat saw your requirements or plan, say "No." If it also asks whether Claude asked to reach another folder, say "No."; if it asks whether everything under Plugins but the workflow's own was off, say "Yes."
+- When it asks whether that chat saw your requirements or plan (with or without a part about another folder, Google Drive or your framework folder in the same question), say "No."
 - When it shows you a result and asks if you agree and how much you'd edit it, say "Agree. Nothing."
 - When it asks what you'd change about how it works or what it does, say "Nothing."
 - When it asks "Take it live?", say "Yes."

@@ -928,9 +928,10 @@ def scripted_runs(session=None, ev=None):
 
 
 def handover_block(ai_text):
-    """The block a hand-over asks the leader to paste into a new chat (Test's N-T8, Build's fresh-chat run). On the chat
-    platforms Test sends it in a message of its own, after the leader says 'ready': "…paste it into that chat"."""
-    if not re.search(r"(?i)paste (the block below|this|it into that chat)", ai_text):
+    """The box a hand-over asks the leader to paste into a new chat (Test's N-T8, Build's fresh-chat run): since Pass 5
+    (E14) one message on every platform, its setup first and the box last ("…paste it into that chat", "paste the
+    box below"); "the block below" is the wording before Pass 5."""
+    if not re.search(r"(?i)paste (the (?:block|box) below|this|it into that chat)", ai_text):
         return None
     m = re.findall(r"```[^\n]*\n(.*?)```", ai_text, re.S)
     return m[-1].strip() if m else None

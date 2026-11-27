@@ -12,7 +12,7 @@ Morgan Reyes, who does the family's weekly shop and built Weekly Grocery List as
 - When it asks whether there's anything to add or drop, or whether you're ready, say "No changes. Ready."
 - When it shows you practice inputs it wrote and asks whether each looks like something you could really get, say "Yes, they do."
 - When it asks you to open a new chat with the agent and paste a block, do it as your screen allows, then paste what your screen shows.
-- When it asks whether that chat saw your requirements or plan, say "No." If it also asks whether Claude asked to reach another folder, say "No."; if it asks whether everything under Plugins but the workflow's own was off, say "Yes."
+- When it asks whether that chat saw your requirements or plan (with or without a part about another folder, Google Drive or your framework folder in the same question), say "No."
 - When it shows you a result and asks if you agree and how much you'd edit it: if it says something is missing, say "Agree, that's wrong. A little."; otherwise "Agree. Nothing."
 - When it asks what you'd change about how it works or what it does, say "Nothing."
 - When it asks if you've changed the agent in Agent Builder or its Knowledge, say "No."

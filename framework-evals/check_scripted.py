@@ -109,6 +109,10 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   creator's `package_skill` made (unzip, zipinfo,
                                                                   python… naming the .skill file), in the same turn;
                                                                   no offer passes. No events.jsonl fails closed
+  handover_one_message {session?}                                 every practice-run hand-over is one message: setup,
+                                                                  then the box last, nothing after it; no "say 'ready'"
+  deny_in_every_handover {session?}                               N-F4 (any form) before every practice-run box, in its
+                                                                  message, whatever the workflow's connections (Pass 5)
   no_false_first_line_claim {session?}                            once the leader pastes a run reply whose practice-run
                                                                   line isn't its opening words (a short line came first,
                                                                   or the output did), no later AI message says the reply
@@ -984,22 +988,50 @@ FRESH_BLOCK = re.compile(r"```[^\n]*\n[^\n]*[—-]+ practice run[ \t]*\n", re.I)
 
 
 def _nf4_before_fresh_run(run):
-    """Pass 3, Task 4 (F5): the fresh-chat run's hand-over carries Build's form of N-F4 before its block: in
-    the message holding the block, ahead of it, or in the AI message straight before it (the chat
-    platforms' first message, which ends asking for 'ready'). Said only earlier in the session, or after
-    the block, fails; a session with no such block passes."""
+    """Pass 3, Task 4 (F5); Pass 5 (E14): the fresh-chat run's hand-over is one message, and it carries Build's
+    form of N-F4 before its block, in that message. Said only in an earlier message (the two-message hand-over
+    before 11.0's Pass 5), or after the block, fails; a session with no such block passes."""
     forms = [ln for ln in corpus().get("N-F4", "Build") if ln.text]
     for s in run["sessions"]:
-        msgs = _ai_turns(s, "any")
-        for i, m in enumerate(msgs):
+        for i, m in enumerate(_ai_turns(s, "any")):
+            b = FRESH_BLOCK.search(m)
+            if b and not any(f.matches(m[:b.start()]) for f in forms):
+                return False, f"session {s['n']} AI message {i + 1}: the fresh-chat run's block with no N-F4 Build form before it in its message"
+    return True, "N-F4's Build form is in every fresh-chat run hand-over, before its block"
+
+
+READY_ASK = re.compile(r"(?i)\bsay ['\"]?ready['\"]?")
+
+
+def _handover_one_message(run, n=None):
+    """Pass 5 (E14): every hand-over of a practice run (Build's fresh-chat run, Test's practice chat) is one
+    message: its setup first, then the box last, with nothing after it, and no "say 'ready'" round trip."""
+    for s in _sessions(run, n):
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            where = f"session {s['n']} AI message {i}"
+            if READY_ASK.search(m):
+                return False, f"{where}: asks the leader to say 'ready'"
             b = FRESH_BLOCK.search(m)
             if not b:
                 continue
-            here = any(f.matches(m[:b.start()]) for f in forms)
-            before = i > 0 and any(f.matches(msgs[i - 1]) for f in forms)
-            if not (here or before):
-                return False, f"session {s['n']} AI message {i + 1}: the fresh-chat run's block with no N-F4 Build form in its hand-over"
-    return True, "N-F4's Build form is in every fresh-chat run hand-over, before its block"
+            end = m.find("```", b.end())
+            if end < 0 or m[end + 3:].strip():
+                return False, f"{where}: something follows the box"
+            if len(m[:b.start()].split()) < 20:
+                return False, f"{where}: the box with no setup before it in the same message"
+    return True, "every practice-run hand-over is one message, its box last"
+
+
+def _deny_in_every_handover(run, n=None):
+    """Pass 5 (plan review C1): every hand-over of a practice run says the Deny line (N-F4, any form) before its
+    box, in the same message, whatever the workflow's own connections: the leader's other connections stay on."""
+    forms = [ln for ln in corpus().lines if ln.id == "N-F4" and ln.text]
+    for s in _sessions(run, n):
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            b = FRESH_BLOCK.search(m)
+            if b and not any(f.matches(m[:b.start()]) for f in forms):
+                return False, f"session {s['n']} AI message {i}: a practice-run box with no Deny line before it"
+    return True, "the Deny line is in every practice-run hand-over"
 
 
 PRACTICE_LINE = "Practice run: nothing will be sent or changed."
@@ -1133,6 +1165,10 @@ def check(c, run):
         return _nf4_leads(run)
     if t == "nf4_before_creator":
         return _nf4_before_creator(run)
+    if t == "handover_one_message":
+        return _handover_one_message(run, n)
+    if t == "deny_in_every_handover":
+        return _deny_in_every_handover(run, n)
     if t == "no_false_first_line_claim":
         return _no_false_first_line_claim(run, n)
     if t == "nf4_before_fresh_run":

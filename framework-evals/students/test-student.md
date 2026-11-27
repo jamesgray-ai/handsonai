@@ -14,7 +14,7 @@ The owner of the workflow in this folder, working in Claude Code on your own com
 - When the AI asks for an input, use the one saved in the folder.
 - When the workflow you are testing pauses for a review or an approval, approve it.
 - When the workflow's run has finished, say "test this".
-- When the AI asks you to confirm or change its grades, agree with them.
+- When the AI shows its grades, take them as they stand; if it asks you to tell it when one looks wrong, say nothing about them.
 - When it asks how much you'd have to edit the output, say "a little".
 - If it offers to save a point in your folder's history, say no thanks.
 

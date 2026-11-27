@@ -92,9 +92,8 @@ class QuoteCheck(unittest.TestCase):
 
     def test_label_clause_is_optional(self):
         # N-T8's chat form (N-B45, the line this used before, retired with the bare run in Pass 3)
-        base = "Open a new chat in your Client Follow-Up Project, then say 'ready' here."
-        with_clause = base.replace("Project,", "Project, and before typing, open + and switch off memory, then switch off "
-                                               "everything under Plugins,")
+        base = "Open a new chat in your Client Follow-Up Project."
+        with_clause = base.replace("Project.", "Project, and before typing, open + and switch off memory.")
         self.assertTrue(ok({"type": "quote", "id": "N-T8", "form": "Chat platforms"}, run_of(base)))
         self.assertTrue(ok({"type": "quote", "id": "N-T8", "form": "Chat platforms"}, run_of(with_clause)))
 

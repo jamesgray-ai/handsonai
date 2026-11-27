@@ -108,9 +108,10 @@ class DenyLineInTheFreshChatHandOver(unittest.TestCase):
     """F5: Build's form of N-F4 is in the fresh-chat run's hand-over, before the block, never after the run."""
     C = {"type": "nf4_before_fresh_run"}
 
-    def test_in_the_first_of_two_messages_passes(self):
-        first = f"Open a new chat in your Project, then say 'ready' here.\n\n{DENY}\n\n{FIRST_LINE}"
-        self.assertTrue(CS.check(self.C, run_of(first, BLOCK))[0])
+    def test_in_the_first_of_two_messages_fails(self):
+        # Pass 5 (E14): the hand-over is one message, so the Deny line is in the message that holds the box
+        first = f"Open a new chat in your Project.\n\n{DENY}\n\n{FIRST_LINE}"
+        self.assertFalse(CS.check(self.C, run_of(first, BLOCK))[0])
 
     def test_in_the_same_message_passes(self):
         self.assertTrue(CS.check(self.C, run_of(DENY + "\n\n" + BLOCK))[0])

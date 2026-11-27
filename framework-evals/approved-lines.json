@@ -6793,7 +6793,7 @@
   {
    "id": "N-T8",
    "form": "Chat platforms",
-   "text": "Open a new chat [in your [workflow] Project / in Cowork][Claude: ', and before typing, open + and switch off memory, then switch off everything under Plugins[ except [its plugins]]'][ChatGPT: ', and add [its apps] and no other apps' / with no apps: ', and don't add any apps'][Microsoft 365, once its release check passes: ', and switch off every connection it doesn't use for this chat: [steps]'][ and attach [files]], then say 'ready' here.",
+   "text": "Open a new chat [in your [workflow] Project / in Cowork][Claude: ', and before typing, open + and switch off memory'][ChatGPT: ', and add [its apps] and no other apps' / with no apps: ', and don't add any apps'][ and attach [files]].",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -6801,12 +6801,12 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block); 2026-11-27 Pass 5 Task 2 (E14, E15, E30: one message, the box last, no 'ready'; no plugin or connection switch-off on any platform)"
   },
   {
    "id": "N-T8",
    "form": "Microsoft 365, an agent Agent Builder made",
-   "text": "Open Copilot, choose Chat, then Agents, and start a new chat with [Agent], then say 'ready' here.",
+   "text": "Open Copilot, choose Chat, then Agents, and start a new chat with [Agent].",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -6814,12 +6814,12 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block); 2026-11-27 Pass 5 Task 2 (E14, E15, E30: one message, the box last, no 'ready'; no plugin or connection switch-off on any platform)"
   },
   {
    "id": "N-T8",
    "form": "Claude desktop",
-   "text": "Open a new chat in your [workflow] folder, and before typing, open + and switch off memory, then switch off everything under Plugins[ except [its plugins]]. If it asks to access another folder, click Cancel. It's told to save nothing in that folder; if its summary shows it saved or changed a file there, tell me. Then say 'ready' here.",
+   "text": "Open a new chat in your [workflow] folder, and before typing, open + and switch off memory. If it asks to access another folder, click Cancel. It's told to save nothing in that folder; if its summary shows it saved or changed a file there, tell me.",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -6827,12 +6827,12 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block); 2026-11-27 Pass 5 Task 2 (E14, E15, E30: one message, the box last, no 'ready'; no plugin or connection switch-off on any platform)"
   },
   {
    "id": "N-T8",
    "form": "Claude Code",
-   "text": "Open a second terminal window (keep this one open), go to [folder] and start Claude Code[, once its release check passes: ', then type /mcp and switch off [the servers it doesn't use]'], and paste the block below. It's told to save what it makes only in a practice folder there, which I clear when the round ends, so when Claude Code asks to save a file in [the practice folder], allow it.",
+   "text": "Open a second terminal window (keep this one open), go to [folder] and start Claude Code, and paste the box below. It's told to save what it makes only in a practice folder there, which I clear when the round ends, so when Claude Code asks to save a file in [the practice folder], allow it.",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -6840,7 +6840,7 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27 Pass 5 Task 2 (E14, E15, E30: one message, the box last, no 'ready'; no plugin or connection switch-off on any platform)"
   },
   {
    "id": "N-T8",
@@ -6858,7 +6858,7 @@
   {
    "id": "N-T8",
    "form": "Codex",
-   "text": "Open a new Codex session in [folder] (type `codex` in a second terminal, or start a new chat there in the Codex app), and paste the block below. It's told to save nothing: everything it makes comes back in its last block, and I'll check your workspace afterwards.",
+   "text": "Open a new Codex session in [folder] (type `codex` in a second terminal, or start a new chat there in the Codex app), and paste the box below. It's told to save nothing: everything it makes comes back in its last block, and I'll check your workspace afterwards.",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -6866,7 +6866,7 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27 Pass 5 Task 2 (E14, E15, E30: one message, the box last, no 'ready'; no plugin or connection switch-off on any platform)"
   },
   {
    "id": "N-T8",
@@ -6927,7 +6927,7 @@
   {
    "id": "N-T8",
    "form": "Claude, the clean chat",
-   "text": "Open an incognito chat in Claude, outside any Project, and before typing, open + and switch off everything under Plugins[ except [its plugins]], then say 'ready' here.",
+   "text": "Open an incognito chat in Claude, outside any Project.",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -6935,12 +6935,12 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
+   "source": "2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block); 2026-11-27 Pass 5 Task 2 (E14, E15, E30: one message, the box last, no 'ready'; no plugin or connection switch-off on any platform)"
   },
   {
    "id": "N-T8",
    "form": "Claude on the web, no place",
-   "text": "Open a new chat in Claude, outside any Project, and before typing, open + and switch off memory, then switch off everything under Plugins[ except [its plugins]], then say 'ready' here.",
+   "text": "Open a new chat in Claude, outside any Project, and before typing, open + and switch off memory.",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -6948,12 +6948,12 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "2026-11-27: shape release Pass 3 Task 3 (B3: a place only when the workflow reads a file when it runs; with none, Test runs in a plain new chat outside any Project on Claude on the web and ChatGPT)"
+   "source": "2026-11-27: shape release Pass 3 Task 3 (B3: a place only when the workflow reads a file when it runs; with none, Test runs in a plain new chat outside any Project on Claude on the web and ChatGPT); 2026-11-27 Pass 5 Task 2 (E14, E15, E30: one message, the box last, no 'ready'; no plugin or connection switch-off on any platform)"
   },
   {
    "id": "N-T8",
    "form": "ChatGPT, no place",
-   "text": "Open a new chat in ChatGPT, outside any Project[ With memory steps: ', switch off memory for it ([steps])'][, and add [its apps] and no other apps / with no apps: ', and don't add any apps'], then say 'ready' here.",
+   "text": "Open a new chat in ChatGPT, outside any Project[ With memory steps: ', switch off memory for it ([steps])'][, and add [its apps] and no other apps / with no apps: ', and don't add any apps'].",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -6961,7 +6961,7 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "2026-11-27: shape release Pass 3 Task 3 (B3: a place only when the workflow reads a file when it runs; with none, Test runs in a plain new chat outside any Project on Claude on the web and ChatGPT)"
+   "source": "2026-11-27: shape release Pass 3 Task 3 (B3: a place only when the workflow reads a file when it runs; with none, Test runs in a plain new chat outside any Project on Claude on the web and ChatGPT); 2026-11-27 Pass 5 Task 2 (E14, E15, E30: one message, the box last, no 'ready'; no plugin or connection switch-off on any platform)"
   },
   {
    "id": "N-T9",
@@ -7000,7 +7000,8 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 5 Task 2 (E17: a re-run comes back as the practice chat does, the whole last reply: N-T10 Practice chat or Codex)"
   },
   {
    "id": "N-T10",
@@ -7013,7 +7014,8 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 5 Task 2 (E17: copy the whole last reply, not the 'All results' block; N-T10 'Practice chat')"
   },
   {
    "id": "N-T10",
@@ -11861,6 +11863,135 @@
     "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "shape release 11.0 (X3), deconstruct.md 19"
+  },
+  {
+   "id": "N-T8",
+   "form": "Memory why",
+   "text": "Memory stays out of that chat so the run shows what the workflow does on its own, as it would for anyone you share it with.",
+   "kind": "safety or promise",
+   "skills": [
+    "build",
+    "test"
+   ],
+   "files": {
+    "build": "references/fresh-chat-run.md",
+    "test": "references/hand-overs.md"
+   },
+   "source": "2026-11-27: shape release Pass 5 Task 2 (E21: one held line of why for the memory step)"
+  },
+  {
+   "id": "N-T8",
+   "form": "Drive, Claude",
+   "text": "Before typing, also open + and switch off [Google Drive / OneDrive] for that chat: your framework files are there, and the run mustn't see them.",
+   "kind": "safety or promise",
+   "skills": [
+    "build",
+    "test"
+   ],
+   "files": {
+    "build": "references/fresh-chat-run.md",
+    "test": "references/hand-overs.md"
+   },
+   "source": "2026-11-27: shape release Pass 5 Task 2 (James: keep the one Drive toggle, only when the files are in a drive the workflow doesn't use)"
+  },
+  {
+   "id": "N-T8",
+   "form": "Drive, ChatGPT",
+   "text": "Don't add [Google Drive / OneDrive] to that chat, and if it's on there, switch it off for that chat: your framework files are there, and the run mustn't see them.",
+   "kind": "safety or promise",
+   "skills": [
+    "build",
+    "test"
+   ],
+   "files": {
+    "build": "references/fresh-chat-run.md",
+    "test": "references/hand-overs.md"
+   },
+   "source": "2026-11-27: shape release Pass 5 Task 2 (James: keep the one Drive toggle, only when the files are in a drive the workflow doesn't use)"
+  },
+  {
+   "id": "N-T10",
+   "form": "Practice chat",
+   "text": "When it finishes, click the Copy icon under its last reply. That copies the whole reply. Paste all of it here.",
+   "kind": "safety or promise",
+   "skills": [
+    "build",
+    "test"
+   ],
+   "files": {
+    "build": "references/fresh-chat-run.md",
+    "test": "references/hand-overs.md"
+   },
+   "source": "2026-11-27: shape release Pass 5 Task 2 (E17: the whole reply, not just the email)"
+  },
+  {
+   "id": "N-T10",
+   "form": "The box",
+   "text": "Copy the box below with the copy icon at its top right, and paste it into that chat.",
+   "kind": "safety or promise",
+   "skills": [
+    "build",
+    "test"
+   ],
+   "files": {
+    "build": "references/fresh-chat-run.md",
+    "test": "references/hand-overs.md"
+   },
+   "source": "2026-11-27: shape release Pass 5 Task 2 (E15: 'the box below', never 'grey')"
+  },
+  {
+   "id": "N-T10",
+   "form": "Codex",
+   "text": "When it finishes, copy its whole last reply and paste all of it here.",
+   "kind": "safety or promise",
+   "skills": [
+    "build",
+    "test"
+   ],
+   "files": {
+    "build": "references/fresh-chat-run.md",
+    "test": "references/hand-overs.md"
+   },
+   "source": "2026-11-27: shape release Pass 5 Task 2 (E17 on Codex, where there's no Copy icon)"
+  },
+  {
+   "id": "N-T30",
+   "form": "Question, Drive off",
+   "text": "Did that chat see your requirements or plan before you started, or was [Google Drive / OneDrive] still on in it?",
+   "kind": "question",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "2026-11-27: shape release Pass 5 Task 2 (Drive case 1: the files are in a drive the workflow doesn't use)"
+  },
+  {
+   "id": "N-T30",
+   "form": "Question, Drive in use",
+   "text": "Did that chat see your requirements or plan before you started, or open anything in your framework folder?",
+   "kind": "question",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "2026-11-27: shape release Pass 5 Task 2 (Drive case 2: the workflow itself uses the drive)"
+  },
+  {
+   "id": "N-T30",
+   "form": "Question, Claude desktop in the place",
+   "text": "Did that chat see your requirements or plan before you started, or ask to access another folder that you allowed?",
+   "kind": "question",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "2026-11-27: shape release Pass 5 Task 2 (one question: the folder ask folded in)"
   }
  ]
 }
