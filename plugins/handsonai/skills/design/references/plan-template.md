@@ -150,7 +150,7 @@ The title, then exactly these `##` sections, named exactly, in this order, openi
 | Trigger | [manual, scheduled, or event: checked every [interval], or started by you; from `Starts` where the requirements have it, with the shortest schedule's figure for `checked as often as it can`] | [what that implies] |
 
 ### Autonomy Summary
-[Keyed to `decomposition`. For `steps`: the workflow's level, which step or part reaches it and what decides the next step there; each Guided step's decision by the leader's method; each Autonomous step's goal; the pattern named with both citations (section 4). For `domains`: D10's line, word for word (`capability-domains.md`), then the pattern.]
+[Keyed to `decomposition`. For `steps`: the workflow's level, which step or part reaches it and what decides the next step there; each Guided step's decision by the leader's method; each Autonomous step's goal; the pattern named with both citations (section 4). For `domains`: D10's line, in substance (`capability-domains.md`), then the pattern.]
 
 ### Safety & Permissions
 [The four questions, each with its mitigation (section 3).]
@@ -334,7 +334,7 @@ When the requirements imply a risk no practice input covers (outside content car
 
   `expect:` is written when the input is aimed at a `D` line, an out-of-bounds `When` line or carry-over, from that line's own wording ("[takes the D line's path]", "[does what the `When` line says instead]", "[does what with] the [case] an earlier run already handled"); elsewhere leave it out;
 - **the body is the input itself,** realistic and unlabelled: nothing in it says it's a test or names a line, and every detail is invented, never the leader's real data. The one exception is a carry-over input's opening paragraph, `Earlier run: [what an earlier run left behind, in plain words]`, then a blank line: set-up that Build and Test put in a copy of the workflow's store, never the store itself, and never hand to a run;
-- they count toward the practice set's cap of eight, and on the light track take one of the three places Test runs.
+- they count toward the practice set's cap of eight, and on the light track take one of its three practice inputs (`light-track.md`); Test runs them with the rest in its one practice chat.
 
 ## 9. The changes log
 

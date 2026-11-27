@@ -29,15 +29,15 @@ With no goals, it ends after "processes"; with one goal, "and your goal". [N] co
 
 The lens is stated, never asked. N-A11 says it in one line, after the registry clause; the student switches by saying so. Unless a lens was named at entry, read it from `registry/log.md`'s founding entry and the Business node. The founding entry's fixed forms decide it:
 
-| Founding log line, or the run | Lens | N-A11, exactly |
+| Founding log line, or the run | Lens | N-A11 *(your words)* |
 |---|---|---|
-| "a business the owner runs alone"; "a business the owner runs with a team" | Organizational | "I'll look at this from the business's point of view: the processes that drive your goals." |
-| "the company or unit the owner leads" | Organizational | "I'll look at this from [your company's / [unit name]'s] point of view: the processes that drive your goals." The unit's name comes from the Business node; with none, "your company's". |
-| "the team the owner leads inside a larger organization" | Organizational, team | "I'll look at this from your team's point of view: the processes your team runs." |
-| "the team the owner works in" | Individual | "I'll look at this from your point of view: your part of your team's work." |
-| "the owner's personal life" | Individual | "This registry is about your own life, so we'll look at the routines you run each day." |
-| A lens named at entry, or the other-lens run: Individual, for any registry that isn't personal life | Individual | "I'll look at this from your point of view: the work you personally do each day." |
-| The same, Organizational, for a team member | Organizational, team | "I'll look at this from your team's point of view: the processes your team runs." |
+| "a business the owner runs alone"; "a business the owner runs with a team" | Organizational | "I'll look at this from the business's point of view: the processes that drive your goals." *(your words)* |
+| "the company or unit the owner leads" | Organizational | "I'll look at this from [your company's / [unit name]'s] point of view: the processes that drive your goals." *(your words)* The unit's name comes from the Business node; with none, "your company's". |
+| "the team the owner leads inside a larger organization" | Organizational, team | "I'll look at this from your team's point of view: the processes your team runs." *(your words)* |
+| "the team the owner works in" | Individual | "I'll look at this from your point of view: your part of your team's work." *(your words)* |
+| "the owner's personal life" | Individual | "This registry is about your own life, so we'll look at the routines you run each day." *(your words)* |
+| A lens named at entry, or the other-lens run: Individual, for any registry that isn't personal life | Individual | "I'll look at this from your point of view: the work you personally do each day." *(your words)* |
+| The same, Organizational, for a team member | Organizational, team | "I'll look at this from your team's point of view: the processes your team runs." *(your words)* |
 | An older log line in other words, or none | The older mapping below, or the relationship answer | The matching row |
 
 The two team forms may end with "; the team's own functions: [names]": the lens is the same, and those functions, with the work the evidence shows the team doing, decide which processes the team lens offers (`the-walk.md`, *The team's own work*). The older mapping, for a founding entry in other words: a company or unit the student owns or leads → Organizational; a team they work inside → Individual (their part of its processes); a household or their own life → Individual. A lens named at entry for a company owner or unit lead, Organizational, uses the first or second row. The lens just run is never offered back (the close names the other one).

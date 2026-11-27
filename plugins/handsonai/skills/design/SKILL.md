@@ -104,17 +104,17 @@ Signposts are for the full flow only, each said exactly with no intro line beyon
 
 #### Phase 1 — Where it runs
 
-State the platform, since the leader runs Design where they'll build: "You're designing this in [platform], so I'll plan it to be built and run there. Say 'go ahead', or tell me where it should run instead."
+State the platform, since the leader runs Design where they'll build: "You're designing this in [platform], so I'll plan it to be built and run there. Say 'go ahead', or tell me where it should run instead." *(your words)*
 
 When the platform can't be identified, or the leader's reply names a product or an ecosystem to run it on, read `references/variants.md`, *Where it runs*.
 
 #### Phase 2 — The plan
 
-On "go ahead" (or a correction, acknowledged in a few words, or the confirm-back line), say "Part 2 of 4 — the plan" and "I'm drafting the plan from your requirements now; I'll come back with only the questions I can't answer myself." in the same turn as the work. No reply is needed, and no progress line follows it: the next text is Part 3 (where N-L2 and any missing safety answer come first, step 4) or the review. Then read `references/drafting.md` and `references/plan-template.md`, and draft the plan as they say, with no text until Part 3's signpost or the review.
+On "go ahead" (or a correction, acknowledged in a few words, or the confirm-back line), say "Part 2 of 4 — the plan" and "I'm drafting the plan from your requirements now; I'll come back with only the questions I can't answer myself." *(your words)* in the same turn as the work. No reply is needed, and no progress line follows it: the next text is Part 3 (where N-L2 and any missing safety answer come first, step 4) or the review. Then read `references/drafting.md` and `references/plan-template.md`, and draft the plan as they say, with no text until Part 3's signpost or the review.
 
 #### Phase 3 — A few questions for you
 
-Say "Part 3 of 4 — a few questions for you". Ask only what you couldn't settle, one per message, scripted, ranked safety first, then by how much the answer changes the plan. The signpost and the first question go in one message, with nothing read between them: `references/questions.md` (each question's wording, the cap, what happens over it, the safe default when the leader can't answer, and how an answer is written to the requirements) is read at the end of Part 2, as `drafting.md` says. Never word one of these questions yourself. The kinds: a fact only the leader knows; reuse (N-13); a write the connection can't make (N-14); the checkpoint question (D5, D5″); an unchecked regime on an Autonomous plan (D4′); a choice against a limit (D7); a constraint the plan can't meet (N-16).
+Say "Part 3 of 4 — a few questions for you". Ask only what you couldn't settle, one per message, scripted, ranked safety first, then by how much the answer changes the plan. The signpost and the first question go in one message, with nothing read between them: `references/questions.md` (each question's wording, the cap, what happens over it, the safe default when the leader can't answer, and how an answer is written to the requirements) is read at the end of Part 2, as `drafting.md` says. The safety questions (the checkpoint question, D5 and D5″; a write the connection can't make, N-14; an unchecked regime, D4′; a choice against a limit, D7; a constraint the plan can't meet, N-16) are said word for word, never in your own wording; the fact question and the reuse question are models *(your words)* (`questions.md`). The kinds: a fact only the leader knows; reuse (N-13); a write the connection can't make (N-14); the checkpoint question (D5, D5″); an unchecked regime on an Autonomous plan (D4′); a choice against a limit (D7); a constraint the plan can't meet (N-16).
 
 #### Phase 4 — Review and approve
 

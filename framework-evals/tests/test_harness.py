@@ -371,12 +371,13 @@ class WordingChecks(unittest.TestCase):
         reg = json.dumps({"notes": "Skills: sidebar Plugins > Skills > Create. The skills article lists Business, "
                                    "Enterprise, Healthcare and Edu, so skills on Plus and Pro are unverified. "
                                    "Memory: Settings > Personalization > Memory."})
-        res = f"     1\t{reg}\n     2\tThe plan is short.\n     3\tHere's the plan in brief, as approved."
+        # an approved line the message says (N-5; N-4, used before, is model wording since Pass 4)
+        res = f"     1\t{reg}\n     2\tThe plan is short.\n     3\tBefore you approve, a few things this plan does, as approved."
         with tempfile.TemporaryDirectory() as t:
             ev = {"type": "user", "message": {"content": [{"type": "tool_result", "content": res}]}}
             Path(t, "events.jsonl").write_text(json.dumps(ev) + "\n")
             run = {"sessions": [{"root": str(Path(t, "workspace")), "files_start": {}, "turns": [
-                {"role": "ai", "text": "Here's the plan in brief. The full plan is in `framework/x/design-plan.md`.\n\n"
+                {"role": "ai", "text": "Before you approve, a few things this plan does that you should choose on purpose:\n\n"
                                        "OpenAI documents skills for its Business, Enterprise, Healthcare and Edu plans."}]}]}
             _, prompt = G.rubric_prompt(run)
         self.assertIn("The skills article lists Business, Enterprise, Healthcare and Edu, so skills on Plus", prompt)
@@ -1761,7 +1762,7 @@ class Corpus(unittest.TestCase):
         c = AL.load()
         ids = set(c.by_id)
         for must in ("N-F1", "N-F13", "N-B52", "N-B53", "N-B54", "N-T42", "N-T60", "N-R1", "git-save-point",
-                     "D5", "D10", "practice-run-line"):
+                     "D5", "D7", "N-31", "practice-run-line"):
             self.assertIn(must, ids)
         for e in json.loads(AL.DEFAULT_CORPUS.read_text())["lines"]:
             # "states": the phrases a line's [state] takes (N-F23, the routing lead-in)

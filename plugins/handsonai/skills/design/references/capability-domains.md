@@ -10,7 +10,7 @@ Read when the requirements say `AI works it out each time` (`Path: none`) and yo
 **The level and the mechanism** still come from the evidence (SKILL.md, Part 2; `plan-template.md` section 2), never assumed: `domains` applies only when that evidence makes every part Autonomous. Nothing about it is asked.
 
 **In the plan:**
-- **Autonomy Summary:** D10's line, word for word, then the pattern with both citations:
+- **Autonomy Summary:** D10's line *(your words: it's in the plan file, never said)*, then the pattern with both citations:
 
   > Every AI step is Autonomous and no step is fixed, so this plan maps capability domains (`decomposition: domains`). Autonomy is Autonomous — the agent system determines its own execution path based on the Goal, Path, Inputs, Rules & Constraints, and Acceptance Criteria defined in the Workflow Requirements.
 

@@ -53,15 +53,13 @@
         "id": "N-0",
         "form": "main",
         "turn": "first"
-       },
-       {
-        "type": "quote",
-        "id": "N-2",
-        "form": "main",
-        "turn": "first"
        }
       ]
      }
+    },
+    {
+     "text": "The opening, in one message: N-F3's promise and Claude Code clauses, N-F10, then Part 1's signpost and N-2. Judged in substance now (Design's own words, U1): the platform line (it plans for the platform it's running on, 'go ahead' or name another) is said in the first message",
+     "kind": "judged"
     },
     {
      "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
@@ -76,21 +74,12 @@
      }
     },
     {
-     "text": "Part 2 opens with N-3",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-3"
-     }
+     "text": "Part 2 opens with N-3. Judged in substance now (Design's own words, U1): Part 2's line that it's drafting the plan now and will come back only with what it can't answer is said",
+     "kind": "judged"
     },
     {
-     "text": "The review opens with N-4",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-4",
-      "form": "main"
-     }
+     "text": "The review opens with N-4. Judged in substance now (Design's own words, U1): the review's first line pointing to the full plan's location is said",
+     "kind": "judged"
     },
     {
      "text": "The review names what the checks fixed, each in a few words (or says in a few words that nothing needed fixing), never a bare count and never \"they're listed in the plan\" (P3: N-19 is model wording now)",
@@ -301,13 +290,13 @@
         "type": "quote_absent",
         "id": "N-0",
         "form": "main"
-       },
-       {
-        "type": "quote_absent",
-        "id": "N-2"
        }
       ]
      }
+    },
+    {
+     "text": "No opening, and no Part 1 or Part 3 signpost (no Part 1 signpost: the opening's own words are Design's now, U1). Judged in substance now (Design's own words, U1): the platform line (it plans for the platform it's running on, 'go ahead' or name another) isn't said",
+     "kind": "judged"
     },
     {
      "text": "The resume line confirms the location with N-F3's promise clause, first",
@@ -323,40 +312,34 @@
      "text": "Part 4's review and the approval",
      "kind": "scripted",
      "check": {
-      "type": "all",
+      "type": "any",
       "checks": [
-       {
-        "type": "quote",
-        "id": "N-4",
-        "form": "main"
-       },
        {
         "type": "any",
         "checks": [
          {
-          "type": "any",
-          "checks": [
-           {
-            "type": "quote",
-            "id": "N-6",
-            "form": "With points"
-           },
-           {
-            "type": "quote",
-            "id": "N-6",
-            "form": "With one point"
-           }
-          ]
+          "type": "quote",
+          "id": "N-6",
+          "form": "With points"
          },
          {
           "type": "quote",
           "id": "N-6",
-          "form": "Without"
+          "form": "With one point"
          }
         ]
+       },
+       {
+        "type": "quote",
+        "id": "N-6",
+        "form": "Without"
        }
       ]
      }
+    },
+    {
+     "text": "Part 4's review and the approval. Judged in substance now (Design's own words, U1): the review's first line pointing to the full plan's location is said",
+     "kind": "judged"
     },
     {
      "text": "approved: true; the node links the plan",
@@ -582,20 +565,14 @@
      "text": "No opening; the review opens with N-4 (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote_absent",
-        "id": "N-0",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "N-4",
-        "form": "main"
-       }
-      ]
+      "type": "quote_absent",
+      "id": "N-0",
+      "form": "main"
      }
+    },
+    {
+     "text": "No opening; the review opens with N-4 (no Part 1 signpost: the opening's own words are Design's now, U1). Judged in substance now (Design's own words, U1): the review's first line pointing to the full plan's location is said",
+     "kind": "judged"
     },
     {
      "text": "The review ends with the change question",
@@ -1756,18 +1733,13 @@
      "text": "N-22, and never Deconstruct's phrase",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-22"
-       },
-       {
-        "type": "ai_not_contains",
-        "text": "run the deconstruct skill"
-       }
-      ]
+      "type": "ai_not_contains",
+      "text": "run the deconstruct skill"
      }
+    },
+    {
+     "text": "N-22, and never Deconstruct's phrase. Judged in substance now (Design's own words, U1): the small-change line (it'll update the requirements and plan to include the change, asking if ready) is said",
+     "kind": "judged"
     },
     {
      "text": "The rules section is back and `revision` raised, logged by design",
@@ -1794,12 +1766,8 @@
      }
     },
     {
-     "text": "The leader is told with N-15",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-15"
-     }
+     "text": "The leader is told with N-15. Judged in substance now (Design's own words, U1): the line that the requirements were updated to match, naming the change is said",
+     "kind": "judged"
     },
     {
      "text": "Design drafts the missing rules from what the files hold and asks only what they can't settle",
@@ -2630,20 +2598,12 @@
      }
     },
     {
-     "text": "D8′ in the review",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "D8′"
-     }
+     "text": "D8′ in the review. Judged in substance now (Design's own words, U1): the domains line (none of it has to happen a set way) is said",
+     "kind": "judged"
     },
     {
-     "text": "No B54",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "B54"
-     }
+     "text": "No B54. Judged in substance now (Design's own words, U1): the planned-steps recommendation (a fixed set of steps will be more reliable) isn't said",
+     "kind": "judged"
     }
    ],
    "est_turns": 14,
@@ -2731,21 +2691,8 @@
      }
     },
     {
-     "text": "B54 in the review; no D8′",
-     "kind": "scripted",
-     "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "B54"
-       },
-       {
-        "type": "quote_absent",
-        "id": "D8′"
-       }
-      ]
-     }
+     "text": "B54 in the review; no D8′. Judged in substance now (Design's own words, U1): the planned-steps recommendation (a fixed set of steps will be more reliable) is said; the domains line (none of it has to happen a set way) isn't said",
+     "kind": "judged"
     }
    ],
    "est_turns": 14,
@@ -2765,23 +2712,8 @@
    ],
    "expectations": [
     {
-     "text": "N-13 with its recommendation",
-     "kind": "scripted",
-     "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-13",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "N-13",
-        "form": "then"
-       }
-      ]
-     }
+     "text": "N-13 with its recommendation. Judged in substance now (Design's own words, U1): the reuse question (use the leader's existing skill as it is, add to it, or build new, with a recommendation) is said",
+     "kind": "judged"
     },
     {
      "text": "`Use existing: drafting-client-emails` in the Decomposition",
@@ -2857,20 +2789,14 @@
      "text": "N-13 with \"Adding to it also changes…\"",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-13",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "N-13",
-        "form": "When adding to it affects other workflows"
-       }
-      ]
+      "type": "quote",
+      "id": "N-13",
+      "form": "When adding to it affects other workflows"
      }
+    },
+    {
+     "text": "N-13 with \"Adding to it also changes…\". Judged in substance now (Design's own words, U1): the reuse question (use the leader's existing skill as it is, add to it, or build new, with a recommendation) is said",
+     "kind": "judged"
     },
     {
      "text": "`Extend existing` naming the other workflow",
@@ -2961,20 +2887,14 @@
      "text": "D4′ with its Why",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "D4′",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "D4′",
-        "form": "why"
-       }
-      ]
+      "type": "quote",
+      "id": "D4′",
+      "form": "main"
      }
+    },
+    {
+     "text": "D4′ with its Why. Judged in substance now (Design's own words, U1): D4′ is said",
+     "kind": "judged"
     },
     {
      "text": "The plan's autonomy is below Autonomous",
@@ -3129,20 +3049,14 @@
      "text": "N-16 with its Why",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-16",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "N-16",
-        "form": "why"
-       }
-      ]
+      "type": "quote",
+      "id": "N-16",
+      "form": "main"
      }
+    },
+    {
+     "text": "N-16 with its Why. Judged in substance now (Design's own words, U1): N-16 is said",
+     "kind": "judged"
     },
     {
      "text": "P1 Accepted with its owner",
@@ -3214,30 +3128,24 @@
      "text": "N-14 with its Why",
      "kind": "scripted",
      "check": {
-      "type": "all",
+      "type": "any",
       "checks": [
        {
-        "type": "any",
-        "checks": [
-         {
-          "type": "quote",
-          "id": "N-14",
-          "form": "main"
-         },
-         {
-          "type": "quote",
-          "id": "N-14",
-          "form": "No connection"
-         }
-        ]
+        "type": "quote",
+        "id": "N-14",
+        "form": "main"
        },
        {
         "type": "quote",
         "id": "N-14",
-        "form": "why"
+        "form": "No connection"
        }
       ]
      }
+    },
+    {
+     "text": "N-14 with its Why. Judged in substance now (Design's own words, U1): N-14 is said",
+     "kind": "judged"
     },
     {
      "text": "A Human (no artifact) row for the posting",
@@ -3670,19 +3578,13 @@
        {
         "type": "quote",
         "id": "D5″"
-       },
-       {
-        "type": "quote_absent",
-        "id": "N-13",
-        "form": "main"
-       },
-       {
-        "type": "quote_absent",
-        "id": "N-11",
-        "form": "main"
        }
       ]
      }
+    },
+    {
+     "text": "N-14 and D5″ asked; no reuse or fact question. Judged in substance now (Design's own words, U1): the reuse question (use the leader's existing skill as it is, add to it, or build new, with a recommendation) isn't said; the fact question (what the requirements leave open and the part it changes) isn't said",
+     "kind": "judged"
     },
     {
      "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
@@ -3834,12 +3736,8 @@
      }
     },
     {
-     "text": "N-15 said",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-15"
-     }
+     "text": "N-15 said. Judged in substance now (Design's own words, U1): the line that the requirements were updated to match, naming the change is said",
+     "kind": "judged"
     },
     {
      "text": "Involvement Augmented",
@@ -4609,12 +4507,8 @@
    ],
    "expectations": [
     {
-     "text": "B54 said",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "B54"
-     }
+     "text": "B54 said. Judged in substance now (Design's own words, U1): the planned-steps recommendation (a fixed set of steps will be more reliable) is said",
+     "kind": "judged"
     },
     {
      "text": "The recorded wish is in the Approach",
@@ -5148,19 +5042,14 @@
      "text": "N-27; no N-E1",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-27"
-       },
-       {
-        "type": "quote_absent",
-        "id": "N-E1",
-        "form": "main"
-       }
-      ]
+      "type": "quote_absent",
+      "id": "N-E1",
+      "form": "main"
      }
+    },
+    {
+     "text": "N-27; no N-E1. Judged in substance now (Design's own words, U1): the what-should-change question (and to paste a real run's input if one showed it) is said",
+     "kind": "judged"
     },
     {
      "text": "Nothing written",
@@ -5186,12 +5075,8 @@
    ],
    "expectations": [
     {
-     "text": "N-22",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-22"
-     }
+     "text": "N-22. Judged in substance now (Design's own words, U1): the small-change line (it'll update the requirements and plan to include the change, asking if ready) is said",
+     "kind": "judged"
     },
     {
      "text": "Revision raised by design, a C entry handled",
@@ -5220,10 +5105,6 @@
       "checks": [
        {
         "type": "quote",
-        "id": "N-15"
-       },
-       {
-        "type": "quote",
         "id": "N-23",
         "form": "On a live workflow"
        },
@@ -5242,6 +5123,10 @@
        }
       ]
      }
+    },
+    {
+     "text": "N-15 said; the close carries N-23's live clause and Build's phrase. Judged in substance now (Design's own words, U1): the line that the requirements were updated to match, naming the change is said",
+     "kind": "judged"
     },
     {
      "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
@@ -5493,19 +5378,14 @@
      "text": "N-23 asked, then N-22",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-23",
-        "form": "Before anything moves"
-       },
-       {
-        "type": "quote",
-        "id": "N-22"
-       }
-      ]
+      "type": "quote",
+      "id": "N-23",
+      "form": "Before anything moves"
      }
+    },
+    {
+     "text": "N-23 asked, then N-22. Judged in substance now (Design's own words, U1): the small-change line (it'll update the requirements and plan to include the change, asking if ready) is said",
+     "kind": "judged"
     },
     {
      "text": "Nothing moved; no big_change",
@@ -5581,19 +5461,14 @@
      "text": "N-22, then N-23",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-22"
-       },
-       {
-        "type": "quote",
-        "id": "N-23",
-        "form": "Before anything moves"
-       }
-      ]
+      "type": "quote",
+      "id": "N-23",
+      "form": "Before anything moves"
      }
+    },
+    {
+     "text": "N-22, then N-23. Judged in substance now (Design's own words, U1): the small-change line (it'll update the requirements and plan to include the change, asking if ready) is said",
+     "kind": "judged"
     },
     {
      "text": "Set aside",
@@ -5623,19 +5498,14 @@
      "text": "N-25 and the live clause",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-25"
-       },
-       {
-        "type": "quote",
-        "id": "N-23",
-        "form": "On a live workflow"
-       }
-      ]
+      "type": "quote",
+      "id": "N-23",
+      "form": "On a live workflow"
      }
+    },
+    {
+     "text": "N-25 and the live clause. Judged in substance now (Design's own words, U1): the line that a platform or mechanism change means a fresh plan is said",
+     "kind": "judged"
     },
     {
      "text": "Set aside, no big_change",
@@ -5740,12 +5610,8 @@
    ],
    "expectations": [
     {
-     "text": "N-25",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-25"
-     }
+     "text": "N-25. Judged in substance now (Design's own words, U1): the line that a platform or mechanism change means a fresh plan is said",
+     "kind": "judged"
     },
     {
      "text": "Set aside",
@@ -5785,18 +5651,13 @@
      "text": "N-27, then N-28",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-27"
-       },
-       {
-        "type": "quote",
-        "id": "N-28"
-       }
-      ]
+      "type": "quote",
+      "id": "N-28"
      }
+    },
+    {
+     "text": "N-27, then N-28. Judged in substance now (Design's own words, U1): the what-should-change question (and to paste a real run's input if one showed it) is said",
+     "kind": "judged"
     },
     {
      "text": "The input saved with its header",
@@ -5833,18 +5694,13 @@
      "text": "N-28; no N-27",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-28"
-       },
-       {
-        "type": "quote_absent",
-        "id": "N-27"
-       }
-      ]
+      "type": "quote",
+      "id": "N-28"
      }
+    },
+    {
+     "text": "N-28; no N-27. Judged in substance now (Design's own words, U1): the what-should-change question (and to paste a real run's input if one showed it) isn't said",
+     "kind": "judged"
     },
     {
      "text": "The input saved with its header",
@@ -6023,12 +5879,8 @@
    ],
    "expectations": [
     {
-     "text": "N-22",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-22"
-     }
+     "text": "N-22. Judged in substance now (Design's own words, U1): the small-change line (it'll update the requirements and plan to include the change, asking if ready) is said",
+     "kind": "judged"
     },
     {
      "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
@@ -6559,12 +6411,8 @@
      }
     },
     {
-     "text": "N-15",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-15"
-     }
+     "text": "N-15. Judged in substance now (Design's own words, U1): the line that the requirements were updated to match, naming the change is said",
+     "kind": "judged"
     },
     {
      "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
@@ -7424,12 +7272,8 @@
      }
     },
     {
-     "text": "N-15",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-15"
-     }
+     "text": "N-15. Judged in substance now (Design's own words, U1): the line that the requirements were updated to match, naming the change is said",
+     "kind": "judged"
     },
     {
      "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
@@ -9001,12 +8845,8 @@
    ],
    "expectations": [
     {
-     "text": "N-25",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-25"
-     }
+     "text": "N-25. Judged in substance now (Design's own words, U1): the line that a platform or mechanism change means a fresh plan is said",
+     "kind": "judged"
     },
     {
      "text": "Set aside",
@@ -9183,13 +9023,8 @@
      }
     },
     {
-     "text": "N-27",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-27",
-      "turn": "first"
-     }
+     "text": "N-27. Judged in substance now (Design's own words, U1): the what-should-change question (and to paste a real run's input if one showed it) is said in the first message",
+     "kind": "judged"
     }
    ],
    "est_turns": 1

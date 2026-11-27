@@ -27,7 +27,7 @@ The report, in order:
 
 The fast path has no **Sources** row. Never a file or folder title in **Sources**: kinds only.
 
-**The other-lens note**, under the header table, unless both lenses are done or the registry is personal-life, exactly: "This report covers the [lens just run] lens only. [The close's lens sentence.]" [lens just run] is "organizational" or "individual"; [The close's lens sentence.] is the close's lens sentence for this run, word for word in its platform's form (SKILL.md, *The close*: on Claude Code and Codex, its start phrases carry no location), for example: "This report covers the organizational lens only. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say 'run the analyze skill with the individual lens.'" Once both lenses are done, remove it.
+**The other-lens note**, under the header table, unless both lenses are done or the registry is personal-life: "This report covers the [lens just run] lens only. [The close's lens sentence.]" *(your words)* [lens just run] is "organizational" or "individual"; [The close's lens sentence.] is the close's lens sentence for this run, word for word in its platform's form (SKILL.md, *The close*: on Claude Code and Codex, its start phrases carry no location), for example: "This report covers the organizational lens only. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say 'run the analyze skill with the individual lens.'" Once both lenses are done, remove it.
 
 ## Summary Table
 

@@ -11,9 +11,9 @@ Read before the list (fast path: before the report), for a workflow with no proc
 
 A person, or a function not in the registry, maps to the Function that fits, said in one line ("I'll put it under [Function]."); if none fits, **Ask:** "Shall I add [function] as a new function?" The answers are recorded in the progress file; nothing is written to the registry yet. **When a new process is written:** after the list is confirmed, and only if a kept workflow sits under it (a new process whose workflows were all left out or moved is never written). Then write a complete minimal Process node per `naming-workflows` (never a default or ownerless stub), with its line in the right Line of Business's `# Processes` list and `registry/processes/index.md`; a new function agreed for it, written at the same time and only then, is a complete Function node per `registry/SCHEMA.md` (title, description, one sentence of charter prose, its GENERATED `# Owns` block) with its line in `registry/functions/index.md`. Never write an `owner:` matching no Function file. **The owner's `# Owns`:** writing a Process, write it into its owner Function's `# Owns` block yourself, in the form the indexing-registry skill gives (*Regenerate GENERATED blocks*: one bullet per Process the Function owns, in path order), so the close's check finds it current. The catalog shows a new process with "(new)". **Its line of business:** the one it plainly belongs to; when it fits more than one (work that spans the whole business, such as finance or admin), put it under the line it serves most, last in that line's list, and say so in one line, exactly, with no question: "I'll put [process] under [line of business]; say if it belongs elsewhere." The registry has no cross-business home for a process (every Process sits in exactly one line's list), so never invent one. Ask which line only when it fits none.
 
-**Team work in another team's process** (the team form of the organizational lens only; `the-walk.md`, *The team's own work*). Before the list, when a kept candidate is the team's own work but sits in a process another function owns, ask once, for all such candidates together, in its own message, exactly:
+**Team work in another team's process** (the team form of the organizational lens only; `the-walk.md`, *The team's own work*). Before the list, when a kept candidate is the team's own work but sits in a process another function owns, ask once, for all such candidates together, in its own message:
 
-**Ask:** "[Workflow] is your team's work, but it sits in [process], which [function] owns. Keep it there, or put it under one of your team's processes or a new one?" (several: "[Workflow] and [Workflow] are your team's work, but they sit in processes other teams own: [process] ([function]) and [process] ([function]). Keep them there, or put them under your team's processes or new ones?")
+**Ask:** "[Workflow] is your team's work, but it sits in [process], which [function] owns. Keep it there, or put it under one of your team's processes or a new one?" *(your words)* (several: "[Workflow] and [Workflow] are your team's work, but they sit in processes other teams own: [process] ([function]) and [process] ([function]). Keep them there, or put them under your team's processes or new ones?" *(your words)*)
 - *Why:* every workflow sits under one process, and the process's owner owns the workflow too.
 - *Not sure?* Say 'keep it there.' You can move it later.
 
@@ -30,13 +30,13 @@ A person, or a function not in the registry, maps to the Function that fits, sai
 > 1. **[Workflow name].** [One-sentence description.] Value lever: [Streamline / Automate / Accelerate / Create value].
 > 2. …
 
-Then the value-lever definition line, exactly: "Each workflow names its **value lever**: the kind of value AI creates here — Streamline, Automate, Accelerate, or Create value." Then, when shortlist items are still not shown (`evidence-pass.md`, *The answer*) and the student didn't say "that's enough", N-A19's "[n] more…" line for them, once, in its form. Then:
+Then the value-lever definition line: "Each workflow names its **value lever**: the kind of value AI creates here — Streamline, Automate, Accelerate, or Create value." *(your words)* Then, when shortlist items are still not shown (`evidence-pass.md`, *The answer*) and the student didn't say "that's enough", N-A19's "[n] more…" line for them, once, in its form. Then:
 
-**Ask:** "That's [k], enough to choose from. Anything to add, rename, reword, move, or leave out before I save them?"
+**Ask:** "That's [k], enough to choose from. Anything to add, rename, reword, move, or leave out before I save them?" *(your words)*
 - *Why:* the name and description are what you'll see on your dashboard, and what Deconstruct starts from later.
 - *Not sure?* Say "looks good." You can edit any workflow later.
 
-[k] counts the numbered workflows. With fewer than 3, the question starts at "Anything…": "Anything to add, rename, reword, move, or leave out before I save them?"
+[k] counts the numbered workflows. With fewer than 3, the question starts at "Anything…": "Anything to add, rename, reword, move, or leave out before I save them?" *(your words)*
 
 **A workflow added here** is placed (*A workflow with no process*, above), gets one of the open question's two follow-ups if any is left (`the-walk.md`), and is said back in one line before saving.
 
@@ -87,7 +87,7 @@ Then the value-lever definition line, exactly: "Each workflow names its **value 
 **A `backlog.md` beside a registry** (Analyze's entry check 3: the registry exists, and `backlog.md` is still in the framework folder from before it was set up). Once a registry exists, its `backlog` nodes are the backlog, and nothing else reads `backlog.md`, so its candidates would drop out. Offer, in one line in your own words, to add the workflows it lists to the registry's backlog, naming how many. On yes:
 1. Read the registry (`part-1-reading-and-the-lens.md`, *Reading what's known*) and the report the candidates came from.
 2. Place each candidate under the Process that fits it, asking *A workflow with no process* where none does.
-3. Show the list with these workflows, in `backlog.md`'s order, asking N-A15's "Anything…" form ("Anything to add, rename, reword, move, or leave out before I save them?"), and apply the changes.
+3. Show the list with these workflows, in `backlog.md`'s order, asking N-A15's "Anything…" form ("Anything to add, rename, reword, move, or leave out before I save them?" *(your words)*), and apply the changes.
 4. Write each one's stub and index lines as above (a candidate already in the registry by what it is: merge, as above), with the report linked under `# Artifacts`, then the maintenance pass.
 5. Move `backlog.md` into the framework folder's `history/` as `backlog-YYYY-MM-DD-HHMM.md` (locally and on a drive; never delete it), so it isn't offered again.
 6. Say in one line how many were added, then carry on with the opening.
