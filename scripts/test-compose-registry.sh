@@ -595,6 +595,17 @@ for pair in "s04-plan-needed:Plan needed" "s06-build-needed:Build needed" "s08-t
   rm -rf "$SW"
 done
 
+# the last round's scorecard: compose carries framework-state's headline into the island (Pass 2, T14)
+SW=$(mktemp -d); cp -R "$REPO_ROOT/framework-fixtures/edge/e-three-not-ready-rounds/with-registry/." "$SW/"; (cd "$SW" && git init -q . )
+(cd "$SW" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null) > "$SW/island.json"
+node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));process.exit(d.workflows.some(w=>w.scorecard==='12 of 13 checks met across 4 inputs')?0:1)" "$SW/island.json" \
+  && ok "scorecard from the last round: 12 of 13 checks met across 4 inputs" || bad "scorecard: got $(node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));console.log(d.workflows.map(w=>w.id+'='+w.scorecard).join(', '))" "$SW/island.json" 2>&1)"
+SW2=$(mktemp -d); cp -R "$FF/s06-build-needed/with-registry/." "$SW2/"; (cd "$SW2" && git init -q . )
+(cd "$SW2" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null) > "$SW2/island.json"
+node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));process.exit(d.workflows.every(w=>!('scorecard' in w))?0:1)" "$SW2/island.json" \
+  && ok "no scorecard before any test round" || bad "a workflow with no test round has a scorecard"
+rm -rf "$SW" "$SW2"
+
 # generated.at: a UTC instant; a bare date on an older node; anything else errors
 WS=$(stage valid-bundle)
 sedi 's/^generated: { by: process:fixture, at: 2026-08-01 }$/generated: { by: process:fixture, at: 2026-08-01T09:30:00Z }/' "$WS/registry/workflows/second-workflow.md"

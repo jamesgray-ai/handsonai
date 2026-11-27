@@ -88,6 +88,7 @@
       "processId": "client-onboarding",
       "lobId": "design-services",
       "state": "Live",
+      "scorecard": "11 of 11 checks met across 4 inputs",
       "skills": [
         ".claude/skills/some-skill/SKILL.md"
       ],

@@ -429,6 +429,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
     panelMeta.innerHTML =
       metaItem('Status', statusLabel(wf.status)) +
       metaItem('Progress', wf.state) +
+      metaItem('Last test', wf.scorecard) +
       metaItem('How it decides', howItDecides(wf.autonomy), true) +
       metaItem('How it runs', howItRuns(wf.executionMode)) +
       metaItem('Trigger', wf.trigger) +

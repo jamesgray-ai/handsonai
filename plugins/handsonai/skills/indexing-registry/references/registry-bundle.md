@@ -180,6 +180,7 @@ None shows a step number.
 | Field | Label | Shown as |
 |---|---|---|
 | progress | Progress | the routing state's name |
+| the last test round | Last test (dashboard only) | "[met] of [total] checks met across [k] inputs", worked out by `framework-state` from `test-results.md`, never stored; left out before any round |
 | `stale_after` | Re-check by | the date |
 | `autonomy` | How it decides | `deterministic`: "Deterministic: follows your instructions"; `guided`: "Guided: makes bounded decisions with your method"; `autonomous`: "Autonomous: works toward a goal you set" |
 | `execution_mode` | Runs with you / Runs without you | `manual` and `augmented`: "Runs with you"; `automated`: "Runs without you" |
