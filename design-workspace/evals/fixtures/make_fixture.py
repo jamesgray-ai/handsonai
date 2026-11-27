@@ -656,6 +656,23 @@ def fx_place_to_confirm(t):  # a write place the leader didn't know: a visible u
     sub(wf_dir(t, LFU) / "requirements.md", "- W1 · Gmail (your Drafts folder) ·", "- W1 · Gmail (which mailbox to confirm) ·")
 
 
+# ---------- Pass 4 (shape release, 2026-11-27): 11.0 requirements ----------
+
+F11 = FF / "format-11" / "client-follow-up"
+
+
+def fx_format11(t):  # P7: Client Follow-Up as 11.0's Deconstruct writes it, at state 4 (no plan)
+    """`## Output` (Delivered as: set in Design), `· from:` on every check, no `(must)`, R2 and G1 tagged
+    `· (you)`, and E2 a `(made up)` scenario Test writes, with no `inputs/` file (11.0 saves only a real input),
+    from `framework-fixtures/format-11/`, in the state-4 registry."""
+    ff(t, S04)
+    w = wf_dir(t, CFU)
+    for part in ("context", "inputs"):
+        shutil.rmtree(w / part, ignore_errors=True)
+        shutil.copytree(F11 / part, w / part)
+    shutil.copy(F11 / "requirements.md", w / "requirements.md")
+
+
 FIXTURES = {
     "event-30min": fx_event_30min, "event-as-often": fx_event_as_often, "place-to-confirm": fx_place_to_confirm,
     "regulated-same-way": fx_regulated_same_way, "regulated-some-of-each": fx_regulated_some_of_each,
@@ -676,7 +693,7 @@ FIXTURES = {
     "several-requests": fx_several_requests, "law-drop-request": fx_law_drop_request, "schedule-by-hand": fx_schedule_by_hand,
     "draft-with-gaps": fx_draft_with_gaps, "draft-safety-gap": fx_draft_safety_gap,
     "open-item-consequential": fx_open_item_consequential, "live-context-unreadable": fx_live_context_unreadable,
-    "live-m365-agent": fx_live_m365_agent, "live-chatgpt": fx_live_chatgpt, "agent-failed-check": fx_agent_failed_check,
+    "live-m365-agent": fx_live_m365_agent, "format-11": fx_format11, "live-chatgpt": fx_live_chatgpt, "agent-failed-check": fx_agent_failed_check,
 }
 
 # The library's routing states as today's Deconstruct leaves Client Follow-Up (`Path: none`): the folders the
