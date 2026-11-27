@@ -136,11 +136,11 @@
    "files": {
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/location.md",
     "build": "references/package-and-install.md",
     "test": "SKILL.md"
    },
-   "source": "3c-EL, approved by James 2026-11-08",
+   "source": "3c-EL, approved by James 2026-11-08; 2026-11-27: shape release Pass 4 Task 3: Design sends the leader on in its copy-ready form (X3), so its copy of N-F2 is the shared one in references/location.md and routing.md",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
   },
   {
@@ -158,11 +158,11 @@
    "files": {
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/routing.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
-   "source": "3c-EL, approved by James 2026-11-08",
+   "source": "3c-EL, approved by James 2026-11-08; 2026-11-27: shape release Pass 4 Task 3: Design sends the leader on in its copy-ready form (X3), so its copy of N-F2 is the shared one in references/location.md and routing.md",
    "fragment": true,
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
   },
@@ -246,11 +246,11 @@
    "files": {
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/routing.md",
     "build": "references/package-and-install.md",
     "test": "SKILL.md"
    },
-   "source": "3c-EL, approved by James 2026-11-08",
+   "source": "3c-EL, approved by James 2026-11-08; 2026-11-27: shape release Pass 4 Task 3: Design sends the leader on in its copy-ready form (X3), so its copy of N-F2 is the shared one in references/location.md and routing.md",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
   },
   {
@@ -1669,7 +1669,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md",
+   "retired": "2026-11-27: shape release Pass 4 (U1, X3: the close is model wording marked (your words); its next-step line and start phrase are said exactly, the phrase alone in a copy-ready code block)"
   },
   {
    "id": "N-A6",
@@ -1682,7 +1683,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; the `/deconstruct` clause without \"in Claude Code\", 3c-EB (2026-10-25); single quotes throughout, approved by James, 2026-11-12 (3c-EP round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview; D24 (shape release, 2026-11-26): or name any other workflow"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; the `/deconstruct` clause without \"in Claude Code\", 3c-EB (2026-10-25); single quotes throughout, approved by James, 2026-11-12 (3c-EP round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview; D24 (shape release, 2026-11-26): or name any other workflow",
+   "retired": "2026-11-27: shape release Pass 4 (U1, X3: the close is model wording marked (your words); its next-step line and start phrase are said exactly, the phrase alone in a copy-ready code block)"
   },
   {
    "id": "N-A6",
@@ -1695,7 +1697,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview; D24 (shape release, 2026-11-26): or name any other workflow"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview; D24 (shape release, 2026-11-26): or name any other workflow",
+   "retired": "2026-11-27: shape release Pass 4 (U1, X3: the close is model wording marked (your words); its next-step line and start phrase are said exactly, the phrase alone in a copy-ready code block)"
   },
   {
    "id": "N-A6",
@@ -1708,7 +1711,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview; D24 (shape release, 2026-11-26): or name any other workflow"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview; D24 (shape release, 2026-11-26): or name any other workflow",
+   "retired": "2026-11-27: shape release Pass 4 (U1, X3: the close is model wording marked (your words); its next-step line and start phrase are said exactly, the phrase alone in a copy-ready code block)"
   },
   {
    "id": "N-A6",
@@ -1721,7 +1725,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview; D24 (shape release, 2026-11-26): or name any other workflow"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview; D24 (shape release, 2026-11-26): or name any other workflow",
+   "retired": "2026-11-27: shape release Pass 4 (U1, X3: the close is model wording marked (your words); its next-step line and start phrase are said exactly, the phrase alone in a copy-ready code block)"
   },
   {
    "id": "N-A6",
@@ -1734,7 +1739,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview; D24 (shape release, 2026-11-26): or name any other workflow"
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes); reworded 2026-11-21 (approved by James): no 'how it should go' in the single interview; D24 (shape release, 2026-11-26): or name any other workflow",
+   "retired": "2026-11-27: shape release Pass 4 (U1, X3: the close is model wording marked (your words); its next-step line and start phrase are said exactly, the phrase alone in a copy-ready code block)"
   },
   {
    "id": "N-A6",
@@ -1775,7 +1781,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; reworded, 02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP) (N-A6 paragraph 3); single quotes throughout, approved by James, 2026-11-12 (3c-EP round-2 fixes)"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; reworded, 02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP) (N-A6 paragraph 3); single quotes throughout, approved by James, 2026-11-12 (3c-EP round-2 fixes)",
+   "retired": "2026-11-27: shape release Pass 4 (U1, X3: the close is model wording marked (your words); its next-step line and start phrase are said exactly, the phrase alone in a copy-ready code block)"
   },
   {
    "id": "N-A6",
@@ -1802,7 +1809,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "3c-EB (2026-10-25)"
+   "source": "3c-EB (2026-10-25)",
+   "retired": "2026-11-27: shape release Pass 4 (U1, X3: the close is model wording marked (your words); its next-step line and start phrase are said exactly, the phrase alone in a copy-ready code block)"
   },
   {
    "id": "N-A7",
@@ -1899,7 +1907,8 @@
     "analyze": "SKILL.md"
    },
    "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
-   "note": "after the individual lens, for a solo founder or a company or unit lead"
+   "note": "after the individual lens, for a solo founder or a company or unit lead",
+   "retired": "2026-11-27: shape release Pass 4 (U1, X3: the close is model wording marked (your words); its next-step line and start phrase are said exactly, the phrase alone in a copy-ready code block)"
   },
   {
    "id": "N-A6",
@@ -1913,7 +1922,8 @@
     "analyze": "SKILL.md"
    },
    "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
-   "note": "after the individual lens, for a team leader or team member"
+   "note": "after the individual lens, for a team leader or team member",
+   "retired": "2026-11-27: shape release Pass 4 (U1, X3: the close is model wording marked (your words); its next-step line and start phrase are said exactly, the phrase alone in a copy-ready code block)"
   },
   {
    "id": "N-A10",
@@ -3099,7 +3109,8 @@
     "analyze": "SKILL.md"
    },
    "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
-   "note": "the zero close"
+   "note": "the zero close",
+   "retired": "2026-11-27: shape release Pass 4 (U1, X3: the close is model wording marked (your words); its next-step line and start phrase are said exactly, the phrase alone in a copy-ready code block)"
   },
   {
    "id": "N-A24",
@@ -3968,7 +3979,8 @@
     "design": "SKILL.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-27: shape release Pass 4 (U1, P1: the opening is one short paragraph in Design's own words; the skill quotes it as a model marked (your words))"
   },
   {
    "id": "N-1",
@@ -3982,7 +3994,8 @@
     "design": "SKILL.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-27: shape release Pass 4 (U1, P1: the opening is one short paragraph in Design's own words; the skill quotes it as a model marked (your words))"
   },
   {
    "id": "N-2",
@@ -4196,7 +4209,7 @@
   {
    "id": "N-7",
    "form": "Then N-F2, in the platform's form",
-   "text": "Start Build in a new chat. Add your [storage service] to it, then say 'run the build skill. My files are in [location].'",
+   "text": "Start Build in a new chat. Add your [storage service] to it, then say: run the build skill. My files are in [location].",
    "kind": "safety or promise",
    "skills": [
     "design"
@@ -4204,7 +4217,7 @@
    "files": {
     "design": "SKILL.md"
    },
-   "source": "design.md 12; 3c-DJ (2026-10-24)",
+   "source": "design.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 4 Task 3 (X3: the next step's start phrase alone in a copy-ready code block, after one line on where to start and what to add or select first)",
    "note": "design: inferred from design 13 by section"
   },
   {
@@ -4221,6 +4234,45 @@
    "source": "design.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section",
    "retired": "2026-11-26: shape release 11.0 (U1: fixed wording only for protective lines and start phrases; item 1: no print-to-save; the seven-part Deconstruct interview)"
+  },
+  {
+   "id": "N-7",
+   "form": "Then, Claude desktop with a local folder",
+   "text": "Start Build in a new chat with your working folder selected, then say: run the build skill. My files are in [location].",
+   "kind": "safety or promise",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "2026-11-27: shape release Pass 4 Task 3 (X3: the next step's start phrase alone in a copy-ready code block, after one line on where to start and what to add or select first)"
+  },
+  {
+   "id": "N-7",
+   "form": "Then, Microsoft 365",
+   "text": "Start Build in a new Cowork chat and say: run the build skill. My files are in OneDrive, in ai-workspace/framework/[workflow-slug].",
+   "kind": "safety or promise",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "2026-11-27: shape release Pass 4 Task 3 (X3: the next step's start phrase alone in a copy-ready code block, after one line on where to start and what to add or select first)"
+  },
+  {
+   "id": "N-7",
+   "form": "Then, Claude Code and Codex",
+   "text": "Start Build in a new session in this project and say: run the build skill.",
+   "kind": "safety or promise",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "2026-11-27: shape release Pass 4 Task 3 (X3: the next step's start phrase alone in a copy-ready code block, after one line on where to start and what to add or select first)"
   },
   {
    "id": "N-8",

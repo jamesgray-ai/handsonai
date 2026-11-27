@@ -195,31 +195,35 @@ Read `references/resuming-and-picking-up.md` for what the progress file holds, t
 
 ### The close
 
-Say exactly this, in this order — what was completed, what's next, the rest as optional — word for word as three paragraphs, filling only the brackets and leaving out only what *Fit it to the run* drops. In a cloud session, N-F18 comes first, as `routing.md` says.
+Three paragraphs, in this order: what was completed, what's next, the rest as optional. The first and third are model wording *(your words)*, said in plain words and filled from the run, leaving out only what *Fit it to the run* drops; the next step's line and every start phrase in them are said exactly. In a cloud session, N-F18 comes first, as `routing.md` says.
 
-> You now have [N] workflows in your registry's backlog, grouped under the processes they belong to. Your opportunity report has the full detail for each one: [the report's path in the location]. You can see the workflows on your dashboard too.
+> You now have [N] workflows in your registry's backlog, grouped under the processes they belong to. Your opportunity report has the full detail for each one: [the report's path in the location]. You can see the workflows on your dashboard too. (N-A6, *your words*)
 >
-> **Next: Deconstruct.** You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs. Start Deconstruct in a new chat. Add your [storage service] to it, then say 'run the deconstruct skill. My files are in [location].' (you can also type `/deconstruct` in a new session and pick it from the list).
+> **Next: Deconstruct.** You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs. Start Deconstruct in a new chat. Add your [storage service] to it, then say:
 >
-> **Later, if you want:** say 'run the analyze skill. My files are in [location].' any time to find more, including in the processes that have no workflows yet. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say 'run the analyze skill with the individual lens. My files are in [location].'
+> ```
+> run the deconstruct skill. My files are in [location].
+> ```
+>
+> **Later, if you want:** say 'run the analyze skill. My files are in [location].' any time to find more, including in the processes that have no workflows yet. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say 'run the analyze skill with the individual lens. My files are in [location].' (N-A6, *your words*: the start phrases in it said exactly)
 
-**The *Next* paragraph (paragraph 2) in this platform's form,** word for word, as approved (N-A6 with N-F2's start line for Deconstruct; the clause about `/deconstruct` is said only on Claude Code, and there word for word, parentheses included):
-- The web: as above.
-- Claude Code: "**Next: Deconstruct.** You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs. Start Deconstruct in a new session in this project and say 'run the deconstruct skill.' (you can also type `/deconstruct` in a new session and pick it from the list)."
-- Codex (and the Work tab in a local folder): "**Next: Deconstruct.** You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs. Start Deconstruct in a new session in this project and say 'run the deconstruct skill.'"
-- Claude desktop, with the files in a local folder: "**Next: Deconstruct.** You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs. Start Deconstruct in a new chat with your working folder selected: 'run the deconstruct skill. My files are in [location].'" (with the files in a drive, the web form)
-- Microsoft 365: "**Next: Deconstruct.** You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs. Start Deconstruct in a new Cowork chat with: 'run the deconstruct skill. My files are in OneDrive, in ai-workspace.'" (with the folder's own name when the student chose another)
+**The *Next* paragraph (paragraph 2)** opens with "**Next: Deconstruct.**" and one sentence of model wording on what Deconstruct does; then the next step's line, said exactly in this platform's form, ending "say:", and Deconstruct's start phrase alone in a code block, with the location filled in, so it can be copied (X3). Nothing else goes in the block:
+- The web, and Claude desktop with the files in a drive: "Start Deconstruct in a new chat. Add your [storage service] to it, then say:" and the block `run the deconstruct skill. My files are in [location].`
+- Claude desktop, with the files in a local folder: "Start Deconstruct in a new chat with your working folder selected, then say:" and the block `run the deconstruct skill. My files are in [location].`
+- Microsoft 365: "Start Deconstruct in a new Cowork chat and say:" and the block `run the deconstruct skill. My files are in OneDrive, in ai-workspace.` (with the folder's own name when the student chose another)
+- Claude Code: "Start Deconstruct in a new session in this project and say:" and the block `run the deconstruct skill.`, then, after the block: "(In Claude Code, you can also type `/deconstruct` and pick it from the list.)"
+- Codex (and the Work tab in a local folder): "Start Deconstruct in a new session in this project and say:" and the block `run the deconstruct skill.`
 
-**N-F2's forms,** as approved, for any other line that names the next step in a new chat (the zero close's line names Analyze in them):
+**N-F2's forms,** as approved, for a routing line that names the next step in a new chat (`routing.md`); a close sends the leader on as the *Next* paragraph does:
 - Main (the web): "Start [step] in a new chat. Add your [storage service] to it, then say '[start phrase]. My files are in [location].'"
 - Claude Code and Codex (and the Work tab in a local folder): "Start [step] in a new session in this project and say '[start phrase].'"
 - Claude desktop, with the files in a local folder: "Start [step] in a new chat with your working folder selected: '[start phrase]. My files are in [location].'" (with the files in a drive, the web form)
 - Microsoft 365: "Start [step] in a new Cowork chat with: '[start phrase]. My files are in OneDrive, in ai-workspace/framework/[workflow-slug].'" Deconstruct starts with no workflow folder yet, so here the location is the working folder itself: "…My files are in OneDrive, in ai-workspace.'"
 - [the report's path in the location]: "Google Drive, in ai-workspace/framework/ai-opportunity-report.md" (the storage service by its own name); "OneDrive, in ai-workspace/framework/ai-opportunity-report.md" (with the folder's own name when the student chose another); on Claude desktop, "ai-workspace/framework/ai-opportunity-report.md" (the folder's own name); on Claude Code and Codex, `framework/ai-opportunity-report.md`.
 
-With one workflow: when [N] is 1, the first paragraph is, word for word: "You now have 1 workflow in your registry's backlog, under [process]. Your opportunity report has the full detail: [the report's path in the location]. You can see it on your dashboard too."
+With one workflow: when [N] is 1, the first paragraph says it in the singular *(your words)*: "You now have 1 workflow in your registry's backlog, under [process]. Your opportunity report has the full detail: [the report's path in the location]. You can see it on your dashboard too."
 
-**The "Later" paragraph's lens sentence** (paragraph 3, after its first sentence), by the lens just run:
+**The "Later" paragraph's lens sentence** (paragraph 3, after its first sentence), by the lens just run, model wording with its start phrase said exactly:
 - after the organizational lens, the individual lens, as above; for a team leader, the same: "The **individual lens** looks at the work you personally do each day…";
 - after the individual lens, for a solo founder or a company or unit lead: "The **organizational lens** looks at the processes across the business, end to end, and can find different workflows. Say 'run the analyze skill with the organizational lens. My files are in [location].'";
 - after the individual lens, for a team leader or team member: "The **organizational lens** looks at the processes your team runs, end to end, and can find different workflows. Say 'run the analyze skill with the organizational lens. My files are in [location].'";
@@ -227,7 +231,7 @@ With one workflow: when [N] is 1, the first paragraph is, word for word: "You no
 
 Fit it to the run:
 - The dashboard sentence: in a drive, it ends "…on your dashboard too: download it from your drive and open it in your browser (clicked in the drive, it shows as code)." On Claude, where setup made a Claude page of the dashboard, update that page and say "Your dashboard, and its Claude page, now show them too." ("show it too" with one workflow).
-- On Claude Code and Codex (never in a cloud session), the dashboard sentence is followed, at the end of the first paragraph, by N-SR8 without its Claude-page clause, exactly: "Say 'open my dashboard' and I'll open it in your browser." Not said when N-F20 takes the dashboard sentence's place, or with no dashboard file. On "open my dashboard", open it as the indexing-registry skill says (*Telling the leader about the dashboard*), then end with the close's start line again.
+- On Claude Code and Codex (never in a cloud session), the dashboard sentence is followed, at the end of the first paragraph, by N-SR8 without its Claude-page clause, exactly: "Say 'open my dashboard' and I'll open it in your browser." Not said when N-F20 takes the dashboard sentence's place, or with no dashboard file. On "open my dashboard", open it as the indexing-registry skill says (*Telling the leader about the dashboard*), then end with the close's next-step line and code block again.
 - [N] is this run's backlog workflows; with others already there, "[N] new workflows in your registry's backlog ([total] in all)" ([total]: every `status: backlog` node). Running work adds " and [M] that already run, recorded as running" after "[N] workflows in your registry's backlog".
 - Drop the lens sentences when both lenses are done, or personal-life (paragraph 3 then keeps only its first sentence).
 - No registry: "in your backlog" for "in your registry's backlog", "grouped under the areas of work they belong to" for "grouped under the processes they belong to", and "areas of work" for "processes" in paragraph 3; no dashboard sentence.
@@ -239,14 +243,12 @@ Fit it to the run:
 - Register nothing, and write no report; on a later run, update only the existing report's **Sources**.
 - Finish the progress file as any close does (*Resuming*): delete it locally; on any drive, move it to `history/`. So routing and Deconstruct never see an unfinished Analyze.
 - In a cloud session, N-F18 comes first, as at any close.
-- Say N-A21, exactly, with N-F2's platform form for Analyze (the next step named is Analyze itself):
+- Say N-A21 *(your words)*: that nothing has stood out yet, and that's fine; that they can come back when something eats their time or slips; the offer to name one process now; and Analyze's start phrase as the *Next* paragraph gives Deconstruct's, the line said exactly in the platform's form, ending "say:", with `run the analyze skill. My files are in [location].` (Claude Code and Codex: `run the analyze skill.`) alone in a code block, last. The model:
 
-  > "Nothing's stood out yet, and that's fine. When something eats your time or slips this week, come back: [N-F2's platform form, for Analyze]. Or name one process now and I'll look again."
-
-  For example, on the web: "…come back: Start Analyze in a new chat. Add your Google Drive to it, then say 'run the analyze skill. My files are in Google Drive, in ai-workspace.' Or name one process now and I'll look again."
+  > "Nothing's stood out yet, and that's fine. Name one process now and I'll look again, or come back when something eats your time or slips this week. Start Analyze in a new chat. Add your Google Drive to it, then say:" and the block `run the analyze skill. My files are in Google Drive, in ai-workspace.`
 - If the student names a process, the walk (`references/the-walk.md`) starts in this run with a fresh progress file, counted like any other walk.
 
-**Saving a version** — only when `git rev-parse --show-toplevel` returns the workspace folder (never on the web or a connected drive). In a cloud session: no offer; commit, push and N-F18, as `references/routing-rare.md` says. After the close, once, say exactly: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, stage only the framework's own paths, by name (the files Analyze wrote in `framework/`: `ai-opportunity-report.md`, `backlog.md` and `history/` where it wrote them; and `registry/` where it's in the repository), never `git add -A`, `-a` or `.`, a practice folder (`practice*/`), `.claude/settings.local.json`, secrets (an `.env` or key file) or the leader's other work; commit locally; never push as part of this offer. After the answer, end with the close's start line again.
+**Saving a version** — only when `git rev-parse --show-toplevel` returns the workspace folder (never on the web or a connected drive). In a cloud session: no offer; commit, push and N-F18, as `references/routing-rare.md` says. After the close, once, say exactly: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, stage only the framework's own paths, by name (the files Analyze wrote in `framework/`: `ai-opportunity-report.md`, `backlog.md` and `history/` where it wrote them; and `registry/` where it's in the repository), never `git add -A`, `-a` or `.`, a practice folder (`practice*/`), `.claude/settings.local.json`, secrets (an `.env` or key file) or the leader's other work; commit locally; never push as part of this offer. After the answer, end with the close's next-step line and code block again.
 
 ## Output
 

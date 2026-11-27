@@ -13,20 +13,20 @@
    "fixture": "regulated-same-way",
    "prompt": "Run the design skill. My files are in framework/expense-report-approval.",
    "student": "students/default.md",
-   "expected_output": "State 4 with no plan on Claude Code: the opening (N-1, N-F3 with its Claude Code clause, the pick-up sentence and N-F10), the four signposts, N-2 and N-3, a review that names no level and names the checks' fixes in a few words, a plan that passes the structure check, approval, the node's Design plan link and fields, and N-7 with Build's phrase for a new session. (Older file, on purpose: the expense-report-approval stand-in keeps its steps, the form only a file kept on a re-run still has.)",
+   "expected_output": "State 4 with no plan on Claude Code: the opening (N-F3 with its Claude Code clause, the pick-up sentence and N-F10), the four signposts, N-2 and N-3, a review that names no level and names the checks' fixes in a few words, a plan that passes the structure check, approval, the node's Design plan link and fields, and N-7 with Build's phrase for a new session. (Older file, on purpose: the expense-report-approval stand-in keeps its steps, the form only a file kept on a re-run still has.)",
    "files": [
     "students/default.md"
    ],
    "expectations": [
     {
-     "text": "The opening, in one message: N-1, N-F3's promise and Claude Code clauses, N-1's pick-up clause and N-F10, then Part 1's signpost and N-2",
+     "text": "The opening, in one message: N-F3's promise and Claude Code clauses, N-F10, then Part 1's signpost and N-2",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main",
         "turn": "first"
        },
@@ -40,12 +40,6 @@
         "type": "quote",
         "id": "N-F3",
         "form": "On Claude Code",
-        "turn": "first"
-       },
-       {
-        "type": "quote",
-        "id": "N-1",
-        "form": "main-2",
         "turn": "first"
        },
        {
@@ -68,6 +62,10 @@
        }
       ]
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "Design's four signposts, in order",
@@ -177,7 +175,7 @@
      }
     },
     {
-     "text": "The close: N-7, then Build's phrase in N-F2's Claude Code form",
+     "text": "The close: N-7, then Build's phrase alone in a code block, after its one line (X3)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -188,8 +186,17 @@
         "form": "main"
        },
        {
-        "type": "ai_contains",
-        "text": "Start Build in a new session in this project and say 'run the build skill.'"
+        "type": "all",
+        "checks": [
+         {
+          "type": "ai_contains",
+          "text": "Start Build in a new session in this project and say:"
+         },
+         {
+          "type": "ai_regex",
+          "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+         }
+        ]
        }
       ]
      }
@@ -280,14 +287,14 @@
    ],
    "expectations": [
     {
-     "text": "No opening, and no Part 1 or Part 3 signpost",
+     "text": "No opening, and no Part 1 or Part 3 signpost (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote_absent",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main"
        },
        {
@@ -424,11 +431,11 @@
    ],
    "expectations": [
     {
-     "text": "No opening",
+     "text": "No opening (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "quote_absent",
-      "id": "N-1",
+      "id": "N-0",
       "form": "main"
      }
     },
@@ -537,8 +544,17 @@
      "text": "The close gives Build's phrase",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
-      "text": "Start Build in a new session in this project and say 'run the build skill.'"
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_contains",
+        "text": "Start Build in a new session in this project and say:"
+       },
+       {
+        "type": "ai_regex",
+        "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+       }
+      ]
      }
     },
     {
@@ -563,14 +579,14 @@
    ],
    "expectations": [
     {
-     "text": "No opening; the review opens with N-4",
+     "text": "No opening; the review opens with N-4 (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote_absent",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main"
        },
        {
@@ -602,8 +618,17 @@
      "text": "The close gives Build's phrase",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
-      "text": "Start Build in a new session in this project and say 'run the build skill.'"
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_contains",
+        "text": "Start Build in a new session in this project and say:"
+       },
+       {
+        "type": "ai_regex",
+        "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+       }
+      ]
      }
     }
    ],
@@ -710,8 +735,17 @@
      "text": "The close gives Build's phrase",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
-      "text": "Start Build in a new session in this project and say 'run the build skill.'"
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_contains",
+        "text": "Start Build in a new session in this project and say:"
+       },
+       {
+        "type": "ai_regex",
+        "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+       }
+      ]
      }
     },
     {
@@ -871,14 +905,14 @@
      }
     },
     {
-     "text": "No opening, nothing written",
+     "text": "No opening, nothing written (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote_absent",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main"
        },
        {
@@ -914,14 +948,14 @@
      }
     },
     {
-     "text": "No opening, nothing written",
+     "text": "No opening, nothing written (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote_absent",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main"
        },
        {
@@ -957,14 +991,14 @@
      }
     },
     {
-     "text": "No opening, nothing written",
+     "text": "No opening, nothing written (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote_absent",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main"
        },
        {
@@ -1000,14 +1034,14 @@
      }
     },
     {
-     "text": "No opening, nothing written",
+     "text": "No opening, nothing written (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote_absent",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main"
        },
        {
@@ -1053,14 +1087,14 @@
      }
     },
     {
-     "text": "No opening, nothing written",
+     "text": "No opening, nothing written (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote_absent",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main"
        },
        {
@@ -1257,7 +1291,7 @@
       "checks": [
        {
         "type": "quote",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main"
        },
        {
@@ -1267,6 +1301,10 @@
        }
       ]
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "Nothing is read, saved or asked before the folder is added",
@@ -1296,7 +1334,7 @@
       "checks": [
        {
         "type": "quote",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main",
         "turn": "first"
        },
@@ -1313,6 +1351,10 @@
        }
       ]
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "N-F3's Cowork clause",
@@ -1364,9 +1406,13 @@
      "kind": "scripted",
      "check": {
       "type": "quote",
-      "id": "N-1",
+      "id": "N-0",
       "form": "main"
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "Nothing is read, saved or asked before the files can be read",
@@ -1397,14 +1443,14 @@
      }
     },
     {
-     "text": "No opening, nothing written",
+     "text": "No opening, nothing written (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote_absent",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main"
        },
        {
@@ -1453,11 +1499,11 @@
      }
     },
     {
-     "text": "No opening",
+     "text": "No opening (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "quote_absent",
-      "id": "N-1",
+      "id": "N-0",
       "form": "main"
      }
     },
@@ -1509,9 +1555,13 @@
      "kind": "scripted",
      "check": {
       "type": "quote",
-      "id": "N-1",
+      "id": "N-0",
       "form": "main"
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "Nothing from the old plan is read, converted or played back",
@@ -1588,9 +1638,13 @@
      "kind": "scripted",
      "check": {
       "type": "quote",
-      "id": "N-1",
+      "id": "N-0",
       "form": "main"
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "N-B44 isn't asked twice, and the move isn't announced again after it",
@@ -1660,7 +1714,7 @@
      }
     },
     {
-     "text": "No plan written, no opening",
+     "text": "No plan written, no opening (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -1671,7 +1725,7 @@
        },
        {
         "type": "quote_absent",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main"
        }
       ]
@@ -1773,7 +1827,7 @@
       "checks": [
        {
         "type": "quote",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main",
         "turn": "first"
        },
@@ -1785,6 +1839,10 @@
        }
       ]
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     }
    ],
    "est_turns": 1
@@ -1880,8 +1938,17 @@
      "text": "The close gives Build's phrase",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
-      "text": "Start Build in a new session in this project and say 'run the build skill.'"
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_contains",
+        "text": "Start Build in a new session in this project and say:"
+       },
+       {
+        "type": "ai_regex",
+        "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+       }
+      ]
      }
     },
     {
@@ -1987,8 +2054,17 @@
      "text": "Build's phrase",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
-      "text": "Start Build in a new session in this project and say 'run the build skill.'"
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_contains",
+        "text": "Start Build in a new session in this project and say:"
+       },
+       {
+        "type": "ai_regex",
+        "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+       }
+      ]
      }
     }
    ],
@@ -2114,8 +2190,17 @@
      "text": "Build's phrase",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
-      "text": "Start Build in a new session in this project and say 'run the build skill.'"
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_contains",
+        "text": "Start Build in a new session in this project and say:"
+       },
+       {
+        "type": "ai_regex",
+        "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+       }
+      ]
      }
     }
    ],
@@ -2173,9 +2258,13 @@
      "kind": "scripted",
      "check": {
       "type": "quote",
-      "id": "N-1",
+      "id": "N-0",
       "form": "main"
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
@@ -5139,8 +5228,17 @@
         "form": "On a live workflow"
        },
        {
-        "type": "ai_contains",
-        "text": "Start Build in a new session in this project and say 'run the build skill.'"
+        "type": "all",
+        "checks": [
+         {
+          "type": "ai_contains",
+          "text": "Start Build in a new session in this project and say:"
+         },
+         {
+          "type": "ai_regex",
+          "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+         }
+        ]
        }
       ]
      }
@@ -5564,11 +5662,6 @@
       "type": "all",
       "checks": [
        {
-        "type": "quote_absent",
-        "id": "N-1",
-        "form": "main"
-       },
-       {
         "type": "quote",
         "id": "N-0",
         "form": "main"
@@ -5579,6 +5672,10 @@
        }
       ]
      }
+    },
+    {
+     "text": "No opening: no message says what Design does before the platform is stated (the platform change goes straight into Part 1)",
+     "kind": "judged"
     },
     {
      "text": "The fresh plan is for ChatGPT",
@@ -5829,8 +5926,17 @@
      "text": "Build's phrase",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
-      "text": "Start Build in a new session in this project and say 'run the build skill.'"
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_contains",
+        "text": "Start Build in a new session in this project and say:"
+       },
+       {
+        "type": "ai_regex",
+        "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+       }
+      ]
      }
     }
    ],
@@ -5882,8 +5988,17 @@
      "text": "Build's phrase",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
-      "text": "Start Build in a new session in this project and say 'run the build skill.'"
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_contains",
+        "text": "Start Build in a new session in this project and say:"
+       },
+       {
+        "type": "ai_regex",
+        "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+       }
+      ]
      }
     },
     {
@@ -6071,8 +6186,17 @@
      "text": "Build's phrase",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
-      "text": "Start Build in a new session in this project and say 'run the build skill.'"
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_contains",
+        "text": "Start Build in a new session in this project and say:"
+       },
+       {
+        "type": "ai_regex",
+        "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+       }
+      ]
      }
     },
     {
@@ -6593,8 +6717,17 @@
      "text": "Build's phrase",
      "kind": "scripted",
      "check": {
-      "type": "ai_contains",
-      "text": "Start Build in a new session in this project and say 'run the build skill.'"
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_contains",
+        "text": "Start Build in a new session in this project and say:"
+       },
+       {
+        "type": "ai_regex",
+        "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+       }
+      ]
      }
     }
    ],
@@ -7364,7 +7497,7 @@
      }
     },
     {
-     "text": "N-F6 once; no pick-up sentence",
+     "text": "N-F6 once; no pick-up sentence (no Part 1 signpost: the opening's own words are Design's now, U1)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -7374,9 +7507,8 @@
         "id": "N-F6"
        },
        {
-        "type": "quote_absent",
-        "id": "N-1",
-        "form": "main-2"
+        "type": "ai_not_regex",
+        "pattern": "(?i)stopping early is safe"
        }
       ]
      }
@@ -7486,14 +7618,14 @@
    ],
    "expectations": [
     {
-     "text": "The opening: N-1, N-F3's promise clause and its platform clause, the pick-up sentence and N-F10 in this platform's form",
+     "text": "The opening: N-F3's promise clause and its platform clause, N-F10 in this platform's form",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main",
         "turn": "first"
        },
@@ -7511,18 +7643,16 @@
        },
        {
         "type": "quote",
-        "id": "N-1",
-        "form": "main-2",
-        "turn": "first"
-       },
-       {
-        "type": "quote",
         "id": "N-F10",
         "form": "Claude Code and Codex",
         "turn": "first"
        }
       ]
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "Design's four signposts (or Part 4 straight after Part 2 when nothing is asked)",
@@ -7569,8 +7699,17 @@
         "form": "main"
        },
        {
-        "type": "ai_contains",
-        "text": "Start Build in a new session in this project and say 'run the build skill.'"
+        "type": "all",
+        "checks": [
+         {
+          "type": "ai_contains",
+          "text": "Start Build in a new session in this project and say:"
+         },
+         {
+          "type": "ai_regex",
+          "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+         }
+        ]
        }
       ]
      }
@@ -7644,14 +7783,14 @@
    ],
    "expectations": [
     {
-     "text": "The opening: N-1, N-F3's promise clause and its platform clause, the pick-up sentence and N-F10 in this platform's form",
+     "text": "The opening: N-F3's promise clause and its platform clause, N-F10 in this platform's form",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main",
         "turn": "first"
        },
@@ -7669,18 +7808,16 @@
        },
        {
         "type": "quote",
-        "id": "N-1",
-        "form": "main-2",
-        "turn": "first"
-       },
-       {
-        "type": "quote",
         "id": "N-F10",
         "form": "Claude Code and Codex",
         "turn": "first"
        }
       ]
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "Design's four signposts (or Part 4 straight after Part 2 when nothing is asked)",
@@ -7727,8 +7864,17 @@
         "form": "main"
        },
        {
-        "type": "ai_contains",
-        "text": "Start Build in a new session in this project and say 'run the build skill.'"
+        "type": "all",
+        "checks": [
+         {
+          "type": "ai_contains",
+          "text": "Start Build in a new session in this project and say:"
+         },
+         {
+          "type": "ai_regex",
+          "pattern": "(?s)```[^`]*run the build skill\\.[^`]*```"
+         }
+        ]
        }
       ]
      }
@@ -7801,14 +7947,14 @@
    ],
    "expectations": [
     {
-     "text": "The opening: N-1, N-F3's promise clause and its platform clause, the pick-up sentence and N-F10 in this platform's form",
+     "text": "The opening: N-F3's promise clause and its platform clause, N-F10 in this platform's form",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main",
         "turn": "first"
        },
@@ -7826,18 +7972,16 @@
        },
        {
         "type": "quote",
-        "id": "N-1",
-        "form": "main-2",
-        "turn": "first"
-       },
-       {
-        "type": "quote",
         "id": "N-F10",
         "form": "main",
         "turn": "first"
        }
       ]
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "Design's four signposts (or Part 4 straight after Part 2 when nothing is asked)",
@@ -7884,8 +8028,17 @@
         "form": "main"
        },
        {
-        "type": "ai_contains",
-        "text": "Start Build in a new chat. Add your Google Drive to it, then say 'run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.'"
+        "type": "all",
+        "checks": [
+         {
+          "type": "ai_contains",
+          "text": "Start Build in a new chat. Add your Google Drive to it, then say:"
+         },
+         {
+          "type": "ai_regex",
+          "pattern": "(?s)```[^`]*run the build skill\\. My files are in Google Drive, in ai-workspace/framework/client-follow-up\\.[^`]*```"
+         }
+        ]
        }
       ]
      }
@@ -7962,14 +8115,14 @@
    ],
    "expectations": [
     {
-     "text": "The opening: N-1, N-F3's promise clause and its platform clause, the pick-up sentence and N-F10 in this platform's form",
+     "text": "The opening: N-F3's promise clause and its platform clause, N-F10 in this platform's form",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main",
         "turn": "first"
        },
@@ -7981,18 +8134,16 @@
        },
        {
         "type": "quote",
-        "id": "N-1",
-        "form": "main-2",
-        "turn": "first"
-       },
-       {
-        "type": "quote",
         "id": "N-F10",
         "form": "Claude desktop, with the files in a local folder",
         "turn": "first"
        }
       ]
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "N-F3's promise clause first",
@@ -8049,8 +8200,17 @@
         "form": "main"
        },
        {
-        "type": "ai_contains",
-        "text": "Start Build in a new chat with your working folder selected: 'run the build skill. My files are in ai-workspace/framework/client-follow-up.'"
+        "type": "all",
+        "checks": [
+         {
+          "type": "ai_contains",
+          "text": "Start Build in a new chat with your working folder selected, then say:"
+         },
+         {
+          "type": "ai_regex",
+          "pattern": "(?s)```[^`]*run the build skill\\. My files are in ai-workspace/framework/client-follow-up\\.[^`]*```"
+         }
+        ]
        }
       ]
      }
@@ -8123,14 +8283,14 @@
    ],
    "expectations": [
     {
-     "text": "The opening: N-1, N-F3's promise clause and its platform clause, the pick-up sentence and N-F10 in this platform's form",
+     "text": "The opening: N-F3's promise clause and its platform clause, N-F10 in this platform's form",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main",
         "turn": "first"
        },
@@ -8148,18 +8308,16 @@
        },
        {
         "type": "quote",
-        "id": "N-1",
-        "form": "main-2",
-        "turn": "first"
-       },
-       {
-        "type": "quote",
         "id": "N-F10",
         "form": "main",
         "turn": "first"
        }
       ]
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "Design's four signposts (or Part 4 straight after Part 2 when nothing is asked)",
@@ -8206,8 +8364,17 @@
         "form": "main"
        },
        {
-        "type": "ai_contains",
-        "text": "Start Build in a new chat. Add your Google Drive to it, then say 'run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.'"
+        "type": "all",
+        "checks": [
+         {
+          "type": "ai_contains",
+          "text": "Start Build in a new chat. Add your Google Drive to it, then say:"
+         },
+         {
+          "type": "ai_regex",
+          "pattern": "(?s)```[^`]*run the build skill\\. My files are in Google Drive, in ai-workspace/framework/client-follow-up\\.[^`]*```"
+         }
+        ]
        }
       ]
      }
@@ -8285,14 +8452,14 @@
    ],
    "expectations": [
     {
-     "text": "The opening: N-1, N-F3's promise clause and its platform clause, the pick-up sentence and N-F10 in this platform's form",
+     "text": "The opening: N-F3's promise clause and its platform clause, N-F10 in this platform's form",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
         "type": "quote",
-        "id": "N-1",
+        "id": "N-0",
         "form": "main",
         "turn": "first"
        },
@@ -8310,18 +8477,16 @@
        },
        {
         "type": "quote",
-        "id": "N-1",
-        "form": "main-2",
-        "turn": "first"
-       },
-       {
-        "type": "quote",
         "id": "N-F10",
         "form": "Microsoft 365",
         "turn": "first"
        }
       ]
      }
+    },
+    {
+     "text": "The opening is one short paragraph in Design's own words (P1): what Design does in one sentence, N-F3's promise clause with its platform clause and, where a new session can read the files, the pick-up sentence (N-F10); then Part 1's signpost and N-2. No list of what the plan covers, no time",
+     "kind": "judged"
     },
     {
      "text": "Design's four signposts (or Part 4 straight after Part 2 when nothing is asked)",
@@ -8368,8 +8533,17 @@
         "form": "main"
        },
        {
-        "type": "ai_contains",
-        "text": "Start Build in a new Cowork chat with: 'run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.'"
+        "type": "all",
+        "checks": [
+         {
+          "type": "ai_contains",
+          "text": "Start Build in a new Cowork chat and say:"
+         },
+         {
+          "type": "ai_regex",
+          "pattern": "(?s)```[^`]*run the build skill\\. My files are in OneDrive, in ai-workspace/framework/client-follow-up\\.[^`]*```"
+         }
+        ]
        }
       ]
      }
@@ -8891,8 +9065,8 @@
      "text": "No Build start phrase is given while the change is unapproved",
      "kind": "scripted",
      "check": {
-      "type": "ai_not_contains",
-      "text": "'run the build skill."
+      "type": "ai_not_regex",
+      "pattern": "(?i)\\brun the build skill\\b"
      }
     }
    ],

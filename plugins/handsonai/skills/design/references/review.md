@@ -16,7 +16,7 @@ Read at the start of Part 4, before writing the review, and whenever the review 
 
 It ends: **Ask:** "What would you change or clarify?"
 
-**Changes.** A correction updates the plan (its `## Summary` too), runs the self-check, the plan check and the coverage check, and shows the review again; the plan stays `approved: false`.
+**Changes.** A correction is saved as it's given (SKILL.md, *Saving and resuming*): it updates the plan (its `## Summary` too), runs the self-check, the plan check and the coverage check, and shows the review again; the plan stays `approved: false`.
 
 - Lowering the level is always allowed. Raising it needs the evidence and the limits to support it; otherwise give the reason in one line (D7 when a limit is involved). The same holds for a reply to B54.
 - A change that creates a Part 3 question (`questions.md`) asks it before the review is shown again. It isn't counted against the cap, and safety questions are always asked.

@@ -256,15 +256,9 @@
           "must": true
         },
         {
-          "text": "The first message opens with Design's own opening (N-1), or with the routing lead-in in its approved form and then N-1 (core round-2 fixes)",
-          "kind": "scripted",
-          "check": {
-            "type": "opens_with",
-            "ids": [
-              "N-1"
-            ],
-            "lead_in": true
-          }
+          "text": "The first message opens with Design's own opening (one short paragraph in Design's own words saying what Design does), or with the routing lead-in in its approved form and then that opening (N-1 is model wording now, U1)",
+          "kind": "judged",
+          "must": true
         },
         {
           "text": "No framework step number in any AI message (a step is named, never numbered)",
@@ -1851,20 +1845,11 @@
           }
         },
         {
-          "text": "N-A6's 'Later' paragraph in Claude Code's form (no location)",
+          "text": "The 'Later' paragraph gives Analyze's start phrase with the other lens, said exactly (the paragraph itself is model wording now, U1)",
           "kind": "scripted",
           "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "ai_contains",
-                "text": "Later, if you want: say 'run the analyze skill.' any time to find more, including in the processes that have no workflows yet."
-              },
-              {
-                "type": "ai_contains",
-                "text": "Say 'run the analyze skill with the individual lens.'"
-              }
-            ]
+            "type": "ai_regex",
+            "pattern": "run the analyze skill with the (?:individual|organizational) lens\\."
           }
         },
         {
@@ -2094,12 +2079,20 @@
           }
         },
         {
-          "text": "The close gives N-F2's form for claude-code, word for word",
+          "text": "The close gives the next step's line for claude-code, word for word, with Deconstruct's start phrase alone in a code block (X3)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-F2",
-            "form": "Claude Code and Codex (lines-to-approve)"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Start Deconstruct in a new session in this project and say:"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "(?s)```[^`]*run the deconstruct skill\\.[^`]*```"
+              }
+            ]
           }
         },
         {
@@ -2256,12 +2249,20 @@
           }
         },
         {
-          "text": "The close gives N-F2's form for claude-code, word for word",
+          "text": "The close gives the next step's line for claude-code, word for word, with Deconstruct's start phrase alone in a code block (X3)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-F2",
-            "form": "Claude Code and Codex (lines-to-approve)"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Start Deconstruct in a new session in this project and say:"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "(?s)```[^`]*run the deconstruct skill\\.[^`]*```"
+              }
+            ]
           }
         },
         {
@@ -2281,11 +2282,11 @@
           }
         },
         {
-          "text": "N-A6's 'Later' paragraph in Claude Code's form (no location)",
+          "text": "The 'Later' paragraph gives Analyze's start phrase with the other lens, said exactly (the paragraph itself is model wording now, U1)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Later, if you want: say 'run the analyze skill.' any time to find more, including in the processes that have no workflows yet."
+            "type": "ai_regex",
+            "pattern": "run the analyze skill with the (?:individual|organizational) lens\\."
           }
         },
         {
@@ -2606,12 +2607,20 @@
           }
         },
         {
-          "text": "The close gives N-F2's form for codex, word for word",
+          "text": "The close gives the next step's line for codex, word for word, with Deconstruct's start phrase alone in a code block (X3)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-F2",
-            "form": "Claude Code and Codex (lines-to-approve)"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Start Deconstruct in a new session in this project and say:"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "(?s)```[^`]*run the deconstruct skill\\.[^`]*```"
+              }
+            ]
           }
         },
         {
@@ -2631,11 +2640,11 @@
           }
         },
         {
-          "text": "N-A6's 'Later' paragraph in Codex's form (no location)",
+          "text": "The 'Later' paragraph gives Analyze's start phrase with the other lens, said exactly (the paragraph itself is model wording now, U1)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Later, if you want: say 'run the analyze skill.' any time to find more, including in the processes that have no workflows yet."
+            "type": "ai_regex",
+            "pattern": "run the analyze skill with the (?:individual|organizational) lens\\."
           }
         },
         {
@@ -3049,12 +3058,20 @@
           }
         },
         {
-          "text": "The close gives N-F2's form for claude-web, word for word",
+          "text": "The close gives the next step's line for claude-web, word for word, with Deconstruct's start phrase alone in a code block (X3)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-F2",
-            "form": "main"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_regex",
+                "pattern": "Start Deconstruct in a new chat\\. Add your [^\\n]+ to it, then say:"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "(?s)```[^`]*run the deconstruct skill\\.[^`]*```"
+              }
+            ]
           }
         },
         {
@@ -3082,12 +3099,11 @@
           }
         },
         {
-          "text": "N-A6's 'Later' paragraph, word for word",
+          "text": "The 'Later' paragraph gives Analyze's start phrase with the other lens, said exactly (the paragraph itself is model wording now, U1)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-A6",
-            "form": "Then-2"
+            "type": "ai_regex",
+            "pattern": "run the analyze skill with the (?:individual|organizational) lens\\."
           }
         },
         {
@@ -3518,12 +3534,20 @@
           }
         },
         {
-          "text": "The close gives N-F2's form for chatgpt, word for word",
+          "text": "The close gives the next step's line for chatgpt, word for word, with Deconstruct's start phrase alone in a code block (X3)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-F2",
-            "form": "main"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_regex",
+                "pattern": "Start Deconstruct in a new chat\\. Add your [^\\n]+ to it, then say:"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "(?s)```[^`]*run the deconstruct skill\\.[^`]*```"
+              }
+            ]
           }
         },
         {
@@ -3551,12 +3575,11 @@
           }
         },
         {
-          "text": "N-A6's 'Later' paragraph, word for word",
+          "text": "The 'Later' paragraph gives Analyze's start phrase with the other lens, said exactly (the paragraph itself is model wording now, U1)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-A6",
-            "form": "Then-2"
+            "type": "ai_regex",
+            "pattern": "run the analyze skill with the (?:individual|organizational) lens\\."
           }
         },
         {
@@ -3978,12 +4001,20 @@
           }
         },
         {
-          "text": "The close gives N-F2's form for claude-desktop, word for word",
+          "text": "The close gives the next step's line for claude-desktop, word for word, with Deconstruct's start phrase alone in a code block (X3)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-F2",
-            "form": "Claude desktop, with the files in a local folder"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Start Deconstruct in a new chat with your working folder selected, then say:"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "(?s)```[^`]*run the deconstruct skill\\.[^`]*```"
+              }
+            ]
           }
         },
         {
@@ -4011,12 +4042,11 @@
           }
         },
         {
-          "text": "N-A6's 'Later' paragraph, word for word",
+          "text": "The 'Later' paragraph gives Analyze's start phrase with the other lens, said exactly (the paragraph itself is model wording now, U1)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-A6",
-            "form": "Then-2"
+            "type": "ai_regex",
+            "pattern": "run the analyze skill with the (?:individual|organizational) lens\\."
           }
         },
         {
@@ -4504,12 +4534,11 @@
           }
         },
         {
-          "text": "N-A6's 'Later' paragraph, word for word",
+          "text": "The 'Later' paragraph gives Analyze's start phrase with the other lens, said exactly (the paragraph itself is model wording now, U1)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-A6",
-            "form": "Then-2"
+            "type": "ai_regex",
+            "pattern": "run the analyze skill with the (?:individual|organizational) lens\\."
           }
         },
         {
@@ -5116,12 +5145,20 @@
           }
         },
         {
-          "text": "The close gives N-F2's form for claude-web, word for word",
+          "text": "The close gives the next step's line for claude-web, word for word, with Deconstruct's start phrase alone in a code block (X3)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-F2",
-            "form": "main"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_regex",
+                "pattern": "Start Deconstruct in a new chat\\. Add your [^\\n]+ to it, then say:"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "(?s)```[^`]*run the deconstruct skill\\.[^`]*```"
+              }
+            ]
           }
         },
         {
@@ -5704,12 +5741,20 @@
           }
         },
         {
-          "text": "The close gives N-F2's form for claude-desktop, word for word",
+          "text": "The close gives the next step's line for claude-desktop, word for word, with Deconstruct's start phrase alone in a code block (X3)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-F2",
-            "form": "Claude desktop, with the files in a local folder"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Start Deconstruct in a new chat with your working folder selected, then say:"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "(?s)```[^`]*run the deconstruct skill\\.[^`]*```"
+              }
+            ]
           }
         },
         {
@@ -5839,12 +5884,20 @@
           }
         },
         {
-          "text": "The hand-off in N-F2's form, for a new chat",
+          "text": "The hand-off for a new chat: the next step's line, then Deconstruct's start phrase alone in a code block (X3)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-F2",
-            "form": "main"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_regex",
+                "pattern": "Start Deconstruct in a new chat\\. Add your [^\\n]+ to it, then say:"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "(?s)```[^`]*run the deconstruct skill\\.[^`]*```"
+              }
+            ]
           }
         },
         {

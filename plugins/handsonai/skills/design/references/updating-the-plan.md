@@ -38,7 +38,7 @@ Every update follows these steps:
    - **When step 6 will need re-approval,** set `approved: false` in the same save as the change, never after it, so an interrupted update never leaves a changed plan marked approved.
 5. **Check:** the self-check and the plan check.
 6. **Re-approval only when a consequential point changes** (added, removed or altered): `approved: false` (already saved with the change, step 4), show the review of what changed, then the consequential points and the approval question (SKILL.md, Part 4); on approval, rewrite the node's `autonomy` and `execution_mode` and restamp `generated`. With no consequential point changed, the plan stays approved; still rewrite `autonomy` and `execution_mode` if the update changed them, and say in one line what changed in the plan.
-7. **The close:** N-F2 with the start phrase of the step the routing rule now names (normally Build), in its platform's form. On a live workflow, add N-23's live clause (section 4).
+7. **The close:** the start phrase of the step the routing rule now names (normally Build), as SKILL.md's *Sending the leader to the next step* says: the line, then the phrase alone in a code block. On a live workflow, add N-23's live clause (section 4).
 
 **A requirements revision** (the requirements' `revision` above the plan's `requirements_revision`, not counting `plan_unaffected`) is this path with step 1 naming the changed lines in plain words and step 3 skipped.
 
