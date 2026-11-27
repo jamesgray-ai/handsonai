@@ -5338,7 +5338,7 @@
   {
    "id": "N-B13",
    "form": "main",
-   "text": "Your workflow is built and checked. Here's what you have: [What was built, in plain words: each part and what it does, where it lives, how to start it, what's still waiting]. What it can access is written up in your build record, if anyone asks. [Rulings that matter.] [N-B37.] [Print-to-save: 'Save the files below.'][ First build, full track: 'Two or three test rounds is normal.'] [The Test sentence.]",
+   "text": "Your workflow is built and checked. Here's what you have: [What was built, in plain words: each part and what it does, where it lives, how to start it, what's still waiting]. What it can access is written up in your build record, if anyone asks. [Rulings that matter.] [N-B37.][ First build, full track: 'Two or three test rounds is normal.'] [The Test sentence.]",
    "kind": "safety or promise",
    "skills": [
     "build"
