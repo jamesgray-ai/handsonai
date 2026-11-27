@@ -373,19 +373,21 @@ class NT34WebFormStaysOnTheWeb(unittest.TestCase):
     """Review of b3f4b3d41: N-T34's web form is its own form. The plain Not ready check, used on Claude Code,
     Codex, Claude desktop and Microsoft 365, fails the web sentence, and no Claude Code variant is derived."""
 
-    WEB = ("Not ready yet: 1 to fix. Start Build in a new chat. Add your Google Drive to it, then say 'run the "
-           "build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.'")
+    WEB = ("Not ready yet: 1 to fix. Test only checks, so Build makes the fix, in your build. Start it in a new chat. "
+           "Add your Google Drive to it, then say:\n\n```\nrun the build skill. My files are in Google Drive, in "
+           "ai-workspace/framework/client-follow-up.\n```")
 
     def test_the_web_sentence_fails_the_plain_form_and_passes_its_own(self):
         self.assertFalse(CS.check({"type": "quote", "id": "N-T34", "form": "Not ready"}, _run_of(self.WEB))[0])
         self.assertTrue(CS.check({"type": "quote", "id": "N-T34", "form": "On the web, not ready"}, _run_of(self.WEB))[0])
-        plain = "Not ready yet: 1 to fix. Say 'run the build skill.'"
+        plain = ("Not ready yet: 1 to fix. Test only checks, so Build makes the fix, in your build. Start it in a new "
+                 "chat and say:\n\n```\nrun the build skill.\n```")
         self.assertTrue(CS.check({"type": "quote", "id": "N-T34", "form": "Not ready"}, _run_of(plain))[0])
 
     def test_no_claude_code_variant_of_the_web_form(self):
         forms = [ln.form for ln in AL.load().lines if ln.id == "N-T34"]
         self.assertFalse([f for f in forms if f.startswith("On the web, not ready,")])
-        self.assertFalse([f for f in AL.load().get("N-T34", "Not ready") if "Start Build in a new chat" in (f.text or "")])
+        self.assertFalse([f for f in AL.load().get("N-T34", "Not ready") if "Add your" in (f.text or "")])
 
 if __name__ == "__main__":
     unittest.main()

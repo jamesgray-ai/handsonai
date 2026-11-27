@@ -4261,22 +4261,12 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T11 (With a golden example, it opens) word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T11",
-            "form": "With a golden example, it opens"
-          }
+          "text": "For the input with a golden example, its part opens with the leader's past output beside this one, and what's missing, extra or different",
+          "kind": "judged"
         },
         {
-          "text": "Says N-T11 (main) word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T11",
-            "form": "main"
-          }
+          "text": "One grading message covers every input in the block: met lines summed, misses with their proof, 'shown, not sent' where a draft was only shown, then one question: agree, and how much they'd edit each draft (none for an input that stopped to ask)",
+          "kind": "judged"
         }
       ],
       "est_turns": 12
@@ -4546,25 +4536,8 @@
       ],
       "expectations": [
         {
-          "text": "Says N-T13 (Build) word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "any",
-            "checks": [
-              {
-                "type": "quote",
-                "id": "N-T13",
-                "form": "Build",
-                "session": 1
-              },
-              {
-                "type": "quote",
-                "id": "N-T13",
-                "form": "Build, several misses",
-                "session": 1
-              }
-            ]
-          }
+          "text": "Each miss gets one line in Test's own words saying what wasn't met and why, with no start phrase; the one next step comes after, in N-T34",
+          "kind": "judged"
         },
         {
           "text": "Says N-T34 (Not ready) word for word",
@@ -4577,14 +4550,8 @@
           }
         },
         {
-          "text": "Says N-T13 (Plan) word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T13",
-            "form": "Plan",
-            "session": 2
-          }
+          "text": "Each miss gets one line in Test's own words saying what wasn't met and why, with no start phrase; the one next step comes after, in N-T34",
+          "kind": "judged"
         },
         {
           "text": "Design named first",
@@ -4854,13 +4821,8 @@
           }
         },
         {
-          "text": "Never says N-T13 (Plan): never raised to Design again",
-          "kind": "scripted",
-          "check": {
-            "type": "quote_absent",
-            "id": "N-T13",
-            "form": "Plan"
-          }
+          "text": "No miss line carries a start phrase of its own",
+          "kind": "judged"
         }
       ],
       "est_turns": 10
@@ -4895,23 +4857,8 @@
           }
         },
         {
-          "text": "Never says N-T13 (Build): never raised to Build again",
-          "kind": "scripted",
-          "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "quote_absent",
-                "id": "N-T13",
-                "form": "Build"
-              },
-              {
-                "type": "quote_absent",
-                "id": "N-T13",
-                "form": "Build, several misses"
-              }
-            ]
-          }
+          "text": "No miss line carries a start phrase of its own",
+          "kind": "judged"
         }
       ],
       "est_turns": 10

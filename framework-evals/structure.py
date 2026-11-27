@@ -383,8 +383,8 @@ def check_results(text):
         return probs  # the verdict is written in Part 3
     if not re.match(r"^(Ready|Not ready|Waiting on access)\b", verdict):
         probs.append(f"Verdict doesn't open with Ready, Not ready or Waiting on access: {verdict[:60]!r}")
-    if verdict and not re.search(r"\b\d+ of \d+ lines met across \d+ inputs?\b", verdict):
-        probs.append("Verdict has no '[n] of [m] lines met across [k] inputs'")
+    if verdict and not re.search(r"\b\d+ of \d+ (?:checks|lines) met across \d+ inputs?\b", verdict):
+        probs.append("Verdict has no '[n] of [m] checks met across [k] inputs' (10.x files: 'lines')")
     return probs
 
 

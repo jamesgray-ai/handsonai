@@ -79,7 +79,7 @@ results:
 |---|---|---|---|
 
 ## Verdict
-[Ready / Not ready / Waiting on access]. [n] of [m] lines met across [k] inputs. [The policy reason, where there is one.] [What's next.] [For a later round: what changed since the comparison round.] [To check once it's live: each rule no run could show.]
+[Ready / Not ready / Waiting on access]. [n] of [m] checks met across [k] inputs. [The policy reason, where there is one.] [What's next.] [For a later round: what changed since the comparison round.] [To check once it's live: each rule no run could show.]
 ```
 
 An empty table keeps its header, or reads "None." under the heading.
@@ -103,11 +103,11 @@ In this order, and no others: Check list, Coverage, Inputs, Report card, Not run
 - **Inputs:** where each came from (Deconstruct, Design's risk input, written by Test, your real example, the flag input, a safety input, a flagged run), who ran it, runs, carried from, saved as. The text of an input Test wrote sits here until it's saved or dropped; the real example is named in a few words only, never its text.
 - **Report card:** per input, output lines first, then path lines; the golden-example comparison where there is one; carried results marked "carried from round [n]".
 - **Issues identified:** Level is `build`, `plan` or `requirement`; Cause from SKILL.md's list; Task is the plan task that *Meets* the line.
-- **Verdict:** opens with Ready, Not ready or Waiting on access, then "[n] of [m] lines met across [k] inputs"; then the policy reason where there is one, as fixed text: "Waiting on the policy check ([value])", "The policy check came back no", or "Policy check confirmed on [date]" (which replaces the first on the return visit's yes); ends with each Boundaries or Access line Coverage records as not shown, as something to check once it's live (it never changes the verdict).
+- **Verdict:** opens with Ready, Not ready or Waiting on access, then "[n] of [m] checks met across [k] inputs"; then the policy reason where there is one, as fixed text: "Waiting on the policy check ([value])", "The policy check came back no", or "Policy check confirmed on [date]" (which replaces the first on the return visit's yes); ends with each Boundaries or Access line Coverage records as not shown, as something to check once it's live (it never changes the verdict).
 
 ## 4. Counts
 
-Worked out from `results`, never stored: the lines graded Met or Not met across every input, carried ones included; not-run lines are left out. With two runs, a line counts once and is met only when both runs met it. The Verdict's "[n] of [m] lines met" is this count.
+Worked out from `results`, never stored: the lines graded Met or Not met across every input, carried ones included; not-run lines are left out. With two runs, a line counts once and is met only when both runs met it. The Verdict's "[n] of [m] checks met across [k] inputs" and the scorecard's headline are this count ([k]: the inputs with a graded line); where code runs, the state tool returns it as `scorecard`. A 10.x file's Verdict may read "lines met"; both pass.
 
 ## 5. When each part is written
 

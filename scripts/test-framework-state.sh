@@ -61,6 +61,7 @@ function checkOne(label, ws, slug, exp) {
   if (r.state !== exp.state) probs.push(`state ${r.state}, expected ${exp.state}`);
   if ((r.owner || null) !== (exp.owner || null)) probs.push(`owner ${r.owner}, expected ${exp.owner}`);
   if ('n_b44' in exp && !!r.n_b44 !== exp.n_b44) probs.push(`n_b44 ${!!r.n_b44}, expected ${exp.n_b44}`);
+  if ('scorecard' in exp) { const got = JSON.stringify((r.facts || {}).scorecard || null); const want = JSON.stringify(exp.scorecard); if (got !== want) probs.push(`scorecard ${got}, expected ${want}`); }
   say(!probs.length, `${label}: ${probs.length ? probs.join('; ') + ` (because ${r.reason})` : `state ${r.state} · ${r.owner || 'no owner'}${'n_b44' in exp ? ` · n_b44 ${r.n_b44}` : ''}`}`);
 }
 

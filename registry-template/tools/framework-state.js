@@ -674,6 +674,7 @@ function workflowState(folder, opts = {}) {
     facts.last_round_plan_revision = num(results.plan_revision);
     facts.go_live = results.go_live || null;
     if (results.direct_edit) facts.direct_edit = results.direct_edit;
+    facts.scorecard = scorecardOf(results.results);
   }
   facts.record_plan_revision = record ? num(record.plan_revision) : null;
   facts.last_close_after_round = lastClose;
@@ -740,6 +741,28 @@ function workflowState(folder, opts = {}) {
   const err = new Unreadable('no state matched: the files are in a combination the routing rule does not cover');
   err.partial = done(null, 'no state matched');
   throw err;
+}
+
+// The scorecard's headline, worked out from `results:` (Test's results template, section 4), never stored:
+// every line graded met or not-met across every input, carried ones included; not-run left out; with two
+// runs, a line counts once and is met only when both met it. Null when no input has a graded line.
+function scorecardOf(results) {
+  if (!results || typeof results !== 'object') return null;
+  let met = 0; let total = 0; let inputs = 0;
+  for (const r of Object.values(results)) {
+    if (!r || typeof r !== 'object') continue;
+    const runs = Object.keys(r).filter((k) => /^run\d+$/.test(k)).map((k) => r[k] || {});
+    if (!runs.length) continue;
+    inputs += 1;
+    const lines = new Set(runs.flatMap((run) => Object.keys(run)));
+    for (const line of lines) {
+      const vals = runs.map((run) => run[line]).filter((v) => v === 'met' || v === 'not-met');
+      if (!vals.length) continue;
+      total += 1;
+      if (vals.every((v) => v === 'met')) met += 1;
+    }
+  }
+  return total ? { met, total, inputs } : null;
 }
 
 // The last Ready round: by number among test-results.md and the finished rounds
@@ -898,4 +921,4 @@ function main(argv) {
 
 if (require.main === module) process.exitCode = main(process.argv.slice(2));
 
-module.exports = { workflowState, continueState, parseYaml, STATE_NAMES };
+module.exports = { workflowState, continueState, parseYaml, scorecardOf, STATE_NAMES };

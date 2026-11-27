@@ -6768,7 +6768,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (T10, T15: one grading message; miss lines in Test's own words, one next step)"
   },
   {
    "id": "N-T11",
@@ -6781,7 +6782,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (T10, T15: one grading message; miss lines in Test's own words, one next step)"
   },
   {
    "id": "N-T13",
@@ -6794,7 +6796,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (T10, T15: one grading message; miss lines in Test's own words, one next step)"
   },
   {
    "id": "N-T13",
@@ -6807,7 +6810,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 2 (T10, T15: one grading message; miss lines in Test's own words, one next step)"
   },
   {
    "id": "N-T13",
@@ -6820,7 +6824,8 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "3c-EB (2026-10-25)"
+   "source": "3c-EB (2026-10-25)",
+   "retired": "2026-11-27: shape release Pass 2 (T10, T15: one grading message; miss lines in Test's own words, one next step)"
   },
   {
    "id": "N-T14",
@@ -7320,7 +7325,7 @@
   {
    "id": "N-T34",
    "form": "Not ready",
-   "text": "Not ready yet: [n] to fix[ and [n] to change][; your plan needs to catch up with [the change]]. Say '[run the design skill / run the build skill]. My files are in [location].'",
+   "text": "Not ready yet: [n] to fix[ and [n] to change][; your plan needs to catch up with [the change]]. Test only checks, so [Design / Build] makes the fix, in your [plan / build]. Start it in a new chat[ with your working folder selected] and say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7328,12 +7333,12 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 2 (T15, X3: why the fix happens in another step; the phrase in a code block)"
   },
   {
    "id": "N-T34",
    "form": "On the web, not ready",
-   "text": "Not ready yet: [n] to fix[ and [n] to change][; your plan needs to catch up with [the change]]. Start [Design / Build] in a new chat. Add your [storage service] to it, then say '[run the design skill / run the build skill]. My files are in [location].'",
+   "text": "Not ready yet: [n] to fix[ and [n] to change][; your plan needs to catch up with [the change]]. Test only checks, so [Design / Build] makes the fix, in your [plan / build]. Start it in a new chat. Add your [storage service] to it, then say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7341,7 +7346,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "final-test-1b (TJ-claude-web 3 of 3): the Not ready form with N-F2's new-chat sentence on Claude on the web and ChatGPT; approved by James 2026-11-24"
+   "source": "final-test-1b (TJ-claude-web 3 of 3): the Not ready form with N-F2's new-chat sentence on Claude on the web and ChatGPT; approved by James 2026-11-24; 2026-11-27 Pass 2 (T15, X3: why the fix happens in another step; the phrase in a code block)"
   },
   {
    "id": "N-T34",
