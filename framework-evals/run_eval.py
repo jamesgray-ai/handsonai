@@ -164,6 +164,14 @@ def build_fixture(fixture, target, evals_dir, builder=None):
         raise H.HarnessFailure(f"fixture {fixture}: {r.stderr[-800:]}")
 
 
+def is_build(data, s):
+    """final-test-1b (2026-11-24): a Build session inside another skill's journey is Build too, and its
+    checks need check agents just the same (TJ-claude-code: none could run, 3 of 3); on Claude and
+    ChatGPT it also gets the skill creator Build follows itself (build-smoke-1)."""
+    return bool((data or {}).get("skill_name") == "build" or s.get("restart")
+                or re.match(r"\s*run the build skill\b", s.get("prompt") or "", re.I))
+
+
 def tools_for(ev, s, data=None, platform=None):
     """The skill session's tools: an eval's (or session's) `tools` kind, else SKILL_TOOLS. Build on
     Claude Code gets the Agent tool by default (AGENT_TOOLS): its checks run in check agents, which a
@@ -176,11 +184,7 @@ def tools_for(ev, s, data=None, platform=None):
         return H.WEB_TOOLS
     if kind == "agent":
         return H.AGENT_TOOLS
-    # final-test-1b (2026-11-24): a Build session inside another skill's journey is Build too, and its
-    # checks need check agents just the same (TJ-claude-code: none could run, 3 of 3)
-    is_build = (data or {}).get("skill_name") == "build" or s.get("restart") \
-        or re.match(r"\s*run the build skill\b", s.get("prompt") or "", re.I)
-    if kind is None and is_build and getattr(platform, "key", None) == "claude-code":
+    if kind is None and is_build(data, s) and getattr(platform, "key", None) == "claude-code":
         return H.AGENT_TOOLS
     return H.SKILL_TOOLS
 
@@ -346,6 +350,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             platform = L.platform_for(ev, s)
             platform.leader_runs = L.simulates_leader_runs(data.get("skill_name"), platform, s, ev)
             platform.scripted_runs = L.scripted_runs(s, ev)
+            platform.builds = is_build(data, s)
+            platform.start_session(root)  # on Claude and ChatGPT, Build's skill creator (build-smoke-1)
             fresh = bool(s.get("fixture_from")) or n == 1 or not s.get("from_previous")
             if s.get("fixture_from"):
                 src = Path(s["fixture_from"])

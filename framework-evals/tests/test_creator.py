@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """The platform's skill creator, simulated (Pass 3, Task 2: B1, B8, B10, F11).
 
+Since build-smoke-1 this second-party stand-in (SkillCreator) is Microsoft 365's and Claude Code's: on Claude
+and ChatGPT the skill creator is Build itself, and its faults sit in the package (test_same_assistant_creator.py).
+
 Build hands the platform's own creator a brief in its chat; the creator writes the part from it,
 tests it, and offers a save card. The stand-in in leader.py does the same, deterministically, with
 the faults Build's check before saving must catch: a reworded never-made rule (fixed when Build asks,
@@ -115,7 +118,8 @@ class CreatorOnTheChatPlatforms(unittest.TestCase):
         shutil.rmtree(self.t)
 
     def test_the_draft_reaches_builds_next_turn_never_a_run_chat(self):
-        p = L.PLATFORMS["claude-desktop"](["creator_rewords_never_made_rule"])
+        # Microsoft 365: Copilot's creator in Cowork still answers Build's brief on its next turn
+        p = L.PLATFORMS["microsoft-365"](["creator_rewords_never_made_rule"])
         p.screen(BRIEF, self.t)
         pre = p.preamble()
         self.assertIn("skill creator", pre)
@@ -123,15 +127,13 @@ class CreatorOnTheChatPlatforms(unittest.TestCase):
         self.assertNotIn(NEVER, pre)
         self.assertNotIn("skill creator", p.run_preamble() or "")  # a new chat never sees Build's chat
 
-    def test_the_save_card_saves_the_creators_final_text(self):
-        p = L.PLATFORMS["claude-web"]()
-        p.screen(BRIEF, self.t)
-        shown = p.screen("It passed. Save it from the skill creator's save card. Do you see client-follow-up "
-                         "in your skills list?", self.t)
-        self.assertTrue(any("save card" in o for o, _ in shown))
-        self.assertEqual(p.on_leader("Saved. Yes, I see it.", self.t), 1)
-        saved = (self.t / ".claude" / "skills" / "client-follow-up" / "SKILL.md").read_text()
-        self.assertIn(NEVER, saved)
+    def test_on_claude_and_chatgpt_no_second_party_answers_the_brief(self):
+        # build-smoke-1: there the skill creator is Build itself (test_same_assistant_creator.py)
+        for key in ("claude-web", "claude-desktop", "chatgpt"):
+            p = L.PLATFORMS[key](["creator_rewords_never_made_rule"])
+            p.screen(BRIEF, self.t)
+            self.assertIsNone(p.state.get("creator"), key)
+            self.assertNotIn("name: client-follow-up", p.preamble() or "", key)
 
     def test_nothing_saved_before_build_asks(self):
         p = L.PLATFORMS["chatgpt"]()
@@ -222,13 +224,22 @@ class TheSaveCardCanDrift(unittest.TestCase):
         self.assertIn(FIRST, c.card_text("client-follow-up"))
 
     def test_a_save_before_the_fix_saves_the_drifted_card(self):
+        # on Claude the card is the package Build made with the skill creator's packaging step (build-smoke-1)
+        import subprocess
+        root, ws = self.t, self.t / "workspace"
+        draft = ws / "sandbox" / "client-follow-up"
+        draft.mkdir(parents=True)
+        (draft / "SKILL.md").write_text(f"---\nname: client-follow-up\n---\n\n> {FIRST}\n\n{NEVER}\n")
         p = L.PLATFORMS["claude-web"](["creator_card_drifts"])
-        p.screen(BRIEF, self.t)
-        p.screen("It passed. Save it from the skill creator's save card. Do you see client-follow-up in your skills "
-                 "list?", self.t)
-        self.assertEqual(p.on_leader("Saved. Yes, I see it.", self.t), 1)
-        saved = (self.t / ".claude" / "skills" / "client-follow-up" / "SKILL.md").read_text()
+        p.builds = True
+        p.start_session(root)
+        subprocess.run([sys.executable, str(root / "bin" / "package_skill"), str(draft)], check=True,
+                       capture_output=True)
+        p.screen("It passed. Save it from the save card. Do you see client-follow-up in your skills list?", ws)
+        self.assertEqual(p.on_leader("Saved. Yes, I see it.", ws), 1)
+        saved = (ws / ".claude" / "skills" / "client-follow-up" / "SKILL.md").read_text()
         self.assertNotIn(FIRST, saved)
+        self.assertIn(FIRST, (draft / "SKILL.md").read_text())
 
     def test_the_validator_knows_it(self):
         self.assertIn("creator_card_drifts", V.FAULTS)

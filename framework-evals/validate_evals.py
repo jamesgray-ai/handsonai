@@ -29,7 +29,7 @@ import leader as L
 REQUIRED = {
     "ai_contains": ["text"], "ai_not_contains": ["text"], "ai_regex": ["pattern"], "ai_not_regex": ["pattern"], "leader_regex": ["pattern"],
     "quote": ["id"], "quote_absent": ["id"], "scripted_lines": [], "vocabulary": [], "no_time_or_step_numbers": [], "narration": [],
-    "no_team_visible_writes": [], "quoted_output_seen": [], "nf4_leads": [], "nf4_before_creator": [], "nf4_before_fresh_run": [], "bash_count": ["pattern"], "no_tool_call": ["tool"],
+    "no_team_visible_writes": [], "quoted_output_seen": [], "nf4_leads": [], "nf4_before_creator": [], "nf4_before_fresh_run": [], "bash_count": ["pattern"], "no_tool_call": ["tool"], "read_before_save": [],
     "signposts": [], "file_exists": ["path"], "file_absent": ["path"], "file_existed_during": ["path"],
     "file_contains": ["path", "text"], "file_not_contains": ["path", "text"], "file_regex": ["path", "pattern"],
     "file_not_regex": ["path", "pattern"], "sections_in_order": ["path", "headings"], "yaml_keys": ["path", "keys"],

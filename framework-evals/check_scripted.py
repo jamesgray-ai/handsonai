@@ -95,6 +95,13 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   input_pattern, and not input_not_pattern); with
                                                                   `after`, only calls after the first AI text matching
                                                                   it. No events.jsonl fails closed
+  read_before_save {session?}                                     on Claude and ChatGPT (build-smoke-1): every AI text
+                                                                  that offers the save (a save card, the skills-list
+                                                                  ask, an upload or download of a .skill or .zip)
+                                                                  comes after a read of the last package the skill
+                                                                  creator's `package_skill` made (unzip, zipinfo,
+                                                                  python… naming the .skill file), in the same turn;
+                                                                  no offer passes. No events.jsonl fails closed
   file_unchanged   {path, session?}                               every matching file is byte-identical
                                                                   at session start and end
   file_line        {path, line: n, pattern, session?}             line n (1-based) matches the pattern
@@ -1104,6 +1111,8 @@ def check(c, run):
         return _bash_count(c, run)
     if t == "no_tool_call":
         return _no_tool_call(c, run)
+    if t == "read_before_save":
+        return _read_before_save(c, run)
     if t == "release_check":
         passed = release_checks_passed(c["ids"])
         ok, why = check(c["passed" if passed else "open"], run)
@@ -1302,6 +1311,73 @@ def _no_tool_call(c, run):
         return False, "no session with an events.jsonl, so the tool calls can't be told: fails closed"
     return True, f"no {c['tool']!r} call" + (f" matching {c['input_pattern']!r}" if inp_pat else "") + \
         (f" after {c['after']!r}" if after else "")
+
+
+# An AI text that has the leader save, upload or download the part (build-smoke-1): N-B12's skills-list
+# ask, a save from the save card, or an upload or download of the packaged file.
+SAVE_OFFER = re.compile(r"in your skills list\b[^?\n]*\?"
+                        r"|\b(?:save|upload)\b[^.\n]{0,80}?(?:\bsave card\b|\.zip\b|\.skill\b)"
+                        r"|\bdownload\b[^.\n]{0,80}?\.(?:zip|skill)\b", re.I)
+PACKAGE_CMD = re.compile(r"\bpackage_skill\b")
+PACKAGE_READ = re.compile(r"\b(?:unzip|zipinfo|bsdtar|tar|python3?|strings|zcat)\b[\s\S]*?\.skill\b"
+                          r"|\.skill\b[\s\S]*?\b(?:unzip|zipinfo|zipfile|bsdtar)\b")
+
+
+def _read_before_save(c, run):
+    """build-smoke-1 (2026-11-27): on Claude and ChatGPT Build is the skill creator, and the file the save card
+    saves is the last package `package_skill` made, where the stand-in plants its faults. Every AI text that
+    offers the save must come after a read of that package (a Bash command naming the .skill file with
+    unzip, zipinfo, python…) made after the last packaging and in the same turn (a turn starts at each
+    session's init event): a file's contents are never asserted unread. No offer passes; no events.jsonl
+    fails closed."""
+    read_any, offers = False, 0
+    for s in _sessions(run, c.get("session")):
+        if not s.get("root"):
+            continue
+        try:
+            lines = (Path(s["root"]).parent / "events.jsonl").read_text(errors="replace").splitlines()
+        except OSError:
+            continue
+        read_any = True
+        packaged = read = False
+        turn = 0
+        for line in lines:
+            try:
+                e = json.loads(line)
+            except ValueError:
+                continue
+            if not isinstance(e, dict):
+                continue
+            if e.get("type") == "system" and e.get("subtype") == "init":
+                turn += 1
+                read = False
+                continue
+            content = (e.get("message") or {}).get("content") if e.get("type") == "assistant" else None
+            for b in content if isinstance(content, list) else []:
+                if not isinstance(b, dict):
+                    continue
+                if b.get("type") == "tool_use" and b.get("name") == "Bash":
+                    cmd = str((b.get("input") or {}).get("command") or "")
+                    marks = list(PACKAGE_CMD.finditer(cmd))
+                    if marks:
+                        packaged, read = True, False
+                        cmd = cmd[marks[-1].end():]
+                    if packaged and PACKAGE_READ.search(cmd):
+                        read = True
+                elif b.get("type") == "text":
+                    m = SAVE_OFFER.search(str(b.get("text") or ""))
+                    if not m:
+                        continue
+                    offers += 1
+                    if not packaged:
+                        return False, f"session {s['n']} turn {turn}: the save offered with nothing packaged: {m.group(0)[:120]!r}"
+                    if not read:
+                        return False, (f"session {s['n']} turn {turn}: the save offered with no read of the last "
+                                       f"package in this turn: {m.group(0)[:120]!r}")
+    if not read_any:
+        return False, "no session with an events.jsonl, so the reads can't be told: fails closed"
+    return True, (f"{offers} save offer{'s' if offers != 1 else ''}, each after a read of the last package in its turn"
+                  if offers else "no save offered")
 
 
 def _bash_count(c, run):
