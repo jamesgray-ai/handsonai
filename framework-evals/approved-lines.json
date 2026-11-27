@@ -398,14 +398,25 @@
    "text": "This is a practice run: if [platform] itself asks you to approve sending, posting or changing something, choose Deny and tell me. Answer the workflow's own questions as you would at work.",
    "kind": "safety or promise",
    "skills": [
-    "build",
     "test"
    ],
    "files": {
-    "build": "SKILL.md",
     "test": "references/hand-overs.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 3 Task 2: Build says its own form"
+  },
+  {
+   "id": "N-F4",
+   "form": "Build",
+   "text": "This is a practice run: if [platform] itself asks you to approve sending, posting or changing something, choose Deny and tell me.",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "SKILL.md"
+   },
+   "source": "2026-11-27 Pass 3 Task 2 (B1: the platform's creator in Build's chat; F11: the kept copy in built/): Build's own form, said before the creator starts; its checks never ask the leader to answer the workflow's questions as its user"
   },
   {
    "id": "N-F5",
@@ -5842,7 +5853,7 @@
   {
    "id": "N-B37",
    "form": "main",
-   "text": "Keep a copy of what I built: [download steps for the package]. Save it with your build record, outside [platform]. You'll need it to share with teammates, to go back to this version, or when you change it later.",
+   "text": "A copy of what I built is in [folder], with your build record, so this version can always be put back or changed later.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -5850,7 +5861,7 @@
    "files": {
     "build": "references/package-and-install.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 3 Task 2 (B1: the platform's creator in Build's chat; F11: the kept copy in built/)"
   },
   {
    "id": "N-B37",
@@ -5863,7 +5874,8 @@
    "files": {
     "build": "references/package-and-install.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change",
+   "retired": "2026-11-27: Pass 3 Task 2 (F11): Build always keeps the copy itself, in built/, so N-B37's main form now says where it is; nothing is downloaded"
   },
   {
    "id": "N-B37",
@@ -5959,7 +5971,7 @@
   {
    "id": "N-B42",
    "form": "main",
-   "text": "Do you have the copy you kept? If not, download it now: [steps]. Say 'done' when you have it.",
+   "text": "Do you have a copy of [the part] as it is now? If not, copy it out now: [steps]. Paste it here, or say 'done' when it's saved with your build record.",
    "kind": "question",
    "skills": [
     "build"
@@ -5967,7 +5979,7 @@
    "files": {
     "build": "references/live-change.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); 2026-11-27 Pass 3 Task 2 (B1: the platform's creator in Build's chat; F11: the kept copy in built/)"
   },
   {
    "id": "N-B47",

@@ -41,6 +41,14 @@ answer off the leader's screen (`scripted_runs`), so the planted block is the on
                   agent_builder_rewords_carried_line, agent_builder_requirements_under_knowledge,
                   agent_builder_ordinary_chat, skill_cannot_read_by_path
 
+The platform's skill creator (Claude web and desktop, ChatGPT, Microsoft 365: SkillCreator) works in
+Build's own chat (Pass 3, B1): Build writes a brief (a fenced block whose first line is "Skill brief:
+[name]" or "Agent brief: [name]"); the creator writes the part from it and its draft reaches Build's next
+turn, as it would show in that chat (never a run chat the leader opens). A later Build message that quotes
+a carried line the draft is missing gets it put back; Build's ask to save from the save card saves the
+creator's current text. Faults: creator_rewords_never_made_rule (with creator_rewords_after_fix, every fix
+rewords it again), creator_test_without_cue (its test run carries no practice-run cue until Build says to).
+
 The leader-action counter (`count_actions`) reports leader actions per run (each message the leader
 sends, plus each action a simulation counts on the leader's screen: opening a chat, pasting, adding
 a file under Knowledge, choosing Create) against the spec's journey figures. It never measures time.
@@ -94,8 +102,8 @@ def strip_actions(msg):
 
 # Build's install line on a platform where the leader saves the skill (N-B12: "Do you see [skill] in your
 # skills list?"), and the replace form a fix gives ("Replace its instructions with…", "it replaces the … skill").
-INSTALL_LINE = re.compile(r"in your skills list\b[^?\n]*\?|\breplace (?:its|the) (?:instructions|contents|skill)\b|\bit replaces the [\w-]+ skill\b",
-                          re.I)
+INSTALL_LINE = re.compile(r"in your skills list\b[^?\n]*\?|\breplace (?:its|the) (?:instructions|contents|skill)\b|\bit replaces the [\w-]+ skill\b"
+                          r"|\bsave card\b", re.I)
 
 
 # A negated answer to the install line ("No, I don't see it.", "I'm not done yet."): nothing is installed.
@@ -113,6 +121,7 @@ class Platform:
     leader_runs = False       # set per session by simulates_leader_runs: hand-overs run on this platform too
     scripted_runs = False     # set per session by scripted_runs: a planted block; no run chat is simulated
     run_opening = "You opened a new chat and pasted the block"
+    has_creator = False       # the platform's skill creator works in Build's own chat (B1)
 
     def __init__(self, faults=()):
         self.faults = set(faults)
@@ -122,19 +131,28 @@ class Platform:
         return self.with_planted(None)
 
     def run_preamble(self):
-        """The system-prompt addition for a run the leader starts from a hand-over."""
-        return self.preamble()
+        """The system-prompt addition for a run the leader starts from a hand-over: a new chat, so never
+        the skill creator's work in Build's chat."""
+        self.state["in_run"] = True
+        try:
+            return self.preamble()
+        finally:
+            self.state.pop("in_run", None)
 
     def with_planted(self, p):
         """The preamble, plus any content a fixture planted for the platform to supply unasked
         (`.sim-grounding.md`: Cowork's mail and Teams grounding, a connector's results). Analyze sets
         it aside (R5); an eval checks it never becomes evidence."""
         g = self.state.get("grounding")
-        if not g:
-            return p
-        note = ("Simulated platform: content this platform added to the chat on its own, without the leader "
-                "or the skill asking for it:\n" + g)
-        return f"{p}\n\n{note}" if p else note
+        if g:
+            note = ("Simulated platform: content this platform added to the chat on its own, without the leader "
+                    "or the skill asking for it:\n" + g)
+            p = f"{p}\n\n{note}" if p else note
+        creator = self.state.get("creator")
+        if creator and creator.parts and not self.state.get("in_run"):
+            note = creator.shown()
+            p = f"{p}\n\n{note}" if p else note
+        return p
 
     def leader_notes(self):
         return ""
@@ -157,7 +175,19 @@ class Platform:
             return 0  # fail closed: a refusal or a "not yet" installs nothing
         account = Path(ws) / ".claude" / "skills"
         saved = 0
-        for pkg in sorted(Path(ws).glob("**/framework/*/package")):
+        creator = self.state.get("creator")
+        if creator and creator.parts:
+            # the save card holds the creator's current text (B1): what the leader saves is what it wrote
+            for name in creator.parts:
+                target = account / name
+                if target.exists():
+                    shutil.rmtree(target)
+                target.mkdir(parents=True)
+                (target / "SKILL.md").write_text(creator.text(name))
+                saved += 1
+            return 1
+        # no creator in this chat: the copy Build kept in built/[part]/ (F11), or package/ before 11.0
+        for pkg in sorted(list(Path(ws).glob("**/framework/*/built")) + list(Path(ws).glob("**/framework/*/package"))):
             for f in sorted(pkg.rglob("SKILL.md")):
                 target = account / f.parent.name
                 if target.exists():
@@ -184,6 +214,12 @@ class Platform:
     def screen(self, ai_text, ws, run_chat=None):
         """What the leader's screen shows after this AI message: [(observation, actions)]."""
         out = []
+        if self.has_creator:
+            creator = self.state.setdefault("creator", SkillCreator(self.faults))
+            creator.receive(ai_text or "")
+            if creator.parts and re.search(r"(?i)\bsave card\b", ai_text or ""):
+                out.append((f"[Under the skill creator's draft of {', '.join(creator.parts)} in this chat there's a "
+                            "save card with a Save button.]", 0))
         if self.paste_back and INSTALL_LINE.search(ai_text or ""):
             self.state["install"] = True
         if (self.paste_back or self.leader_runs) and run_chat is not None:
@@ -334,6 +370,7 @@ CHAT_HISTORY = (" This chat has the platform's saved memory and can search the l
 
 class _Drive(Platform):
     files_root = "drive"
+    has_creator = True
     location = "Google Drive, in ai-workspace/framework/[workflow-slug]"
     paste_back = True
     product = ""
@@ -375,6 +412,7 @@ class ChatGPT(_Drive):
 
 class ClaudeDesktop(Platform):
     key, name = "claude-desktop", "Claude desktop"
+    has_creator = True
     location = "ai-workspace/framework/[workflow-slug]"
     paste_back = True
 
@@ -408,6 +446,7 @@ class ClaudeDesktop(Platform):
 
 class Microsoft365(Platform):
     key, name = "microsoft-365", "Microsoft 365 Copilot Cowork"
+    has_creator = True
     files_root = "onedrive"
     location = "OneDrive, in ai-workspace/framework/[workflow-slug]"
     paste_back = True
@@ -534,6 +573,109 @@ def _plan_lines(prompt, ws):
 
 def _reworded(line):
     return line.replace("changed.", "modified.") if line.endswith("changed.") else line + " (paraphrased)"
+
+
+# ---------------------------------------------------------------- the platform's skill creator (B1)
+
+BRIEF_FIRST = re.compile(r"^\s*(Skill|Agent) brief:\s*(.+?)\s*$", re.M)
+NEVER_MADE = ("Under the practice-run cue, never send, post or change anything: go up to each change, show exactly "
+              "what you would send or change and where, and don't make it.")
+NEVER_REWORDED = ("In a practice run, avoid sending, posting or changing anything where you can, and describe "
+                  "what you would have done.")
+CUE = re.compile(r"(?i)\b(practice|test) run\b")
+
+
+def find_brief(ai_text):
+    """The brief Build hands the creator: (kind, name, body) from a fenced block whose first line is
+    "Skill brief: [name]" (or "Agent brief: [name]"), else None."""
+    for blk in re.findall(r"```[^\n]*\n(.*?)```", ai_text or "", re.S):
+        m = BRIEF_FIRST.match(blk)
+        if m:
+            return m.group(1).lower(), m.group(2).strip(), blk[m.end():].strip()
+    return None
+
+
+def _brief_sections(body):
+    """The brief's labelled parts ("Steps:", "Keep these exactly:"…), each label's lines."""
+    out, key = {}, None
+    for line in body.splitlines():
+        m = re.match(r"^([A-Z][A-Za-z' ]+):\s*(.*)$", line)
+        if m and m.group(1) in ("What it does", "Description", "Steps", "Rules", "Output structure",
+                                "Keep these exactly", "Tools", "Instructions"):
+            key = m.group(1)
+            out[key] = [m.group(2)] if m.group(2) else []
+        elif key:
+            out[key].append(line)
+    return {k: [x for x in v if x.strip()] for k, v in out.items()}
+
+
+class SkillCreator:
+    """The platform's skill creator, in Build's chat: it writes each part from Build's brief, and puts back a
+    carried line Build quotes to it word for word. Deterministic; its faults are the ones the check before
+    saving (carried-lines.md section 7) must catch."""
+
+    def __init__(self, faults=()):
+        self.faults = set(faults)
+        self.parts = {}       # name -> current text
+        self.kind = {}
+        self.cued = False     # told to test only under the practice-run cue
+        self.fixes = 0
+
+    def receive(self, ai_text):
+        """React to one of Build's messages. Returns whether the draft changed."""
+        changed = False
+        brief = find_brief(ai_text)
+        if brief:
+            # the brief's own "test only under the cue" is what creator_test_without_cue overlooks
+            kind, name, body = brief
+            self.parts[name] = self._write(name, body)
+            self.kind[name] = kind
+            return True
+        if re.search(r"(?i)only under the practice[- ]run cue|start each (?:test|one) with ['‘’\"“”]?practice run", ai_text):
+            self.cued = True
+        flat = re.sub(r"\s+", " ", ai_text)
+        for name, text in list(self.parts.items()):
+            if NEVER_REWORDED in text and NEVER_MADE in flat:
+                self.fixes += 1
+                if "creator_rewords_after_fix" not in self.faults:
+                    self.parts[name] = text.replace(NEVER_REWORDED, NEVER_MADE)
+                    changed = True
+        return changed
+
+    def _write(self, name, body):
+        sec = _brief_sections(body)
+        desc = " ".join(sec.get("Description", [])) or " ".join(sec.get("What it does", []))
+        keep = [x for x in sec.get("Keep these exactly", []) if not re.match(r"(?i)^(test it|never install)", x)]
+        lines = ["---", f"name: {name}", f"description: {desc}", "---", "", f"# {name}", ""]
+        if sec.get("What it does"):
+            lines += [" ".join(sec["What it does"]), ""]
+        for label, head in (("Steps", "## Steps"), ("Instructions", "## Instructions"), ("Rules", "## Rules"),
+                            ("Output structure", "## Output"), ("Tools", "## Tools")):
+            if sec.get(label):
+                lines += [head, *sec[label], ""]
+        if keep:
+            lines += ["## Practice runs", *keep, ""]
+        text = "\n".join(lines)
+        if "creator_rewords_never_made_rule" in self.faults:
+            text = text.replace(NEVER_MADE, NEVER_REWORDED)
+        return text
+
+    def text(self, name):
+        return self.parts.get(name, "")
+
+    def notes(self):
+        """What the creator says after its draft: the test it runs."""
+        sample = "Draft the follow-up email from these call notes."
+        if "creator_test_without_cue" in self.faults and not self.cued:
+            return f"I'll test it now on a sample input: '{sample}'"
+        return f"I'll test it under the practice-run cue: 'practice run: {sample}'"
+
+    def shown(self):
+        """The creator's work as it shows in Build's chat, for Build's next turn."""
+        parts = "\n\n".join(f"Its {self.kind.get(n, 'skill')} {n}, as it now reads:\n```\n{t}\n```"
+                             for n, t in self.parts.items())
+        return ("Simulated platform: the platform's skill creator is working in this chat, from your brief. It has "
+                "saved nothing; its save card appears when you ask the leader to save.\n" + parts + "\n" + self.notes())
 
 
 PLATFORMS = {c.key: c for c in (ClaudeCode, Codex, ClaudeWeb, ClaudeDesktop, ChatGPT, Microsoft365)}

@@ -248,7 +248,7 @@ def check_plan(text, requirements_text=None):
 
 # ---------------------------------------------------------------- the build record
 
-RECORD_KEYS = ["plan_revision", "last_close_after_round", "live_checks", "skills_on", "write_block", "schedule",
+RECORD_KEYS = ["plan_revision", "last_close_after_round", "live_checks", "skills_on", "plugins", "write_block", "schedule",
                "fingerprints", "bare_run", "run_folders", "change_requests"]
 RECORD_COLS = ["Task", "Build Output", "Context ID", "Artifact", "Path or location", "Status", "Saved",
                "Built rev", "Last built after round", "Check", "Ruling"]
@@ -274,6 +274,11 @@ def check_build_record(text):
             probs.append(f"schedule: {data['schedule']!r} isn't none, not-on, paused or safety-incomplete: [points]")
         if "skills_on" in data and data["skills_on"] not in ("yes", True):
             probs.append(f"skills_on: {data['skills_on']!r} (only 'yes' once checked)")
+        # B8 (Pass 3): on Claude each skill is saved inside a plugin of its own; its name is recorded, so
+        # Test's switch-off leaves it on
+        if "plugins" in data and not (isinstance(data["plugins"], list)
+                                      and all(isinstance(x, str) and x.strip() for x in data["plugins"])):
+            probs.append(f"plugins: {data['plugins']!r} isn't a list of plugin names")
         wb = data.get("write_block")
         # YAML 1.1 reads `off` as False and an `on:` key as True: accept both spellings,
         # and the mapping form (on/leader_rules/leader_allow) the safety kit writes.
@@ -308,6 +313,10 @@ def check_build_record(text):
                 probs.append(f"row {r[0]} {r[3]!r}: Status {r[5]!r} isn't one of build 11's values")
             if r[6] not in ("yes", "no", "—", ""):
                 probs.append(f"row {r[0]} {r[3]!r}: Saved {r[6]!r} isn't yes or no")
+            if re.match(r"^`?package/", r[4]):
+                # F11 (Pass 3): one fixed layout, the kept copy in built/[part]/, never package/
+                probs.append(f"row {r[0]} {r[3]!r}: Path {r[4]!r} is the staged layout before 11.0 "
+                             f"(the kept copy is built/[part]/)")
     built = section(body, "What was built")
     if "An older version:" in built and not OLDER.search(built):
         probs.append("the older-version line isn't in one of rules 6.4's forms")

@@ -60,7 +60,7 @@ headless_writes none
 | `connection_env <name> <ENV_VAR>` | An environment variable the connection reads | **The variable's name, never its value.** The wrapper passes it through by name |
 | `connection_header <name> <Header> <value>` | A header a remote connection needs | The value names a variable as `${NAME}` (`Bearer ${NAME}` is fine), never holds a value |
 | `tool <name> read\|write <full tool name> \| <description>` | Every tool of the connection, from its live tool list | Full name as the session shows it (`mcp__crm__list_records`); the description as the connection gives it |
-| `skill`, `agent`, `context` | The parts a session holds | Paths from the workspace: skills in `.claude/skills/` or this workflow's `package/`; context only from the workflow's place, never from `framework/` |
+| `skill`, `agent`, `context` | The parts a session holds | Paths from the workspace: skills in `.claude/skills/` or this workflow's `built/`; context only from the workflow's place, never from `framework/` |
 | `command <words>` | A read-only command the plan names | Test's runs only; never one that can change anything (the wrapper refuses `rm`, `curl`, interpreters, `git` other than its read commands, and others) |
 | `deny_command <words>` | A command-line write the plan names | Denied by pattern in every session |
 | `webfetch <domain>` | A domain the plan names for WebFetch | Test's runs only |

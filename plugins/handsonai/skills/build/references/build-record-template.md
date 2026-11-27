@@ -22,6 +22,7 @@ last_close_after_round: [the last round's number at your last close, 0 before an
 live_checks:
   [kind of change]: "done: [the place it landed]"
 skills_on: yes
+plugins: []
 write_block: "off"
 schedule: none
 fingerprints:
@@ -62,7 +63,7 @@ change_requests: []
 - Schedule: [the five points, one by one; any risk accepted, naming the change and the checkpoint; a checkpoint the leader chose to keep running by hand; the switch-on steps, withheld while incomplete]
 - Put back the kept copy: [the steps]
 - Remaining manual steps and prerequisites: [each]
-- The package, for sharing: [where]
+- The kept copy: [the workflow's `built/` folder]
 
 ## Claude Code profile
 [Claude Code only: the one framework-profile block, section 8]
@@ -73,6 +74,7 @@ change_requests: []
 The keys above and no others, in that order:
 - **`live_checks`:** per kind of change, `done: [the place it landed]`, `declined`, `skipped` or `not yet`.
 - **`skills_on`:** `yes` once checked; left out when the plan builds no skill (a Microsoft 365 agent only), since nothing needs skills on.
+- **`plugins`** (Claude): the name of each plugin Claude saved a part inside (`creator.md` section 7), written at Part 3's save; Test leaves these on when it switches the others off. `[]` elsewhere, or left out.
 - **`write_block`** (Claude Code): `off`, or a mapping with `on:` (this workflow's own deny rules, a rule another workflow also lists included), `leader_rules:` (deny rules the leader already had, never removed), `leader_allow:` (the leader's allow rules when the block went on) and `check_agents:` (each check agent file written, removed with the block), as `claude-code-block.md` section 4 shows. Elsewhere, `off`.
 - **`schedule`:** `none` with no `SCH` task (a first build with no set-aside); carried over from a set-aside record (missing there, or no record in the set-aside folder, counts as not `none`); `not-on` once every safety point passes; `safety-incomplete: [points]` when one fails, including a checkpoint the leader chose to keep running by hand; `paused` when the leader confirms a pause. There is no value for "on".
 - **`fingerprints`:** at install, one per installed skill and agent (none for an agent Agent Builder made on Microsoft 365), one per runtime context copy you can read back, and on Claude Code `wrapper: sha256:<64 hex>` for `framework/.bin/test-run.sh`. Where no code can run, a part's size and date.
@@ -85,11 +87,11 @@ The keys above and no others, in that order:
 One row per task, `KW` and `SCH` included, its Task cell the plan's task ID exactly (`T3`, `KW`, `SCH`, never "T3 (S2)"): a task with no row, or with another Task cell, reads as not built. Plus the orchestrator, each connection, each context item (its runtime copy), and the workflow's place. For example:
 
 ```markdown
-| T3 | New skill: S2 | C1 | follow-up-drafter | package/skills/follow-up-drafter/ | Created | yes | 2 | 1 | E2: AC1–AC4 met | — |
+| T3 | New skill: S2 | C1 | follow-up-drafter | built/follow-up-drafter/ | Created | yes | 2 | 1 | E2: AC1–AC4 met | — |
 ```
 - **Status:** `Created`, `Reused`, `Extended` or `Installed by you`, for what was made; `Built, misses [line]`, for a task finished with a known miss; `Waiting on [the open item]`, `Waiting on change request [id]`, `Failed check`, `Not built yet` or `Removed from the plan`, for what wasn't. The `SCH` row is `Created` with `schedule: safety-incomplete` too.
-- **Saved:** `yes` once the part is kept where a later session can find it (installed, or staged in `package/`); otherwise `no`.
-- **Path or location:** `package/…` while a part is staged; its installed place once Part 3 installs it.
+- **Saved:** `yes` once the part is kept where a later session can find it (installed, or its checked text kept in `built/`); otherwise `no`.
+- **Path or location:** `built/[part name]/…` while a part's checked text is kept but not yet saved where it runs; its installed place once Part 3 saves it. Never `package/…` (the layout before this release).
 - **Built rev:** the task's `rev` when built. **Last built after round:** the last round's number when you last built or rebuilt it (0 before any round).
 - **Check:** the result in one line ("E2: AC1–AC4 met"; "dry run confirmed: #sales-updates"; "read-back: 3 open deals"; for an agent that failed its paste-back, "Failed check, deleted" or "Failed check, not deleted").
 - **Ruling:** "what, why, cost if wrong", or "—".
@@ -112,7 +114,7 @@ The line is kept whenever the section is rewritten, and carried over a set-aside
 
 ## 7. Also in the record
 
-Under `## Also`: the places a dry run confirmed; the quick real checks and where they landed; every real change a quick real check made, with its undo status; the practice-run instruction's text; for an agent on Microsoft 365, the instructions the leader last pasted back; what the plain model handled in each bare run; the schedule's safety record and switch-on steps (withheld while incomplete); "Put back the kept copy"; any other live workflow paused for a shared skill this build changes ("Paused for the shared skill [skill]: [workflow]", `live-change.md` section 7); the remaining manual steps and prerequisites; where the package is kept for sharing.
+Under `## Also`: the places a dry run confirmed; the quick real checks and where they landed; every real change a quick real check made, with its undo status; the practice-run instruction's text; for an agent on Microsoft 365, the instructions the leader last pasted back; what the plain model handled in each bare run; the schedule's safety record and switch-on steps (withheld while incomplete); "Put back the kept copy"; any other live workflow paused for a shared skill this build changes ("Paused for the shared skill [skill]: [workflow]", `live-change.md` section 7); the remaining manual steps and prerequisites; where the kept copy is (`built/`).
 
 ## 8. The Claude Code profile
 

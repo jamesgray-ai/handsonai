@@ -255,7 +255,7 @@ class ApprovalQuestionsAreWordForWord(MeaningChangingSwapsFail):
     question line is held word for word too. N-F2 and N-F10, which only say how to carry on, keep a small edit."""
 
     CASES = [
-        ("N-B42", "main", "download it now", "delete it now"),
+        ("N-B42", "main", "copy it out now", "delete it now"),
         ("N-T18", "main", "Remove it?", "Keep it?"),
         ("N-T34", "Ready, not yet live", "everything met", "everything missed"),
         ("N-16", "main", "with someone named who owns that risk", "with nobody named who owns that risk"),

@@ -920,6 +920,31 @@ def _nf4_leads(run):
                   else "no checkpoint relayed")
 
 
+BRIEF_BLOCK = re.compile(r"```[^\n]*\n\s*(?:Skill|Agent) brief:", re.I)
+
+
+def _nf4_before_creator(run):
+    """Pass 3, Task 2 (B1): Build's form of N-F4 (the Deny line, with no "answer the workflow's questions")
+    is said in each session before the platform's creator starts (the first brief) and before the first
+    checkpoint it relays; a session with neither passes."""
+    forms = [ln for ln in corpus().get("N-F4", "Build") if ln.text]
+    for s in run["sessions"]:
+        said = False
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            nf4 = next((f for f in forms if f.matches(m)), None)
+            at = m.lower().find("this is a practice run") if nf4 else -1
+            brief = BRIEF_BLOCK.search(m)
+            quote = re.search(r"^\s*>", m, re.M) if LEAD_IN.search(m) else None
+            first = min([x.start() for x in (brief, quote) if x], default=None)
+            if first is not None and not said and not (nf4 and at < first):
+                what = "the creator's brief" if brief and brief.start() == first else "a relayed checkpoint"
+                return False, f"session {s['n']} AI message {i}: {what} before N-F4's Build form"
+            if first is not None:
+                break  # only each session's first brief or checkpoint
+            said = said or bool(nf4)
+    return True, "N-F4's Build form leads the creator and the first relayed checkpoint in every session"
+
+
 def check(c, run):
     """Return (passed, evidence)."""
     t = c["type"]
@@ -998,6 +1023,8 @@ def check(c, run):
         return _quoted_output_seen(run)
     if t == "nf4_leads":
         return _nf4_leads(run)
+    if t == "nf4_before_creator":
+        return _nf4_before_creator(run)
     if t == "no_time_or_step_numbers":
         allowed = leader_sizes(run)
         return _scan(run, n, lambda m: time_or_step_hits(m, allowed), "time estimate or step number")

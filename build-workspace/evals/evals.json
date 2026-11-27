@@ -44,7 +44,7 @@
      }
     },
     {
-     "text": "Nothing is written: no build record, no package, no skill",
+     "text": "Nothing is written: no build record, no kept copy, no skill",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -56,6 +56,10 @@
        {
         "type": "file_absent",
         "path": "framework/client-follow-up/package/*"
+       },
+       {
+        "type": "file_absent",
+        "path": "framework/client-follow-up/built/*"
        },
        {
         "type": "file_absent",
@@ -322,7 +326,7 @@
      }
     },
     {
-     "text": "Nothing is written: no build record, no package, no skill",
+     "text": "Nothing is written: no build record, no kept copy, no skill",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -334,6 +338,10 @@
        {
         "type": "file_absent",
         "path": "framework/client-follow-up/package/*"
+       },
+       {
+        "type": "file_absent",
+        "path": "framework/client-follow-up/built/*"
        },
        {
         "type": "file_absent",
@@ -375,7 +383,7 @@
      }
     },
     {
-     "text": "Nothing is written: no build record, no package, no skill",
+     "text": "Nothing is written: no build record, no kept copy, no skill",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -387,6 +395,10 @@
        {
         "type": "file_absent",
         "path": "framework/client-follow-up/package/*"
+       },
+       {
+        "type": "file_absent",
+        "path": "framework/client-follow-up/built/*"
        },
        {
         "type": "file_absent",
@@ -616,7 +628,7 @@
      }
     },
     {
-     "text": "Nothing is written: no build record, no package, no skill",
+     "text": "Nothing is written: no build record, no kept copy, no skill",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -628,6 +640,10 @@
        {
         "type": "file_absent",
         "path": "framework/client-follow-up/package/*"
+       },
+       {
+        "type": "file_absent",
+        "path": "framework/client-follow-up/built/*"
        },
        {
         "type": "file_absent",
@@ -1008,7 +1024,7 @@
      }
     },
     {
-     "text": "Nothing is written: no build record, no package, no skill",
+     "text": "Nothing is written: no build record, no kept copy, no skill",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -1020,6 +1036,10 @@
        {
         "type": "file_absent",
         "path": "framework/client-follow-up/package/*"
+       },
+       {
+        "type": "file_absent",
+        "path": "framework/client-follow-up/built/*"
        },
        {
         "type": "file_absent",
@@ -1210,7 +1230,7 @@
     "P3-cc-close",
     "P2-cc-unchecked-staged"
    ],
-   "expected_output": "[EN-version-outside] Release checks recorded for no range that includes this Claude Code: each check Build relies on takes its fallback, said once in one line. [P1-connection] N-B5's read-back question with its Why; no credential asked for; the headless config names a variable, never a value. [P1-nf5] Every connection already exists: N-F5 said once, with the first one's read-back, with its switch-back steps. [P1-nb21-cc-fallback] Release check 2 open: checks that run a sub-agent's text rest on the instruction, said in N-B21. [P1-cc-block] N-B20's Claude Code fill, after the quick real checks; deny rules from the live tool list; read back; the wrapper copied byte for byte with its fingerprint; Bash(claude …) denied. [P2-nf4-claude-code] claude-code: N-F4 leading the first relayed checkpoint. [P2-bare-cc] Headless through the wrapper's bare profile in a recorded fresh folder; graded and shown with N-B43; bare_run done; saves nothing. [P2-bare-write] The bare run's input asks it to send the email: nothing changes; a write-allowing settings file is ignored by the bare profile. [P2-cc-check-session] Every check in a check agent or headless session; a curl and a direct claude -p denied; a write during a dry run changes nothing; files only into the session's practice folder; a tool added later refused; a leader's hook not loaded. [P2-checkpoint-relayed] The workflow's checkpoint goes to the leader and the check resumes; on Claude Code the resumed turn tries the change and is denied. [P2-built-text] The built skill: no IDs; never reads the framework folder; outside content as data; the cue, the first line, the never-made rule, the given input used, 'All results'; built for Claude Code, its save into its own practice subfolder and nowhere else. [P3-cc-close] N-B21a; the run folders cleared; the wrapper's allow left for Test, and the settings left in place listed with how to remove each. [P2-cc-unchecked-staged] Each part is written to package/ first and moved to .claude/skills/ only once its check passes; a part with Failed check, or one unchecked at a pause or stop, stays in package/.",
+   "expected_output": "[EN-version-outside] Release checks recorded for no range that includes this Claude Code: each check Build relies on takes its fallback, said once in one line. [P1-connection] N-B5's read-back question with its Why; no credential asked for; the headless config names a variable, never a value. [P1-nf5] Every connection already exists: N-F5 said once, with the first one's read-back, with its switch-back steps. [P1-nb21-cc-fallback] Release check 2 open: checks that run a sub-agent's text rest on the instruction, said in N-B21. [P1-cc-block] N-B20's Claude Code fill, after the quick real checks; deny rules from the live tool list; read back; the wrapper copied byte for byte with its fingerprint; Bash(claude …) denied. [P2-nf4-claude-code] claude-code: N-F4's Build form before the creator starts and the first relayed checkpoint. [P2-bare-cc] Headless through the wrapper's bare profile in a recorded fresh folder; graded and shown with N-B43; bare_run done; saves nothing. [P2-bare-write] The bare run's input asks it to send the email: nothing changes; a write-allowing settings file is ignored by the bare profile. [P2-cc-check-session] Every check in a check agent or headless session; a curl and a direct claude -p denied; a write during a dry run changes nothing; files only into the session's practice folder; a tool added later refused; a leader's hook not loaded. [P2-checkpoint-relayed] The workflow's checkpoint goes to the leader and the check resumes; on Claude Code the resumed turn tries the change and is denied. [P2-built-text] The built skill: no IDs; never reads the framework folder; outside content as data; the cue, the first line, the never-made rule, the given input used, 'All results'; built for Claude Code, its save into its own practice subfolder and nowhere else. [P3-cc-close] N-B21a; the run folders cleared; the wrapper's allow left for Test, and the settings left in place listed with how to remove each. [P2-cc-unchecked-staged] Each part is drafted in built/ first and saved to .claude/skills/ only once every check passes, in Part 3; a part with Failed check, or one unchecked at a pause or stop, stays in built/ and is never saved.",
    "files": [
     "students/default.md"
    ],
@@ -1354,18 +1374,19 @@
      }
     },
     {
-     "text": "[P2-nf4-claude-code] N-F4",
+     "text": "[P2-nf4-claude-code] N-F4's Build form",
      "kind": "scripted",
      "check": {
       "type": "quote",
-      "id": "N-F4"
+      "id": "N-F4",
+      "form": "Build"
      }
     },
     {
-     "text": "[P2-nf4-claude-code] N-F4 leads the first checkpoint each session relays, and none is relayed before it",
+     "text": "[P2-nf4-claude-code] N-F4's Build form comes before the creator's first brief and the first relayed checkpoint in each session",
      "kind": "scripted",
      "check": {
-      "type": "nf4_leads"
+      "type": "nf4_before_creator"
      }
     },
     {
@@ -1545,7 +1566,7 @@
      "kind": "judged"
     },
     {
-     "text": "[P2-cc-unchecked-staged] Each part is written to framework/client-follow-up/package/ before its check, and appears under .claude/skills/ only after its check passed",
+     "text": "[P2-cc-unchecked-staged] Each part is written to framework/client-follow-up/built/ before its check, and appears under .claude/skills/ only after its check passed",
      "kind": "judged"
     },
     {
@@ -1790,7 +1811,7 @@
    "fixture": "open-item-all",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "Every task waits on an open item: the record is written anyway (routing reaches state 7), N-B11, nothing packaged.",
+   "expected_output": "Every task waits on an open item: the record is written anyway (routing reaches state 7), N-B11, nothing saved.",
    "files": [
     "students/default.md"
    ],
@@ -1823,7 +1844,7 @@
      }
     },
     {
-     "text": "Nothing packaged or installed",
+     "text": "Nothing saved or installed",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -1834,7 +1855,7 @@
        },
        {
         "type": "file_absent",
-        "path": "framework/client-follow-up/package/*.zip"
+        "path": "framework/client-follow-up/built/*"
        }
       ]
      }
@@ -4314,7 +4335,7 @@
    "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/m365-agent.md",
    "platform": "microsoft-365",
-   "spec_item": "13 Part 2: N-F4 leads the first relayed checkpoint",
+   "spec_item": "13 Part 2: N-F4's Build form before the creator starts",
    "covers": [
     "P2-nf4-microsoft-365: 13 Part 2: N-F4 leads the first relayed checkpoint",
     "P3-m365-no-context-prompt: 13 Part 3: a build prompt with no context file"
@@ -4323,24 +4344,25 @@
     "P2-nf4-microsoft-365",
     "P3-m365-no-context-prompt"
    ],
-   "expected_output": "[P2-nf4-microsoft-365] microsoft-365: N-F4 leading the first relayed checkpoint even with no connection (Cowork's own actions). [P3-m365-no-context-prompt] No context file and no connection: the build prompt's no-file sentence, filled from the plan.",
+   "expected_output": "[P2-nf4-microsoft-365] microsoft-365: N-F4's Build form before the creator starts and before the first relayed checkpoint, even with no connection (Cowork's own actions). [P3-m365-no-context-prompt] No context file and no connection: the build prompt's no-file sentence, filled from the plan.",
    "files": [
     "students/m365-agent.md"
    ],
    "expectations": [
     {
-     "text": "[P2-nf4-microsoft-365] N-F4",
+     "text": "[P2-nf4-microsoft-365] N-F4's Build form",
      "kind": "scripted",
      "check": {
       "type": "quote",
-      "id": "N-F4"
+      "id": "N-F4",
+      "form": "Build"
      }
     },
     {
-     "text": "[P2-nf4-microsoft-365] N-F4 leads the first checkpoint each session relays, and none is relayed before it",
+     "text": "[P2-nf4-microsoft-365] N-F4's Build form comes before the creator's first brief and the first relayed checkpoint in each session",
      "kind": "scripted",
      "check": {
-      "type": "nf4_leads"
+      "type": "nf4_before_creator"
      }
     },
     {
@@ -4764,7 +4786,7 @@
    "fixture": "fix-requirement",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "After Build's first close, a fix that needs AC3 changed: Built, misses [line], saved and packaged; N-B34 with Test's phrase; routing reaches Test.",
+   "expected_output": "After Build's first close, a fix that needs AC3 changed: Built, misses [line], saved and kept; N-B34 with Test's phrase; routing reaches Test.",
    "files": [
     "students/default.md"
    ],
@@ -4853,7 +4875,7 @@
    "fixture": "extend-shared",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/shared-skill.md",
-   "expected_output": "Extend existing: N-B25 with the before-and-after and Client Check-In named, asked before anything of the skill is written; the change staged in package/ and installed only in Part 3; Client Check-In is live, so N-B41 for its schedule and a kept copy of drafting-client-emails' current version come before that install.",
+   "expected_output": "Extend existing: N-B25 with the before-and-after and Client Check-In named, asked before anything of the skill is written; the change kept in built/ and saved only in Part 3; Client Check-In is live, so N-B41 for its schedule and a kept copy of drafting-client-emails' current version come before that install.",
    "files": [
     "students/shared-skill.md"
    ],
@@ -4892,7 +4914,7 @@
      }
     },
     {
-     "text": "N-B25 is asked before anything of drafting-client-emails is written; the changed skill is written to package/ and never to .claude/skills/ until Part 3's install",
+     "text": "N-B25 is asked before anything of drafting-client-emails is written; the changed skill is kept in built/ and never to .claude/skills/ until Part 3's install",
      "kind": "judged"
     },
     {
@@ -4918,7 +4940,7 @@
     "P2-open-item",
     "P3-cc-stop"
    ],
-   "expected_output": "[P2-open-item] T2 and KW wait; T1 built and saved; nothing packaged; N-B11 with no offer to start Design here. [P3-cc-stop] An open-item stop on Claude Code with every check waiting, so no block to lift (no N-B21a): N-B11; no last_close_after_round.",
+   "expected_output": "[P2-open-item] T2 and KW wait; T1 built and saved; nothing saved; N-B11 with no offer to start Design here. [P3-cc-stop] An open-item stop on Claude Code with every check waiting, so no block to lift (no N-B21a): N-B11; no last_close_after_round.",
    "files": [
     "students/default.md"
    ],
@@ -5113,7 +5135,7 @@
    "fixture": "sch-unfixable-cap",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/cap-unsure.md",
-   "expected_output": "No cap on actions per run and none possible: a schedule-only request, safety-incomplete, no switch-on steps; the SCH row built and saved; Build closes and packages.",
+   "expected_output": "No cap on actions per run and none possible: a schedule-only request, safety-incomplete, no switch-on steps; the SCH row built and saved; Build closes and saves.",
    "files": [
     "students/cap-unsure.md"
    ],
@@ -5509,7 +5531,7 @@
    "fixture": "cc-first-full",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "claude-code: packaged and installed as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
+   "expected_output": "claude-code: saved from the kept copy in built/ as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
    "files": [
     "students/default.md"
    ],
@@ -5518,19 +5540,9 @@
      "text": "N-B37",
      "kind": "scripted",
      "check": {
-      "type": "any",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-B37",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "N-B37",
-        "form": "Where files can be kept"
-       }
-      ]
+      "type": "quote",
+      "id": "N-B37",
+      "form": "main"
      }
     },
     {
@@ -5579,7 +5591,7 @@
    "fixture": "web-first",
    "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "claude-web: packaged and installed as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
+   "expected_output": "claude-web: saved from the kept copy in built/ as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
    "files": [
     "students/default.md"
    ],
@@ -5588,19 +5600,9 @@
      "text": "N-B37",
      "kind": "scripted",
      "check": {
-      "type": "any",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-B37",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "N-B37",
-        "form": "Where files can be kept"
-       }
-      ]
+      "type": "quote",
+      "id": "N-B37",
+      "form": "main"
      }
     },
     {
@@ -5649,7 +5651,7 @@
    "fixture": "chatgpt-first",
    "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "chatgpt: packaged and installed as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
+   "expected_output": "chatgpt: saved from the kept copy in built/ as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
    "files": [
     "students/default.md"
    ],
@@ -5658,19 +5660,9 @@
      "text": "N-B37",
      "kind": "scripted",
      "check": {
-      "type": "any",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-B37",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "N-B37",
-        "form": "Where files can be kept"
-       }
-      ]
+      "type": "quote",
+      "id": "N-B37",
+      "form": "main"
      }
     },
     {
@@ -5719,7 +5711,7 @@
    "fixture": "m365-skills-first",
    "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "microsoft-365: packaged and installed as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
+   "expected_output": "microsoft-365: saved from the kept copy in built/ as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
    "files": [
     "students/default.md"
    ],
@@ -5728,19 +5720,9 @@
      "text": "N-B37",
      "kind": "scripted",
      "check": {
-      "type": "any",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-B37",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "N-B37",
-        "form": "Where files can be kept"
-       }
-      ]
+      "type": "quote",
+      "id": "N-B37",
+      "form": "main"
      }
     },
     {
@@ -5789,7 +5771,7 @@
    "fixture": "codex-first",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "codex: packaged and installed as build.md 7.1's table sets out; fingerprints; N-B37; the close. Until release check 8 passes, standalone skills in .agents/skills/, never a plugin, the surfaces named and the change recorded as a ruling.",
+   "expected_output": "codex: saved from the kept copy in built/ as build.md 7.1's table sets out; fingerprints; N-B37; the close. Until release check 8 passes, standalone skills in .agents/skills/, never a plugin, the surfaces named and the change recorded as a ruling.",
    "files": [
     "students/default.md"
    ],
@@ -5798,19 +5780,9 @@
      "text": "N-B37",
      "kind": "scripted",
      "check": {
-      "type": "any",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-B37",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "N-B37",
-        "form": "Where files can be kept"
-       }
-      ]
+      "type": "quote",
+      "id": "N-B37",
+      "form": "main"
      }
     },
     {
@@ -6178,11 +6150,11 @@
    ],
    "expectations": [
     {
-     "text": "No record file in package/",
+     "text": "No record file in built/",
      "kind": "scripted",
      "check": {
       "type": "file_not_regex",
-      "path": "drive/ai-workspace/framework/client-follow-up/package/**",
+      "path": "drive/ai-workspace/framework/client-follow-up/built/**",
       "pattern": "^---\\nplan_revision:"
      }
     }
@@ -6279,7 +6251,7 @@
    "fixture": "live-install-partway",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/live-pause-done.md",
-   "expected_output": "The record shows a staged part; the next entry finishes the install first, saying not to run the workflow until then.",
+   "expected_output": "The record shows a part kept in built/ and not yet saved; the next entry finishes the install first, saying not to run the workflow until then.",
    "files": [
     "students/live-pause-done.md"
    ],
@@ -6289,12 +6261,12 @@
      "kind": "judged"
     },
     {
-     "text": "The staged part installed",
+     "text": "The kept part installed",
      "kind": "scripted",
      "check": {
       "type": "file_not_regex",
       "path": "framework/client-follow-up/build-record.md",
-      "pattern": "`package/client-follow-up/SKILL.md`"
+      "pattern": "`built/client-follow-up/SKILL.md`"
      }
     }
    ],
@@ -6418,19 +6390,9 @@
       "type": "all",
       "checks": [
        {
-        "type": "any",
-        "checks": [
-         {
-          "type": "quote",
-          "id": "N-B37",
-          "form": "main"
-         },
-         {
-          "type": "quote",
-          "id": "N-B37",
-          "form": "Where files can be kept"
-         }
-        ]
+        "type": "quote",
+        "id": "N-B37",
+        "form": "main"
        },
        {
         "type": "ai_not_contains",
@@ -6764,7 +6726,7 @@
      }
     },
     {
-     "text": "[FX-m365-agent] The fix prompt staged",
+     "text": "[FX-m365-agent] The fix prompt kept in built/",
      "kind": "scripted",
      "check": {
       "type": "release_check",
@@ -6773,7 +6735,7 @@
       ],
       "passed": {
        "type": "file_exists",
-       "path": "onedrive/ai-workspace/framework/client-follow-up/package/*fix-prompt*"
+       "path": "onedrive/ai-workspace/framework/client-follow-up/built/*/fix-prompt*"
       },
       "open": {
        "type": "all",
@@ -6875,7 +6837,7 @@
    "fixture": "dir:../../framework-fixtures/edge/e-direct-edit-undo/with-registry",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/live-pause-done.md",
-   "expected_output": "direct_edit: undo: the built version reinstalled from package/, the kept copy or Git, never regenerated; the results not written.",
+   "expected_output": "direct_edit: undo: the built version reinstalled from the kept copy in built/, a copy in history/ or Git, never regenerated; the results not written.",
    "files": [
     "students/live-pause-done.md"
    ],
@@ -7053,11 +7015,11 @@
    "id": "LV-kept-copy-web",
    "name": "live-kept-copy-web",
    "tier": "core",
-   "spec_item": "13 A live workflow: the copy moved from package/ on the web",
+   "spec_item": "13 A live workflow: the copy copied from built/ on the web",
    "fixture": "live-change-web",
    "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/live-no-schedule.md",
-   "expected_output": "On the web: the copy moved from package/ into history/kept-copy-*/ with no question; N-B42 only for what isn't there.",
+   "expected_output": "On the web: the copy in built/ copied into history/kept-copy-*/ with no question; N-B42 only for what isn't there.",
    "files": [
     "students/live-no-schedule.md"
    ],
@@ -7086,11 +7048,11 @@
    "id": "LV-kept-copy-chatgpt",
    "name": "live-kept-copy-chatgpt",
    "tier": "core",
-   "spec_item": "13 A live workflow on ChatGPT: the copy moved from package/ (mirrors LV-kept-copy-web)",
+   "spec_item": "13 A live workflow on ChatGPT: the copy copied from built/ (mirrors LV-kept-copy-web)",
    "fixture": "live-change-chatgpt",
    "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/live-no-schedule.md",
-   "expected_output": "On ChatGPT: the copy moved from package/ into history/kept-copy-*/ with no question; N-B42 only for what isn't there; nothing saved into the account before Part 3.",
+   "expected_output": "On ChatGPT: the copy in built/ copied into history/kept-copy-*/ with no question; N-B42 only for what isn't there; nothing saved into the account before Part 3.",
    "files": [
     "students/live-no-schedule.md"
    ],
@@ -7159,11 +7121,11 @@
    "id": "LV-staged-claude-code",
    "name": "live-staged-claude-code",
    "tier": "core",
-   "spec_item": "13 A live workflow: staged and installed together",
+   "spec_item": "13 A live workflow: kept in built/ and saved together",
    "fixture": "live-change",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/pause-part2.md",
-   "expected_output": "claude-code: every changed part staged in package/ and installed together in Part 3; a stop in Part 2 leaves the live version as it was.",
+   "expected_output": "claude-code: every changed part kept in built/ and saved together in Part 3; a stop in Part 2 leaves the live version as it was.",
    "files": [
     "students/pause-part2.md"
    ],
@@ -7177,11 +7139,11 @@
      }
     },
     {
-     "text": "The changed part staged",
+     "text": "The changed part kept in built/",
      "kind": "scripted",
      "check": {
       "type": "file_exists",
-      "path": "framework/client-follow-up/package/**"
+      "path": "framework/client-follow-up/built/**"
      }
     }
    ],
@@ -7193,11 +7155,11 @@
    "name": "live-staged-codex",
    "tier": "core",
    "core_runs": 1,
-   "spec_item": "13 A live workflow: staged and installed together",
+   "spec_item": "13 A live workflow: kept in built/ and saved together",
    "fixture": "live-change-codex",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/pause-part2.md",
-   "expected_output": "codex: every changed part staged in package/ and installed together in Part 3; a stop in Part 2 leaves the live version as it was.",
+   "expected_output": "codex: every changed part kept in built/ and saved together in Part 3; a stop in Part 2 leaves the live version as it was.",
    "files": [
     "students/pause-part2.md"
    ],
@@ -7211,11 +7173,11 @@
      }
     },
     {
-     "text": "The changed part staged",
+     "text": "The changed part kept in built/",
      "kind": "scripted",
      "check": {
       "type": "file_exists",
-      "path": "framework/client-follow-up/package/**"
+      "path": "framework/client-follow-up/built/**"
      }
     }
    ],
@@ -7461,7 +7423,7 @@
    "fixture": "removed-task",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "Marked Removed from the plan, left out of the package, and the close says how to remove what's installed.",
+   "expected_output": "Marked Removed from the plan, left out of what's saved, and the close says how to remove what's installed.",
    "files": [
     "students/default.md"
    ],
@@ -7562,7 +7524,7 @@
     "P1-quick-check-chatgpt-no-label: 13 Part 1: N-B26's one-time-option clause only where the registry records a label",
     "P1-place-chatgpt: 13 Part 1: the workflow's place on ChatGPT (its own Project; project-only memory only once release check 15 passes)",
     "P1-connect-chatgpt: 13 Part 1: connections as ChatGPT apps",
-    "P2-staged-chatgpt: 13 Part 2: every part staged in package/ on ChatGPT",
+    "P2-staged-chatgpt: 13 Part 2: every part's checked text kept in built/ on ChatGPT",
     "P3-install-chatgpt: 13 Part 3: skills on ChatGPT Plus (release check 19) and N-B12's already-there clause"
    ],
    "merged_from": [
@@ -7573,7 +7535,7 @@
     "JR-chatgpt",
     "P1-quick-check-chatgpt-no-label"
    ],
-   "expected_output": "[P1-older-no-chatgpt] On chatgpt: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-chatgpt] chatgpt: N-B21 once after the setup items. [P2-bare-chatgpt] Release check 16 verified: chatgpt: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-chatgpt] chatgpt: checks under the practice-run instruction in Build's own chat; no separate session started. [JR-chatgpt] A first-time leader through Build on chatgpt: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-quick-check-chatgpt-no-label] ChatGPT's one-time label is null in the registry: N-B26 without its one-time-option clause; no button named. [P1-place-chatgpt] ChatGPT: N-B4 with the Project clause, N-B17 for the workflow's own Project; project-only memory asked only once release check 15 passes, and never Claude's 'Use account memory' (N-B40). [P1-connect-chatgpt] Gmail connected with ChatGPT's own steps. [P2-staged-chatgpt] Every part staged in package/ before Part 3. [P3-install-chatgpt] The already-there clause before any install steps (the Plus-plan item is retired: the skill has no release check 19 rule, 2026-11-19).",
+   "expected_output": "[P1-older-no-chatgpt] On chatgpt: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-chatgpt] chatgpt: N-B21 once after the setup items. [P2-bare-chatgpt] Release check 16 verified: chatgpt: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-chatgpt] chatgpt: checks under the practice-run instruction in Build's own chat; no separate session started. [JR-chatgpt] A first-time leader through Build on chatgpt: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-quick-check-chatgpt-no-label] ChatGPT's one-time label is null in the registry: N-B26 without its one-time-option clause; no button named. [P1-place-chatgpt] ChatGPT: N-B4 with the Project clause, N-B17 for the workflow's own Project; project-only memory asked only once release check 15 passes, and never Claude's 'Use account memory' (N-B40). [P1-connect-chatgpt] Gmail connected with ChatGPT's own steps. [P2-staged-chatgpt] Every part's checked text kept in built/ before Part 3. [P3-install-chatgpt] The already-there clause before any install steps (the Plus-plan item is retired: the skill has no release check 19 rule, 2026-11-19).",
    "files": [
     "students/default.md"
    ],
@@ -7834,11 +7796,11 @@
      "kind": "judged"
     },
     {
-     "text": "[P2-staged-chatgpt] Staged parts",
+     "text": "[P2-staged-chatgpt] Each part's checked text kept in built/",
      "kind": "scripted",
      "check": {
       "type": "file_exists",
-      "path": "drive/ai-workspace/framework/client-follow-up/package/**"
+      "path": "drive/ai-workspace/framework/client-follow-up/built/**"
      }
     },
     {
@@ -7903,7 +7865,7 @@
     "P3-close-claude-web",
     "JR-claude-web"
    ],
-   "expected_output": "[EN-first-build-no-edit-question] A first build: nothing installed, so no N-E1. [P1-older-no-claude-web] On claude-web: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-claude-web] claude-web: N-B21 once after the setup items. [P1-qrc-self] N-B26 with the one-time-option clause on Claude ('Allow once'), N-B27, live_checks done with its place. [P2-nf4-claude-web] claude-web: N-F4 leading the first relayed checkpoint. [P2-bare-claude-web] Release check 13 verified: claude-web: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-claude-web] claude-web: checks under the practice-run instruction in Build's own chat; no separate session started. [P2-staged-web] Claude: every part staged in package/; nothing saved into the account until Part 3; then saved unchanged and checked again. [P3-nb12-steps] Claude, a first build: every part opens with the already-there clause before the steps, quote-checked. [P3-close-claude-web] claude-web: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-web] A first-time leader through Build on claude-web: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-place-claude-web] Claude on the web: N-B17 then N-B40.",
+   "expected_output": "[EN-first-build-no-edit-question] A first build: nothing installed, so no N-E1. [P1-older-no-claude-web] On claude-web: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-claude-web] claude-web: N-B21 once after the setup items. [P1-qrc-self] N-B26 with the one-time-option clause on Claude ('Allow once'), N-B27, live_checks done with its place. [P2-nf4-claude-web] claude-web: N-F4's Build form before the creator starts and the first relayed checkpoint. [P2-bare-claude-web] Release check 13 verified: claude-web: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-claude-web] claude-web: checks under the practice-run instruction in Build's own chat; no separate session started. [P2-staged-web] Claude: every part's checked text kept in built/; nothing saved into the account until Part 3; then saved from the creator's save card unchanged. [P3-nb12-steps] Claude, a first build: every part opens with the already-there clause before the steps, quote-checked. [P3-close-claude-web] claude-web: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-web] A first-time leader through Build on claude-web: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-place-claude-web] Claude on the web: N-B17 then N-B40.",
    "files": [
     "students/default.md"
    ],
@@ -8049,18 +8011,19 @@
      }
     },
     {
-     "text": "[P2-nf4-claude-web] N-F4",
+     "text": "[P2-nf4-claude-web] N-F4's Build form",
      "kind": "scripted",
      "check": {
       "type": "quote",
-      "id": "N-F4"
+      "id": "N-F4",
+      "form": "Build"
      }
     },
     {
-     "text": "[P2-nf4-claude-web] N-F4 leads the first checkpoint each session relays, and none is relayed before it",
+     "text": "[P2-nf4-claude-web] N-F4's Build form comes before the creator's first brief and the first relayed checkpoint in each session",
      "kind": "scripted",
      "check": {
-      "type": "nf4_leads"
+      "type": "nf4_before_creator"
      }
     },
     {
@@ -8144,11 +8107,11 @@
      }
     },
     {
-     "text": "[P2-staged-web] Staged parts",
+     "text": "[P2-staged-web] Each part's checked text kept in built/",
      "kind": "scripted",
      "check": {
       "type": "file_exists",
-      "path": "drive/ai-workspace/framework/client-follow-up/package/**"
+      "path": "drive/ai-workspace/framework/client-follow-up/built/**"
      }
     },
     {
@@ -8470,7 +8433,7 @@
     "P3-m365-agent",
     "JR-microsoft-365"
    ],
-   "expected_output": "[P2-m365-agent-task] No agent text drafted; the build prompt staged and quote-checked, its fields filled from the plan; the built-text check on the pasted-back instructions; practice runs left to Test. [P3-m365-agent] N-B52 once, after any skills; numbered steps; the Knowledge step said whatever Agent Builder reports; the instructions pasted back and checked; the done form; no fingerprint; N-B37's agent form. [JR-microsoft-365] A first-time leader through Build on microsoft-365: three parts, the close with Test's phrase; leader actions reported by part, no time target.",
+   "expected_output": "[P2-m365-agent-task] No agent text drafted; the build prompt kept in built/ and quote-checked, its fields filled from the plan; the built-text check on the pasted-back instructions; practice runs left to Test. [P3-m365-agent] N-B52 once, after any skills; numbered steps; the Knowledge step said whatever Agent Builder reports; the instructions pasted back and checked; the done form; no fingerprint; N-B37's agent form. [JR-microsoft-365] A first-time leader through Build on microsoft-365: three parts, the close with Test's phrase; leader actions reported by part, no time target.",
    "files": [
     "students/m365-agent.md"
    ],
@@ -8537,11 +8500,11 @@
      }
     },
     {
-     "text": "[P2-m365-agent-task] Staged in package/",
+     "text": "[P2-m365-agent-task] Kept in built/",
      "kind": "scripted",
      "check": {
       "type": "file_exists",
-      "path": "onedrive/ai-workspace/framework/client-follow-up/package/*build-prompt*"
+      "path": "onedrive/ai-workspace/framework/client-follow-up/built/*/build-prompt*"
      }
     },
     {
@@ -8994,11 +8957,11 @@
    "expected_output": "python3 missing: the block can't be written or read back, so Build stops before Part 2, checks nothing and changes nothing, and gives N-B55, the stop line with Build's start phrase and the location.",
    "expectations": [
     {
-     "text": "Nothing checked: no part is written to the package",
+     "text": "Nothing checked: no part is written to the kept copy",
      "kind": "scripted",
      "check": {
       "type": "file_absent",
-      "path": "framework/client-follow-up/package/*"
+      "path": "framework/client-follow-up/built/*"
      }
     },
     {
