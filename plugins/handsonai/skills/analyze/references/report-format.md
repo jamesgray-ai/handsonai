@@ -47,7 +47,7 @@ For each opportunity:
 
 **[#] [Opportunity Name]**
 
-**Status:** [Work that already runs only: "Already runs with [skill or agent], [home]", then what could be better, if anything. Omit the line otherwise.]
+**Status:** [Work that already runs only: "Already runs with [skill or agent], [home]" (no home unless one was seen or given). Omit the line otherwise.]
 
 **Goal:** [The registry goal it serves, from the Business node's `## Objectives` (the first in order when it serves several), or "None named". Every lens.]
 
@@ -75,7 +75,7 @@ For each opportunity:
 
 ---
 
-**Work that already runs:** *Current pain point* reads "None stated — runs well", or the improvement the student named ("could be better: not clear yet" when they gave no detail), and *How AI helps* describes what the skill or agent does today. Never invent either. **A registry workflow the evidence pass moved to running** gets an unnumbered card under its process, headed "[Workflow] (already in your registry, now recorded as running)", with no Summary Table or Candidate Summary row, not counted in **Opportunities identified**.
+**Work that already runs:** *Current pain point* reads "None stated" (unless the student named a problem with it, in their words), and *How AI helps* describes what the skill or agent does today. Never invent either. **A registry workflow the evidence pass moved to running** gets an unnumbered card under its process, headed "[Workflow] (already in your registry, now recorded as running)", with no Summary Table or Candidate Summary row, not counted in **Opportunities identified**.
 
 Confidential material follows `evidence-pass.md` in every field: the kind of work only, never a client, person, deal or project name, and no confidential figure (prices, rates, revenue, salaries, client figures) copied from a source; the student's own times and frequencies may be, tagged.
 

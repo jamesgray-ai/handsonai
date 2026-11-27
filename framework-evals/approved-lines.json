@@ -2559,7 +2559,8 @@
    "files": {
     "analyze": "references/evidence-pass.md"
    },
-   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "retired": "2026-11-27: shape release Pass 4 (U1, A1: the already-runs questions are replaced by one optional line in Analyze's own words, a model marked (your words); silence keeps the evidence's reading)"
   },
   {
    "id": "N-A16",
@@ -2573,7 +2574,8 @@
     "analyze": "references/evidence-pass.md"
    },
    "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
-   "note": "single-item form kept word for word"
+   "note": "single-item form kept word for word",
+   "retired": "2026-11-27: shape release Pass 4 (U1, A1: the already-runs questions are replaced by one optional line in Analyze's own words, a model marked (your words); silence keeps the evidence's reading)"
   },
   {
    "id": "N-A16",
@@ -2586,7 +2588,8 @@
    "files": {
     "analyze": "references/evidence-pass.md"
    },
-   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "retired": "2026-11-27: shape release Pass 4 (U1, A1: the already-runs questions are replaced by one optional line in Analyze's own words, a model marked (your words); silence keeps the evidence's reading)"
   },
   {
    "id": "N-A16",
@@ -2600,7 +2603,8 @@
     "analyze": "references/evidence-pass.md"
    },
    "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
-   "note": "single-item form kept word for word"
+   "note": "single-item form kept word for word",
+   "retired": "2026-11-27: shape release Pass 4 (U1, A1: the already-runs questions are replaced by one optional line in Analyze's own words, a model marked (your words); silence keeps the evidence's reading)"
   },
   {
    "id": "N-A16",
@@ -2613,7 +2617,8 @@
    "files": {
     "analyze": "references/evidence-pass.md"
    },
-   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "retired": "2026-11-27: shape release Pass 4 (U1, A1: the already-runs questions are replaced by one optional line in Analyze's own words, a model marked (your words); silence keeps the evidence's reading)"
   },
   {
    "id": "N-A16",
@@ -2626,7 +2631,8 @@
    "files": {
     "analyze": "references/evidence-pass.md"
    },
-   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "retired": "2026-11-27: shape release Pass 4 (U1, A1: the already-runs questions are replaced by one optional line in Analyze's own words, a model marked (your words); silence keeps the evidence's reading)"
   },
   {
    "id": "N-A16",
@@ -2640,7 +2646,8 @@
     "analyze": "references/evidence-pass.md"
    },
    "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
-   "note": "single-item form kept word for word"
+   "note": "single-item form kept word for word",
+   "retired": "2026-11-27: shape release Pass 4 (U1, A1: the already-runs questions are replaced by one optional line in Analyze's own words, a model marked (your words); silence keeps the evidence's reading)"
   },
   {
    "id": "N-A16",
@@ -2653,7 +2660,8 @@
    "files": {
     "analyze": "references/evidence-pass.md"
    },
-   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "retired": "2026-11-27: shape release Pass 4 (U1, A1: the already-runs questions are replaced by one optional line in Analyze's own words, a model marked (your words); silence keeps the evidence's reading)"
   },
   {
    "id": "N-A16",
@@ -2666,7 +2674,8 @@
    "files": {
     "analyze": "references/evidence-pass.md"
    },
-   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "retired": "2026-11-27: shape release Pass 4 (U1, A1: the already-runs questions are replaced by one optional line in Analyze's own words, a model marked (your words); silence keeps the evidence's reading)"
   },
   {
    "id": "N-A16",
@@ -2679,7 +2688,8 @@
    "files": {
     "analyze": "references/evidence-pass.md"
    },
-   "source": "N-A16's name-and-home statement with its \", [home]\" left out when no home was seen (no new wording); core round-3 fixes (2026-11-12), item 5; derived, flagged for James"
+   "source": "N-A16's name-and-home statement with its \", [home]\" left out when no home was seen (no new wording); core round-3 fixes (2026-11-12), item 5; derived, flagged for James",
+   "retired": "2026-11-27: shape release Pass 4 (U1, A1: the already-runs questions are replaced by one optional line in Analyze's own words, a model marked (your words); silence keeps the evidence's reading)"
   },
   {
    "id": "N-A16",
@@ -2692,7 +2702,8 @@
    "files": {
     "analyze": "references/evidence-pass.md"
    },
-   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "retired": "2026-11-27: shape release Pass 4 (U1, A1: the already-runs questions are replaced by one optional line in Analyze's own words, a model marked (your words); silence keeps the evidence's reading)"
   },
   {
    "id": "N-A17",
