@@ -52,6 +52,8 @@ With several changes that can't be undone, **Ask:** "This workflow runs without 
 
 **Ask:** "You asked for [the choice, in plain words], but your requirements say [the limit, in plain words]. Which one holds?" (D7)
 
+D7 is always asked first, in its own message, even when the leader's request already sounds settled: a rule is loosened only on their answer to it. Any question that follows from the answer (a check whose only source was that rule: keep it or drop it) comes after, never in its place.
+
 A `fixed (regulation)` or `fixed (policy)` step, or a rule or checkpoint that names a law as its reason ("…, as [the law] requires."), isn't the leader's to change: say in one line that the rules (or the policy) require it, so it stays, and move on.
 
 **A constraint the plan can't meet:**
