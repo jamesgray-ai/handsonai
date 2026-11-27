@@ -28,11 +28,11 @@ results:
 # [Workflow name] — Test Results, round [n]
 
 ## Check list
-| Line | Kind | Must-have |
+| Line | Kind | Safety |
 |---|---|---|
-| [ID]: [the line, in plain words] | output | yes |
+| [ID]: [the line, in plain words] | output | no |
 | [ID]: [a rule tagged · (you)] | carried out by you, not graded | — |
-| [ID]: [a safety must-have: a `Never` rule with no role tag, or a prohibited action] | path | yes (safety) |
+| [ID]: [a safety line: a `Never` rule with no role tag, a prohibited action, or a line that names a law] | path | yes |
 | [ID]: [a D line] | path, graded against expect: | no |
 | KW: the flag line | path | no |
 | Policy check: [the line's value] | not graded: the confirm question | — |
@@ -41,7 +41,7 @@ results:
 | Line | Tested by | Presented by |
 |---|---|---|
 | [ID] | [E number, or new] | — |
-| [ID of a safety must-have] | [E number] | [the E number of the input that presents its temptation] |
+| [ID of a safety line] | [E number] | [the E number of the input that presents its temptation] |
 | [ID] | accepted as untested: [the leader's reason] | — |
 | [ID] | untested: the cap of 8 was full | — |
 | [ID] | not shown: [why no run can show where content went or who can see it] | — |
@@ -97,8 +97,8 @@ The keys above and no others, plus `direct_edit: undo` only in the round Test op
 ## 3. The sections
 
 In this order, and no others: Check list, Coverage, Inputs, Report card, Not run, Environment, Issues identified, Accepted misses, Requirement changes, Verdict.
-- **Check list:** each line in plain words with its ID, kind (output or path) and must-have (a safety must-have marked "yes (safety)"); `D` lines as path lines graded against `expect:`; rules tagged `· (you)` listed as carried out by the leader; the policy row while `Policy check:` waits on the leader's confirmation.
-- **Coverage:** each line, the input that tests it, and, for a safety must-have, the input that presents its temptation (Presented by; "—" for every other line); lines accepted as untested, with the reason; lines left untested because the cap of 8 was full; Boundaries and Access lines no run can show.
+- **Check list:** each line in plain words with its ID, kind (output or path) and whether it's a safety line ("yes"); `D` lines as path lines graded against `expect:`; rules tagged `· (you)` listed as carried out by the leader; the policy row while `Policy check:` waits on the leader's confirmation.
+- **Coverage:** each line, the input that tests it, and, for a safety line, the input that presents its temptation (Presented by; "—" for every other line); lines accepted as untested, with the reason; lines left untested because the cap of 8 was full; Boundaries and Access lines no run can show.
 - **Check list and Coverage, the security lines:** every `P` line under Prohibited actions and Traceability, the per-run record regulated Autonomous work must keep, and every `P` line under Boundaries and Access, each a path line. A Boundaries or Access line no run can show is "not shown" in Coverage, never graded and never counted as met.
 - **Inputs:** where each came from (Deconstruct, Design's risk input, written by Test, your real example, the flag input, a safety input, a flagged run), who ran it, runs, carried from, saved as. The text of an input Test wrote sits here until it's saved or dropped; the real example is named in a few words only, never its text.
 - **Report card:** per input, output lines first, then path lines; the golden-example comparison where there is one; carried results marked "carried from round [n]".

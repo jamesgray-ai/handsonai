@@ -676,5 +676,11 @@
       "state": 10,
       "owner": "Test"
     }
+  },
+  "format-11/s08-test-needed": {
+    "self": {
+      "state": 8,
+      "owner": "Test"
+    }
   }
 }

@@ -11317,7 +11317,7 @@
   {
    "id": "N-T60",
    "form": "main",
-   "text": "Nothing in this round tested [the line], and [it's one you can't live without / it's something it must never do], so it can't go live untested. Add an input for it, or change or drop the rule?",
+   "text": "Nothing in this round tested [the line], and it's something it must never do, so it can't go live untested. Add an input for it, or change or drop the rule?",
    "kind": "question",
    "skills": [
     "test"
@@ -11325,7 +11325,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "independent review finding 3; approved by James 2026-11-21"
+   "source": "independent review finding 3; approved by James 2026-11-21; must-haves gone (shape release Pass 2, 2026-11-27)"
   },
   {
    "id": "N-B57",

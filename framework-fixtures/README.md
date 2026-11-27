@@ -104,3 +104,10 @@ Every Client Follow-Up above is the older, step-shaped file (three steps, a `###
 
 - Four registry fixtures don't lint clean on purpose: `edge/e-big-change-stopped-partway` and `edge/e-platform-change-stopped-after-plan` keep a link to a file the interrupted set-aside already moved (an error), `edge/e-build-saved-never-closed` has a skill no node links yet (Build links it at its close; a warning), and `earlier-version/v1-run-guide-built` is past its `stale_after` (a warning).
 - Replays of real calls never land here; `.gitignore` keeps any `post-call-*/` folder out.
+
+## Format 11.0
+
+| Fixture | State |
+|---|---|
+| `format-11/client-follow-up/` | Not a workspace: an 11.0 requirements file with a real and a made-up practice run, for `requirements-check` |
+| `format-11/s08-test-needed/` | 8 · Test (one workspace, `self`): built, never tested, on an 11.0 requirements file |
