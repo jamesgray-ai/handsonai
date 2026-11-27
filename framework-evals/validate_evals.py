@@ -29,7 +29,7 @@ import leader as L
 REQUIRED = {
     "ai_contains": ["text"], "ai_not_contains": ["text"], "ai_regex": ["pattern"], "ai_not_regex": ["pattern"], "leader_regex": ["pattern"],
     "quote": ["id"], "quote_absent": ["id"], "scripted_lines": [], "vocabulary": [], "no_time_or_step_numbers": [], "narration": [],
-    "no_team_visible_writes": [], "quoted_output_seen": [], "nf4_leads": [], "nf4_before_creator": [], "nf4_before_fresh_run": [], "bash_count": ["pattern"],
+    "no_team_visible_writes": [], "quoted_output_seen": [], "nf4_leads": [], "nf4_before_creator": [], "nf4_before_fresh_run": [], "bash_count": ["pattern"], "no_tool_call": ["tool"],
     "signposts": [], "file_exists": ["path"], "file_absent": ["path"], "file_existed_during": ["path"],
     "file_contains": ["path", "text"], "file_not_contains": ["path", "text"], "file_regex": ["path", "pattern"],
     "file_not_regex": ["path", "pattern"], "sections_in_order": ["path", "headings"], "yaml_keys": ["path", "keys"],
@@ -44,7 +44,8 @@ FAULTS = {"no_folder_added", "cowork_cannot_read_onedrive", "attach_fails", "age
           "agent_builder_rewords_carried_line", "agent_builder_rewords_after_fix",
           "agent_builder_requirements_under_knowledge", "agent_builder_ordinary_chat", "skill_cannot_read_by_path",
           "no_gmail", "leader_denies_settings_prompt", "no_python3", "service_dropbox", "drive_cannot_save",
-          "creator_rewords_never_made_rule", "creator_rewords_after_fix", "creator_test_without_cue"}
+          "creator_rewords_never_made_rule", "creator_rewords_after_fix", "creator_test_without_cue",
+          "creator_card_drifts", "creator_plugin", "creator_runs_test_loop"}
 
 
 def check_check(c, where, errs, nsessions, corpus):

@@ -185,6 +185,55 @@ change_requests: []
 """
 
 
+class TheSaveCardCanDrift(unittest.TestCase):
+    """Pass 3 final review I2: what the leader saves from the save card is checked against the copy Build
+    checked, before the save. creator_card_drifts: the file the creator packages behind the card drops the
+    practice-run first line, though its draft in the chat still has it; put back when Build quotes it."""
+
+    def setUp(self):
+        self.t = Path(tempfile.mkdtemp())
+
+    def tearDown(self):
+        shutil.rmtree(self.t)
+
+    def test_no_fault_the_card_is_the_draft(self):
+        c = L.SkillCreator()
+        c.receive(BRIEF)
+        c.receive("Please make the save card for client-follow-up.")
+        self.assertEqual(c.card_text("client-follow-up"), c.text("client-follow-up"))
+
+    def test_the_card_drops_the_first_line_and_shows_its_file(self):
+        c = L.SkillCreator(["creator_card_drifts"])
+        c.receive(BRIEF)
+        self.assertIn(FIRST, c.text("client-follow-up"))
+        self.assertNotIn("save card for", c.shown())  # no card until Build asks for one
+        c.receive("Please make the save card for client-follow-up.")
+        self.assertNotIn(FIRST, c.card_text("client-follow-up"))
+        self.assertIn(FIRST, c.text("client-follow-up"))  # the draft in the chat still has it
+        shown = c.shown()
+        self.assertIn("save card for client-follow-up", shown)
+        self.assertIn(c.card_text("client-follow-up"), shown)
+
+    def test_quoting_the_line_back_fixes_the_card(self):
+        c = L.SkillCreator(["creator_card_drifts"])
+        c.receive(BRIEF)
+        c.receive("Please make the save card for client-follow-up.")
+        self.assertTrue(c.receive(f"The save card's file is missing this line. Put it back exactly:\n\n{FIRST}"))
+        self.assertIn(FIRST, c.card_text("client-follow-up"))
+
+    def test_a_save_before_the_fix_saves_the_drifted_card(self):
+        p = L.PLATFORMS["claude-web"](["creator_card_drifts"])
+        p.screen(BRIEF, self.t)
+        p.screen("It passed. Save it from the skill creator's save card. Do you see client-follow-up in your skills "
+                 "list?", self.t)
+        self.assertEqual(p.on_leader("Saved. Yes, I see it.", self.t), 1)
+        saved = (self.t / ".claude" / "skills" / "client-follow-up" / "SKILL.md").read_text()
+        self.assertNotIn(FIRST, saved)
+
+    def test_the_validator_knows_it(self):
+        self.assertIn("creator_card_drifts", V.FAULTS)
+
+
 class TheRecordAndTheKeptCopy(unittest.TestCase):
     def test_plugins_and_the_built_layout_pass(self):
         self.assertEqual(ST.check_build_record(RECORD), [])

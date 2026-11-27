@@ -12,7 +12,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 - When it reads something back and asks if it's right, say "Yes, that's right."
 - When it asks for an OK to make a change or a quick check, say "OK, go ahead."
 - When it shows exactly what it would send or change and asks if that's the right place, say "Yes, that's the right place."
-- When it asks you to run your workflow in a new chat or session and paste back what it says, do it as your screen allows, then paste back exactly what your screen shows, even when the workflow stopped to ask you something there. Never answer the workflow's question in that run yourself.
+- When it asks you to run your workflow in a new chat or session and paste back what it says, do it as your screen allows, then paste back exactly what your screen shows.
 - When the AI quotes your workflow's own question to you after "This is your workflow asking, as it would on a real run:", answer it as you would at work (approve the draft), where the AI says to, then paste back what comes next.
 - If the AI asks you, in any other words, to answer or approve what the workflow asked, say "Not sure."
 - When it asks whether an older version is already set up somewhere, say "No."

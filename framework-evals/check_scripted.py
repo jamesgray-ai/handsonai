@@ -90,6 +90,11 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   write by any tool (a Bash command naming the file
                                                                   too) whose new text matches it, and one follows
                                                                   (plan reset to approved: false before re-approval)
+  no_tool_call     {tool, input_pattern?, input_not_pattern?,     no tool call in the session's events.jsonl whose
+                    after?, session?}                             name matches `tool` (and whose JSON input matches
+                                                                  input_pattern, and not input_not_pattern); with
+                                                                  `after`, only calls after the first AI text matching
+                                                                  it. No events.jsonl fails closed
   file_unchanged   {path, session?}                               every matching file is byte-identical
                                                                   at session start and end
   file_line        {path, line: n, pattern, session?}             line n (1-based) matches the pattern
@@ -1097,6 +1102,8 @@ def check(c, run):
         return _tool_write(c, run)
     if t == "bash_count":
         return _bash_count(c, run)
+    if t == "no_tool_call":
+        return _no_tool_call(c, run)
     if t == "release_check":
         passed = release_checks_passed(c["ids"])
         ok, why = check(c["passed" if passed else "open"], run)
@@ -1250,6 +1257,51 @@ def bash_commands(events_path):
             if isinstance(b, dict) and b.get("type") == "tool_use" and b.get("name") == "Bash":
                 out.append(str((b.get("input") or {}).get("command", "")))
     return out
+
+
+def _no_tool_call(c, run):
+    """Pass 3 final review (M8, I5): no tool call in the session's events.jsonl whose name matches `tool`
+    and whose input, as JSON, matches `input_pattern` (when given) and doesn't match `input_not_pattern`
+    (when given); with `after`, only calls after the first assistant text matching it count (a quick real
+    check before the first brief, say). A broken guardrail fails here, not only before the judge. No
+    session with an events.jsonl fails closed: what was called can't be told."""
+    tool = re.compile(c["tool"])
+    inp_pat = re.compile(c["input_pattern"], re.M) if c.get("input_pattern") else None
+    not_pat = re.compile(c["input_not_pattern"], re.M) if c.get("input_not_pattern") else None
+    after = re.compile(c["after"], re.M) if c.get("after") else None
+    read = False
+    for s in _sessions(run, c.get("session")):
+        if not s.get("root"):
+            continue
+        try:
+            lines = (Path(s["root"]).parent / "events.jsonl").read_text(errors="replace").splitlines()
+        except OSError:
+            continue
+        read = True
+        started = after is None
+        for line in lines:
+            try:
+                e = json.loads(line)
+            except ValueError:
+                continue
+            content = (e.get("message") or {}).get("content") if isinstance(e, dict) and e.get("type") == "assistant" else None
+            for b in content if isinstance(content, list) else []:
+                if not isinstance(b, dict):
+                    continue
+                if b.get("type") == "text" and not started and after.search(str(b.get("text") or "")):
+                    started = True
+                if b.get("type") != "tool_use" or not started or not tool.search(str(b.get("name") or "")):
+                    continue
+                inp = json.dumps(b.get("input") or {}, ensure_ascii=False)
+                if inp_pat and not inp_pat.search(inp):
+                    continue
+                if not_pat and not_pat.search(inp):
+                    continue
+                return False, f"session {s['n']}: {b.get('name')} {inp[:200]}"
+    if not read:
+        return False, "no session with an events.jsonl, so the tool calls can't be told: fails closed"
+    return True, f"no {c['tool']!r} call" + (f" matching {c['input_pattern']!r}" if inp_pat else "") + \
+        (f" after {c['after']!r}" if after else "")
 
 
 def _bash_count(c, run):

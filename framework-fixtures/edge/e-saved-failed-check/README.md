@@ -1,0 +1,1 @@
+State 6 (Build needed): every task saved, Build closed at plan revision 1, but T2 is `Failed check` with `Saved: yes` (its fresh-chat run showed no practice-run first line after Part 3 saved it): a saved part that failed its check is never built, so Test refuses it and Build is next (`saved_failed_check`).

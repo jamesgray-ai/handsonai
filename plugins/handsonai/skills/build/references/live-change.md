@@ -41,6 +41,8 @@ N-B13 with this in place of its Test sentence and rounds sentence, said exactly:
 
 For a scheduled workflow, add before "If you need": "Keep its schedule paused until the test passes." Use "the earlier version, kept in [place]" where you kept the copy yourself.
 
+**Its Test sentence is copy-ready,** as N-B13's forms are (`package-and-install.md`, *The close*): "Before its next real run, start Test…" runs on to the end of that platform's sentence, ending at "say:", then Test's start phrase (with the location filled in) goes alone in a code block, and the line goes on after the block with its next sentence ("Keep its schedule paused…" or "If you need to run it before then…").
+
 ## 6. An older version's copy
 
 After a yes to N-B51 (or something you found at an install name or place, or an "already there" at the install line), once the leader has paused it: a copy only where the new version will be saved over the older one (a part of the same name or in the same place). Anywhere else nothing of the older version is touched, so the paused version is its own copy, and none is asked for. Where a copy is needed, in this order:

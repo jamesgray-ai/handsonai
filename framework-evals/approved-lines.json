@@ -11551,6 +11551,32 @@
    "source": "2026-11-27: shape release Pass 3 Task 4 (B4, B5: one fresh-chat run of the installed workflow replaces the bare run; the leader never answers the workflow's questions) (B5: the one marker for a real need to answer the workflow's question during Build's checks)"
   },
   {
+   "id": "N-B59",
+   "form": "main",
+   "text": "If it stops to ask you something, don't answer it: copy what it shows and paste it here.",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/fresh-chat-run.md"
+   },
+   "source": "2026-11-27: shape release Pass 3 final review I1 (the fresh-chat run's hand-over, chat and Claude Code or Codex forms: a run stopped at a checkpoint never prints 'Practice run finished', and the leader never answers it as its user)"
+  },
+  {
+   "id": "N-B60",
+   "form": "main",
+   "text": "[Workflow] didn't pass its practice run, so switch it off now, before anyone uses it: [one sentence on how, and the link to the platform's page in `platform-docs.json`].",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/fresh-chat-run.md"
+   },
+   "source": "2026-11-27: shape release Pass 3 final review I3 (a practice-run failure in the fresh-chat run, after Part 3 saved the part: the stop leads with the switch-off; one sentence and a link, as B2 requires)"
+  },
+  {
    "id": "N-T60",
    "form": "law",
    "text": "Nothing in this round tested [the line], and it's required by [the law], so it can't go live untested. Add an input for it?",

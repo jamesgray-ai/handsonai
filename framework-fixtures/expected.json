@@ -692,6 +692,16 @@
       "owner": "Test"
     }
   },
+  "edge/e-saved-failed-check": {
+    "no-registry": {
+      "state": 6,
+      "owner": "Build",
+      "saved_failed_check": [
+        "T2"
+      ],
+      "note": "a part saved before its fresh-chat run failed: never built, so Test refuses it"
+    }
+  },
   "format-11/s08-test-needed": {
     "self": {
       "state": 8,

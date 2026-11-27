@@ -56,6 +56,7 @@ Expected values are the routing rule's (rules 4.2): the state number and its own
 | `edge/e-policy-wait/` | 8 · Test | 8 · Test |
 | `edge/e-policy-confirmed/` | 10 · Test | 10 · Test |
 | `edge/e-safety-input/` | 10 · Test | 10 · Test |
+| `edge/e-saved-failed-check/` | — | 6 · Build: a part saved before its fresh-chat run failed (`Failed check`, `Saved: yes`) |
 | `edge/e-new-fields/` | 4 · Design | 4 · Design |
 
 ## State 1: earlier versions

@@ -702,9 +702,13 @@ function workflowState(folder, opts = {}) {
     if (builtAndSaved && t.rev !== null && (!builtRevs.length || t.rev > Math.min(...builtRevs))) behind.push(t.id);
   }
   facts.tasks_not_built_and_saved = notBuilt;
+  // Pass 3 final review I3: a part saved before its fresh-chat run failed (`Failed check`, `Saved: yes`) is
+  // never built, so Test refuses it and Build is next; named so the stop and the next entry can find it
+  const savedFailed = [...new Set(rows.filter((r) => /^failed check\b/i.test(r.status) && r.saved === 'yes').map((r) => r.task))];
+  if (savedFailed.length) facts.saved_failed_check = savedFailed;
   facts.tasks_above_built_rev = behind;
   const fixMode = results && results.readiness === 'not-ready' && buildIssues > 0 && !closeAfterLastRound;
-  if (notBuilt.length) return done(6, `not built and saved: ${notBuilt.join(', ')}`, { fix_mode: !!fixMode });
+  if (notBuilt.length) return done(6, `not built and saved: ${notBuilt.join(', ')}${savedFailed.length ? ` (saved but failed its check: ${savedFailed.join(', ')})` : ''}`, { fix_mode: !!fixMode });
   if (behind.length) return done(6, `a task's rev is above its built rev: ${behind.join(', ')}`, { fix_mode: !!fixMode });
   if (!waiting.size && (facts.record_plan_revision === null || facts.record_plan_revision !== planRevision)) {
     return done(6, facts.record_plan_revision === null
