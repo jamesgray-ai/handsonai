@@ -5964,19 +5964,14 @@
       "fixture": "ready",
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
       "student": "students/default.md",
-      "expected_output": "'An older version: none that you know of.': the reminder line inside the go-live message, no N-T48.",
+      "expected_output": "'An older version: none that you know of.': a new workflow's go-live says nothing about an older version, and no N-T48.",
       "files": [
         "students/default.md"
       ],
       "expectations": [
         {
-          "text": "Says N-T16 (No older version the leader knows of) word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "quote",
-            "id": "N-T16",
-            "form": "No older version the leader knows of"
-          }
+          "text": "A new workflow's go-live says nothing about an older version",
+          "kind": "judged"
         },
         {
           "text": "Never says N-T48 (main)",
@@ -6184,7 +6179,7 @@
         }
       ],
       "student": "students/default.md",
-      "expected_output": "Desktop task: N-T16's schedule sentence and schedule: not-on. Cloud routine: the push in Build's steps. Safety incomplete: 'It's live to run by hand.' and the waiting sentence. By choice: the by-choice form. No schedule: the 'run it on a schedule' line.",
+      "expected_output": "Desktop task: N-T16's schedule sentence and schedule: not-on. Cloud routine: the push in Build's steps. Safety incomplete: 'It's live to run by hand.' and the waiting sentence. By choice: the by-choice form. No schedule, and no timer fits: no scheduling line.",
       "files": [
         "students/default.md"
       ],
@@ -6244,10 +6239,10 @@
           }
         },
         {
-          "text": "Says N-T16 (No schedule in its plan) word for word",
+          "text": "Session 5 (no schedule in its plan, and the work runs after each call, so no timer fits): no line about running it on a schedule",
           "kind": "scripted",
           "check": {
-            "type": "quote",
+            "type": "quote_absent",
             "id": "N-T16",
             "form": "No schedule in its plan",
             "session": 5

@@ -6903,7 +6903,8 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change",
+   "retired": "2026-11-27: shape release Pass 2 (T16: a new workflow gets no older-version line)"
   },
   {
    "id": "N-T16",
