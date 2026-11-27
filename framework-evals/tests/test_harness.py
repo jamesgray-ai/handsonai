@@ -91,11 +91,12 @@ class QuoteCheck(unittest.TestCase):
         self.assertFalse(ok({"type": "quote", "id": "N-F2", "form": "main"}, run_of(wrong)))
 
     def test_label_clause_is_optional(self):
-        base = ("To see what the AI does with no instructions, open a new chat in your workflow's Project, "
-                "so it has nothing it could send or change with. Paste this, and copy back what it says. Then delete that chat.")
-        with_clause = base.replace("Project,", "Project, and before typing, switch off connectors and memory under +,")
-        self.assertTrue(ok({"type": "quote", "id": "N-B45", "form": "main"}, run_of(base)))
-        self.assertTrue(ok({"type": "quote", "id": "N-B45", "form": "main"}, run_of(with_clause)))
+        # N-T8's chat form (N-B45, the line this used before, retired with the bare run in Pass 3)
+        base = "Open a new chat in your Client Follow-Up Project, then say 'ready' here."
+        with_clause = base.replace("Project,", "Project, and before typing, open + and switch off memory, then switch off "
+                                               "everything under Plugins,")
+        self.assertTrue(ok({"type": "quote", "id": "N-T8", "form": "Chat platforms"}, run_of(base)))
+        self.assertTrue(ok({"type": "quote", "id": "N-T8", "form": "Chat platforms"}, run_of(with_clause)))
 
     def test_two_label_clauses_in_one_bracket_are_alternatives(self):
         # N-B27's "[Can be undone: '…' Permanent: '…']": either clause alone is word for word
@@ -176,11 +177,9 @@ class WordingChecks(unittest.TestCase):
         self.assertTrue(ok({"type": "vocabulary"}, run_of("Your plan is ready. Shall I go on?")))
         self.assertFalse(ok({"type": "vocabulary"}, run_of("I'll write the acceptance criteria next. OK?")))
         self.assertFalse(ok({"type": "vocabulary"}, run_of("This edge case needs a test case. Ready?")))
-        # an approved line that holds a platform label isn't flagged
-        self.assertTrue(ok({"type": "vocabulary"}, run_of(
-            "To see what the AI does with no instructions, open a new chat in your workflow's Project, and before typing, "
-            "switch off connectors and memory under +, so it has nothing it could send or change with. Paste this, and "
-            "copy back what it says. Then delete that chat.")))
+        # a platform's own label, quoted as its screen shows it, isn't flagged (the approved line this used, N-B45,
+        # retired with the bare run in Pass 3)
+        self.assertTrue(ok({"type": "vocabulary"}, run_of("Open 'Connectors' in your settings. Done?")))
         # file names in code aren't wording
         self.assertTrue(ok({"type": "vocabulary"}, run_of("I moved `design-spec.md` aside. Shall I start?")))
         # the leader's work shown back in a block quote isn't the AI's wording
@@ -775,7 +774,7 @@ class PlatformSimulations(unittest.TestCase):
             self.assertEqual(seen, ["Practice folder: practice/\nInput: E1\nRun: E1-1"])
             self.assertIn("It answered:]\nPractice run", out[0][0])
         cc = L.PLATFORMS["claude-code"]()
-        self.assertFalse(L.simulates_leader_runs("build", cc))  # Build keeps its behaviour
+        self.assertTrue(L.simulates_leader_runs("build", cc))  # Build's one fresh-chat run (Pass 3, B4)
         self.assertFalse(L.simulates_leader_runs("test", cc, {"leader_runs": "scripted"}))  # a planted block
         self.assertFalse(L.simulates_leader_runs("test", cc, {}, {"leader_runs": "scripted"}))
         self.assertTrue(L.simulates_leader_runs("test", cc, {}, {"leader_runs": "simulated"}))

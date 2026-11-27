@@ -7,8 +7,7 @@ write_block: "off"
 schedule: none
 fingerprints:
   weekly-status-report (Claude skills): sha256:c69dd5737e3609d7ef3affcdb2386aaf2d6aab5304be6cd0927a51847d9d23d7
-bare_run:
-  weekly-status-report: done
+fresh_chat_run: done
 run_folders: []
 change_requests: []
 ---

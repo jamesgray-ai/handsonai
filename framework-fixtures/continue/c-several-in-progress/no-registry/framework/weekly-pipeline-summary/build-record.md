@@ -9,8 +9,7 @@ fingerprints:
   weekly-pipeline-summary: sha256:5f1c0a9e
   last-quarter-summary.md: sha256:9b2d47c3
   test-run.sh: sha256:c03e8f11
-bare_run:
-  weekly-pipeline-summary: done
+fresh_chat_run: done
 run_folders: []
 change_requests: []
 ---

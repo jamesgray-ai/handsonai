@@ -34,7 +34,7 @@ For each Issues row at Level `build`:
 6. **Otherwise** fix the task the way it was built: a brief of the change, from the kept copy in `built/`, to the platform's creator, then the check before saving (`creator.md` sections 2 to 5); then check it and every task that uses it again, up to three tries.
 
 Also:
-- The bare run is skipped (the installed skill would load).
+- No fresh-chat run: Test's next round runs the fixed workflow whole (`fresh-chat-run.md` section 2).
 - A change to a shared skill still gets N-B25 before anything of it is written, kept in `built/` until Part 3, with `SKILL.md` step 2's care for other live workflows that use it.
 - Rebuilt skills replace the existing ones; a plugin's version rises. Every changed part is kept in `built/` and saved together in Part 3.
 - **An agent on Microsoft 365** is fixed the way it was made: `microsoft-365-agent.md` section 5.

@@ -2,7 +2,7 @@
 
 Read at Part 3, and whenever a fix or a live change installs. Every part saved here has already passed its check before saving, and is saved from its kept copy in `built/[part name]/` (`creator.md` sections 5 to 7). Nothing is saved while a task waits or has `Failed check`; a task `Built, misses [line]` is packaged with the rest (N-B57 then takes its with-a-miss form, section 2), and a schedule-only request holds nothing up.
 
-**Contents:** 1. How it's packaged · 2. Saving · 3. Fingerprints · 4. Keep a copy · 5. What's still waiting · 6. Finish the record and the registry
+**Contents:** 1. How it's packaged · 2. Saving · 3. Fingerprints · 4. Keep a copy · 5. What's still waiting · 6. Finish the record and the registry (the fresh-chat run first)
 
 ## 1. How it's packaged
 
@@ -69,6 +69,8 @@ Inside the close, before its Test sentence, say where the copy is (N-B37), exact
 Inputs marked `not available yet` (the D12 line in `SKILL.md`), and in the record's remaining manual steps and the close: any kind of change whose quick real check was declined or skipped (the first real run proves it); real targets not reached yet; a requirement line a task misses (`Built, misses [line]`), which Test settles; a schedule whose safety record is incomplete; any open item.
 
 ## 6. Finish the record and the registry
+
+**First, the one fresh-chat run** (`fresh-chat-run.md`), once every part is saved and its saved text checked, and before step 1 (on Claude Code the block stays on through it). Its result goes in `fresh_chat_run:` with step 2's write.
 
 Steps 1 to 4 make no text between their tool calls: no line on what you're writing, saving, lifting or recording. Your only text is step 1's own (N-B21a and the settings message), then the Git offer and the close.
 

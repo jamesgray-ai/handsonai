@@ -29,8 +29,7 @@ fingerprints:
   wrapper: sha256:[64 hex characters]
   [installed skill or agent, by its path]: sha256:[hex]
   [runtime context copy, by its path]: sha256:[hex]
-bare_run:
-  [main skill]: done
+fresh_chat_run: done
 run_folders: []
 change_requests: []
 ---
@@ -58,7 +57,7 @@ change_requests: []
 - Practice-run instruction: [its text, with its cue "practice run"]
 - Places a dry run confirmed: [each place]
 - Quick real checks: [each, where it landed, and every real change it made with its undo status: undone, left, or the leader's to remove; permanent ones marked]
-- Bare run: [what the plain model handled, per main skill]
+- Fresh-chat run: [what it showed, in a few plain words]
 - [An agent on Microsoft 365: the instructions the leader last pasted back]
 - Schedule: [the five points, one by one; any risk accepted, naming the change and the checkpoint; a checkpoint the leader chose to keep running by hand; the switch-on steps, withheld while incomplete]
 - Put back the kept copy: [the steps]
@@ -78,8 +77,8 @@ The keys above and no others, in that order:
 - **`write_block`** (Claude Code): `off`, or a mapping with `on:` (this workflow's own deny rules, a rule another workflow also lists included), `leader_rules:` (deny rules the leader already had, never removed), `leader_allow:` (the leader's allow rules when the block went on) and `check_agents:` (each check agent file written, removed with the block), as `claude-code-block.md` section 4 shows. Elsewhere, `off`.
 - **`schedule`:** `none` with no `SCH` task (a first build with no set-aside); carried over from a set-aside record (missing there, or no record in the set-aside folder, counts as not `none`); `not-on` once every safety point passes; `safety-incomplete: [points]` when one fails, including a checkpoint the leader chose to keep running by hand; `paused` when the leader confirms a pause. There is no value for "on".
 - **`fingerprints`:** at install, one per installed skill and agent (none for an agent Agent Builder made on Microsoft 365), one per runtime context copy you can read back, and on Claude Code `wrapper: sha256:<64 hex>` for `framework/.bin/test-run.sh`. Where no code can run, a part's size and date.
-- **`bare_run`:** per main skill, `done` or `skipped: [why]`.
-- **`run_folders`** (Claude Code): each fresh folder made for a check or a bare run, until it's cleared; `[]` otherwise.
+- **`fresh_chat_run`:** the one fresh-chat run of the installed workflow (`fresh-chat-run.md`): `done`, `"skipped: [why]"` or `"failed: [what it missed]"`. A record from before 11.0 has `bare_run:` instead: leave it out when you next write the record.
+- **`run_folders`** (Claude Code): each fresh folder made for a check, until it's cleared; `[]` otherwise.
 - **`change_requests`:** in the one shape, each with exactly `id` (`B1`, `B2`…; never left out), `source` (`build`; `direct edit` for an edit the leader keeps, its edited text saved as `history/direct-edit-[id]-YYYY-MM-DD-HHMM.md` and `what` a one-line summary, in double quotes, naming that file, never the text itself), `what`, `why`, `tasks`, `after_round` (a number, 0 before any round). The track switch goes here too.
 
 ## 4. The table
@@ -114,7 +113,7 @@ The line is kept whenever the section is rewritten, and carried over a set-aside
 
 ## 7. Also in the record
 
-Under `## Also`: the places a dry run confirmed; the quick real checks and where they landed; every real change a quick real check made, with its undo status; the practice-run instruction's text; for an agent on Microsoft 365, the instructions the leader last pasted back; what the plain model handled in each bare run; the schedule's safety record and switch-on steps (withheld while incomplete); "Put back the kept copy"; any other live workflow paused for a shared skill this build changes ("Paused for the shared skill [skill]: [workflow]", `live-change.md` section 7); the remaining manual steps and prerequisites; where the kept copy is (`built/`).
+Under `## Also`: the places a dry run confirmed; the quick real checks and where they landed; every real change a quick real check made, with its undo status; the practice-run instruction's text; for an agent on Microsoft 365, the instructions the leader last pasted back; what the fresh-chat run showed; the schedule's safety record and switch-on steps (withheld while incomplete); "Put back the kept copy"; any other live workflow paused for a shared skill this build changes ("Paused for the shared skill [skill]: [workflow]", `live-change.md` section 7); the remaining manual steps and prerequisites; where the kept copy is (`built/`).
 
 ## 8. The Claude Code profile
 

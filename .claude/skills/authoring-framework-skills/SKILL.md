@@ -260,7 +260,7 @@ Every step has a light form for small, low-risk workflows and a full form for th
 |---|---|
 | Deconstruct | One interview for every workflow, in seven drafted parts; the questions a risk calls for (policy, access, carry-over, law) are added by their own triggers, and nothing is said about a track. |
 | Design | At most two or three questions; the plan review in one message; approval as usual. |
-| Build | As the full track: setup, one quick real check per kind of change, the bare run, checking each task; three parts. |
+| Build | As the full track: setup, one quick real check per kind of change, checking each task, the one fresh-chat run; three parts. |
 | Test | One round. "Two or three test rounds is normal" isn't said. |
 
 - **The track is announced, never assumed.** Openings describe a track's shape only once it's known; a close or line that counts rounds or parts says the light count on the light track.
@@ -337,7 +337,7 @@ Every skill carries `SKILL.md` and `references/routing.md`. The rest follow each
 | Analyze | `references/part-1-reading-and-the-lens.md` (N-A11), `evidence-pass.md` (N-A12, N-A13, N-A16, N-A19), `the-walk.md` (N-A14, N-A17, N-A20, N-A22, the do-more-of and walk questions), `registering-candidates.md` (N-A15, the value-lever definition line), `report-format.md`, `resuming-and-picking-up.md`; every other line in `SKILL.md` |
 | Deconstruct | `references/choosing-a-workflow.md`, `from-a-document.md`, `interview.md`, `personal-life.md`, `re-runs.md`, `requirements-template.md`, `saving-the-requirements.md`, `storage.md`, `location.md`, `routing.md`, `routing-rare.md`, `saving.md`, `platform-facts.md` |
 | Design | `references/plan-template.md`, `self-test-checklist.md`, `updating-the-plan.md`, `capability-domains.md`, `orchestrator-on-primary-loop.md` |
-| Build | `references/setup.md`, `claude-code-block.md`, `bare-run.md`, `carried-lines.md`, `standard-tasks.md`, `package-and-install.md`, `microsoft-365-agent.md`, `fix-mode.md`, `live-change.md`, `build-record-template.md`, `skill-spec.md`, `agent-spec.md`; `scripts/test-run.sh` |
+| Build | `references/setup.md`, `claude-code-block.md`, `fresh-chat-run.md`, `carried-lines.md`, `standard-tasks.md`, `package-and-install.md`, `microsoft-365-agent.md`, `fix-mode.md`, `live-change.md`, `build-record-template.md`, `skill-spec.md`, `agent-spec.md`; `scripts/test-run.sh` |
 | Test | `references/hand-overs.md`, `claude-code-runs.md`, `going-live.md`, `rounds.md`, `results-template.md`; `scripts/test-run.sh` |
 
 The lines every built workflow carries (the practice-run first line, the never-made rule, the flag, re-check and time-saved lines, N-T19's inside form) live only in Build's `references/carried-lines.md`, which both the built-text check and Microsoft 365's build prompt quote.

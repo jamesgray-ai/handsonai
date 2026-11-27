@@ -164,8 +164,7 @@ plugins:
 write_block: "off"
 schedule: none
 fingerprints: {}
-bare_run:
-  client-follow-up: done
+fresh_chat_run: done
 run_folders: []
 change_requests: []
 ---

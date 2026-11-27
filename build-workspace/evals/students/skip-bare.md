@@ -1,4 +1,4 @@
-# Leader: skips the bare run (Build)
+# Leader: skips the fresh-chat run (Build)
 
 ## Who you are
 Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; you are not technical. Short, plain replies.

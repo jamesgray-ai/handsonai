@@ -1467,8 +1467,7 @@ write_block: "off"
 schedule: none
 fingerprints:
   /Documents/Cowork/weekly-grocery-list/C1-pantry-staples.md: "saved 2026-10-24, 1 KB"
-bare_run:
-  weekly-grocery-list: "skipped: connections can't be confirmed off per session on Microsoft 365"
+fresh_chat_run: "skipped: the leader said skip"
 run_folders: []
 change_requests: []
 ---

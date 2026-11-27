@@ -1018,7 +1018,8 @@
    "files": {
     "build": "references/bare-run.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24)"
+   "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 3 Task 4 (B4, B5: one fresh-chat run of the installed workflow replaces the bare run; the leader never answers the workflow's questions)"
   },
   {
    "id": "N-B44",
@@ -1050,7 +1051,8 @@
    "files": {
     "build": "references/bare-run.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24)"
+   "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 3 Task 4 (B4, B5: one fresh-chat run of the installed workflow replaces the bare run; the leader never answers the workflow's questions)"
   },
   {
    "id": "N-B45",
@@ -1063,7 +1065,8 @@
    "files": {
     "build": "references/bare-run.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24)"
+   "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
+   "retired": "2026-11-27: shape release Pass 3 Task 4 (B4, B5: one fresh-chat run of the installed workflow replaces the bare run; the leader never answers the workflow's questions)"
   },
   {
    "id": "N-B45",
@@ -5033,7 +5036,7 @@
   {
    "id": "N-B4",
    "form": "main",
-   "text": "Build makes your workflow for [Name] from your approved plan, task by task, checking each part as it goes. First I'll need you to [No place yet, Claude, ChatGPT: 'set up a Project for your workflow, '; Claude desktop: 'set up a folder for your workflow, '] connect [tools], check [a draft] and OK [L] quick real checks and setup changes; then I build and check the rest, and I'll ask you to confirm about [K] things along the way[Bare run, Claude and ChatGPT: ', including one short run you do yourself in a new chat, then delete'][Bare run, Codex: ', including one short run you do yourself in a new terminal, then close']. [With an open item: '[Part] waits for [the open item]; I'll build everything else.'] I'll read and save your files in [location]. [The stopping sentence, section 4.] Let's start with [first action].",
+   "text": "Build makes your workflow for [Name] from your approved plan, task by task, checking each part as it goes. First I'll need you to [No place yet, Claude, ChatGPT: 'set up a Project for your workflow, '; Claude desktop: 'set up a folder for your workflow, '] connect [tools], check [a draft] and OK [L] quick real checks and setup changes; then I build and check the rest, and I'll ask you to confirm about [K] things along the way[Fresh-chat run, Claude, ChatGPT and Microsoft 365: ', including one run of it you do yourself in a new chat'][Fresh-chat run, Claude Code and Codex: ', including one run of it you do yourself in a new session']. [With an open item: '[Part] waits for [the open item]; I'll build everything else.'] I'll read and save your files in [location]. [The stopping sentence, section 4.] Let's start with [first action].",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -5041,7 +5044,7 @@
    "files": {
     "build": "SKILL.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27: shape release Pass 3 Task 4 (B4, B5: one fresh-chat run of the installed workflow replaces the bare run; the leader never answers the workflow's questions): the bare-run clauses become the fresh-chat-run clauses"
   },
   {
    "id": "N-B4",
@@ -5059,7 +5062,7 @@
   {
    "id": "N-B4",
    "form": "after an orientation line",
-   "text": "Build makes your workflow for [Name] from your approved plan, task by task, checking each part as it goes. First I'll need you to [No place yet, Claude, ChatGPT: 'set up a Project for your workflow, '; Claude desktop: 'set up a folder for your workflow, '] connect [tools], check [a draft] and OK [L] quick real checks and setup changes; then I build and check the rest, and I'll ask you to confirm about [K] things along the way[Bare run, Claude and ChatGPT: ', including one short run you do yourself in a new chat, then delete'][Bare run, Codex: ', including one short run you do yourself in a new terminal, then close']. [With an open item: '[Part] waits for [the open item]; I'll build everything else.'] [The stopping sentence, section 4.] Let's start with [first action].",
+   "text": "Build makes your workflow for [Name] from your approved plan, task by task, checking each part as it goes. First I'll need you to [No place yet, Claude, ChatGPT: 'set up a Project for your workflow, '; Claude desktop: 'set up a folder for your workflow, '] connect [tools], check [a draft] and OK [L] quick real checks and setup changes; then I build and check the rest, and I'll ask you to confirm about [K] things along the way[Fresh-chat run, Claude, ChatGPT and Microsoft 365: ', including one run of it you do yourself in a new chat'][Fresh-chat run, Claude Code and Codex: ', including one run of it you do yourself in a new session']. [With an open item: '[Part] waits for [the open item]; I'll build everything else.'] [The stopping sentence, section 4.] Let's start with [first action].",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -5067,7 +5070,7 @@
    "files": {
     "build": "SKILL.md"
    },
-   "source": "James's approval in session (2026-11-19): the opening after an orientation line, which already said the promise clause"
+   "source": "James's approval in session (2026-11-19): the opening after an orientation line, which already said the promise clause; 2026-11-27: shape release Pass 3 Task 4 (B4, B5: one fresh-chat run of the installed workflow replaces the bare run; the leader never answers the workflow's questions): the bare-run clauses become the fresh-chat-run clauses"
   },
   {
    "id": "N-B4",
@@ -6671,12 +6674,14 @@
    "text": "If its first line isn't 'Practice run: nothing will be sent or changed.', stop the chat and tell me.",
    "kind": "safety or promise",
    "skills": [
+    "build",
     "test"
    ],
    "files": {
-    "test": "references/hand-overs.md"
+    "test": "references/hand-overs.md",
+    "build": "references/fresh-chat-run.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 3 Task 4 (B4, B5: one fresh-chat run of the installed workflow replaces the bare run; the leader never answers the workflow's questions): Build's fresh-chat run hand-over says it too"
   },
   {
    "id": "N-T8",
@@ -11499,6 +11504,19 @@
     "build": "references/package-and-install.md"
    },
    "source": "independent review check B1-19/B1-20; approved by James 2026-11-21"
+  },
+  {
+   "id": "N-B58",
+   "form": "main",
+   "text": "This is your workflow asking, as it would on a real run:",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/fresh-chat-run.md"
+   },
+   "source": "2026-11-27: shape release Pass 3 Task 4 (B4, B5: one fresh-chat run of the installed workflow replaces the bare run; the leader never answers the workflow's questions) (B5: the one marker for a real need to answer the workflow's question during Build's checks)"
   },
   {
    "id": "N-T60",

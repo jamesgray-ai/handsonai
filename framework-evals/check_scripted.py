@@ -945,6 +945,28 @@ def _nf4_before_creator(run):
     return True, "N-F4's Build form leads the creator and the first relayed checkpoint in every session"
 
 
+FRESH_BLOCK = re.compile(r"```[^\n]*\n[^\n]*[—-]+ practice run[ \t]*\n", re.I)
+
+
+def _nf4_before_fresh_run(run):
+    """Pass 3, Task 4 (F5): the fresh-chat run's hand-over carries Build's form of N-F4 before its block: in
+    the message holding the block, ahead of it, or in the AI message straight before it (the chat
+    platforms' first message, which ends asking for 'ready'). Said only earlier in the session, or after
+    the block, fails; a session with no such block passes."""
+    forms = [ln for ln in corpus().get("N-F4", "Build") if ln.text]
+    for s in run["sessions"]:
+        msgs = _ai_turns(s, "any")
+        for i, m in enumerate(msgs):
+            b = FRESH_BLOCK.search(m)
+            if not b:
+                continue
+            here = any(f.matches(m[:b.start()]) for f in forms)
+            before = i > 0 and any(f.matches(msgs[i - 1]) for f in forms)
+            if not (here or before):
+                return False, f"session {s['n']} AI message {i + 1}: the fresh-chat run's block with no N-F4 Build form in its hand-over"
+    return True, "N-F4's Build form is in every fresh-chat run hand-over, before its block"
+
+
 def check(c, run):
     """Return (passed, evidence)."""
     t = c["type"]
@@ -1025,6 +1047,8 @@ def check(c, run):
         return _nf4_leads(run)
     if t == "nf4_before_creator":
         return _nf4_before_creator(run)
+    if t == "nf4_before_fresh_run":
+        return _nf4_before_fresh_run(run)
     if t == "no_time_or_step_numbers":
         allowed = leader_sizes(run)
         return _scan(run, n, lambda m: time_or_step_hits(m, allowed), "time estimate or step number")

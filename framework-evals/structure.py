@@ -249,7 +249,7 @@ def check_plan(text, requirements_text=None):
 # ---------------------------------------------------------------- the build record
 
 RECORD_KEYS = ["plan_revision", "last_close_after_round", "live_checks", "skills_on", "plugins", "write_block", "schedule",
-               "fingerprints", "bare_run", "run_folders", "change_requests"]
+               "fingerprints", "fresh_chat_run", "run_folders", "change_requests"]
 RECORD_COLS = ["Task", "Build Output", "Context ID", "Artifact", "Path or location", "Status", "Saved",
                "Built rev", "Last built after round", "Check", "Ruling"]
 RECORD_STATUS = re.compile(r"^(Created|Reused|Extended|Installed by you|Built, misses .+|Waiting on .+|"
@@ -292,9 +292,11 @@ def check_build_record(text):
         for k, v in (data.get("live_checks") or {}).items():
             if not re.match(r"^(done(: .+)?|declined|skipped|not yet)$", str(v)):
                 probs.append(f"live_checks.{k}: {v!r} isn't done, declined, skipped or not yet")
-        for k, v in (data.get("bare_run") or {}).items():
-            if not re.match(r"^(done|skipped: .+)$", str(v)):
-                probs.append(f"bare_run.{k}: {v!r} isn't done or skipped: [why]")
+        # B4 (Pass 3): one fresh-chat run of the installed workflow replaces the bare run of each main skill
+        if "fresh_chat_run" in data and not re.match(r"^(done|skipped: .+|failed: .+)$", str(data["fresh_chat_run"])):
+            probs.append(f"fresh_chat_run: {data['fresh_chat_run']!r} isn't done, skipped: [why] or failed: [what]")
+        if "bare_run" in data:
+            probs.append("bare_run is the layout before 11.0: the record keeps fresh_chat_run")
         probs += check_requests(data.get("change_requests"), "change_requests")
     heads = h2(body)
     if heads[:2] != ["What was built", "What it can access"]:

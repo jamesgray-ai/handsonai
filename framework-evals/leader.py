@@ -696,10 +696,10 @@ def simulates_leader_runs(skill, platform, session=None, ev=None):
     """Whether a Test session on Claude Code or Codex runs the leader's hand-overs (run_chat in the
     workspace) instead of the script's "Your runs" blocks. A first round's practice set holds an input
     the AI writes itself, which no scripted block can match, so simulated is the default; a session
-    (or eval) whose script plants the run's block says `"leader_runs": "scripted"`. Build never: its
-    behaviour on these platforms is unchanged."""
+    (or eval) whose script plants the run's block says `"leader_runs": "scripted"`. Build too (Pass 3, B4):
+    its one fresh-chat run is the leader's, in a second terminal or a new Codex session."""
     mode = (session or {}).get("leader_runs", (ev or {}).get("leader_runs", "simulated"))
-    return skill == "test" and platform.key in ("claude-code", "codex") and mode != "scripted"
+    return skill in ("test", "build") and platform.key in ("claude-code", "codex") and mode != "scripted"
 
 
 def scripted_runs(session=None, ev=None):
@@ -711,7 +711,7 @@ def scripted_runs(session=None, ev=None):
 
 
 def handover_block(ai_text):
-    """The block a hand-over asks the leader to paste into a new chat (Test's N-T8, Build's N-B45). On the chat
+    """The block a hand-over asks the leader to paste into a new chat (Test's N-T8, Build's fresh-chat run). On the chat
     platforms Test sends it in a message of its own, after the leader says 'ready': "…paste it into that chat"."""
     if not re.search(r"(?i)paste (the block below|this|it into that chat)", ai_text):
         return None
