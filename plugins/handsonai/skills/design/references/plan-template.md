@@ -77,7 +77,7 @@ A workflow that reads outside content and can write gets a checkpoint or a draft
 
 ## 4. The patterns catalogue
 
-The Autonomy Summary names the pattern from this catalogue and cites both the playbook page and the primary source, as "routing (playbook: Routing; Anthropic, *Building effective agents*)". The level each pattern gives is the playbook's mapping. Multi-Agent Configuration uses these names. Fetch the page by URL where the platform can, and read its primary source from the page's own Sources; say so in the plan when you couldn't fetch it. Cite nothing else: a pattern you can't attribute is described without a source, and a name not listed here is never cited.
+The Autonomy Summary names the pattern from this catalogue and cites both the playbook page and the primary source, as "routing (playbook: Routing; Anthropic, *Building effective agents*)". The level each pattern gives is the playbook's mapping. Multi-Agent Configuration uses these names. Fetch the page by URL where the platform can, and read its primary source from the page's own Sources; a page you couldn't fetch is cited from this table alone, with nothing in the plan about the fetch. Cite nothing else: a pattern you can't attribute is described without a source, and a name not listed here is never cited.
 
 | Pattern | Playbook page (https://handsonai.info…) | Level | Primary source |
 |---|---|---|---|
@@ -119,10 +119,13 @@ changes: []
 
 ## 6. The file: sections, in order
 
-The title, then exactly these `##` sections, named exactly, in this order. `## Multi-Agent Configuration` appears only with more than one agent. No other `##` section.
+The title, then exactly these `##` sections, named exactly, in this order, opening with `## Summary`. `## Multi-Agent Configuration` appears only with more than one agent. No other `##` section: nothing of the self-check or the plan check is saved (their fixes are named in the review), and nothing about this session is written (a page you couldn't fetch, an option you couldn't verify): the file holds only the plan. **A plan saved in the older form** (no `## Summary`, ending in `## Self-Test Summary`) is brought to this form at its next save: write its `## Summary` and remove its `## Self-Test Summary`, changing nothing else (no task's `rev` rises for it).
 
 ````markdown
 # [Workflow Name] — Design Plan
+
+## Summary
+[The plan in brief, in plain words, as the review says it (`review.md`, items 1 to 5): how it runs and how the leader starts it, the parts it reuses or builds, what it reads and changes, how it's checked in a few words, and keeping it working. No requirement, task or line IDs, and no level name. Written at the end of Part 2 and kept up to date with every change.]
 
 ## Source
 - **Requirements:** `requirements.md`
@@ -165,7 +168,7 @@ The title, then exactly these `##` sections, named exactly, in this order. `## M
 | P1 | T2 | Satisfied / Accepted ([owner]: [reason]) / Open (open item [n]) |
 
 ### Integration Options
-[One line per tool with a connection; an options table only where there isn't one. Where you couldn't verify them, the line "Integration options below are unverified; confirm before relying on them."]
+[One line per tool with a connection; an options table only where there isn't one. An option you couldn't verify goes into Deferred to Build as something Build confirms before relying on it.]
 
 ### Model Recommendation
 [A capability tier per part: reasoning-heavy, fast or vision. No model IDs.]
@@ -246,7 +249,7 @@ A context file is read at run time only when it changes between runs or is too l
 **Packaging note:** [how the parts ship together.] On Claude Code only: the practice folder is `practice/` in the workflow's place (`practice-[workflow-slug]/` when several workflows share the workspace, or a `practice/` folder without the framework's `.framework-practice` marker is already there), and a file-output workflow writes under the practice-run cue into its run's subfolder there.
 
 ## Deferred to Build
-- [Only what truly can't be decided now (the exact model for a tier, a connection's sign-in details), and notes from the plan check Build will need. "None." when there are none.]
+- [Only what truly can't be decided now (the exact model for a tier, a connection's sign-in details, an integration option to confirm before relying on it), and notes from the plan check Build will need. "None." when there are none.]
 
 ## Stakeholders
 [Organizational lens: the roles and what each does or approves. Individual lens: "None: Individual lens."]
@@ -256,11 +259,6 @@ A context file is read at run time only when it changes between runs or is too l
 
 ## Tasks
 [Section 7.]
-
-## Self-Test Summary
-- ✓ [checklist item]
-- ⚠ [checklist item]: [what failed]
-- ✓ Plan check: [nothing needed fixing / each fix, in plain words]
 ````
 
 **Rules for the sections:**

@@ -1174,6 +1174,11 @@ def check(c, run):
             if not root:
                 return False, "requirements structure needs the session's workspace on disk"
             probs = ST.check_requirements(Path(root) / path, c.get("registry"))
+        elif c["kind"] == "plan":
+            # Pass 4 (P4): a plan this run wrote or changed must be in this release's form; one it left as it
+            # found it (a fixture's older plan) may keep the older form
+            written = (s.get("files_start") or {}).get(path) != body
+            probs = ST.check_text("plan", body, written=written)
         else:
             probs = ST.check_text(c["kind"], body)
         return (not probs, f"{path}: " + ("; ".join(probs[:6]) if probs else "well formed"))

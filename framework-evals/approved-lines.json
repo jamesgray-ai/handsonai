@@ -4248,7 +4248,8 @@
     "design": "references/review.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-27: shape release Pass 4 (U1, P2: the review no longer names the level; it stays in the plan file)"
   },
   {
    "id": "N-10",
@@ -4263,7 +4264,8 @@
    },
    "source": "design.md 12; approved before 3c-DJ",
    "fragment": true,
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-27: shape release Pass 4 (U1, P2: the review no longer names the level; it stays in the plan file)"
   },
   {
    "id": "N-10",
@@ -4278,7 +4280,8 @@
    },
    "source": "design.md 12; approved before 3c-DJ",
    "fragment": true,
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-27: shape release Pass 4 (U1, P2: the review no longer names the level; it stays in the plan file)"
   },
   {
    "id": "N-10",
@@ -4293,7 +4296,8 @@
    },
    "source": "design.md 12; approved before 3c-DJ",
    "fragment": true,
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-27: shape release Pass 4 (U1, P2: the review no longer names the level; it stays in the plan file)"
   },
   {
    "id": "N-10",
@@ -4306,7 +4310,8 @@
    "files": {
     "design": "references/variants.md"
    },
-   "source": "3c-EB (2026-10-25)"
+   "source": "3c-EB (2026-10-25)",
+   "retired": "2026-11-27: shape release Pass 4 (U1, P2: the review no longer names the level; it stays in the plan file)"
   },
   {
    "id": "N-11",
@@ -4528,7 +4533,8 @@
     "design": "references/review.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
-   "note": "design: inferred from design 13 by section"
+   "note": "design: inferred from design 13 by section",
+   "retired": "2026-11-27: shape release Pass 4 (U1, P3: the review names each fix the checks made, in a few words, as model wording; nothing of the check is saved in the plan)"
   },
   {
    "id": "N-19",
@@ -4541,7 +4547,8 @@
    "files": {
     "design": "references/review.md"
    },
-   "source": "3c-EB (2026-10-25)"
+   "source": "3c-EB (2026-10-25)",
+   "retired": "2026-11-27: shape release Pass 4 (U1, P3: the review names each fix the checks made, in a few words, as model wording; nothing of the check is saved in the plan)"
   },
   {
    "id": "N-20",
@@ -4753,6 +4760,32 @@
     "design": "references/updating-the-plan.md"
    },
    "source": "3c-DX (2026-10-24)"
+  },
+  {
+   "id": "N-31",
+   "form": "main",
+   "text": "When it runs on its schedule, stopping at [the approval, in plain words] before [the change, in plain words] rests on its own instructions alone; Build will ask you about that before you switch the schedule on.",
+   "kind": "safety or promise",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "2026-11-27: shape release Pass 4 Task 2 (P8, F16: the scheduled-run point names each approval point with the change it comes before; a held protective line)"
+  },
+  {
+   "id": "N-31",
+   "form": "no matched change",
+   "text": "When it runs on its schedule, stopping at [the approval, in plain words] rests on its own instructions alone; Build will ask you about that before you switch the schedule on.",
+   "kind": "safety or promise",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "2026-11-27: shape release Pass 4 Task 2 (P8, F16: the scheduled-run point names each approval point with the change it comes before; a held protective line)"
   },
   {
    "id": "D3′",

@@ -13,7 +13,7 @@
    "fixture": "regulated-same-way",
    "prompt": "Run the design skill. My files are in framework/expense-report-approval.",
    "student": "students/default.md",
-   "expected_output": "State 4 with no plan on Claude Code: the opening (N-1, N-F3 with its Claude Code clause, the pick-up sentence and N-F10), the four signposts, N-2 and N-3, a plan that passes the structure check, approval, the node's Design plan link and fields, and N-7 with Build's phrase for a new session. (Older file, on purpose: the expense-report-approval stand-in keeps its steps, the form only a file kept on a re-run still has.)",
+   "expected_output": "State 4 with no plan on Claude Code: the opening (N-1, N-F3 with its Claude Code clause, the pick-up sentence and N-F10), the four signposts, N-2 and N-3, a review that names no level and names the checks' fixes in a few words, a plan that passes the structure check, approval, the node's Design plan link and fields, and N-7 with Build's phrase for a new session. (Older file, on purpose: the expense-report-approval stand-in keeps its steps, the form only a file kept on a re-run still has.)",
    "files": [
     "students/default.md"
    ],
@@ -86,52 +86,28 @@
      }
     },
     {
-     "text": "The review opens with N-4 and reports the plan check with N-19",
+     "text": "The review opens with N-4",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-4",
-        "form": "main"
-       },
-       {
-        "type": "quote",
-        "id": "N-19"
-       }
-      ]
+      "type": "quote",
+      "id": "N-4",
+      "form": "main"
      }
     },
     {
-     "text": "The level is named once with N-10, ending with its fixed-steps clause",
+     "text": "The review names what the checks fixed, each in a few words (or says in a few words that nothing needed fixing), never a bare count and never \"they're listed in the plan\" (P3: N-19 is model wording now)",
+     "kind": "judged"
+    },
+    {
+     "text": "The review never names the level (Deterministic, Guided or Autonomous): it's in the plan file only (P2: N-10 retired)",
      "kind": "scripted",
      "check": {
-      "type": "any",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-10",
-        "form": "Deterministic",
-        "ending": "With fixed steps"
-       },
-       {
-        "type": "quote",
-        "id": "N-10",
-        "form": "Guided",
-        "ending": "With fixed steps"
-       },
-       {
-        "type": "quote",
-        "id": "N-10",
-        "form": "Autonomous",
-        "ending": "With fixed steps"
-       }
-      ]
+      "type": "ai_not_regex",
+      "pattern": "\\b(Deterministic|Guided|Autonomous)\\b"
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -395,7 +371,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -497,7 +473,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -699,7 +675,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -827,7 +803,7 @@
      "must": true
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -1869,7 +1845,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -1976,7 +1952,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -2202,7 +2178,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -2277,7 +2253,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -2333,7 +2309,7 @@
    ],
    "expectations": [
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -2417,7 +2393,7 @@
    ],
    "expectations": [
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -2497,7 +2473,7 @@
    ],
    "expectations": [
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -2598,7 +2574,7 @@
    ],
    "expectations": [
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -2728,7 +2704,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -2845,7 +2821,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -2921,7 +2897,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3098,7 +3074,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3184,7 +3160,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3264,7 +3240,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3361,7 +3337,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3424,7 +3400,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3519,7 +3495,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3620,7 +3596,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3674,7 +3650,7 @@
    ],
    "expectations": [
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3794,7 +3770,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3878,7 +3854,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3962,7 +3938,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -4036,7 +4012,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -4134,7 +4110,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -4176,18 +4152,15 @@
    "fixture": "draft-safety-gap",
    "prompt": "Run the design skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "A saved draft whose orchestrator asks for send and delete on Gmail: the plan check finds more access than the workflow needs, fixes it, reports it with N-19 and lists it in the Self-Test Summary.",
+   "expected_output": "A saved draft whose orchestrator asks for send and delete on Gmail: the plan check finds more access than the workflow needs, fixes it and names the fix in the review in a few words; the saved plan, brought to this release's form, holds no Self-Test Summary.",
    "files": [
     "students/default.md"
    ],
    "expectations": [
     {
-     "text": "N-19's found-and-fixed form",
-     "kind": "scripted",
-     "check": {
-      "type": "ai_regex",
-      "pattern": "I checked the plan against your requirements: I found and fixed (\\d+|one|two|three|four|five) things?; they're listed in the plan\\."
-     }
+     "text": "The review names each fix the plan check made, in a few words each (P3: model wording; never \"they're listed in the plan\")",
+     "kind": "judged",
+     "must": true
     },
     {
      "text": "Send and delete are gone from Required Tools (named there only as denied or left out)",
@@ -4208,17 +4181,16 @@
      }
     },
     {
-     "text": "The Self-Test Summary lists the fix",
+     "text": "The saved plan holds no Self-Test Summary (P4: nothing of the check is saved; the review names the fix)",
      "kind": "scripted",
      "check": {
-      "type": "section_regex",
+      "type": "file_not_regex",
       "path": "framework/client-follow-up/design-plan.md",
-      "section": "## Self-Test Summary",
-      "pattern": "(?i)plan check"
+      "pattern": "(?m)^## Self-Test Summary"
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -4261,18 +4233,15 @@
    "fixture": "draft-with-gaps",
    "prompt": "Run the design skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "A saved draft with one gap of each kind (AC3 and R3 met by no task; the checkpoint dropped from the outline; send and delete access; installed in the framework folder): each found and fixed, reported in N-19 and listed in plain words; nothing cosmetic reported.",
+   "expected_output": "A saved draft with one gap of each kind (AC3 and R3 met by no task; the checkpoint dropped from the outline; send and delete access; installed in the framework folder): each found and fixed, each named in the review in a few words; nothing cosmetic reported.",
    "files": [
     "students/default.md"
    ],
    "expectations": [
     {
-     "text": "N-19's found-and-fixed form",
-     "kind": "scripted",
-     "check": {
-      "type": "ai_regex",
-      "pattern": "I checked the plan against your requirements: I found and fixed (\\d+|one|two|three|four|five|six) things; they're listed in the plan\\."
-     }
+     "text": "The review names each fix the plan check made, in a few words each (P3: model wording; never \"they're listed in the plan\")",
+     "kind": "judged",
+     "must": true
     },
     {
      "text": "AC3 and R3 are met again",
@@ -4317,7 +4286,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -4349,7 +4318,7 @@
      }
     },
     {
-     "text": "The Self-Test Summary lists each fix in plain words; no style or nice-to-have point is reported",
+     "text": "The review names each fix in plain words, a few words each; no style or nice-to-have point is reported, and nothing of the check is saved in the plan",
      "kind": "judged",
      "must": true
     },
@@ -4376,15 +4345,12 @@
    ],
    "expectations": [
     {
-     "text": "N-19's found-and-fixed form",
-     "kind": "scripted",
-     "check": {
-      "type": "ai_regex",
-      "pattern": "I checked the plan against your requirements: I found and fixed"
-     }
+     "text": "The review names each fix the plan check made, in a few words each (P3: model wording; never \"they're listed in the plan\")",
+     "kind": "judged",
+     "must": true
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -4446,7 +4412,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -4500,7 +4466,7 @@
    ],
    "expectations": [
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -4619,7 +4585,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -4781,7 +4747,7 @@
    "fixture": "scheduled",
    "prompt": "Run the design skill. My files are in Google Drive, in ai-workspace/framework/weekly-pipeline-post.",
    "student": "students/default.md",
-   "expected_output": "On ChatGPT, a scheduled run's checkpoint before the Slack post rests on the instruction alone: listed by N-5 as a consequential point and named in N-6; the SCH task says so for that checkpoint.",
+   "expected_output": "On ChatGPT, a scheduled run's checkpoint before the Slack post rests on the instruction alone: listed by N-5 as a consequential point in N-31's words, naming the sales manager's approval and the post it comes before, and named in N-6; the SCH task says so for that checkpoint.",
    "files": [
     "students/default.md"
    ],
@@ -4815,6 +4781,25 @@
      }
     },
     {
+     "text": "F16: the scheduled-run point names the approval and the change it comes before, word for word (N-31)",
+     "kind": "scripted",
+     "check": {
+      "type": "any",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-31",
+        "form": "main"
+       },
+       {
+        "type": "quote",
+        "id": "N-31",
+        "form": "no matched change"
+       }
+      ]
+     }
+    },
+    {
      "text": "An SCH task",
      "kind": "scripted",
      "check": {
@@ -4825,7 +4810,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -4908,7 +4893,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -4997,7 +4982,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -5161,7 +5146,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -5447,7 +5432,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -5605,7 +5590,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -5809,7 +5794,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -5931,7 +5916,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -6017,7 +6002,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -6278,7 +6263,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -6458,7 +6443,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -6573,7 +6558,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -6648,7 +6633,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -6769,7 +6754,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -6938,7 +6923,7 @@
      "must": true
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -7005,7 +6990,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -7053,7 +7038,7 @@
    ],
    "expectations": [
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -7211,7 +7196,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -7314,7 +7299,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -7591,7 +7576,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -7749,7 +7734,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -7906,7 +7891,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -8071,7 +8056,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -8228,7 +8213,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -8390,7 +8375,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -8498,7 +8483,7 @@
    ],
    "expectations": [
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -8574,46 +8559,11 @@
      "must": true
     },
     {
-     "text": "After B54, the level is never N-10's plain Autonomous form: with an Autonomous step it's N-10's \"With planned steps\" form (3c-EB)",
+     "text": "After B54, the review never names the level (P2: N-10 retired)",
      "kind": "scripted",
      "check": {
-      "type": "any",
-      "checks": [
-       {
-        "type": "quote_absent",
-        "id": "B54"
-       },
-       {
-        "type": "all",
-        "checks": [
-         {
-          "type": "quote_absent",
-          "id": "N-10",
-          "form": "Autonomous"
-         },
-         {
-          "type": "any",
-          "checks": [
-           {
-            "type": "quote",
-            "id": "N-10",
-            "form": "With planned steps"
-           },
-           {
-            "type": "quote",
-            "id": "N-10",
-            "form": "Guided"
-           },
-           {
-            "type": "quote",
-            "id": "N-10",
-            "form": "Deterministic"
-           }
-          ]
-         }
-        ]
-       }
-      ]
+      "type": "ai_not_regex",
+      "pattern": "\\b(Deterministic|Guided|Autonomous)\\b"
      }
     }
    ],
@@ -8684,7 +8634,7 @@
    ],
    "expectations": [
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -8771,7 +8721,7 @@
    ],
    "expectations": [
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -8985,7 +8935,7 @@
      }
     },
     {
-     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), opening with ## Summary and with no Self-Test Summary (Pass 4, P4: a plan the run writes)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -9564,7 +9514,7 @@
      "must": true
     },
     {
-     "text": "The Self-Test Summary and the plan check raise nothing about a change that can't be undone with no checkpoint: the flag W line is the named exception",
+     "text": "The review and the plan check raise nothing about a change that can't be undone with no checkpoint: the flag W line is the named exception",
      "kind": "judged"
     },
     {

@@ -9,7 +9,9 @@ headings and table columns are scripted).
 
 Each check returns a list of problems (empty when the file is well formed).
 
-Usage: python3 structure.py <plan|build_record|results|requirements> <file>... [--no-registry]
+Usage: python3 structure.py <plan|build_record|results|requirements> <file>... [--no-registry] [--written]
+  (a plan file is checked as found, so the older form passes too; --written checks it as a run's own
+  plan, which must open with ## Summary and hold no ## Self-Test Summary)
 """
 import re
 import shutil
@@ -145,9 +147,12 @@ PLAN_VALUES = {"approved": {True, False}, "autonomy": {"Deterministic", "Guided"
                "decomposition": {"steps", "domains"}, "mechanism": {"Skill", "Agent"},
                "involvement": {"Augmented", "Automated"}, "platform_mode": {"code", "guided"},
                "packaging": {"Plugin", "Standalone Skill", "Workspace Agent", "Loose Files"}}
-PLAN_SECTIONS = ["Source", "Architecture", "Decomposition", "Data Readiness", "Component Blueprints",
-                 "Prerequisites", "Deployment Plan", "Deferred to Build", "Stakeholders", "Open items",
-                 "Tasks", "Self-Test Summary"]
+# Pass 4 (P4, shape release): a plan opens with ## Summary (the plain summary the review shows) and holds no
+# ## Self-Test Summary (the self-test runs, its fixes are named in the chat, nothing of it is saved). The older
+# form, ending in ## Self-Test Summary, passes only on a plan the run left as it found it.
+PLAN_SECTIONS = ["Summary", "Source", "Architecture", "Decomposition", "Data Readiness", "Component Blueprints",
+                 "Prerequisites", "Deployment Plan", "Deferred to Build", "Stakeholders", "Open items", "Tasks"]
+PLAN_SECTIONS_OLD = PLAN_SECTIONS[1:] + ["Self-Test Summary"]
 PLAN_OPTIONAL = {"Multi-Agent Configuration"}
 PLAN_NEVER = {"Global Constraints", "Coverage", "Evaluation Inputs", "Recommended Implementation Order",
               "Value & Measurement", "Run logging", "Review focus"}
@@ -161,7 +166,9 @@ BUILD_OUTPUT = re.compile(r"^(New skill: S\d+|Use existing: .+|Extend existing: 
 TASK_FIELDS = ["Builds", "Uses / hands on", "Meets", "Done when", "Depends on", "rev"]
 
 
-def check_plan(text, requirements_text=None):
+def check_plan(text, requirements_text=None, written=True):
+    """The plan's problems. `written`: the plan was written or changed by the run being checked, so it must be in
+    this release's form; False (a plan left as it was found) also takes the older form."""
     probs = []
     fm, body = split_frontmatter(text)
     if fm is None:
@@ -180,8 +187,14 @@ def check_plan(text, requirements_text=None):
     elif data:
         probs.append(f"frontmatter doesn't parse: {data['__error__']}")
     heads = h2(body)
-    probs += in_order(heads, PLAN_SECTIONS, "sections")
-    extra = [h for h in heads if h not in PLAN_SECTIONS and h not in PLAN_OPTIONAL]
+    old = not written and "Self-Test Summary" in heads and "Summary" not in heads
+    want = PLAN_SECTIONS_OLD if old else PLAN_SECTIONS
+    if written and "Self-Test Summary" in heads:
+        probs.append("a Self-Test Summary section: the plan saves nothing of the self-test (Pass 4, P4)")
+    if heads[:1] != ["Summary"] and not old:
+        probs.append("the plan doesn't open with ## Summary (Pass 4, P4)")
+    probs += in_order(heads, want, "sections")
+    extra = [h for h in heads if h not in want and h not in PLAN_OPTIONAL and h != "Self-Test Summary"]
     if extra:
         probs.append(f"sections not in 11.2: {extra}")
     never = [h for h in heads + h3_under(body, "Architecture") if h in PLAN_NEVER]
@@ -233,10 +246,12 @@ def check_plan(text, requirements_text=None):
     tail = [t for t in ids if not t.startswith("T")]
     if ids[len(nums):] != tail or (tail and tail not in (["KW"], ["KW", "SCH"])):
         probs.append(f"KW then SCH come after the numbered tasks: {ids}")
-    # self-test summary
-    sts = [l for l in section(body, "Self-Test Summary").split("\n") if l.startswith("- ")]
-    if not sts or any(not re.match(r"^- [✓⚠]", l) for l in sts):
-        probs.append("Self-Test Summary: one line per item, each ✓ or ⚠")
+    if old:  # the older form's self-test summary
+        sts = [l for l in section(body, "Self-Test Summary").split("\n") if l.startswith("- ")]
+        if not sts or any(not re.match(r"^- [✓⚠]", l) for l in sts):
+            probs.append("Self-Test Summary: one line per item, each ✓ or ⚠")
+    elif not section(body, "Summary").strip():
+        probs.append("Summary: empty")
     # no copied requirement wording
     if requirements_text:
         for line in re.findall(r"^- (?:AC|R|G)\d+[^:]*: (.+)$", requirements_text, re.M):
@@ -441,7 +456,7 @@ def main(argv):
     bad = 0
     for f in files:
         probs = (check_requirements(f, False if "--no-registry" in argv else None) if kind == "requirements"
-                 else check_text(kind, Path(f).read_text()))
+                 else check_text(kind, Path(f).read_text(), **({"written": "--written" in argv} if kind == "plan" else {})))
         print(f"{f}: {'OK' if not probs else str(len(probs)) + ' problem(s)'}")
         for p in probs:
             print("   ", p)

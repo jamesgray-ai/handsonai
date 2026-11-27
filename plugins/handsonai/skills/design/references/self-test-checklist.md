@@ -1,11 +1,12 @@
-# The self-check and the plan check
+# The self-check, the plan check and the coverage check
 
-Run both on every draft and every update, the self-check first, and fix what fails. The plan's Self-Test Summary records one line per checklist item below, in this order, `✓` when it passes or `⚠` with what failed (in plain words); then one line for the plan check, with each fix it led to in plain words.
+Run all three on every draft and every update, in that order, and fix what fails. Nothing of them is saved in the plan: no summary section, no ticks, no list of what was checked. Keep a note of each fix you made (in plain words, a few words each) for the review, which names them (`review.md`, item 6).
 
 ## Structure
 
 - The frontmatter has exactly `workflow`, `requirements_revision`, `approved`, `autonomy`, `decomposition`, `mechanism`, `involvement`, `platform`, `platform_mode`, `packaging`, `changes`, in that order, with canonical values: autonomy `Deterministic | Guided | Autonomous`; decomposition `steps | domains`; mechanism `Skill | Agent`; involvement `Augmented | Automated`; `platform_mode` by the template's rule (section 2); packaging `Plugin | Standalone Skill | Workspace Agent | Loose Files`.
-- Every `##` section of `plan-template.md` section 6 is there, in order (Multi-Agent Configuration only with more than one agent), and no other.
+- Every `##` section of `plan-template.md` section 6 is there, in order, opening with `## Summary` (Multi-Agent Configuration only with more than one agent), and no other: no self-test or plan-check section, and no note about this session (a page you couldn't fetch, an option you couldn't verify) anywhere in the file.
+- `## Summary` says what the review's items 1 to 5 say, in plain words, with no IDs and no level name, and matches the plan as it now stands.
 - Architecture Decisions has all seven rows: Lens, Platform, Platform Mode, Orchestration, Involvement, Packaging, Trigger.
 - Every Build Output value is canonical.
 - Every Step ID matches a requirements step line or is a plan ID (`Step 2a`, `Step 0a`, `Step Pa`).
@@ -47,7 +48,7 @@ Run both on every draft and every update, the self-check first, and fix what fai
 
 - Every Build Output row is covered by exactly one task, with one task per distinct artifact or setup.
 - Setup tasks that need the leader come first; then components, the orchestrator, `KW`, `SCH`.
-- `KW` is present, listing only the lines that apply; `SCH` is present for a scheduled workflow (a `Starts` of `schedule: …` or `event: … · checked …`, or with no `Starts`, a scheduled Trigger), saying for each checkpoint whether the platform holds an unattended run there, and each one that rests on the instruction alone before a change that can't be undone (not a draft) is a consequential point.
+- `KW` is present, listing only the lines that apply; `SCH` is present for a scheduled workflow (a `Starts` of `schedule: …` or `event: … · checked …`, or with no `Starts`, a scheduled Trigger), saying for each checkpoint whether the platform holds an unattended run there and the change it comes before, and each one before a change that can't be undone (not a draft), or whose change can't be matched, is a consequential point, named with N-31.
 - Every AC, R, G, Step, D and W ID in the requirements is in some task's *Meets*, or in Open items (accepted as a risk, or still open).
 - Every *Done when* is of its kind: practice runs and lines; a sample run on an existing input; the target it changes; a read-back.
 - Names and handoff formats agree across tasks.
@@ -79,4 +80,13 @@ After the self-check: a narrow, independent check of the plan against the requir
   - **safety:** a change that can't be undone with no checkpoint where one is required (the flag `W` line excepted: it needs none, and is a consequential point instead), a missing safe default, a write the connection can't make, more access than the workflow needs;
   - **buildability:** something the platform can't do, or a task Build couldn't carry out as written.
 - **What it drops:** style, alternatives and nice-to-haves. A note Build will need goes into Deferred to Build.
-- **Then:** fix what it found. A gap you can't fix becomes a Part 3 question or an open item. The review reports the result with N-19 (`review.md`, item 6); each fix is listed in plain words in the Self-Test Summary's plan-check line (`- ✓ Plan check: …`: like every line there, it opens with ✓ or ⚠).
+- **Then:** fix what it found. A gap you can't fix becomes a Part 3 question or an open item. The review names each fix in a few words (`review.md`, item 6); nothing of the check is saved in the plan.
+
+## The coverage check
+
+Last, after the plan check: a trace of the plan against the requirements, reporting gaps only.
+
+- **Every check is met:** each AC line is in some task's *Meets*, and that task's *Done when* can show it.
+- **Every rule is enforced:** each R, G and P line (and each fixed step) is kept by the part it governs: in a task's *Meets*, a blueprint's rules or Constraint Conformance; a line accepted as a risk, or still open, is in Open items.
+- **Every input and source is supplied:** each I and C line, and each source an AC's `· from:` names, reaches the part that needs it: from the leader at run time (Inputs), from a context file (Data Readiness), or from a setup step (Prerequisites).
+- **Then:** close each gap you can (a task's *Meets*, a blueprint's rule, a Data Readiness row). A gap you can't close becomes a Part 3 question or an open item, and the review says it in one line (`review.md`, item 7). With no gap, nothing about this check is said.

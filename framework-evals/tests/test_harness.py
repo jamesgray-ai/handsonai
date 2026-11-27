@@ -553,15 +553,44 @@ class FileChecks(unittest.TestCase):
         with self.assertRaises(ValueError):
             CS.check({"type": "no_yaml", "path": "x"}, run_of("x", files_end={"x": "a"}))
 
-    def structure(self, kind, text):
-        return ok({"type": "structure", "kind": kind, "path": "f.md"}, run_of("x", files_end={"f.md": text}))
+    def structure(self, kind, text, start=None):
+        files_start = {"f.md": start} if start is not None else None
+        return ok({"type": "structure", "kind": kind, "path": "f.md"},
+                  run_of("x", files_end={"f.md": text}, files_start=files_start))
+
+    def new_plan(self):
+        """The fixture plan in the form Design writes from Pass 4 (P4): it opens with `## Summary`, and has no
+        `## Self-Test Summary` (the self-test runs, its fixes are named in the chat, nothing of it is saved)."""
+        body = re.sub(r"\n## Self-Test Summary\n.*\Z", "\n", self.plan, flags=re.S)
+        return body.replace("\n## Source\n", "\n## Summary\n\nIt drafts each client follow-up email for you to check and send.\n\n## Source\n", 1)
 
     def test_plan_structure(self):
-        self.assertTrue(self.structure("plan", self.plan))
-        self.assertFalse(self.structure("plan", self.plan.replace("autonomy: Guided", "autonomy: guided")))
-        self.assertFalse(self.structure("plan", self.plan.replace("### KW — Keeping it working", "### X9 — Keeping it working")))
-        self.assertFalse(self.structure("plan", self.plan.replace("## Self-Test Summary", "## Coverage\n\n## Self-Test Summary")))
-        self.assertFalse(self.structure("plan", self.plan.replace("| Handled by orchestrator |", "| Orchestrator does it |")))
+        new = self.new_plan()
+        self.assertTrue(self.structure("plan", new))
+        self.assertFalse(self.structure("plan", new.replace("autonomy: Guided", "autonomy: guided")))
+        self.assertFalse(self.structure("plan", new.replace("### KW — Keeping it working", "### X9 — Keeping it working")))
+        self.assertFalse(self.structure("plan", new.replace("## Source", "## Coverage\n\n## Source")))
+        self.assertFalse(self.structure("plan", new.replace("| Handled by orchestrator |", "| Orchestrator does it |")))
+
+    def test_plan_a_run_writes_opens_with_summary(self):
+        # Pass 4 (P4): a plan the run wrote must open with ## Summary and hold no ## Self-Test Summary
+        new = self.new_plan()
+        self.assertIn("## Self-Test Summary", self.plan)
+        self.assertFalse(self.structure("plan", self.plan), "the old form, written by the run, fails")
+        self.assertFalse(self.structure("plan", new.rstrip("\n") + "\n\n## Self-Test Summary\n- ✓ Plan check: nothing needed fixing\n"))
+        self.assertFalse(self.structure("plan", new.replace("## Summary\n", "## Overview\n", 1)))
+        self.assertFalse(self.structure("plan", re.sub(r"## Summary\n\n[^\n]+\n\n", "", new, count=1)))
+        changed = self.plan.replace("approved: true", "approved: false", 1)
+        self.assertNotEqual(changed, self.plan)
+        self.assertFalse(self.structure("plan", changed, start=self.plan), "an old-form plan the run changed is checked as written")
+        self.assertTrue(self.structure("plan", new, start=self.plan), "a plan the run rewrote in the new form passes")
+
+    def test_plan_left_untouched_keeps_the_old_form(self):
+        # a plan the run left as it found it (a fixture's older plan) still passes in the old form
+        self.assertTrue(self.structure("plan", self.plan, start=self.plan))
+        self.assertTrue(self.structure("plan", self.new_plan(), start=self.new_plan()))
+        self.assertFalse(self.structure("plan", self.plan.replace("autonomy: Guided", "autonomy: guided"),
+                                        start=self.plan.replace("autonomy: Guided", "autonomy: guided")))
 
     def test_build_record_structure(self):
         self.assertTrue(self.structure("build_record", self.record))
