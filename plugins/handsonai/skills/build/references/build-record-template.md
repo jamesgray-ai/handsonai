@@ -41,7 +41,7 @@ change_requests: []
 [Live since YYYY-MM-DD. — Test's line, kept; the date in that form, which routing reads]
 [How to switch it off: [steps] — Test's line, kept]
 
-- [Each part and what it does, in plain words; where it lives; how to start it, and "practice run" to try it with nothing sent or changed.]
+- [Each part and what it does, in plain words; where it lives; how to start it: its start phrase, and where (its place, or with none, a new chat without the framework folder).]
 - [What's still waiting.]
 - [Where the kept copy is.]
 - An older version: [the line, section 6]
@@ -52,7 +52,7 @@ change_requests: []
 ## Parts
 | Task | Build Output | Context ID | Artifact | Path or location | Status | Saved | Built rev | Last built after round | Check | Ruling |
 |---|---|---|---|---|---|---|---|---|---|---|
-| — | The workflow's place | — | [the Project / folder / workspace] | [where] | Created | yes | — | — | [memory switch confirmed] | — |
+| — | The workflow's place | — | [the Project / folder / workspace; with no file read at run time: none — runs in any new chat] | [where; with none: —] | [Created; with none: Not needed] | [yes; with none: —] | — | — | [memory switch confirmed; with none: —] | — |
 
 ## Also
 - Practice-run instruction: [its text, with its cue "practice run"]
@@ -89,7 +89,7 @@ One row per task, `KW` and `SCH` included, its Task cell the plan's task ID exac
 ```markdown
 | T3 | New skill: S2 | C1 | follow-up-drafter | built/follow-up-drafter/ | Created | yes | 2 | 1 | E2: AC1–AC4 met | — |
 ```
-- **Status:** `Created`, `Reused`, `Extended` or `Installed by you`, for what was made; `Built, misses [line]`, for a task finished with a known miss; `Waiting on [the open item]`, `Waiting on change request [id]`, `Failed check`, `Not built yet` or `Removed from the plan`, for what wasn't. The `SCH` row is `Created` with `schedule: safety-incomplete` too.
+- **Status:** `Created`, `Reused`, `Extended` or `Installed by you`, for what was made; `Not needed`, only for the workflow's place when it reads no file when it runs (`setup.md` section 1); `Built, misses [line]`, for a task finished with a known miss; `Waiting on [the open item]`, `Waiting on change request [id]`, `Failed check`, `Not built yet` or `Removed from the plan`, for what wasn't. The `SCH` row is `Created` with `schedule: safety-incomplete` too.
 - **Saved:** `yes` once the part is kept where a later session can find it (installed, or its checked text kept in `built/`); otherwise `no`.
 - **Path or location:** `built/[part name]/…` while a part's checked text is kept but not yet saved where it runs; its installed place once Part 3 saves it. Never `package/…` (the layout before this release).
 - **Built rev:** the task's `rev` when built. **Last built after round:** the last round's number when you last built or rebuilt it (0 before any round).
@@ -99,7 +99,7 @@ One row per task, `KW` and `SCH` included, its Task cell the plan's task ID exac
 ## 5. The two sections for people
 
 In plain words, with no IDs; anyone the leader shows it to (IT, security, a manager) can see what the workflow can read and change.
-- **What was built:** each part and what it does ("a skill that reads your open deals and drafts the Friday summary"); where it lives; how to start it (under its different name, where one was used), and "practice run" to try it with nothing sent or changed, and, on Microsoft 365 while release check 32 hasn't passed, attaching its context files from `Documents/Cowork/[workflow-slug]` each time; what's still waiting; where the kept copy is; and the older-version line. Keep Test's "Live since" and "How to switch it off" lines and the older-version line whenever you rewrite it.
+- **What was built:** each part and what it does ("a skill that reads your open deals and drafts the Friday summary"); where it lives; how to start it: its start phrase (under its different name, where one was used) and where (its place; with none, a new chat outside any Project and without the framework folder), and, on Microsoft 365 while release check 32 hasn't passed, attaching its context files from `Documents/Cowork/[workflow-slug]` each time; what's still waiting; where the kept copy is; and the older-version line. Keep Test's "Live since" and "How to switch it off" lines and the older-version line whenever you rewrite it.
 - **What it can access,** one block per connection: the account; what it reads; what it can change, and which of those changes can't be undone; each tool's class; the permissions left off on purpose; what it never does (from the requirements' "It never…" rules and Prohibited actions); the checkpoints before a change.
 
 ## 6. The older-version line

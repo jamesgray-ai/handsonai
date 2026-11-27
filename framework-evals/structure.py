@@ -309,7 +309,11 @@ def check_build_record(text):
             if len(r) != len(RECORD_COLS):
                 probs.append(f"row {r[:2]} has {len(r)} cells")
                 continue
-            if not RECORD_STATUS.match(r[5]):
+            if r[5] == "Not needed":
+                # B3 (Pass 3): a workflow that reads no file when it runs has no place; only that row
+                if r[1] != "The workflow's place":
+                    probs.append(f"row {r[0]} {r[3]!r}: Status 'Not needed' is only for the workflow's place")
+            elif not RECORD_STATUS.match(r[5]):
                 probs.append(f"row {r[0]} {r[3]!r}: Status {r[5]!r} isn't one of build 11's values")
             if r[6] not in ("yes", "no", "—", ""):
                 probs.append(f"row {r[0]} {r[3]!r}: Saved {r[6]!r} isn't yes or no")

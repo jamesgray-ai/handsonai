@@ -1325,6 +1325,19 @@
    "source": "2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
   },
   {
+   "id": "N-T28",
+   "form": "No place, a new chat outside any Project",
+   "text": "On [platform], memory can't be fully switched off, so I'll check each run for signs it drew on your requirements or your framework files.",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "references/hand-overs.md"
+   },
+   "source": "2026-11-27: shape release Pass 3 Task 3 (B3: a place only when the workflow reads a file when it runs; with none, Test runs in a plain new chat outside any Project on Claude on the web and ChatGPT)"
+  },
+  {
    "id": "running-work",
    "form": "main",
    "text": "This workflow already runs outside the framework. To bring it in, say 'run the deconstruct skill on [workflow]. My files are in [location].' Deconstruct pins down its goal, what it must get right, its rules and a few practice runs; until the new version is built and installed, keep running it as it is.",
@@ -6691,6 +6704,32 @@
     "test": "references/hand-overs.md"
    },
    "source": "2026-11-27: shape release Pass 2 (T5, T6, T9, T11: one practice chat, the clean chat, 'ready' before the block)"
+  },
+  {
+   "id": "N-T8",
+   "form": "Claude on the web, no place",
+   "text": "Open a new chat in Claude, outside any Project, and before typing, open + and switch off memory, then switch off everything under Plugins[ except [its plugins]], then say 'ready' here.",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "references/hand-overs.md"
+   },
+   "source": "2026-11-27: shape release Pass 3 Task 3 (B3: a place only when the workflow reads a file when it runs; with none, Test runs in a plain new chat outside any Project on Claude on the web and ChatGPT)"
+  },
+  {
+   "id": "N-T8",
+   "form": "ChatGPT, no place",
+   "text": "Open a new chat in ChatGPT, outside any Project[ With memory steps: ', switch off memory for it ([steps])'][, and add [its apps] and no other apps / with no apps: ', and don't add any apps'], then say 'ready' here.",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "references/hand-overs.md"
+   },
+   "source": "2026-11-27: shape release Pass 3 Task 3 (B3: a place only when the workflow reads a file when it runs; with none, Test runs in a plain new chat outside any Project on Claude on the web and ChatGPT)"
   },
   {
    "id": "N-T9",
