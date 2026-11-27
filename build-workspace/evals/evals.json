@@ -2497,7 +2497,7 @@
     "P2-checks-own-chat-microsoft-365",
     "P3-close-microsoft-365"
    ],
-   "expected_output": "[OP-m365-reads-location] Started with the location only: the files read with nothing attached; no N-F13. [P1-older-no-microsoft-365] On microsoft-365: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-microsoft-365] microsoft-365: N-B21 once after the setup items, with its Microsoft 365 sentence. [P1-qrc-cowork] Microsoft 365: N-B26 names 'Approve once'. [P2-fresh-m365] After every part is saved, the one fresh-chat run in a new Cowork chat, with N-F4's Build form before its block. [P2-checks-own-chat-microsoft-365] microsoft-365: checks under the practice-run instruction in Build's own chat; no separate session started. [P3-close-microsoft-365] microsoft-365: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track.",
+   "expected_output": "[OP-m365-reads-location] Started with the location only: the files read with nothing attached; no N-F13. [P1-older-no-microsoft-365] Nothing says it already runs: no N-B51, and the record says 'An older version: none that you know of.' [P1-nb21-microsoft-365] microsoft-365: N-B21 once after the setup items, with its Microsoft 365 sentence. [P1-qrc-cowork] Microsoft 365: N-B26 names 'Approve once'. [P2-fresh-m365] After every part is saved, the one fresh-chat run in a new Cowork chat, with N-F4's Build form before its block. [P2-checks-own-chat-microsoft-365] microsoft-365: checks under the practice-run instruction in Build's own chat; no separate session started. [P3-close-microsoft-365] microsoft-365: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track.",
    "files": [
     "students/default.md"
    ],
@@ -2519,18 +2519,18 @@
      }
     },
     {
-     "text": "[P1-older-no-microsoft-365] N-B51 with its Why",
+     "text": "[P1-older-no-microsoft-365] No N-B51: nothing says the work already runs (no `Runs today` row, nothing at the install targets), so the older-version question isn't asked (B6)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
-        "type": "quote",
+        "type": "quote_absent",
         "id": "N-B51",
         "form": "main"
        },
        {
-        "type": "quote",
+        "type": "quote_absent",
         "id": "N-B51",
         "form": "why"
        }
@@ -2786,18 +2786,28 @@
    "fixture": "cc-first-no-registry",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "Without a registry: asked once, last in Part 1; the line recorded.",
+   "expected_output": "No registry and nothing that says the work already runs: no older-version question; the none line recorded.",
    "files": [
     "students/default.md"
    ],
    "expectations": [
     {
-     "text": "N-B51",
+     "text": "No N-B51: nothing says the work already runs",
      "kind": "scripted",
      "check": {
-      "type": "quote",
-      "id": "N-B51",
-      "form": "main"
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote_absent",
+        "id": "N-B51",
+        "form": "main"
+       },
+       {
+        "type": "quote_absent",
+        "id": "N-B51",
+        "form": "why"
+       }
+      ]
      }
     },
     {
@@ -2807,9 +2817,10 @@
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
       "section": "## What was built",
-      "pattern": "An older version: ",
+      "pattern": "An older version: none that you know of\\.",
       "must": true
-     }
+     },
+     "pattern": null
     }
    ],
    "est_turns": 30
@@ -2961,10 +2972,10 @@
    "name": "older-version-history-yes",
    "tier": "core",
    "spec_item": "13 Part 1: Claude, the history question answered yes",
-   "fixture": "web-first",
+   "fixture": "web-first-already-runs",
    "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/older-history-yes.md",
-   "expected_output": "Claude on the web: Build can't reach the older skill: N-B48's history question once; a yes is the copy.",
+   "expected_output": "The leader told Deconstruct it already runs (`Runs today` ending '· where: not asked'), so N-B51 is asked. Claude on the web: Build can't reach the older skill: N-B48's history question once; a yes is the copy.",
    "files": [
     "students/older-history-yes.md"
    ],
@@ -3006,10 +3017,10 @@
    "name": "older-version-leader-keeps-copy",
    "tier": "core",
    "spec_item": "13 Part 1: ChatGPT, the leader keeps a copy",
-   "fixture": "chatgpt-first",
+   "fixture": "chatgpt-first-already-runs",
    "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/older-keep-copy.md",
-   "expected_output": "ChatGPT: the history question answered no, N-B48's older-version form, \"done\" the copy.",
+   "expected_output": "The leader told Deconstruct it already runs, so N-B51 is asked. ChatGPT: the history question answered no, N-B48's older-version form, \"done\" the copy.",
    "files": [
     "students/older-keep-copy.md"
    ],
@@ -3042,10 +3053,10 @@
    "name": "older-version-different-name",
    "tier": "core",
    "spec_item": "13 Part 1: \"no copy\", a different name",
-   "fixture": "web-first",
+   "fixture": "web-first-already-runs",
    "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/older-yes-pause.md",
-   "expected_output": "\"No copy\": the new part installed under a different name, nothing overwritten, a ruling recorded, the older version named as still set up; decided at Part 3, the orchestrator's references and the start phrase changed and the built-text check run again.",
+   "expected_output": "The leader told Deconstruct it already runs (`Runs today` ending '· where: not asked'), so N-B51 is asked. \"No copy\": the new part installed under a different name, nothing overwritten, a ruling recorded, the older version named as still set up; decided at Part 3, the orchestrator's references and the start phrase changed and the built-text check run again.",
    "files": [
     "students/older-yes-pause.md"
    ],
@@ -3083,10 +3094,10 @@
    "name": "older-version-stop",
    "tier": "core",
    "spec_item": "13 Part 1: \"stop\" at the pause form",
-   "fixture": "cc-first-full",
+   "fixture": "cc-first-full-already-runs",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/older-yes-stop.md",
-   "expected_output": "\"Stop\": a stop with nothing installed, asked again next entry; no close.",
+   "expected_output": "The leader told Deconstruct it already runs (`Runs today` ending '· where: not asked'), so N-B51 is asked. \"Stop\": a stop with nothing installed, asked again next entry; no close.",
    "files": [
     "students/older-yes-stop.md"
    ],
@@ -3136,10 +3147,10 @@
    "name": "older-version-runs-when-started",
    "tier": "core",
    "spec_item": "13 Part 1: \"it only runs when I start it\"",
-   "fixture": "cc-first-full",
+   "fixture": "cc-first-full-already-runs",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/older-yes-by-hand.md",
-   "expected_output": "\"It only runs when I start it\": no pause asked again; the line records it.",
+   "expected_output": "The leader told Deconstruct it already runs (`Runs today` ending '· where: not asked'), so N-B51 is asked. \"It only runs when I start it\": no pause asked again; the line records it.",
    "files": [
     "students/older-yes-by-hand.md"
    ],
@@ -3172,10 +3183,10 @@
    "name": "older-version-not-sure",
    "tier": "core",
    "spec_item": "13 Part 1: \"not sure\"",
-   "fixture": "cc-first-full",
+   "fixture": "cc-first-full-already-runs",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/older-not-sure.md",
-   "expected_output": "\"Not sure\": the none line and no pause.",
+   "expected_output": "The leader told Deconstruct it already runs (`Runs today` ending '· where: not asked'), so N-B51 is asked. \"Not sure\": the none line and no pause.",
    "files": [
     "students/older-not-sure.md"
    ],
@@ -7456,7 +7467,7 @@
     "JR-chatgpt",
     "P1-quick-check-chatgpt-no-label"
    ],
-   "expected_output": "[P1-older-no-chatgpt] On chatgpt: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-chatgpt] chatgpt: N-B21 once after the setup items. [P2-fresh-chatgpt] After every part is saved, the one fresh-chat run on a throwaway input, as Test's practice chat would be set up, with N-F4's Build form before its block. [P2-checks-own-chat-chatgpt] chatgpt: checks under the practice-run instruction in Build's own chat; no separate session started. [JR-chatgpt] A first-time leader through Build on chatgpt: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-quick-check-chatgpt-no-label] ChatGPT's one-time label is null in the registry: N-B26 without its one-time-option clause; no button named. [P1-place-chatgpt] ChatGPT: N-B4 with the Project clause, N-B17 for the workflow's own Project; project-only memory asked only once release check 15 passes, and never Claude's 'Use account memory' (N-B40). [P1-connect-chatgpt] Gmail connected with ChatGPT's own steps. [P2-staged-chatgpt] Every part's checked text kept in built/ before Part 3. [P3-install-chatgpt] The already-there clause before any install steps (the Plus-plan item is retired: the skill has no release check 19 rule, 2026-11-19).",
+   "expected_output": "[P1-older-no-chatgpt] Nothing says it already runs: no N-B51, and the record says 'An older version: none that you know of.' [P1-nb21-chatgpt] chatgpt: N-B21 once after the setup items. [P2-fresh-chatgpt] After every part is saved, the one fresh-chat run on a throwaway input, as Test's practice chat would be set up, with N-F4's Build form before its block. [P2-checks-own-chat-chatgpt] chatgpt: checks under the practice-run instruction in Build's own chat; no separate session started. [JR-chatgpt] A first-time leader through Build on chatgpt: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-quick-check-chatgpt-no-label] ChatGPT's one-time label is null in the registry: N-B26 without its one-time-option clause; no button named. [P1-place-chatgpt] ChatGPT: N-B4 with the Project clause, N-B17 for the workflow's own Project; project-only memory asked only once release check 15 passes, and never Claude's 'Use account memory' (N-B40). [P1-connect-chatgpt] Gmail connected with ChatGPT's own steps. [P2-staged-chatgpt] Every part's checked text kept in built/ before Part 3. [P3-install-chatgpt] The already-there clause before any install steps (the Plus-plan item is retired: the skill has no release check 19 rule, 2026-11-19).",
    "files": [
     "students/default.md"
    ],
@@ -7515,18 +7526,18 @@
      "kind": "judged"
     },
     {
-     "text": "[P1-older-no-chatgpt] N-B51 with its Why",
+     "text": "[P1-older-no-chatgpt] No N-B51: nothing says the work already runs (no `Runs today` row, nothing at the install targets), so the older-version question isn't asked (B6)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
-        "type": "quote",
+        "type": "quote_absent",
         "id": "N-B51",
         "form": "main"
        },
        {
-        "type": "quote",
+        "type": "quote_absent",
         "id": "N-B51",
         "form": "why"
        }
@@ -7739,7 +7750,7 @@
     "P3-close-claude-web",
     "JR-claude-web"
    ],
-   "expected_output": "[EN-first-build-no-edit-question] A first build: nothing installed, so no N-E1. [P1-older-no-claude-web] On claude-web: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-claude-web] claude-web: N-B21 once after the setup items. [P1-qrc-self] N-B26 with the one-time-option clause on Claude ('Allow once'), N-B27, live_checks done with its place. [P2-nf4-claude-web] claude-web: N-F4's Build form before the creator starts. [P2-fresh-claude-web] After every part is saved, the one fresh-chat run on a throwaway input, as Test's practice chat would be set up, with N-F4's Build form before its block. [P2-checks-own-chat-claude-web] claude-web: checks under the practice-run instruction in Build's own chat; no separate session started. [P2-staged-web] Claude: every part's checked text kept in built/; nothing saved into the account until Part 3; then saved from the creator's save card unchanged. [P3-nb12-steps] Claude, a first build: every part opens with the already-there clause before the steps, quote-checked. [P3-close-claude-web] claude-web: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-web] A first-time leader through Build on claude-web: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-place-claude-web] Claude on the web: N-B17 then N-B40.",
+   "expected_output": "[EN-first-build-no-edit-question] A first build: nothing installed, so no N-E1. [P1-older-no-claude-web] Nothing says it already runs: no N-B51, and the record says 'An older version: none that you know of.' [P1-nb21-claude-web] claude-web: N-B21 once after the setup items. [P1-qrc-self] N-B26 with the one-time-option clause on Claude ('Allow once'), N-B27, live_checks done with its place. [P2-nf4-claude-web] claude-web: N-F4's Build form before the creator starts. [P2-fresh-claude-web] After every part is saved, the one fresh-chat run on a throwaway input, as Test's practice chat would be set up, with N-F4's Build form before its block. [P2-checks-own-chat-claude-web] claude-web: checks under the practice-run instruction in Build's own chat; no separate session started. [P2-staged-web] Claude: every part's checked text kept in built/; nothing saved into the account until Part 3; then saved from the creator's save card unchanged. [P3-nb12-steps] Claude, a first build: every part opens with the already-there clause before the steps, quote-checked. [P3-close-claude-web] claude-web: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-web] A first-time leader through Build on claude-web: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-place-claude-web] Claude on the web: N-B17 then N-B40.",
    "files": [
     "students/default.md"
    ],
@@ -7806,18 +7817,18 @@
      }
     },
     {
-     "text": "[P1-older-no-claude-web] N-B51 with its Why",
+     "text": "[P1-older-no-claude-web] No N-B51: nothing says the work already runs (no `Runs today` row, nothing at the install targets), so the older-version question isn't asked (B6)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
-        "type": "quote",
+        "type": "quote_absent",
         "id": "N-B51",
         "form": "main"
        },
        {
-        "type": "quote",
+        "type": "quote_absent",
         "id": "N-B51",
         "form": "why"
        }
@@ -8043,7 +8054,7 @@
     "P3-close-claude-desktop",
     "JR-claude-desktop"
    ],
-   "expected_output": "[P2-fresh-claude-desktop] After every part is saved, the one fresh-chat run on a throwaway input, as Test's practice chat would be set up, with N-F4's Build form before its block. [P3-close-claude-desktop] claude-desktop: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-desktop] A first-time leader through Build on claude-desktop: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-place-desktop] N-B17 for the workflow's own folder, the leader copying each context file in; Build's chat never adds it. [P1-nb21-claude-desktop] N-B21 once after the setup items. [P1-older-no-claude-desktop] N-B51 asked once, last in Part 1.",
+   "expected_output": "[P2-fresh-claude-desktop] After every part is saved, the one fresh-chat run on a throwaway input, as Test's practice chat would be set up, with N-F4's Build form before its block. [P3-close-claude-desktop] claude-desktop: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-desktop] A first-time leader through Build on claude-desktop: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-place-desktop] N-B17 for the workflow's own folder, the leader copying each context file in; Build's chat never adds it. [P1-nb21-claude-desktop] N-B21 once after the setup items. [P1-older-no-claude-desktop] Nothing says it already runs: no N-B51, and the record says 'An older version: none that you know of.' ",
    "files": [
     "students/default.md"
    ],
@@ -8172,18 +8183,18 @@
      }
     },
     {
-     "text": "[P1-older-no-claude-desktop] N-B51 with its Why",
+     "text": "[P1-older-no-claude-desktop] No N-B51: nothing says the work already runs (no `Runs today` row, nothing at the install targets), so the older-version question isn't asked (B6)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
-        "type": "quote",
+        "type": "quote_absent",
         "id": "N-B51",
         "form": "main"
        },
        {
-        "type": "quote",
+        "type": "quote_absent",
         "id": "N-B51",
         "form": "why"
        }
@@ -8382,7 +8393,7 @@
     "AL-quote-check",
     "JR-claude-code"
    ],
-   "expected_output": "[P1-older-no-claude-code] On claude-code: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P3-close-claude-code] claude-code: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [AL-quote-check] Every scripted line said word for word (the built-in quote check), the vocabulary and no-time checks, on a whole first build. [JR-claude-code] A first-time leader through Build on claude-code: three parts, the close with Test's phrase; leader actions reported by part, no time target.",
+   "expected_output": "[P1-older-no-claude-code] Nothing says it already runs: no N-B51, and the record says 'An older version: none that you know of.' [P3-close-claude-code] claude-code: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [AL-quote-check] Every scripted line said word for word (the built-in quote check), the vocabulary and no-time checks, on a whole first build. [JR-claude-code] A first-time leader through Build on claude-code: three parts, the close with Test's phrase; leader actions reported by part, no time target.",
    "files": [
     "students/default.md"
    ],
@@ -8450,18 +8461,18 @@
      "kind": "judged"
     },
     {
-     "text": "[P1-older-no-claude-code] N-B51 with its Why",
+     "text": "[P1-older-no-claude-code] No N-B51: nothing says the work already runs (no `Runs today` row, nothing at the install targets), so the older-version question isn't asked (B6)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
-        "type": "quote",
+        "type": "quote_absent",
         "id": "N-B51",
         "form": "main"
        },
        {
-        "type": "quote",
+        "type": "quote_absent",
         "id": "N-B51",
         "form": "why"
        }

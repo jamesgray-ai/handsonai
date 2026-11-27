@@ -5343,7 +5343,7 @@
   {
    "id": "N-B13",
    "form": "Claude on the web and ChatGPT",
-   "text": "Start Test in a new chat outside your workflow's Project. Add your [storage service] to it, then say 'test the workflow I built. My files are in [location].'",
+   "text": "Start Test in a new chat outside your workflow's Project. Add your [storage service] to it, then say: test the workflow I built. My files are in [location].",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -5351,12 +5351,12 @@
    "files": {
     "build": "references/package-and-install.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27: shape release Pass 3 Task 5 (X3: the next step's start phrase alone in a copy-ready code block, after one line on where to start and what to add first)"
   },
   {
    "id": "N-B13",
    "form": "Claude desktop",
-   "text": "Start Test in a new chat with your working folder selected: 'test the workflow I built. My files are in [location].'",
+   "text": "Start Test in a new chat with your working folder selected, then say: test the workflow I built. My files are in [location].",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -5364,12 +5364,12 @@
    "files": {
     "build": "references/package-and-install.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27: shape release Pass 3 Task 5 (X3: the next step's start phrase alone in a copy-ready code block, after one line on where to start and what to add first)"
   },
   {
    "id": "N-B13",
    "form": "Microsoft 365",
-   "text": "Start Test in a new Cowork chat with: 'test the workflow I built. My files are in OneDrive, in ai-workspace/framework/[workflow-slug].'",
+   "text": "Start Test in a new Cowork chat and say: test the workflow I built. My files are in OneDrive, in ai-workspace/framework/[workflow-slug].",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -5377,12 +5377,12 @@
    "files": {
     "build": "references/package-and-install.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27: shape release Pass 3 Task 5 (X3: the next step's start phrase alone in a copy-ready code block, after one line on where to start and what to add first)"
   },
   {
    "id": "N-B13",
    "form": "Claude Code and Codex",
-   "text": "Start Test in a new session in this project and say 'test the workflow I built.'",
+   "text": "Start Test in a new session in this project and say: test the workflow I built.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -5390,7 +5390,20 @@
    "files": {
     "build": "references/package-and-install.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27: shape release Pass 3 Task 5 (X3: the next step's start phrase alone in a copy-ready code block, after one line on where to start and what to add first)"
+  },
+  {
+   "id": "N-B13",
+   "form": "Claude on the web and ChatGPT, no place",
+   "text": "Start Test in a new chat. Add your [storage service] to it, then say: test the workflow I built. My files are in [location].",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/package-and-install.md"
+   },
+   "source": "2026-11-27: shape release Pass 3 Task 5 (X3: the next step's start phrase alone in a copy-ready code block, after one line on where to start and what to add first); with no place (Task 3, B3), no Project to stay out of"
   },
   {
    "id": "N-B14",

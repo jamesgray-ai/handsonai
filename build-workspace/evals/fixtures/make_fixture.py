@@ -1224,6 +1224,27 @@ def fx_before_go_live_not_on(t):  # Ready but not live; a change raised T2; sche
     resub(p, r"(### T2 — Client Follow-Up\n(?:- .*\n)*?- \*\*rev:\*\*) 1", r"\1 2")
 
 
+def already_runs_flag(t):
+    """B6 (Pass 3): the leader told Deconstruct at cold entry that it already runs, and Deconstruct, which never
+    asks where, recorded it as a `Runs today` row ending `· where: not asked`: Build asks N-B51."""
+    sub(req(t), "| Lens | Individual |", "| Lens | Individual |\n| Runs today | set up as an agent; on a schedule, every Friday at 4 · where: not asked |")
+
+
+def fx_web_first_already_runs(t):
+    fx_web_first(t)
+    already_runs_flag(t)
+
+
+def fx_chatgpt_first_already_runs(t):
+    fx_chatgpt_first(t)
+    already_runs_flag(t)
+
+
+def fx_cc_first_full_already_runs(t):
+    fx_cc_first_full(t)
+    already_runs_flag(t)
+
+
 def fx_running_work(t):  # running work brought in: Runs today row, node in-production, an old skill installed
     ff(t, S06)
     full(t)
@@ -1337,6 +1358,8 @@ def fx_wrong_place(t):  # the workflow's own place: its skill and context copy, 
 FIXTURES = {
     # first builds
     "cc-first": fx_cc_first, "cc-first-older": fx_cc_first_older, "law-first": fx_law_first, "inject-document": fx_inject_document, "cc-first-full": fx_cc_first_full, "cc-first-no-registry": fx_cc_first_no_registry,
+    "web-first-already-runs": fx_web_first_already_runs, "cc-first-full-already-runs": fx_cc_first_full_already_runs,
+    "chatgpt-first-already-runs": fx_chatgpt_first_already_runs,
     "web-first": fx_web_first, "web-first-carry-over": fx_web_first_carry_over, "desktop-first": fx_desktop_first, "chatgpt-first": fx_chatgpt_first,
     "codex-first": fx_codex_first, "m365-skills-first": fx_m365_skills_first, "m365-agent-first": fx_m365_agent_first,
     "m365-agent-no-context": fx_m365_agent_no_context, "wrong-surface": fx_wrong_surface,

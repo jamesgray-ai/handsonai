@@ -158,7 +158,7 @@ Delivered as: set in Design
 | Owner | [person or role] |
 | Lens | Individual / Organizational |
 | Stakeholders | [roles or teams; Organizational lens only] |
-| Runs today | [running work brought in only: by hand; or set up as [a skill, an agent, an automation] in [where]; on a schedule or not] |
+| Runs today | [running work brought in only: by hand; or set up as [a skill, an agent, an automation] in [where]; on a schedule or not. Or, at cold entry, what the leader said about the one that already runs, in their words, ending `· where: not asked`] |
 | Remembers | [optional: nothing / [what] / not sure] |
 
 ## Path
@@ -258,7 +258,7 @@ Policy check: Allowed | No — [source] left out | No — details removed first 
 - **Metadata's rows,** in this one order: Workflow Name, Description, Trigger, Starts, Per run, Owner, Lens, Stakeholders, Runs today, Remembers. The optional ones, each left out when it doesn't apply (old files without them pass):
   - `Starts`: `you`, `you, when [event]`, `schedule: [when]` or `event: [event] · checked [interval | as often as it can]`;
   - `Per run`: `one [case]` or `a batch of [cases]`, inferred, left out when it can't be told;
-  - `Runs today`: running work brought in only;
+  - `Runs today`: running work brought in, or what the leader said at cold entry about a version that already runs (`· where: not asked` at its end, `choosing-a-workflow.md`);
   - `Remembers`: `nothing`, `[what]` or `not sure`;
   - `Stakeholders`: Organizational lens only.
 - **The glosses:** one italic line of fixed text right under four headings, `## Context Inventory`, `## Example Scenarios`, `## Rules & Constraints` and `## Human Gates`, word for word as the template shows them, written on every file Deconstruct saves.
