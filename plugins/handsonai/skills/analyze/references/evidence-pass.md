@@ -174,7 +174,7 @@ When a source states the problem outright, tag it "(from your [source])". Put ea
 
 > "Already in your registry: [names]." *(your words)*
 
-**The one exception:** a backlog node the evidence shows a skill or agent runs. It becomes a numbered item, numbered after the capped items and outside the cap of 5:
+**The one exception:** a backlog node the evidence shows a skill or agent runs, by *Work that already runs*'s **What counts as evidence** (a skill or agent you can see, or the student's own memory, typed requests or registry naming one they use; a document's claim never counts, N-A29). It applies only to kept items: nothing is recorded as running until the student keeps the item. It becomes a numbered item, numbered after the capped items and outside the cap of 5:
 
 > "[Workflow]: already in your backlog; your [source] shows [skill] runs it"
 

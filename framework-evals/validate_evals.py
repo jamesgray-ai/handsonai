@@ -36,7 +36,7 @@ REQUIRED = {
     "structure": ["path", "kind"], "fill_check": ["kind"],
     "file_unchanged": ["path"], "no_added_files": [], "file_line": ["path", "line", "pattern"],
     "section_regex": ["path", "section", "pattern"], "all": ["checks"], "any": ["checks"],
-    "release_check": ["ids", "passed", "open"], "tool_write": ["path", "pattern"], "max_words": ["max"],
+    "release_check": ["ids", "passed", "open"], "tool_write": ["path", "pattern"], "saved_before_next_question": ["path", "pattern", "answer"], "max_words": ["max"],
     "opens_with": ["ids"], "said_before": ["id", "anchor"], "inputs_shown": ["id", "anchor"],
 }
 RETIRED = {"no_yaml": "retired: use yaml_keys (every framework file has frontmatter now)"}

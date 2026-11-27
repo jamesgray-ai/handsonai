@@ -1728,11 +1728,11 @@
           "must": true
         },
         {
-          "text": "N-A14 after a scan, word for word",
+          "text": "N-A14 after a scan (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Beyond those, think of the last few weeks"
+            "type": "ai_regex",
+            "pattern": "(?is)\\b(?:beyond|besides|apart from|other than|aside from) th(?:ose|at|ese)\\b.{0,300}?\\b(?:time|slip\\w*)\\b"
           }
         },
         {
@@ -2362,11 +2362,11 @@
           "kind": "judged"
         },
         {
-          "text": "N-A14 after a scan",
+          "text": "N-A14 after a scan (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Beyond those, think of the last few weeks"
+            "type": "ai_regex",
+            "pattern": "(?is)\\b(?:beyond|besides|apart from|other than|aside from) th(?:ose|at|ese)\\b.{0,300}?\\b(?:time|slip\\w*)\\b"
           }
         },
         {
@@ -2758,11 +2758,11 @@
           "kind": "judged"
         },
         {
-          "text": "N-A14 after a scan",
+          "text": "N-A14 after a scan (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Beyond those, think of the last few weeks"
+            "type": "ai_regex",
+            "pattern": "(?is)\\b(?:beyond|besides|apart from|other than|aside from) th(?:ose|at|ese)\\b.{0,300}?\\b(?:time|slip\\w*)\\b"
           }
         },
         {
@@ -3176,11 +3176,11 @@
           "kind": "judged"
         },
         {
-          "text": "N-A14 after a scan",
+          "text": "N-A14 after a scan (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Beyond those, think of the last few weeks"
+            "type": "ai_regex",
+            "pattern": "(?is)\\b(?:beyond|besides|apart from|other than|aside from) th(?:ose|at|ese)\\b.{0,300}?\\b(?:time|slip\\w*)\\b"
           }
         },
         {
@@ -3604,11 +3604,11 @@
           "kind": "judged"
         },
         {
-          "text": "N-A14 after a scan",
+          "text": "N-A14 after a scan (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Beyond those, think of the last few weeks"
+            "type": "ai_regex",
+            "pattern": "(?is)\\b(?:beyond|besides|apart from|other than|aside from) th(?:ose|at|ese)\\b.{0,300}?\\b(?:time|slip\\w*)\\b"
           }
         },
         {
@@ -4019,11 +4019,11 @@
           "kind": "judged"
         },
         {
-          "text": "N-A14 after a scan",
+          "text": "N-A14 after a scan (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Beyond those, think of the last few weeks"
+            "type": "ai_regex",
+            "pattern": "(?is)\\b(?:beyond|besides|apart from|other than|aside from) th(?:ose|at|ese)\\b.{0,300}?\\b(?:time|slip\\w*)\\b"
           }
         },
         {
@@ -7207,11 +7207,11 @@
           }
         },
         {
-          "text": "The close's 'Later' paragraph points to the processes with no workflows yet (N-A6, Claude Code's form)",
+          "text": "The close's 'Later' paragraph points to the processes with no workflows yet (N-A6, Claude Code's form) (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "any time to find more, including in the processes that have no workflows yet."
+            "type": "ai_regex",
+            "pattern": "(?i)process(?:es)?\\b[^.\\n]{0,80}\\bno workflows?\\b|\\bno workflows? yet\\b"
           }
         },
         {
@@ -7240,11 +7240,11 @@
           "must": true
         },
         {
-          "text": "N-A14 after a scan",
+          "text": "N-A14 after a scan (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Beyond those, think of the last few weeks"
+            "type": "ai_regex",
+            "pattern": "(?is)\\b(?:beyond|besides|apart from|other than|aside from) th(?:ose|at|ese)\\b.{0,300}?\\b(?:time|slip\\w*)\\b"
           }
         },
         {
@@ -9095,11 +9095,11 @@
           "kind": "judged"
         },
         {
-          "text": "N-A14 after a scan",
+          "text": "N-A14 after a scan (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Beyond those, think of the last few weeks"
+            "type": "ai_regex",
+            "pattern": "(?is)\\b(?:beyond|besides|apart from|other than|aside from) th(?:ose|at|ese)\\b.{0,300}?\\b(?:time|slip\\w*)\\b"
           }
         },
         {
@@ -9561,11 +9561,11 @@
           "kind": "judged"
         },
         {
-          "text": "The open question is still asked, after the scan",
+          "text": "The open question is still asked, after the scan (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Beyond those, think of the last few weeks"
+            "type": "ai_regex",
+            "pattern": "(?is)\\b(?:beyond|besides|apart from|other than|aside from) th(?:ose|at|ese)\\b.{0,300}?\\b(?:time|slip\\w*)\\b"
           }
         },
         {
@@ -10779,11 +10779,11 @@
           "kind": "judged"
         },
         {
-          "text": "The zero close (N-A21)",
+          "text": "The zero close (N-A21) (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Nothing's stood out yet, and that's fine."
+            "type": "ai_regex",
+            "pattern": "(?i)\\bnothing\\b[^.\\n]{0,40}\\b(?:stood out|stands out|has come up|came up)\\b"
           }
         },
         {
@@ -10918,11 +10918,11 @@
           "kind": "judged"
         },
         {
-          "text": "The open question's question sentence is said",
+          "text": "The open question's question sentence is said (its substance, in the skill's own words: the line is a model)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Where did time go, or things slip, that you'd rather hadn't?"
+            "type": "ai_regex",
+            "pattern": "(?i)\\b(?:where|what)\\b[^?\\n]{0,120}\\b(?:time|slip\\w*)\\b[^?\\n]{0,120}\\?"
           }
         },
         {

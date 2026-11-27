@@ -12,6 +12,7 @@ The owner of Client Follow-Up. Not technical; short replies.
 - When it asks something you don't know, say "Not sure."
 - The first time it shows you the plan and asks what you'd change, say "Don't make it stop and ask me for a next step when the notes have none. Take that rule out; it can just draft without next steps."
 - If it then asks which one holds, your request or what your requirements say, say "My request: take the rule out."
+- If it asks whether to keep or drop a check that came from that rule, say "Drop it."
 - After that, when it shows you the plan again, say "Looks good." When it asks you to approve, say "approve"; to a request to confirm particular points, "Yes, approve with those."
 - If it offers to save a point in your folder's history, say "no thanks".
 

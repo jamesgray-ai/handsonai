@@ -688,8 +688,13 @@ def fx_format11_all_test_writes(t):  # Review Focus 1: every scenario is one Tes
 
 
 def fx_format11_from_rule(t):  # Review Focus 3: AC1's `· from:` names R4, the rule the leader asks to drop
+    """AC1 comes from I1 and R4; AC5 from R4 alone (Pass 4 final review I3: when R4 goes, AC5 has nothing to come
+    from, and keeping or dropping it is the leader's, asked once, never converted to `the output alone` silently)."""
     fx_format11(t)
     sub(f11_req(t), "each with its owner. · from: I1\n", "each with its owner. · from: I1, R4\n")
+    sub(f11_req(t), "4. **AC4** — The draft has a subject line. · from: the output alone\n",
+        "4. **AC4** — The draft has a subject line. · from: the output alone\n"
+        "5. **AC5** — When the notes name no next step, no draft is written until you give one. · from: R4\n")
 
 
 def fx_format11_booking(t):  # Review Focus 5: the email ends with the leader's booking link, which no file holds

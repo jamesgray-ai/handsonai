@@ -92,6 +92,11 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   write by any tool (a Bash command naming the file
                                                                   too) whose new text matches it, and one follows
                                                                   (plan reset to approved: false before re-approval)
+  saved_before_next_question {path, pattern, answer, session?}  the leader's first message matching `answer` is
+                                                                  written (a Write or Edit to `path` matching
+                                                                  `pattern`) no later than the first AI turn after it
+                                                                  that asks something; turns split by each call's
+                                                                  result event; fails closed (Pass 4 review M5)
   no_tool_call     {tool, input_pattern?, input_not_pattern?,     no tool call in the session's events.jsonl whose
                     after?, session?}                             name matches `tool` (and whose JSON input matches
                                                                   input_pattern, and not input_not_pattern); with
@@ -1124,6 +1129,8 @@ def check(c, run):
         return False, f"{c['path']} never present after any turn"
     if t == "tool_write":
         return _tool_write(c, run)
+    if t == "saved_before_next_question":
+        return _saved_before_next_question(c, run)
     if t == "bash_count":
         return _bash_count(c, run)
     if t == "no_tool_call":
@@ -1194,7 +1201,10 @@ def check(c, run):
         elif c["kind"] == "plan":
             # Pass 4 (P4): a plan this run wrote or changed must be in this release's form; one it left as it
             # found it (a fixture's older plan) may keep the older form
-            written = (s.get("files_start") or {}).get(path) != body
+            # final review M4: against the run's first session too, so a plan an earlier session wrote, left
+            # unchanged by the checked one, is still checked as written
+            starts = [(x.get("files_start") or {}) for x in (_listed(run)[:1] + [s])]
+            written = any(st.get(path) != body for st in starts)
             probs = ST.check_text("plan", body, written=written)
         else:
             probs = ST.check_text(c["kind"], body)
@@ -1462,6 +1472,70 @@ def _tool_write(c, run):
             why = f"session {s['n']}: no write matching {c['before']!r} after it"
             continue
         return True, f"session {s['n']}: write {at + 1}, then write {later[0] + 1} matching {c['before']!r}"
+    return False, why
+
+
+def _saved_before_next_question(c, run):
+    """Pass 4 final review M5: an answer the leader gives is written before the next question reaches them.
+    The first leader message matching `answer` gives it; a Write or Edit to `path` matching `pattern` must
+    come in an AI turn no later than the first AI turn after that message whose text asks something (a "?").
+    The turns are told apart by the result event the harness logs at the end of each call; fails closed when
+    the answer is never given, nothing matching is written, or the events can't be split into the AI turns."""
+    pat, ans = re.compile(c["pattern"], re.M), re.compile(c["answer"], re.M)
+    why = "no session"
+    for s in _sessions(run, c.get("session")):
+        ai_turns, answer_at = [], None
+        for turn in s["turns"]:
+            if turn["role"] == "ai":
+                ai_turns.append(turn["text"])
+            elif answer_at is None and ans.search(norm(turn["text"])):
+                answer_at = len(ai_turns)  # the AI turn that replies to it
+        if answer_at is None:
+            why = f"session {s['n']}: no leader message matches {c['answer']!r}"
+            continue
+        asks = next((i for i in range(answer_at, len(ai_turns)) if "?" in ai_turns[i]), None)
+        if asks is None:
+            why = f"session {s['n']}: no question after the answer"
+            continue
+        if not s.get("root"):
+            why = f"session {s['n']}: no events.jsonl to read the writes from"
+            continue
+        try:
+            lines = (Path(s["root"]).parent / "events.jsonl").read_text(errors="replace").splitlines()
+        except OSError:
+            why = f"session {s['n']}: no events.jsonl to read the writes from"
+            continue
+        k, first = 0, None
+        for line in lines:
+            try:
+                e = json.loads(line)
+            except ValueError:
+                continue
+            if e.get("type") == "result":
+                k += 1
+                continue
+            if first is None and e.get("type") == "assistant":
+                for b in (e.get("message") or {}).get("content") or []:
+                    if not (isinstance(b, dict) and b.get("type") == "tool_use" and b.get("name") in ("Write", "Edit", "MultiEdit")):
+                        continue
+                    inp = b.get("input") or {}
+                    fp = str(inp.get("file_path") or "")
+                    if not (fnmatch.fnmatch(fp, c["path"]) or fnmatch.fnmatch(fp, "*/" + c["path"])):
+                        continue
+                    texts = [inp.get("content"), inp.get("new_string")] + [x.get("new_string") for x in inp.get("edits") or []]
+                    if any(pat.search(norm(str(x))) for x in texts if x):
+                        first = k
+                        break
+        if k != len(ai_turns):
+            why = f"session {s['n']}: {k} result events for {len(ai_turns)} AI turns: the writes can't be placed"
+            continue
+        if first is None:
+            why = f"session {s['n']}: no Write or Edit to {c['path']} matches {c['pattern']!r}"
+            continue
+        if first > asks:
+            why = f"session {s['n']}: written in AI turn {first + 1}, after the question in AI turn {asks + 1}"
+            continue
+        return True, f"session {s['n']}: written in AI turn {first + 1}, by the question in AI turn {asks + 1}"
     return False, why
 
 

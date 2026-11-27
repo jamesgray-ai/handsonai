@@ -24,7 +24,7 @@ Route by the `Method preference:` line and `## Path` (`drafting.md`, step 1). Th
   - **a draft in [system]** when a write creates a draft there;
   - **a file in [place]** when a write saves it as a file.
 
-  Ask only when nothing settles it (a fact question, `questions.md`). **Delivery never adds a write or a connection the requirements don't hold:** a delivery that would (a draft in Gmail where no write creates one) is a requirement change, made only through `SKILL.md` step 4's path with the track check (`light-track.md`) and N-15, never decided by the plan alone.
+  Ask only when nothing settles it (a fact question, `questions.md`). **Delivery never adds a write or a connection the requirements don't hold:** a delivery that would (a draft in Gmail where no write creates one) is a requirement change, made only on the leader's yes to N-32 (`questions.md`, *A delivery that needs a write*: the track check, the `W` line, `SKILL.md` step 4's limits for it, N-15), never decided by the plan alone. Without that yes, it is shown in the chat.
 
 - **Step lines:** `produces`, `uses` (tools and context), `writes`, role tags (`(you)` or a named role makes it a Human step and fills the Role column), `parallel with`. `fixed (regulation)` and `fixed (policy)` must not be skipped or changed; `fixed (your judgment)` is the leader's choice; `flexible` lets you adapt the method. `proposed by AI` is provenance only and never affects the level.
 - **Step detail blocks:** `**Rule:**` becomes the step's rules, `**Check or handoff:**` its check, `**Expertise:**` guidance in the blueprint.

@@ -490,6 +490,66 @@ RESET = {"type": "tool_write", "path": "framework/client-follow-up/design-plan.m
          "pattern": "(?m)^approved: false[ \\t]*$", "before": "approved: true"}
 
 
+def turns_run(*turns, results=True):
+    """A one-session run of (leader message, AI text, [tool uses]) turns; events.jsonl holds each AI turn's tool
+    calls, each turn closed by its result event, as the harness logs one call per turn."""
+    t = tempfile.mkdtemp()
+    lines, conv = [], []
+    for i, (leader, ai, uses) in enumerate(turns):
+        conv += [{"role": "student", "text": leader, "student": True}, {"role": "ai", "text": ai}]
+        lines += [json.dumps({"type": "assistant", "message": {"content": [
+            {"type": "tool_use", "id": f"t{i}-{j}", "name": n, "input": inp}]}}) for j, (n, inp) in enumerate(uses)]
+        if results:
+            lines.append(json.dumps({"type": "result", "result": ai}))
+    Path(t, "events.jsonl").write_text("".join(l + "\n" for l in lines))
+    return {"sessions": [{"n": 1, "turns": conv, "files_by_turn": [[]] * len(turns), "files_start": {},
+                          "files_end": {}, "cap_hit": False, "root": str(Path(t, "workspace"))}]}
+
+
+SAVED = {"type": "saved_before_next_question", "path": "*design-plan.md", "pattern": "cal\\.example\\.com/dana",
+         "answer": "cal\\.example\\.com/dana"}
+LINK = "Go ahead. And my booking link is https://cal.example.com/dana-ortiz/30min."
+
+
+class SavedBeforeNextQuestion(unittest.TestCase):
+    """Pass 4 final review M5: an answer's write lands before the next question reaches the leader."""
+
+    def test_written_in_the_reply_that_asks_next_passes(self):
+        run = turns_run(("Run the design skill.", "It'll run on Claude Code. Shall I go ahead?", []),
+                        (LINK, "Part 3 of 4 — a few questions for you. Which mailbox?",
+                         [("Write", {"file_path": PLAN, "content": "end with https://cal.example.com/dana-ortiz/30min"})]))
+        self.assertTrue(ok(SAVED, run))
+
+    def test_written_only_after_the_next_question_fails(self):
+        run = turns_run(("Run the design skill.", "It'll run on Claude Code. Shall I go ahead?", []),
+                        (LINK, "Part 3 of 4 — a few questions for you. Which mailbox?", []),
+                        ("Not sure.", "Here's the plan in brief. What would you change or clarify?",
+                         [("Edit", {"file_path": PLAN, "old_string": "x", "new_string": "https://cal.example.com/dana-ortiz/30min"})]))
+        self.assertFalse(ok(SAVED, run))
+
+    def test_a_reply_with_no_question_may_come_first(self):
+        run = turns_run((LINK, "Part 2 of 4 — the plan. Drafting it now.", []),
+                        ("ok", "Part 3 of 4. Which mailbox?",
+                         [("Write", {"file_path": PLAN, "content": "https://cal.example.com/dana-ortiz/30min"})]))
+        self.assertTrue(ok(SAVED, run))
+
+    def test_fails_closed(self):
+        never = turns_run((LINK, "Which mailbox?", []))
+        self.assertFalse(ok(SAVED, never), "never written")
+        no_answer = turns_run(("Go ahead.", "Which mailbox?",
+                               [("Write", {"file_path": PLAN, "content": "https://cal.example.com/dana-ortiz/30min"})]))
+        self.assertFalse(ok(SAVED, no_answer), "the leader never gave the answer")
+        unsplit = turns_run((LINK, "Which mailbox?", [("Write", {"file_path": PLAN, "content": "https://cal.example.com/dana-ortiz/30min"})]),
+                            results=False)
+        self.assertFalse(ok(SAVED, unsplit), "turns can't be told apart without result events")
+        self.assertFalse(ok(SAVED, run_of("Which mailbox?")), "no events at all")
+
+    def test_the_eval_uses_it(self):
+        ev = next(e for e in json.loads((ROOT / "design-workspace" / "evals" / "evals.json").read_text())["evals"]
+                  if e["id"] == "P4-answer-saved-when-given")
+        self.assertIn('"saved_before_next_question"', json.dumps([x.get("check") for x in ev["expectations"]]))
+
+
 class ToolWrite(unittest.TestCase):
     """EN-rerun-consequential: the plan is set back to approved: false before it's approved again
     (cc11ff3a7 left the reset to the judge, who sees only the end state)."""
@@ -585,6 +645,18 @@ class FileChecks(unittest.TestCase):
         self.assertNotEqual(changed, self.plan)
         self.assertFalse(self.structure("plan", changed, start=self.plan), "an old-form plan the run changed is checked as written")
         self.assertTrue(self.structure("plan", new, start=self.plan), "a plan the run rewrote in the new form passes")
+
+    def test_plan_written_in_an_earlier_session_is_checked_as_written(self):
+        # final review M4 (Pass 4): `written` compared only the checked session's start, so an old-form plan
+        # session 1 wrote, left unchanged by session 2, passed as if a fixture had left it
+        older = self.plan.replace("approved: true", "approved: false", 1)
+        s1 = {"n": 1, "turns": [], "files_by_turn": [], "files_start": {"f.md": older},
+              "files_end": {"f.md": self.plan}, "cap_hit": False, "root": None}
+        s2 = dict(s1, n=2, files_start={"f.md": self.plan})
+        c = {"type": "structure", "kind": "plan", "path": "f.md"}
+        self.assertFalse(ok(c, {"sessions": [s1, s2]}), "written in session 1, unchanged in session 2: still written")
+        same = dict(s1, files_start={"f.md": self.plan})
+        self.assertTrue(ok(c, {"sessions": [same, dict(same, n=2)]}), "left as found in every session: the older form passes")
 
     def test_not_contains_can_skip_a_fenced_brief(self):
         # build-smoke-2 (Pass 4): Build's "Never Test's phrase" matched the brief's own quoted line; a check

@@ -4936,6 +4936,19 @@
    "source": "2026-11-27: shape release Pass 4 Task 2 (P8, F16: the scheduled-run point names each approval point with the change it comes before; a held protective line)"
   },
   {
+   "id": "N-32",
+   "form": "main",
+   "text": "Delivering it as [the delivery, in plain words] means the workflow would also [the write, in plain words], and your requirements don't include that yet. Should I add it to your requirements, or keep it shown in the chat for you to copy?",
+   "kind": "safety or promise",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "references/questions.md"
+   },
+   "source": "2026-11-27: shape release Pass 4 final review (I1: a write is added for a delivery only on the leader's yes to this question; a held protective line)"
+  },
+  {
    "id": "D3′",
    "form": "main",
    "text": "Your work falls under [regime], and it can still work out its own steps: what the rules require stays exactly as it is, and every decision a person must make stays with a person. The plan also adds a record of what it did on each run, so you can check it later.",

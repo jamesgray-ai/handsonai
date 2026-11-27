@@ -104,6 +104,22 @@ def resub(path, pattern, new):
     p.write_text(text)
 
 
+def add_task(path, block):
+    """Append a task block at the end of `## Tasks`, the section a plan in either form has (Pass 4 final review
+    M6: a plan in the new form has no `## Self-Test Summary`, so anchoring on it added the task silently nowhere).
+    Fails loudly when the plan has no Tasks section."""
+    p = Path(path)
+    text = p.read_text()
+    i = text.find("\n## Tasks\n")
+    if i < 0:
+        sys.exit(f"{p}: no ## Tasks section")
+    j = text.find("\n## ", i + 1)
+    if j < 0:
+        p.write_text(text.rstrip("\n") + "\n" + block)
+    else:
+        p.write_text(text[:j].rstrip("\n") + "\n" + block + text[j:])
+
+
 def write(path, text):
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -503,9 +519,7 @@ def add_sch(t, *, send=False, platform="Claude Code", where="a Claude Code deskt
     sched = (f"\n### SCH — Run on a schedule\n- **Builds:** the schedule: {where}\n- **Uses / hands on:** S1\n"
              "- **Meets:** Runs, G1\n- **Done when:** the five safety points pass against the built workflow; switch-on steps written, never switched on\n"
              "- **Depends on:** T2, KW\n- **rev:** 1\n")
-    text = p.read_text()
-    text = text.replace("\n## Self-Test Summary", sched + "\n## Self-Test Summary", 1)
-    p.write_text(text)
+    add_task(p, sched)
 
 
 def scheduled_record(t, value, steps=True):
