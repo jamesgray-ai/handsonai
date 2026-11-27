@@ -27,21 +27,16 @@
      }
     },
     {
-     "text": "No opening and no part count",
+     "text": "No part count",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote_absent",
-        "id": "N-B4"
-       },
-       {
-        "type": "ai_not_regex",
-        "pattern": "\\bPart [0-9] of [0-9]\\b"
-       }
-      ]
+      "type": "ai_not_regex",
+      "pattern": "\\bPart [0-9] of [0-9]\\b"
      }
+    },
+    {
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     },
     {
      "text": "Nothing is written: no build record, no kept copy, no skill",
@@ -98,12 +93,8 @@
      }
     },
     {
-     "text": "No opening",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     },
     {
      "text": "The record unchanged",
@@ -139,12 +130,8 @@
      }
     },
     {
-     "text": "No opening",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     },
     {
      "text": "The record unchanged",
@@ -180,12 +167,8 @@
      }
     },
     {
-     "text": "No opening",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     },
     {
      "text": "The record unchanged",
@@ -228,12 +211,8 @@
      }
     },
     {
-     "text": "[EN-s10] No opening",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "[EN-s10] No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     },
     {
      "text": "[EN-s10] The record unchanged",
@@ -318,12 +297,8 @@
      }
     },
     {
-     "text": "No opening",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     },
     {
      "text": "Nothing is written: no build record, no kept copy, no skill",
@@ -375,12 +350,8 @@
      }
     },
     {
-     "text": "No opening",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     },
     {
      "text": "Nothing is written: no build record, no kept copy, no skill",
@@ -432,12 +403,8 @@
      }
     },
     {
-     "text": "No opening",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     }
    ],
    "est_turns": 2
@@ -464,12 +431,8 @@
      }
     },
     {
-     "text": "No opening",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     }
    ],
    "est_turns": 2
@@ -696,12 +659,8 @@
      }
     },
     {
-     "text": "Then the opening",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-B4"
-     }
+     "text": "The opening, in Build's own words: that it makes the workflow from the approved plan, task by task, checking each part; what the leader does first; where it reads and saves the files; the first action",
+     "kind": "judged"
     },
     {
      "text": "The build record passes the structure check (build.md 11 and 13; rules 6.4): the frontmatter keys and no others, 'What was built' then 'What it can access', the parts table's columns and Status values, the one request shape",
@@ -902,20 +861,12 @@
    ],
    "expectations": [
     {
-     "text": "N-B14 opens",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-B14"
-     }
+     "text": "The fix-mode opener, in Build's own words: what Test found and in which part, that only that is redone (and what uses it re-checked), and that everything else is left as it is",
+     "kind": "judged"
     },
     {
-     "text": "No N-B4",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "No first-build opening (the resume line or fix-mode opener takes its place)",
+     "kind": "judged"
     },
     {
      "text": "The build record passes the structure check (build.md 11 and 13; rules 6.4): the frontmatter keys and no others, 'What was built' then 'What it can access', the parts table's columns and Status values, the one request shape",
@@ -980,12 +931,8 @@
      }
     },
     {
-     "text": "No opening",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     },
     {
      "text": "Nothing added",
@@ -1061,21 +1008,8 @@
    ],
    "expectations": [
     {
-     "text": "N-B3a or N-B3",
-     "kind": "scripted",
-     "check": {
-      "type": "any",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-B3"
-       },
-       {
-        "type": "quote",
-        "id": "N-B3a"
-       }
-      ]
-     }
+     "text": "Build says skills must be on in the account (or asks the leader to check, with where to look) and waits for their answer before building",
+     "kind": "judged"
     },
     {
      "text": "skills_on: yes recorded",
@@ -1104,21 +1038,8 @@
    ],
    "expectations": [
     {
-     "text": "Neither asked",
-     "kind": "scripted",
-     "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote_absent",
-        "id": "N-B3"
-       },
-       {
-        "type": "quote_absent",
-        "id": "N-B3a"
-       }
-      ]
-     }
+     "text": "Never asks whether skills are on: the record already says yes",
+     "kind": "judged"
     }
    ],
    "est_turns": 16
@@ -1830,12 +1751,8 @@
      }
     },
     {
-     "text": "N-B14",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-B14"
-     }
+     "text": "The fix-mode opener, in Build's own words: what Test found and in which part, that only that is redone (and what uses it re-checked), and that everything else is left as it is",
+     "kind": "judged"
     },
     {
      "text": "No second request",
@@ -2196,33 +2113,22 @@
    ],
    "expectations": [
     {
-     "text": "N-B3a with N-F3's promise clause in the first message",
-     "kind": "scripted",
-     "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-B3a",
-        "turn": "first"
-       },
-       {
-        "type": "quote",
-        "id": "N-F3",
-        "form": "promise clause",
-        "turn": "first"
-       }
-      ]
-     }
-    },
-    {
-     "text": "The opening that follows is N-B4's form for after an orientation line",
+     "text": "N-F3's promise clause in the first message",
      "kind": "scripted",
      "check": {
       "type": "quote",
-      "id": "N-B4",
-      "form": "after an orientation line"
+      "id": "N-F3",
+      "form": "promise clause",
+      "turn": "first"
      }
+    },
+    {
+     "text": "The first message asks, in Build's own words, whether skills are turned on in the account, with where to look",
+     "kind": "judged"
+    },
+    {
+     "text": "The opening that follows, in Build's own words, leaves out where the files are read and saved (the orientation line said it) and repeats nothing else the orientation line said",
+     "kind": "judged"
     },
     {
      "text": "The opening that follows doesn't repeat what the orientation line said, apart from naming Build and the workflow in its first sentence",
@@ -2276,13 +2182,8 @@
    ],
    "expectations": [
     {
-     "text": "N-B4 in the first message",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-B4",
-      "turn": "first"
-     }
+     "text": "The first message is the opening. The opening, in Build's own words: that it makes the workflow from the approved plan, task by task, checking each part; what the leader does first; where it reads and saves the files; the first action",
+     "kind": "judged"
     },
     {
      "text": "No time or step number",
@@ -2511,12 +2412,8 @@
      }
     },
     {
-     "text": "[OP-m365-reads-location] N-B4",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-B4"
-     }
+     "text": "[OP-m365-reads-location] The opening, in Build's own words: that it makes the workflow from the approved plan, task by task, checking each part; what the leader does first; where it reads and saves the files; the first action",
+     "kind": "judged"
     },
     {
      "text": "[P1-older-no-microsoft-365] No N-B51: nothing says the work already runs (no `Runs today` row, nothing at the install targets), so the older-version question isn't asked (B6)",
@@ -2693,12 +2590,8 @@
      }
     },
     {
-     "text": "No opening before it",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     }
    ],
    "est_turns": 4,
@@ -2732,12 +2625,8 @@
      }
     },
     {
-     "text": "Then N-B4",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-B4"
-     }
+     "text": "The opening, in Build's own words: that it makes the workflow from the approved plan, task by task, checking each part; what the leader does first; where it reads and saves the files; the first action",
+     "kind": "judged"
     },
     {
      "text": "Never N-F3a",
@@ -2768,12 +2657,8 @@
    ],
    "expectations": [
     {
-     "text": "No opening",
-     "kind": "scripted",
-     "check": {
-      "type": "quote_absent",
-      "id": "N-B4"
-     }
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     }
    ],
    "est_turns": 16
@@ -3913,12 +3798,8 @@
    ],
    "expectations": [
     {
-     "text": "N-B35 after the failure",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-B35"
-     }
+     "text": "After the failure, in Build's own words: what the system said, how to fix it, and 'done' to try once more or 'skip' to let the first real run prove it",
+     "kind": "judged"
     }
    ],
    "est_turns": 34
@@ -4788,13 +4669,8 @@
    ],
    "expectations": [
     {
-     "text": "N-B23's reuse form",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-B23",
-      "form": "A reused skill that isn't installed"
-     }
+     "text": "The reused skill isn't installed: Build recommends installing it, with how and why (the plan reuses it), and asks to be told when it's installed or where else it is",
+     "kind": "judged"
     }
    ],
    "est_turns": 20
@@ -6308,12 +6184,8 @@
    ],
    "expectations": [
     {
-     "text": "N-B14",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-B14"
-     }
+     "text": "The fix-mode opener, in Build's own words: what Test found and in which part, that only that is redone (and what uses it re-checked), and that everything else is left as it is",
+     "kind": "judged"
     },
     {
      "text": "N-B37 repeated, no rounds sentence",
@@ -6358,12 +6230,8 @@
    ],
    "expectations": [
     {
-     "text": "N-B14",
-     "kind": "scripted",
-     "check": {
-      "type": "quote",
-      "id": "N-B14"
-     }
+     "text": "The fix-mode opener, in Build's own words: what Test found and in which part, that only that is redone (and what uses it re-checked), and that everything else is left as it is",
+     "kind": "judged"
     }
    ],
    "est_turns": 16
@@ -6532,21 +6400,16 @@
    ],
    "expectations": [
     {
-     "text": "N-B10 then N-B14",
+     "text": "N-B10",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-B10"
-       },
-       {
-        "type": "quote",
-        "id": "N-B14"
-       }
-      ]
+      "type": "quote",
+      "id": "N-B10"
      }
+    },
+    {
+     "text": "The fix-mode opener, in Build's own words: what Test found and in which part, that only that is redone (and what uses it re-checked), and that everything else is left as it is",
+     "kind": "judged"
     }
    ],
    "est_turns": 18
@@ -7188,15 +7051,11 @@
    ],
    "expectations": [
     {
-     "text": "No opening, no N-B5 for Gmail, no N-B40",
+     "text": "No N-B5 for Gmail, no N-B40",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
-       {
-        "type": "quote_absent",
-        "id": "N-B4"
-       },
        {
         "type": "quote_absent",
         "id": "N-B5",
@@ -7208,6 +7067,10 @@
        }
       ]
      }
+    },
+    {
+     "text": "No opening: no message says Build will make the workflow from the plan task by task or asks the leader to start setting it up (the opening is in Build's own words now, U1)",
+     "kind": "judged"
     }
    ],
    "est_turns": 16
@@ -8247,7 +8110,7 @@
      }
     },
     {
-     "text": "[JR-microsoft-365] The build record passes the structure check (build.md 11 and 13; rules 6.4): the frontmatter keys and no others, 'What was built' then 'What it can access', the parts table's columns and Status values, the one request shape",
+     "text": "[JR-microsoft-365] The build record passes the structure check (build.md 11 and 13; rules 6.4): the frontmatter keys and no others, 'What was built' then 'What it can access', the parts table's columns and Status values, the one request shape; an agent-only plan leaves skills_on out (F8)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -8256,7 +8119,6 @@
         "type": "yaml_keys",
         "path": "onedrive/ai-workspace/framework/client-follow-up/build-record.md",
         "keys": [
-         "skills_on",
          "schedule",
          "fresh_chat_run",
          "change_requests"
@@ -8267,6 +8129,11 @@
         "type": "structure",
         "path": "onedrive/ai-workspace/framework/client-follow-up/build-record.md",
         "kind": "build_record"
+       },
+       {
+        "type": "file_not_regex",
+        "path": "onedrive/ai-workspace/framework/client-follow-up/build-record.md",
+        "pattern": "(?m)^skills_on:"
        }
       ]
      }
@@ -8752,21 +8619,16 @@
    "expected_output": "Running work brought in: the opening (N-B4) ends with N-B41's no-steps form as its first action, the message's only question; Part 1 starts only after 'done' or 'no schedule'.",
    "expectations": [
     {
-     "text": "N-B4 and N-B41",
+     "text": "N-B41",
      "kind": "scripted",
      "check": {
-      "type": "all",
-      "checks": [
-       {
-        "type": "quote",
-        "id": "N-B4"
-       },
-       {
-        "type": "quote",
-        "id": "N-B41"
-       }
-      ]
+      "type": "quote",
+      "id": "N-B41"
      }
+    },
+    {
+     "text": "The opening, in Build's own words: that it makes the workflow from the approved plan, task by task, checking each part; what the leader does first; where it reads and saves the files; the first action, with the pause as its first action",
+     "kind": "judged"
     },
     {
      "text": "The opening's one question is N-B41; no connection, setup change or quick real check is asked about or made before its answer",

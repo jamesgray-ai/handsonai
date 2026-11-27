@@ -45,7 +45,7 @@ Run the built-text check (`carried-lines.md` section 7) on the instructions the 
 
 Up to three tries in all. A carried line is never finished as `Built, misses [line]`: it isn't a requirement line. After the third failed try, record `Failed check` for the agent's task; in N-B9's reason say plainly that Agent Builder keeps leaving out [the line, in plain words] that every practice run needs, so the agent can't be tested safely and isn't to be used; and ask, said exactly (N-B54):
 
-"Please delete [Agent]: select the … menu next to [Agent] and choose Delete. Say 'done' when it's gone."
+"Please delete [Agent] in Agent Builder, so it's never used: [one sentence on how, and the link to Microsoft's page on managing agents in `platform-docs.json`]. Say 'done' when it's gone."
 
 On the rebuild path (section 5), the newer copy from the third try is deleted first, as in its step 5, so this request leaves no copy of the agent made in this pass. On a live workflow it isn't asked for the agent that was running (below).
 

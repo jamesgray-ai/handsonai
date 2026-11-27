@@ -8,7 +8,7 @@ Read at Part 3, and whenever a fix or a live change installs. Every part saved h
 
 By the plan's `packaging`:
 - **Standalone Skill:** each skill saved on its own, in the form the platform takes.
-- **Plugin:** one plugin, with nothing from the record in it. On Claude the creator's save card saves each skill (or agent) inside a plugin of its own; a plugin of several parts that Claude can't make that way is uploaded as a .zip (Customize, then Plugins, then Add, then Upload plugin); no marketplace. Plugins need a paid Claude plan (Pro, Max, Ultra, Team or Enterprise), said for those plans by name, never as the leader's. Its skills work in a Claude chat, but its agents run only in Cowork (and Claude Code), never in a chat on the web or desktop: the install line may count the agents, and nothing you say implies they run in a chat. A plan that puts worker agents in a workflow run in a Claude chat can't run as planned: a change request (N-B9). On Microsoft 365 a Claude plugin .zip is converted on upload. Use the platform's own plugin builder where one exists; never hand-zip a plugin there.
+- **Plugin:** one plugin, with nothing from the record in it. On Claude the creator's save card saves each skill (or agent) inside a plugin of its own; a plugin of several parts that Claude can't make that way is uploaded as a .zip (one sentence and the link to Claude's plugins page in `platform-docs.json`); no marketplace. Plugins need a paid Claude plan (Pro, Max, Ultra, Team or Enterprise), said for those plans by name, never as the leader's. Its skills work in a Claude chat, but its agents run only in Cowork (and Claude Code), never in a chat on the web or desktop: the install line may count the agents, and nothing you say implies they run in a chat. A plan that puts worker agents in a workflow run in a Claude chat can't run as planned: a change request (N-B9). On Microsoft 365 a Claude plugin .zip is converted on upload. Use the platform's own plugin builder where one exists; never hand-zip a plugin there.
 - **Workspace Agent** (ChatGPT, guided): an instruction document for what the leader creates in the platform's interface, from your skills and the plan's configuration. It carries everything in `carried-lines.md` and sets every write action to "Always ask". Until release check 18 passes, its protection is the instruction only, said in N-B21 (`SKILL.md`).
 - **Loose Files:** written to their places.
 - **Codex, until release check 8 passes** (skill loading across the CLI, the desktop app and the IDE extension): whatever the plan's `packaging`, install standalone skills in `.agents/skills/`, never a plugin, and name in the close the surfaces where they load. Record the change from the plan's packaging as a ruling ("what, why, cost if wrong").
@@ -23,7 +23,7 @@ By the plan's `packaging`:
 | Microsoft 365 | Skills: Copilot's creator saves the kept text into Cowork's skills folder; a Claude plugin .zip is converted on upload. An agent: Agent Builder's own chat makes it from the build prompt the leader pastes (`microsoft-365-agent.md`) | Confirm the skills appear; for each agent, the Agent Builder steps |
 
 Then:
-- **A first build** is packaged without asking. On a rebuild with an Organizational lens, ask first: **Ask:** "If teammates already have this workflow, they'll need the new version. Ready to share it?"
+- **A first build** is packaged without asking. On a rebuild with an Organizational lens, ask first *(your words)*: **Ask:** "If teammates already have this workflow, they'll need the new version. Ready to share it?" (N-B22)
 - **One loadable copy of each skill:** the installed one. The kept copy in `built/` sits where no platform loads skills, so it never counts as a second copy.
 - **The archive check:** list the package (`unzip -l`); confirm it isn't empty, holds each skill's `SKILL.md` and each agent's file, and holds no record file (`requirements.md`, `design-plan.md`, `build-record.md`, `test-results.md`, `inputs/`, `context/`, `history/`). Delete a bad archive and its temporary files before trying again.
 - **A plugin's version** rises on each rebuild.
@@ -66,7 +66,7 @@ Inside the close, before its Test sentence, say where the copy is (N-B37), exact
 
 ## 5. What's still waiting
 
-Inputs marked `not available yet` (the D12 line in `SKILL.md`), and in the record's remaining manual steps and the close: any kind of change whose quick real check was declined or skipped (the first real run proves it); real targets not reached yet; a requirement line a task misses (`Built, misses [line]`), which Test settles; a schedule whose safety record is incomplete; any open item.
+Inputs marked `not available yet` (`SKILL.md`, *Phase 3*), and in the record's remaining manual steps and the close: any kind of change whose quick real check was declined or skipped (the first real run proves it); real targets not reached yet; a requirement line a task misses (`Built, misses [line]`), which Test settles; a schedule whose safety record is incomplete; any open item.
 
 ## 6. Finish the record and the registry
 

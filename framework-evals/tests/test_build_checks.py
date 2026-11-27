@@ -13,6 +13,22 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 import approved_lines as AL  # noqa: E402
+
+
+def unretired(*ids):
+    """The corpus with these lines approved again: they were retired as held lines in Pass 3 (U1), and these
+    tests use them only as material for the matcher's own rules."""
+    import tempfile
+    data = json.loads(Path(AL.DEFAULT_CORPUS).read_text())
+    for e in data["lines"]:
+        if e["id"] in ids:
+            e.pop("retired", None)
+    f = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False)
+    f.write(json.dumps(data))
+    f.close()
+    return AL.Corpus(f.name)
+
+
 import check_scripted as CS  # noqa: E402
 
 EVALS = HERE.parents[1] / "build-workspace" / "evals" / "evals.json"
@@ -117,11 +133,11 @@ class NamedFormIncludesItsDerivedForms(unittest.TestCase):
                "Let's start with the Project for your workflow.")
 
     def test_no_draft_variant_counts_as_the_named_form(self):
-        forms = AL.load().get("N-B4", "after an orientation line")
+        forms = unretired("N-B4").get("N-B4", "after an orientation line")
         self.assertTrue(any(f.matches(self.OPENING) for f in forms))
 
     def test_another_approved_form_is_not_pulled_in(self):
-        forms = AL.load().get("N-B4", "Every task waits")
+        forms = unretired("N-B4").get("N-B4", "Every task waits")
         self.assertFalse(any(f.form.startswith("Every task waits, after an orientation line") and not f.derived
                              for f in forms))
 
@@ -162,7 +178,8 @@ class ShortRunNeedsTheRestOfItsLine(unittest.TestCase):
     is model wording, not the line reworded."""
 
     def misses(self, msg, skill="build"):
-        return [(ln.id, got) for ln, _, got in AL.load().near_misses(msg, skill)]
+        # N-B14, retired as a held line in Pass 3 (U1), stays the material for the short-run rule
+        return [(ln.id, got) for ln, _, got in unretired("N-B14").near_misses(msg, skill)]
 
     def test_false_hits_from_the_round(self):
         for msg, lid in [
@@ -244,7 +261,7 @@ class SafetyOrPromiseLinesAreWordForWord(MeaningChangingSwapsFail):
         ("N-B26", "No private place", "would reach your team", "would miss your team"),
         ("N-B50", "main", "is built and checked", "is built and unchecked"),
         ("N-B40", "main", "can't draw on our conversations", "can draw on our conversations"),
-        ("N-B35", "main", "That didn't work", "That did work"),
+        ("N-B47", "main", "before it's been tested", "after it's been tested"),
         ("N-D16", "main", "are back in place", "are out of place"),
         ("N-A19", "left out", "I left out", "I added in"),
     ]

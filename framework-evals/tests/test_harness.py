@@ -145,7 +145,17 @@ class QuoteCheck(unittest.TestCase):
     def test_n_b4_leaves_out_an_empty_clause_and_nothing_else(self):
         """build SKILL.md: "A clause with nothing in it is left out." No draft to check: the list closes
         up. A changed OK clause still fails."""
-        c = AL.Corpus()
+        # N-B4, retired as a held line in Pass 3 (U1), stays the material for the empty-clause rule
+        import json as _json
+        import tempfile as _tf
+        data = _json.loads(Path(AL.DEFAULT_CORPUS).read_text())
+        for e in data["lines"]:
+            if e["id"] == "N-B4":
+                e.pop("retired", None)
+        f = _tf.NamedTemporaryFile("w", suffix=".json", delete=False)
+        f.write(_json.dumps(data))
+        f.close()
+        c = AL.Corpus(f.name)
         forms = [ln for ln in c.checkable() if ln.id == "N-B4"]
         said = ("Build makes your workflow for Client Follow-Up from your approved plan, task by task, checking each "
                 "part as it goes. First I'll need you to connect Gmail and OK 2 quick real checks and setup changes; "
