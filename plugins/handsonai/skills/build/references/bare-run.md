@@ -40,4 +40,4 @@ The rest of the message is model wording.
 
 ## 5. What gets written, and recorded
 
-Write instructions for each line the bare run missed; and, whatever it did, every must-have, every rule, every checkpoint and every safety line, plus everything in `carried-lines.md`. Record `[skill]: done` under `bare_run:`, in block form, and in the record's *Also* section what the plain model handled.
+Write instructions for each line the bare run missed; and, whatever it did, every check, every rule, every checkpoint and every safety line, plus everything in `carried-lines.md`. Record `[skill]: done` under `bare_run:`, in block form, and in the record's *Also* section what the plain model handled.

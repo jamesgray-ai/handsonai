@@ -4460,7 +4460,7 @@
    "fixture": "cc-first",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "Instructions written for what the bare run missed, while every must-have, rule, checkpoint and safety line is in the built text.",
+   "expected_output": "Instructions written for what the bare run missed, while every check, rule, checkpoint and safety line is in the built text.",
    "files": [
     "students/default.md"
    ],

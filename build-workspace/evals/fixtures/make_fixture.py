@@ -401,10 +401,10 @@ results:
 # Client Follow-Up — Test Results, round 1
 
 ## Check list
-| Line | Kind | Must-have |
+| Line | Kind | Safety |
 |---|---|---|
-| AC1 | output | yes |
-| AC2 | output | yes |
+| AC1 | output | no |
+| AC2 | output | no |
 | AC3 | output | no |
 | R1 | path | no |
 | R3 | path | no |
@@ -983,7 +983,7 @@ def fx_fix_mode_artifact(t):  # the Issues row names no task: mapped through the
     cc_close_state(t)
 
 
-def fx_fix_requirement(t):  # after Build's first close, the fix needs AC3 changed (a must-have can't fit in 150 words)
+def fx_fix_requirement(t):  # after Build's first close, the fix needs AC3 changed (a check that can't fit in 150 words)
     ff(t, S08)
     real_fingerprints(t)
     # each step in the notes' own words (final-build-2: with AC1 as it was, Build grouped the steps by owner in a

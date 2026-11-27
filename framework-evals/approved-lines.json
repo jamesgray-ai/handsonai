@@ -5803,7 +5803,7 @@
   {
    "id": "N-B34",
    "form": "main",
-   "text": "Fixing this means changing your requirements: [the line, in plain words]. At the start of your next test round you can change or drop it[, or accept the miss, since it isn't a must-have]; if the workflow then needs to work differently, Test sends it back to be changed.[ Say 'test the workflow I built. My files are in [location].']",
+   "text": "Fixing this means changing your requirements: [the line, in plain words]. At the start of your next test round you can change or drop it[, or accept the miss]; if the workflow then needs to work differently, Test sends it back to be changed.[ Say 'test the workflow I built. My files are in [location].']",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -5811,7 +5811,7 @@
    "files": {
     "build": "SKILL.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 3 (no must-haves)"
   },
   {
    "id": "N-B34",
