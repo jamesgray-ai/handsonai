@@ -42,7 +42,7 @@ A platform with no clean chat is as safe on sending: the switch-off, the Deny li
 2. **How many it runs,** in your own words: all [N] inputs, one after another, [N] as the round's file lists them.
 3. **The Deny line,** where the run can reach a connection that can send, post or change something (section 5).
 4. **The protection clause** (N-T8), on the round's first hand-over, when the workflow has a connection that can change something, and for an agent Agent Builder made whatever its connections (unless the release check shows such an agent can't send, post or change anything without asking first), on every platform, Claude Code included: "Your workflow shows each change instead of making it; on [platform] that relies on it following its instructions, not a hard block."
-5. **The first-line check** (N-T8): "If its first line isn't 'Practice run: nothing will be sent or changed.', stop the chat and tell me."
+5. **The first-line check** (N-T8): "If 'Practice run: nothing will be sent or changed.' doesn't come before its first draft or question, stop the chat and tell me."
 6. **How results come back** (section 6).
 7. **A carry-over input you couldn't copy the store for:** one sentence in model wording asking the leader, before pasting, to point this practice run at a test copy of [the store, in plain words] holding [the `Earlier run:` paragraph's state, in plain words], never the real one.
 8. **The block** (section 7), in a fenced block, last (on the chat platforms, in the second message).

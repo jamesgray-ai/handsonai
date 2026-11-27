@@ -264,7 +264,14 @@ def check_plan(text, requirements_text=None, written=True):
 # ---------------------------------------------------------------- the build record
 
 RECORD_KEYS = ["plan_revision", "last_close_after_round", "live_checks", "skills_on", "plugins", "write_block", "schedule",
-               "fingerprints", "fresh_chat_run", "run_folders", "change_requests"]
+               "fingerprints", "fresh_chat_run", "run_folders", "change_requests",
+               "uses_skills", "kept_from_existing", "shared_with"]
+# Pass 5 (E16, E19, E27): another plugin's skill a part uses; what an extended skill held that the plan
+# doesn't, and the leader's keep or drop; another workflow sharing a skill this change touches, its schedule
+# answer good until this change goes live
+RECORD_LISTS = {"uses_skills": ("plugin", "skill"), "kept_from_existing": ("part", "item", "kept"),
+                "shared_with": ("workflow", "schedule", "until")}
+SHARED_SCHEDULE = re.compile(r"^(none|paused)$")
 RECORD_COLS = ["Task", "Build Output", "Context ID", "Artifact", "Path or location", "Status", "Saved",
                "Built rev", "Last built after round", "Check", "Ruling"]
 RECORD_STATUS = re.compile(r"^(Created|Reused|Extended|Installed by you|Built, misses .+|Waiting on .+|"
@@ -313,6 +320,18 @@ def check_build_record(text):
         if "bare_run" in data:
             probs.append("bare_run is the layout before 11.0: the record keeps fresh_chat_run")
         probs += check_requests(data.get("change_requests"), "change_requests")
+        for k, want in RECORD_LISTS.items():
+            v = data.get(k)
+            if v is None:
+                continue
+            if not (isinstance(v, list) and all(isinstance(x, dict) and all(f in x and str(x[f]).strip() for f in want)
+                                                for x in v)):
+                probs.append(f"{k}: each entry needs {', '.join(want)}")
+                continue
+            if k == "kept_from_existing" and any(str(x["kept"]).lower() not in ("yes", "no", "true", "false") for x in v):
+                probs.append("kept_from_existing: kept is yes or no")
+            if k == "shared_with" and any(not SHARED_SCHEDULE.match(str(x["schedule"])) for x in v):
+                probs.append("shared_with: schedule is none or paused")
     heads = h2(body)
     if heads[:2] != ["What was built", "What it can access"]:
         probs.append(f"the record opens with 'What was built' then 'What it can access' (have {heads[:2]})")
@@ -399,6 +418,18 @@ def check_results(text):
             if extra_keys:
                 probs.append(f"results.{name}: keys {sorted(extra_keys)} not in rules 6.5")
         probs += check_requests(data.get("change_requests"), "change_requests")
+        for k, want in RECORD_LISTS.items():
+            v = data.get(k)
+            if v is None:
+                continue
+            if not (isinstance(v, list) and all(isinstance(x, dict) and all(f in x and str(x[f]).strip() for f in want)
+                                                for x in v)):
+                probs.append(f"{k}: each entry needs {', '.join(want)}")
+                continue
+            if k == "kept_from_existing" and any(str(x["kept"]).lower() not in ("yes", "no", "true", "false") for x in v):
+                probs.append("kept_from_existing: kept is yes or no")
+            if k == "shared_with" and any(not SHARED_SCHEDULE.match(str(x["schedule"])) for x in v):
+                probs.append("shared_with: schedule is none or paused")
     heads = h2(body)
     if heads != RESULTS_SECTIONS:
         probs.append(f"sections {heads} != {RESULTS_SECTIONS} (test 9: in order, and no others)")

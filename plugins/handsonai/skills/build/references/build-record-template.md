@@ -32,6 +32,9 @@ fingerprints:
 fresh_chat_run: done
 run_folders: []
 change_requests: []
+uses_skills: []
+kept_from_existing: []
+shared_with: []
 ---
 
 # [Workflow name] — Build Record
@@ -79,6 +82,9 @@ The keys above and no others, in that order:
 - **`fingerprints`:** at install, one per installed skill and agent (none for an agent Agent Builder made on Microsoft 365), one per runtime context copy you can read back, and on Claude Code `wrapper: sha256:<64 hex>` for `framework/.bin/test-run.sh`. Where no code can run, a part's size and date.
 - **`fresh_chat_run`:** the one fresh-chat run of the installed workflow (`fresh-chat-run.md`): `done`, `"skipped: [why]"` or `"failed: [what it missed]"`. A record from before 11.0 has `bare_run:` instead: leave it out when you next write the record.
 - **`run_folders`** (Claude Code): each fresh folder made for a check, until it's cleared; `[]` otherwise.
+- **`uses_skills`:** each skill from another plugin that a part uses, as `{plugin, skill}` (the plan blueprint's `Uses skills from:` line, copied at the part's task); Test reads it when it checks which skills a practice run loaded. `[]` when none. Never `depends_on`, which the plan uses for tasks.
+- **`kept_from_existing`:** for a part that extends an existing skill, each thing that skill held that the plan doesn't (a link, a rule, a step, another plugin's skill) and the leader's answer, as `{part, item, kept: yes|no}`; Test grades each kept item like any line ("kept from the earlier version (you, at Build)"), and Design reads them when the plan next changes. `[]` when none.
+- **`shared_with`:** each other workflow that uses a skill this change touches, as `{workflow, schedule: none|paused, until}`: the leader's answer to the pause question (`live-change.md` section 7), good `until` this change goes live (its change request id, or "first go-live"), so it isn't asked again before then and is asked again for the next change. `[]` when none.
 - **`change_requests`:** in the one shape, each with exactly `id` (`B1`, `B2`…; never left out), `source` (`build`; `direct edit` for an edit the leader keeps, its edited text saved as `history/direct-edit-[id]-YYYY-MM-DD-HHMM.md` and `what` a one-line summary, in double quotes, naming that file, never the text itself), `what`, `why`, `tasks`, `after_round` (a number, 0 before any round). The track switch goes here too.
 
 ## 4. The table

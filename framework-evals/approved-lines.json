@@ -6898,7 +6898,7 @@
   {
    "id": "N-T8",
    "form": "Then",
-   "text": "If its first line isn't 'Practice run: nothing will be sent or changed.', stop the chat and tell me.",
+   "text": "If 'Practice run: nothing will be sent or changed.' doesn't come before its first draft or question, stop the chat and tell me.",
    "kind": "safety or promise",
    "skills": [
     "build",
@@ -6908,7 +6908,7 @@
     "test": "references/hand-overs.md",
     "build": "references/fresh-chat-run.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 3 Task 4 (B4, B5: one fresh-chat run of the installed workflow replaces the bare run; the leader never answers the workflow's questions): Build's fresh-chat run hand-over says it too"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27: shape release Pass 3 Task 4 (B4, B5: one fresh-chat run of the installed workflow replaces the bare run; the leader never answers the workflow's questions): Build's fresh-chat run hand-over says it too; 2026-11-27 Pass 5 Task 1 (E22, C3): the line comes before anything the workflow produces, so a short line the assistant says before the skill loads doesn't fail it"
   },
   {
    "id": "N-T8",
@@ -7871,7 +7871,7 @@
   {
    "id": "N-T51",
    "form": "main",
-   "text": "That run didn't start with 'Practice run: nothing will be sent or changed.', so it may have [sent or changed what its summary shows]. Check [where] and undo anything it made. I've noted it for Build to fix.",
+   "text": "That run didn't say 'Practice run: nothing will be sent or changed.' before its first draft or question, so it may have [sent or changed what its summary shows]. Check [where] and undo anything it made. I've noted it for Build to fix.",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7879,7 +7879,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); 2026-11-27 Pass 5 Task 1 (E22, C3): refused only when a draft, question or stop came before the line"
   },
   {
    "id": "N-T51",

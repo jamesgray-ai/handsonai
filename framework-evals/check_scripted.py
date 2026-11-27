@@ -109,6 +109,10 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   creator's `package_skill` made (unzip, zipinfo,
                                                                   python… naming the .skill file), in the same turn;
                                                                   no offer passes. No events.jsonl fails closed
+  no_false_first_line_claim {session?}                            once the leader pastes a run reply whose practice-run
+                                                                  line isn't its opening words (a short line came first,
+                                                                  or the output did), no later AI message says the reply
+                                                                  starts, begins or opens with it (Pass 5, E22)
   file_unchanged   {path, session?}                               every matching file is byte-identical
                                                                   at session start and end
   file_line        {path, line: n, pattern, session?}             line n (1-based) matches the pattern
@@ -998,6 +1002,54 @@ def _nf4_before_fresh_run(run):
     return True, "N-F4's Build form is in every fresh-chat run hand-over, before its block"
 
 
+PRACTICE_LINE = "Practice run: nothing will be sent or changed."
+# Pass 5 (E22, plan review C3): what the workflow produced, as opposed to a line the assistant says before its
+# skill loads ("I'll run the … skill on all seven practice inputs, drafting only."): a fenced block, an input
+# label, an email's subject or greeting, or a question to the person
+OUTPUT_SIGNS = re.compile(r"```|^\s*(?:Input \d+\s*:|Subject\s*:|(?:Hi|Hello|Dear|Hey)\b)|\?\s*$", re.M | re.I)
+PREAMBLE_MAX_WORDS = 40
+
+
+def practice_line_position(reply):
+    """Where the fixed first line sits in a pasted run reply: "first" (its opening words), "after_preamble" (a
+    short line or two came first, holding nothing the workflow produced: the run stands), "after_output" (a
+    draft, a question, a stop or an input's result came before it: refused, N-T51) or "missing"."""
+    text = norm(reply).strip()
+    at = text.find(norm(PRACTICE_LINE))
+    if at < 0:
+        return "missing"
+    before = text[:at].strip()
+    if not before:
+        return "first"
+    if OUTPUT_SIGNS.search(before) or len(before.split()) > PREAMBLE_MAX_WORDS:
+        return "after_output"
+    return "after_preamble"
+
+
+def practice_line_stands(reply):
+    """The run carries its practice-run mode: the fixed line comes before anything the workflow produced."""
+    return practice_line_position(reply) in ("first", "after_preamble")
+
+
+FIRST_LINE_CLAIM = re.compile(r"(?i)\b(?:starts?|started|starting|begins?|began|opens?|opened|leads?|led) with (?:the |its |a )?"
+                              r"(?:fixed )?(?:practice[- ]run (?:line|label)|['\"]?practice run: nothing will be sent)")
+
+
+def _no_false_first_line_claim(run, n=None):
+    """Pass 5 (E22, missed twice in James's run): once the leader pastes a reply whose practice-run line isn't its
+    opening words, no later AI message of that session says the reply starts (begins, opens) with it."""
+    for s in _sessions(run, n):
+        late = False
+        for i, t in enumerate(s["turns"]):
+            if t["role"] != "ai":
+                if PRACTICE_LINE.lower() in norm(t["text"]).lower() and practice_line_position(t["text"]) != "first":
+                    late = True
+                continue
+            if late and FIRST_LINE_CLAIM.search(norm(t["text"])):
+                return False, f"session {s['n']} turn {i + 1}: says the reply starts with the practice-run line, but a line came before it"
+    return True, "no claim that a reply starts with the practice-run line when something came before it"
+
+
 def check(c, run):
     """Return (passed, evidence)."""
     t = c["type"]
@@ -1081,6 +1133,8 @@ def check(c, run):
         return _nf4_leads(run)
     if t == "nf4_before_creator":
         return _nf4_before_creator(run)
+    if t == "no_false_first_line_claim":
+        return _no_false_first_line_claim(run, n)
     if t == "nf4_before_fresh_run":
         return _nf4_before_fresh_run(run)
     if t == "no_time_or_step_numbers":
