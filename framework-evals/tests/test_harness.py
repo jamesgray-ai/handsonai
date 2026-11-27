@@ -34,7 +34,7 @@ import structure as ST  # noqa: E402
 import validate_evals as V  # noqa: E402
 
 FIX = ROOT / "framework-fixtures" / "states" / "s11-live" / "with-registry" / "framework" / "client-follow-up"
-N_D1 = "Do you have anything written down for this: an SOP, a checklist, a past example, or notes?"
+N_D1 = "Do you have anything written down for this: an SOP, a checklist, or notes?"
 
 
 def run_of(*ai_messages, files_end=None, files_start=None, root=None):
@@ -64,8 +64,8 @@ class QuoteCheck(unittest.TestCase):
         # review of 390f375b8 (James, 2026-11-22): N-D1 is a question, held word for word: any word changed fails
         bad = run_of("Thanks. " + N_D1.replace("anything", "nothing"))
         self.assertTrue(ok({"type": "scripted_lines"}, good))
-        self.assertFalse(ok({"type": "scripted_lines"}, run_of("Thanks. " + N_D1.replace("past example", "past sample"))))
-        self.assertFalse(ok({"type": "quote", "id": "N-D1"}, run_of("Thanks. " + N_D1.replace("past example", "past sample"))))
+        self.assertFalse(ok({"type": "scripted_lines"}, run_of("Thanks. " + N_D1.replace("a checklist", "a check list"))))
+        self.assertFalse(ok({"type": "quote", "id": "N-D1"}, run_of("Thanks. " + N_D1.replace("a checklist", "a check list"))))
         self.assertFalse(ok({"type": "quote", "id": "N-D1"}, bad))
         passed, why = CS.check({"type": "scripted_lines"}, bad)
         self.assertFalse(passed)

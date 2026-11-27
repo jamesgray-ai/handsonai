@@ -859,7 +859,7 @@
   {
    "id": "N-D1",
    "form": "main",
-   "text": "Do you have anything written down for this: an SOP, a checklist, a past example, or notes?",
+   "text": "Do you have anything written down for this: an SOP, a checklist, or notes?",
    "kind": "question",
    "skills": [
     "deconstruct"
@@ -867,7 +867,7 @@
    "files": {
     "deconstruct": "SKILL.md"
    },
-   "source": "framework-rules.md 12; approved before 3c-DJ",
+   "source": "framework-rules.md 12; approved before 3c-DJ; past example moved to its own part (shape-release run, 2026-11-27)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {

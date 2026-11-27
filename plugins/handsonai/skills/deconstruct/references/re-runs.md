@@ -29,7 +29,7 @@ The progress file works as usual, with a `Re-run: [what should change]` line aft
 Requirements written before this release may lack what later steps now read. On a re-run or a redo, whatever the leader asked to change:
 
 - **The new floor questions,** each asked as written, in its item's place in the playbacks, only where the file can't answer it:
-  - how runs start (`Starts`), with how soon where it applies (`interview.md`, *How runs start*); `Per run` is inferred, never asked;
+  - how runs start (`Starts`), a default shown at the summary, with how soon where it applies (`interview.md`, *How runs start*); `Per run` is inferred, never asked;
   - carry-over (`Remembers`), only when `Starts` is a schedule or an event checked on a schedule, or `Per run` is a batch (`interview.md`, *4. What it works from*);
   - the policy question (`Policy check:`), with the same trigger as in the interview (`interview.md`, *4. What it works from*): a source the leader described as confidential or regulated, or as holding client, staff or personal details, or a source plainly about clients, staff or individuals by its own name or by the Analyze report, the line filled with the source itself, never with a guess at what it holds; never for a row saved `Confidential` only as the safe fallback.
 - **The safety limits,** when the file's Security section holds no constraint the leader kept (the one-line form, or no P line): show the safety limits message in its place in the playbacks (`interview.md`, *5. Rules and limits*), since an older file can't say whether the leader ever saw it.
@@ -81,7 +81,7 @@ A requirements file with no `## Output` section is a 10.x file. On a re-run or a
 - **`from:`** is added to each check from the file's Inputs, Context Inventory and Rules; a check whose information nothing supplies is an open item.
 - **Scenarios:** `(proposed)` and `(proposed, hard)` become `(made up)`; existing `inputs/` files stay and keep their paths.
 
-**An unfinished 10.5 interview** (a progress file whose `Next:` holds a 10.5 value) resumes at the matching part: `how runs start` → how runs start; `the safety questions`, `the goal`, `what it must get right` → the goal and output; `what it works from` → what it works from; `the rules`, `the safety limits` → rules and limits; `the practice runs` → practice runs; `the defaults` → the summary. Answers it already holds are drafted back, never asked again; a must-have it recorded becomes an ordinary check.
+**An unfinished 10.5 interview** (a progress file whose `Next:` holds a 10.5 value) resumes at the matching part: `how runs start` → the goal and output (how runs start is now a default shown at the summary); `the safety questions`, `the goal`, `what it must get right` → the goal and output; `what it works from` → what it works from; `the rules`, `the safety limits` → rules and limits; `the practice runs` → practice runs; `the defaults` → the summary. Answers it already holds are drafted back, never asked again; a must-have it recorded becomes an ordinary check.
 
 ## What's saved
 

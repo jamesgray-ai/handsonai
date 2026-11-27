@@ -5968,7 +5968,7 @@
           }
         },
         {
-          "text": "Once the workflow is known, the AI asks whether anything is written down for it (an SOP, a checklist, a past example or notes)",
+          "text": "Once the workflow is known, the AI asks whether anything is written down for it (an SOP, a checklist or notes)",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
@@ -6439,7 +6439,7 @@
           "must": true
         },
         {
-          "text": "The interview follows the seven parts in order: the goal and output (drafted, not asked), then the checks with the rules drafted, then an optional past example, then what it works from, then the rules and limits, then the checkpoints, then the practice runs (scenario descriptions only: no practice input is asked for), then the defaults and the one-screen summary, then the save",
+          "text": "The interview follows the seven parts in order: the goal and output (drafted, not asked), then the checks with the rules drafted, then an optional past example, then what it works from, then the rules and limits, then the checkpoints (one line at the top of the practice-runs message when nothing about them is open), then the practice runs (scenario descriptions only: no practice input is asked for), then the defaults and the one-screen summary, then the save; how runs start is never a question of its own when nothing the leader said names a time",
           "kind": "judged"
         },
         {
@@ -17741,7 +17741,7 @@
           }
         },
         {
-          "text": "After the practice runs, one message gives the defaults as defaults the leader can change (the AI decides how to write each run's output from the goal, checks and rules, unless the leader gives set steps), then the one-screen summary: goal, output, why it matters, checks, rules and limits, checkpoints, practice runs, open items with who and when, and how readiness works said once; it ends by asking for 'go ahead' or what to change; it asks for no measure, baseline or target as a question of its own; and the leader's 'go ahead' keeps everything with no re-ask",
+          "text": "After the practice runs, one message gives the defaults as defaults the leader can change (the leader starts each run, and it can run on a schedule instead; nothing about how the work gets done or set steps), then the one-screen summary: goal, output, why it matters, checks, rules and limits, checkpoints, practice runs, open items with who and when, and how readiness works said once; it ends by asking for 'go ahead' or what to change; it asks for no measure, baseline or target as a question of its own; and the leader's 'go ahead' keeps everything with no re-ask",
           "kind": "judged",
           "must": true
         },
@@ -18183,7 +18183,7 @@
           "must": true
         },
         {
-          "text": "The interview follows the seven parts in order: the goal and output (drafted, not asked), then the checks with the rules drafted, then an optional past example, then what it works from, then the rules and limits, then the checkpoints, then the practice runs (scenario descriptions only: no practice input is asked for), then the defaults and the one-screen summary, then the save",
+          "text": "The interview follows the seven parts in order: the goal and output (drafted, not asked), then the checks with the rules drafted, then an optional past example, then what it works from, then the rules and limits, then the checkpoints (one line at the top of the practice-runs message when nothing about them is open), then the practice runs (scenario descriptions only: no practice input is asked for), then the defaults and the one-screen summary, then the save; how runs start is never a question of its own when nothing the leader said names a time",
           "kind": "judged"
         },
         {

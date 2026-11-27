@@ -77,7 +77,7 @@ Each line is in the "When… it…" shape, with its kind (`rule` or `checkpoint`
 
 ## 4. The summary
 
-Always, in its own message (`interview.md`, *8. The defaults and the summary*), after the defaults and before anything is written; never skipped. On one screen, in plain words, never IDs: the goal; the output and its structure; why it matters (the registry goal and one measure, your suggestion); the checks, each with where its information comes from; the rules and the safety limits; the checkpoints; the practice runs; open items, each with who and when. Then how readiness works, said once, and the go-ahead, both as `interview.md` gives them.
+Always, in its own message (`interview.md`, *8. The defaults and the summary*), after the defaults and before anything is written; never skipped. On one screen, in plain words, never IDs: the goal; the output and its structure; why it matters (the registry goal and one measure, your suggestion); the checks, each with where its information comes from; the rules and the safety limits; the policy answer, when asked, on its own line (never as a rule); the checkpoints; the practice runs; open items, each with who and when. Then how readiness works, said once, and the go-ahead, both as `interview.md` gives them.
 
 Before it, trace every check's source in the draft (each `from:` names an input, a source or a rule in the draft, or the draft alone); a check whose information nothing supplies is listed as an open item, never saved with a guessed source. A test that trips here brings its limits first.
 
@@ -124,7 +124,7 @@ revisions:
 # [Workflow Name] — Workflow Requirements
 
 ## Goal
-For each [trigger], a [format] [deliverable] to [who], ready for you to [review] [when].
+For each [trigger], a [deliverable] for [who], so [purpose].
 
 ## Output
 
