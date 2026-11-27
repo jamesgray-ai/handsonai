@@ -1303,7 +1303,7 @@
   {
    "id": "N-T28",
    "form": "Claude, the clean chat",
-   "text": "In an incognito chat, Claude doesn't use your memory or see your files, and I'll still check each run for signs it saw your requirements.",
+   "text": "In an incognito chat, Claude doesn't use your memory, and I'll still check each run for signs it saw your requirements or your framework files.",
    "kind": "safety or promise",
    "skills": [
     "test"

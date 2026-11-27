@@ -674,7 +674,7 @@ function workflowState(folder, opts = {}) {
     facts.last_round_plan_revision = num(results.plan_revision);
     facts.go_live = results.go_live || null;
     if (results.direct_edit) facts.direct_edit = results.direct_edit;
-    facts.scorecard = scorecardOf(results.results);
+    facts.scorecard = lastScorecard(folder, f.results);
   }
   facts.record_plan_revision = record ? num(record.plan_revision) : null;
   facts.last_close_after_round = lastClose;
@@ -748,12 +748,13 @@ function workflowState(folder, opts = {}) {
 // runs, a line counts once and is met only when both met it. Null when no input has a graded line.
 function scorecardOf(results) {
   if (!results || typeof results !== 'object') return null;
-  let met = 0; let total = 0; let inputs = 0;
+  let met = 0; let total = 0; let inputs = 0; let carried = 0;
   for (const r of Object.values(results)) {
     if (!r || typeof r !== 'object') continue;
     const runs = Object.keys(r).filter((k) => /^run\d+$/.test(k)).map((k) => r[k] || {});
     if (!runs.length) continue;
     inputs += 1;
+    if (r.carried) carried += 1;
     const lines = new Set(runs.flatMap((run) => Object.keys(run)));
     for (const line of lines) {
       const vals = runs.map((run) => run[line]).filter((v) => v === 'met' || v === 'not-met');
@@ -762,7 +763,29 @@ function scorecardOf(results) {
       if (vals.every((v) => v === 'met')) met += 1;
     }
   }
-  return total ? { met, total, inputs } : null;
+  if (!total) return null;
+  return carried ? { met, total, inputs, carried } : { met, total, inputs };
+}
+
+// The scorecard of the newest finished round: the current file when its round is complete, otherwise the
+// newest complete history/test-results-round-N.md. A round in progress never shows a partial count.
+function lastScorecard(folder, current) {
+  const cur = current && current.fm;
+  if (cur && cur.round_status === 'complete') return scorecardOf(cur.results);
+  const hist = path.join(folder, 'history');
+  if (!isDir(hist)) return null;
+  let best = null;
+  for (const d of listDir(hist)) {
+    if (!d.isFile() || !/^test-results-round-\d+\.md$/.test(d.name)) continue;
+    try {
+      const doc = readDoc(path.join(hist, d.name));
+      const fm = doc && doc.fm;
+      if (fm && fm.round_status === 'complete' && num(fm.round) !== null && (!best || num(fm.round) > num(best.round))) best = fm;
+    } catch (e) {
+      if (!(e instanceof Unreadable)) throw e;
+    }
+  }
+  return best ? scorecardOf(best.results) : null;
 }
 
 // The last Ready round: by number among test-results.md and the finished rounds

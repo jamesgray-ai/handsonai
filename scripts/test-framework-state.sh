@@ -31,6 +31,13 @@ trap 'chmod -R u+rwx "$TMP" 2>/dev/null; rm -rf "$TMP"' EXIT
 touch "$TMP/marker"
 sleep 1
 
+echo "-- scorecard: carried inputs counted --"
+node -e "
+const { scorecardOf } = require(require('path').resolve(process.argv[1]));
+const r = scorecardOf({ E1: { runs: 1, run1: { AC1: 'met', AC2: 'not-met' }, carried: 'round 1' }, new: { runs: 1, run1: { AC1: 'met', AC2: 'not-run' } } });
+process.exit(JSON.stringify(r) === JSON.stringify({ met: 2, total: 3, inputs: 2, carried: 1 }) ? 0 : 1);
+" "$SCRIPT" && { echo "  ok    scorecard counts carried inputs"; PASS=$((PASS + 1)); } || { echo "  FAIL  scorecard carried count"; FAIL=$((FAIL + 1)); }
+
 echo "-- every fixture in expected.json --"
 OUT="$(node - "$SCRIPT" "$FIXTURES" <<'NODE'
 const path = require('path');

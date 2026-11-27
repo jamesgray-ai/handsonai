@@ -169,7 +169,12 @@
     },
     "no-registry": {
       "state": 6,
-      "owner": "Build"
+      "owner": "Build",
+      "scorecard": {
+        "met": 13,
+        "total": 13,
+        "inputs": 4
+      }
     }
   },
   "edge/e-round-left-behind": {

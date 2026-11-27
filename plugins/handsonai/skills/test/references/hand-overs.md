@@ -1,6 +1,6 @@
 # Handing a run to the leader
 
-Read at every hand-over: whenever the leader runs inputs (the round's practice chat, an input handed to them on Claude Code, a re-run after a refusal). Every run happens in the workflow's own place or the platform's clean chat, never in a framework chat, with nothing from the framework in it. **One practice chat per round:** every input the leader runs this round goes in one chat (on Codex and Claude Code, one session), in this order: the practice inputs, then the new input, then the flag input and any safety input last, so an instruction planted in one can't carry into the new input's run.
+Read at every hand-over: whenever the leader runs inputs (the round's practice chat, an input handed to them on Claude Code, a re-run after a refusal). Every run happens in the workflow's own place or the platform's clean chat, never in a framework chat, with nothing from the framework in it. **One practice chat per round:** every input the leader runs this round goes in one chat (on Codex and Claude Code, one session), in this order: the practice inputs, then the new input, then, last, every input that carries outside content or a temptation (the flag input, any safety input, the input carrying an instruction aimed at the AI, and any flagged run kept as a practice input), so an instruction planted in one can't carry into the new input's run.
 
 **Contents:** 1. Before each hand-over · 2. Where the run chat opens · 3. The hand-over message, in order · 4. The opening sentence, by platform · 5. The Deny line · 6. How results come back · 7. The block · 8. Said once per round
 
@@ -87,15 +87,15 @@ The block the leader pastes holds, in this order:
 Round [n]
 [Claude Code only: Practice folder: [the practice folder]]
 
-Input: [the input's name]
-[Claude Code only: Run: [input]-[run]]
+Input [n]:
+[Claude Code only: Run: input-[n]-1]
 [a carry-over input only: one line naming the store copy as this run's store, in model wording]
 [the input itself, its header and any `Earlier run:` paragraph left out; or, for an input that comes through a connection: what to read and where, read-only]
 
 [chat platforms only, last: one line asking it to end, after its last block, with "Practice run finished. Copy this reply and paste it into your Test chat."]
 ```
 
-The input's name is its file name without `.md` (`E1-acme-renewal-call`; one held in the round's file, `E[n]-[short-name]` as it will be saved), and `new` for the round's new input, so the run label is that name and the run number (`E1-acme-renewal-call-1`). In the practice chat, every input follows in turn, in the order section 1's rule gives (the practice inputs, the new one, then the flag and safety inputs), each under its own `Input:` line, each to be handled on its own; the workflow ends with one combined block headed "All results" because its own instructions say so, so the block doesn't ask for it. A file input is named in the message and attached, not pasted. **On Claude Code,** each `Input:` line has its own `Run: [input]-1` line right under it (the leader runs each input once), so each input saves into its own `[practice folder]/[input]-1/`; the `Practice folder:` line is said once, at the top. The "next" is said once, after the last input, and then each input's subfolder is read in turn.
+The block never names an input by its file name, which could tell the run what it's testing ("no-next-step", "flag-input"): each is labelled by its place in the block, `Input 1`, `Input 2` and so on, the same order the round's file lists them in its Inputs section, so each result maps back to its E number there (`new` is never shown either). The run label on Claude Code is `input-[n]-1`. In the practice chat, every input follows in turn, in the order section 1's rule gives, each under its own `Input [n]:` line, each to be handled on its own; the workflow ends with one combined block headed "All results" because its own instructions say so, so the block doesn't ask for it. A file input is named in the message and attached, not pasted. **On Claude Code,** each `Input [n]:` line has its own `Run: input-[n]-1` line right under it (the leader runs each input once), so each input saves into its own `[practice folder]/input-[n]-1/`; the `Practice folder:` line is said once, at the top. The "next" is said once, after the last input, and then each input's subfolder is read in turn.
 
 The closing line is a convenience, never a check: a run without it (a workflow built before this release, or one that left it out) is graded as usual.
 
@@ -104,7 +104,7 @@ The closing line is a convenience, never a check: a run without it (a workflow b
 With the first hand-over of the round, wherever the leader runs inputs in a chat or session (Claude, ChatGPT, Microsoft 365, Codex), say exactly, in its form:
 - **The main form** (Claude on the web, ChatGPT, Microsoft 365 Cowork): "On [platform], memory can't be fully switched off, and any chat can reach your drive, so I'll check each run for signs it drew on your requirements or your framework files."
 - **Claude desktop, with the files in a local folder:** "On Claude, memory can't be fully switched off, so I'll check each run for signs it drew on your requirements or your framework files."
-- **Claude, the clean chat:** "In an incognito chat, Claude doesn't use your memory or see your files, and I'll still check each run for signs it saw your requirements."
+- **Claude, the clean chat:** "In an incognito chat, Claude doesn't use your memory, and I'll still check each run for signs it saw your requirements or your framework files."
 - **Codex:** "On Codex, a session in your workspace can also read your framework files, so I'll check each run for signs it drew on your requirements or your framework files."
 - **The agent form,** in every chat with an agent Agent Builder made (its Cloud files switch is always off, so the main form is never said there): "On Microsoft 365, memory can't be fully switched off, so I'll check each run for signs it drew on your requirements or your plan."
 

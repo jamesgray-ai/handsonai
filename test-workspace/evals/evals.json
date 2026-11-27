@@ -7587,14 +7587,14 @@
       "files": [
         "students/default.md"
       ],
-      "expected_output": "With release check 6 open the leader runs every input (N-T42) in one session: the block has one Practice folder line and a 'Run: [input]-1' line under each Input line; 'next' said once.",
+      "expected_output": "With release check 6 open the leader runs every input (N-T42) in one session: the block has one Practice folder line and a 'Run: input-[n]-1' line under each Input line; 'next' said once.",
       "expectations": [
         {
-          "text": "A Run line under each Input line",
+          "text": "A Run line (input-[n]-1) under each numbered Input line",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Input: [^\\n]+\\n+Run: [^\\n]+-1"
+            "pattern": "Input \\d+:\\s*\\n+Run: input-\\d+-1"
           }
         },
         {
@@ -9052,7 +9052,7 @@
       "id": "TH-desktop-place-or-clean",
       "name": "desktop-folder-or-incognito",
       "tier": "core",
-      "spec_item": "13 Hand-overs, Claude desktop: the run opens in the workflow's folder when that folder holds a file the workflow reads (memory off, Cancel on any other folder); in an incognito chat (the clean chat) when it holds nothing the workflow reads; the cold-run question only outside the clean chat",
+      "spec_item": "13 Hand-overs, Claude desktop: the run opens in the workflow's folder when that folder holds a file the workflow reads (memory off, Cancel on any other folder); in an incognito chat (the clean chat) when it holds nothing the workflow reads; the cold-run question every round, with the folder-prompt question in the place and the plugins question in the clean chat",
       "sessions": [
         {
           "prompt": "Test the workflow I built. My files are in ai-workspace/framework/client-follow-up.",
@@ -9070,7 +9070,7 @@
         }
       ],
       "student": "students/default.md",
-      "expected_output": "Session 1 (the style guide's runtime copy is in the workflow's folder): N-T8's Claude desktop form, in that folder, with 'If it asks to access another folder, click Cancel.', N-T28's desktop form, and N-T30's question after the block. Session 2 (the style guide is bundled with the skill in the account): N-T8's clean-chat form (an incognito chat, outside any Project, everything under Plugins but the workflow's own switched off), N-T28's clean-chat form, and no N-T30 question.",
+      "expected_output": "Session 1 (the style guide's runtime copy is in the workflow's folder): N-T8's Claude desktop form, in that folder, with 'If it asks to access another folder, click Cancel.', N-T28's desktop form, and N-T30's question after the block, asked with whether Claude asked to access another folder. Session 2 (the style guide is bundled with the skill in the account): N-T8's clean-chat form (an incognito chat, outside any Project, everything under Plugins but the workflow's own switched off), N-T28's clean-chat form, and N-T30's question with whether everything under Plugins but the workflow's own was off.",
       "files": [
         "students/default.md"
       ],
@@ -9164,10 +9164,10 @@
           }
         },
         {
-          "text": "Session 2: never asks N-T30 (Question): the run was in the clean chat",
+          "text": "Session 2: Says N-T30 (Question) word for word",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
+            "type": "quote",
             "id": "N-T30",
             "form": "Question",
             "session": 2
@@ -9175,6 +9175,14 @@
         },
         {
           "text": "In both sessions the hand-over is two messages: the first ends asking the leader to say 'ready' once the chat is open; only after that reply comes a one-line copy instruction and the block, last",
+          "kind": "judged"
+        },
+        {
+          "text": "Session 1: with N-T30's question, asks whether Claude asked to access another folder and whether the leader allowed it",
+          "kind": "judged"
+        },
+        {
+          "text": "Session 2: with N-T30's question, asks whether everything under Plugins but the workflow's own was off",
           "kind": "judged"
         }
       ],
@@ -9442,28 +9450,13 @@
       ],
       "expectations": [
         {
-          "text": "The new input comes before the flag input in the block",
-          "kind": "scripted",
-          "check": {
-            "type": "ai_regex",
-            "pattern": "(?s)Input: new\\b.*?Input: E3-flag-input"
-          }
+          "text": "In the block, the flag input (and any input carrying an instruction) comes after the new input, the last inputs in the block",
+          "kind": "judged",
+          "must": true
         },
         {
-          "text": "The flag input never comes before the new input",
-          "kind": "scripted",
-          "check": {
-            "type": "ai_not_regex",
-            "pattern": "(?s)Input: E3-flag-input.*?Input: new\\b"
-          }
-        },
-        {
-          "text": "The practice inputs come before the new input",
-          "kind": "scripted",
-          "check": {
-            "type": "ai_regex",
-            "pattern": "(?s)Input: E1-acme-renewal-call.*?Input: new\\b"
-          }
+          "text": "The practice inputs come before the new input in the block",
+          "kind": "judged"
         },
         {
           "text": "Says N-F4 word for word",
@@ -9496,6 +9489,14 @@
           "check": {
             "type": "ai_not_regex",
             "pattern": "(?m)^\\s*(source|tests|expect):"
+          }
+        },
+        {
+          "text": "The block labels inputs only by their place (Input 1, Input 2, …): no file name such as 'flag-input' or 'E3' reaches the run",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "Input: E\\d|flag-input"
           }
         }
       ],
