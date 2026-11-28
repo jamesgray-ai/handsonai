@@ -459,6 +459,13 @@ class FinalReviewFixes(unittest.TestCase):
             self.assertIn(w, q)
         self.assertIn("a bare \"yes\" gets one short follow-up", (SKILLS / "test" / "SKILL.md").read_text())
 
+    def test_drive_questions_said_word_for_word(self):
+        # smoke rounds 1 and 2: the held Drive question was reworded ("did it see…") on ChatGPT and Claude
+        skill = (SKILLS / "test" / "SKILL.md").read_text()
+        for case in ("case 1, the workflow doesn't use that drive", "case 2, the workflow itself uses that drive"):
+            line = next(l for l in skill.splitlines() if case in l)
+            self.assertIn("word for word", line)
+
     def test_live_change_close_ends_with_the_test_phrase(self):
         # finding 3: N-B38's protective sentences go before Test's phrase, so the code block can end the close
         self.assertTrue(_corpus_line("N-B38", "main").rstrip().endswith("beginning 'start Test…', ending at 'say:']"))
