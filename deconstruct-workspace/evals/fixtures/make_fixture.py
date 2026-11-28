@@ -35,7 +35,8 @@ def fresh_registry(t, business, log_entry):
     t.mkdir(parents=True, exist_ok=True)
     shutil.copytree(TEMPLATE, t / "registry")
     log = t / "registry" / "log.md"
-    log.write_text(log.read_text() + f"\n## 2026-09-01 — Registry scaffolded\n\n{log_entry}\n")
+    # OKF v0.3 §9: a `## YYYY-MM-DD` heading, entries as bullets
+    log.write_text(log.read_text().rstrip("\n") + f"\n\n## 2026-09-01\n\n- **Registry scaffolded** — {log_entry}\n")
     biz = t / "registry" / "businesses" / "business.md"
     biz.write_text(
         "---\ntype: Business\n"
@@ -60,8 +61,9 @@ def add_node(t, slug, title, description, trigger, status="backlog", body_extra=
         f'title: "{title}"\n'
         f'description: "{description}"\n'
         "generated: { by: process:analyze, at: 2026-09-01T09:00:00Z }\n"
-        f"status: {status}\n"
-        f'trigger: "{trigger}"\n---\n'
+        f"state: {status}\n"
+        + ("status: deprecated\n" if status == "retired" else "")
+        + f'trigger: "{trigger}"\n---\n'
         f"# {title}\n\n{description}\n{body_extra}\n"
         f"# Artifacts\n\n{artifacts}\n# Skills\n\n# Agents\n"
     )
@@ -201,7 +203,7 @@ def add_newsletter(t):
     add_node(t, NEWS, "Weekly Newsletter Draft",
              "Drafts the weekly client newsletter from your notes, for you to edit and send yourself.",
              "Friday morning, you paste in the week's notes",
-             artifacts="- [Opportunity report](framework/ai-opportunity-report.md)\n" if report else "")
+             artifacts="- [Opportunity report](../../framework/ai-opportunity-report.md)\n" if report else "")
 
 
 def fx_newsletter(t):  # a first-time leader's backlog with a plain candidate that shows no risk
@@ -278,7 +280,7 @@ def fx_redo_no_set_aside(t):  # S2: Design wrote big_change, then stopped before
     sa.rmdir()
     node = node_path(t, CFU)
     body = node.read_text()
-    arts = "- [Design plan](framework/client-follow-up/design-plan.md)\n- [Test results](framework/client-follow-up/test-results.md)\n"
+    arts = "- [Design plan](../../framework/client-follow-up/design-plan.md)\n- [Test results](../../framework/client-follow-up/test-results.md)\n"
     if "[Design plan]" not in body:
         body = body.replace("# Artifacts\n\n", "# Artifacts\n\n" + arts, 1)
     node.write_text(body)
@@ -426,7 +428,7 @@ def fx_card_monthly(t):  # F-M12: a monthly workflow on Xero, SharePoint and Mic
     add_process(t, "finance-and-reporting", "Finance and Reporting", "Keeping spend and reporting on track.",
                 "account-management", [(slug, CARD_MONTHLY["name"])])
     add_node(t, slug, CARD_MONTHLY["name"], CARD_MONTHLY["description"], CARD_MONTHLY["trigger"],
-             artifacts="- [Opportunity report](framework/ai-opportunity-report.md)\n")
+             artifacts="- [Opportunity report](../../framework/ai-opportunity-report.md)\n")
     (t / "framework" / "ai-opportunity-report.md").write_text(card_report([CARD_CFU, CARD_WPS, CARD_MONTHLY]))
 
 
@@ -477,7 +479,7 @@ def m_backlog(t, business, about, objectives, cards, lens="Organizational", stat
         add_node(t, slug, c["name"], c["description"],
                  c["trigger"] if not c["trigger"].startswith("Not clear yet") else c["trigger"],
                  status="in-production" if c.get("status_row") else status,
-                 artifacts="- [Opportunity report](framework/ai-opportunity-report.md)\n")
+                 artifacts="- [Opportunity report](../../framework/ai-opportunity-report.md)\n")
         if c.get("status_row"):  # running work sits in its Process's # Workflows list (the lint requires it)
             reg = t / "registry"
             stamp = "generated: { by: process:scaffolding-registry, at: 2026-09-01T09:00:00Z }\n"
@@ -487,7 +489,7 @@ def m_backlog(t, business, about, objectives, cards, lens="Organizational", stat
             biz.write_text(biz.read_text().rstrip("\n") + "\n\n# Lines of Business\n\n- [Studio](/lines-of-business/studio.md)\n")
             (reg / "functions" / "index.md").write_text("# Functions\n\n- [Operations](/functions/operations.md)\n")
             (reg / "lines-of-business" / "studio.md").write_text(
-                f'---\ntype: LineOfBusiness\ntitle: "Studio"\ndescription: "The studio\'s client work."\n{stamp}status: active\n---\n'
+                f'---\ntype: LineOfBusiness\ntitle: "Studio"\ndescription: "The studio\'s client work."\n{stamp}state: active\n---\n'
                 "# Studio\n\nThe studio's client work.\n\n# Processes\n")
             (reg / "lines-of-business" / "index.md").write_text("# Lines of Business\n\n- [Studio](/lines-of-business/studio.md)\n")
             pslug = re.sub(r"[^a-z0-9]+", "-", c["process"].lower()).strip("-")

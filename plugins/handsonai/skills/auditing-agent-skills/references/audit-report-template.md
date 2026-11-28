@@ -30,7 +30,7 @@ After: `[proposed text]`
 
 ## Registry coverage
 
-- Not recorded in the registry: [skill] → add `[skill link]` to the skills list in `[workflow file]` (or create `[new workflow file]`, named [name])
+- Not recorded in the registry: [skill] → add `[skill link]` (file-relative from the workflow file: `../../.claude/skills/[name]/SKILL.md` for a skill in the working folder) to the skills list in `[workflow file]` (or create `[new workflow file]`, named [name])
 - Not cataloged yet (lives only in a platform account): [skill]
 - Registry entries pointing at skills that no longer exist: [entry → skill]
 

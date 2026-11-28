@@ -6,13 +6,13 @@ Every framework skill uses this one rule: at its entry, before its opening, and 
 ## What it reads
 
 - **The workflow's folder,** current files only: `requirements.md`, `deconstruct-in-progress.md`, `design-plan.md`, `build-record.md`, `test-results.md`. To spot an earlier version (`routing-rare.md`, *Earlier versions*) it also looks for `design-spec.md`, and checks only whether `run-guide.md` or an old run log is in the folder. Never `history/`, except whether a `history/set-aside-*/` folder exists and, for the live test below, the newest set-aside build record.
-- **The Workflow node,** where there's a registry: `status` and `big_change`.
+- **The Workflow node,** where there's a registry: `state` (on a registry still at OKF 0.2, a domain value in `status`) and `big_change`.
 - **With no registry:** `big_change` in the frontmatter of `requirements.md`, and the "Live since" line at the top of `build-record.md`.
 - **The framework folder** (`framework/` in the working folder), for "continue my workflow" only: its workflow folders (and, where there's a registry, their nodes), whether `analyze-in-progress.md` is there, and whether there are backlog candidates (the registry's `backlog` nodes, or, with no registry, `backlog.md`).
 
 ## Terms
 
-- **Live:** with a registry, the node's `status` is `in-production`. With no registry, the build record's top section says "Live since YYYY-MM-DD"; or, while a redo is pending or being rebuilt, the newest build record in `history/set-aside-*/` says so.
+- **Live:** with a registry, the node's `state` is `in-production`. With no registry, the build record's top section says "Live since YYYY-MM-DD"; or, while a redo is pending or being rebuilt, the newest build record in `history/set-aside-*/` says so.
 - **Plan revision:** the highest task `rev` in `design-plan.md`. It is worked out, never stored.
 - **The last round:** the round in `test-results.md`; its number is `round`. With no results file, the last round is 0.
 - **A Build close after the last round:** the build record's `last_close_after_round` is at or above the last round's number. (A round still in progress when Build closed is set aside before this is read: "A round left behind", below.)

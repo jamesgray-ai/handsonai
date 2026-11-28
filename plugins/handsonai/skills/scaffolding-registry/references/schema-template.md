@@ -2,28 +2,29 @@
 type: Schema
 title: "AI Registry Bundle Schema"
 description: "Types, link rules, derived views, and maintenance rules for your AI registry bundle."
-generated: { by: process:ai-registry-template, at: 2026-10-24T00:00:00Z }
+generated: { by: process:ai-registry-template, at: 2026-11-28T14:40:35Z }
 ---
 # AI Registry Bundle — SCHEMA
 
-This bundle is an [OKF v0.2](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md)
+This bundle is an [OKF v0.3](https://github.com/open-knowledge-format/open-knowledge-format)
 knowledge bundle holding **operations knowledge**: how your business runs — its lines of business,
 processes, workflows, and the durable insights their runs produce. The bundle root declares
-`okf_version: "0.2"` in `index.md`'s frontmatter (spec §12: the one index permitted a frontmatter
-block).
+`okf_version: "0.3"` in `index.md`'s frontmatter (spec §8.1: the bundle-root index is the one
+index permitted a frontmatter block; it may also carry the bundle's `title`, `description` and
+`license`).
 
 **Before changing this schema or the bundle's structure** (concept types, frontmatter fields,
 links, indexes, directory layout, or the rules below), **consult the OKF spec first**
-([spec](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md) ·
-[raw SPEC.md](https://raw.githubusercontent.com/GoogleCloudPlatform/open-knowledge-format/main/SPEC.md)).
+([spec](https://github.com/open-knowledge-format/open-knowledge-format) ·
+[raw SPEC.md](https://raw.githubusercontent.com/open-knowledge-format/open-knowledge-format/main/SPEC.md)).
 This SCHEMA is a **stricter producer profile** on top of OKF: it requires `title`/`description`/
 `generated`, enforces directory↔type agreement and enum values, and errors on broken links, index
 gaps, and unclaimed operational artifacts — all OKF-permitted.
 
-> `SCHEMA.md` itself is a **reserved file**: your AI assistant's lint pass treats `SCHEMA.md`,
-> `log.md`, and every `index.md` as reserved and skips all concept checks on them (that's why this
-> file carries `type: Schema` — deliberately outside the six-type table below, and never
-> directory-checked).
+> `log.md` and every `index.md` are the spec's **reserved files** (§3.1): never concepts. This
+> `SCHEMA.md` is a concept to the spec (it carries `type: Schema`); this profile exempts it from
+> its concept checks, since it sits outside the six-type table below and is never
+> directory-checked.
 
 # Types and directories
 
@@ -31,21 +32,38 @@ Plural directories, singular `type` values. Directory↔type agreement is lint-e
 
 | Directory | type | Frontmatter beyond required | Body sections |
 |---|---|---|---|
-| `businesses/` | Business | `status` (`active \| incubating \| dormant`), optional `url` | identity prose · curated ordered `# Lines of Business` list |
-| `lines-of-business/` | LineOfBusiness | `status` (same enum), optional `folder:` | prose · curated ordered `# Processes` list |
+| `businesses/` | Business | `state` (`active \| incubating \| dormant`), optional `url` | identity prose · curated ordered `# Lines of Business` list |
+| `lines-of-business/` | LineOfBusiness | `state` (same enum), optional `folder:` | prose · curated ordered `# Processes` list |
 | `processes/` | Process | `owner` (required — a function slug), optional `guide:` | prose · curated ordered `# Workflows` list (the edge AND the value-chain order) |
-| `workflows/` | Workflow | `status` (required), `execution_mode`, `autonomy`, `trigger`, optional `stale_after`, optional `big_change` (`definition_type` is tolerated on older nodes, never written) | prose · `# Artifacts` labeled links · `# Skills` · `# Agents` · GENERATED `# Insights` |
+| `workflows/` | Workflow | `state` (required), `execution_mode`, `autonomy`, `trigger`, optional `stale_after`, optional `big_change` (`definition_type` is tolerated on older nodes, never written) | prose · `# Artifacts` labeled links · `# Skills` · `# Agents` · GENERATED `# Insights` |
 | `notes/` | Note | — | free body; its links to Workflow/Process nodes are the single source of the insight edge |
 | `functions/` | Function | optional `lead:` (free text; blank = unstaffed) | charter prose · required GENERATED `# Owns` block (write it empty at creation) |
 
 # Enums
 
 Lint-enforced:
-- Workflow `status`: `backlog` | `under-development` | `in-production` | `retired`
+- Workflow `state`: `backlog` | `under-development` | `in-production` | `retired`
+- Business and LineOfBusiness `state`: `active` | `incubating` | `dormant`
+- `status` (any node, optional): `draft` | `stable` | `deprecated` — the spec's lifecycle, never
+  domain state (see *Domain state and lifecycle*)
 - `definition_type`: `step-driven` | `goal-driven`. No framework step writes it any more; it is
   tolerated on older nodes, as are its legacy spellings `step-decomposed` and `outcome-driven`
 - `execution_mode`: `manual` | `augmented` | `automated`
 - `autonomy`: `deterministic` | `guided` | `autonomous`
+
+# Domain state and lifecycle
+
+OKF v0.3 §5.4 makes `status` the lifecycle only: absent means current (`stable`), `draft` not
+finished, `deprecated` kept for links and history; any other value is read as not current.
+**Domain state lives in `state`**, with the enums above, on Workflow, Business and LineOfBusiness
+nodes only. A retired Workflow says both `state: retired` and `status: deprecated`, with
+`superseded_by: /workflows/<slug>.md` when another workflow took over its work. A removed Process
+says `status: deprecated` (a Process has no `state`). Lint errors on a domain value in `status`,
+on `state` on any other type, and on `state: retired` without `status: deprecated`.
+
+A registry written before OKF v0.3 (its root `index.md` declares `okf_version: "0.2"`, or no
+version) keeps its domain state in `status` and its links in the 0.2 form; the tools read both
+forms there, and lint gives one warning that offers the upgrade (*Upgrading from OKF v0.2* below).
 
 # Deliberately not concept types
 
@@ -80,42 +98,82 @@ state's name, with no step number.
 # Frontmatter
 
 **Single-line YAML values only** — no `>-`/`|` folded or literal blocks, no inline `#` comments,
-no multi-line values of any kind. Required on every concept node: `type`, `title`, `description`,
+no multi-line values, with one exception: `verified` (and `sources`) may be a block list of one-line
+maps (`  - { by: …, at: … }`). Required on every concept node: `type`, `title`, `description`,
 `generated` — a single-line flow map, `generated: { by: process:<skill-name>, at:
-2026-10-24T15:04:05Z }`, carrying who/what produced the file (`by`) and when (`at`, a UTC instant,
-`YYYY-MM-DDTHH:MM:SSZ`). Every writer restamps it. The lint accepts a bare `YYYY-MM-DD` date on an
-older node; never write one. `by` follows the OKF actor convention: `human:<id>` or
-`process:<skill-name>`.
+2026-10-24T15:04:05Z }`, carrying who or what wrote the current content (`by`) and when (`at`, a
+UTC instant, `YYYY-MM-DDTHH:MM:SSZ`). The lint accepts a bare `YYYY-MM-DD` date on an older node;
+never write one.
 
-**Reserved files are exempt.** `SCHEMA.md`, `log.md`, and every `index.md` carry no required
-concept frontmatter. The sole exception is the bundle root `index.md`, which carries exactly one
-frontmatter key: `okf_version`.
+**Who wrote it (`by`) and when (`at`)** (OKF v0.3 §5.2, §7). `generated` records how the *current
+content* was made, so it moves only when the content does:
+- **A skill's run changed the content**: `by: process:<skill-name>` (`process:deconstruct`), `at`
+  the moment of the write.
+- **The leader asked the AI to change it, with no skill running**: the agent form
+  `<app>/<model id>` (`claude-code/claude-opus-5-5`; `<app>/unrecorded` when the model ID isn't
+  known), `at` now.
+- **The leader edited it by hand**: `human:<id>`, `at` now.
+- **A trivial edit** — formatting, whitespace, a link or path repair, the upgrade to OKF v0.3,
+  regenerating a derived view or a GENERATED block, recording a check in `verified` — changes
+  neither `by` nor `at`.
+
+**`verified`** (optional, OKF v0.3 §5.2–5.3) records a person's own check of the file against what
+it describes: `verified: { by: human:<id>, at: <instant> }`, or a list of such events
+(`verified: [{ … }, { … }]`; a block list of one-line maps reads the same). It is written
+only when the leader says they have read the file and it is right — never on their behalf, and never
+by a skill on its own. A check counts only while it is current (its `at` is on or after
+`generated.at`): once the content changes, the file is unverified again until someone checks it
+again, and lint warns. The leader's `<id>` is asked once, at their first check, and recorded in
+`log.md`.
+
+**Keys you don't own are kept.** A writer that changes a node keeps every key it doesn't own
+(`verified`, `sources`, `tags`, and any `x-` key) and leaves the lines it didn't change as they
+were (OKF v0.3 §4, §4.1).
+
+**Reserved files are exempt.** `log.md` and every `index.md` carry no concept frontmatter. The
+sole exception is the bundle root `index.md`, which carries the bundle's metadata: `okf_version`
+(required), and optionally `title`, `description`, `license` and `x-` keys (§8.1). Lint warns on
+any other key there, and on frontmatter in a subdirectory `index.md`.
 
 **Banned fields** (never write these into a node): `current_step`, `health`, `last_run`,
 `run_count` (and any run-counter field), `next_review`, `notion_url`, `timestamp`, `lob`,
 `sequence`, `process` (banned on any node), `owner` (banned on Workflow nodes — it lives on
 Process) — see "Deliberately not concept types" above for why.
 
-**`stale_after`** is permitted on Workflow nodes: the **re-check date**, `YYYY-MM-DD`, set by Test
-at go-live and reset at each passing re-check. A workflow is due for a re-check when today ≥
-`stale_after`.
+**`stale_after`** is permitted on Workflow nodes: the **re-check date**, `YYYY-MM-DD` (the start of
+that UTC day, OKF v0.3 §5), set by Test at go-live and reset at each passing re-check. A workflow is
+due for a re-check when now ≥ `stale_after`. A value that isn't a date or a UTC instant is a lint
+error: it is never read as fresh (§5.5).
 
 **`big_change`** is permitted on Workflow nodes: `"[reason], [date]"`, written by Design when it
 sends a workflow back for a redesign, and removed by Deconstruct when the redo is saved. Design also
-writes one line in `log.md` with the reason, which stays.
+writes one entry in `log.md` with the reason, which stays.
 
-Optional standard fields: `verified: { by, at }` (same flow-map shape as `generated`, stamped
-after a deliberate human review pass — absent means unverified) and `tags: [a, b]`.
+Optional standard fields: `verified` (above), `tags: [a, b]`, and, on a deprecated node,
+`superseded_by`.
 
-# Recorded deviations from OKF v0.2
+# Where this profile is stricter than OKF v0.3
 
-- **`status` enums.** OKF v0.2 standardizes `status` as a lifecycle enum (`draft | stable |
-  deprecated`, absent ⇒ stable). This bundle overrides `status` with domain-state enums per type
-  instead — a producer-profile deviation the spec permits (consumers MUST tolerate unknown values
-  per §11). This bundle's `retired` corresponds to spec `deprecated`.
-- **`generated.at` is required.** The spec requires only `generated.by`; this profile also
-  requires `at`, a UTC instant as the spec's examples show, and accepts a bare `YYYY-MM-DD` date on
-  nodes written before this profile asked for instants.
+All OKF-permitted; recorded so a reader of the spec isn't surprised:
+- **`generated.at` is required**, as a UTC instant (the spec requires only `generated.by`, and also
+  admits a date or an offset). A bare date is accepted on nodes written before this profile asked
+  for instants.
+- **Single-line values**, except the `verified`/`sources` block list.
+- **In-bundle links are root-relative** (`/processes/x.md`); the spec admits both forms.
+- **This profile's own keys are unprefixed.** `state`, `execution_mode`, `autonomy`, `trigger`,
+  `big_change`, `owner`, `lead`, `url`, `folder`, `guide` and `definition_type` predate the spec's
+  advice to name producer keys `x-<producer>-<name>` (§4.1) and stay as they are: renaming them
+  would break every registry. A future OKF version could define one of them; this schema would then
+  record how it reads that key.
+- **The root `index.md` must declare `okf_version`** (§8.1 makes it a SHOULD), and lint warns on
+  any root-index key beyond `title`, `description`, `license` and `x-` keys (the spec permits any
+  extension key there).
+- **A 0.2 registry's bare links read from the registry's parent folder:** this profile's own
+  rule from before v0.3, not the spec's §12.1 fallback to the bundle root.
+- **The registry's own tools read files outside the bundle.** To a generic OKF consumer a link
+  that leaves the bundle is external and never read (§6, §11.2). Lint and compose read the SOPs,
+  workflow folders, run logs, skills and agents a node links (to check they exist, and for the
+  claims sweep and the dashboard): the one place they go beyond a generic consumer.
 
 # Relationships — stored once, everything else derived
 
@@ -143,19 +201,26 @@ listed in no Process's curated list renders under "Unassigned" on the dashboard 
 
 # Links
 
-Discriminator, exact:
-- **Leading `/`** = bundle-root-relative, resolved from `registry/` (e.g.
-  `/processes/course-improvement.md`). The first path segment MUST be one of this bundle's
-  directories or a root file — lint errors otherwise.
-- **No leading slash, not a URL** = relative to the registry's parent folder, never `../`. That is
-  the working folder on every platform (e.g. `framework/course-improvement/requirements.md`). A
-  trailing `/` marks a directory target. An older link that doesn't resolve as written (e.g.
-  `course-improvement/requirements.md`) is still valid when `framework/` plus the same path does;
-  nothing rewrites it.
+OKF v0.3 §6, exact:
+- **Leading `/`** = in-bundle, resolved from `registry/` (e.g. `/processes/course-improvement.md`).
+  The first path segment MUST be one of this bundle's directories or a root file — lint errors
+  otherwise. Every in-bundle link is written this way.
+- **No leading slash, not a URL** = **file-relative**: resolved from the folder of the file the
+  link is in. Use it for files outside the bundle. From a node (`workflows/x.md`, or any type
+  directory) the working folder is two levels up, so a workflow's requirements are
+  `../../framework/course-improvement/requirements.md`, an SOP `../../sops/x-sop.md`, a skill
+  `../../.claude/skills/<name>/SKILL.md`; from the root `index.md` it is one level up
+  (`../.claude/skills/<name>/SKILL.md`). The `guide:` and `folder:` path fields and
+  `superseded_by` resolve the same way. A trailing `/` marks a directory target. Lint errors on a
+  link of this form that lands inside the bundle, and names the form to write instead.
 - **Full URLs** = external.
 
 Links into gitignored paths (e.g. `outputs/`, where a workflow's own output may land) are
 declarations, not guarantees: lint checks them when the target is present and skips them otherwise.
+
+In a registry still at OKF 0.2, a bare link is read from the registry's parent folder
+(`framework/course-improvement/requirements.md`), and an older one that doesn't resolve as written
+(`course-improvement/requirements.md`) is still valid when `framework/` plus the same path does.
 
 # Naming
 
@@ -181,23 +246,28 @@ stamped with a UTC instant that carries one is a lint error.
 Derived views are: the root dashboard (`REGISTRY.md`), `registry-dashboard.html` (generated at the end of setup, refreshed on every maintenance pass once it exists),
 each directory's `index.md`, and GENERATED blocks inside nodes — hash-less paired markers
 (`<!-- GENERATED:<name> -->` … `<!-- /GENERATED -->`); never hand-edit content between the
-markers.
+markers. Regenerating `index.md` keeps the root index's frontmatter (§8.1).
 
 These views are regenerated, and this bundle is linted, **by your AI assistant reading the bundle
 against this SCHEMA**, or, where code can run, by the framework's own compose and lint scripts,
 which follow these same rules. The rules it checks:
 required frontmatter present · single-line values · directory↔type agreement · enum values ·
-banned fields absent · link targets resolve · curated-list membership (exactly one parent per
+domain state in `state`, `status` the lifecycle only, a retired Workflow also `status: deprecated` ·
+banned fields absent · link targets resolve, in-bundle links root-relative · `superseded_by` reaches
+a concept · `stale_after` a date or a UTC instant · curated-list membership (exactly one parent per
 child) · owner validity (Process `owner:` names a real Function) · Function `# Owns` block
 present · GENERATED markers intact and terminated · every directory `index.md` covers its nodes ·
 claims sweep (every SOP claimed by exactly one Workflow; an SOP's `workflow:` back-pointer must
-agree with the claiming node; run-log evidence must not contradict `status`, checked only where the
+agree with the claiming node; run-log evidence must not contradict `state`, checked only where the
 node's "Run log" link is readable inside the registry's parent folder — an external or absent link
-is skipped) · legacy artifact labels only on older nodes. Warnings (not errors): a workflow folder in
-the framework folder claimed by no Workflow, a re-check overdue (`stale_after` on or before today), a
-`backlog` workflow older than six months, a Note linking no node, uncaptured skills/agents, a
-malformed `generated.by` actor string, an artifact link pointing outside the workflow's derived LOB
-`folder:` when one is set, and stale Function `# Owns` content (present but no longer matching the derived owners list — regenerate via
+is skipped) · legacy artifact labels only on older nodes. Warnings (not errors): a registry still at
+OKF 0.2 (the upgrade offer), a workflow folder in the framework folder claimed by no Workflow, a
+re-check overdue (now ≥ `stale_after`), a `backlog` workflow older than six months, a Note linking
+no node, uncaptured skills/agents, a malformed actor string in `generated.by` or `verified`, a
+`verified` event missing `by` or `at`, a check the content has outrun, `superseded_by` without
+`status: deprecated`, frontmatter in the wrong
+`index.md`, a `log.md` out of the §9 form, an artifact link pointing outside the workflow's derived
+LOB `folder:` when one is set, and stale Function `# Owns` content (present but no longer matching the derived owners list — regenerate via
 a maintenance pass; hand-editing between the markers is still prohibited, but staleness alone never
 blocks regeneration).
 
@@ -211,10 +281,29 @@ On the derived views, a workflow's progress shows as the routing state's name, `
 Repos created from this template also get these checks wired as CI (the `tools/` scripts plus a
 GitHub Action) — you never run them yourself; your AI assistant and CI do.
 
+# Upgrading from OKF v0.2
+
+A registry set up before OKF v0.3 says `okf_version: "0.2"` (or no version) in `index.md`. The
+upgrade changes only the form, never the content, so no page's `generated` line moves (the
+replaced `SCHEMA.md` brings its own): the root index
+declares `"0.3"`; on Workflow, Business and LineOfBusiness nodes a domain value in `status` moves
+to `state` (a retired Workflow also gets `status: deprecated`; a retired Process becomes
+`status: deprecated`); each link and `guide:`/`folder:` value written from the registry's parent
+folder becomes file-relative from what it reaches; `log.md` is regrouped into the §9 form; and this
+`SCHEMA.md` is replaced with the current one. Where code can run, `node tools/upgrade-registry.js`
+does all but the schema (`--check` shows what it would change).
+
 # Lifecycle
 
-Removed workflows or processes become `status: retired` — kept, and linked from an explaining
-Note — never deleted. `log.md` is append-only. It records setup decisions (such as the dashboard's
-Claude Artifact link), schema changes, and one line per workflow event, written by the step that
-makes it: a big change and its reason, go-live, a re-check, a changed version not ready. It never
-records routine regenerations.
+Removed workflows become `state: retired` with `status: deprecated` (and `superseded_by` when
+another workflow took over), and removed processes `status: deprecated` — kept, and linked from an
+explaining Note — never deleted.
+
+`log.md` follows OKF v0.3 §9: no frontmatter; entries grouped under `## YYYY-MM-DD` headings,
+newest date first; each entry a bullet, its kind in bold where it has one
+(`- **Go-live** — Client Follow-Up went live after test round 1`). A new entry goes at the end of
+today's heading, the first heading below the log's title, which it creates when it isn't there; nothing already in the log is reworded,
+moved or removed. It records setup decisions (such as the dashboard's Claude Artifact link), schema
+changes, the leader's checker ID, and one entry per workflow event, written by the step that makes
+it: a big change and its reason, go-live, a re-check, a changed version not ready. It never records
+routine regenerations.

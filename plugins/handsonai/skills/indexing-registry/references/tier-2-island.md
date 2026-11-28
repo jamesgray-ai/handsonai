@@ -17,11 +17,11 @@ How to hand-build the JSON data island for `registry-dashboard.html` when the wo
 
 | Collection | Which nodes, in what order | Field derivations beyond frontmatter |
 |---|---|---|
-| `business` | the single Business node (`null` if none) | `url`, `status` from frontmatter |
-| `lobs` | in the Business node's `# Lines of Business` order | `processes` = slugs from the LOB's curated `# Processes` list, in that order; `folder` from frontmatter |
+| `business` | the single Business node (`null` if none) | `url` from frontmatter; `status` = the node's `state` (on a registry still at OKF 0.2, its domain value in `status`) |
+| `lobs` | in the Business node's `# Lines of Business` order | `processes` = slugs from the LOB's curated `# Processes` list, in that order; `status` as for `business`; `folder` = the folder its `folder:` reaches, as a path from the working folder (`../../client-services/` → `client-services/`) |
 | `functions` | every Function node, sorted by path | `owns` = slugs of the Process nodes whose `owner:` equals this function's slug, sorted by path; `lead` from frontmatter |
-| `processes` | traversal order: each LOB in curated order, then its `# Processes` list in order | `ownerId` = `owner:`; `lobId` = the parent LOB's slug; `guide` from frontmatter; `workflows` = slugs from the Process's curated `# Workflows` list, in order |
-| `workflows` | traversal order (LOB → Process → `# Workflows` list), then every Workflow no Process lists, sorted by path, with `processId: null` and `lobId: null` | `processId`, `lobId` = parent slugs; `state` (below); `skills` and `agents` = the link targets (workspace paths) from the node's `# Skills` and `# Agents` sections, in order |
+| `processes` | traversal order: each LOB in curated order, then its `# Processes` list in order | `ownerId` = `owner:`; `lobId` = the parent LOB's slug; `guide` = the file its `guide:` reaches, as a path from the working folder; `workflows` = slugs from the Process's curated `# Workflows` list, in order |
+| `workflows` | traversal order (LOB → Process → `# Workflows` list), then every Workflow no Process lists, sorted by path, with `processId: null` and `lobId: null` | `processId`, `lobId` = parent slugs; `status` = the node's `state` (on a registry still at OKF 0.2, its domain value in `status`); `state` (below), which is progress, not the node's `state`; `skills` and `agents` = the files the node's `# Skills` and `# Agents` links reach, as paths from the working folder (`../../.claude/skills/x/SKILL.md` → `.claude/skills/x/SKILL.md`), in order |
 | `notes` | every Note node, sorted by path | `links` = the node body's bundle-root-relative links (those starting with `/`), in order |
 | `skills` | every `SKILL.md` found as `**/skills/<name>/SKILL.md` under the workspace (skip `.git`, `node_modules`, `tools/fixtures`), sorted by path | `id` = the `<name>` directory; `title` = frontmatter `name` or `title`, else `id`; `description` = frontmatter `description` or `""`; `quickStartPrompt` = frontmatter `quick_start_prompt` or `quickstart_prompt`, else omit; `usedBy` = slugs of the Workflow nodes whose `# Skills` link points at this file; `nodePath` = the workspace path; no `nodeUrl` |
 | `agents` | every `.md` in `.claude/agents/` and `agents/`, sorted by path | as `skills`, with `id` = the filename without `.md` and `usedBy` from `# Agents` links |
@@ -31,7 +31,7 @@ How to hand-build the JSON data island for `registry-dashboard.html` when the wo
 `state` is the workflow's progress: the routing state's **name**, never its number, read from the workflow's folder, never from which links the node has. The folder is `[framework folder]/<slug>/`: `framework/<slug>/` beside `registry/` on every platform. There is no stored progress field; never read one, and never count links.
 
 - **Where code can run,** run the `framework-state` script on the folder (`node tools/framework-state.js --json <folder>`, from the workspace's `tools/` or the plugin's) and copy its `name`; for state 0, show "Retired" when its `kind` is `retired` and "Runs outside the framework" when it is `running-work`. A non-zero exit means: work it out by hand, below.
-- **By hand,** read the folder's current files (and the node's `status` and `big_change`) and take the first row that matches. It is the same rule the five step skills route by; this copy is for display only.
+- **By hand,** read the folder's current files (and the node's `state` and `big_change`) and take the first row that matches. It is the same rule the five step skills route by; this copy is for display only.
 
 | Name | The first that matches |
 |---|---|
@@ -63,7 +63,7 @@ When a file the table needs can't be read, or two rows seem to fit, omit `state`
 - **Which frontmatter keys travel.** Only the fields the schema lists. `type` and `generated` never appear in the island.
 - **Dates.** Frontmatter dates (`stale_after`) are written as `YYYY-MM-DD` strings.
 - **Empty sets.** Array fields (`skills`, `agents`, `usedBy`, `owns`, `processes`, `workflows`, `links`, and the top-level collections) are always present, `[]` when empty. "Omit the key" applies to scalar fields only.
-- **Link targets in `skills` / `agents`.** Copy the `# Skills` / `# Agents` link target exactly as written in the node (a workspace path such as `.claude/skills/some-skill/SKILL.md`); `usedBy` matches on that same string.
+- **Link targets in `skills` / `agents`.** Write the path from the working folder that the `# Skills` / `# Agents` link reaches (`.claude/skills/some-skill/SKILL.md` for the link `../../.claude/skills/some-skill/SKILL.md` in a node; on a registry still at OKF 0.2 the link already reads that way); `usedBy` matches on that same path.
 - **Skill title precedence.** Frontmatter `name` wins over `title` when both exist.
 - **`owns` source.** Derive from each Process's `owner:` frontmatter, never from a Function's GENERATED `# Owns` block (that block is itself derived and may be stale).
 - **Lint before a hand-build.** Nothing to run on a platform without Node: read the bundle for the lint conditions you can see (every node indexed, every curated-list link resolves, no banned fields) and rely on the self-check below. Don't mention lint to the leader.

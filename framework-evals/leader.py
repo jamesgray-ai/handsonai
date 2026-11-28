@@ -343,9 +343,9 @@ def _move_into(ws, sub):
     """Move the workspace's framework files into a working folder, ws/sub/ai-workspace (on a drive) or
     ws/ai-workspace (the folder selected on Claude desktop), keeping the workspace's layout: framework/,
     registry/, knowledge/, the evidence pass's documents (sops/, process-guides/) and the registry views
-    at its root, framework-level files in framework/. The registry's links are relative to its parent
-    folder (registry-bundle.md rule 4), the working folder here as in the workspace, so
-    `framework/<slug>/...` links carry over unchanged."""
+    at its root, framework-level files in framework/. The registry's links are file-relative (OKF v0.3
+    §6; registry-bundle.md rule 4) and the layout is kept, so `../../framework/<slug>/...` links carry
+    over unchanged (as do a 0.2 registry's links from its parent folder)."""
     ws = Path(ws)
     target = ws / sub / "ai-workspace" if sub else ws / "ai-workspace"
     dirs = [d for d in WORKING_FOLDER_DIRS if (ws / d).exists()]
@@ -367,7 +367,7 @@ def _move_into(ws, sub):
         if p.exists():
             text = p.read_text()
             # a skill installed in the leader's account isn't a file beside the registry: its name, as text
-            moved = re.sub(r"\[([^\]]+)\]\(\.(?:claude|agents)/skills/[^)]+\)", r"\1", text)
+            moved = re.sub(r"\[([^\]]+)\]\((?:\.\./)*\.(?:claude|agents)/skills/[^)]+\)", r"\1", text)
             if moved != text:
                 p.write_text(moved)
     if (target / "registry" / "SCHEMA.md").exists():

@@ -30,7 +30,7 @@ ai-workspace/
 ├── REGISTRY.md              ← dashboard: at-a-glance index (generated)
 ├── registry/                ← your registry bundle
 │   ├── SCHEMA.md            ← the rules your assistant reads before every write
-│   ├── index.md             ← bundle root (declares okf_version: "0.2")
+│   ├── index.md             ← bundle root (declares okf_version: "0.3")
 │   └── businesses/ lines-of-business/ functions/
 │       processes/ workflows/ notes/
 ├── framework/<workflow>/    ← each workflow's record: requirements, Design Plan, build record, test results
@@ -42,7 +42,7 @@ That top folder is your **working folder**, and the layout is the same on every 
 
 The registry lists your workflows; the files the framework writes for each one are in its folder in `framework/`. Whatever a workflow produces when it runs (a report, an email), and its run log if it keeps one, go wherever the workflow runs, never into your working folder.
 
-Your registry follows an open, public specification called the **Open Knowledge Format (OKF)** — this isn't a format James invented for this playbook. You can read the live spec any time: [OKF on GitHub](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md). You never need to read it to use your registry — your assistant already knows it — but it's there if you're curious how the pieces fit together.
+Your registry follows an open, public specification called the **Open Knowledge Format (OKF)** — this isn't a format James invented for this playbook. Your registry follows version 0.3. You can read the live spec any time: [OKF on GitHub](https://github.com/open-knowledge-format/open-knowledge-format). You never need to read it to use your registry — your assistant already knows it — but it's there if you're curious how the pieces fit together.
 
 **The one thing to remember:** your AI assistant maintains your registry. You describe your business and your work in plain language; your assistant writes the nodes and regenerates the dashboards. You never edit a dashboard by hand, and you rarely need to hand-edit a node either.
 
@@ -182,11 +182,11 @@ type: Workflow
 title: "Client Onboarding Kickoff"
 description: "Kestrel Studio's in-production client onboarding workflow — from signed contract to kickoff call scheduled."
 generated: { by: process:test, at: 2026-06-01T15:04:05Z }
-status: in-production
+state: in-production
 execution_mode: augmented
 autonomy: guided
 trigger: "manual"
-stale_after: 2026-12-01
+stale_after: 2026-09-01
 ---
 # Client Onboarding Kickoff
 
@@ -195,18 +195,18 @@ provisions the client's shared folder, and schedules the kickoff call.
 
 # Artifacts
 
-- [Requirements](framework/client-onboarding-kickoff/requirements.md)
-- [Design plan](framework/client-onboarding-kickoff/design-plan.md)
-- [Test results](framework/client-onboarding-kickoff/test-results.md)
-- [SOP](sops/client-onboarding-kickoff.md)
+- [Requirements](../../framework/client-onboarding-kickoff/requirements.md)
+- [Design plan](../../framework/client-onboarding-kickoff/design-plan.md)
+- [Test results](../../framework/client-onboarding-kickoff/test-results.md)
+- [SOP](../../sops/client-onboarding-kickoff.md)
 
 # Skills
 
-- [drafting-kickoff-email](.claude/skills/drafting-kickoff-email/SKILL.md)
+- [drafting-kickoff-email](../../.claude/skills/drafting-kickoff-email/SKILL.md)
 
 # Agents
 
-- [contract-details-checker](.claude/agents/contract-details-checker.md)
+- [contract-details-checker](../../.claude/agents/contract-details-checker.md)
 
 # Insights
 
@@ -216,7 +216,11 @@ provisions the client's shared folder, and schedules the kickoff call.
 
 Everything above the second `---` is **frontmatter** — structured fields your assistant reads and writes. Everything below is prose and links you (and your assistant) can read normally.
 
-The `generated: { by: ..., at: ... }` line appears on every node your assistant writes — it records which process wrote the file and when, so you always know a node's provenance without asking.
+The `generated: { by: ..., at: ... }` line appears on every node your assistant writes. It records who last changed what the file says, and when. `process:test` means the Test step changed it (here, when it took the workflow live). If you ask your assistant to change a node yourself, outside any step, it records itself instead (for example `claude-ai/claude-opus-5-5`). A small tidy-up that doesn't change what the file says, such as fixing a link, leaves the line as it is.
+
+**Why the links start with `../../`.** Each link is written from the folder the node sits in, `registry/workflows/`. Each `../` goes up one folder, so `../../` reaches your working folder, and the rest of the link goes down from there into `framework/` or `sops/`. Links to other registry pages start with `/` instead (for example `/processes/client-onboarding.md`), which means "from the top of your registry".
+
+**Marking a page as checked.** When you've read a page and it's right, tell your assistant: *"I've checked the Client Onboarding Kickoff page."* It adds a `verified` line with your name and the time. Your assistant never adds one for you. If the page changes later, it counts as unchecked again until you look at it once more.
 
 ### The Three Enums
 
@@ -224,7 +228,7 @@ An **enum** (short for "enumeration") is just a field that only accepts one of a
 
 | Field | Allowed values |
 |---|---|
-| `status` | `backlog` \| `under-development` \| `in-production` \| `retired` |
+| `state` | `backlog` \| `under-development` \| `in-production` \| `retired` |
 | `execution_mode` | `manual` \| `augmented` \| `automated` |
 | `autonomy` | `deterministic` \| `guided` \| `autonomous` |
 
@@ -232,7 +236,13 @@ An **enum** (short for "enumeration") is just a field that only accepts one of a
 A node written by an earlier version of this playbook may carry a `definition_type` field. Your assistant reads past it and never writes it.
 :::
 
-The bundle root (`registry/index.md`) also declares one frontmatter field of its own: `okf_version: "0.2"`, the version of the OKF spec your registry follows. You'll never need to change it by hand.
+`state` is where the workflow is in its life. A separate field, `status`, appears only on a retired workflow or a removed process, as `status: deprecated`: it tells any tool that reads your registry that the page is kept for the record and isn't current. Business and line-of-business pages have a `state` too: `active`, `incubating` or `dormant`.
+
+The bundle root (`registry/index.md`) also declares one frontmatter field of its own: `okf_version: "0.3"`, the version of the OKF spec your registry follows. You'll never need to change it by hand.
+
+:::note[Set up your registry before this version?]
+If your `registry/index.md` says `okf_version: "0.2"`, your registry uses the earlier version of the format, with `status:` where newer pages say `state:`. It keeps working. To bring it up to date, tell your assistant: **"Upgrade my registry."** Only the way the pages are written changes, never what they say.
+:::
 
 ## Keeping It Fresh
 
@@ -297,7 +307,7 @@ If a button or label on your screen doesn't match these steps, paste the step yo
 
 **My assistant reported lint errors:**
 
-- Lint errors mean something in a node breaks a rule in `registry/SCHEMA.md` — for example, a link pointing to a file that doesn't exist, or a status value that isn't one of the four allowed ones. Your assistant explains each error in plain language and the exact file it's in; ask it to fix what it can, and address anything it can't (usually because it needs a decision only you can make, like which function owns a new process).
+- Lint errors mean something in a node breaks a rule in `registry/SCHEMA.md` — for example, a link pointing to a file that doesn't exist, or a `state` value that isn't one of the four allowed ones. Your assistant explains each error in plain language and the exact file it's in; ask it to fix what it can, and address anything it can't (usually because it needs a decision only you can make, like which function owns a new process).
 - Dashboards won't regenerate while lint errors exist — this is deliberate, so you're never looking at a dashboard summarizing broken data. Fix the errors first, then ask for a refresh.
 
 **My dashboard looks stale or wrong:**

@@ -44,7 +44,7 @@ Then the value-lever definition line: "Each workflow names its **value lever**: 
 
 **After the answer:** apply every change, read everything the save needs, say the saving line once (SKILL.md: "Saving your report and workflows now; this takes a moment."; not when every workflow was left out), then, with no other text until the close, write the report (`report-format.md`) and the nodes (no registry: `backlog.md`) in one batch, as SKILL.md's *After the list is confirmed* says. A left-out workflow keeps its card, marked "Left out of the backlog", and gets no registry entry and no backlog line. The close names the report; there's no separate message about it.
 
-**Register the candidates (registry present)** as backlog Workflow nodes under their confirmed Process, in the registry (`registry/` in the working folder; on the web, through the connection), as the indexing-registry skill's `registry-bundle.md` says. Work that already runs gets `status: in-production` instead, never the backlog, and its skill or agent under `# Skills` or `# Agents`: a link when the file is in this workspace, else its name as plain text, with where it lives only when you saw it (`evidence-pass.md`, *The name and home*): "Newsletter Repurposer, a skill in your Claude account", or just its name as the student gave it.
+**Register the candidates (registry present)** as backlog Workflow nodes under their confirmed Process, in the registry (`registry/` in the working folder; on the web, through the connection), as the indexing-registry skill's `registry-bundle.md` says. Work that already runs gets `state: in-production` instead, never the backlog, and its skill or agent under `# Skills` or `# Agents`: a link when the file is in this workspace, else its name as plain text, with where it lives only when you saw it (`evidence-pass.md`, *The name and home*): "Newsletter Repurposer, a skill in your Claude account", or just its name as the student gave it.
 
 1. **Write the stub** at `registry/workflows/<slug>.md` (slug = kebab-case of the Workflow name), in the `naming-workflows` stub format, with `generated.at` the current UTC time:
 
@@ -54,7 +54,7 @@ Then the value-lever definition line: "Each workflow names its **value lever**: 
    title: "[Workflow name]"
    description: "[One sentence, naming-workflows shape: when it starts, what it produces, who receives or acts on it.]"
    generated: { by: process:analyze, at: YYYY-MM-DDTHH:MM:SSZ }
-   status: backlog
+   state: backlog
    trigger: "[Trigger field]"
    ---
    # [Workflow name]
@@ -64,7 +64,7 @@ Then the value-lever definition line: "Each workflow names its **value lever**: 
    # Artifacts
 
    - [Opportunity report]([the report's link])
-   [- [SOP](sops/[file].md), when the candidate came from the student's own SOP]
+   [- [SOP](../../sops/[file].md), when the candidate came from the student's own SOP]
 
    # Skills
 
@@ -78,9 +78,9 @@ Then the value-lever definition line: "Each workflow names its **value lever**: 
    <!-- /GENERATED -->
    ```
 
-   The report's link is relative to the registry's parent folder, the working folder: `framework/ai-opportunity-report.md`, on every platform. Write only this link; an older node's link in another form is left as it is (it still resolves). The body repeats `description` on purpose. `trigger` is provisional. No `execution_mode` or `autonomy` (Design sets those); pain point, goal and value lever stay in the report.
-   **A candidate from the student's own SOP** (its evidence is a file in `sops/`): link that SOP under `# Artifacts` as `- [SOP](sops/[file].md)`, the link form the registry uses for SOPs, so the registry's check finds it claimed. One SOP goes to one Workflow node, the best match; never link an SOP another node already links, or one whose `workflow:` field names another workflow. A process guide in `process-guides/` is never linked this way (the check doesn't require it).
-2. Add each stub's line to its Process's `# Workflows` list and to `registry/workflows/index.md`, replacing any placeholder line there (`_No workflows captured yet._`, `_No entries yet…_`) (bundle-root-relative link: `[Weekly Status Report](/workflows/weekly-status-report.md)`). If a node for that slug, or for the same work under another name, already exists, merge — never overwrite fields already set, except the backlog-to-`in-production` move the evidence pass confirmed.
+   The report's link is file-relative from the node, `../../framework/ai-opportunity-report.md`, on every platform (`registry-bundle.md`, rule 4). Write only this link; an older node's link in another form is left as it is (it still resolves). The body repeats `description` on purpose. `trigger` is provisional. No `execution_mode` or `autonomy` (Design sets those); pain point, goal and value lever stay in the report.
+   **A candidate from the student's own SOP** (its evidence is a file in `sops/`): link that SOP under `# Artifacts` as `- [SOP](../../sops/[file].md)`, the link form the registry uses for SOPs, so the registry's check finds it claimed. One SOP goes to one Workflow node, the best match; never link an SOP another node already links, or one whose `workflow:` field names another workflow. A process guide in `process-guides/` is never linked this way (the check doesn't require it).
+2. Add each stub's line to its Process's `# Workflows` list and to `registry/workflows/index.md`, replacing any placeholder line there (`_No workflows captured yet._`, `_No entries yet…_`) (bundle-root-relative link: `[Weekly Status Report](/workflows/weekly-status-report.md)`). If a node for that slug, or for the same work under another name, already exists, merge — never overwrite fields already set, except the backlog-to-`in-production` move of `state` the evidence pass confirmed. Keep every key on an existing node you don't own (`registry-bundle.md`, rule 10).
 
 **The backlog with no registry** (locally and on the web): write `backlog.md` in the framework folder: a `# Backlog` heading, then a `## [Area of work]` heading per area in the report's order, each candidate as `[n]. **[Workflow name].** [One-sentence description.]` in the report's numbering. It holds only the candidates the list kept: never a left-out workflow, and never work that already runs, which stays in the report. A later run, on the same lens or the other one, adds its candidates under their areas, continuing the numbering. Never tell the student the file's name; speak of the report and the backlog.
 

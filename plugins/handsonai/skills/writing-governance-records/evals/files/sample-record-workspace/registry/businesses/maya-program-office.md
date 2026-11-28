@@ -3,7 +3,7 @@ type: Business
 title: "Maya's Program Office"
 description: "The program-management function Maya runs for a software delivery team: keeping leadership informed and keeping client programs moving."
 generated: { by: process:scaffolding-registry, at: 2026-06-01T13:05:00Z }
-status: active
+state: active
 ---
 # Maya's Program Office
 

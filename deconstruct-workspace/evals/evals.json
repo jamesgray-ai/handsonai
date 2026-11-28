@@ -239,7 +239,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/sales-pre-call-brief.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/sales-pre-call-brief.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -247,12 +247,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/sales-pre-call-brief.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/sales-pre-call-brief.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -1517,7 +1517,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/expense-report-approval.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/expense-report-approval.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -1525,12 +1525,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/expense-report-approval.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/expense-report-approval.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -2157,7 +2157,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/weekly-meal-planning.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/weekly-meal-planning.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -2165,12 +2165,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/weekly-meal-planning.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/weekly-meal-planning.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -2824,7 +2824,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/sales-pre-call-brief.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/sales-pre-call-brief.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -2832,12 +2832,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/sales-pre-call-brief.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/sales-pre-call-brief.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -3357,7 +3357,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/customer-win-story.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/customer-win-story.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -3365,12 +3365,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/customer-win-story.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/customer-win-story.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -3793,7 +3793,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/customer-win-story.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/customer-win-story.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -3801,12 +3801,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/customer-win-story.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/customer-win-story.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -4223,7 +4223,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/sales-pre-call-brief.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/sales-pre-call-brief.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -4231,12 +4231,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/sales-pre-call-brief.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/sales-pre-call-brief.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -4673,7 +4673,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/onboarding-checklist-drafting.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/onboarding-checklist-drafting.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -4681,12 +4681,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/onboarding-checklist-drafting.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/onboarding-checklist-drafting.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -5322,7 +5322,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/program-risk-register.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/program-risk-register.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -5330,12 +5330,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/program-risk-register.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/program-risk-register.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -6131,7 +6131,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/candidate-shortlist-summary.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/candidate-shortlist-summary.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -6139,12 +6139,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/candidate-shortlist-summary.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/candidate-shortlist-summary.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -6727,7 +6727,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/support-ticket-triage.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/support-ticket-triage.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -6735,12 +6735,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/support-ticket-triage.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/support-ticket-triage.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -7255,7 +7255,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/inbound-lead-routing.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/inbound-lead-routing.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -7263,12 +7263,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/inbound-lead-routing.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/inbound-lead-routing.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -7799,7 +7799,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/monthly-investor-update.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/monthly-investor-update.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -7807,12 +7807,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/monthly-investor-update.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/monthly-investor-update.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -8253,7 +8253,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/renewal-risk-review.md` has `status: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/renewal-risk-review.md` has `state: under-development`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -8261,12 +8261,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/renewal-risk-review.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/renewal-risk-review.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -10830,7 +10830,7 @@
           }
         },
         {
-          "text": "The Workflow node `registry/workflows/client-follow-up.md` has `status: in-production`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
+          "text": "The Workflow node `registry/workflows/client-follow-up.md` has `state: in-production`, the Requirements link in the registry's link form, no `definition_type`, and `generated` restamped by process:deconstruct as a UTC instant (deconstruct 13)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -10838,12 +10838,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/client-follow-up.md",
-                "pattern": "(?m)^status: in-production[ \\t]*$"
+                "pattern": "(?m)^state: in-production[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/client-follow-up.md",
-                "pattern": "\\[Requirements\\]\\(framework/[a-z0-9-]+/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/[a-z0-9-]+/requirements\\.md\\)"
               },
               {
                 "type": "file_not_contains",
@@ -11392,7 +11392,7 @@
           "check": {
             "type": "file_regex",
             "path": "registry/workflows/weekly-status-report.md",
-            "pattern": "(?m)^status: under-development[ \\t]*$"
+            "pattern": "(?m)^state: under-development[ \\t]*$"
           }
         }
       ],
@@ -11468,7 +11468,7 @@
           "check": {
             "type": "file_regex",
             "path": "registry/workflows/client-follow-up.md",
-            "pattern": "(?m)^status: in-production[ \\t]*$"
+            "pattern": "(?m)^state: in-production[ \\t]*$"
           }
         }
       ],
@@ -13210,12 +13210,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "\\[Requirements\\]\\(framework/weekly-newsletter-draft/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
@@ -14093,12 +14093,12 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "\\[Requirements\\]\\(framework/weekly-newsletter-draft/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
@@ -14663,12 +14663,12 @@
               {
                 "type": "file_regex",
                 "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "\\[Requirements\\]\\(framework/weekly-newsletter-draft/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
@@ -15215,12 +15215,12 @@
               {
                 "type": "file_regex",
                 "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "\\[Requirements\\]\\(framework/weekly-newsletter-draft/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
@@ -15761,12 +15761,12 @@
               {
                 "type": "file_regex",
                 "path": "ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "\\[Requirements\\]\\(framework/weekly-newsletter-draft/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
@@ -16327,12 +16327,12 @@
               {
                 "type": "file_regex",
                 "path": "onedrive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
                 "path": "onedrive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "\\[Requirements\\]\\(framework/weekly-newsletter-draft/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
@@ -23297,7 +23297,7 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/[!i]*.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               },
               {
                 "type": "file_not_regex",
@@ -24076,7 +24076,7 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/client-follow-up.md",
-                "pattern": "(?m)^status: under-development[ \\t]*$"
+                "pattern": "(?m)^state: under-development[ \\t]*$"
               }
             ]
           }
@@ -24254,7 +24254,7 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/client-follow-up.md",
-                "pattern": "(?m)^status: in-production[ \\t]*$"
+                "pattern": "(?m)^state: in-production[ \\t]*$"
               }
             ]
           }
@@ -24764,7 +24764,7 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/client-follow-up.md",
-                "pattern": "(?m)^status: in-production[ \\t]*$"
+                "pattern": "(?m)^state: in-production[ \\t]*$"
               },
               {
                 "type": "file_regex",
@@ -24774,7 +24774,7 @@
               {
                 "type": "file_regex",
                 "path": "registry/workflows/client-follow-up.md",
-                "pattern": "\\[Requirements\\]\\(framework/client-follow-up/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(\\.\\./\\.\\./framework/client-follow-up/requirements\\.md\\)"
               }
             ]
           }

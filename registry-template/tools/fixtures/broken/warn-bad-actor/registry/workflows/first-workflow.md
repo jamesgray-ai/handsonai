@@ -3,7 +3,7 @@ type: Workflow
 title: "First Workflow"
 description: "The baseline fixture workflow."
 generated: { by: someone, at: 2026-08-01 }
-status: under-development
+state: under-development
 execution_mode: augmented
 autonomy: guided
 trigger: "manual"
@@ -14,7 +14,7 @@ The baseline fixture workflow used across lint test cases.
 
 # Artifacts
 
-- [SOP](sops/one-sop.md)
+- [SOP](../../sops/one-sop.md)
 
 # Skills
 

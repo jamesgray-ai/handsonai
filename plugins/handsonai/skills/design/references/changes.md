@@ -7,9 +7,9 @@ Read when the leader says "change my workflow" in any form: a bare phrase, a phr
 | Entry | What Design does |
 |---|---|
 | "Change my workflow", any state from 4 on | *"Change my workflow"*, below. In state 4 with no plan, the full flow; in state 5, the change goes into the draft |
-| "Change my workflow" on a retired workflow (state 0) | Bring it back: set the node's `status` to `under-development`, say so in one line, then *"Change my workflow"* with the put-back (`updating-the-plan.md`). With no build record, work the state out again from the files: from state 4 on, as usual; otherwise routing's line for the owner (Deconstruct's phrase when there are no requirements yet) |
+| "Change my workflow" on a retired workflow (state 0) | Bring it back: set the node's `state` to `under-development` and remove its `status: deprecated` (and any `superseded_by`), say so in one line, then *"Change my workflow"* with the put-back (`updating-the-plan.md`). With no build record, work the state out again from the files: from state 4 on, as usual; otherwise routing's line for the owner (Deconstruct's phrase when there are no requirements yet) |
 | "Change my workflow" on running work Analyze recorded (state 0: `in-production`, no workflow folder) | Not Design's. On Claude Code, when it's the first thing asked in this chat, start Deconstruct directly in this session, with no text first but, if you choose, the routing lead-in (`routing.md`). Otherwise (Codex included) the bring-in line from `routing.md`, with the working folder as the location, in N-F2's platform form (on Microsoft 365, "…My files are in OneDrive, in ai-workspace.'"), then stop. That line is the whole reply: nothing before it but, if you choose, the routing lead-in (no opening, no line on what Design covers or which step takes "change my workflow") and nothing after it. Never the running-work message |
-| "Change my workflow" asking to reinstall the workflow or bring it back, any state from 4 on | The same put-back, with no `status` to change |
+| "Change my workflow" asking to reinstall the workflow or bring it back, any state from 4 on | The same put-back, with no `state` to change |
 
 ## "Change my workflow"
 

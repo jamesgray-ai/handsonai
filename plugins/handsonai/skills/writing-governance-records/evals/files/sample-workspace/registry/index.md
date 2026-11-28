@@ -1,5 +1,5 @@
 ---
-okf_version: "0.2"
+okf_version: "0.3"
 ---
 # AI Registry
 
@@ -17,7 +17,7 @@ The dashboard view is the generated root `REGISTRY.md`.
 
 <!-- GENERATED:skills -->
 ## Skills inventory (1)
-- [weekly-status-report](framework/weekly-status-report/package/skills/weekly-status-report/SKILL.md) — This skill should be used when Maya asks to run her weekly status report, draft the Friday leadership report, or write this week's status update from the project tracker. It reads the week's updates from HubSpot, drafts the one-page report, stops for her review and saves the approved report. (used by: [Weekly Status Report](registry/workflows/weekly-status-report.md))
+- [weekly-status-report](../framework/weekly-status-report/package/skills/weekly-status-report/SKILL.md) — This skill should be used when Maya asks to run her weekly status report, draft the Friday leadership report, or write this week's status update from the project tracker. It reads the week's updates from HubSpot, drafts the one-page report, stops for her review and saves the approved report. (used by: [Weekly Status Report](/workflows/weekly-status-report.md))
 <!-- /GENERATED -->
 
 <!-- GENERATED:agents -->

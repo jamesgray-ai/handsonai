@@ -2,8 +2,10 @@
 
 Migrations and schema changes only — routine regeneration is not logged.
 
-## 2026-09-01 — Registry scaffolded
+## 2026-10-10
 
-Set up by `scaffolding-registry` for Brightline Advisory, a small consulting firm.
+- client-follow-up went live after test round 1
 
-2026-10-10: client-follow-up went live after test round 1
+## 2026-09-01
+
+- **Registry scaffolded** — Set up by `scaffolding-registry` for Brightline Advisory, a small consulting firm.

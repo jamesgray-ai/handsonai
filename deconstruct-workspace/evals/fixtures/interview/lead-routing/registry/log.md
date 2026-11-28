@@ -2,6 +2,6 @@
 
 Migrations and schema changes only — routine regeneration is not logged.
 
-## 2026-09-01 — Registry scaffolded
+## 2026-09-01
 
-Set up by `scaffolding-registry` for the sales operations team at Ferncastle Analytics.
+- **Registry scaffolded** — Set up by `scaffolding-registry` for the sales operations team at Ferncastle Analytics.

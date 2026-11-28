@@ -933,8 +933,8 @@ class PlatformSimulations(unittest.TestCase):
             shutil.rmtree(t)
 
     def test_chat_platform_layout_keeps_the_registry_linting_clean(self):
-        # rule 4: the registry's links are relative to the working folder, so `framework/<slug>/...` links
-        # carry over unchanged; a skill in the leader's account is named as text
+        # rule 4: the registry's links are file-relative and the layout is kept, so `../../framework/<slug>/...`
+        # links carry over unchanged; a skill in the leader's account is named as text
         for key, sub in (("claude-desktop", ""), ("microsoft-365", "onedrive"), ("chatgpt", "drive")):
             t = Path(tempfile.mkdtemp())
             try:
@@ -942,7 +942,7 @@ class PlatformSimulations(unittest.TestCase):
                 L.PLATFORMS[key]().prepare(t)
                 fw = t / sub / "ai-workspace"
                 node = (fw / "registry" / "workflows" / "client-follow-up.md").read_text()
-                self.assertIn("](framework/client-follow-up/requirements.md)", node)
+                self.assertIn("](../../framework/client-follow-up/requirements.md)", node)
                 self.assertNotIn(".claude/skills/", node)
                 self.assertTrue((fw / "framework" / "client-follow-up" / "requirements.md").exists())
                 self.assertTrue((fw / "REGISTRY.md").exists())

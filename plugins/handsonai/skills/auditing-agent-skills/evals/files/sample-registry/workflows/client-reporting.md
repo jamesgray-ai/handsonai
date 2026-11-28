@@ -2,7 +2,7 @@
 type: Workflow
 title: "Client Reporting"
 description: "Weekly status updates and call summaries for every active Northwind Advisory client."
-status: in-production
+state: in-production
 ---
 Weekly status updates and call summaries for every active client. (A fictional registry node, used as test material.)
 

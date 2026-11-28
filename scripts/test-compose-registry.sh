@@ -32,7 +32,18 @@ stage() {  # copy a fixture workspace to an isolated temp git repo; echoes the p
 run_lint()    { local ws; ws=$(stage "$1"); (cd "$ws" && node "$TOOLS/lint-registry.js" registry >/dev/null 2>&1); }
 lint_output() { local ws; ws=$(stage "$1"); (cd "$ws" && node "$TOOLS/lint-registry.js" registry 2>&1); }
 run_lint_at() { (cd "$1" && node "$TOOLS/lint-registry.js" registry); }
+# to02 <ws>: make a staged workspace an OKF 0.2 registry, as written before 11.1.0 (version 0.2,
+# links from the registry's parent folder). Its nodes keep `state`: a 0.2 registry may hold both
+# forms, because 11.1.0's skills write `state` into it before it is upgraded.
+to02() {
+  sedi 's/^okf_version: "0.3"$/okf_version: "0.2"/' "$1/registry/index.md"
+  local f; for f in $(find "$1/registry" -name '*.md'); do sedi 's|](\.\./\.\./|](|g; s|](\.\./\.claude/|](.claude/|g; s|^folder: \.\./\.\./|folder: |; s|^guide: \.\./\.\./|guide: |' "$f"; done
+}
 compose_at()  { WS=$(stage "$1"); (cd "$WS" && node "$TOOLS/compose-registry.js" registry); }  # sets $WS for assertions
+
+# registry-lib unit tests (OKF v0.3 readers: state, both link forms, version, verified lists)
+if node --test "$REPO_ROOT/scripts/test-registry-lib.test.cjs" >/dev/null 2>&1; then ok "registry-lib unit tests pass"
+else bad "registry-lib unit tests fail (node --test scripts/test-registry-lib.test.cjs)"; fi
 
 # lint: valid bundle passes
 run_lint valid-bundle && ok "valid bundle lints clean (exit 0)" || bad "valid bundle should lint clean"
@@ -68,7 +79,7 @@ node -e '
 const fs = require("fs");
 const f = process.argv[1];
 let t = fs.readFileSync(f, "utf8");
-t = t.replace("The complete fixture workflow", "See also [the SOP](sops/one-sop.md). The complete fixture workflow");
+t = t.replace("The complete fixture workflow", "See also [the SOP](../../sops/one-sop.md). The complete fixture workflow");
 fs.writeFileSync(f, t);
 ' "$WS/registry/workflows/first-workflow.md"
 run_lint_at "$WS" && ok "duplicate same-workflow SOP link does not false-positive double-claim" || bad "duplicate same-workflow SOP link should still lint clean: $(run_lint_at "$WS" 2>&1)"
@@ -442,14 +453,15 @@ grep -q "folder not claimed" <<<"$out" && bad "valid-bundle: unexpected unclaime
 # Lint warns at most once per workflow (it breaks after the first outside link), so a framework/
 # link must not be that first warning; .claude/skills/... is expected to be.
 WS=$(stage valid-bundle)
-perl -0pi -e 's/^(status: .*)$/$1\nfolder: lob-files\//m' "$WS/registry/lines-of-business/design-services.md"
-grep -q "^folder: lob-files/" "$WS/registry/lines-of-business/design-services.md" || bad "LOB test setup: folder: not inserted"
+perl -0pi -e 's/^(state: .*)$/$1\nfolder: ..\/..\/lob-files\//m' "$WS/registry/lines-of-business/design-services.md"
+grep -q "^folder: ../../lob-files/" "$WS/registry/lines-of-business/design-services.md" || bad "LOB test setup: folder: not inserted"
 run_lint_at "$WS" 2>&1 | grep -q "artifact link framework/" \
   && bad "LOB folder check exempts framework/: got an outside-LOB warning for a framework/ link" || ok "LOB folder check exempts framework/"
 
 # old links (R16): a relative link written before framework/ on every platform (first-workflow/...)
-# that resolves only under framework/ is accepted as is -- nothing rewritten, nothing said.
-WS=$(stage valid-bundle)
+# that resolves only under framework/ is accepted as is -- nothing rewritten, nothing said. A 0.2
+# registry's reading (OKF v0.3 §12.1 fallback), so these run on a 0.2 copy.
+WS=$(stage valid-bundle); to02 "$WS"
 sedi 's|(framework/first-workflow/|(first-workflow/|g' "$WS/registry/workflows/first-workflow.md"
 grep -q "(first-workflow/requirements.md)" "$WS/registry/workflows/first-workflow.md" || bad "old-link test setup: links not rewritten to the old form"
 run_lint_at "$WS" >/dev/null 2>&1 && ok "old relative link resolving only under framework/: lint exits 0" || bad "old relative link should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
@@ -460,7 +472,7 @@ grep -q "(first-workflow/requirements.md)" "$WS/registry/workflows/first-workflo
 # outside-folder warning and stop the check, so drop it: the old links come next, and they must be
 # exempt through framework/, leaving .claude/skills/... as the one warning.
 sedi '/- \[Run log\](runs.md)/d' "$WS/registry/workflows/first-workflow.md"
-perl -0pi -e 's/^(status: .*)$/$1\nfolder: lob-files\//m' "$WS/registry/lines-of-business/design-services.md"
+perl -0pi -e 's/^(state: .*)$/$1\nfolder: lob-files\//m' "$WS/registry/lines-of-business/design-services.md"
 out=$(run_lint_at "$WS" 2>&1)
 grep -q "artifact link first-workflow/" <<<"$out" \
   && bad "old relative link with folder: set got an outside-LOB warning: $(grep 'outside derived' <<<"$out")" || ok "old relative link with folder: set: no outside-folder warning"
@@ -468,7 +480,7 @@ grep -q "artifact link .claude/skills/some-skill/SKILL.md outside derived LOB fo
   && ok "old relative link with folder: set: the folder check still ran past it" || bad "old-link folder test: expected the .claude/skills outside-LOB warning, got: $(grep 'outside derived' <<<"$out")"
 # an old link to a renamed workflow folder: the node's slug no longer names the folder, so only the
 # link claims it -- through framework/
-WS=$(stage valid-bundle)
+WS=$(stage valid-bundle); to02 "$WS"
 mv "$WS/framework/first-workflow" "$WS/framework/client-intake"
 sedi 's|(framework/first-workflow/|(client-intake/|g' "$WS/registry/workflows/first-workflow.md"
 run_lint_at "$WS" >/dev/null 2>&1 && ok "old link to a renamed workflow folder: lint exits 0" || bad "old link to a renamed folder should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
@@ -541,7 +553,7 @@ run_lint_at "$WS" 2>&1 | grep -q "outputs/first-workflow/:" && bad "outputs/<slu
 WS=$(stage valid-bundle); rm "$WS/framework/first-workflow/test-results.md"
 if run_lint_at "$WS" >/dev/null 2>&1; then bad "missing framework/ link: lint should exit 1"; else
   out=$(run_lint_at "$WS" 2>&1)  # variable capture: lint exits 1 here, so never pipe it under pipefail
-  grep -q "ERROR.*repo link framework/first-workflow/test-results.md -- file not found" <<<"$out" \
+  grep -q "ERROR.*repo link ../../framework/first-workflow/test-results.md -- file not found" <<<"$out" \
     && ok "missing framework/ link is a lint ERROR naming the file" || bad "missing framework/ link: no ERROR naming test-results.md"
 fi
 
@@ -625,19 +637,19 @@ fi
 
 # run log: external or absent "Run log" link is tolerated; a readable one is checked
 WS=$(stage broken/runlog-status-contradiction)
-sedi 's|- \[Run log\](runs.md)|- [Run log](https://example.com/runs)|' "$WS/registry/workflows/first-workflow.md"
+sedi 's|- \[Run log\](../../runs.md)|- [Run log](https://example.com/runs)|' "$WS/registry/workflows/first-workflow.md"
 run_lint_at "$WS" >/dev/null 2>&1 && ok "external Run log link tolerated" || bad "external Run log link should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
 WS=$(stage broken/runlog-status-contradiction)
-sedi '/- \[Run log\](runs.md)/d' "$WS/registry/workflows/first-workflow.md"
+sedi '/- \[Run log\](..\/..\/runs.md)/d' "$WS/registry/workflows/first-workflow.md"
 run_lint_at "$WS" >/dev/null 2>&1 && ok "absent Run log link tolerated (runs.md beside it is not read)" || bad "absent Run log link should lint clean"
 out=$(lint_output broken/runlog-status-contradiction)
-grep -q 'ERROR.*contradicts run log evidence (runs.md has entries)' <<<"$out" && ok "run log in the workflow's place, linked, contradicting status errors" || bad "run log contradiction text: $out"
+grep -q 'ERROR.*contradicts run log evidence (../../runs.md has entries)' <<<"$out" && ok "run log in the workflow's place, linked, contradicting status errors" || bad "run log contradiction text: $out"
 
-# flat bundle: registry/ beside <slug>/ folders, links <slug>/... -- no platform writes this layout
-# (every working folder holds framework/<slug>/), but the lint still resolves it
+# flat bundle: registry/ beside <slug>/ folders, links ../../<slug>/... -- no platform writes this
+# layout (every working folder holds framework/<slug>/), but the lint still resolves it
 WEB=$(mktemp -d); cp -R "$FIX/valid-bundle/." "$WEB/"
 mv "$WEB/framework/first-workflow" "$WEB/first-workflow"; rmdir "$WEB/framework"
-sedi 's|(framework/first-workflow/|(first-workflow/|g' "$WEB/registry/workflows/first-workflow.md"
+sedi 's|(../../framework/first-workflow/|(../../first-workflow/|g' "$WEB/registry/workflows/first-workflow.md"
 (cd "$WEB" && git init -q . && git add -A >/dev/null 2>&1)
 run_lint_at "$WEB" >/dev/null 2>&1 && ok "flat bundle: <slug>/ links resolve from the registry's parent" || bad "flat bundle should lint clean: $(run_lint_at "$WEB" 2>&1 | grep ERROR)"
 mkdir -p "$WEB/orphan-flow"; : > "$WEB/orphan-flow/requirements.md"; mkdir -p "$WEB/history"; : > "$WEB/history/requirements.md"
@@ -649,12 +661,92 @@ node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));process
   && ok "flat bundle: compose reads <slug>/ beside registry/ for the state" || bad "flat bundle: state not read from <slug>/"
 rm -rf "$WEB"
 
+# --- OKF v0.3 rules (domain state, lifecycle, links, trust fields, version) ---------------------
+# in_ws <ws> <file> <perl expr>: edit one registry file in a staged workspace
+in_ws() { perl -0pi -e "$3" "$1/registry/$2"; }
+lint_ws() { (cd "$1" && node "$TOOLS/lint-registry.js" registry 2>&1); }
+expect() {  # expect <ws> <ERROR|WARN> <regex> <label>
+  local out; out=$(lint_ws "$1")
+  grep -qE "^$2 .*$3" <<<"$out" && ok "$4" || bad "$4: expected $2 matching /$3/, got: $(grep -E '^(ERROR|WARN)' <<<"$out" | tr '\n' ' ')"
+}
+expect_not() {
+  local out; out=$(lint_ws "$1")
+  grep -qE "$2" <<<"$out" && bad "$3: unexpected /$2/: $(grep -E "$2" <<<"$out")" || ok "$3"
+}
+WS=$(stage valid-bundle)
+expect_not "$WS" "OKF 0\.2|okf_version" "a 0.3 registry draws no version warning"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^state: backlog$/status: backlog/m'
+expect "$WS" ERROR 'second-workflow.md: status "backlog" is domain state -- write it as state: backlog' "0.3: a domain value in status is an error naming state"
+WS=$(stage valid-bundle); in_ws "$WS" businesses/kestrel-studio.md 's/^state: active$/status: active/m'
+expect "$WS" ERROR 'kestrel-studio.md: status "active" is domain state' "0.3: a Business's domain value in status is an error"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^(state: backlog)$/$1\nstatus: archived/m'
+expect "$WS" ERROR 'status "archived" not in \[draft, stable, deprecated\]' "0.3: an unknown status is an error (not stable, §5.4)"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^(state: backlog)$/$1\nstatus: draft/m'
+expect_not "$WS" "second-workflow.md: status" "a lifecycle status (draft) beside state is fine"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/third-workflow.md 's/^status: deprecated\n//m'
+expect "$WS" ERROR 'third-workflow.md: state "retired" needs status: deprecated' "a retired workflow needs status: deprecated"
+WS=$(stage valid-bundle); in_ws "$WS" processes/client-onboarding.md 's/^(owner: .*)$/$1\nstate: active/m'
+expect "$WS" ERROR 'client-onboarding.md: field "state" belongs on Workflow, Business and LineOfBusiness nodes' "state on a Process is an error"
+WS=$(stage valid-bundle); in_ws "$WS" processes/client-onboarding.md 's/^(owner: .*)$/$1\nstatus: retired/m'
+expect "$WS" ERROR 'client-onboarding.md: status "retired" not in \[draft, stable, deprecated\] -- a retired Process is status: deprecated' "0.3: a retired Process says deprecated"
+# links read from the file's own folder (§6)
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's|\(\.\./\.\./sops/one-sop\.md\)|(sops/one-sop.md)|'
+expect "$WS" ERROR 'first-workflow.md: link sops/one-sop.md is read from this file.s folder \(OKF v0\.3\) -- write \.\./\.\./sops/one-sop\.md' "0.3: a 0.2-form link is an error naming the ../../ form"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's|^(# Artifacts\n)|See [the process](../processes/client-onboarding.md).\n\n$1|m'
+expect "$WS" ERROR 'first-workflow.md: in-bundle link \.\./processes/client-onboarding\.md -- write it root-relative: /processes/client-onboarding\.md' "an in-bundle link written file-relative is an error naming the / form"
+# path fields
+WS=$(stage valid-bundle); in_ws "$WS" lines-of-business/design-services.md 's/^(state: .*)$/$1\nfolder: ..\/..\/no-such-folder\//m'
+expect_not "$WS" "design-services.md: folder:" "a folder: that reaches nothing draws nothing (not checked, as before 11.1.0)"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/third-workflow.md 's/^(status: deprecated)$/$1\nsuperseded_by: \/workflows\/no-such.md/m'
+expect "$WS" ERROR 'third-workflow.md: superseded_by /workflows/no-such.md -- no such concept' "superseded_by must reach a concept"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^(state: backlog)$/$1\nsuperseded_by: \/workflows\/first-workflow.md/m'
+expect "$WS" WARN 'second-workflow.md: superseded_by without status: deprecated' "superseded_by without deprecated warns"
+# stale_after (§5.5)
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^stale_after: .*$/stale_after: next spring/m'
+expect "$WS" ERROR 'first-workflow.md: stale_after "next spring" is not a date \(YYYY-MM-DD\) or a UTC instant -- never read as fresh' "a malformed stale_after is an error"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^stale_after: .*$/stale_after: 2026-10-01T00:00:00Z/m'
+expect "$WS" WARN 'first-workflow.md: stale_after 2026-10-01T00:00:00Z is past -- re-check due' "an instant stale_after that has passed warns"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^stale_after: .*$/stale_after: 2999-01-01/m'
+expect_not "$WS" "first-workflow.md: stale_after" "a future stale_after draws nothing"
+# writer names (§7)
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^generated: .*$/generated: { by: claude-code\/claude-opus-5-5, at: 2026-11-01T00:00:00Z }/m'
+expect_not "$WS" "second-workflow.md: generated.by" "the agent form <producer>/<version> is a valid writer"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^generated: .*$/generated: { by: team:ops, at: 2026-11-01T00:00:00Z }/m'
+expect_not "$WS" "second-workflow.md: generated.by" "any scheme:id is a valid writer"
+# verified (§5.2-5.3)
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^(state: .*)$/$1\nverified: { by: human:ana, at: 2026-06-01T00:00:00Z }/m'
+expect "$WS" WARN 'first-workflow.md: verified before the last change \(2026-06-01T00:00:00Z < generated.at 2026-07-01T16:00:00Z\)' "a check the content has outrun warns"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^(state: .*)$/$1\nverified: [{ by: human:ana, at: 2026-06-01T00:00:00Z }, { by: human:bo, at: 2026-07-02T00:00:00Z }]/m'
+expect_not "$WS" "first-workflow.md: verified" "a current check in a verified list draws nothing"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^(state: .*)$/$1\nverified: { by: human:ana }/m'
+expect "$WS" WARN 'first-workflow.md: verified event without both by and at is ignored' "a verified event missing at warns"
+# root index metadata (§8.1)
+WS=$(stage valid-bundle); in_ws "$WS" index.md 's/^(okf_version: .*)$/$1\ntitle: Kestrel Studio registry\ndescription: How Kestrel runs.\nlicense: CC-BY-4.0\nx-kestrel-owner: ana/m'
+expect_not "$WS" "index.md" "root index title, description, license and x- keys are allowed"
+WS=$(stage valid-bundle); in_ws "$WS" index.md 's/^(okf_version: .*)$/$1\nowner: ana/m'
+expect "$WS" WARN '/index.md: frontmatter key "owner" is not bundle metadata' "another root index key warns"
+# log.md (§9)
+WS=$(stage valid-bundle); printf '\n2026-11-01: First Workflow went live after test round 1\n' >> "$WS/registry/log.md"
+expect "$WS" WARN 'log.md is not in the OKF v0.3 §9 form' "0.3: an old-form log line warns"
+# a 0.2 registry: the old forms are fine, with one warning that names the upgrade
+WS=$(stage valid-bundle); to02 "$WS"; in_ws "$WS" workflows/second-workflow.md 's/^state: backlog$/status: backlog/m'
+out=$(lint_ws "$WS")
+grep -q "^ERROR" <<<"$out" && bad "0.2 registry: old forms should not error: $(grep ERROR <<<"$out")" || ok "0.2 registry: old forms lint without errors"
+[ "$(grep -c 'registry is OKF 0.2' <<<"$out")" -eq 1 ] && ok "0.2 registry: exactly one upgrade warning" || bad "0.2 registry: expected one 'registry is OKF 0.2' warning: $(grep WARN <<<"$out")"
+grep -q 'say "upgrade my registry"' <<<"$out" && ok "0.2 warning names the upgrade phrase" || bad "0.2 warning should name 'upgrade my registry'"
+# a 0.2 registry gets no new errors: a malformed stale_after and a domain status on a Process were never checked there
+WS=$(stage valid-bundle); to02 "$WS"; in_ws "$WS" workflows/first-workflow.md 's/^stale_after: .*$/stale_after: next spring/m'; in_ws "$WS" processes/client-onboarding.md 's/^(owner: .*)$/$1\nstatus: active/m'
+out=$(lint_ws "$WS"); grep -q "^ERROR" <<<"$out" && bad "0.2 registry: these must not error: $(grep ERROR <<<"$out")" || ok "0.2 registry: a malformed stale_after or a Process status is not an error"
+grep -q 'WARN.*stale_after "next spring"' <<<"$out" && ok "0.2 registry: a malformed stale_after warns" || bad "0.2 registry: expected a stale_after warning"
+WS=$(stage valid-bundle); to02 "$WS"; node "$TOOLS/upgrade-registry.js" "$WS/registry" >/dev/null
+out=$(lint_ws "$WS"); grep -q "^ERROR\|OKF 0.2" <<<"$out" && bad "upgraded registry should lint clean as 0.3: $(grep -E 'ERROR|OKF' <<<"$out")" || ok "a 0.2 registry upgraded lints clean as 0.3"
+
 # TOOLS_VERSION: raised, equal to package.json's version, and the plugin ships the same tools
 node -e "
 const lib=require(process.argv[1]); const pkg=require(process.argv[2]);
 process.exit(lib.TOOLS_VERSION && lib.TOOLS_VERSION===pkg.version && pkg.type==='commonjs' ? 0 : 1)" "$TOOLS/registry-lib.js" "$TOOLS/package.json" \
   && ok "TOOLS_VERSION matches tools/package.json's version (commonjs)" || bad "TOOLS_VERSION and package.json disagree"
-for f in compose-registry.js lint-registry.js registry-lib.js package.json framework-state.js requirements-check.js; do
+for f in compose-registry.js lint-registry.js registry-lib.js upgrade-registry.js package.json framework-state.js requirements-check.js; do
   cmp -s "$TOOLS/$f" "$REPO_ROOT/plugins/handsonai/tools/$f" && ok "plugin tools/$f identical to registry-template" || bad "plugin tools/$f differs from registry-template/tools/$f"
 done
 (cd "$REPO_ROOT" && node plugins/handsonai/tools/framework-state.js --help >/dev/null 2>&1; [ $? -ne 127 ] && node -e "require('./plugins/handsonai/tools/compose-registry.js')") >/dev/null 2>&1 \

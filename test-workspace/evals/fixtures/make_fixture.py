@@ -1104,12 +1104,12 @@ def fx_platform_change_answered(t):  # after a platform change, N-T56 answered a
     results_path(t).write_text(first)
     rec = record(t)
     rec.write_text(rec.read_text().rstrip("\n") + "\n\nLive since 2026-10-22.\nHow to switch it off: in Codex, remove .agents/skills/client-follow-up.\n")
-    set_node(t, status="in-production")
+    set_node(t, state="in-production")
 
 
 def fx_earlier_redone(t):  # a live earlier-version workflow redone: earlier-version folder newer than any go-live, no "Live since"
     fx_ready(t)
-    set_node(t, status="in-production")
+    set_node(t, state="in-production")
     ev = wf(t) / "history" / "earlier-version-2026-10-15"
     write(ev / "test-results.md", "# Test results (an earlier version)\n\nReady. Ran every Friday as a scheduled task.\n")
     sub(record(t), "schedule: none", "schedule: paused")
@@ -1123,19 +1123,19 @@ def set_node(t, **fields):
 
 def fx_running_work(t):  # running work brought in: Runs today row, node in-production, no "Live since"
     fx_ready(t)
-    set_node(t, status="in-production")
+    set_node(t, state="in-production")
     sub(req(t), "| Lens | Individual |", "| Lens | Individual |\n| Runs today | Set up as a Zapier zap that drafts the email after each calendar event, on a schedule |")
 
 
 def fx_running_work_by_hand(t):
     fx_ready(t)
-    set_node(t, status="in-production")
+    set_node(t, state="in-production")
     sub(req(t), "| Lens | Individual |", "| Lens | Individual |\n| Runs today | By hand: you write each follow-up yourself |")
 
 
 def fx_retired_back(t):  # a retired workflow brought back: put-back logged, Build reinstalled and closed: state 8, regression
     fx_putback_only(t)
-    set_node(t, status="under-development")
+    set_node(t, state="under-development")
     sub(record(t), "Live since 2026-10-10.", "Live since 2026-10-10.")
 
 

@@ -3,7 +3,8 @@ type: Workflow
 title: "Third Workflow"
 description: "A retired workflow kept for history."
 generated: { by: process:fixture, at: 2026-08-01 }
-status: retired
+state: retired
+status: deprecated
 execution_mode: manual
 autonomy: guided
 trigger: "manual"

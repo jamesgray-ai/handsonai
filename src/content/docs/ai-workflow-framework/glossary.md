@@ -75,6 +75,6 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **Working folder** — The one folder that holds your AI Registry (`registry/`), your workflow files (`framework/`) and your knowledge graph (`knowledge/`). By default it's called `ai-workspace`, or it's a folder you already have: in Google Drive or OneDrive, on your computer (the folder you select in the Claude desktop app), or your workspace itself on Claude Code and Codex. The first framework skill you run asks for it.
 
-**Workflow node** — A workflow's card in your registry (`registry/workflows/<slug>.md`), tracking its status and files across every step. First written by [Analyze](../analyze/), or by [Deconstruct](../deconstruct/) for a workflow you start without a backlog entry.
+**Workflow node** — A workflow's card in your registry (`registry/workflows/<slug>.md`), tracking its state and files across every step. First written by [Analyze](../analyze/), or by [Deconstruct](../deconstruct/) for a workflow you start without a backlog entry.
 
 **Workflow Requirements** — The clear, testable description of what a workflow must do (`requirements.md`): its goal, what every output must get right, the rules it follows, where a person checks, and its practice inputs. Written in [Deconstruct](../deconstruct/) and read by every later step.

@@ -131,7 +131,7 @@ compose fills. Write them exactly as the template repository ships them:
 
 ```markdown
 ---
-okf_version: "0.2"
+okf_version: "0.3"
 ---
 # AI Registry
 
@@ -159,7 +159,7 @@ The dashboard view is the generated root `REGISTRY.md`.
 ```markdown
 # Registry Log
 
-Setup decisions, schema changes, the dashboard's Claude Artifact link, and one line per workflow event (a big change and its reason, go-live, re-checks) — routine regeneration is not logged.
+Setup decisions, schema changes, the dashboard's Claude Artifact link, and one entry per workflow event (a big change and its reason, go-live, re-checks), grouped by date with the newest first — routine regeneration is not logged.
 ```
 
 If the student asks "where's the template repo?", the URL is
@@ -197,7 +197,7 @@ How to draft the card:
   how many people do the work: a solo consultant with three offerings gets
   three lines. **One offering:** one line named after the business, with no
   split forced.
-- **Status:** set `active` yourself for the business and each line; ask only
+- **State:** set `state: active` yourself for the business and each line; ask only
   when the student described something not yet launched, paused or winding
   down: "Is [line] something you're offering now, or just starting or paused?"
   (*Why:* so your map shows what's running today.)
@@ -295,7 +295,9 @@ also save your note that [insight].") and save it with that yes; volunteered
 after the last confirmation, leave it out and say nothing.
 
 **What to write:**
-- a founding `registry/log.md` entry describing the setup run, saying who the
+- a founding `registry/log.md` entry describing the setup run, below the
+  log's description under today's `## YYYY-MM-DD` heading, as one bullet
+  starting `- **Registry scaffolded** — `, saying who the
   registry is for in exactly one of the fixed forms in `personas.md` (*The
   founding log line*), such as "set up for a business the owner runs alone",
   because `analyze` and `deconstruct` read that line (the lens, and
@@ -353,7 +355,7 @@ GitHub"), and say N-F18 where the branch isn't the default.
 it asks nothing. Then the close's one question, where it applies, as its last
 line:
 
-- **On Claude on the web, Claude desktop, and in a cloud session:** "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." On Claude Code (not a cloud session), N-SR8's bracketed clause makes this offer instead, as a choice rather than a question. This close is the only place the Artifact is offered; `indexing-registry` doesn't repeat it here. On yes, publish it and append a `registry/log.md` entry, `Dashboard Artifact: <link>`, so every later step can update the same page in any conversation.
+- **On Claude on the web, Claude desktop, and in a cloud session:** "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." On Claude Code (not a cloud session), N-SR8's bracketed clause makes this offer instead, as a choice rather than a question. This close is the only place the Artifact is offered; `indexing-registry` doesn't repeat it here. On yes, publish it and add a `registry/log.md` entry, `- Dashboard Artifact: <link>`, at the end of today's heading, so every later step can update the same page in any conversation.
 - **Elsewhere (Codex, or Claude Code where no Claude page can be published), only when the folder is a git repository** — locally, with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never on the web or in a connected drive: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; don't push as part of this offer (a student who asks to push or back up to GitHub gets that separately).
 
 With neither, the close ends on N-A7. When the leader then says Analyze's

@@ -31,7 +31,7 @@ An input's result carries from the round it last ran in only when every line gra
 
 ## 4. Re-checking a live workflow
 
-"Test the workflow I built" on a live workflow opens a `regression` round, or an `after-change` round after a small change. `status` stays `in-production` throughout.
+"Test the workflow I built" on a live workflow opens a `regression` round, or an `after-change` round after a small change. `state` stays `in-production` throughout.
 
 - **A cloud routine on Claude Code** keeps its run log in the remote repository. Before the opening, say in your own words that its scheduled runs keep their run log in the remote repository, so pull it into this folder first ([steps]), and say 'done' when it's pulled (N-T57, *your words*), and wait for "done", so the opening and the flags read the routine's runs.
 - **A team workflow** (the requirements' lens is Organizational): before the opening, as its own message, **Ask:** "Is the team using it, and is anyone stuck?" (N-T35, *your words*) "Stuck": the SOP offer comes at a Ready round's close (Part 4, `going-live.md` section 4); a round that isn't Ready makes no SOP offer. "Not using it": give "change my workflow" with the location in N-F2's form (model wording), and carry on with the re-check unless the leader stops it.

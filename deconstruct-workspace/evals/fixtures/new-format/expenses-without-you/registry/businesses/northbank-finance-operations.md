@@ -3,7 +3,7 @@ type: Business
 title: "Northbank Financial — Finance Operations"
 description: "The Finance Operations team at Northbank Financial, a regional bank."
 generated: { by: process:scaffolding-registry, at: 2026-09-01 }
-status: active
+state: active
 ---
 # Northbank Financial — Finance Operations
 

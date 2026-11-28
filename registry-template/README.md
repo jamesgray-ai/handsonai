@@ -1,6 +1,6 @@
 # AI Registry Template
 
-A starter [OKF](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md)
+A starter [OKF v0.3](https://github.com/open-knowledge-format/open-knowledge-format)
 knowledge bundle for your AI Registry — the structured record of your business's
 lines of business, processes, workflows, and insights that AI assistants read
 and maintain.
@@ -28,6 +28,11 @@ The `tools/` folder and GitHub Action check your registry against
 shows a green ✓ when every file follows the rules, or a red ✗ — click it to
 see which file to fix. While you're still saving your first set of files, a
 red ✗ is normal. Nothing is published. You never run these scripts yourself.
+
+**Already have a registry?** If its `registry/index.md` says
+`okf_version: "0.2"`, it uses an earlier version of the format. It still works.
+To bring it up to date, say **"Upgrade my registry."** to your AI assistant:
+only the way the pages are written changes, never what they say.
 
 Everything in `registry/` except `SCHEMA.md`, `index.md`, and `log.md` starts
 empty: your AI assistant fills it with YOUR business through an interview.

@@ -13,7 +13,7 @@ const { execFileSync } = require('child_process');
 // the workspace's is missing or lower; package.json carries the same number.
 // Raise both together whenever compose, lint, this file, the dashboard
 // template or the data-island schema change.
-const TOOLS_VERSION = '11.0.0';
+const TOOLS_VERSION = '11.1.0';
 
 // Plural directories -> singular concept type. Directory<->type agreement is
 // lint-enforced (SCHEMA.md "Types and directories").
@@ -31,9 +31,10 @@ const RESERVED = new Set(['SCHEMA.md', 'index.md', 'log.md']);
 
 // Per-type enum constraints. `*` applies to any type carrying the field.
 const ENUMS = {
-  Workflow: { status: ['backlog', 'under-development', 'in-production', 'retired'] },
-  Business: { status: ['active', 'incubating', 'dormant'] },
-  LineOfBusiness: { status: ['active', 'incubating', 'dormant'] },
+  // Domain state (`state`, read through stateOf, so a 0.2 node's `status` counts).
+  Workflow: { state: ['backlog', 'under-development', 'in-production', 'retired'] },
+  Business: { state: ['active', 'incubating', 'dormant'] },
+  LineOfBusiness: { state: ['active', 'incubating', 'dormant'] },
   '*': {
     definition_type: ['step-driven', 'goal-driven'],
     execution_mode: ['manual', 'augmented', 'automated'],
@@ -99,10 +100,26 @@ function parseFrontmatter(text) {
   }
   const fields = {};
   const head = raw.slice(4, end);
-  for (const line of head.split('\n')) {
+  const lines = head.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
     if (!line.trim()) continue;
     if (/^\s/.test(line)) {
       return { fields: null, body: raw, error: `multi-line YAML is not supported in this bundle -- indented continuation line: "${line.trim()}"` };
+    }
+    // The one block form admitted: `verified:` or `sources:` with an empty value,
+    // followed by indented `- { ... }` one-line maps (OKF v0.3 §5.1-5.2).
+    const blk = line.match(/^(verified|sources):\s*$/);
+    if (blk && i + 1 < lines.length && /^\s+-\s/.test(lines[i + 1])) {
+      const items = [];
+      while (i + 1 < lines.length && /^\s+-\s/.test(lines[i + 1])) {
+        const item = lines[++i].replace(/^\s+-\s+/, '').trim();
+        const map = item.startsWith('{') && item.endsWith('}') ? parseFlowMap(item) : null;
+        if (!map) return { fields: null, body: raw, error: `bad ${blk[1]} entry (each must be a one-line { ... } map): "${item}"` };
+        items.push(map);
+      }
+      fields[blk[1]] = items;
+      continue;
     }
     if (/^[\w-]+:\s*[>|][+-]?\s*$/.test(line)) {
       return { fields: null, body: raw, error: `multi-line YAML block scalar is not supported in this bundle: "${line.trim()}"` };
@@ -111,27 +128,69 @@ function parseFrontmatter(text) {
     if (!m) return { fields: null, body: raw, error: `bad frontmatter line: "${line}"` };
     let v = m[2].trim();
     if (v.startsWith('[') && v.endsWith(']')) {
-      v = v.slice(1, -1).split(',').map((s) => s.trim()).filter(Boolean);
+      const inner = v.slice(1, -1).trim();
+      if (inner.startsWith('{')) {
+        // A flow list of flow maps: `verified: [{ by, at }, { by, at }]` (OKF v0.3 §5.2).
+        const items = [];
+        const re = /\{[^{}]*\}/g;
+        let mm;
+        while ((mm = re.exec(inner))) {
+          const map = parseFlowMap(mm[0]);
+          if (!map) return { fields: null, body: raw, error: `bad flow map entry in list: "${mm[0]}"` };
+          items.push(map);
+        }
+        if (inner.replace(re, '').replace(/[\s,]/g, '') !== '') return { fields: null, body: raw, error: `bad flow list of maps: "${v}"` };
+        v = items;
+      } else {
+        v = inner.split(',').map((s) => unquote(s.trim())).filter(Boolean);
+      }
     } else if (v.startsWith('"') && v.endsWith('"')) {
       v = v.slice(1, -1).replace(/\\(["\\])/g, '$1');
     } else if (v.startsWith("'") && v.endsWith("'")) {
       v = v.slice(1, -1);
     } else if (v.startsWith('{') && v.endsWith('}')) {
-      // Single-line YAML flow map -- the only nested value the single-line
-      // profile admits (OKF v0.2 `generated: { by, at }`). Split on commas;
-      // keys split at the FIRST colon so actor ids (human:jamesgray) survive.
-      const map = {};
-      for (const part of v.slice(1, -1).split(',')) {
-        if (!part.trim()) continue;
-        const c = part.indexOf(':');
-        if (c === -1) return { fields: null, body: raw, error: `bad flow map entry: "${part.trim()}"` };
-        map[part.slice(0, c).trim()] = part.slice(c + 1).trim();
-      }
+      const map = parseFlowMap(v);
+      if (!map) return { fields: null, body: raw, error: `bad flow map entry: "${v}"` };
       v = map;
     }
     fields[m[1]] = v;
   }
   return { fields, body: raw.slice(end + 5) };
+}
+
+function unquote(v) {
+  if (v.length > 1 && v.startsWith('"') && v.endsWith('"')) return v.slice(1, -1).replace(/\\(["\\])/g, '$1');
+  if (v.length > 1 && v.startsWith("'") && v.endsWith("'")) return v.slice(1, -1);
+  return v;
+}
+
+// Single-line YAML flow map -- the nested value the single-line profile admits
+// (`generated: { by, at }`, a `verified` event, a `sources` entry). Split on
+// commas; keys split at the FIRST colon so actor ids (human:jamesgray) survive;
+// a quoted value (OKF v0.3's examples quote timestamps) is unquoted. Returns
+// null on an entry with no colon.
+function splitOutsideQuotes(text) {
+  const parts = [];
+  let cur = '';
+  let q = null;
+  for (const ch of text) {
+    if (q) { if (ch === q) q = null; cur += ch; continue; }
+    if (ch === '"' || ch === "'") { q = ch; cur += ch; continue; }
+    if (ch === ',') { parts.push(cur); cur = ''; continue; }
+    cur += ch;
+  }
+  parts.push(cur);
+  return parts;
+}
+function parseFlowMap(text) {
+  const map = {};
+  for (const part of splitOutsideQuotes(text.trim().slice(1, -1))) {
+    if (!part.trim()) continue;
+    const c = part.indexOf(':');
+    if (c === -1) return null;
+    map[part.slice(0, c).trim()] = unquote(part.slice(c + 1).trim());
+  }
+  return map;
 }
 
 // Skill and agent files are not registry nodes: their authors (and the platforms
@@ -191,17 +250,127 @@ function orderedLinks(sectionText) {
   return out;
 }
 
+// --- Domain state and lifecycle (OKF v0.3 §5.4; SCHEMA.md "Domain state and lifecycle")
+// `status` is the spec's lifecycle only; domain state lives in `state`. stateOf()
+// reads either form, so a registry written before 11.1.0 (domain values in
+// `status`) reads the same. Every reader of a node's state goes through it.
+const LIFECYCLE_STATUS = ['draft', 'stable', 'deprecated'];
+function present(v) { return v !== undefined && v !== null && String(v) !== ''; }
+function stateOf(fm) {
+  if (!fm) return null;
+  if (present(fm.state)) return String(fm.state);
+  if (present(fm.status) && !LIFECYCLE_STATUS.includes(String(fm.status))) return String(fm.status);
+  return null;
+}
+
+// The types that carry domain state.
+const STATE_TYPES = new Set(['Workflow', 'Business', 'LineOfBusiness']);
+
+// OKF v0.3 §7: an actor is <producer>/<version> (an agent or tool, e.g.
+// claude-code/claude-opus-5-5) or <scheme>:<id> (human:, team:, process:, or any other).
+function isActor(v) {
+  const s = String(v || '');
+  return /^[a-z][a-z0-9+.-]*:\S+$/i.test(s) || /^[^\s/:]+\/\S+$/.test(s);
+}
+
+// OKF v0.3 §5: a timestamp is an RFC 3339 date-time with an offset, or a date only (the start of
+// that UTC day). Milliseconds, or null when it doesn't parse.
+function toMillis(v) {
+  const s = String(v === undefined || v === null ? '' : v).trim();
+  const m = s.match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(\.\d+)?(Z|[+-]\d{2}:\d{2}))?$/);
+  if (!m) return null;
+  // A real calendar day and time: Date.parse would roll 2026-02-30 over into March.
+  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  const day = new Date(Date.UTC(y, mo - 1, d));
+  if (day.getUTCFullYear() !== y || day.getUTCMonth() !== mo - 1 || day.getUTCDate() !== d) return null;
+  if (m[4] === undefined) return day.getTime();
+  if (Number(m[4]) > 23 || Number(m[5]) > 59 || Number(m[6]) > 59) return null;
+  const t = Date.parse(s);
+  return Number.isNaN(t) ? null : t;
+}
+
+// --- Bundle version (OKF v0.3 §8.1, §12)
+// The root index.md's okf_version, or null. No version, or one below 0.3, is the
+// 0.2 reading (§12.1's fallbacks apply); a version this code doesn't know is read
+// best-effort as current, never refused.
+function okfVersionOf(bundleDir) {
+  let raw;
+  try { raw = normalizeLineEndings(fs.readFileSync(path.join(bundleDir, 'index.md'), 'utf8')); } catch { return null; }
+  const { fields } = parseFrontmatter(raw);
+  return fields && present(fields.okf_version) ? String(fields.okf_version) : null;
+}
+function isLegacyVersion(v) {
+  if (!present(v)) return true;
+  const m = /^(\d+)\.(\d+)/.exec(String(v));
+  if (!m) return false;
+  return Number(m[1]) === 0 && Number(m[2]) < 3;
+}
+
+// --- Links and paths (OKF v0.3 §6; SCHEMA.md "Links")
+// resolveHref(href, from, { legacy, bundleName }) -> { kind, path, form, href }
+//   kind: 'external' (a URI scheme) | 'fragment' (#... only) | 'bundle' | 'outside'
+//   form: 'root' (leading /) | 'relative' (from the linking file's own folder)
+//         | 'legacy' (0.2 only: from the registry's parent folder)
+//   path: 'bundle' -> '/dir/file.md'; 'outside' -> the path from the registry's
+//         parent folder (the working folder), e.g. 'framework/x/requirements.md'
+//         ('../...' when it climbs out of the working folder too). A trailing '/'
+//         (a directory target) is kept; a #fragment is dropped.
+// `from` is the linking file's bundle path ('/workflows/x.md'). In a 0.2 bundle
+// (legacy) a bare path that doesn't start with './' or '../' keeps its 0.2
+// meaning; the 0.3 form is read file-relative in either.
+function decodePath(p) { try { return decodeURI(p); } catch { return p; } }
+function resolveHref(href, from, opts = {}) {
+  const bundleName = opts.bundleName || 'registry';
+  if (/^[a-z][a-z0-9+.-]*:/i.test(href)) return { kind: 'external', path: href, form: 'url', href };
+  if (href.startsWith('#')) return { kind: 'fragment', path: href, form: 'fragment', href };
+  const bare = decodePath(href.replace(/[#?].*$/, ''));
+  if (bare.startsWith('/')) return { kind: 'bundle', path: bare, form: 'root', href };
+  // In 0.2 a bare path (./ included) is read from the registry's parent folder; only ../ is
+  // read file-relative there, which is the 0.3 form 11.1.0's steps write into a 0.2 registry.
+  if (opts.legacy && !bare.startsWith('../')) return { kind: 'outside', path: bare.replace(/^(\.\/)+/, ''), form: 'legacy', href };
+  const fromDir = path.posix.dirname(from || '/index.md'); // '/workflows' or '/'
+  let joined = path.posix.normalize(path.posix.join(bundleName, fromDir, bare));
+  if (bare.endsWith('/') && !joined.endsWith('/')) joined += '/';
+  if (joined === bundleName || joined === bundleName + '/' || joined.startsWith(bundleName + '/')) {
+    return { kind: 'bundle', path: '/' + joined.slice(bundleName.length + 1), form: 'relative', href };
+  }
+  return { kind: 'outside', path: joined, form: 'relative', href };
+}
+
+// The link a writer puts in a file at bundle path `from` for `target`: a bundle
+// path ('/dir/x.md') stays root-relative; a path from the working folder becomes
+// file-relative by the file's depth ('../../framework/x/requirements.md' from a
+// node, '../.claude/skills/s/SKILL.md' from the root index.md). In a 0.2 bundle
+// (legacy) it keeps the 0.2 form, so derived views there don't change.
+function linkTo(target, from, opts = {}) {
+  if (target.startsWith('/') || opts.legacy || /^[a-z][a-z0-9+.-]*:/i.test(target)) return target;
+  const bundleName = opts.bundleName || 'registry';
+  const fromDir = path.posix.join(bundleName, path.posix.dirname(from || '/index.md'));
+  let rel = path.posix.relative(fromDir, target.replace(/\/$/, ''));
+  if (target.endsWith('/')) rel += '/';
+  // A link is a URI reference (OKF v0.3 §6): a space or other reserved character is
+  // percent-encoded, as resolveHref decodes it.
+  return encodeURI(rel);
+}
+
 // All markdown link hrefs in text, classified per SCHEMA.md's discriminator.
-function classifyLinks(raw) {
-  const out = { inBundle: [], repo: [], external: [] };
+// With `from` (the linking file's bundle path) each link is resolved as
+// resolveHref says: inBundle holds bundle paths, repo the paths from the working
+// folder, and `links` every resolved link (for checks that need the form).
+// Without `from` the text is read the 0.2 way (every bare path from the working
+// folder), for callers that only need in-bundle links.
+function classifyLinks(raw, from, opts = {}) {
+  const out = { inBundle: [], repo: [], external: [], links: [] };
   const re = /\]\(([^)\s]+)\)/g;
   let m;
   while ((m = re.exec(raw || ''))) {
     const href = m[1];
-    if (/^[a-z][a-z0-9+.-]*:/i.test(href)) out.external.push(href);
-    else if (href.startsWith('#')) continue;
-    else if (href.startsWith('/')) out.inBundle.push(href);
-    else out.repo.push(href.replace(/#.*$/, ''));
+    const r = from === undefined ? resolveHref(href, '/index.md', { ...opts, legacy: true }) : resolveHref(href, from, opts);
+    if (r.kind === 'fragment') continue;
+    out.links.push(r);
+    if (r.kind === 'external') out.external.push(href);
+    else if (r.kind === 'bundle') out.inBundle.push(r.path);
+    else out.repo.push(r.path);
   }
   return out;
 }
@@ -255,15 +424,26 @@ function replaceGeneratedBlock(raw, name, content) {
 // href can be resolved with a plain `nodes.has(href)`.
 function loadBundle(rootDir) {
   const absRoot = path.resolve(rootDir);
+  let realRoot = absRoot;
+  try { realRoot = fs.realpathSync(absRoot); } catch { /* missing: the walk finds nothing */ }
   const nodes = new Map();
   const errors = [];
   (function walk(dir) {
     let entries;
     try { entries = fs.readdirSync(dir).sort(); } catch { return; }
     for (const name of entries) {
+      // OKF v0.3 §3.2: dot-paths are not part of the bundle, and a symbolic link
+      // that leaves the bundle root is not followed.
+      if (name.startsWith('.')) continue;
       const full = path.join(dir, name);
       let st;
       try { st = fs.statSync(full); } catch { continue; }
+      try {
+        if (fs.lstatSync(full).isSymbolicLink()) {
+          const real = fs.realpathSync(full);
+          if (real !== realRoot && !real.startsWith(realRoot + path.sep)) continue;
+        }
+      } catch { continue; }
       if (st.isDirectory()) { walk(full); continue; }
       if (!name.endsWith('.md')) continue;
       const relPath = '/' + path.relative(absRoot, full).split(path.sep).join('/');
@@ -376,6 +556,16 @@ function resolveRepoLink(href, workspaceRoot) {
   return resolves(fallback) ? fallback : null;
 }
 
+// The path from the working folder that a resolved 'outside' link reaches, or
+// null when nothing is there. Only a 0.2-form link gets resolveRepoLink's
+// framework/ fallback; a file-relative link means exactly what it says.
+function resolveOutside(link, workspaceRoot) {
+  if (link.form === 'legacy') return resolveRepoLink(link.path, workspaceRoot);
+  const isDirLink = link.path.endsWith('/');
+  const target = path.join(workspaceRoot, link.path);
+  return (isDirLink ? isDirSafe(target) : fs.existsSync(target)) ? link.path : null;
+}
+
 // A run log (runs.md or runs-<slug>.md) has at least one data row: a table
 // row beyond the header and separator. `file` is an absolute path.
 function runLogHasEntries(file) {
@@ -463,7 +653,16 @@ function isGitIgnored(relPath, cwd) {
   }
 }
 
-// OKF v0.2 last-content-change accessor.
+// OKF v0.3 §5.2: `verified` is a list of { by, at } events; a bare map is a
+// list of one; an event without both keys is ignored.
+function verifiedEvents(fm) {
+  const v = fm && fm.verified;
+  if (!present(v)) return [];
+  const list = Array.isArray(v) ? v : [v];
+  return list.filter((e) => e && typeof e === 'object' && present(e.by) && present(e.at));
+}
+
+// Last-content-change accessor (generated.at).
 function lastChanged(fm) {
   if (!fm) return '';
   if (fm.generated && typeof fm.generated === 'object' && fm.generated.at) return fm.generated.at;
@@ -474,6 +673,7 @@ module.exports = {
   TOOLS_VERSION,
   DIR_TYPES, RESERVED, ENUMS, LEGACY_TOLERATED, BANNED_FIELDS, SECTION_NAMES,
   ARTIFACT_LABELS, LEGACY_LABELS, AT_INSTANT, AT_DATE, RECORD_MARKERS,
+  LIFECYCLE_STATUS, STATE_TYPES, isActor, toMillis, stateOf, okfVersionOf, isLegacyVersion, resolveHref, linkTo, resolveOutside, verifiedEvents,
   normalizeLineEndings, parseFrontmatter, parseCapabilityFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
   findGeneratedBlocks, renderGeneratedBlock, replaceGeneratedBlock,
   loadBundle, scanSops, frameworkFolder, scanFrameworkFolders, resolveRepoLink, runLogHasEntries, artifactLabels, scanCapabilities,

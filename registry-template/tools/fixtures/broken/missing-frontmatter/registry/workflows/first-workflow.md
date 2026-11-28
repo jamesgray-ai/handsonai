@@ -4,7 +4,7 @@ The baseline fixture workflow used across lint test cases.
 
 # Artifacts
 
-- [SOP](sops/one-sop.md)
+- [SOP](../../sops/one-sop.md)
 
 # Skills
 

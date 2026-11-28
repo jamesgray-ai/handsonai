@@ -3,7 +3,7 @@ type: Workflow
 title: "First Workflow"
 description: "The baseline fixture workflow."
 generated: { by: process:fixture, at: 2026-08-01 }
-status: under-development
+state: under-development
 execution_mode: augmented
 autonomy: guided
 trigger: "manual"

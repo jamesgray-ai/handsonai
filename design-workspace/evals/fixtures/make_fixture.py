@@ -89,11 +89,11 @@ def add_workflow(t, slug, title, description, trigger, status="under-development
         f'title: "{title}"\n'
         f'description: "{description}"\n'
         "generated: { by: process:deconstruct, at: 2026-10-20T10:00:00Z }\n"
-        f"status: {status}\n"
+        f"state: {status}\n"
         f'trigger: "{trigger}"\n'
         "---\n"
         f"# {title}\n\n{description}\n\n# Artifacts\n\n"
-        f"- [Requirements](framework/{slug}/requirements.md)\n\n# Skills\n\n\n# Agents\n"
+        f"- [Requirements](../../framework/{slug}/requirements.md)\n\n# Skills\n\n\n# Agents\n"
     )
     idx = Path(t) / "registry" / "workflows" / "index.md"
     idx.write_text(idx.read_text().rstrip("\n") + f"\n- [{title}](/workflows/{slug}.md)\n")
@@ -112,10 +112,10 @@ def add_skill(t, name, description, body, used_by=None):
             f'title: "{title}"\n'
             f'description: "{desc}"\n'
             "generated: { by: process:build, at: 2026-09-15T10:00:00Z }\n"
-            "status: in-production\n"
+            "state: in-production\n"
             'trigger: "You ask for it"\n'
             "---\n"
-            f"# {title}\n\n{desc}\n\n# Artifacts\n\n\n# Skills\n\n- [{name}](.claude/skills/{name}/SKILL.md)\n\n# Agents\n"
+            f"# {title}\n\n{desc}\n\n# Artifacts\n\n\n# Skills\n\n- [{name}](../../.claude/skills/{name}/SKILL.md)\n\n# Agents\n"
         )
         idx = Path(t) / "registry" / "workflows" / "index.md"
         idx.write_text(idx.read_text().rstrip("\n") + f"\n- [{title}](/workflows/{slug}.md)\n")
@@ -140,7 +140,7 @@ def drop_links(t, slug, *labels, skills=False):
         # and the skills inventory compose wrote from them (compose refuses to run past a broken link)
         idx = Path(t) / "registry" / "index.md"
         if idx.exists():
-            idx.write_text(re.sub(rf"(?m)^- \[[^\]]+\]\(\.claude/skills/{re.escape(slug)}/SKILL\.md\).*\n", "",
+            idx.write_text(re.sub(rf"(?m)^- \[[^\]]+\]\((?:\.\./)?\.claude/skills/{re.escape(slug)}/SKILL\.md\).*\n", "",
                                   idx.read_text()))
     node.write_text(text)
 
@@ -345,8 +345,8 @@ def fx_earlier_plan_built(t):  # a live workflow whose plan is a 9.x design-spec
     shutil.copy(FF / "earlier-version/v1-design-spec/with-registry/framework/client-follow-up/design-spec.md", d / "design-spec.md")
     (d / "design-plan.md").unlink()
     node = Path(t) / "registry" / "workflows" / f"{CFU}.md"
-    sub(node, "- [Design plan](framework/client-follow-up/design-plan.md)",
-        "- [Design spec](framework/client-follow-up/design-spec.md)")
+    sub(node, "- [Design plan](../../framework/client-follow-up/design-plan.md)",
+        "- [Design spec](../../framework/client-follow-up/design-spec.md)")
     # an older node (a bare-date stamp) may carry the earlier label (registry-bundle.md rule 2)
     text = node.read_text()
     node.write_text(re.sub(r"(?m)^(generated: \{ by: [^,]+, at: )(\d{4}-\d\d-\d\d)T[^ ]+ \}", r"\1\2 }", text, count=1))

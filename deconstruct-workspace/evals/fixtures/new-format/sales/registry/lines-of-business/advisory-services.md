@@ -3,7 +3,7 @@ type: LineOfBusiness
 title: "Advisory Services"
 description: "Scoping and delivering consulting engagements."
 generated: { by: process:scaffolding-registry, at: 2026-09-01 }
-status: active
+state: active
 ---
 # Advisory Services
 

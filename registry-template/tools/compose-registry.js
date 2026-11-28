@@ -204,6 +204,16 @@ function compose(bundleDir) {
 
   const { nodes } = lib.loadBundle(dir);
   const byPath = nodes;
+  // How links read and are written in this bundle (OKF v0.3 §6; a 0.2 bundle
+  // keeps the 0.2 reading, and its derived views keep the 0.2 form).
+  const linkOpts = { legacy: lib.isLegacyVersion(lib.okfVersionOf(absBundle)), bundleName: path.basename(absBundle) };
+  // A link or path field as the path from the working folder (repo path), for
+  // keys and the views; anything that isn't an outside path is left as written.
+  const repoPathOf = (href, from) => {
+    if (href === undefined || href === null || href === '') return href;
+    const r = lib.resolveHref(String(href), from, linkOpts);
+    return r.kind === 'outside' ? r.path : href;
+  };
   const { byKind } = classify(nodes);
 
   const businesses = byKind('Business').slice().sort(cmpPath);
@@ -234,14 +244,16 @@ function compose(bundleDir) {
   for (const w of workflowsAll) {
     const links = lib.orderedLinks(w.sections['Skills'] || '').concat(lib.orderedLinks(w.sections['Agents'] || ''));
     for (const l of links) {
-      const key = l.href.replace(/^\.\//, '');
+      const key = repoPathOf(l.href, w.relPath).replace(/^\.\//, '');
       if (!usedBy.has(key)) usedBy.set(key, []);
       usedBy.get(key).push(w);
     }
   }
-  const usedByLinkText = (assetPath) => {
+  // inBundle: the text goes into the bundle's root index.md, where a 0.3 link to a
+  // node is root-relative; REGISTRY.md sits beside registry/, so it links registry/...
+  const usedByLinkText = (assetPath, inBundle) => {
     const ws = usedBy.get(assetPath) || [];
-    return ws.map((w) => `[${nodeTitle(w)}](registry${w.relPath})`).join(', ');
+    return ws.map((w) => `[${nodeTitle(w)}](${inBundle && !linkOpts.legacy ? w.relPath : `registry${w.relPath}`})`).join(', ');
   };
 
   const absPathOf = (relPath) => path.join(absBundle, relPath.replace(/^\//, ''));
@@ -266,7 +278,7 @@ function compose(bundleDir) {
   // above). notesAll is already code-point sorted, so iteration order (and
   // therefore emitted bullet order) is deterministic.
   for (const w of workflowsAll) {
-    const linking = notesAll.filter((n) => lib.classifyLinks(n.raw).inBundle.includes(w.relPath));
+    const linking = notesAll.filter((n) => lib.classifyLinks(n.raw, n.relPath, linkOpts).inBundle.includes(w.relPath));
     const content = linking.map((n) => `- [${nodeTitle(n)}](${n.relPath}) — ${n.fm.description}`).join('\n');
     const { raw, replaced } = lib.replaceGeneratedBlock(w.raw, 'insights', content);
     if (replaced && raw !== w.raw) setIfChanged(absPathOf(w.relPath), raw);
@@ -278,13 +290,13 @@ function compose(bundleDir) {
   if (rootIndex) {
     let raw = rootIndex.raw;
     const skillLines = skills.map((s) => {
-      const used = usedByLinkText(s.path);
-      return `- [${s.id}](${s.path}) — ${s.description}${used ? ` (used by: ${used})` : ''}`;
+      const used = usedByLinkText(s.path, true);
+      return `- [${s.id}](${lib.linkTo(s.path, rootIndexPath, linkOpts)}) — ${s.description}${used ? ` (used by: ${used})` : ''}`;
     });
     ({ raw } = lib.replaceGeneratedBlock(raw, 'skills', `## Skills inventory (${skills.length})\n${skillLines.join('\n')}`));
     const agentLines = agents.map((a) => {
-      const used = usedByLinkText(a.path);
-      return `- [${a.id}](${a.path}) — ${a.description}${used ? ` (used by: ${used})` : ''}`;
+      const used = usedByLinkText(a.path, true);
+      return `- [${a.id}](${lib.linkTo(a.path, rootIndexPath, linkOpts)}) — ${a.description}${used ? ` (used by: ${used})` : ''}`;
     });
     ({ raw } = lib.replaceGeneratedBlock(raw, 'agents', `## Agents inventory (${agents.length})\n${agentLines.join('\n')}`));
     if (raw !== rootIndex.raw) setIfChanged(absPathOf(rootIndexPath), raw);
@@ -302,7 +314,7 @@ function compose(bundleDir) {
   // --- REGISTRY.md dashboard --------------------------------------------
   const registryLink = (n) => `[${nodeTitle(n)}](registry${n.relPath})`;
   const wfHeader = ['| Workflow | Status | Progress | How it decides | How it runs | Re-check by |', '|---|---|---|---|---|---|'];
-  const wfRow = (w) => `| ${registryLink(w)} | ${dash(w.fm.status)} | ${cell(progress.get(w.relPath))} | ${cell(HOW_IT_DECIDES[w.fm.autonomy])} | ${cell(HOW_IT_RUNS[w.fm.execution_mode])} | ${dash(w.fm.stale_after)} |`;
+  const wfRow = (w) => `| ${registryLink(w)} | ${dash(lib.stateOf(w.fm))} | ${cell(progress.get(w.relPath))} | ${cell(HOW_IT_DECIDES[w.fm.autonomy])} | ${cell(HOW_IT_RUNS[w.fm.execution_mode])} | ${dash(w.fm.stale_after)} |`;
 
   const L = [];
   L.push(business ? (business.fm.url ? `# [${business.fm.title}](${business.fm.url})` : `# ${business.fm.title}`) : '# AI Registry');
@@ -383,7 +395,7 @@ function compose(bundleDir) {
       title: business.fm.title,
       description: business.fm.description,
       url: business.fm.url,
-      status: business.fm.status,
+      status: lib.stateOf(business.fm) ?? undefined,
       nodePath: p,
       nodeUrl: nodeUrl(p),
     });
@@ -395,8 +407,8 @@ function compose(bundleDir) {
       id: lib.slugOf(lob.relPath),
       title: lob.fm.title,
       description: lob.fm.description,
-      status: lob.fm.status,
-      folder: lob.fm.folder,
+      status: lib.stateOf(lob.fm) ?? undefined,
+      folder: repoPathOf(lob.fm.folder, lob.relPath),
       processes: processesOfLob(lob).map((pr) => lib.slugOf(pr.relPath)),
       nodePath: p,
       nodeUrl: nodeUrl(p),
@@ -432,7 +444,7 @@ function compose(bundleDir) {
       id: lib.slugOf(w.relPath),
       title: w.fm.title,
       description: w.fm.description,
-      status: w.fm.status,
+      status: lib.stateOf(w.fm) ?? undefined,
       definitionType: w.fm.definition_type,
       executionMode: w.fm.execution_mode,
       autonomy: w.fm.autonomy,
@@ -442,8 +454,8 @@ function compose(bundleDir) {
       lobId: lob ? lib.slugOf(lob.relPath) : null,
       state: progress.get(w.relPath),
       ...(scorecards.get(w.relPath) ? { scorecard: scorecards.get(w.relPath) } : {}),
-      skills: lib.orderedLinks(w.sections['Skills'] || '').map((l) => l.href),
-      agents: lib.orderedLinks(w.sections['Agents'] || '').map((l) => l.href),
+      skills: lib.orderedLinks(w.sections['Skills'] || '').map((l) => repoPathOf(l.href, w.relPath)),
+      agents: lib.orderedLinks(w.sections['Agents'] || '').map((l) => repoPathOf(l.href, w.relPath)),
       nodePath: p,
       nodeUrl: nodeUrl(p),
     }));
@@ -459,7 +471,7 @@ function compose(bundleDir) {
         description: pr.fm.description,
         ownerId: pr.fm.owner,
         lobId: lib.slugOf(lob.relPath),
-        guide: pr.fm.guide,
+        guide: repoPathOf(pr.fm.guide, pr.relPath),
         workflows: membersOfProcess(pr).map((w) => lib.slugOf(w.relPath)),
         nodePath: p,
         nodeUrl: nodeUrl(p),

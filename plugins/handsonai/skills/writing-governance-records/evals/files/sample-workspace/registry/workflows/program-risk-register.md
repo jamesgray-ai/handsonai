@@ -3,7 +3,7 @@ type: Workflow
 title: "Program Risk Register"
 description: "Consolidates every open risk from the tracker's comments into the monthly register for the steering group. A risk register in the steering group's format, with each risk's owner and status."
 generated: { by: process:analyze, at: 2026-06-01T14:20:00Z }
-status: backlog
+state: backlog
 trigger: "Month end, before the steering meeting"
 ---
 # Program Risk Register
@@ -12,7 +12,7 @@ Consolidates every open risk from the tracker's comments into the monthly regist
 
 # Artifacts
 
-- [Opportunity report](framework/ai-opportunity-report.md)
+- [Opportunity report](../../framework/ai-opportunity-report.md)
 
 # Skills
 

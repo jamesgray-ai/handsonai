@@ -101,7 +101,7 @@ Running work Analyze recorded (an `in-production` node with no workflow folder) 
 4. The interview from N-D1 on. Nothing is skipped because the work already runs.
    - **When Analyze recorded it** (its card has a Status line): item 1 is the card playback, so nothing Analyze recorded is asked again.
    - **Otherwise,** the N-D22 answer prefills item 1's trigger and deliverable.
-5. The registry write keeps `status: in-production`.
+5. The registry write keeps `state: in-production`.
 
 A stop before the first progress save leaves it in state 0: the leader starts again the same way.
 
@@ -179,7 +179,7 @@ The workflow folder (`framework/[slug]/` in the working folder, on every platfor
 
 ### Registry write
 
-On the Workflow node the progress file's second line names, at the file write, resolved and written as the indexing-registry skill's `registry-bundle.md` says: `status: under-development` (from `backlog` only; any other status is kept), the refined trigger, the description, the "Requirements" link and `generated`. The full list and its rules are in `references/saving-the-requirements.md`, *Registry write*. Only the fields it lists; a field another step or the leader set is never overwritten.
+On the Workflow node the progress file's second line names, at the file write, resolved and written as the indexing-registry skill's `registry-bundle.md` says: `state: under-development` (from `backlog` only; any other state is kept), the refined trigger, the description, the "Requirements" link and `generated`. The full list and its rules are in `references/saving-the-requirements.md`, *Registry write*. Only the fields it lists; a field another step or the leader set is never overwritten.
 
 ## Guidelines
 

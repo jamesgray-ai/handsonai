@@ -6073,7 +6073,7 @@
           "check": {
             "type": "file_regex",
             "path": "drive/ai-workspace/registry/workflows/client-follow-up.md",
-            "pattern": "(?m)^status: in-production"
+            "pattern": "(?m)^state: in-production"
           }
         },
         {
@@ -6180,7 +6180,7 @@
           "check": {
             "type": "file_regex",
             "path": "drive/ai-workspace/registry/workflows/client-follow-up.md",
-            "pattern": "(?m)^status: in-production"
+            "pattern": "(?m)^state: in-production"
           }
         },
         {
@@ -6317,7 +6317,7 @@
           "check": {
             "type": "file_regex",
             "path": "registry/workflows/client-follow-up.md",
-            "pattern": "(?m)^status: in-production"
+            "pattern": "(?m)^state: in-production"
           }
         },
         {
@@ -6924,7 +6924,7 @@
           "check": {
             "type": "file_regex",
             "path": "registry/workflows/client-follow-up.md",
-            "pattern": "(?m)^status: in-production"
+            "pattern": "(?m)^state: in-production"
           }
         }
       ],

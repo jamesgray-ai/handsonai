@@ -16,7 +16,7 @@ type: Business
 title: "Brightwork Consulting"
 description: "Boutique operations consultancy helping mid-market firms modernize their back office."
 generated: { by: process:scaffolding-registry, at: 2026-08-10T15:00:00Z }
-status: active
+state: active
 url: https://example.com
 ---
 Brightwork Consulting is a small operations consultancy that helps mid-market
@@ -41,7 +41,7 @@ type: LineOfBusiness
 title: "Advisory"
 description: "Hands-on engagements that redesign a client's back-office operations."
 generated: { by: process:scaffolding-registry, at: 2026-08-10T15:00:00Z }
-status: active
+state: active
 ---
 Advisory pairs a Brightwork consultant with a client team for a fixed-scope
 engagement.
@@ -59,7 +59,7 @@ type: LineOfBusiness
 title: "Training"
 description: "Workshops and cohort programs that teach clients to run their own operations improvements."
 generated: { by: process:scaffolding-registry, at: 2026-08-10T15:00:00Z }
-status: active
+state: active
 ---
 Training packages Brightwork's methodology into workshops clients can run
 without a consultant in the room.
@@ -94,12 +94,12 @@ through handoff.
 type: Workflow
 title: "Client Status Reporting"
 description: "Drafts the weekly client status update from delivery notes and open items."
-generated: { by: process:scaffolding-registry, at: 2026-08-10T15:00:00Z }
-status: in-production
+generated: { by: process:test, at: 2026-08-10T15:00:00Z }
+state: in-production
 execution_mode: augmented
 autonomy: guided
 trigger: "Friday 3pm — weekly reporting window"
-stale_after: 2026-11-01
+stale_after: 2026-11-10
 ---
 Every Friday afternoon, this workflow pulls the week's delivery notes and
 open items into a draft status update. A consultant reviews and sends it to
@@ -107,14 +107,14 @@ the client before end of day.
 
 # Artifacts
 
-- [Requirements](framework/client-status-reporting/requirements.md)
-- [Design plan](framework/client-status-reporting/design-plan.md)
-- [Test results](framework/client-status-reporting/test-results.md)
-- [SOP](sops/client-status-reporting-sop.md)
+- [Requirements](../../framework/client-status-reporting/requirements.md)
+- [Design plan](../../framework/client-status-reporting/design-plan.md)
+- [Test results](../../framework/client-status-reporting/test-results.md)
+- [SOP](../../sops/client-status-reporting-sop.md)
 
 # Skills
 
-- [drafting-status-reports](.claude/skills/drafting-status-reports/SKILL.md)
+- [drafting-status-reports](../../.claude/skills/drafting-status-reports/SKILL.md)
 
 # Insights
 
@@ -124,9 +124,11 @@ the client before end of day.
 
 A live workflow's node links its requirements, design plan and test results;
 its build record has no link (it sits beside them, at
-`framework/client-status-reporting/build-record.md`). These links are relative
-to the registry's parent folder, the working folder (on Claude Code and Codex
-the workspace), so they read the same on every platform. No step writes `definition_type`
+`framework/client-status-reporting/build-record.md`). These links are
+file-relative (OKF v0.3): from the node's folder, `registry/workflows/`, `../../`
+climbs to the working folder (on Claude Code and Codex the workspace), so they
+read the same on every platform. Its `generated` names Test, the step that last
+changed it (taking it live). No step writes `definition_type`
 any more; an older node may still carry it, and the lint accepts it.
 
 ## Function: `registry/functions/service-delivery.md`
@@ -151,8 +153,8 @@ kickoff to handoff.
 
 Every typed directory gets one. Entries are bundle-root-relative leading-slash
 links — never bare same-directory links like `[Client Status Reporting](client-status-reporting.md)`,
-which the schema's link discriminator resolves repo-root-relative and lint
-flags as broken.
+which read from the index's own folder and which the schema forbids for a
+link to another page.
 
 ```markdown
 # Workflows
