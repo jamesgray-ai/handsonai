@@ -3,7 +3,7 @@ type: Business
 title: "Kestrel Studio"
 description: "A boutique design and brand studio."
 generated: { by: process:fixture, at: 2026-08-01 }
-status: active
+state: active
 ---
 # Kestrel Studio
 

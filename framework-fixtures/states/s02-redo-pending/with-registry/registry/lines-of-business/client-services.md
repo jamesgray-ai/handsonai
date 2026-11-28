@@ -3,7 +3,7 @@ type: LineOfBusiness
 title: "Client Services"
 description: "Winning and keeping client work."
 generated: { by: process:scaffolding-registry, at: 2026-09-01T09:00:00Z }
-status: active
+state: active
 ---
 # Client Services
 

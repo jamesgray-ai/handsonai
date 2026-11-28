@@ -22,6 +22,7 @@ added to the temp HOME's history; and `.sim-grounding.md`, content the platform 
 (Cowork's mail and Teams grounding). Nothing here is a real person's or business's data.
 """
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -61,18 +62,18 @@ def registry(t, business, description, objectives, lobs, functions, log_entry):
     reg = t / "registry"
     shutil.copytree(TEMPLATE, reg)
     log = reg / "log.md"
-    log.write_text(log.read_text().rstrip("\n") + f"\n\n## 2026-09-01 — Registry scaffolded\n\n{log_entry}\n")
+    log.write_text(log.read_text().rstrip("\n") + f"\n\n## 2026-09-01\n\n- **Registry scaffolded** — {log_entry}\n")
     bslug = slug(business)
     obj = "\n## Objectives\n\n" + "\n".join(f"- {o}" for o in objectives) + "\n" if objectives else ""
     lob_list = "\n".join(f"- [{l[0]}](/lines-of-business/{slug(l[0])}.md)" for l in lobs)
-    node(reg / "businesses" / f"{bslug}.md", "Business", business, description, "status: active\n",
+    node(reg / "businesses" / f"{bslug}.md", "Business", business, description, "state: active\n",
          f"{obj}\n# Lines of Business\n\n{lob_list}\n")
     (reg / "businesses" / "index.md").write_text(f"# Businesses\n\n- [{business}](/businesses/{bslug}.md)\n")
     owns, all_procs = {}, []
     for ltitle, ldesc, procs in lobs:
         plist = "\n".join(f"- [{p[0]}](/processes/{slug(p[0])}.md)" for p in procs)
         node(reg / "lines-of-business" / f"{slug(ltitle)}.md", "LineOfBusiness", ltitle, ldesc,
-             "status: active\n", f"\n# Processes\n\n{plist}\n")
+             "state: active\n", f"\n# Processes\n\n{plist}\n")
         for ptitle, pdesc, fslug in procs:
             node(reg / "processes" / f"{slug(ptitle)}.md", "Process", ptitle, pdesc, f"owner: {fslug}\n",
                  "\n# Workflows\n")
@@ -159,12 +160,12 @@ def add_objectives(t, business_file, objectives):
     p.write_text(text.replace("\n# Lines of Business", block + "\n# Lines of Business", 1))
 
 
-def backlog_node(t, slug_, title, description, trigger, report_link="framework/ai-opportunity-report.md",
+def backlog_node(t, slug_, title, description, trigger, report_link="../../framework/ai-opportunity-report.md",
                  process="client-relationship-management.md"):
     """A backlog Workflow node from an earlier Analyze run, listed under its process and in the index."""
     write(t, f"registry/workflows/{slug_}.md",
           f'---\ntype: Workflow\ntitle: "{title}"\ndescription: "{description}"\n'
-          f"generated: {{ by: process:analyze, at: 2026-10-01T10:00:00Z }}\nstatus: backlog\n"
+          f"generated: {{ by: process:analyze, at: 2026-10-01T10:00:00Z }}\nstate: backlog\n"
           f'trigger: "{trigger}"\n---\n'
           f"# {title}\n\n{description}\n\n# Artifacts\n\n"
           + (f"- [Opportunity report]({report_link})\n\n" if report_link else "") + "# Skills\n\n\n# Agents\n")
@@ -517,15 +518,31 @@ OLD_LINKS_REPORT = """# AI Opportunity Report
 """
 
 
+def to_okf_02(t):
+    """Make the workspace's registry an OKF 0.2 one, as written before 11.1.0: version 0.2, links
+    from the registry's parent folder. Its nodes keep `state` (11.1.0 skills write it into a 0.2
+    registry before it is upgraded)."""
+    reg = t / "registry"
+    idx = reg / "index.md"
+    idx.write_text(idx.read_text().replace('okf_version: "0.3"', 'okf_version: "0.2"', 1))
+    for p in reg.rglob("*.md"):
+        text = p.read_text()
+        new = text.replace("](../../", "](").replace("](../.claude/", "](.claude/")
+        new = re.sub(r"(?m)^(folder|guide): \.\./\.\./", r"\1: ", new)
+        if new != text:
+            p.write_text(new)
+
+
 def old_links(t):
     shutil.copytree(BACKLOG, t, ignore=shutil.ignore_patterns(".gitkeep", ".DS_Store"))
     add_objectives(t, "brightline-advisory.md", ["Keep every client renewal on time", "Win two new clients a quarter"])
     write(t, "framework/ai-opportunity-report.md", OLD_LINKS_REPORT)
+    to_okf_02(t)  # old links are a 0.2 registry's reading (OKF v0.3 §12.1)
     for node_ in ("client-follow-up", "weekly-pipeline-summary"):
         p = t / "registry" / "workflows" / f"{node_}.md"
         p.write_text(p.read_text().replace("(framework/ai-opportunity-report.md)", "(ai-opportunity-report.md)"))
     lob = t / "registry" / "lines-of-business" / "client-services.md"
-    lob.write_text(lob.read_text().replace("status: active\n", "status: active\nfolder: client-services/\n", 1))
+    lob.write_text(lob.read_text().replace("state: active\n", "state: active\nfolder: client-services/\n", 1))
     # an older workflow whose folder was renamed (quarterly-review-pack, now client-review-pack): only its old link claims it
     write(t, "framework/client-review-pack/requirements.md",
           "---\ntitle: Quarterly Review Pack requirements\nworkflow: quarterly-review-pack\n---\n# Quarterly Review Pack\n\n"

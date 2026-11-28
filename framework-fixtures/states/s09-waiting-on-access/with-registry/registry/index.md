@@ -1,5 +1,5 @@
 ---
-okf_version: "0.2"
+okf_version: "0.3"
 ---
 # AI Registry
 
@@ -17,7 +17,7 @@ The dashboard view is the generated root `REGISTRY.md`.
 
 <!-- GENERATED:skills -->
 ## Skills inventory (1)
-- [client-follow-up](.claude/skills/client-follow-up/SKILL.md) — This skill should be used when the user says "draft my client follow-up". Drafts a follow-up email after each client call from your call notes, for you to review and send. (used by: [Client Follow-Up](registry/workflows/client-follow-up.md))
+- [client-follow-up](../.claude/skills/client-follow-up/SKILL.md) — This skill should be used when the user says "draft my client follow-up". Drafts a follow-up email after each client call from your call notes, for you to review and send. (used by: [Client Follow-Up](/workflows/client-follow-up.md))
 <!-- /GENERATED -->
 
 <!-- GENERATED:agents -->

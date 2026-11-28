@@ -158,3 +158,73 @@ test('loadBundle skips dot-paths and symlinks that leave the bundle', () => {
   const keys = [...lib.loadBundle(b).nodes.keys()].sort();
   assert.deepEqual(keys, ['/notes/inside.md', '/notes/n.md']);
 });
+
+// --- upgrade-registry.js: OKF 0.2 -> 0.3, format-only
+const up = require('../registry-template/tools/upgrade-registry');
+function ws02() {
+  const ws = fs.mkdtempSync(path.join(os.tmpdir(), 'regup-'));
+  const w = (p, t) => { fs.mkdirSync(path.dirname(path.join(ws, p)), { recursive: true }); fs.writeFileSync(path.join(ws, p), t); };
+  w('registry/index.md', '---\nokf_version: "0.2"\n---\n# AI Registry\n\n- [Workflows](/workflows/index.md) — w\n');
+  w('registry/workflows/a.md', '---\ntype: Workflow\ntitle: A\ndescription: d\ngenerated: { by: process:analyze, at: 2026-10-01T00:00:00Z }\nstatus: retired\nx-acme-owner: ana\n---\n# A\n\nSee `[code](sops/a.md)` and:\n\n```\n[fenced](sops/a.md)\n```\n\n# Artifacts\n- [Requirements](framework/a/requirements.md#goal)\n- [SOP](sops/a.md)\n- [Old](a/design-plan.md)\n- [Web](https://x.test)\n\n# Skills\n- [s](.claude/skills/s/SKILL.md)\n');
+  w('registry/businesses/b.md', '---\ntype: Business\ntitle: B\ndescription: d\ngenerated: { by: process:scaffolding-registry, at: 2026-10-01T00:00:00Z }\nstatus: active\n---\n# B\n');
+  w('registry/lines-of-business/l.md', '---\ntype: LineOfBusiness\ntitle: L\ndescription: d\ngenerated: { by: process:scaffolding-registry, at: 2026-10-01T00:00:00Z }\nstatus: "dormant"\nfolder: lob-files/\n---\n# L\n');
+  w('registry/processes/p.md', '---\ntype: Process\ntitle: P\ndescription: d\ngenerated: { by: process:scaffolding-registry, at: 2026-10-01T00:00:00Z }\nowner: ops\nstatus: retired\nguide: guides/p.md\n---\n# P\n');
+  w('registry/log.md', '# Registry Log\n\nWhat this log holds.\n\n## 2026-09-01 — Registry scaffolded\n\nSet up for a business the owner runs alone.\n\nDashboard Artifact: https://claude.ai/x\n2026-10-10: A went live after test round 1\n2026-10-12: A: re-checked, ready\n');
+  w('framework/a/requirements.md', 'x'); w('framework/a/design-plan.md', 'x');
+  return ws;
+}
+test('upgrade: version, state, lifecycle, links and path fields; generated untouched', () => {
+  const ws = ws02();
+  const r = up.upgrade(path.join(ws, 'registry'));
+  assert.ok(r.changed.length >= 6);
+  const rd = (p) => fs.readFileSync(path.join(ws, p), 'utf8');
+  assert.match(rd('registry/index.md'), /^---\nokf_version: "0\.3"\n---\n/);
+  const a = rd('registry/workflows/a.md');
+  assert.match(a, /\nstate: retired\nstatus: deprecated\n/);
+  assert.match(a, /\nx-acme-owner: ana\n/); // unknown keys kept (§4.1)
+  assert.match(a, /generated: \{ by: process:analyze, at: 2026-10-01T00:00:00Z \}/); // format-only (§5.2)
+  assert.match(a, /\[Requirements\]\(\.\.\/\.\.\/framework\/a\/requirements\.md#goal\)/);
+  assert.match(a, /\[SOP\]\(\.\.\/\.\.\/sops\/a\.md\)/);
+  assert.match(a, /\[Old\]\(\.\.\/\.\.\/framework\/a\/design-plan\.md\)/); // the 0.2 fallback, made explicit
+  assert.match(a, /\[Web\]\(https:\/\/x\.test\)/);
+  assert.match(a, /\[s\]\(\.\.\/\.\.\/\.claude\/skills\/s\/SKILL\.md\)/);
+  assert.match(a, /`\[code\]\(sops\/a\.md\)`/); // inline code untouched
+  assert.match(a, /```\n\[fenced\]\(sops\/a\.md\)\n```/); // fenced code untouched
+  assert.match(rd('registry/businesses/b.md'), /\nstate: active\n/);
+  assert.match(rd('registry/lines-of-business/l.md'), /\nstate: "dormant"\nfolder: \.\.\/\.\.\/lob-files\/\n/);
+  const p = rd('registry/processes/p.md');
+  assert.match(p, /\nstatus: deprecated\nguide: \.\.\/\.\.\/guides\/p\.md\n/);
+  assert.doesNotMatch(p, /state:/);
+});
+test('upgrade: log.md to OKF §9, newest date first, every word kept', () => {
+  const ws = ws02();
+  up.upgrade(path.join(ws, 'registry'));
+  const log = fs.readFileSync(path.join(ws, 'registry/log.md'), 'utf8');
+  assert.equal(log, '# Registry Log\n\nWhat this log holds.\n\n## 2026-10-12\n\n- A: re-checked, ready\n\n## 2026-10-10\n\n- A went live after test round 1\n\n## 2026-09-01\n\n- **Registry scaffolded** — Set up for a business the owner runs alone.\n- Dashboard Artifact: https://claude.ai/x\n');
+});
+test('upgrade: idempotent, and --check reports without writing', () => {
+  const ws = ws02();
+  const before = fs.readFileSync(path.join(ws, 'registry/workflows/a.md'), 'utf8');
+  const dry = up.upgrade(path.join(ws, 'registry'), { check: true });
+  assert.ok(dry.changed.length > 0);
+  assert.equal(fs.readFileSync(path.join(ws, 'registry/workflows/a.md'), 'utf8'), before);
+  up.upgrade(path.join(ws, 'registry'));
+  assert.deepEqual(up.upgrade(path.join(ws, 'registry')).changed, []);
+});
+test('upgrade: legacy layout (registry/ inside the framework folder) converts from the resolved path', () => {
+  const ws = fs.mkdtempSync(path.join(os.tmpdir(), 'regup-'));
+  fs.mkdirSync(path.join(ws, 'registry', 'workflows'), { recursive: true });
+  fs.mkdirSync(path.join(ws, 'a'), { recursive: true });
+  fs.writeFileSync(path.join(ws, 'a', 'requirements.md'), 'x');
+  fs.writeFileSync(path.join(ws, 'registry', 'index.md'), '---\nokf_version: "0.2"\n---\n');
+  fs.writeFileSync(path.join(ws, 'registry', 'workflows', 'a.md'), '---\ntype: Workflow\nstatus: backlog\n---\n# Artifacts\n- [Requirements](a/requirements.md)\n');
+  up.upgrade(path.join(ws, 'registry'));
+  assert.match(fs.readFileSync(path.join(ws, 'registry/workflows/a.md'), 'utf8'), /\(\.\.\/\.\.\/a\/requirements\.md\)/);
+});
+test('upgrade: a bundle with no okf_version gets one', () => {
+  const ws = fs.mkdtempSync(path.join(os.tmpdir(), 'regup-'));
+  fs.mkdirSync(path.join(ws, 'registry'));
+  fs.writeFileSync(path.join(ws, 'registry', 'index.md'), '# AI Registry\n');
+  up.upgrade(path.join(ws, 'registry'));
+  assert.equal(fs.readFileSync(path.join(ws, 'registry/index.md'), 'utf8'), '---\nokf_version: "0.3"\n---\n# AI Registry\n');
+});

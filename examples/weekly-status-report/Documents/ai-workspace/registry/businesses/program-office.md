@@ -3,7 +3,7 @@ type: Business
 title: "Program Office"
 description: "The program-management function the program manager runs for a software delivery team: keeping leadership informed and keeping client programs moving."
 generated: { by: process:scaffolding-registry, at: 2026-06-01T13:05:00Z }
-status: active
+state: active
 ---
 # Program Office
 

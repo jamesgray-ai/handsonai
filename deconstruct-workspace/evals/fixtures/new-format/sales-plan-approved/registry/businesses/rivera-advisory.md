@@ -3,7 +3,7 @@ type: Business
 title: "Rivera Advisory"
 description: "A two-person B2B consulting practice."
 generated: { by: process:scaffolding-registry, at: 2026-09-01 }
-status: active
+state: active
 ---
 # Rivera Advisory
 

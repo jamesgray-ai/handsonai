@@ -3,7 +3,7 @@ type: LineOfBusiness
 title: "Design Services"
 description: "Client-facing design engagements."
 generated: { by: process:fixture, at: 2026-08-01 }
-status: active
+state: active
 ---
 # Design Services
 

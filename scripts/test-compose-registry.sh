@@ -32,6 +32,13 @@ stage() {  # copy a fixture workspace to an isolated temp git repo; echoes the p
 run_lint()    { local ws; ws=$(stage "$1"); (cd "$ws" && node "$TOOLS/lint-registry.js" registry >/dev/null 2>&1); }
 lint_output() { local ws; ws=$(stage "$1"); (cd "$ws" && node "$TOOLS/lint-registry.js" registry 2>&1); }
 run_lint_at() { (cd "$1" && node "$TOOLS/lint-registry.js" registry); }
+# to02 <ws>: make a staged workspace an OKF 0.2 registry, as written before 11.1.0 (version 0.2,
+# links from the registry's parent folder). Its nodes keep `state`: a 0.2 registry may hold both
+# forms, because 11.1.0's skills write `state` into it before it is upgraded.
+to02() {
+  sedi 's/^okf_version: "0.3"$/okf_version: "0.2"/' "$1/registry/index.md"
+  local f; for f in $(find "$1/registry" -name '*.md'); do sedi 's|](\.\./\.\./|](|g; s|](\.\./\.claude/|](.claude/|g; s|^folder: \.\./\.\./|folder: |; s|^guide: \.\./\.\./|guide: |' "$f"; done
+}
 compose_at()  { WS=$(stage "$1"); (cd "$WS" && node "$TOOLS/compose-registry.js" registry); }  # sets $WS for assertions
 
 # registry-lib unit tests (OKF v0.3 readers: state, both link forms, version, verified lists)
@@ -72,7 +79,7 @@ node -e '
 const fs = require("fs");
 const f = process.argv[1];
 let t = fs.readFileSync(f, "utf8");
-t = t.replace("The complete fixture workflow", "See also [the SOP](sops/one-sop.md). The complete fixture workflow");
+t = t.replace("The complete fixture workflow", "See also [the SOP](../../sops/one-sop.md). The complete fixture workflow");
 fs.writeFileSync(f, t);
 ' "$WS/registry/workflows/first-workflow.md"
 run_lint_at "$WS" && ok "duplicate same-workflow SOP link does not false-positive double-claim" || bad "duplicate same-workflow SOP link should still lint clean: $(run_lint_at "$WS" 2>&1)"
@@ -446,14 +453,15 @@ grep -q "folder not claimed" <<<"$out" && bad "valid-bundle: unexpected unclaime
 # Lint warns at most once per workflow (it breaks after the first outside link), so a framework/
 # link must not be that first warning; .claude/skills/... is expected to be.
 WS=$(stage valid-bundle)
-perl -0pi -e 's/^(status: .*)$/$1\nfolder: lob-files\//m' "$WS/registry/lines-of-business/design-services.md"
-grep -q "^folder: lob-files/" "$WS/registry/lines-of-business/design-services.md" || bad "LOB test setup: folder: not inserted"
+perl -0pi -e 's/^(state: .*)$/$1\nfolder: ..\/..\/lob-files\//m' "$WS/registry/lines-of-business/design-services.md"
+grep -q "^folder: ../../lob-files/" "$WS/registry/lines-of-business/design-services.md" || bad "LOB test setup: folder: not inserted"
 run_lint_at "$WS" 2>&1 | grep -q "artifact link framework/" \
   && bad "LOB folder check exempts framework/: got an outside-LOB warning for a framework/ link" || ok "LOB folder check exempts framework/"
 
 # old links (R16): a relative link written before framework/ on every platform (first-workflow/...)
-# that resolves only under framework/ is accepted as is -- nothing rewritten, nothing said.
-WS=$(stage valid-bundle)
+# that resolves only under framework/ is accepted as is -- nothing rewritten, nothing said. A 0.2
+# registry's reading (OKF v0.3 §12.1 fallback), so these run on a 0.2 copy.
+WS=$(stage valid-bundle); to02 "$WS"
 sedi 's|(framework/first-workflow/|(first-workflow/|g' "$WS/registry/workflows/first-workflow.md"
 grep -q "(first-workflow/requirements.md)" "$WS/registry/workflows/first-workflow.md" || bad "old-link test setup: links not rewritten to the old form"
 run_lint_at "$WS" >/dev/null 2>&1 && ok "old relative link resolving only under framework/: lint exits 0" || bad "old relative link should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
@@ -464,7 +472,7 @@ grep -q "(first-workflow/requirements.md)" "$WS/registry/workflows/first-workflo
 # outside-folder warning and stop the check, so drop it: the old links come next, and they must be
 # exempt through framework/, leaving .claude/skills/... as the one warning.
 sedi '/- \[Run log\](runs.md)/d' "$WS/registry/workflows/first-workflow.md"
-perl -0pi -e 's/^(status: .*)$/$1\nfolder: lob-files\//m' "$WS/registry/lines-of-business/design-services.md"
+perl -0pi -e 's/^(state: .*)$/$1\nfolder: lob-files\//m' "$WS/registry/lines-of-business/design-services.md"
 out=$(run_lint_at "$WS" 2>&1)
 grep -q "artifact link first-workflow/" <<<"$out" \
   && bad "old relative link with folder: set got an outside-LOB warning: $(grep 'outside derived' <<<"$out")" || ok "old relative link with folder: set: no outside-folder warning"
@@ -472,7 +480,7 @@ grep -q "artifact link .claude/skills/some-skill/SKILL.md outside derived LOB fo
   && ok "old relative link with folder: set: the folder check still ran past it" || bad "old-link folder test: expected the .claude/skills outside-LOB warning, got: $(grep 'outside derived' <<<"$out")"
 # an old link to a renamed workflow folder: the node's slug no longer names the folder, so only the
 # link claims it -- through framework/
-WS=$(stage valid-bundle)
+WS=$(stage valid-bundle); to02 "$WS"
 mv "$WS/framework/first-workflow" "$WS/framework/client-intake"
 sedi 's|(framework/first-workflow/|(client-intake/|g' "$WS/registry/workflows/first-workflow.md"
 run_lint_at "$WS" >/dev/null 2>&1 && ok "old link to a renamed workflow folder: lint exits 0" || bad "old link to a renamed folder should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
@@ -545,7 +553,7 @@ run_lint_at "$WS" 2>&1 | grep -q "outputs/first-workflow/:" && bad "outputs/<slu
 WS=$(stage valid-bundle); rm "$WS/framework/first-workflow/test-results.md"
 if run_lint_at "$WS" >/dev/null 2>&1; then bad "missing framework/ link: lint should exit 1"; else
   out=$(run_lint_at "$WS" 2>&1)  # variable capture: lint exits 1 here, so never pipe it under pipefail
-  grep -q "ERROR.*repo link framework/first-workflow/test-results.md -- file not found" <<<"$out" \
+  grep -q "ERROR.*repo link ../../framework/first-workflow/test-results.md -- file not found" <<<"$out" \
     && ok "missing framework/ link is a lint ERROR naming the file" || bad "missing framework/ link: no ERROR naming test-results.md"
 fi
 
@@ -629,19 +637,19 @@ fi
 
 # run log: external or absent "Run log" link is tolerated; a readable one is checked
 WS=$(stage broken/runlog-status-contradiction)
-sedi 's|- \[Run log\](runs.md)|- [Run log](https://example.com/runs)|' "$WS/registry/workflows/first-workflow.md"
+sedi 's|- \[Run log\](../../runs.md)|- [Run log](https://example.com/runs)|' "$WS/registry/workflows/first-workflow.md"
 run_lint_at "$WS" >/dev/null 2>&1 && ok "external Run log link tolerated" || bad "external Run log link should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
 WS=$(stage broken/runlog-status-contradiction)
-sedi '/- \[Run log\](runs.md)/d' "$WS/registry/workflows/first-workflow.md"
+sedi '/- \[Run log\](..\/..\/runs.md)/d' "$WS/registry/workflows/first-workflow.md"
 run_lint_at "$WS" >/dev/null 2>&1 && ok "absent Run log link tolerated (runs.md beside it is not read)" || bad "absent Run log link should lint clean"
 out=$(lint_output broken/runlog-status-contradiction)
-grep -q 'ERROR.*contradicts run log evidence (runs.md has entries)' <<<"$out" && ok "run log in the workflow's place, linked, contradicting status errors" || bad "run log contradiction text: $out"
+grep -q 'ERROR.*contradicts run log evidence (../../runs.md has entries)' <<<"$out" && ok "run log in the workflow's place, linked, contradicting status errors" || bad "run log contradiction text: $out"
 
-# flat bundle: registry/ beside <slug>/ folders, links <slug>/... -- no platform writes this layout
-# (every working folder holds framework/<slug>/), but the lint still resolves it
+# flat bundle: registry/ beside <slug>/ folders, links ../../<slug>/... -- no platform writes this
+# layout (every working folder holds framework/<slug>/), but the lint still resolves it
 WEB=$(mktemp -d); cp -R "$FIX/valid-bundle/." "$WEB/"
 mv "$WEB/framework/first-workflow" "$WEB/first-workflow"; rmdir "$WEB/framework"
-sedi 's|(framework/first-workflow/|(first-workflow/|g' "$WEB/registry/workflows/first-workflow.md"
+sedi 's|(../../framework/first-workflow/|(../../first-workflow/|g' "$WEB/registry/workflows/first-workflow.md"
 (cd "$WEB" && git init -q . && git add -A >/dev/null 2>&1)
 run_lint_at "$WEB" >/dev/null 2>&1 && ok "flat bundle: <slug>/ links resolve from the registry's parent" || bad "flat bundle should lint clean: $(run_lint_at "$WEB" 2>&1 | grep ERROR)"
 mkdir -p "$WEB/orphan-flow"; : > "$WEB/orphan-flow/requirements.md"; mkdir -p "$WEB/history"; : > "$WEB/history/requirements.md"
@@ -658,7 +666,7 @@ node -e "
 const lib=require(process.argv[1]); const pkg=require(process.argv[2]);
 process.exit(lib.TOOLS_VERSION && lib.TOOLS_VERSION===pkg.version && pkg.type==='commonjs' ? 0 : 1)" "$TOOLS/registry-lib.js" "$TOOLS/package.json" \
   && ok "TOOLS_VERSION matches tools/package.json's version (commonjs)" || bad "TOOLS_VERSION and package.json disagree"
-for f in compose-registry.js lint-registry.js registry-lib.js package.json framework-state.js requirements-check.js; do
+for f in compose-registry.js lint-registry.js registry-lib.js upgrade-registry.js package.json framework-state.js requirements-check.js; do
   cmp -s "$TOOLS/$f" "$REPO_ROOT/plugins/handsonai/tools/$f" && ok "plugin tools/$f identical to registry-template" || bad "plugin tools/$f differs from registry-template/tools/$f"
 done
 (cd "$REPO_ROOT" && node plugins/handsonai/tools/framework-state.js --help >/dev/null 2>&1; [ $? -ne 127 ] && node -e "require('./plugins/handsonai/tools/compose-registry.js')") >/dev/null 2>&1 \

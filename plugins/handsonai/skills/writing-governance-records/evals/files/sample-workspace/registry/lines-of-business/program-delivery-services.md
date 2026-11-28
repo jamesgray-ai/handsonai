@@ -3,7 +3,7 @@ type: LineOfBusiness
 title: "Program Delivery Services"
 description: "Running the team's client programs from kickoff to delivery, and reporting on them."
 generated: { by: process:scaffolding-registry, at: 2026-06-01T13:05:00Z }
-status: active
+state: active
 ---
 # Program Delivery Services
 

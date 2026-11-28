@@ -1,5 +1,5 @@
 ---
-okf_version: "0.2"
+okf_version: "0.3"
 ---
 # AI Registry
 
@@ -17,7 +17,7 @@ The dashboard view is the generated root `REGISTRY.md`.
 
 <!-- GENERATED:skills -->
 ## Skills inventory (1)
-- [weekly-pipeline-summary](.claude/skills/weekly-pipeline-summary/SKILL.md) — This skill should be used when the user says "write my weekly pipeline summary". Summarises your open deals every Friday from HubSpot, for you to review before the Monday sales meeting. (used by: [Weekly Pipeline Summary](registry/workflows/weekly-pipeline-summary.md))
+- [weekly-pipeline-summary](../.claude/skills/weekly-pipeline-summary/SKILL.md) — This skill should be used when the user says "write my weekly pipeline summary". Summarises your open deals every Friday from HubSpot, for you to review before the Monday sales meeting. (used by: [Weekly Pipeline Summary](/workflows/weekly-pipeline-summary.md))
 <!-- /GENERATED -->
 
 <!-- GENERATED:agents -->

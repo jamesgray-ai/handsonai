@@ -831,9 +831,9 @@ def extend_shared(t):
           "---\nname: drafting-client-emails\ndescription: Drafts a client email in the house style.\n---\n\nWrite in plain language, under 150 words, signed with your first name.\n")
     node = Path(t) / "registry" / "workflows" / "client-check-in.md"
     write(node, "---\ntype: Workflow\ntitle: \"Client Check-In\"\ndescription: \"Drafts a monthly check-in email to each client.\"\n"
-                "generated: { by: process:build, at: 2026-09-15T10:00:00Z }\nstatus: in-production\ntrigger: \"The first Monday of each month\"\n---\n"
+                "generated: { by: process:build, at: 2026-09-15T10:00:00Z }\nstate: in-production\ntrigger: \"The first Monday of each month\"\n---\n"
                 "# Client Check-In\n\nDrafts a monthly check-in email to each client.\n\n# Artifacts\n\n\n# Skills\n\n"
-                "- [drafting-client-emails](.claude/skills/drafting-client-emails/SKILL.md)\n\n# Agents\n")
+                "- [drafting-client-emails](../../.claude/skills/drafting-client-emails/SKILL.md)\n\n# Agents\n")
     idx = Path(t) / "registry" / "workflows" / "index.md"
     idx.write_text(idx.read_text().rstrip("\n") + "\n- [Client Check-In](/workflows/client-check-in.md)\n")
     p = plan(t)
@@ -1285,7 +1285,7 @@ def fx_cc_first_full_already_runs(t):
 def fx_running_work(t):  # running work brought in: Runs today row, node in-production, an old skill installed
     ff(t, S06)
     full(t)
-    set_node(t, status="in-production")
+    set_node(t, state="in-production")
     sub(req(t), "| Lens | Individual |", "| Lens | Individual |\n| Runs today | Set up as a Claude Code skill, client-follow-up, in this workspace; you also send some follow-ups by hand |")
     installed_part_left(t)
 
@@ -1297,13 +1297,13 @@ def fx_running_work_renamed(t):  # running work brought in, then renamed: the no
 
 def fx_earlier_live_no_sch(t):  # Build owns an earlier version that was built and is live; the new plan has no SCH
     ff(t, "earlier-version/v1-results-no-record/with-registry")
-    set_node(t, status="in-production")
+    set_node(t, state="in-production")
 
 
 def fx_set_aside_same_platform(t, platform=None):  # a big change: new plan, newest set-aside record with the place row and schedule not-on
     ff(t, S06)
     full(t)
-    set_node(t, status="in-production")
+    set_node(t, state="in-production")
     if platform:  # the new plan moves the workflow: its SCH is the new platform's own schedule
         set_platform(t, platform)
         name = PLATFORMS[platform][0]

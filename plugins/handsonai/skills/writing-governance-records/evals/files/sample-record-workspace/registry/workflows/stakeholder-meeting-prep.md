@@ -3,7 +3,7 @@ type: Workflow
 title: "Stakeholder Meeting Prep"
 description: "Assembles the agenda, open decisions, and talking points for each stakeholder meeting from the team's recent activity. A prep brief Maya skims and corrects."
 generated: { by: process:analyze, at: 2026-06-01T14:20:00Z }
-status: backlog
+state: backlog
 trigger: "Before each stakeholder meeting"
 ---
 # Stakeholder Meeting Prep
@@ -12,7 +12,7 @@ Assembles the agenda, open decisions, and talking points for each stakeholder me
 
 # Artifacts
 
-- [Opportunity report](framework/ai-opportunity-report.md)
+- [Opportunity report](../../framework/ai-opportunity-report.md)
 
 # Skills
 

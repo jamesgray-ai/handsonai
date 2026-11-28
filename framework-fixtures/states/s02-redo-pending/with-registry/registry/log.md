@@ -2,10 +2,14 @@
 
 Migrations and schema changes only — routine regeneration is not logged.
 
-## 2026-09-01 — Registry scaffolded
+## 2026-10-20
 
-Set up by `scaffolding-registry` for Brightline Advisory, a small consulting firm.
+- client-follow-up: big change: The follow-up now also logs each call in HubSpot
 
-2026-10-10: client-follow-up went live after test round 1
+## 2026-10-10
 
-2026-10-20: client-follow-up: big change: The follow-up now also logs each call in HubSpot
+- client-follow-up went live after test round 1
+
+## 2026-09-01
+
+- **Registry scaffolded** — Set up by `scaffolding-registry` for Brightline Advisory, a small consulting firm.

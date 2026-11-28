@@ -3,7 +3,7 @@ type: LineOfBusiness
 title: "Product Studio"
 description: "Kestrel's in-house product line."
 generated: { by: process:fixture, at: 2026-08-01 }
-status: incubating
+state: incubating
 ---
 # Product Studio
 

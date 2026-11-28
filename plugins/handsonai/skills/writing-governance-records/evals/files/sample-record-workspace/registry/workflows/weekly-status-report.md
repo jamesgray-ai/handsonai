@@ -3,7 +3,7 @@ type: Workflow
 title: "Weekly Status Report"
 description: "Drafts the Friday leadership status report from the team's project tracker (progress, blockers and next week's focus), ready for Maya's review by 10am."
 generated: { by: process:test, at: 2026-06-08T15:40:00Z }
-status: in-production
+state: in-production
 execution_mode: augmented
 autonomy: deterministic
 trigger: "Maya starts it on Friday mornings"
@@ -15,14 +15,14 @@ Drafts the Friday leadership status report from the team's project tracker (prog
 
 # Artifacts
 
-- [Opportunity report](framework/ai-opportunity-report.md)
-- [Requirements](framework/weekly-status-report/requirements.md)
-- [Design plan](framework/weekly-status-report/design-plan.md)
-- [Test results](framework/weekly-status-report/test-results.md)
+- [Opportunity report](../../framework/ai-opportunity-report.md)
+- [Requirements](../../framework/weekly-status-report/requirements.md)
+- [Design plan](../../framework/weekly-status-report/design-plan.md)
+- [Test results](../../framework/weekly-status-report/test-results.md)
 
 # Skills
 
-- [weekly-status-report](framework/weekly-status-report/package/skills/weekly-status-report/SKILL.md)
+- [weekly-status-report](../../framework/weekly-status-report/package/skills/weekly-status-report/SKILL.md)
 
 # Agents
 

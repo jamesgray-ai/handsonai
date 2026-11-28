@@ -3,7 +3,7 @@ type: Workflow
 title: "Legacy Review"
 description: "Fixture workflow written before 10.0, with the legacy labels and the legacy step-decomposed definition_type spelling."
 generated: { by: process:fixture, at: 2026-08-01 }
-status: under-development
+state: under-development
 definition_type: step-decomposed
 execution_mode: manual
 autonomy: guided
@@ -19,10 +19,10 @@ never written by a current step; its `definition_type` still carries the legacy
 
 # Artifacts
 
-- [Requirements](framework/legacy-review/requirements.md)
-- [Design spec](framework/legacy-review/design-spec.md)
-- [Run guide](framework/legacy-review/run-guide.md)
-- [Improvement plan](framework/legacy-review/improvement-plan.md)
+- [Requirements](../../framework/legacy-review/requirements.md)
+- [Design spec](../../framework/legacy-review/design-spec.md)
+- [Run guide](../../framework/legacy-review/run-guide.md)
+- [Improvement plan](../../framework/legacy-review/improvement-plan.md)
 
 # Skills
 
