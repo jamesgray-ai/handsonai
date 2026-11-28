@@ -746,6 +746,9 @@ grep -q 'WARN.*stale_after "next spring"' <<<"$out" && ok "0.2 registry: a malfo
 WS=$(stage valid-bundle); to02 "$WS"; node "$TOOLS/upgrade-registry.js" "$WS/registry" >/dev/null
 out=$(lint_ws "$WS"); grep -q "^ERROR\|OKF 0.2" <<<"$out" && bad "upgraded registry should lint clean as 0.3: $(grep -E 'ERROR|OKF' <<<"$out")" || ok "a 0.2 registry upgraded lints clean as 0.3"
 
+# --- code is not a link (OKF v0.3 §6.1): an example link in a code span or fence is never checked
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^(# Artifacts)$/Links are written like `[Title](\/nowhere\/x.md)`.\n\n```\n- [Example](..\/..\/no-such-file.md)\n```\n\n$1/m'
+expect_not "$WS" "second-workflow.md.*(nowhere|no-such-file)" "a link inside code is not checked"
 # --- 11.1.1: OKF v0.3 gaps
 WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^(state: backlog)$/$1\nbig_change: ""/m'
 expect_not "$WS" "second-workflow.md.*big_change" "an empty big_change is read as absent (OKF v0.3 §11.2)"

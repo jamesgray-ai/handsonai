@@ -278,3 +278,18 @@ test('isConcept: a .md with no frontmatter is not a concept (OKF v0.3 §3.2)', (
   assert.equal(lib.isConcept({ fm: { type: 'Note' } }), true);
   assert.equal(lib.isConcept({ fm: null, error: 'unterminated frontmatter block' }), true); // broken frontmatter stays a lint error
 });
+
+// --- code is not a link (OKF v0.3 §6.1; CommonMark): inline code spans and fenced blocks
+test('classifyLinks skips links inside inline code and fenced blocks', () => {
+  const raw = 'Write it as `[Title](/dir/slug.md)`.\n\n```\n- [Example](/nowhere/x.md)\n```\n\n- [Real](/processes/p.md)\n';
+  const c = lib.classifyLinks(raw, '/notes/n.md', { bundleName: 'registry' });
+  assert.deepEqual(c.inBundle, ['/processes/p.md']);
+});
+test('orderedLinks skips list lines inside a fenced block', () => {
+  const t = '```\n- [Example](/workflows/x.md)\n```\n- [Real](/workflows/y.md)\n';
+  assert.deepEqual(lib.orderedLinks(t).map((l) => l.href), ['/workflows/y.md']);
+});
+test('a link beside a code span still counts', () => {
+  const c = lib.classifyLinks('See `code` and [Real](/processes/p.md) here.', '/notes/n.md', { bundleName: 'registry' });
+  assert.deepEqual(c.inBundle, ['/processes/p.md']);
+});

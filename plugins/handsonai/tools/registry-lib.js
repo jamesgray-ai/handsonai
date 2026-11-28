@@ -245,12 +245,26 @@ function parseSections(text, sectionNames = SECTION_NAMES) {
   return sections;
 }
 
+// Code is not a link (OKF v0.3 §6.1; CommonMark): the text with every fenced block's lines and
+// every inline code span blanked, line for line, so the link readers below never see an example
+// written in code.
+function withoutCode(text) {
+  let fence = null;
+  return String(text || '').split('\n').map((line) => {
+    const f = line.match(/^\s*(```+|~~~+)/);
+    if (fence) { if (f && f[1][0] === fence[0] && f[1].length >= fence.length) fence = null; return ''; }
+    if (f) { fence = f[1]; return ''; }
+    return line.replace(/(`+)[^`]*?\1/g, (m) => ' '.repeat(m.length));
+  }).join('\n');
+}
+
 // Curated ordered list items: `- [Title](href)` / `1. [Title](href)`.
 function orderedLinks(sectionText) {
   const out = [];
   const re = /^\s*(?:[-*]|\d+\.)\s+\[([^\]]+)\]\(([^)]+)\)/gm;
+  const text = withoutCode(sectionText);
   let m;
-  while ((m = re.exec(sectionText || ''))) out.push({ title: m[1], href: m[2] });
+  while ((m = re.exec(text))) out.push({ title: m[1], href: m[2] });
   return out;
 }
 
@@ -372,8 +386,9 @@ function linkTo(target, from, opts = {}) {
 function classifyLinks(raw, from, opts = {}) {
   const out = { inBundle: [], repo: [], external: [], links: [] };
   const re = /\]\(([^)\s]+)\)/g;
+  const text = withoutCode(raw);
   let m;
-  while ((m = re.exec(raw || ''))) {
+  while ((m = re.exec(text))) {
     const href = m[1];
     const r = from === undefined ? resolveHref(href, '/index.md', { ...opts, legacy: true }) : resolveHref(href, from, opts);
     if (r.kind === 'fragment') continue;
@@ -684,7 +699,7 @@ module.exports = {
   DIR_TYPES, RESERVED, ENUMS, LEGACY_TOLERATED, BANNED_FIELDS, SECTION_NAMES,
   ARTIFACT_LABELS, LEGACY_LABELS, AT_INSTANT, AT_DATE, RECORD_MARKERS,
   LIFECYCLE_STATUS, STATE_TYPES, isActor, toMillis, stateOf, isConcept, okfVersionOf, isLegacyVersion, resolveHref, linkTo, resolveOutside, verifiedEvents,
-  normalizeLineEndings, parseFrontmatter, parseCapabilityFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
+  withoutCode, normalizeLineEndings, parseFrontmatter, parseCapabilityFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
   findGeneratedBlocks, renderGeneratedBlock, replaceGeneratedBlock,
   loadBundle, scanSops, frameworkFolder, scanFrameworkFolders, resolveRepoLink, runLogHasEntries, artifactLabels, scanCapabilities,
   isGitIgnored, lastChanged,
