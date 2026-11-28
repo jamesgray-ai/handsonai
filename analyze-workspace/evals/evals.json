@@ -3921,6 +3921,18 @@
           "text": "No message says how long Analyze, a part of it, a process walk or Deconstruct takes; sizes of the leader's own work, in the leader's numbers, are fine, and so are approved lines said word for word: the saving line, \"Saving your report and workflows now; this takes a moment.\", is approved and isn't a time estimate (core round-3 fixes)",
           "kind": "judged",
           "must": true
+        },
+        {
+          "text": "[P5-close] The close is spaced out (James, E29): a bold headline, short blocks, no line with no news, the next step's phrase alone in a code block last",
+          "kind": "scripted",
+          "check": {
+            "type": "close_shape",
+            "containing": "(?i)run the deconstruct skill"
+          }
+        },
+        {
+          "text": "[P5-close] The close shows the file this session saved so one click opens it where the platform allows (on Claude desktop shared as a file; in a drive its link; on Claude Code and Codex its path), with one line inviting a look, and adds no question",
+          "kind": "judged"
         }
       ],
       "files": [

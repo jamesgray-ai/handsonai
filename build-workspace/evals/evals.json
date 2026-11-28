@@ -231,12 +231,11 @@
      }
     },
     {
-     "text": "[EN-ready-by-name] No close",
+     "text": "[EN-ready-by-name] No close (no Test sentence in any form: Pass 5 retired N-B13's main form)",
      "kind": "scripted",
      "check": {
       "type": "quote_absent",
-      "id": "N-B13",
-      "form": "main"
+      "id": "N-B13"
      }
     }
    ],
@@ -1609,13 +1608,12 @@
       "type": "all",
       "checks": [
        {
-        "type": "quote_absent",
-        "id": "N-B13",
-        "form": "main"
-       },
-       {
         "type": "file_unchanged",
         "path": "framework/client-follow-up/build-record.md"
+       },
+       {
+        "type": "quote_absent",
+        "id": "N-B13"
        }
       ]
      }
@@ -2535,7 +2533,7 @@
      }
     },
     {
-     "text": "[P3-close-microsoft-365] N-B13 and its Test sentence",
+     "text": "[P3-close-microsoft-365] The close in its shape (a bold headline, short blocks, Test's phrase in a code block last) and its Test sentence",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -2543,12 +2541,11 @@
        {
         "type": "quote",
         "id": "N-B13",
-        "form": "main"
+        "form": "Microsoft 365"
        },
        {
-        "type": "quote",
-        "id": "N-B13",
-        "form": "Microsoft 365"
+        "type": "close_shape",
+        "containing": "(?i)test the workflow I built"
        }
       ]
      }
@@ -6951,12 +6948,11 @@
      }
     },
     {
-     "text": "No close",
+     "text": "No close (no Test sentence in any form: Pass 5 retired N-B13's main form)",
      "kind": "scripted",
      "check": {
       "type": "quote_absent",
-      "id": "N-B13",
-      "form": "main"
+      "id": "N-B13"
      }
     }
    ],
@@ -7162,12 +7158,11 @@
      }
     },
     {
-     "text": "No close",
+     "text": "No close (no Test sentence in any form: Pass 5 retired N-B13's main form)",
      "kind": "scripted",
      "check": {
       "type": "quote_absent",
-      "id": "N-B13",
-      "form": "main"
+      "id": "N-B13"
      }
     }
    ],
@@ -8150,7 +8145,7 @@
      }
     },
     {
-     "text": "[P3-close-claude-web] N-B13 and its Test sentence",
+     "text": "[P3-close-claude-web] The close in its shape (a bold headline, short blocks, Test's phrase in a code block last) and its Test sentence",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -8158,12 +8153,11 @@
        {
         "type": "quote",
         "id": "N-B13",
-        "form": "main"
+        "form": "Claude on the web and ChatGPT"
        },
        {
-        "type": "quote",
-        "id": "N-B13",
-        "form": "Claude on the web and ChatGPT"
+        "type": "close_shape",
+        "containing": "(?i)test the workflow I built"
        }
       ]
      }
@@ -8337,7 +8331,7 @@
      "kind": "judged"
     },
     {
-     "text": "[P3-close-claude-desktop] N-B13 and its Test sentence",
+     "text": "[P3-close-claude-desktop] The close in its shape (a bold headline, short blocks, Test's phrase in a code block last) and its Test sentence",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -8345,12 +8339,11 @@
        {
         "type": "quote",
         "id": "N-B13",
-        "form": "main"
+        "form": "Claude desktop"
        },
        {
-        "type": "quote",
-        "id": "N-B13",
-        "form": "Claude desktop"
+        "type": "close_shape",
+        "containing": "(?i)test the workflow I built"
        }
       ]
      }
@@ -8441,6 +8434,10 @@
       "type": "ai_not_regex",
       "pattern": "(?i)\\byour (?:test run|test)\\b(?! the)"
      }
+    },
+    {
+     "text": "[P5-close] The close shows the file this session saved so one click opens it where the platform allows (on Claude desktop shared as a file; in a drive its link; on Claude Code and Codex its path), with one line inviting a look, and adds no question",
+     "kind": "judged"
     }
    ],
    "est_turns": 44
@@ -8736,7 +8733,7 @@
      }
     },
     {
-     "text": "[P3-close-claude-code] N-B13 and its Test sentence",
+     "text": "[P3-close-claude-code] The close in its shape (a bold headline, short blocks, Test's phrase in a code block last) and its Test sentence",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -8744,12 +8741,11 @@
        {
         "type": "quote",
         "id": "N-B13",
-        "form": "main"
+        "form": "Claude Code and Codex"
        },
        {
-        "type": "quote",
-        "id": "N-B13",
-        "form": "Claude Code and Codex"
+        "type": "close_shape",
+        "containing": "(?i)test the workflow I built"
        }
       ]
      }

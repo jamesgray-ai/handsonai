@@ -387,5 +387,41 @@ class WidgetAnswerSaved(unittest.TestCase):
         self.assertFalse(CS.check(self.C, run)[0])
 
 
+# ---------------------------------------------------------------- Task 7: every close
+
+CLOSE_OLD = ("Your workflow is built and checked. Here's what you have: a skill that drafts the request email, saved in your "
+             "account. What it can access is written up in your build record, if anyone asks. A copy is in built/. "
+             "Nothing is still waiting. Start Test in a new chat and say: test the workflow I built.")
+CLOSE_NEW = ("**The booking link is out of the email.**\n\n**What you have:** the case study request skill, updated in "
+             "your account. It's yours to read or edit any time.\n\n**Kept for you:** the earlier version, in "
+             "`history/kept-copy-2026-11-27-1651/`.\n\n**Next:** start Test in a new chat with your working folder "
+             "selected, then say:\n\n```\ntest the workflow I built. My files are in ai-workspace/framework/x.\n```")
+
+
+class CloseShape(unittest.TestCase):
+    C = {"type": "close_shape", "containing": "(?i)test the workflow I built"}
+
+    def test_close_shape(self):
+        self.assertTrue(CS.check(self.C, ai_run(CLOSE_NEW))[0])
+
+    def test_one_paragraph_close_fails(self):
+        self.assertFalse(CS.check(self.C, ai_run(CLOSE_OLD))[0])
+
+    def test_lines_with_no_news_fail(self):
+        noisy = CLOSE_NEW.replace("It's yours to read", "Nothing is still waiting. It's yours to read")
+        self.assertFalse(CS.check(self.C, ai_run(noisy))[0])
+
+    def test_phrase_not_last_in_a_code_block_fails(self):
+        self.assertFalse(CS.check(self.C, ai_run(CLOSE_NEW + "\n\nGood luck!"))[0])
+
+    def test_claude_codes_slash_note_may_follow_the_block(self):
+        self.assertTrue(CS.check(self.C, ai_run(CLOSE_NEW + "\n\n(In Claude Code, you can also type `/test` and pick it from the list.)"))[0])
+
+    def test_headline_optional(self):
+        plain = CLOSE_NEW.replace("**The booking link is out of the email.**\n\n", "Workflow Requirements saved to x.\n\n")
+        self.assertFalse(CS.check(self.C, ai_run(plain))[0])
+        self.assertTrue(CS.check(dict(self.C, headline=False), ai_run(plain))[0])
+
+
 if __name__ == "__main__":
     unittest.main()

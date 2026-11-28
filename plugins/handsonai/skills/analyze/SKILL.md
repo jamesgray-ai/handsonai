@@ -195,19 +195,25 @@ Read `references/resuming-and-picking-up.md` for what the progress file holds, t
 
 ### The close
 
-Three paragraphs, in this order: what was completed, what's next, the rest as optional. The first and third are model wording *(your words)*, said in plain words and filled from the run, leaving out only what *Fit it to the run* drops; the first opens "You now have" and names the report by its path in the location. The second is said exactly, and so is every start phrase in the third. In a cloud session, N-F18 comes first, as `routing.md` says.
+**The close's shape** (James, 2026-11-27): spaced out, never one paragraph. A bold headline first, one line *(your words)*, of what this session did ("**Your backlog has 6 workflows.**"). Then short blocks, each its own paragraph of a line or two, headed in bold *(your words)*, only those that carry news, in this order: **What you have** · **To use it** (where it applies) · **Kept for you** (where something was kept) · **Next**, last: its one line ending at "say:", then the start phrase alone in a code block, and nothing after it. A line said exactly stays whole inside its block. Never a line that carries no news ("Nothing is still waiting", "if anyone asks").
 
-> You now have [N] workflows in your registry's backlog, grouped under the processes they belong to. Your opportunity report has the full detail for each one: [the report's path in the location]. You can see the workflows on your dashboard too. (N-A6, *your words*)
+**The saved file, shown to open** (James, 2026-11-27): in *What you have*, the file this session saved is shown so one click opens it where the platform allows: on Claude desktop, shared as a file, so it opens rendered beside the chat; in a drive, its link; on Claude Code and Codex, its path in code formatting. Then one line *(your words)* inviting a look ("It's yours to read or edit any time."). No question is added.
+
+After the headline, three blocks, in this order: what was completed (*What you have*), the rest as optional (*Later, if you want*), then what's next (*Next*), last, so its code block ends the message. The first and the optional block are model wording *(your words)*, said in plain words and filled from the run, leaving out only what *Fit it to the run* drops; the first opens "You now have" and names the report by its path in the location, shown to open. *Next* is said exactly, and so is every start phrase in the optional block. In a cloud session, N-F18 comes first, as `routing.md` says.
+
+> **Your backlog has [N] workflows.** *(your words)*
+>
+> You now have [N] workflows in your registry's backlog, grouped under the processes they belong to. Your opportunity report has the full detail for each one: [the report's path in the location, shown to open]. It's yours to read or edit any time. You can see the workflows on your dashboard too. (N-A6, *your words*)
+>
+> **Later, if you want:** say 'run the analyze skill. My files are in [location].' any time to find more, including in the processes that have no workflows yet. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say 'run the analyze skill with the individual lens. My files are in [location].' (N-A6, *your words*: the start phrases in it said exactly)
 >
 > **Next: Deconstruct.** You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs. Start Deconstruct in a new chat. Add your [storage service] to it, then say:
 >
 > ```
 > run the deconstruct skill. My files are in [location].
 > ```
->
-> **Later, if you want:** say 'run the analyze skill. My files are in [location].' any time to find more, including in the processes that have no workflows yet. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say 'run the analyze skill with the individual lens. My files are in [location].' (N-A6, *your words*: the start phrases in it said exactly)
 
-**The *Next* paragraph (paragraph 2)** is said exactly: "**Next: Deconstruct.** You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs." (with no registry too: `backlog.md` is "your backlog"), then the next step's line in this platform's form, ending "say:", and Deconstruct's start phrase alone in a code block, with the location filled in, so it can be copied (X3). Nothing else goes in the block:
+**The *Next* paragraph (the last block)** is said exactly: "**Next: Deconstruct.** You'll choose one workflow from your backlog, or name any other, and we'll pin down its goal, what it produces, its checks, its rules and a few practice runs." (with no registry too: `backlog.md` is "your backlog"), then the next step's line in this platform's form, ending "say:", and Deconstruct's start phrase alone in a code block, with the location filled in, so it can be copied (X3). Nothing else goes in the block:
 - The web, and Claude desktop with the files in a drive: "Start Deconstruct in a new chat. Add your [storage service] to it, then say:" and the block `run the deconstruct skill. My files are in [location].`
 - Claude desktop, with the files in a local folder: "Start Deconstruct in a new chat with your working folder selected, then say:" and the block `run the deconstruct skill. My files are in [location].`
 - Microsoft 365: "Start Deconstruct in a new Cowork chat and say:" and the block `run the deconstruct skill. My files are in OneDrive, in ai-workspace.` (with the folder's own name when the student chose another)

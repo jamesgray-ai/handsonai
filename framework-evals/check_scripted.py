@@ -109,6 +109,9 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   creator's `package_skill` made (unzip, zipinfo,
                                                                   python… naming the .skill file), in the same turn;
                                                                   no offer passes. No events.jsonl fails closed
+  close_shape      {containing, headline?, session?}              the close is spaced out: a bold headline first (unless
+                                                                  headline: false), 3+ paragraphs, no no-news line, the
+                                                                  next phrase in a code block last (Pass 5, E29)
   brief_in_text    {session?}                                     on Claude and ChatGPT the brief is a fenced block in
                                                                   Build's text before the creator's first sandbox write
                                                                   or package_skill (Pass 5, E9); no events fails closed
@@ -1176,6 +1179,8 @@ def check(c, run):
         return _nf4_leads(run)
     if t == "nf4_before_creator":
         return _nf4_before_creator(run)
+    if t == "close_shape":
+        return _close_shape(c, run)
     if t == "brief_in_text":
         return _brief_in_text(c, run)
     if t == "one_question":
@@ -1516,6 +1521,35 @@ def _phrases_in_blocks(c, run):
             if hit:
                 return False, f"session {s['n']} AI message {i}: {hit.group(0)!r} said inline, not in a code block"
     return (seen > 0, f"{seen} message(s) checked" if seen else "no message matched")
+
+
+NO_NEWS = re.compile(r"(?i)\bnothing is still waiting\b|\bif anyone asks\b|\bnothing else is waiting\b")
+
+
+def _close_shape(c, run):
+    """Pass 5 (E29): every AI message matching `containing` (a step's close) is spaced out: a bold headline as its
+    first paragraph (unless `headline` is false), at least three paragraphs, no line that carries no news ("Nothing
+    is still waiting", "if anyone asks"), and it ends with a code block, the next step's phrase. None matched fails."""
+    want = re.compile(norm(c["containing"]), re.M)
+    seen = 0
+    for s in _sessions(run, c.get("session")):
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            t = norm(m).strip()
+            if not want.search(t):
+                continue
+            seen += 1
+            where = f"session {s['n']} AI message {i}"
+            paras = [p for p in re.split(r"\n\s*\n", re.sub(r"```.*?```", "<block>", t, flags=re.S)) if p.strip()]
+            if c.get("headline", True) and not re.match(r"^\*\*[^*\n]+\*\*\s*$", paras[0].strip()):
+                return False, f"{where}: no bold headline as its first line"
+            if len(paras) < 3:
+                return False, f"{where}: {len(paras)} paragraph(s): the close isn't spaced out"
+            if NO_NEWS.search(t):
+                return False, f"{where}: {NO_NEWS.search(t).group(0)!r} carries no news"
+            tail = re.sub(r"\n\s*\(In Claude Code, you can also type `/\w+`[^\n]*\)\s*$", "", t).rstrip()
+            if not tail.endswith("```"):
+                return False, f"{where}: doesn't end with the next step's phrase in a code block"
+    return (seen > 0, f"{seen} close(s) checked" if seen else "no message matched")
 
 
 def _asked_before_save(c, run):

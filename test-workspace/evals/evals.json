@@ -7613,6 +7613,18 @@
           "text": "The leader never needs an evaluation term to finish, sees every safety line the hand-overs carry on this platform, and is never asked something the files already answer",
           "kind": "judged",
           "must": true
+        },
+        {
+          "text": "[P5-close] The close is spaced out (James, E29): a bold headline, short blocks, no line with no news, the next step's phrase alone in a code block last",
+          "kind": "scripted",
+          "check": {
+            "type": "close_shape",
+            "containing": "(?i)Not ready yet:"
+          }
+        },
+        {
+          "text": "[P5-close] The close shows the file this session saved so one click opens it where the platform allows (on Claude desktop shared as a file; in a drive its link; on Claude Code and Codex its path), with one line inviting a look, and adds no question",
+          "kind": "judged"
         }
       ],
       "est_turns": 20

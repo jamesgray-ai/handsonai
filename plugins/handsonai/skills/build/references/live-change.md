@@ -35,7 +35,7 @@ Re-apply the protection before any check (on Claude Code, the block). On every p
 
 ## 5. The close
 
-N-B13 with this in place of its Test sentence and rounds sentence, said exactly:
+The close (`package-and-install.md`, *The close*), with this as its *Next* block in place of the Test sentence, said exactly:
 
 "Your changed version is installed but not tested yet. Before its next real run, [N-B13's Test sentence for this platform, beginning 'start Test…']. If you need to run it before then, put back [the copy you kept / the earlier version, kept in [place]]: [steps]."
 

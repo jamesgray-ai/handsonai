@@ -15,7 +15,7 @@ Read at entry, with the other files every interview needs (`saving-the-requireme
 
 ## 1. The drafts: what goes in each
 
-Each is short, plays its items back in plain words (never IDs or the file's line format), and marks your suggestions in italics, said once at its top (`SKILL.md` rule 6). The goal and output and the checks are drafted as `interview.md` says (parts 1 and 2).
+Each is short, plays its items back in plain words (never IDs or the file's line format), and marks your suggestions in italics, said once at its top in the first person ("My suggestions are in italics; your own words are plain." *(your words)*, `SKILL.md` rule 6). The goal and output and the checks are drafted as `interview.md` says (parts 1 and 2).
 
 **What it works from** (part 4).
 - The sources it uses, introduced the first time with what **context** means in one plain line (any information it needs to do its job, such as documents, spreadsheets, emails, style guides, or knowledge in someone's head). For each: what it is, where it lives, and whether it exists or needs creating. A step's existing prompt or instructions count as a source. Content nobody on the team wrote that a step reads on each run (inbound emails, form submissions, web pages) gets its own `External` row as well as its Inputs line. For sources that trip no privacy test, draft whether the AI can reach them, as your suggestion. What a source holds and who wrote it are played back only as the leader said them; where they haven't, say it's not known yet, never a guess (SKILL.md rule 13).
@@ -77,7 +77,7 @@ Each line is in the "When… it…" shape, with its kind (`rule` or `checkpoint`
 
 ## 4. The summary
 
-Always, in its own message (`interview.md`, *8. The defaults and the summary*), after the defaults and before anything is written; never skipped. On one screen, in plain words, never IDs: the goal; the output and its structure; why it matters (the registry goal and one measure, your suggestion); the checks, each with where its information comes from; the rules and the safety limits; the policy answer, when asked, on its own line (never as a rule); the checkpoints; the practice runs; open items, each with who and when. Then how readiness works, said once, and the go-ahead, both as `interview.md` gives them.
+Always, in its own message (`interview.md`, *8. The defaults and the summary*), after the defaults and before anything is written; never skipped. On one screen, in plain words, never IDs: the goal; the output and its structure; why it matters (the registry goal and one measure, your suggestion); the checks, each with where its information comes from; the rules and the safety limits (a rule tagged ` · (you)` that says the same as a checkpoint, such as "you send it yourself" beside "it stops until you approve the draft", is shown once, as the checkpoint, never twice); the policy answer, when asked, on its own line (never as a rule); the checkpoints; the practice runs; open items, each with who and when. Then how readiness works, said once, and the go-ahead, both as `interview.md` gives them.
 
 Before it, trace every check's source in the draft (each `from:` names an input, a source or a rule in the draft, or the draft alone); a check whose information nothing supplies is listed as an open item, never saved with a guessed source. A test that trips here brings its limits first.
 
@@ -206,7 +206,7 @@ Every check is required: there are no must-haves, and `(must)` is never written.
 | R1 | Always | It always [does that]. |
 | R2 | Never | It never [does that]. |
 | R3 | When | When [this happens], it [does that]. |
-| R4 | When | When the draft is ready, you send it yourself. · (you) |
+| R4 | When | When [the input is missing something it needs], it asks you for it before [producing the deliverable]. |
 | R5 | Fallback | When [the conditions it can't confidently handle], it [stops and asks you / does its best and flags it[ in an email / a chat message] to you / skips that item]. |
 | R6 | When | When [the case is out of bounds], it doesn't [produce the deliverable] and [does what instead]. |
 

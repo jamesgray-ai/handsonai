@@ -58,6 +58,7 @@ It's a change to a live workflow when the workflow is live (`live-change.md`); a
 
 ## 5. The close
 
+- **The close's shape** (`package-and-install.md`, *The close*): its bold headline is the change itself ("**The booking link is out of the email.**"), never "Your workflow is built and checked".
 - **"What was built"** is rewritten, and the close shows what changed in one line. **"What it can access"** is rewritten when a connection or permission changed.
 - **N-B37** (`package-and-install.md`, section 4) is repeated for the new version (keep the old copy too).
 - **The Test sentence** gives Test's start phrase with the location; Test decides what runs again. No rounds sentence. On a live workflow, N-B38. **Where N-B34 is said at this close,** its last sentence (Test's phrase) is the Test sentence: the close doesn't say Test's phrase a second time.

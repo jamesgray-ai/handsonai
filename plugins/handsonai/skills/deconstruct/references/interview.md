@@ -88,7 +88,7 @@ One message, drafted, not asked. Start with the folder line (and the process lin
 1. **The goal statement,** stated from the description, the card and the registry, in the shape *For each [trigger], a [deliverable] for [who], so [purpose].*, opened "Here's the workflow's goal statement, in one sentence:". [purpose] is why the leader wants it, from the description's own "so…" or the card's value; when nothing says, it's your suggestion. Only when `Starts` is a schedule or an event checked on a schedule does it add when it's ready ("…, ready by [when]"), asked in its own message after this one when nothing says. Who receives it is asked, in its own message, only when nothing says.
 2. **The output,** under a short heading: what it is, who it's for, its form (length, format and fixed parts such as a subject line: form items live here, never in the checks), and whose voice. Voice comes from what the leader said or a source they named; without either it's the leader's own, marked as your suggestion. The structure comes with the checks (part 2).
 
-The message says once that your suggestions are in italics, and ends "What would you change or clarify?". Its reply settles the goal and the output together.
+The message says once, in the first person, that your suggestions are in italics ("My suggestions are in italics; your own words are plain." *(your words)*), and ends "What would you change or clarify?". Its reply settles the goal and the output together.
 
 **Recorded:** the Goal; `## Output`'s What, For, Form and Voice lines, and `Delivered as: set in Design`.
 

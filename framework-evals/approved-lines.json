@@ -5545,7 +5545,8 @@
    "files": {
     "build": "references/package-and-install.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change",
+   "retired": "2026-11-27: shape release Pass 5 Task 7 (E29: the close in labelled blocks, in Build's own words; the Test sentence forms stay held)"
   },
   {
    "id": "N-B13",
