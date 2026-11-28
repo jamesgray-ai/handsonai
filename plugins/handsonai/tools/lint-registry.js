@@ -37,6 +37,11 @@ function lint(bundleDir) {
     const base = path.posix.basename(relPath);
     if (base === 'index.md') { indexes.push(node); continue; }
     if (lib.RESERVED.has(base)) continue; // SCHEMA.md, log.md
+    if (!lib.isConcept(node)) {
+      // OKF v0.3 §3.2: not a concept; a validator warns, and every check skips it.
+      warnings.push(`${relPath}: no frontmatter, so not a registry page -- skipped (add type, title, description and generated if it should be one)`);
+      continue;
+    }
     concepts.push(node);
   }
 
@@ -60,6 +65,9 @@ function lint(bundleDir) {
         ? `${c.relPath}: unparseable frontmatter (${c.error})`
         : `${c.relPath}: missing required frontmatter block (file must start with "---")`);
       continue;
+    }
+    for (const k of (lib.parseFrontmatter(c.raw).duplicates || [])) {
+      warnings.push(`${c.relPath}: frontmatter key "${k}" appears more than once -- the last value is read (OKF v0.3 §4: write each key once)`);
     }
     if (c.fm.type !== expected) errors.push(`${c.relPath}: type "${c.fm.type || '(none)'}", expected "${expected}" (directory<->type agreement)`);
     for (const req of ['title', 'description']) {
@@ -152,7 +160,8 @@ function lint(bundleDir) {
       errors.push(`${c.relPath}: field "owner" is banned from Workflow nodes (ownership lives on Process -- see SCHEMA.md)`);
     }
     // big_change ("[reason], [date]") marks a pending redo; it belongs on a Workflow only.
-    if (c.fm.big_change !== undefined) {
+    // OKF v0.3 §11.2: an empty or null value is the same as an absent key.
+    if (c.fm.big_change !== undefined && c.fm.big_change !== null && String(c.fm.big_change).trim() !== '') {
       if (expected !== 'Workflow') errors.push(`${c.relPath}: field "big_change" belongs on Workflow nodes only`);
       else if (typeof c.fm.big_change !== 'string' || !c.fm.big_change.trim()) errors.push(`${c.relPath}: "big_change" must give the reason and the date ("[reason], [date]")`);
     }
@@ -468,6 +477,7 @@ function lint(bundleDir) {
       }
       if (!name.endsWith('.md') || lib.RESERVED.has(name)) continue;
       const target = path.posix.join(dirRel === '/' ? '/' : dirRel, name);
+      if (!lib.isConcept(nodes.get(target))) continue; // not a page (no frontmatter): needs no index entry
       if (!linked.has(target)) errors.push(`${idx.relPath}: index coverage -- missing link to ${name}`);
     }
   }

@@ -265,3 +265,16 @@ test('upgradeLog: date-only headings oldest first are put newest first', () => {
 test('upgradeLog: a list inside an entry keeps its lines', () => {
   assert.equal(up.upgradeLog('# Log\n\n## 2026-01-01 — T\n\nPara:\n- one\n- two\n'), '# Log\n\n## 2026-01-01\n\n- **T** — Para:\n  - one\n  - two\n');
 });
+
+// --- 11.1.1: OKF v0.3 gaps
+test('parseFrontmatter reports a key written twice (OKF v0.3 §4), keeping the last value', () => {
+  const r = lib.parseFrontmatter('---\ntype: Note\ntitle: a\ntitle: b\n---\n');
+  assert.equal(r.fields.title, 'b');
+  assert.deepEqual(r.duplicates, ['title']);
+  assert.deepEqual(lib.parseFrontmatter('---\ntype: Note\n---\n').duplicates, []);
+});
+test('isConcept: a .md with no frontmatter is not a concept (OKF v0.3 §3.2)', () => {
+  assert.equal(lib.isConcept({ fm: null, error: undefined }), false);
+  assert.equal(lib.isConcept({ fm: { type: 'Note' } }), true);
+  assert.equal(lib.isConcept({ fm: null, error: 'unterminated frontmatter block' }), true); // broken frontmatter stays a lint error
+});
