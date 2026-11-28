@@ -131,7 +131,7 @@ compose fills. Write them exactly as the template repository ships them:
 
 ```markdown
 ---
-okf_version: "0.2"
+okf_version: "0.3"
 ---
 # AI Registry
 
@@ -159,7 +159,7 @@ The dashboard view is the generated root `REGISTRY.md`.
 ```markdown
 # Registry Log
 
-Setup decisions, schema changes, the dashboard's Claude Artifact link, and one line per workflow event (a big change and its reason, go-live, re-checks) — routine regeneration is not logged.
+Setup decisions, schema changes, the dashboard's Claude Artifact link, and one entry per workflow event (a big change and its reason, go-live, re-checks), grouped by date with the newest first — routine regeneration is not logged.
 ```
 
 If the student asks "where's the template repo?", the URL is
@@ -197,7 +197,7 @@ How to draft the card:
   how many people do the work: a solo consultant with three offerings gets
   three lines. **One offering:** one line named after the business, with no
   split forced.
-- **Status:** set `active` yourself for the business and each line; ask only
+- **State:** set `state: active` yourself for the business and each line; ask only
   when the student described something not yet launched, paused or winding
   down: "Is [line] something you're offering now, or just starting or paused?"
   (*Why:* so your map shows what's running today.)
@@ -295,7 +295,9 @@ also save your note that [insight].") and save it with that yes; volunteered
 after the last confirmation, leave it out and say nothing.
 
 **What to write:**
-- a founding `registry/log.md` entry describing the setup run, saying who the
+- a founding `registry/log.md` entry describing the setup run, below the
+  log's description under today's `## YYYY-MM-DD` heading, as one bullet
+  starting `- **Registry scaffolded** — `, saying who the
   registry is for in exactly one of the fixed forms in `personas.md` (*The
   founding log line*), such as "set up for a business the owner runs alone",
   because `analyze` and `deconstruct` read that line (the lens, and

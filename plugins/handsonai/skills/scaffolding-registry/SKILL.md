@@ -15,7 +15,7 @@ description: >
 
 # Scaffolding Registry
 
-Stand up a leader's AI Registry as an [OKF v0.2](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md) knowledge bundle: a `registry/` folder with a `SCHEMA.md` producer profile and concept nodes for their real business. This is the on-ramp: a short guided interview that captures the leader's real business, its lines of business, and the processes that deliver them, each with its owner. It names no workflows: the `analyze` skill does that next, writing them into the backlog.
+Stand up a leader's AI Registry as an [OKF v0.3](https://github.com/open-knowledge-format/open-knowledge-format) knowledge bundle: a `registry/` folder with a `SCHEMA.md` producer profile and concept nodes for their real business. This is the on-ramp: a short guided interview that captures the leader's real business, its lines of business, and the processes that deliver them, each with its owner. It names no workflows: the `analyze` skill does that next, writing them into the backlog.
 
 **Your first message settles where the files go.** Unless the leader named their folder, or this chat is already working in a folder on their computer (Claude desktop's selected folder, Claude Code, Codex; a sandbox or workspace the AI runs in online is not their computer, and a zip handed back from it is not saving; a folder the app made for this chat alone, named by date or after the chat, is never the working folder), the first message is N-F16 (no drive in this chat can save) or the storage question, N-F1, exactly as *Where the files live* gives them. That holds on Claude or ChatGPT on the web in any tab or mode, ChatGPT's Work tab included. Nothing comes before it: not the opening, not the first question. **Every scripted line is said in full:** every sentence, in its order, with only its [brackets] filled; never dropped, merged, shortened or paraphrased.
 
@@ -27,10 +27,10 @@ The registry lives in the **working folder**, the one folder that holds the lead
 <working folder>/            ← the workspace on Claude Code and Codex; ai-workspace/ (or the leader's own folder) elsewhere
 ├── REGISTRY.md              ← Tier 1 dashboard (derived, never hand-edited)
 ├── registry-dashboard.html  ← Tier 2 visual dashboard (derived; always generated at setup)
-├── registry/                ← the OKF v0.2 bundle
+├── registry/                ← the OKF v0.3 bundle
 │   ├── SCHEMA.md            ← producer profile (written by scaffolding-registry)
-│   ├── index.md             ← bundle root; frontmatter okf_version: "0.2"
-│   ├── log.md               ← setup decisions, schema changes, workflow events
+│   ├── index.md             ← bundle root; frontmatter okf_version: "0.3"
+│   ├── log.md               ← setup decisions, schema changes, workflow events (newest date first)
 │   ├── businesses/  lines-of-business/  functions/
 │   ├── processes/   workflows/          notes/
 │   │       (each typed directory has its own index.md)
@@ -159,15 +159,16 @@ If the leader can't finish, write what they have confirmed, note the gap for the
 ## Write rules
 
 - **The leader's `registry/SCHEMA.md` is authoritative once it exists.** Re-read it immediately before every write in this skill, including during gap-filling — never write from memory of what the schema template said.
-- **Stamp `generated: { by: process:scaffolding-registry, at: <YYYY-MM-DDTHH:MM:SSZ> }`** (single-line flow map; `at` is the moment of the write as a UTC instant, such as `2026-10-24T15:04:05Z`) on every node this skill creates or edits. Never write a bare date.
+- **Stamp `generated: { by: process:scaffolding-registry, at: <YYYY-MM-DDTHH:MM:SSZ> }`** (single-line flow map; `at` is the moment of the write as a UTC instant, such as `2026-10-24T15:04:05Z`) on every node this skill creates or whose content it changes; a formatting or link repair leaves `generated` as it is. Never write a bare date, and never write `verified`: only the leader's own check is recorded there (`registry-bundle.md`, rule 11).
+- **Business and line-of-business state goes in `state`** (`state: active`), never `status`, which the schema keeps for the lifecycle (`draft`, `stable`, `deprecated`). A link to a file outside `registry/` (a `guide:`) is file-relative from the page: `guide: ../../process-guides/<file>.md`.
 - **Function nodes are always written with their empty GENERATED `# Owns` block** (the `# Owns` heading above and outside the markers, nothing between them yet; `indexing-registry`'s *Regenerate GENERATED blocks* shows the filled form) at creation time — never deferred to a later maintenance pass. A Function missing that block is a lint error, because the maintenance pass has nothing to fill.
 - **Slugs are plain ASCII kebab-case** — fold accents (`Café Orders` → `cafe-orders`), `&` → `and`, strip other punctuation — so filenames and links agree on every platform.
-- **Every new node gets added to its typed directory's `index.md`.** A concept file with no entry in its directory index is a lint error; write or update the index in the same pass as the node. An index with no nodes yet has exactly this body — the heading, a blank line, and `_No entries yet — your AI assistant fills this index as nodes are added._` — which is the text compose writes, so a fresh scaffold composes with no file rewritten. Index entries use bundle-root-relative leading-slash links — `[Client Onboarding](/processes/client-onboarding.md)`, never a bare same-directory link like `[Client Onboarding](client-onboarding.md)`, which the schema's link discriminator resolves from the registry's parent folder and lint flags as broken.
+- **Every new node gets added to its typed directory's `index.md`.** A concept file with no entry in its directory index is a lint error; write or update the index in the same pass as the node. An index with no nodes yet has exactly this body — the heading, a blank line, and `_No entries yet — your AI assistant fills this index as nodes are added._` — which is the text compose writes, so a fresh scaffold composes with no file rewritten. Index entries use bundle-root-relative leading-slash links — `[Client Onboarding](/processes/client-onboarding.md)`, never a bare same-directory link like `[Client Onboarding](client-onboarding.md)`, which reads from the index's own folder and which the schema forbids for a link to another page.
 - **On a drive,** every file is saved through the connection, the way `references/saving.md` decides from the connection's tools, by the drive-saving rule in the `indexing-registry` skill's `references/registry-bundle.md` (§2, rule 8). Nothing on a drive is ever shared, trashed or deleted.
 
 ## Close
 
-End Phase 3 by writing a founding `registry/log.md` entry describing the scaffolding run (what was created), and making sure every typed directory has an `index.md`, even a stub one — including `registry/workflows/index.md`, which starts empty because this skill writes no Workflow node; the `analyze` skill adds the first ones.
+End Phase 3 by writing a founding `registry/log.md` entry describing the scaffolding run (what was created), under today's `## YYYY-MM-DD` heading as a `- **Registry scaffolded** — …` bullet (`registry-bundle.md` §7), and making sure every typed directory has an `index.md`, even a stub one — including `registry/workflows/index.md`, which starts empty because this skill writes no Workflow node; the `analyze` skill adds the first ones.
 
 Then invoke the `indexing-registry` skill for the first maintenance pass: it lints the new bundle, generates the Tier 1 `REGISTRY.md` — which is written in the registry's parent folder, next to `registry/` and not inside it — and **always** generates the Tier 2 visual dashboard, `registry-dashboard.html`. The dashboard is not an option at setup: it is the leader's window into the registry, and a leader offered it as one of "two options" skips it. On the web the pass saves through the drive connection, like every other save. This is a best-effort hand-off — if the maintenance pass can't run for some reason, say so plainly rather than leaving the leader assuming it happened. The lab should end with something visual on screen, not a blank terminal.
 

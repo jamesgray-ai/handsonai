@@ -7,7 +7,10 @@ description: >
   my registry", "check my AI registry", "refresh my registry", "lint my registry", "generate my
   dashboard", "what have I built", "show my AI inventory", after creating
   skills or agents, or when another framework skill's closing step calls for a
-  maintenance pass. Also repairs stale or hand-edited derived views. If no
+  maintenance pass. Also "upgrade my registry" (moves a registry set up before
+  OKF 0.3 to the current format), and recording the user's own check of a page
+  ("I've checked my registry", "mark [page] as checked"). Also repairs stale or
+  hand-edited derived views. If no
   registry/SCHEMA.md exists, route to the scaffolding-registry skill instead.
 ---
 
@@ -101,7 +104,15 @@ No step number, Health or Last Run column, and no raw `autonomy` or `execution_m
 
 ### 5. Append `log.md`
 
-`registry/log.md` is append-only (`references/registry-bundle.md` §7). This skill appends only the dashboard Artifact link and any schema change it makes. The workflow lines (go-live, a re-check, a changed version not ready, a big change and its reason) belong to the steps that write them. Never remove or rewrite a line, and never log routine node writes or regenerations.
+`registry/log.md` keeps OKF v0.3's form: entries under `## YYYY-MM-DD` headings, newest date first, each a bullet; a new entry goes at the end of today's heading, the first below the log's description (`references/registry-bundle.md` §7). This skill adds only the dashboard Artifact link, any schema change it makes, and the leader's checker ID (*Record a check*). The workflow entries (go-live, a re-check, a changed version not ready, a big change and its reason) belong to the steps that write them. Never remove, reword or move an entry, and never log routine node writes or regenerations.
+
+## Upgrade a registry from OKF 0.2
+
+A registry whose root `index.md` says `okf_version: "0.2"`, or no version, was set up before OKF v0.3 (`references/registry-bundle.md` §10). It still works, and every step writes the new forms into it. On "upgrade my registry", or once when a pass the leader started finds one (never on a pass at another step's close), offer it in model wording that carries: that the registry's pages were written in an earlier version of the format, that the upgrade changes only how they are written (never what they say), and a question asking whether to do it now. On a yes: where code can run on a local folder, `node [tools]/upgrade-registry.js registry` (the workspace's `tools/`, else the plugin's), then replace `registry/SCHEMA.md` with `scaffolding-registry`'s `references/schema-template.md`, then a full pass. Elsewhere, make §10's changes page by page by hand, saving as the drive rules say. Leave `generated` and `verified` as they are on every page. Then say in one line that the registry is on the current format; never list the pages.
+
+## Record a check
+
+`verified` is the leader's own check (`references/registry-bundle.md` rule 11), never yours. When the leader says they've read a page and it's right ("I've checked my registry", "mark [page] as checked"), record it on that page only, and on each page they name; "my registry" means the pages they say they read, so ask which when it isn't clear. The first time, ask in model wording what name to record their checks under; write it as `human:<id>` (lowercase, hyphens), and add `- **Checker** — [their name] checks pages as human:[id]` to `log.md`; later checks read the ID from there. Write `verified: { by: human:<id>, at: <now, UTC instant> }`; a page that already has one becomes a list with both events (`verified: [{ … }, { … }]`), the earlier kept. Nothing else on the page changes, `generated` included. Confirm in one line which pages are recorded as checked, and that a page counts as checked until its content next changes.
 
 ## Refusal + self-healing rule
 
@@ -111,7 +122,7 @@ Refuses to regenerate derived views while lint reports errors — with the refer
 
 If the workspace contains `tools/compose-registry.js`, run `node tools/lint-registry.js && node tools/compose-registry.js` instead of assembling the dashboards by hand — the workspace's own generator is authoritative. Never name the scripts to the leader (*Talking about the check*). Compose only refreshes a `registry-dashboard.html` that already exists: when the Tier 2 dashboard is due and there is none beside `registry/`, first copy `tools/dashboard-template.html` to `registry-dashboard.html`, then run compose. **No `tools/` in the workspace:** where code can run and the registry is in a local folder, use the plugin's own copies instead of building the views by hand: `node [plugin root]/tools/lint-registry.js registry && node [plugin root]/tools/compose-registry.js registry`, run from the working folder (the plugin root is two folders above this skill's folder, where `framework-state.js` ships). When the Tier 2 dashboard is due and there is none beside `registry/`, first copy this skill's `references/dashboard-template.html` to `registry-dashboard.html`. Never copy the scripts into the leader's folder for this. Only when a script fails to run (it can't start or crashes), or where the plugin's `tools/` isn't there (a skill uploaded on its own), build the views by hand, as above. When lint reports errors, that is the refusal (*Refusal + self-healing rule*): build nothing by hand while the check fails, and the calling step's close says the dashboard wasn't refreshed (N-F20). Warnings (a stale `# Owns` block, say) never block the build. A registry in a drive is never composed by script: build its views by hand, as above.
 
-**Out-of-date tools.** Before running them, compare the `"version"` in the workspace's `tools/package.json` with the one in the plugin's `tools/` folder (where `framework-state.js` ships). If the workspace's is missing or lower, ask, word for word: "Your registry's tools are out of date. Update them now?" On a yes, copy the plugin's `compose-registry.js`, `lint-registry.js`, `registry-lib.js`, `package.json`, `framework-state.js` and `requirements-check.js` over `tools/`, plus `references/dashboard-template.html` and `references/data-island.schema.json`; then copy the new template over `registry-dashboard.html` before composing, since compose only injects data into an existing page. Leave the bundle's `registry/SCHEMA.md` as it is. On a no, compose with the tools as they are. A workspace with no `tools/` folder is unaffected.
+**Out-of-date tools.** Before running them, compare the `"version"` in the workspace's `tools/package.json` with the one in the plugin's `tools/` folder (where `framework-state.js` ships). If the workspace's is missing or lower, ask, word for word: "Your registry's tools are out of date. Update them now?" On a yes, copy the plugin's `compose-registry.js`, `lint-registry.js`, `registry-lib.js`, `upgrade-registry.js`, `package.json`, `framework-state.js` and `requirements-check.js` over `tools/`, plus `references/dashboard-template.html` and `references/data-island.schema.json`; then copy the new template over `registry-dashboard.html` before composing, since compose only injects data into an existing page. Leave the bundle's `registry/SCHEMA.md` as it is. On a no, compose with the tools as they are. A workspace with no `tools/` folder is unaffected.
 
 ## Best-effort rule
 
