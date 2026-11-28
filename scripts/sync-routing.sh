@@ -30,7 +30,7 @@
 #   plugins/handsonai/skills/design/references/{shared-lines,requirement-lines}.md
 #   plugins/handsonai/skills/{build,test}/scripts/test-run.sh
 #   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,indexing-registry}/references/saving.md
-#   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,applying-skill-best-practices,auditing-agent-skills}/references/platform-facts.md
+#   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,applying-skill-best-practices,auditing-agent-skills,building-knowledge-graph}/references/platform-facts.md
 #
 # Usage:
 #   bash scripts/sync-routing.sh                    # copy canonical -> skills, then check
@@ -65,7 +65,7 @@ SPLIT_SKILLS=(analyze deconstruct design build test)                  # restruct
 split_files() { case "$1" in design) echo "routing-rare.md location.md shared-lines.md requirement-lines.md" ;; *) echo "routing-rare.md location.md" ;; esac; }
 TEST_RUN_SKILLS=(build test)
 SAVING_SKILLS=(analyze deconstruct design build test scaffolding-registry indexing-registry)
-FACTS_SKILLS=(analyze deconstruct design build test scaffolding-registry applying-skill-best-practices auditing-agent-skills)
+FACTS_SKILLS=(analyze deconstruct design build test scaffolding-registry applying-skill-best-practices auditing-agent-skills building-knowledge-graph)
 BEGIN_MARKER='<!-- routing.md: begin -->'
 END_MARKER='<!-- routing.md: end -->'
 
