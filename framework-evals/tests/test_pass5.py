@@ -194,5 +194,35 @@ class DenyLineUnconditional(unittest.TestCase):
             self.assertIn(t, V.REQUIRED)
 
 
+# ---------------------------------------------------------------- Task 3: what a built part carries
+
+KEEP_Q = ("Your drafting-client-emails skill also offers a call at calendly.com/alex-brennan/intro, which your plan "
+          "doesn't ask for. Keep it or drop it?")
+CARD = "Click Save skill on the save card under this message to save drafting-client-emails.skill."
+
+
+class KeptItemsListed(unittest.TestCase):
+    C = {"type": "asked_before_save", "pattern": "(?i)(?:calendly|booking link)[^?\\n]*\\b(?:keep|drop)\\b"}
+
+    def test_kept_items_listed(self):
+        self.assertTrue(CS.check(self.C, ai_run(KEEP_Q, CARD))[0])
+
+    def test_save_card_with_no_keep_or_drop_question_fails(self):
+        self.assertFalse(CS.check(self.C, ai_run(CARD))[0])
+
+    def test_question_only_after_the_card_fails(self):
+        self.assertFalse(CS.check(self.C, ai_run(CARD, KEEP_Q))[0])
+
+    def test_an_anchor_in_place_of_the_save_offer(self):
+        c = dict(self.C, anchor="```[^\\n]*\\n\\s*Skill brief:")
+        brief = "```\nSkill brief: drafting-client-emails\nWhat it does: drafts.\n```"
+        self.assertTrue(CS.check(c, ai_run(KEEP_Q, brief))[0])
+        self.assertFalse(CS.check(c, ai_run(brief, KEEP_Q))[0])
+
+    def test_known_to_validate(self):
+        import validate_evals as V
+        self.assertEqual(V.REQUIRED.get("asked_before_save"), ["pattern"])
+
+
 if __name__ == "__main__":
     unittest.main()

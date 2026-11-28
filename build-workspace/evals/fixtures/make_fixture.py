@@ -841,6 +841,22 @@ def extend_shared(t):
     sub(p, "- **Builds:** New skill: S1 (`client-follow-up`)", "- **Builds:** New skill: S1 (`client-follow-up`), the orchestrator; Extend existing: drafting-client-emails (add: list every next step with its owner)")
 
 
+def fx_extend_with_extras(t):  # Pass 5 (E16, E19): the skill to extend holds a link the plan doesn't ask for
+    """drafting-client-emails offers a call at a booking link (in no requirement or plan line) and uses another
+    plugin's brand-voice skill, which the plan's blueprint names under Uses skills from. Build asks keep or drop
+    about the link only, before the brief; the brand skill goes into the brief and the record's uses_skills."""
+    ff(t, S06)
+    write(Path(t) / ".claude" / "skills" / "drafting-client-emails" / "SKILL.md",
+          "---\nname: drafting-client-emails\ndescription: Drafts a client email in the house style.\n---\n\n"
+          "Write in plain language, under 150 words, signed with your first name.\n"
+          "Use the applying-brand-guidelines skill from the brightline-os plugin for tone.\n"
+          "End by offering a call: \"Book a time at calendly.com/alex-brennan/intro if it's easier to talk.\"\n")
+    p = plan(t)
+    sub(p, PB_ROW, PB_ROW.replace("| New skill: S1 |", "| Extend existing: drafting-client-emails (also used by: none) |"))
+    sub(p, "- **Builds:** New skill: S1 (`client-follow-up`)", "- **Builds:** New skill: S1 (`client-follow-up`), the orchestrator; Extend existing: drafting-client-emails (add: list every next step with its owner)")
+    sub(p, "- **Stateful?:** No\n", "- **Stateful?:** No\n- **Uses skills from:** brightline-os (applying-brand-guidelines)\n")
+
+
 def fx_reuse_missing(t):  # the plan reuses a skill that isn't installed here
     ff(t, S06)
     p = plan(t)
@@ -1513,7 +1529,7 @@ FIXTURES = {
     "web-format11-already-runs": fx_web_format11_already_runs, "cc-done-e1-e3-no-inputs": fx_cc_done_e1_e3_no_inputs,
     "codex-agent": fx_codex_agent,
     # Pass 5 (shape release): every plugin left on, a workflow with no sending connection
-    "web-no-connection": fx_web_no_connection,
+    "web-no-connection": fx_web_no_connection, "extend-with-extras": fx_extend_with_extras,
 }
 
 # The library's routing states as today's Deconstruct leaves Client Follow-Up (`Path: none`): the folders the

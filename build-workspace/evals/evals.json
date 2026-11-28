@@ -4811,6 +4811,92 @@
    "est_turns": 40
   },
   {
+   "id": "P5-extend-kept",
+   "name": "extend-skill-to-plan-check",
+   "tier": "core",
+   "spec_item": "13 Part 2 (Pass 5, E16, E19; Review Focus 5): extending a skill also checks skill → plan: what the skill holds that the plan doesn't (a booking link) is asked about once, keep or drop, before the brief; the dropped link is gone from the built text; another plugin's skill the blueprint names under Uses skills from goes into uses_skills:, and the record passes with its new keys",
+   "fixture": "extend-with-extras",
+   "prompt": "Run the build skill. My files are in framework/client-follow-up.",
+   "student": "students/extend-extras.md",
+   "files": [
+    "students/extend-extras.md"
+   ],
+   "expected_output": "Before the creator's brief for drafting-client-emails, one question names the booking link the skill offers, which the plan doesn't ask for, keep or drop; the leader drops it, so it's gone from the built and saved text; the brand-voice skill from brightline-os isn't asked about (the plan names it) and is recorded under uses_skills:; kept_from_existing: records the link with kept: no; the record passes the structure check.",
+   "expectations": [
+    {
+     "text": "The keep-or-drop question about the booking link, before the creator's brief",
+     "kind": "scripted",
+     "check": {
+      "type": "asked_before_save",
+      "pattern": "(?i)(?:calendly|booking link|book a time|offer(?:s|ing)? a call)[^?\\n]*\\b(?:keep|drop)\\b|\\b(?:keep|drop)\\b[^?\\n]*(?:calendly|booking link|book a time)",
+      "anchor": "```[^\\n]*\\n\\s*(?:Skill|Agent) brief:"
+     }
+    },
+    {
+     "text": "The dropped link is gone from the built and saved text",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "file_not_contains",
+        "path": "framework/client-follow-up/built/drafting-client-emails/**",
+        "text": "calendly.com/alex-brennan"
+       },
+       {
+        "type": "file_not_contains",
+        "path": ".claude/skills/drafting-client-emails/**",
+        "text": "calendly.com/alex-brennan"
+       }
+      ]
+     }
+    },
+    {
+     "text": "kept_from_existing records the link as dropped",
+     "kind": "scripted",
+     "check": {
+      "type": "file_regex",
+      "path": "framework/client-follow-up/build-record.md",
+      "pattern": "kept_from_existing:[\\s\\S]*?kept: [\"']?no"
+     }
+    },
+    {
+     "text": "uses_skills records the brand-voice skill from brightline-os",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "file_regex",
+        "path": "framework/client-follow-up/build-record.md",
+        "pattern": "uses_skills:[\\s\\S]*?plugin: [\"']?brightline-os"
+       },
+       {
+        "type": "file_regex",
+        "path": "framework/client-follow-up/build-record.md",
+        "pattern": "uses_skills:[\\s\\S]*?skill: [\"']?applying-brand-guidelines"
+       }
+      ]
+     }
+    },
+    {
+     "text": "The build record, with its new keys, passes the structure check",
+     "kind": "scripted",
+     "check": {
+      "type": "structure",
+      "path": "framework/client-follow-up/build-record.md",
+      "kind": "build_record"
+     }
+    },
+    {
+     "text": "The brand-voice skill is never offered for dropping (the plan names it); the keep-or-drop question is one question in a message of its own, naming the link in plain words",
+     "kind": "judged",
+     "must": true
+    }
+   ],
+   "est_turns": 40
+  },
+  {
    "id": "P2-open-item",
    "name": "open-item-stop",
    "tier": "core",

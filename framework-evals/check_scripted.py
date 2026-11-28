@@ -109,6 +109,9 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   creator's `package_skill` made (unzip, zipinfo,
                                                                   python… naming the .skill file), in the same turn;
                                                                   no offer passes. No events.jsonl fails closed
+  asked_before_save {pattern, anchor?, session?}                  an AI message matching pattern comes before the first
+                                                                  save offer, or `anchor` (Build's keep-or-drop question,
+                                                                  Pass 5 E16)
   handover_one_message {session?}                                 every practice-run hand-over is one message: setup,
                                                                   then the box last, nothing after it; no "say 'ready'"
   deny_in_every_handover {session?}                               N-F4 (any form) before every practice-run box, in its
@@ -1165,6 +1168,8 @@ def check(c, run):
         return _nf4_leads(run)
     if t == "nf4_before_creator":
         return _nf4_before_creator(run)
+    if t == "asked_before_save":
+        return _asked_before_save(c, run)
     if t == "handover_one_message":
         return _handover_one_message(run, n)
     if t == "deny_in_every_handover":
@@ -1443,6 +1448,27 @@ SAVE_OFFER = re.compile(r"in your skills list\b[^?\n]*\?"
 PACKAGE_CMD = re.compile(r"\bpackage_skill\b")
 PACKAGE_READ = re.compile(r"\b(?:unzip|zipinfo|bsdtar|tar|python3?|strings|zcat)\b[\s\S]*?\.skill\b"
                           r"|\.skill\b[\s\S]*?\b(?:unzip|zipinfo|zipfile|bsdtar)\b")
+
+
+def _asked_before_save(c, run):
+    """Pass 5 (E16): an AI message matching `pattern` (Build's keep-or-drop question about what an extended skill
+    held that the plan doesn't) comes before the first AI message that offers the save (SAVE_OFFER), in an earlier
+    message or earlier in the same one. A session with no save offer passes only when the pattern was said."""
+    pat = re.compile(norm(c["pattern"]), re.M)
+    anchor = re.compile(norm(c["anchor"]), re.M | re.I) if c.get("anchor") else SAVE_OFFER
+    for s in _sessions(run, c.get("session")):
+        asked = False
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            t = norm(m)
+            q, offer = pat.search(t), anchor.search(t)
+            if offer and not (asked or (q and q.start() < offer.start())):
+                return False, f"session {s['n']} AI message {i}: the save offered before the keep-or-drop question"
+            if offer:
+                return True, "asked before the first save offer"
+            asked = asked or bool(q)
+        if not asked:
+            return False, f"session {s['n']}: the keep-or-drop question never asked"
+    return True, "asked, and no save offered"
 
 
 def _read_before_save(c, run):

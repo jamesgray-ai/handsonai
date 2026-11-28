@@ -14,6 +14,7 @@ Each question is its own message even when several are alike: one N-14 per write
 
 **Ask:** "You already have [skill], which you use for [workflow or purpose]. It covers [part]. Use it as it is, add to it, or build a new one for this?" *(your words)* When adding to it changes other workflows, add "Adding to it also changes [other workflows]." Then "I recommend [option], because [reason]." (N-13, *your words*)
 - *Why:* Reusing what you have keeps one version to look after. *(your words)*
+- On the answer, the part's blueprint gets `Uses skills from: [plugin] ([skill])` when the skill lives in another plugin (`plan-template.md`, *Component Blueprints*), saved with the answer.
 - *Not sure?* Say not sure; I'll [the recommended option], and you can change it later. *(your words)*
 
 **A write the connection can't make:**

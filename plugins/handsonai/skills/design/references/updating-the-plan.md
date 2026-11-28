@@ -108,7 +108,7 @@ While such a request is open it doesn't hold up Test: the workflow can go live t
 
 ## 7. Rulings
 
-When you change a plan whose tasks Build has built, read the build record's rulings ("what, why, cost if wrong") and write each into the affected task's blueprint, marked "(carried from the build record)", so each ruling lives in one place. This doesn't raise the task's `rev`: the build already follows it. On a fresh plan after a set-aside, read the rulings in the newest set-aside build record (`history/set-aside-*/build-record.md`) and carry in those that still apply (the same platform and mechanism, and the part still exists).
+When you change a plan whose tasks Build has built, read the build record's rulings ("what, why, cost if wrong") and write each into the affected task's blueprint, marked "(carried from the build record)", so each ruling lives in one place. Read its `kept_from_existing:` too: each item the leader kept goes into that part's blueprint, marked "(kept from the earlier version, you at Build)". This doesn't raise the task's `rev`: the build already follows it. On a fresh plan after a set-aside, read the rulings in the newest set-aside build record (`history/set-aside-*/build-record.md`) and carry in those that still apply (the same platform and mechanism, and the part still exists).
 
 ## 8. Requirement lines Design writes
 
