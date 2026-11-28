@@ -106,7 +106,7 @@ While it interviews you, your assistant may show a worked example from a fiction
 Three operations, all already in your folder:
 
 - **Ingest.** Drop a document in `raw/` and say *ingest it*, or just tell your assistant something you know. It proposes which pages would change and what would land on each, writes after you say yes, and reports every file it touched. Each claim carries a footnote back to its source.
-- **Query.** Ask a question about your work. Your assistant reads `index.md` first, opens only the pages that could hold the answer, answers from those pages, and cites them. If a page links to a record in one of your systems and the question needs facts that system keeps, it reads that record live and cites the link and the time it read it. If it cannot reach the system, the record is not found, or the connector is signed in to a different account, it says which. If the answer is in neither place, it says so. If the answer is worth keeping, it offers to file it as a Note.
+- **Query.** Ask a question about your work. Your assistant reads `index.md` first, opens only the pages that could hold the answer, answers from those pages, and cites them. Beside a cited page, it notes when that page isn't confirmed yet, has changed since you confirmed it, or is due for a check. If a page links to a record in one of your systems and the question needs facts that system keeps, it reads that record live and cites the link and the time it read it. If it cannot reach the system, the record is not found, or the connector is signed in to a different account, it says which. If the answer is in neither place, it says so. If the answer is worth keeping, it offers to file it as a Note.
 - **Lint.** Say *lint*. Your assistant reads the rulebook and sweeps every page: contradictions, claims past their date, orphans, connections missing their other side, and pages worth writing. It reports first and fixes only what you approve. Safe to schedule; ingest is not, because it writes.
 
 ### Following a link to your system
@@ -118,6 +118,10 @@ An example question: *"Where does the Acme deal stand?"* Your assistant opens `k
 ### Built your graph before this change?
 
 Tell your AI: *Use the building-knowledge-graph skill to upgrade my knowledge graph: add the `records:` convention to `SCHEMA.md` — a page may link to its record in a system of record, and facts that system keeps stay there — and replace the Answering my questions section of my standing-rules file with the skill's current version.* Nothing else needs rebuilding.
+
+### Answers don't flag unconfirmed pages?
+
+If your assistant cites pages without telling you which ones aren't confirmed or are due for a check, your rules file has the older *Answering my questions* section. Tell your AI: *Use the building-knowledge-graph skill to replace the Answering my questions section of my rules file with the current version.* Nothing else changes.
 
 ### Built your graph to OKF 0.2?
 
