@@ -36,6 +36,20 @@ class Candidates(unittest.TestCase):
     def test_named_by_release_notes_always_proposed(self):
         self.assertTrue(self.rows([ev("TE-z")], named=["TE-z"])["TE-z"]["proposed"])
 
+    def test_named_reason_names_no_release(self):
+        # PR #318 review: a reason tied to one release's notes goes stale after it ships
+        why = self.rows([ev("TE-z")], named=["TE-z"])["TE-z"]["why"]
+        self.assertEqual(why, "named in the release notes")
+
+
+class GateBanner(unittest.TestCase):
+    def test_named_safety_run_says_partial(self):
+        # PR #318 review: `--tier safety <ids>` must never read as the whole gate
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        import run_eval as R
+        self.assertIn("partial gate run", R.safety_banner(3, named=True))
+        self.assertNotIn("partial", R.safety_banner(9, named=False))
+
 
 if __name__ == "__main__":
     unittest.main()

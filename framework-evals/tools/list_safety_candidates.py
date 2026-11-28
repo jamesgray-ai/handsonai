@@ -33,7 +33,7 @@ def candidates(path, named=frozenset()):
     for ev in data["evals"]:
         if ev.get("retired") or (ev.get("tier") or data.get("default_tier") or "regression") != "core":
             continue
-        why = ("named in the 10.5.0 release notes" if ev["id"] in named
+        why = ("named in the release notes" if ev["id"] in named
                else "id prefix" if ev["id"].startswith(PREFIXES)
                else (lambda m: f"mentions '{m.group(0)}'" if m else "")(WORDS.search(_text(ev))))
         plats = {ev.get("platform")} | {s.get("platform") for s in ev.get("sessions") or []}

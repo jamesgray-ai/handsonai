@@ -330,15 +330,15 @@ The plugin copies of the two `tools/` scripts are kept identical to `registry-te
 
 ### Each skill's files
 
-Every skill carries `SKILL.md` and `references/routing.md`. The rest follow each step spec's files section (analyze 3 and 6, deconstruct 17, design 13, build 15, test 15), which also names the approved lines each file holds:
+Every step skill carries `SKILL.md` and five synced copies in `references/`: `routing.md`, `routing-rare.md`, `location.md`, `saving.md` and `platform-facts.md` (canonical in `scripts/framework/`, copied by `scripts/sync-routing.sh`). Which file holds each approved line is recorded in `framework-evals/approved-lines.json`, not here. Each skill's own files:
 
 | Skill | Its other files |
 |---|---|
-| Analyze | `references/part-1-reading-and-the-lens.md` (N-A11), `evidence-pass.md` (N-A12, N-A13, N-A16, N-A19), `the-walk.md` (N-A14, N-A17, N-A20, N-A22, the do-more-of and walk questions), `registering-candidates.md` (N-A15, the value-lever definition line), `report-format.md`, `resuming-and-picking-up.md`; every other line in `SKILL.md` |
-| Deconstruct | `references/choosing-a-workflow.md`, `from-a-document.md`, `interview.md`, `personal-life.md`, `re-runs.md`, `requirements-template.md`, `saving-the-requirements.md`, `storage.md`, `location.md`, `routing.md`, `routing-rare.md`, `saving.md`, `platform-facts.md` |
-| Design | `references/plan-template.md`, `self-test-checklist.md`, `updating-the-plan.md`, `capability-domains.md`, `orchestrator-on-primary-loop.md` |
-| Build | `references/setup.md`, `claude-code-block.md`, `fresh-chat-run.md`, `carried-lines.md`, `standard-tasks.md`, `package-and-install.md`, `microsoft-365-agent.md`, `fix-mode.md`, `live-change.md`, `build-record-template.md`, `skill-spec.md`, `agent-spec.md`; `scripts/test-run.sh` |
-| Test | `references/hand-overs.md`, `claude-code-runs.md`, `going-live.md`, `rounds.md`, `results-template.md`; `scripts/test-run.sh` |
+| Analyze | `references/part-1-reading-and-the-lens.md`, `evidence-pass.md`, `the-walk.md`, `registering-candidates.md`, `report-format.md`, `resuming-and-picking-up.md` |
+| Deconstruct | `references/choosing-a-workflow.md`, `from-a-document.md`, `interview.md`, `personal-life.md`, `re-runs.md`, `requirements-template.md`, `saving-the-requirements.md`, `storage.md` |
+| Design | `references/plan-template.md`, `drafting.md`, `questions.md`, `review.md`, `self-test-checklist.md`, `updating-the-plan.md`, `changes.md`, `schedules.md`, `variants.md`, `light-track.md`, `microsoft-365.md`, `capability-domains.md`, `orchestrator-on-primary-loop.md`; synced copies `shared-lines.md` and `requirement-lines.md` |
+| Build | `references/setup.md`, `creator.md`, `claude-code-block.md`, `fresh-chat-run.md`, `carried-lines.md`, `standard-tasks.md`, `package-and-install.md`, `microsoft-365-agent.md`, `fix-mode.md`, `live-change.md`, `build-record-template.md`, `skill-spec.md`, `agent-spec.md`; `scripts/test-run.sh` (synced) |
+| Test | `references/hand-overs.md`, `claude-code-runs.md`, `going-live.md`, `rounds.md`, `results-template.md`, `requirement-lines.md` (Test's own copy, kept by hand, not synced); `scripts/test-run.sh` (synced) |
 
 The lines every built workflow carries (the practice-run first line, the never-made rule, the flag, re-check and time-saved lines, N-T19's inside form) live only in Build's `references/carried-lines.md`, which both the built-text check and Microsoft 365's build prompt quote.
 

@@ -702,6 +702,13 @@ def dry_run(evs, evals_path, data):
     return errs
 
 
+def safety_banner(n, named):
+    """The safety tier's opening line; a run of named ids is never mistaken for the whole gate."""
+    if named:
+        return f"safety: {n} evals (partial gate run: only the named evals, not the whole gate)"
+    return f"safety: {n} evals"
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("out_dir")
@@ -740,7 +747,7 @@ def main():
     if args.tier == "safety":
         if not evs:
             sys.exit("no safety evals selected")
-        print(f"safety: {len(evs)} evals")
+        print(safety_banner(len(evs), bool(args.eval_ids)))
     if args.tier == "safety" and not args.eval_ids:
         # the gate never shrinks quietly (Pass 0 review): a blocked safety eval fails the round
         blocked = [ev["id"] for ev in evs if ev.get("blocked_on")]
