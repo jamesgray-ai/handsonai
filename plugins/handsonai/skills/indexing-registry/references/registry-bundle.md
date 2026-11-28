@@ -280,8 +280,10 @@ the two.
 
 **Errors:**
 
-- Missing required frontmatter, or a malformed `generated` stamp (not a single-line map with `by`
-  and `at`; `at` neither a UTC instant nor, on an older node, a bare date)
+- Missing required frontmatter fields on a page, unreadable frontmatter, or a malformed `generated`
+  stamp (not a single-line map with `by` and `at`; `at` neither a UTC instant nor, on an older
+  node, a bare date). A `.md` file with no frontmatter at all isn't a page (OKF v0.3 §3.2): it is
+  a warning, below, and every other check skips it
 - Multi-line/block-scalar values
 - Directory↔type disagreement
 - Invalid enum values
@@ -314,6 +316,9 @@ the two.
 **Warnings:**
 
 - **A registry still at OKF 0.2** (once per registry): offer the upgrade (section 10)
+- A `.md` file in the registry with no frontmatter (a `README.md`, say): not a page, so skipped and
+  needing no index entry
+- A frontmatter key written twice: the last value is read (OKF v0.3 §4: write each key once)
 - Malformed actor string in `generated.by` or `verified` (not `process:<name>`, `human:<id>`,
   another `scheme:id`, or the agent form `<app>/<model id>`)
 - A `verified` event missing `by` or `at` (ignored); a check the content has outrun (every

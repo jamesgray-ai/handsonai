@@ -13,7 +13,7 @@ const { execFileSync } = require('child_process');
 // the workspace's is missing or lower; package.json carries the same number.
 // Raise both together whenever compose, lint, this file, the dashboard
 // template or the data-island schema change.
-const TOOLS_VERSION = '11.1.0';
+const TOOLS_VERSION = '11.1.1';
 
 // Plural directories -> singular concept type. Directory<->type agreement is
 // lint-enforced (SCHEMA.md "Types and directories").
@@ -99,6 +99,10 @@ function parseFrontmatter(text) {
     return { fields: null, body: raw, error: 'unterminated frontmatter block (no closing "---")' };
   }
   const fields = {};
+  // OKF v0.3 §4: a producer never writes a key twice. Keep the last value, as before, and
+  // report the key so lint can warn.
+  const duplicates = [];
+  const setField = (k, v) => { if (Object.prototype.hasOwnProperty.call(fields, k) && !duplicates.includes(k)) duplicates.push(k); fields[k] = v; };
   const head = raw.slice(4, end);
   const lines = head.split('\n');
   for (let i = 0; i < lines.length; i++) {
@@ -118,7 +122,7 @@ function parseFrontmatter(text) {
         if (!map) return { fields: null, body: raw, error: `bad ${blk[1]} entry (each must be a one-line { ... } map): "${item}"` };
         items.push(map);
       }
-      fields[blk[1]] = items;
+      setField(blk[1], items);
       continue;
     }
     if (/^[\w-]+:\s*[>|][+-]?\s*$/.test(line)) {
@@ -153,9 +157,9 @@ function parseFrontmatter(text) {
       if (!map) return { fields: null, body: raw, error: `bad flow map entry: "${v}"` };
       v = map;
     }
-    fields[m[1]] = v;
+    setField(m[1], v);
   }
-  return { fields, body: raw.slice(end + 5) };
+  return { fields, body: raw.slice(end + 5), duplicates };
 }
 
 function unquote(v) {
@@ -248,6 +252,12 @@ function orderedLinks(sectionText) {
   let m;
   while ((m = re.exec(sectionText || ''))) out.push({ title: m[1], href: m[2] });
   return out;
+}
+
+// OKF v0.3 §3.2: a .md file with no frontmatter is not a concept, and readers skip it. One whose
+// frontmatter is there but can't be read (unterminated, multi-line) still counts, so lint reports it.
+function isConcept(node) {
+  return !!(node && (node.fm || node.error));
 }
 
 // --- Domain state and lifecycle (OKF v0.3 §5.4; SCHEMA.md "Domain state and lifecycle")
@@ -673,7 +683,7 @@ module.exports = {
   TOOLS_VERSION,
   DIR_TYPES, RESERVED, ENUMS, LEGACY_TOLERATED, BANNED_FIELDS, SECTION_NAMES,
   ARTIFACT_LABELS, LEGACY_LABELS, AT_INSTANT, AT_DATE, RECORD_MARKERS,
-  LIFECYCLE_STATUS, STATE_TYPES, isActor, toMillis, stateOf, okfVersionOf, isLegacyVersion, resolveHref, linkTo, resolveOutside, verifiedEvents,
+  LIFECYCLE_STATUS, STATE_TYPES, isActor, toMillis, stateOf, isConcept, okfVersionOf, isLegacyVersion, resolveHref, linkTo, resolveOutside, verifiedEvents,
   normalizeLineEndings, parseFrontmatter, parseCapabilityFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
   findGeneratedBlocks, renderGeneratedBlock, replaceGeneratedBlock,
   loadBundle, scanSops, frameworkFolder, scanFrameworkFolders, resolveRepoLink, runLogHasEntries, artifactLabels, scanCapabilities,

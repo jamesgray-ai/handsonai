@@ -130,6 +130,10 @@ again, and lint warns. The leader's `<id>` is asked once, at their first check, 
 (`verified`, `sources`, `tags`, and any `x-` key) and leaves the lines it didn't change as they
 were (OKF v0.3 §4, §4.1).
 
+**Write each key once** (OKF v0.3 §4); lint warns on a key written twice, and the last value is
+read. **A `.md` file with no frontmatter isn't a page** (OKF v0.3 §3.2): a `README.md` in a
+folder, say. Lint warns, and every check, index and view skips it.
+
 **Reserved files are exempt.** `log.md` and every `index.md` carry no concept frontmatter. The
 sole exception is the bundle root `index.md`, which carries the bundle's metadata: `okf_version`
 (required), and optionally `title`, `description`, `license` and `x-` keys (§8.1). Lint warns on
@@ -146,7 +150,8 @@ due for a re-check when now ≥ `stale_after`. A value that isn't a date or a UT
 error: it is never read as fresh (§5.5).
 
 **`big_change`** is permitted on Workflow nodes: `"[reason], [date]"`, written by Design when it
-sends a workflow back for a redesign, and removed by Deconstruct when the redo is saved. Design also
+sends a workflow back for a redesign, and removed by Deconstruct when the redo is saved. An empty
+`big_change` reads as absent (OKF v0.3 §11.2). Design also
 writes one entry in `log.md` with the reason, which stays.
 
 Optional standard fields: `verified` (above), `tags: [a, b]`, and, on a deprecated node,
@@ -251,7 +256,7 @@ markers. Regenerating `index.md` keeps the root index's frontmatter (§8.1).
 These views are regenerated, and this bundle is linted, **by your AI assistant reading the bundle
 against this SCHEMA**, or, where code can run, by the framework's own compose and lint scripts,
 which follow these same rules. The rules it checks:
-required frontmatter present · single-line values · directory↔type agreement · enum values ·
+required frontmatter present on every page (a `.md` with no frontmatter isn't a page: a warning) · single-line values · directory↔type agreement · enum values ·
 domain state in `state`, `status` the lifecycle only, a retired Workflow also `status: deprecated` ·
 banned fields absent · link targets resolve, in-bundle links root-relative · `superseded_by` reaches
 a concept · `stale_after` a date or a UTC instant · curated-list membership (exactly one parent per
@@ -264,7 +269,8 @@ is skipped) · legacy artifact labels only on older nodes. Warnings (not errors)
 OKF 0.2 (the upgrade offer), a workflow folder in the framework folder claimed by no Workflow, a
 re-check overdue (now ≥ `stale_after`), a `backlog` workflow older than six months, a Note linking
 no node, uncaptured skills/agents, a malformed actor string in `generated.by` or `verified`, a
-`verified` event missing `by` or `at`, a check the content has outrun, `superseded_by` without
+`verified` event missing `by` or `at`, a check the content has outrun, a frontmatter key written
+twice, a `.md` with no frontmatter, `superseded_by` without
 `status: deprecated`, frontmatter in the wrong
 `index.md`, a `log.md` out of the §9 form, an artifact link pointing outside the workflow's derived
 LOB `folder:` when one is set, and stale Function `# Owns` content (present but no longer matching the derived owners list — regenerate via

@@ -60,7 +60,7 @@ out=$(lint_output broken/warn-bad-actor)
 grep -q "WARN.*generated.by" <<<"$out" && ok "actor-string warned" || bad "expected actor warning"
 out=$(lint_output broken/warn-misfiled-note)
 grep -q "WARN.*[Nn]ote" <<<"$out" && ok "misfiled note warned" || bad "expected note warning"
-for case in bad-enum dir-type-mismatch missing-owner missing-frontmatter broken-link banned-field \
+for case in bad-enum dir-type-mismatch missing-owner broken-link banned-field \
             unclaimed-sop double-claim sop-backpointer-mismatch runlog-status-contradiction \
             double-parent-list unassigned-inproduction missing-owns-block unterminated-generated \
             multiline-frontmatter missing-index-entry missing-dir-index \
@@ -70,6 +70,11 @@ for case in bad-enum dir-type-mismatch missing-owner missing-frontmatter broken-
     grep -q "ERROR" <<<"$out" && ok "$case errors" || bad "$case: no ERROR line"
   fi
 done
+# a workflow page with no frontmatter isn't a page (OKF v0.3 §3.2): warned and skipped, so what it
+# claimed (here its SOP) is unclaimed, which is the error
+out=$(lint_output broken/missing-frontmatter)
+grep -q "WARN.*/workflows/first-workflow.md: no frontmatter, so not a registry page" <<<"$out" && ok "missing-frontmatter: warned as not a page" || bad "missing-frontmatter: expected the not-a-page warning"
+grep -q "ERROR.*missing required frontmatter" <<<"$out" && bad "missing-frontmatter: no longer an error in itself" || ok "missing-frontmatter: not an error in itself"
 run_lint broken/unassigned-backlog && ok "unassigned backlog is warning-only" || bad "backlog unassigned must not error"
 # lint: claims sweep dedupes claimants from the SAME workflow (Finding 4) --
 # two links to sops/one-sop.md in one workflow's prose is one claim, not a
@@ -740,6 +745,18 @@ out=$(lint_ws "$WS"); grep -q "^ERROR" <<<"$out" && bad "0.2 registry: these mus
 grep -q 'WARN.*stale_after "next spring"' <<<"$out" && ok "0.2 registry: a malformed stale_after warns" || bad "0.2 registry: expected a stale_after warning"
 WS=$(stage valid-bundle); to02 "$WS"; node "$TOOLS/upgrade-registry.js" "$WS/registry" >/dev/null
 out=$(lint_ws "$WS"); grep -q "^ERROR\|OKF 0.2" <<<"$out" && bad "upgraded registry should lint clean as 0.3: $(grep -E 'ERROR|OKF' <<<"$out")" || ok "a 0.2 registry upgraded lints clean as 0.3"
+
+# --- 11.1.1: OKF v0.3 gaps
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^(state: backlog)$/$1\nbig_change: ""/m'
+expect_not "$WS" "second-workflow.md.*big_change" "an empty big_change is read as absent (OKF v0.3 §11.2)"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^(trigger: .*)$/$1\ntrigger: "Friday"/m'
+expect "$WS" WARN 'second-workflow.md: frontmatter key "trigger" appears more than once -- the last value is read' "a key written twice warns (OKF v0.3 §4)"
+WS=$(stage valid-bundle); printf '# About this folder\n\nNotes for people.\n' > "$WS/registry/workflows/README.md"
+out=$(lint_ws "$WS")
+grep -q "^ERROR" <<<"$out" && bad "a README.md with no frontmatter should not error: $(grep ERROR <<<"$out")" || ok "a .md with no frontmatter is not an error (OKF v0.3 §3.2)"
+grep -q 'WARN.*/workflows/README.md: no frontmatter, so not a registry page' <<<"$out" && ok "a .md with no frontmatter warns and is skipped" || bad "expected the not-a-page warning"
+(cd "$WS" && node "$TOOLS/compose-registry.js" registry >/dev/null 2>&1) && ok "compose runs past a .md with no frontmatter" || bad "compose failed on a .md with no frontmatter"
+grep -q "README" "$WS/registry/workflows/index.md" && bad "compose listed README.md in the workflows index" || ok "compose leaves a non-page out of the index"
 
 # TOOLS_VERSION: raised, equal to package.json's version, and the plugin ships the same tools
 node -e "

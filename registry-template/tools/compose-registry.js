@@ -130,6 +130,7 @@ function classify(nodes) {
     const base = path.posix.basename(relPath);
     if (base === 'index.md') continue;
     if (lib.RESERVED.has(base)) continue; // SCHEMA.md, log.md
+    if (!lib.isConcept(node)) continue; // a .md with no frontmatter isn't a page (OKF v0.3 §3.2)
     concepts.push(node);
   }
   const kindOf = (n) => lib.DIR_TYPES[n.relPath.split('/')[1]];
