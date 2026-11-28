@@ -130,6 +130,7 @@ const SIDEBAR_EXEMPT_ROUTES = new Set([
   '/CONTRIBUTING', // repo meta, not reader-facing
   '/feed', // feed landing page
   '/platforms/resources', // child of /platforms/; orphaned, wants an inbound link
+  '/platforms/google-gemini/cli', // pointer to /platforms/google-gemini/antigravity-cli/, kept so old links work
 ]);
 
 /**

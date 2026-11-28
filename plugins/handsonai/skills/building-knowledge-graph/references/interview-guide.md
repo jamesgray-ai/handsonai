@@ -202,7 +202,7 @@ Follow SKILL.md § Close. Lines to use:
 - Skills check, on every platform: "Ask me to *ingest* by name (or type `/ingest`, if your tool has slash commands) and tell me whether the ingest skill starts. If nothing happens, we'll add the two skills where your tool keeps skills or saved instructions, so they load."
 - If the tool can't load skills: "Since the skills aren't loading, whenever you want one, say *read `<skills folder>/ingest/SKILL.md` and follow it*, or the same for `lint`."
 - Ingest: "Pick one document in `raw/`, or paste one, and say *ingest it*."
-- Query: "Ask me something that crosses a connection, like *which playbooks have we used with Acme?* I'll answer from your pages, plus a linked record if the question needs what that system keeps, and tell you which ones I read. If I can't find the answer in either, I'll say so rather than guess."
+- Query: "Ask me something that crosses a connection, like *<a question built from one of their relationships and a page you seeded, in their own words>* I'll answer from your pages, plus a linked record if the question needs what that system keeps, and tell you which ones I read. If I can't find the answer in either, I'll say so rather than guess."
 - File the answer: "Want me to keep that answer as a Note so it's there next time?"
 - Lint: "Say *lint* and I'll sweep every page against your rulebook and report."
 - Verify: "Open <one seeded page> and tell me if it's right. If it is, I'll mark it verified by you."

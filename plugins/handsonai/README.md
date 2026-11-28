@@ -18,7 +18,7 @@ One plugin, three places it installs — pick yours. Full step-by-step (with scr
   /plugin install handsonai@handsonai
   ```
 
-No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, Cursor, Gemini CLI)? Download the skills as ZIPs from the [Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
+No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, Cursor, Google Antigravity)? Download the skills as ZIPs from the [Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
 
 - **Microsoft 365 Copilot** runs the framework in Copilot Cowork as custom skills: upload the skill ZIPs, or `handsonai-plugin.zip` (Copilot Cowork converts a Claude plugin on upload). Build makes any agent the workflow needs in Agent Builder. Your framework files live in a `Framework` folder in OneDrive, separate from Copilot Cowork's own folder.
 - **Gemini, Cursor and others:** the Knowledge Graph, AI Registry and Building Skills skills install as ZIPs. The five framework skills are built for Claude, ChatGPT, Codex, Claude Code and Microsoft 365 Copilot; on those, if no drive connection can save, each step gives you its files to save and you paste or attach them when you start the next step.
