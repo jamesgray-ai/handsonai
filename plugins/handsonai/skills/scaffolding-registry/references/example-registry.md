@@ -146,6 +146,7 @@ kickoff to handoff.
 # Owns
 
 <!-- GENERATED:owns -->
+- [Client Delivery](/processes/client-delivery.md)
 <!-- /GENERATED -->
 ```
 
