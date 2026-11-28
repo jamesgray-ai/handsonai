@@ -58,7 +58,7 @@ The `title` is the join key: it's the Process node's own title, and the Process 
 
 ## SOP Cross-References
 
-In the Workflow Sequence section, SOP links should use **relative paths** pointing to the SOP markdown files. Take each SOP's path from its Workflow node's `SOP` link and make it relative to the guide: a workflow taken through the AI Workflow Framework keeps its SOP in its folder in the framework folder (`../framework/<slug>/<slug>-sop.md` from `process-guides/`, on every platform); any other SOP is usually in `sops/`. A node's `SOP` link that doesn't resolve as written (an older `<slug>/<slug>-sop.md`) resolves at `framework/` plus the same path. An existing guide may hold an older `../<slug>/<slug>-sop.md` link; when one doesn't resolve, take the SOP from the Workflow node's own `SOP` link instead:
+In the Workflow Sequence section, SOP links should use **relative paths** pointing to the SOP markdown files. Take each SOP's path from its Workflow node's `SOP` link, which is file-relative from the node (`../../framework/<slug>/<slug>-sop.md` from `registry/workflows/`, so the file `framework/<slug>/<slug>-sop.md` in the working folder), and make it relative to the guide: a workflow taken through the AI Workflow Framework keeps its SOP in its folder in the framework folder (`../framework/<slug>/<slug>-sop.md` from `process-guides/`, on every platform); any other SOP is usually in `sops/`. On a registry still at OKF 0.2 the node's link reads from the registry's parent folder (`framework/<slug>/<slug>-sop.md`), and one that doesn't resolve as written (an older `<slug>/<slug>-sop.md`) resolves at `framework/` plus the same path. An existing guide may hold an older `../<slug>/<slug>-sop.md` link; when one doesn't resolve, take the SOP from the Workflow node's own `SOP` link instead:
 
 ```markdown
 > SOP: [<Workflow Name> SOP](../sops/<workflow-name>-sop.md)
@@ -86,7 +86,7 @@ If the SOP file doesn't exist yet, note it as pending:
 2. Gather strategic context from user (frequency, timing, decision points)
 3. Draft Process Guide and present for review
 4. Write markdown file after user approval
-5. Set `guide:` on the Process node, refresh `REGISTRY.md`, then invoke `indexing-registry` for a maintenance pass
+5. Set `guide:` on the Process node, file-relative from the node (`guide: ../../process-guides/<file>.md`), refresh `REGISTRY.md`, then invoke `indexing-registry` for a maintenance pass
 
 ### From scratch
 1. Gather process details conversationally (name, component workflows, sequence, triggers)

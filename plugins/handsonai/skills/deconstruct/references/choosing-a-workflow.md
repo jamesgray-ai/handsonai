@@ -5,7 +5,7 @@ Read for the backlog choice or cold entry: a new interview (routing state 3), af
 ## The backlog choice
 
 Run it whenever there are backlog candidates, whether or not the leader mentions them. The candidates are:
-- with a registry, the `status: backlog` Workflow nodes (`registry/` in the working folder), and only those: a `backlog.md` left beside a registry isn't read (Analyze offers to register what it lists, at its own entry);
+- with a registry, the backlog Workflow nodes (`state: backlog`; on a registry still at OKF 0.2, `status: backlog`) (`registry/` in the working folder), and only those: a `backlog.md` left beside a registry isn't read (Analyze offers to register what it lists, at its own entry);
 - with no registry, the lines of `backlog.md` in the framework folder; with no `backlog.md`, the candidate list in the framework folder's `ai-opportunity-report.md`.
 
 With a registry, no backlog node and a `backlog.md` still in the framework folder, say in one line (model wording) that the workflows listed there aren't in the registry yet, and give Analyze's start phrase with the working folder as the location, to say in a new chat ("run the analyze skill. My files are in [location]."); then cold entry's question, in the same message, for a leader who wants to carry on here.

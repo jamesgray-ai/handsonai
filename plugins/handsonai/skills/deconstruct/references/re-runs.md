@@ -56,7 +56,7 @@ The progress file has a `Big change: [the recorded reason]` line after the `Said
 
 **A big change:**
 - Move each file in the newest `history/set-aside-*/` folder back where it came from: `design-plan.md`, `build-record.md` and `test-results.md` into the workflow folder, and every `test-results-round-*.md` (and any other `test-results-*.md`) back to the top of `history/`, where Test reads its finished rounds.
-- With a registry, put the node's "Design plan" and "Test results" links back under `# Artifacts`, for whichever of those files moved back, each only if it isn't there already, in the registry's one link form on every platform (`- [Design plan](framework/[slug]/design-plan.md)`; the same for `test-results.md`), and restamp `generated`.
+- With a registry, put the node's "Design plan" and "Test results" links back under `# Artifacts`, for whichever of those files moved back, each only if it isn't there already, in the registry's one link form on every platform, file-relative from the node (`- [Design plan](../../framework/[slug]/design-plan.md)`; the same for `test-results.md`), and restamp `generated`.
 - Remove `big_change`, and move the progress file, if any, into `history/`.
 - Then say, naming only what was set aside:
 
@@ -85,4 +85,4 @@ A requirements file with no `## Output` section is a 10.x file. On a re-run or a
 
 ## What's saved
 
-The registry write keeps the node's status on a re-run and a redo; after a redo, it removes `big_change`. Everything else follows SKILL.md's Phase 3 and the requirements template.
+The registry write keeps the node's `state` on a re-run and a redo; after a redo, it removes `big_change`. Everything else follows SKILL.md's Phase 3 and the requirements template.

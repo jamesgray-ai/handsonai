@@ -199,7 +199,7 @@ The workflow's registry entry is its Workflow concept node: `registry/workflows/
 After the user confirms name and description (deliverable folded in):
 
 1. **If a Workflow node already exists** for this workflow (the user is renaming or enriching), update only the fields below — preserve everything else, and never write inside a GENERATED block.
-2. **If none exists** (naming before running deconstruct), create a **stub node** with `status: backlog` (meaning "named only" — deconstruct will merge into it later, never overwrite fields you set):
+2. **If none exists** (naming before running deconstruct), create a **stub node** with `state: backlog` (meaning "named only" — deconstruct will merge into it later, never overwrite fields you set):
 
 ```yaml
 ---
@@ -207,7 +207,7 @@ type: Workflow
 title: "Lead Qualification"
 description: "When new leads come in, scores them against your criteria and produces a ranked list with contact details for the sales team."
 generated: { by: process:naming-workflows, at: YYYY-MM-DDTHH:MM:SSZ }
-status: backlog
+state: backlog
 trigger: "New leads arrive"
 ---
 # Lead Qualification
@@ -226,7 +226,7 @@ When new leads come in, scores them against your criteria and produces a ranked 
 <!-- /GENERATED -->
 ```
 
-`at` is the moment of the write as a UTC instant (`2026-10-24T15:04:05Z`), never a bare date.
+`at` is the moment of the write as a UTC instant (`2026-10-24T15:04:05Z`), never a bare date. Domain state goes in `state`, never `status` (the schema keeps `status` for `draft`, `stable` or `deprecated`). Updating an existing node, keep every key you don't own (`verified` included) and restamp `generated` only when the content changes.
 
 Then add its line to the chosen Process's `# Workflows` list (`registry/processes/<process-slug>.md`) — never write `process:`, `owner:`, or `sequence:` on the Workflow node itself; process membership and sequence live only in the parent list.
 

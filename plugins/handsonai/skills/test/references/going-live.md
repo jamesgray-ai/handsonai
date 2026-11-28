@@ -2,13 +2,13 @@
 
 Read for Part 4: on the leader's yes to "Take it live?", at state 10 when a go-live was interrupted (finish the remaining steps without asking again), and on every Ready round of a live workflow (section 4). Only the leader switches a schedule on, off or back on, or switches a version off: give the steps, wait for their word, and never say you did it.
 
-**Contents:** 1. Going live for the first time · 2. Replacing another version · 3. The go-live message · 4. A re-check or change that passes · 5. The registry's log lines · 6. What Test doesn't do
+**Contents:** 1. Going live for the first time · 2. Replacing another version · 3. The go-live message · 4. A re-check or change that passes · 5. The registry's log entries · 6. What Test doesn't do
 
 ## 1. Going live for the first time
 
 In this order:
 
-1. **The registry,** where there is one (`registry/` in the working folder), as the indexing-registry skill's `registry-bundle.md` says: the node's `status: in-production`; `stale_after` three months on; the "Test results" link, in SKILL.md's form; one log line (section 5); `generated` restamped (`by: process:test`, `at` a UTC instant); then the indexing-registry maintenance pass (a pass that fails never stops the go-live), all with no text of its own, never a line on what you're writing, stamping or refreshing (a failed refresh gets N-F20, as SKILL.md's *Close the round* gives it). With no registry, the build record's "Live since" line is the live marker.
+1. **The registry,** where there is one (`registry/` in the working folder), as the indexing-registry skill's `registry-bundle.md` says: the node's `state: in-production` (on a workflow brought back from retired, Design has already removed its `status: deprecated`); `stale_after` three months on; the "Test results" link, in SKILL.md's form; one log entry (section 5); `generated` restamped (`by: process:test`, `at` a UTC instant); then the indexing-registry maintenance pass (a pass that fails never stops the go-live), all with no text of its own, never a line on what you're writing, stamping or refreshing (a failed refresh gets N-F20, as SKILL.md's *Close the round* gives it). With no registry, the build record's "Live since" line is the live marker.
 2. **The build record's top section,** under "What was built": "Live since YYYY-MM-DD" (the date in that form, which routing reads; for a retired workflow brought back, rewritten with this date) and "How to switch it off: [steps for this platform: the schedule, then the skill or plugin]"; and `schedule:` (`none`; `not-on` once Build's switch-on steps are given; a `safety-incomplete` value left as Build wrote it).
 3. **The run log,** only where the workflow writes one: `runs.md` (or `runs-[workflow-slug].md`) started where Build installed the workflow, header only, with `recheck_after` (the same date as `stale_after`; with no registry, three months on) and `first_time` (section 3's first-time items). For a retired workflow brought back that already has one, update its header. Never start one anywhere else, and never ask the leader to keep one.
 4. **Nothing left switched on** (Claude Code): any block lifted, and the wrapper's allow removed (`claude-code-runs.md` section 7), then the settings read back.
@@ -51,7 +51,7 @@ Said exactly, with its parts chosen from the files, in this order, and nothing e
 
 On a Ready round of a live workflow (a re-check, a change, or a fix after either), with no "Take it live?":
 
-1. **Reset** `stale_after` (three months on) and the run log's `recheck_after`, and add the registry log line (section 5). This round becomes the comparison point. The round closed with `go_live: pending`; `go_live: done` is written last, once item 2 is answered and item 4 isn't waiting on an answer, as the last tool call before the message that ends the go-live (section 1, item 9).
+1. **Reset** `stale_after` (three months on) and the run log's `recheck_after`, and add the registry log entry (section 5). This round becomes the comparison point. The round closed with `go_live: pending`; `go_live: done` is written last, once item 2 is answered and item 4 isn't waiting on an answer, as the last tool call before the message that ends the go-live (section 1, item 9).
 2. **Replacing another version first,** where it applies (section 2): a live earlier-version workflow redone, or running work brought in, at its first Ready round; an older version still set up; a platform change.
 3. **The live form of the go-live message** (N-T34's live form was already said in the verdict; it isn't said again), chosen by the build record's `schedule:` and the plan's `SCH` task, said exactly:
    - **Something new for the next real run** (a kind of change a task changed since the comparison round makes, a W line in its *Meets*; a quick real check now declined, skipped or not yet made for one; or every first-time item after a `first` round on a live workflow): "Your next real run [does these for the first time: …]; check that each one works." and update the run log's `first_time` header.
@@ -67,16 +67,16 @@ On a Ready round of a live workflow (a re-check, a change, or a fix after either
 
 **Running work brought in** counts as live throughout (its node is `in-production`), so its first Ready round, after a `first` round, takes this live form: N-T48's running-work form first where the work was set up somewhere or scheduled, then "Live since" and "How to switch it off" written, and every first-time item named.
 
-## 5. The registry's log lines
+## 5. The registry's log entries
 
-One line each, in the registry log (`registry/log.md`):
+One bullet each, in the registry log (`registry/log.md`), at the end of today's `## YYYY-MM-DD` heading, the first heading below the log's description; write that heading first when the first one isn't today's (the indexing-registry skill's `registry-bundle.md` §7). Nothing already in the log is changed.
 
-| When | Line |
+| When | Entry |
 |---|---|
-| A first go-live | `[date]: [workflow] went live after test round [n]` |
-| A re-check or change that passes | `[date]: [workflow]: re-checked, ready` |
-| A re-check not ready | `[date]: [workflow]: re-check not ready` |
-| A changed version not ready | `[date]: [workflow]: changed version not ready` |
+| A first go-live | `- **Go-live** — [workflow] went live after test round [n]` |
+| A re-check or change that passes | `- **Re-check** — [workflow]: re-checked, ready` |
+| A re-check not ready | `- **Re-check** — [workflow]: re-check not ready` |
+| A changed version not ready | `- **Changed version** — [workflow]: changed version not ready` |
 
 ## 6. What Test doesn't do
 

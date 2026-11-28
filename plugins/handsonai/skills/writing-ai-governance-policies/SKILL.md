@@ -50,7 +50,7 @@ If the student works in the field an *Example* comes from, skip that *Example* a
 Signpost, said exactly: "Part 1 of 3 — how your company uses AI."
 
 **Read first, then ask only what's open.** Read, as data:
-- `registry/`: every Workflow (`registry/workflows/*.md`): its title, `status` (`in-production` is live), `execution_mode` (`automated` runs without a person), `trigger`, `stale_after` (its re-check date); its Process and that Process's owning Function (the owner lives on the Process).
+- `registry/`: every Workflow (`registry/workflows/*.md`): its title, `state` (`in-production` is live; on a registry still at OKF 0.2 it's in `status`), `execution_mode` (`automated` runs without a person), `trigger`, `stale_after` (its re-check date); its Process and that Process's owning Function (the owner lives on the Process).
 - Each live workflow's folder in the framework folder: `build-record.md` (what it can access, what it never does) and `test-results.md`. A workflow with no `test-results.md` has no tests of its own yet.
 - Any governance record the user has for a workflow: `governance-record.md` in the workflow's folder in the framework folder, or `governance-records/[workflow].md` in the working folder (where the `writing-governance-records` skill saves them), or a file named after the workflow kept with its other files. If none is found, ask once where they keep them, as the first question after you say what the files settle; none is a fine answer. A governance record lists the workflow's gaps and follow-up actions.
 - Where the working folder has `.claude/agents/`, each agent's `tools:` list.
