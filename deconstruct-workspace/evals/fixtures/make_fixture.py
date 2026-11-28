@@ -48,7 +48,7 @@ def fresh_registry(t, business, log_entry):
     idx = t / "registry" / "businesses" / "index.md"
     if idx.exists():
         body = "\n".join(l for l in idx.read_text().splitlines() if not l.startswith("_No entries yet"))
-        idx.write_text(body.rstrip("\n") + f"\n- [{business}](/businesses/business.md)\n")
+        idx.write_text(body.rstrip("\n") + f"\n- [{business}](/businesses/business.md) — {business}.\n")
 
 
 def node_path(t, slug):
@@ -69,7 +69,7 @@ def add_node(t, slug, title, description, trigger, status="backlog", body_extra=
     )
     idx = t / "registry" / "workflows" / "index.md"
     kept = [l for l in idx.read_text().splitlines() if not l.startswith("_No entries yet")]
-    idx.write_text("\n".join(kept).rstrip("\n") + f"\n- [{title}](/workflows/{slug}.md)\n")
+    idx.write_text("\n".join(kept).rstrip("\n") + f"\n- [{title}](/workflows/{slug}.md) — {description}\n")
 
 
 def add_process(t, slug, title, description, owner, workflows=()):
@@ -84,7 +84,7 @@ def add_process(t, slug, title, description, owner, workflows=()):
     )
     idx = t / "registry" / "processes" / "index.md"
     kept = [l for l in idx.read_text().splitlines() if not l.startswith("_No entries yet")]
-    idx.write_text("\n".join(kept).rstrip("\n") + f"\n- [{title}](/processes/{slug}.md)\n")
+    idx.write_text("\n".join(kept).rstrip("\n") + f"\n- [{title}](/processes/{slug}.md) — {description}\n")
     # a Process joins its line of business's # Processes list (the lint's error otherwise)
     lobs = sorted(p for p in (t / "registry" / "lines-of-business").glob("*.md") if p.name != "index.md")
     if lobs:
@@ -487,11 +487,11 @@ def m_backlog(t, business, about, objectives, cards, lens="Organizational", stat
                 f'---\ntype: Function\ntitle: "Operations"\ndescription: "Runs the studio day to day."\n{stamp}---\n'
                 "# Operations\n\nRuns the studio day to day.\n\n<!-- GENERATED:owns -->\n<!-- /GENERATED -->\n")
             biz.write_text(biz.read_text().rstrip("\n") + "\n\n# Lines of Business\n\n- [Studio](/lines-of-business/studio.md)\n")
-            (reg / "functions" / "index.md").write_text("# Functions\n\n- [Operations](/functions/operations.md)\n")
+            (reg / "functions" / "index.md").write_text("# Functions\n\n- [Operations](/functions/operations.md) — Runs the studio day to day.\n")
             (reg / "lines-of-business" / "studio.md").write_text(
                 f'---\ntype: LineOfBusiness\ntitle: "Studio"\ndescription: "The studio\'s client work."\n{stamp}state: active\n---\n'
                 "# Studio\n\nThe studio's client work.\n\n# Processes\n")
-            (reg / "lines-of-business" / "index.md").write_text("# Lines of Business\n\n- [Studio](/lines-of-business/studio.md)\n")
+            (reg / "lines-of-business" / "index.md").write_text("# Lines of Business\n\n- [Studio](/lines-of-business/studio.md) — The studio's client work.\n")
             pslug = re.sub(r"[^a-z0-9]+", "-", c["process"].lower()).strip("-")
             add_process(t, pslug, c["process"], f"{c['process']} at {business}.", "operations", [(slug, c["name"])])
     (t / "framework").mkdir(parents=True, exist_ok=True)

@@ -308,7 +308,11 @@ function compose(bundleDir) {
     const files = byKind(lib.DIR_TYPES[dirName]).slice().sort(cmpPath);
     const lines = [`# ${title}`, ''];
     if (files.length === 0) lines.push(EMPTY_INDEX_BODY);
-    else for (const f of files) lines.push(`- [${nodeTitle(f)}](${f.relPath})`);
+    // OKF v0.3 §8: an entry carries the linked page's description, on one line.
+    else for (const f of files) {
+      const d = oneLine(f.fm && f.fm.description);
+      lines.push(`- [${nodeTitle(f)}](${f.relPath})${d ? ` — ${d}` : ''}`);
+    }
     setIfChanged(path.join(absBundle, dirName, 'index.md'), lines.join('\n') + '\n');
   }
 

@@ -68,8 +68,9 @@ def registry(t, business, description, objectives, lobs, functions, log_entry):
     lob_list = "\n".join(f"- [{l[0]}](/lines-of-business/{slug(l[0])}.md)" for l in lobs)
     node(reg / "businesses" / f"{bslug}.md", "Business", business, description, "state: active\n",
          f"{obj}\n# Lines of Business\n\n{lob_list}\n")
-    (reg / "businesses" / "index.md").write_text(f"# Businesses\n\n- [{business}](/businesses/{bslug}.md)\n")
-    owns, all_procs = {}, []
+    # directory index entries carry the page's description (OKF v0.3 §8), as compose writes them
+    (reg / "businesses" / "index.md").write_text(f"# Businesses\n\n- [{business}](/businesses/{bslug}.md) — {description}\n")
+    owns, all_procs, pdescs = {}, [], {}
     for ltitle, ldesc, procs in lobs:
         plist = "\n".join(f"- [{p[0]}](/processes/{slug(p[0])}.md)" for p in procs)
         node(reg / "lines-of-business" / f"{slug(ltitle)}.md", "LineOfBusiness", ltitle, ldesc,
@@ -79,16 +80,17 @@ def registry(t, business, description, objectives, lobs, functions, log_entry):
                  "\n# Workflows\n")
             owns.setdefault(fslug, []).append(ptitle)
             all_procs.append(ptitle)
+            pdescs[ptitle] = pdesc
     (reg / "lines-of-business" / "index.md").write_text(
-        "# Lines of Business\n\n" + "\n".join(f"- [{l[0]}](/lines-of-business/{slug(l[0])}.md)" for l in lobs) + "\n")
+        "# Lines of Business\n\n" + "\n".join(f"- [{l[0]}](/lines-of-business/{slug(l[0])}.md) — {l[1]}" for l in lobs) + "\n")
     (reg / "processes" / "index.md").write_text(
-        "# Processes\n\n" + "\n".join(f"- [{p}](/processes/{slug(p)}.md)" for p in sorted(all_procs)) + "\n")
+        "# Processes\n\n" + "\n".join(f"- [{p}](/processes/{slug(p)}.md) — {pdescs[p]}" for p in sorted(all_procs)) + "\n")
     for fslug, ftitle, fdesc in functions:
         owned = "\n".join(f"- [{p}](/processes/{slug(p)}.md)" for p in sorted(owns.get(fslug, [])))
         node(reg / "functions" / f"{fslug}.md", "Function", ftitle, fdesc, "",
              f"\n<!-- GENERATED:owns -->\n{owned}\n<!-- /GENERATED -->\n")
     (reg / "functions" / "index.md").write_text(
-        "# Functions\n\n" + "\n".join(f"- [{f[1]}](/functions/{f[0]}.md)" for f in functions) + "\n")
+        "# Functions\n\n" + "\n".join(f"- [{f[1]}](/functions/{f[0]}.md) — {f[2]}" for f in functions) + "\n")
 
 
 def brightline(t):
@@ -179,7 +181,7 @@ def backlog_node(t, slug_, title, description, trigger, report_link="../../frame
     idx = t / "registry" / "workflows" / "index.md"
     old = idx.read_text()
     lines = [] if "_No entries yet" in old else [x for x in old.rstrip("\n").split("\n")[2:] if x]
-    idx.write_text("# Workflows\n\n" + "\n".join(lines + [f"- [{title}](/workflows/{slug_}.md)"]) + "\n")
+    idx.write_text("# Workflows\n\n" + "\n".join(lines + [f"- [{title}](/workflows/{slug_}.md) — {description}"]) + "\n")
 
 
 def skill(t, name, description):
@@ -559,7 +561,7 @@ def old_links(t):
     proc = t / "registry" / "processes" / "client-relationship-management.md"
     proc.write_text(proc.read_text().rstrip("\n") + "\n- [Quarterly Review Pack](/workflows/quarterly-review-pack.md)\n")
     idx = t / "registry" / "workflows" / "index.md"
-    idx.write_text(idx.read_text().rstrip("\n") + "\n- [Quarterly Review Pack](/workflows/quarterly-review-pack.md)\n")
+    idx.write_text(idx.read_text().rstrip("\n") + "\n- [Quarterly Review Pack](/workflows/quarterly-review-pack.md) — Before each quarterly client review, drafts the review pack from the project notes for you to check.\n")
     # a 0.2 registry, as a leader's is before the upgrade: the version warning
     lint_clean(t, allow=("registry is OKF 0.2",))
 

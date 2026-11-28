@@ -758,6 +758,12 @@ grep -q 'WARN.*/workflows/README.md: no frontmatter, so not a registry page' <<<
 (cd "$WS" && node "$TOOLS/compose-registry.js" registry >/dev/null 2>&1) && ok "compose runs past a .md with no frontmatter" || bad "compose failed on a .md with no frontmatter"
 grep -q "README" "$WS/registry/workflows/index.md" && bad "compose listed README.md in the workflows index" || ok "compose leaves a non-page out of the index"
 
+# --- #325: directory index entries carry the page's description (OKF v0.3 §8)
+WS=$(stage valid-bundle); (cd "$WS" && node "$TOOLS/compose-registry.js" registry >/dev/null 2>&1)
+grep -qF -- "- [Second Workflow](/workflows/second-workflow.md) — A backlog workflow with no artifacts yet." "$WS/registry/workflows/index.md" \
+  && ok "a directory index entry carries the page's description" || bad "index entry without its description: $(grep second-workflow "$WS/registry/workflows/index.md")"
+(cd "$WS" && node "$TOOLS/compose-registry.js" --check registry >/dev/null 2>&1) && ok "compose --check is current after the rewrite" || bad "compose --check not current after composing"
+
 # TOOLS_VERSION: raised, equal to package.json's version, and the plugin ships the same tools
 node -e "
 const lib=require(process.argv[1]); const pkg=require(process.argv[2]);
