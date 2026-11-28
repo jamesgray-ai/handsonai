@@ -1082,14 +1082,16 @@ FIRST_LINE_CLAIM = re.compile(r"(?i)\b(?:starts?|started|starting|begins?|began|
 
 
 def _no_false_first_line_claim(run, n=None):
-    """Pass 5 (E22, missed twice in James's run): once the leader pastes a reply whose practice-run line isn't its
-    opening words, no later AI message of that session says the reply starts (begins, opens) with it."""
+    """Pass 5 (E22, missed twice in James's run): after the leader pastes a reply whose practice-run line isn't its
+    opening words, no AI message says the reply starts (begins, opens) with it, until the leader pastes another reply
+    (a re-run), which is then the one judged."""
     for s in _sessions(run, n):
         late = False
         for i, t in enumerate(s["turns"]):
             if t["role"] != "ai":
-                if PRACTICE_LINE.lower() in norm(t["text"]).lower() and practice_line_position(t["text"]) != "first":
-                    late = True
+                if PRACTICE_LINE.lower() in norm(t["text"]).lower():
+                    # judged against the most recent reply the leader pasted (smoke round: a re-run with no preamble)
+                    late = practice_line_position(t["text"]) != "first"
                 continue
             if late and FIRST_LINE_CLAIM.search(norm(t["text"])):
                 return False, f"session {s['n']} turn {i + 1}: says the reply starts with the practice-run line, but a line came before it"

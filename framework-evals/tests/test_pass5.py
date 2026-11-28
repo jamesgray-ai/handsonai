@@ -123,6 +123,14 @@ class NoFalseFirstLineClaim(unittest.TestCase):
                                                  "started, so the run stands."))
         self.assertTrue(CS.check(self.C, good)[0])
 
+    def test_a_later_reply_that_starts_with_it_may_say_so(self):
+        # smoke round (pass5-test-smoke-1): after a re-run whose reply has no preamble, the claim is true
+        run = run_of(("leader", f"{PREAMBLE}\n\n{LINE}\n\n{DRAFT}"),
+                     ("ai", "A short line came before the practice-run line, before the workflow started. Run it again:"),
+                     ("leader", f"{LINE}\n\n{DRAFT}"),
+                     ("ai", "This time your reply starts with the practice-run line."))
+        self.assertTrue(CS.check(self.C, run)[0])
+
     def test_a_reply_that_does_start_with_it_may_say_so(self):
         run = run_of(("leader", f"{LINE}\n\n{DRAFT}"), ("ai", "Your block starts with the practice-run line."))
         self.assertTrue(CS.check(self.C, run)[0])

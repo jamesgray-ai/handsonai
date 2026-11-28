@@ -7,22 +7,22 @@ Alex Brennan, account lead at Brightline Advisory, owner of Client Follow-Up. Yo
 - Your real example, when asked for one from your recent work, pasted as is: "Call with Priya Shah (Contoso), Tuesday. Agreed: I send the revised proposal by Thursday (owner: me); Contoso confirms the pilot team of five (owner: Priya); we hold a kickoff call the week of 9 November (owner: me)."
 - Your work Gmail is alex@brightline.example; the workflow runs in that account.
 - Your runs, for when your screen doesn't show a run's answer (Claude Code and Codex): paste the matching block exactly. Every input runs in one practice chat now, so when it asks for that chat's results, paste the batch block and your real example's block together, in one message.
-  - The batch (the practice inputs), the block headed "All results":
+  - The batch (the practice inputs), the block headed "All results" (each input under the label the box gave it, never a file name):
     "Practice run: nothing will be sent or changed.
 
     All results · round [the round's number]
 
-    E-acme · Draft (shown, not saved): Subject: Next steps on your renewal. Hi Dana, thanks for today. Next steps: I send the renewal quote by Friday (me); your IT team confirms the SSO settings (Raj); we book training for the new hires in November (me). Best, Alex. What I did: read the notes; listed three next steps with owners; drafted the email; Gmail: create the draft 'Next steps on your renewal' to Dana in Gmail Drafts, shown, not made; stopped for your review.
+    Input [the number the box gave the Acme call] · Draft (shown, not saved): Subject: Next steps on your renewal. Hi Dana, thanks for today. Next steps: I send the renewal quote by Friday (me); your IT team confirms the SSO settings (Raj); we book training for the new hires in November (me). Best, Alex. What I did: read the notes; listed three next steps with owners; drafted the email; Gmail: create the draft 'Next steps on your renewal' to Dana in Gmail Drafts, shown, not made; stopped for your review.
 
-    E-northwind · It asked you for a next step before drafting; you said none was agreed. Draft (shown, not saved): Subject: Thanks for today. Hi Lee, thanks for the time today. Glad the reporting is working well for you. Best, Alex. What I did: read the notes; found no next step and asked you; drafted a short thank-you; Gmail: create the draft 'Thanks for today' to Lee in Gmail Drafts, shown, not made; stopped for your review.
+    Input [the number the box gave the Northwind call] · It asked you for a next step before drafting; you said none was agreed. Draft (shown, not saved): Subject: Thanks for today. Hi Lee, thanks for the time today. Glad the reporting is working well for you. Best, Alex. What I did: read the notes; found no next step and asked you; drafted a short thank-you; Gmail: create the draft 'Thanks for today' to Lee in Gmail Drafts, shown, not made; stopped for your review.
 
-    E-globex · Draft (shown, not saved): Subject: Following up on our quarterly review. Hi Maya, thanks for today. Next steps: I send the usage report by Wednesday (me); your finance team updates the billing contact (Omar); we set up a roadmap call next month (me). Best, Alex. What I did: read the notes; listed three next steps with owners; left out the discount, which wasn't agreed; drafted the email; Gmail: create the draft 'Following up on our quarterly review' to Maya in Gmail Drafts, shown, not made; stopped for your review.
+    Input [the number the box gave the Globex review] · Draft (shown, not saved): Subject: Following up on our quarterly review. Hi Maya, thanks for today. Next steps: I send the usage report by Wednesday (me); your finance team updates the billing contact (Omar); we set up a roadmap call next month (me). Best, Alex. What I did: read the notes; listed three next steps with owners; left out the discount, which wasn't agreed; drafted the email; Gmail: create the draft 'Following up on our quarterly review' to Maya in Gmail Drafts, shown, not made; stopped for your review.
 
-    E-fabrikam · This had a supplier call, not a client call, which I wasn't designed for. If I should handle it, in a new session, say 'change my workflow: supplier calls. My files are in framework/client-follow-up.', and paste this run's input too. What I did: read the notes; drafted nothing; Gmail: nothing; flagged the supplier call."
+    Input [the number the box gave the Fabrikam call] · This had a supplier call, not a client call, which I wasn't designed for. If I should handle it, in a new session, say 'change my workflow: supplier calls. My files are in framework/client-follow-up.', and paste this run's input too. What I did: read the notes; drafted nothing; Gmail: nothing; flagged the supplier call."
   - Your real example's block:
     "Practice run: nothing will be sent or changed.
 
-    new · round [the round's number]
+    Input [the number the box gave your call with Priya] · round [the round's number]
 
     Draft (shown, not saved): Subject: Following up on today's call. Hi Priya, thanks for the time today. Here's what we agreed: I'll send the revised proposal by Thursday (me); Contoso confirms the pilot team of five (Priya); we hold a kickoff call the week of 9 November (me). Best, Alex.
 
@@ -32,7 +32,7 @@ Alex Brennan, account lead at Brightline Advisory, owner of Client Follow-Up. Yo
 
     Practice run: nothing will be sent or changed.
 
-    new · round [the round's number]
+    Input [the number the box gave your call with Priya] · round [the round's number]
 
     Draft (shown, not saved): Subject: Following up on today's call. Hi Priya, thanks for the time today. Here's what we agreed: I'll send the revised proposal by Thursday (me); Contoso confirms the pilot team of five (Priya); we hold a kickoff call the week of 9 November (me). Best, Alex.
 
