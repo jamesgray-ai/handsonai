@@ -399,7 +399,7 @@ export default defineConfig({
                   label: 'CLI',
                   collapsed: true,
                   items: [
-                    { label: 'Gemini CLI', link: '/platforms/google-gemini/cli/' },
+                    { label: 'Antigravity CLI', link: '/platforms/google-gemini/antigravity-cli/' },
                   ],
                 },
                 { label: 'Building Agents on Google', link: '/platforms/google-gemini/agents/building-agents/' },

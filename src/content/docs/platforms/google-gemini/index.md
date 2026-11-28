@@ -12,7 +12,7 @@ Start with the [Getting Started with Gemini](getting-started/) checklist — acc
 |------|-------------|
 | [Gemini Spark](skills/#gemini-spark-personal-google-account) | Gemini's agent mode in the web, Mac, and mobile apps — where your skills live on a personal account |
 | [Antigravity IDE](getting-started/#1-install-antigravity-ide) | Google's AI-powered VS Code fork with autonomous coding agents |
-| [Gemini CLI](cli/) | Terminal-native AI assistant — maps to the [CLI building block](../../agentic-building-blocks/cli/) |
+| [Antigravity CLI](antigravity-cli/) | Terminal-native AI assistant (the successor to Gemini CLI) — maps to the [CLI building block](../../agentic-building-blocks/cli/) |
 | [Gemini Code Assist](getting-started/#2-ide-extension--gemini-code-assist) | Gemini inside VS Code or Cursor |
 
 ## Agents
