@@ -4430,11 +4430,84 @@
           "kind": "judged"
         },
         {
-          "text": "One grading message covers every input in the block: met lines summed, misses with their proof, 'shown, not sent' where a draft was only shown, then one question: agree, and how much they'd edit each draft (none for an input that stopped to ask)",
+          "text": "One grading message covers every input in the block: a headline from the saved rows, one row per input (what it had to do, ✅/❌, anything to look at, the golden example compared in its row), 'shown, not sent' where a draft was only shown, the grading stated as the default, then one question, last: how much they'd edit each draft, named by input (none for an input that stopped to ask); no per-input counts of lines and no 'Do you agree'",
           "kind": "judged"
+        },
+        {
+          "text": "The grading message asks one question, last, and never 'Do you agree'",
+          "kind": "scripted",
+          "check": {
+            "type": "one_question",
+            "containing": "(?i)not at all, a little(?:,)? or a lot",
+            "not_pattern": "(?i)\\bdo you agree\\b"
+          }
         }
       ],
       "est_turns": 12
+    },
+    {
+      "id": "TG-edit-a-lot",
+      "name": "anything-else-only-after-a-little-or-a-lot",
+      "tier": "regression",
+      "spec_item": "13 Grading (Pass 5, E23, E24, E31): the grading as the default with one question, the edit question naming the drafts; 'Anything you'd change' asked once only after 'a little' or 'a lot', never after 'not at all' for every draft",
+      "sessions": [
+        {
+          "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
+          "fixture": "web-batch",
+          "platform": "claude-web",
+          "student": "students/edit-a-lot.md"
+        },
+        {
+          "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
+          "fixture": "web-batch",
+          "platform": "claude-web",
+          "student": "students/default.md"
+        }
+      ],
+      "student": "students/default.md",
+      "expected_output": "Session 1: 'a lot' on Input 1's draft gets 'Anything you'd change about how it works, or what it does?' once, in a message of its own. Session 2: 'not at all' for every draft: the question is never asked.",
+      "files": [
+        "students/edit-a-lot.md",
+        "students/default.md"
+      ],
+      "expectations": [
+        {
+          "text": "Both sessions: the grading message asks one question, last, and never 'Do you agree'",
+          "kind": "scripted",
+          "check": {
+            "type": "one_question",
+            "containing": "(?i)not at all, a little(?:,)? or a lot",
+            "not_pattern": "(?i)\\bdo you agree\\b"
+          }
+        },
+        {
+          "text": "Session 1: asks whether they'd change anything",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "(?i)anything (?:else )?you'd change",
+            "session": 1
+          }
+        },
+        {
+          "text": "Session 1: the 'anything you'd change' question comes once, after the edit answer, in a message of its own",
+          "kind": "judged"
+        },
+        {
+          "text": "Session 2: never asks whether they'd change anything",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)anything (?:else )?you'd change",
+            "session": 2
+          }
+        },
+        {
+          "text": "In both sessions the edit question names each input that produced a draft and where it is in the practice chat, and a short line says why it's asked (the checks show it does what you wrote down; this shows whether it's good enough to use)",
+          "kind": "judged"
+        }
+      ],
+      "est_turns": 24
     },
     {
       "id": "TG-flag-input",
@@ -4547,7 +4620,7 @@
       ],
       "expectations": [
         {
-          "text": "After the real example's reply, asks in its own words whether they'd change anything about how it works or what it does",
+          "text": "After the edit answer ('a little' for the new one), asks once, in its own words and in a message of its own, whether they'd change anything about how it works or what it does",
           "kind": "judged"
         },
         {
@@ -4779,7 +4852,7 @@
           }
         },
         {
-          "text": "The verdict opens with a Markdown table: the safety lines first, then every other check and rule tested, each in plain words (never an ID), one column per input, cells ✓, ✗, ✗ accepted, stopped to ask or n/a; below it, one line naming where the results file is",
+          "text": "The verdict opens with a short verdict line, then a Markdown table: the safety lines first, then every other check and rule tested, each in plain words (never an ID), one column per input, cells ✓, ✗, ✗ accepted, stopped to ask or n/a; below it, one line naming where the results file is",
           "kind": "judged"
         }
       ],
@@ -5433,6 +5506,51 @@
           }
         }
       ]
+    },
+    {
+      "id": "TR-leader-change-confirmed",
+      "name": "round-2-confirms-leaders-change",
+      "tier": "core",
+      "spec_item": "13 Round kinds (Pass 5, round 2): the round after a leader's change grades the change on every input it touches, names it once for all of them, and its opening says plainly what runs again and why",
+      "fixture": "after-leader-change",
+      "platform": "claude-web",
+      "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
+      "student": "students/default.md",
+      "files": [
+        "students/default.md"
+      ],
+      "expected_output": "An after-fix round: the opening says plainly which inputs run again and why (the change touches every draft, so each earlier input with a draft runs again, plus a new one); each draft is graded on the change (the subject line starts with the client's company name); the grading names it once for all of them; the grading message's one question is last.",
+      "expectations": [
+        {
+          "text": "after-fix",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "drive/ai-workspace/framework/client-follow-up/test-results.md",
+            "pattern": "(?m)^round_kind: after-fix"
+          }
+        },
+        {
+          "text": "The round's opening says plainly, by count, which inputs run again and why (the change touches every draft), never a muddle such as 'all the ones your fix could affect, which is every one of them'",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "Every input that produced a draft is graded on the leader's change (the subject line starts with the client's company name), and the grading names that change once for all of them, never under one input only",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The grading message asks one question, last, and never 'Do you agree'",
+          "kind": "scripted",
+          "check": {
+            "type": "one_question",
+            "containing": "(?i)not at all, a little(?:,)? or a lot",
+            "not_pattern": "(?i)\\bdo you agree\\b"
+          }
+        }
+      ],
+      "est_turns": 16
     },
     {
       "id": "TR-after-change",
@@ -6134,7 +6252,7 @@
       "id": "TL-first-go-live",
       "name": "first-go-live",
       "tier": "regression",
-      "spec_item": "13 Going live: a first go-live (status, stale_after, the log line, the link, the indexing pass; Live since, How to switch it off; schedule; the run log only where it writes one; first-time items incl. a skipped check); how to use it, in Test's own words, right after 'It's live.'",
+      "spec_item": "13 Going live: a first go-live (status, stale_after, the log line, the link, the indexing pass; Live since, How to switch it off; schedule; the run log only where it writes one; first-time items incl. a skipped check); how to use it, in Test's own words, right after 'It's live.'; Pass 5 (E32): the re-check and change phrases each alone in a code block",
       "fixture": "ready-skipped-check",
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
       "student": "students/default.md",
@@ -6166,11 +6284,12 @@
           }
         },
         {
-          "text": "Says go-live-recheck-line word for word",
+          "text": "Says N-T16 (main-10) word for word, its phrase in a code block after it",
           "kind": "scripted",
           "check": {
             "type": "quote",
-            "id": "go-live-recheck-line"
+            "id": "N-T16",
+            "form": "main-10"
           }
         },
         {
@@ -6243,6 +6362,14 @@
             "type": "file_regex",
             "path": "framework/client-follow-up/test-results.md",
             "pattern": "(?m)^go_live: done"
+          }
+        },
+        {
+          "text": "No start phrase inline in the go-live message: each in its own code block",
+          "kind": "scripted",
+          "check": {
+            "type": "phrases_in_blocks",
+            "containing": "(?i)\\bIt's live\\b"
           }
         }
       ],

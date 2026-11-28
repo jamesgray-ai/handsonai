@@ -109,6 +109,11 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   creator's `package_skill` made (unzip, zipinfo,
                                                                   python… naming the .skill file), in the same turn;
                                                                   no offer passes. No events.jsonl fails closed
+  one_question     {containing, not_pattern?, session?}           every AI message matching containing asks at most one
+                                                                  question, in its last paragraph; none matches
+                                                                  not_pattern; none matched fails closed (Pass 5)
+  phrases_in_blocks {containing?, phrases?, session?}             in those messages a start phrase is never inline: only
+                                                                  in a code block (Pass 5, E32, X3)
   asked_before_save {pattern, anchor?, session?}                  an AI message matching pattern comes before the first
                                                                   save offer, or `anchor` (Build's keep-or-drop question,
                                                                   Pass 5 E16)
@@ -1168,6 +1173,10 @@ def check(c, run):
         return _nf4_leads(run)
     if t == "nf4_before_creator":
         return _nf4_before_creator(run)
+    if t == "one_question":
+        return _one_question(c, run)
+    if t == "phrases_in_blocks":
+        return _phrases_in_blocks(c, run)
     if t == "asked_before_save":
         return _asked_before_save(c, run)
     if t == "handover_one_message":
@@ -1448,6 +1457,60 @@ SAVE_OFFER = re.compile(r"in your skills list\b[^?\n]*\?"
 PACKAGE_CMD = re.compile(r"\bpackage_skill\b")
 PACKAGE_READ = re.compile(r"\b(?:unzip|zipinfo|bsdtar|tar|python3?|strings|zcat)\b[\s\S]*?\.skill\b"
                           r"|\.skill\b[\s\S]*?\b(?:unzip|zipinfo|zipfile|bsdtar)\b")
+
+
+def _prose(m):
+    """A message without its fenced blocks and block-quoted lines: the AI's own words, for question counts."""
+    m = re.sub(r"```.*?```", " ", m, flags=re.S)
+    return re.sub(r"(?m)^[ \t]*>.*$", " ", m)
+
+
+def _one_question(c, run):
+    """Pass 5 (E6, E23): every AI message matching `containing` asks at most one question, and that question is
+    in its last paragraph (X2: one question per message, last); with `not_pattern`, none of those messages matches
+    it ("Do you agree", the rubber stamp E23 retired). Fenced blocks and quotes don't count. None said fails closed."""
+    want = re.compile(norm(c["containing"]), re.M)
+    bad = re.compile(norm(c["not_pattern"]), re.M) if c.get("not_pattern") else None
+    seen = 0
+    for s in _sessions(run, c.get("session")):
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            if not want.search(norm(m)):
+                continue
+            seen += 1
+            where = f"session {s['n']} AI message {i}"
+            if bad and bad.search(norm(m)):
+                return False, f"{where}: {bad.search(norm(m)).group(0)!r}"
+            prose = _prose(norm(m)).strip()
+            paras = [p for p in re.split(r"\n\s*\n", prose) if p.strip()]
+            asks = prose.count("?")
+            if asks > 1:
+                return False, f"{where}: {asks} questions"
+            if asks == 1 and "?" not in (paras[-1] if paras else ""):
+                return False, f"{where}: its question isn't in the last paragraph"
+    return (seen > 0, f"{seen} message(s) checked" if seen else "no message matched")
+
+
+START_PHRASES = [r"\btest the workflow I built\b", r"\bchange my workflow\b", r"\brun the (?:analyze|deconstruct|design|build|test) skill\b",
+                 r"\bupdate my registry\b"]
+
+
+def _phrases_in_blocks(c, run):
+    """Pass 5 (E32, X3): in every AI message matching `containing` (every message, without it), a framework start
+    phrase (or each of `phrases`) is never said inline: it stands alone in a code block. None matched fails closed."""
+    want = re.compile(norm(c["containing"]), re.M) if c.get("containing") else None
+    pats = [re.compile(norm(p), re.I) for p in (c.get("phrases") or START_PHRASES)]
+    seen = 0
+    for s in _sessions(run, c.get("session")):
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            t = norm(m)
+            if want and not want.search(t):
+                continue
+            seen += 1
+            outside = re.sub(r"`[^`\n]*`", " ", re.sub(r"```.*?```", " ", t, flags=re.S))
+            hit = next((p.search(outside) for p in pats if p.search(outside)), None)
+            if hit:
+                return False, f"session {s['n']} AI message {i}: {hit.group(0)!r} said inline, not in a code block"
+    return (seen > 0, f"{seen} message(s) checked" if seen else "no message matched")
 
 
 def _asked_before_save(c, run):

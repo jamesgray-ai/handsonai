@@ -224,5 +224,50 @@ class KeptItemsListed(unittest.TestCase):
         self.assertEqual(V.REQUIRED.get("asked_before_save"), ["pattern"])
 
 
+# ---------------------------------------------------------------- Task 4: grading, verdict and go-live
+
+GRADING_OLD = ("Input 1 met all 12 lines it was tested on. Input 2 met 14.\n\nDo you agree with these? And for each draft, "
+               "would you edit it not at all, a little or a lot?")
+GRADING_NEW = ("All 7 inputs behaved: every check met, nothing sent.\n\n| Input | What it had to do | | Anything to look at |\n"
+               "|---|---|---|---|\n| Input 1 | Ask for results, invent none | ✅ | — |\n\nTell me if any of these looks wrong.\n\n"
+               "The checks show it does what you wrote down; this shows whether it's good enough to use. The drafts are "
+               "Input 1, 2, 5 and 6 in your practice chat: would you edit each not at all, a little or a lot?")
+
+
+class GradingOneQuestion(unittest.TestCase):
+    C = {"type": "one_question", "containing": "(?i)not at all, a little or a lot", "not_pattern": "(?i)\\bdo you agree\\b"}
+
+    def test_grading_one_question(self):
+        self.assertTrue(CS.check(self.C, ai_run(GRADING_NEW))[0])
+        self.assertFalse(CS.check(self.C, ai_run(GRADING_OLD))[0])
+
+    def test_a_question_before_the_last_paragraph_fails(self):
+        two = GRADING_NEW.replace("Tell me if any of these looks wrong.", "Does any of these look wrong?")
+        self.assertFalse(CS.check(self.C, ai_run(two))[0])
+
+    def test_none_said_fails_closed(self):
+        self.assertFalse(CS.check(self.C, ai_run("Your workflow is built."))[0])
+
+
+GOLIVE_INLINE = ("It's live.\n\nRe-check it any time with 'test the workflow I built', especially if you find yourself "
+                 "editing more than you used to. To change it, say 'change my workflow. My files are in ai-workspace/framework/x.'")
+GOLIVE_BLOCKS = ("It's live.\n\nRe-check it any time, especially if you find yourself editing more than you used to. "
+                 "To re-check it, say:\n\n```\ntest the workflow I built. My files are in ai-workspace/framework/x.\n```\n\n"
+                 "To change it, say:\n\n```\nchange my workflow. My files are in ai-workspace/framework/x.\n```")
+
+
+class GoLivePhrasesInBlocks(unittest.TestCase):
+    C = {"type": "phrases_in_blocks", "containing": "(?i)\\bIt's live\\b"}
+
+    def test_golive_phrases_in_blocks(self):
+        self.assertTrue(CS.check(self.C, ai_run(GOLIVE_BLOCKS))[0])
+        self.assertFalse(CS.check(self.C, ai_run(GOLIVE_INLINE))[0])
+
+    def test_known_to_validate(self):
+        import validate_evals as V
+        self.assertEqual(V.REQUIRED.get("one_question"), ["containing"])
+        self.assertIn("phrases_in_blocks", V.REQUIRED)
+
+
 if __name__ == "__main__":
     unittest.main()

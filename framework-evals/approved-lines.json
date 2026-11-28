@@ -1506,7 +1506,8 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "framework-rules.md 12; approved before 3c-DJ"
+   "source": "framework-rules.md 12; approved before 3c-DJ",
+   "retired": "2026-11-27: shape release Pass 5 Task 4 (E32: the re-check phrase goes in a code block after N-T16 main-10, which carries this sentence)"
   },
   {
    "id": "time-saved-line",
@@ -7209,7 +7210,7 @@
   {
    "id": "N-T16",
    "form": "Schedule waiting on a fix",
-   "text": "Its schedule waits until [the point] is fixed: say 'change my workflow: [the schedule point]. My files are in [location].'",
+   "text": "Its schedule waits until [the point] is fixed. To fix it, say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7217,12 +7218,12 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 5 Task 4 (E32, X3: each start phrase alone in a code block after the line)"
   },
   {
    "id": "N-T16",
    "form": "Schedule waiting by the leader's choice",
-   "text": "It runs by hand, as you chose. To put it on its schedule later, say 'change my workflow: [the schedule point]. My files are in [location].'",
+   "text": "It runs by hand, as you chose. To put it on its schedule later, say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7230,12 +7231,12 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 5 Task 4 (E32, X3: each start phrase alone in a code block after the line)"
   },
   {
    "id": "N-T16",
    "form": "No schedule in its plan",
-   "text": "To run it on a schedule later, say 'change my workflow: run it on a schedule. My files are in [location].', so the schedule is checked before it runs without you.",
+   "text": "To run it on a schedule later, so the schedule is checked before it runs without you, say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7243,7 +7244,7 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 5 Task 4 (E32, X3: each start phrase alone in a code block after the line)"
   },
   {
    "id": "N-T16",
@@ -7262,7 +7263,7 @@
   {
    "id": "N-T16",
    "form": "main-10",
-   "text": "Re-check it any time with 'test the workflow I built', especially if you find yourself editing more than you used to. To change it, say 'change my workflow. My files are in [location].'",
+   "text": "Re-check it any time, especially if you find yourself editing more than you used to. To re-check it, say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7270,7 +7271,7 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 5 Task 4 (E32, X3: each start phrase alone in a code block after the line)"
   },
   {
    "id": "N-T16",
@@ -7315,7 +7316,7 @@
   {
    "id": "N-T16",
    "form": "Schedule paused, and its plan has no schedule",
-   "text": "Its plan doesn't run it on a schedule, so switch off the schedule you paused, and run it by hand. To run it on a schedule, say 'change my workflow: run it on a schedule. My files are in [location].'",
+   "text": "Its plan doesn't run it on a schedule, so switch off the schedule you paused, and run it by hand. To run it on a schedule, say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7323,12 +7324,12 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 5 Task 4 (E32, X3: each start phrase alone in a code block after the line)"
   },
   {
    "id": "N-T16",
    "form": "Safety incomplete",
-   "text": "Its schedule stays paused until [the point] is fixed: say 'change my workflow: [the schedule point]. My files are in [location].'",
+   "text": "Its schedule stays paused until [the point] is fixed. To fix it, say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7336,12 +7337,12 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 5 Task 4 (E32, X3: each start phrase alone in a code block after the line)"
   },
   {
    "id": "N-T16",
    "form": "Paused by the leader's choice",
-   "text": "Its schedule stays paused, and it runs by hand, as you chose. To put it back on its schedule, say 'change my workflow: [the schedule point]. My files are in [location].'",
+   "text": "Its schedule stays paused, and it runs by hand, as you chose. To put it back on its schedule, say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7349,12 +7350,12 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 5 Task 4 (E32, X3: each start phrase alone in a code block after the line)"
   },
   {
    "id": "N-T16",
    "form": "then",
-   "text": "To change it, say 'change my workflow. My files are in [location].'",
+   "text": "To change it, say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7362,7 +7363,7 @@
    "files": {
     "test": "references/going-live.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 5 Task 4 (E32, X3: each start phrase alone in a code block after the line)"
   },
   {
    "id": "N-T17",
@@ -7621,7 +7622,7 @@
   {
    "id": "N-T34",
    "form": "Not ready",
-   "text": "Not ready yet: [n] to fix[ and [n] to change][; your plan needs to catch up with [the change]]. Test only checks, so [Design / Build] makes the fix, in your [plan / build]. Start it in a new chat[ with your working folder selected] and say:",
+   "text": "Not ready yet: [every check passed / [met] of [total] checks passed]; what's left: [n to fix, n to change, or both][; your plan needs to catch up with [the change]]. Test only checks, so [Design / Build] makes [it / them], in your [plan / build], then you come back here for a short second round. Start it in a new chat[ with your working folder selected] and say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7629,12 +7630,12 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 2 (T15, X3: why the fix happens in another step; the phrase in a code block)"
+   "source": "test.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 2 (T15, X3: why the fix happens in another step; the phrase in a code block); 2026-11-27 Pass 5 Task 4 (E26: what passed, what's left, who makes it, and round 2)"
   },
   {
    "id": "N-T34",
    "form": "On the web, not ready",
-   "text": "Not ready yet: [n] to fix[ and [n] to change][; your plan needs to catch up with [the change]]. Test only checks, so [Design / Build] makes the fix, in your [plan / build]. Start it in a new chat. Add your [storage service] to it, then say:",
+   "text": "Not ready yet: [every check passed / [met] of [total] checks passed]; what's left: [n to fix, n to change, or both][; your plan needs to catch up with [the change]]. Test only checks, so [Design / Build] makes [it / them], in your [plan / build], then you come back here for a short second round. Start it in a new chat. Add your [storage service] to it, then say:",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -7642,7 +7643,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "final-test-1b (TJ-claude-web 3 of 3): the Not ready form with N-F2's new-chat sentence on Claude on the web and ChatGPT; approved by James 2026-11-24; 2026-11-27 Pass 2 (T15, X3: why the fix happens in another step; the phrase in a code block)"
+   "source": "final-test-1b (TJ-claude-web 3 of 3): the Not ready form with N-F2's new-chat sentence on Claude on the web and ChatGPT; approved by James 2026-11-24; 2026-11-27 Pass 2 (T15, X3: why the fix happens in another step; the phrase in a code block); 2026-11-27 Pass 5 Task 4 (E26: what passed, what's left, who makes it, and round 2)"
   },
   {
    "id": "N-T34",

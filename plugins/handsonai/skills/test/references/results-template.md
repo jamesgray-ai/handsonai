@@ -64,7 +64,7 @@ results:
 |---|---|---|
 
 ## Environment
-[Platform and account; where the runs happened; connections; for the AI's runs, that the start-up check passed and each run folder; memory notes; on Claude Code, the practice folder's path, created with its marker file.]
+[From what the leader reported at the cold-run check, never from what the hand-over asked. Platform and account; where the runs happened; connections; which skills the runs used; for the AI's runs, that the start-up check passed and each run folder; memory notes; on Claude Code, the practice folder's path, created with its marker file.]
 
 ## Issues identified
 | Input | Line | Level | Cause | Task | What to change |
@@ -91,7 +91,7 @@ The keys above and no others, plus `direct_edit: undo` only in the round Test op
 - **`round_status`:** `in-progress`, `complete`, or `abandoned` (a round set aside).
 - **`results`:** each input's entry on one line, in the flow form shown (the registry and dashboards read it that way); per input, `{ runs: 1 | 2, run1: { [line]: met | not-met | not-run }, run2: {…}, edits: none | minor | major, carried: round [n] }`. Keys are E numbers, and `new` for the round's new input (if it's saved later, the Inputs section gives its E number). A practice input you write takes the next E number when it's written, as its key here, whether it's saved at once (Claude Code) or held in the Inputs section until the close (elsewhere); one held and then dropped keeps its row in Inputs, marked "not saved", and its number isn't reused. The flag input has no `edits`. With two runs, `run2` is there and the edits word is for the weaker run.
 - **`change_requests`:** in the one shape, each with exactly `id` (`T[round].[n]`), `source` (`test` for a plan-level miss; `direct edit`, the edited text saved as `history/direct-edit-[id]-YYYY-MM-DD-HHMM.md` and `what` a one-line summary, in double quotes, naming that file; `leader at test` for a what-change at the real example), `what`, `why`, `tasks`, `after_round` (this round's number).
-- **`environment`:** the platform and account, where the runs happened, who ran them, and on Claude Code the practice folder's path.
+- **`environment`:** the platform and account, where the runs happened, who ran them, and on Claude Code the practice folder's path. Written from what the leader reported at the cold-run check (memory, the drive, which skills the run used), never from what the hand-over asked; where the report differs from what you first wrote, correct it in place, here and in `## Environment`, so the file never says two things.
 - **`readiness` and `go_live` on the return visit** after a policy wait: on the leader's yes, rewrite the last round's file in place, with no re-run and no new round: `readiness: ready`, `go_live: pending` (written as on any Ready round), and the Verdict reason "Waiting on the policy check ([value])" replaced with "Policy check confirmed on [date]". No other key changes, and no key is added, so routing reaches state 10 (`rounds.md` section 5).
 
 ## 3. The sections

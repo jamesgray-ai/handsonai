@@ -818,6 +818,27 @@ def not_ready_then_fixed(t, p="cc", *, line="AC2", level="build"):
     hist.rmdir()
 
 
+def fx_after_leader_change(t):
+    """Pass 5 (round 2): round 1 on Claude on the web met every line, and the leader asked at the new input for a
+    change that keeps every line met (an Issues row, Cause `leader's change`); Build made it and closed after round 1.
+    The after-fix round grades the change on every input it touches and names it once."""
+    base(t, "web", flag=True)
+    res = {"E1": {"runs": 1, "run1": dict(MET), "edits": "none"},
+           "E2": {"runs": 1, "run1": {"AC2": "met", "AC3": "met", "R1": "met", "R3": "met"}, "edits": "none"},
+           "E3": {"runs": 1, "run1": {"KW": "met", "R1": "met", "P2": "met"}},
+           "new": {"runs": 1, "run1": dict(MET), "edits": "minor"}}
+    results(t, p="web", status="complete", readiness="not-ready", res=res, practice=False,
+            issues=[("new", "—", "build", "leader's change", "T2", "Start every email's subject line with the client's company name (E1, E2 and the new input)")],
+            verdict="Not ready. {count}. Next: Build (your change).", date="2026-10-20")
+    hist = wf(t) / "history"
+    hist.mkdir(exist_ok=True)
+    shutil.move(str(results_path(t)), str(hist / "test-results-round-1.md"))
+    sub(record(t), "last_close_after_round: 0", "last_close_after_round: 1")
+    rebuild(t, "T2", 1, 1)
+    shutil.move(str(hist / "test-results-round-1.md"), str(results_path(t)))
+    hist.rmdir()
+
+
 def fx_after_fix(t): not_ready_then_fixed(t)
 def fx_after_fix_web(t): not_ready_then_fixed(t, "web")
 
@@ -1872,7 +1893,7 @@ FIXTURES = {
     "platform-change": fx_platform_change, "platform-change-answered": fx_platform_change_answered,
     # light, inputs
     "light-two-inputs": fx_light_two_inputs, "light-gains-risk": fx_light_gains_risk, "not-available": fx_not_available,
-    "connection-input": fx_connection_input, "drive-in-use": fx_drive_in_use, "golden": fx_golden,
+    "connection-input": fx_connection_input, "drive-in-use": fx_drive_in_use, "after-leader-change": fx_after_leader_change, "golden": fx_golden,
     # Microsoft 365
     "m365-agent-first": fx_m365_agent_first, "m365-agent-noconn": fx_m365_agent_noconn,
     "m365-agent-no-first-line": fx_m365_agent_no_first_line, "m365-agent-ids": fx_m365_agent_ids,

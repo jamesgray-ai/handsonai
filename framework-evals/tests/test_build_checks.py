@@ -390,15 +390,17 @@ class NT34WebFormStaysOnTheWeb(unittest.TestCase):
     """Review of b3f4b3d41: N-T34's web form is its own form. The plain Not ready check, used on Claude Code,
     Codex, Claude desktop and Microsoft 365, fails the web sentence, and no Claude Code variant is derived."""
 
-    WEB = ("Not ready yet: 1 to fix. Test only checks, so Build makes the fix, in your build. Start it in a new chat. "
+    WEB = ("Not ready yet: every check passed; what's left: 1 to change. Test only checks, so Build makes it, in your "
+           "build, then you come back here for a short second round. Start it in a new chat. "
            "Add your Google Drive to it, then say:\n\n```\nrun the build skill. My files are in Google Drive, in "
            "ai-workspace/framework/client-follow-up.\n```")
 
     def test_the_web_sentence_fails_the_plain_form_and_passes_its_own(self):
         self.assertFalse(CS.check({"type": "quote", "id": "N-T34", "form": "Not ready"}, _run_of(self.WEB))[0])
         self.assertTrue(CS.check({"type": "quote", "id": "N-T34", "form": "On the web, not ready"}, _run_of(self.WEB))[0])
-        plain = ("Not ready yet: 1 to fix. Test only checks, so Build makes the fix, in your build. Start it in a new "
-                 "chat and say:\n\n```\nrun the build skill.\n```")
+        plain = ("Not ready yet: every check passed; what's left: 1 to change. Test only checks, so Build makes it, in "
+                 "your build, then you come back here for a short second round. Start it in a new chat and say:"
+                 "\n\n```\nrun the build skill.\n```")
         self.assertTrue(CS.check({"type": "quote", "id": "N-T34", "form": "Not ready"}, _run_of(plain))[0])
 
     def test_no_claude_code_variant_of_the_web_form(self):

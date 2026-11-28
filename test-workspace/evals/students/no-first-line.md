@@ -45,7 +45,7 @@ These come first, where they apply:
 - When it asks you to open a new chat or session, or a second terminal, and paste a block, do it as your screen allows. If your screen shows the run's answer, paste what it shows. If it doesn't, paste the matching block from "Your runs". On Claude Code, when it says to say "next" when it finishes, say "next".
 - When the workflow itself asks you something during a run, answer as you would at work: approve the draft; for the Northwind call, say no next step was agreed.
 - When it asks whether that chat saw your requirements or plan (with or without a part about another folder, Google Drive or your framework folder in the same question), say "No."
-- When it shows you a result and asks if you agree and how much you'd edit it, say "Agree. Nothing."
+- When it shows you the grading and asks how much you'd edit each draft, say "Not at all, for each."
 - When it asks what you'd change about how it works or what it does, say "Nothing."
 - When it asks "Take it live?", say "Yes."
 - When it asks you to switch something off or pause it, or to add or attach a folder, or to connect something, and say "done", [did: what it asked] and say "done".
