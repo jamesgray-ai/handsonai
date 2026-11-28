@@ -29,8 +29,8 @@ firms modernize back-office work.
 
 # Lines of Business
 
-1. [Advisory](/lines-of-business/advisory.md)
-2. [Training](/lines-of-business/training.md)
+- [Advisory](/lines-of-business/advisory.md)
+- [Training](/lines-of-business/training.md)
 ```
 
 ## LineOfBusiness: `registry/lines-of-business/advisory.md`
@@ -48,7 +48,7 @@ engagement.
 
 # Processes
 
-1. [Client Delivery](/processes/client-delivery.md)
+- [Client Delivery](/processes/client-delivery.md)
 ```
 
 ## LineOfBusiness: `registry/lines-of-business/training.md`
@@ -84,7 +84,7 @@ through handoff.
 
 # Workflows
 
-1. [Client Status Reporting](/workflows/client-status-reporting.md)
+- [Client Status Reporting](/workflows/client-status-reporting.md)
 ```
 
 ## Workflow: `registry/workflows/client-status-reporting.md`
