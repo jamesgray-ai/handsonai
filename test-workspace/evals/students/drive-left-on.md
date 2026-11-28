@@ -36,7 +36,7 @@ Alex Brennan, account lead at Brightline Advisory, owner of Client Follow-Up. Yo
 - When it gives you setup steps for a new chat and a box to paste into it, do the steps, then copy the box into that chat.
 - When it asks you to open a new chat or session, or a second terminal, and paste a block, do it as your screen allows. If your screen shows the run's answer, paste what it shows. If it doesn't, paste the matching block from "Your runs". On Claude Code, when it says to say "next" when it finishes, say "next".
 - When the workflow itself asks you something during a run, answer as you would at work: approve the draft; for the Northwind call, say no next step was agreed.
-- When it asks whether that chat saw your requirements or plan, or whether Google Drive was still on in it, say "It didn't see them, but Google Drive was still on." If it asks only whether that chat saw your requirements or plan, say "No."
+- When it asks whether that chat saw your requirements or plan, or whether Google Drive was still on in it, say only "Yes." If it then asks which it was, say "Google Drive was still on; it didn't see them." If it asks only whether that chat saw your requirements or plan, say "No."
 - When it shows you the grading and asks how much you'd edit each draft, say "Not at all, for each."
 - When it asks what you'd change about how it works or what it does, say "Nothing."
 - When it asks "Take it live?", say "Yes."

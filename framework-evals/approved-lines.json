@@ -1265,7 +1265,7 @@
   {
    "id": "N-T28",
    "form": "main",
-   "text": "On [platform], memory can't be fully switched off, and any chat can reach your drive, so I'll check each run for signs it drew on your requirements or your framework files.",
+   "text": "On [platform], memory can't be fully switched off, and a drive left on in that chat could reach your framework files, so I'll check each run for signs it drew on your requirements or your framework files.",
    "kind": "safety or promise",
    "skills": [
     "test"
@@ -1273,7 +1273,7 @@
    "files": {
     "test": "references/hand-overs.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 5 final review (I5: agrees with the Drive toggle)"
   },
   {
    "id": "N-T28",
@@ -6138,7 +6138,7 @@
   {
    "id": "N-B38",
    "form": "main",
-   "text": "Your changed version is installed but not tested yet. Before its next real run, [N-B13's Test sentence for this platform, beginning 'start Test…']. [Scheduled: 'Keep its schedule paused until the test passes.'] If you need to run it before then, put back [the copy you kept / the earlier version, kept in [place]]: [steps].",
+   "text": "Your changed version is installed but not tested yet.[ Scheduled: 'Keep its schedule paused until the test passes.'] If you need to run it before it's tested, put back [the copy you kept / the earlier version, kept in [place]]: [steps]. Before its next real run, [N-B13's Test sentence for this platform, beginning 'start Test…', ending at 'say:']",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6146,7 +6146,7 @@
    "files": {
     "build": "references/live-change.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change; 2026-11-27 Pass 5 final review (I3: the Test phrase last, in its code block, the protective sentences before it)"
   },
   {
    "id": "N-B40",
@@ -11959,7 +11959,7 @@
   {
    "id": "N-T30",
    "form": "Question, Drive off",
-   "text": "Did that chat see your requirements or plan before you started, or was [Google Drive / OneDrive] still on in it?",
+   "text": "Did that chat see your requirements or plan before you started, or was [Google Drive / OneDrive] still on in it? Say 'saw them', 'drive on' or 'neither'.",
    "kind": "question",
    "skills": [
     "test"
@@ -11967,7 +11967,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "2026-11-27: shape release Pass 5 Task 2 (Drive case 1: the files are in a drive the workflow doesn't use)"
+   "source": "2026-11-27: shape release Pass 5 Task 2 (Drive case 1: the files are in a drive the workflow doesn't use); 2026-11-27 Pass 5 final review (I2: a bare yes was ambiguous)"
   },
   {
    "id": "N-T30",

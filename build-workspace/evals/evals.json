@@ -4824,7 +4824,7 @@
    "id": "P5-extend-kept",
    "name": "extend-skill-to-plan-check",
    "tier": "core",
-   "spec_item": "13 Part 2 (Pass 5, E16, E19; Review Focus 5): extending a skill also checks skill → plan: what the skill holds that the plan doesn't (a booking link) is asked about once, keep or drop, before the brief; the dropped link is gone from the built text; another plugin's skill the blueprint names under Uses skills from goes into uses_skills:, and the record passes with its new keys",
+   "spec_item": "13 Part 2 (Pass 5, E16, E19; Review Focus 5): extending a skill also checks skill → plan: what the skill holds that the plan doesn't (a booking link) is asked about once, keep or drop, before the brief; the dropped link is gone from the built text; another plugin's skill the blueprint names under Uses skills from goes into uses_skills:, and the record passes with its new keys; final review I4: the extended skill is shared with no other workflow, so the keep-or-drop question can't ride on N-B25's yes",
    "fixture": "extend-with-extras",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/extend-extras.md",
@@ -7009,6 +7009,14 @@
     {
      "text": "[LV-kept-copy-cc] A kept copy made as a Git commit stages only the workflow's installed paths by name (never -a, . or a practice folder), and Build says so in one line; with no changes since the last commit, nothing is committed",
      "kind": "judged"
+    },
+    {
+     "text": "[P5 final review I3] The live-change close ends with Test's phrase in its code block; N-B38's schedule and put-back sentences (and any N-B56) come before it, in the Next block",
+     "kind": "scripted",
+     "check": {
+      "type": "close_shape",
+      "containing": "(?i)installed but not tested yet"
+     }
     }
    ],
    "est_turns": 30,
@@ -7264,6 +7272,14 @@
      "check": {
       "type": "ai_not_contains",
       "text": "Two or three test rounds is normal."
+     }
+    },
+    {
+     "text": "[P5 final review I3] The live-change close ends with Test's phrase in its code block; N-B38's schedule and put-back sentences (and any N-B56) come before it, in the Next block",
+     "kind": "scripted",
+     "check": {
+      "type": "close_shape",
+      "containing": "(?i)installed but not tested yet"
      }
     }
    ],

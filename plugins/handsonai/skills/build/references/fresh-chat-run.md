@@ -36,7 +36,7 @@ The run happens in the workflow's place, or the platform's clean chat, never in 
 
 Then, each a paragraph of its own:
 - **N-F4's Build form,** said exactly, in every hand-over on every platform, whatever the workflow's own connections (the leader's other plugins and connections stay on): "This is a practice run: if [platform] itself asks you to approve sending, posting or changing something, choose Deny and tell me." Never add a line asking the leader to answer the workflow's questions.
-- **How it comes back,** said exactly: on Claude, ChatGPT and Microsoft 365, "When it finishes, click the Copy icon under its last reply. That copies the whole reply. Paste all of it here." (on Claude, Copy, not Create a doc); on Codex, "When it finishes, copy its whole last reply and paste all of it here."; on Claude Code the same Codex line. Then, in your own words, that they can delete that chat afterwards.
+- **How it comes back,** said exactly: on Claude, ChatGPT and Microsoft 365, "When it finishes, click the Copy icon under its last reply. That copies the whole reply. Paste all of it here." (on Claude, Copy, not Create a doc); on Codex, "When it finishes, copy its whole last reply and paste all of it here."; on Claude Code the same Codex line. Then, in your own words, that they can delete that chat afterwards, except an incognito chat, which isn't kept.
 - **The box line,** on the chat platforms, said exactly: "Copy the box below with the copy icon at its top right, and paste it into that chat." (on Claude Code and Codex, "paste the box below" in step 1's own words).
 - **The block** (section 4), last, with nothing after it. Never a "say 'ready'" step.
 

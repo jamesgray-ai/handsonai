@@ -423,5 +423,52 @@ class CloseShape(unittest.TestCase):
         self.assertTrue(CS.check(dict(self.C, headline=False), ai_run(plain))[0])
 
 
+# ---------------------------------------------------------------- Pass 5 final review fixes
+
+SKILLS = EVALS.parent / "plugins" / "handsonai" / "skills"
+
+
+def _corpus_line(lid, form):
+    import approved_lines as AL
+    return next(l for l in AL.load().get(lid, form) if l.text).text
+
+
+class FinalReviewFixes(unittest.TestCase):
+    def test_real_example_never_saved_without_yes(self):
+        # finding 1 (privacy): the always-save rule is for inputs Test wrote; a real example only on N-T50's yes
+        test = (SKILLS / "test" / "SKILL.md").read_text()
+        rule = test[test.index("**An input an Issues row names**"):][:600]
+        self.assertIn("you wrote", rule)
+        self.assertIn("N-T50", rule)
+        fix = (SKILLS / "build" / "references" / "fix-mode.md").read_text()
+        self.assertNotIn("the round's new input included", fix)
+
+    def test_drive_off_question_names_its_replies(self):
+        # finding 2: a bare "yes" can't tell "saw them" (refuse) from "drive on" (stands)
+        q = _corpus_line("N-T30", "Question, Drive off")
+        self.assertEqual(q.count("?"), 1)
+        for w in ("'saw them'", "'drive on'", "'neither'"):
+            self.assertIn(w, q)
+        self.assertIn("a bare \"yes\" gets one short follow-up", (SKILLS / "test" / "SKILL.md").read_text())
+
+    def test_live_change_close_ends_with_the_test_phrase(self):
+        # finding 3: N-B38's protective sentences go before Test's phrase, so the code block can end the close
+        self.assertTrue(_corpus_line("N-B38", "main").rstrip().endswith("beginning 'start Test…', ending at 'say:']"))
+        live = (SKILLS / "build" / "references" / "live-change.md").read_text()
+        self.assertNotIn("after the close's Test sentence, say exactly (N-B56)", live)
+        self.assertNotIn("the line goes on after the block", live)
+
+    def test_keep_or_drop_is_its_own_step(self):
+        # finding 4: not nested under N-B25's "On a yes:", so a non-shared extension asks it too
+        build = (SKILLS / "build" / "SKILL.md").read_text()
+        self.assertNotIn("   - **What it already holds**", build)
+        self.assertIn("\n3. **What an extended skill already holds**", build)
+
+    def test_once_per_round_line_agrees_with_the_drive_toggle(self):
+        # finding 5
+        self.assertNotIn("any chat can reach your drive", _corpus_line("N-T28", "main"))
+        self.assertNotIn("any chat can reach your drive", (SKILLS / "test" / "references" / "hand-overs.md").read_text())
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -106,7 +106,7 @@ The closing line is a convenience, never a check: a run without it (a workflow b
 ## 8. Said once per round
 
 With the first hand-over of the round, wherever the leader runs inputs in a chat or session (Claude, ChatGPT, Microsoft 365, Codex), say exactly, in its form:
-- **The main form** (Claude on the web, ChatGPT, Microsoft 365 Cowork): "On [platform], memory can't be fully switched off, and any chat can reach your drive, so I'll check each run for signs it drew on your requirements or your framework files."
+- **The main form** (Claude on the web, ChatGPT, Microsoft 365 Cowork): "On [platform], memory can't be fully switched off, and a drive left on in that chat could reach your framework files, so I'll check each run for signs it drew on your requirements or your framework files."
 - **Claude desktop, with the files in a local folder:** "On Claude, memory can't be fully switched off, so I'll check each run for signs it drew on your requirements or your framework files."
 - **Claude, the clean chat:** "In an incognito chat, Claude doesn't use your memory, and I'll still check each run for signs it saw your requirements or your framework files."
 - **No place, a new chat outside any Project** (Claude on the web, ChatGPT): "On [platform], memory can't be fully switched off, so I'll check each run for signs it drew on your requirements or your framework files."

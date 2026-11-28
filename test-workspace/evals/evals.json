@@ -4668,6 +4668,16 @@
           "text": "Session 4's change (longer than the 150-word line allows) is treated as a change to what it does, not an Issues row for Build",
           "kind": "judged",
           "must": true
+        },
+        {
+          "text": "[P5 final review, privacy] Session 1: the leader's change was asked for at their real example, which they didn't keep: its text never reaches inputs/",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_regex",
+            "path": "framework/client-follow-up/inputs/*",
+            "pattern": "(?i)Priya|Contoso",
+            "session": 1
+          }
         }
       ],
       "est_turns": 5
@@ -9569,7 +9579,7 @@
       "files": [
         "students/drive-left-on.md"
       ],
-      "expected_output": "The hand-over gives N-T8's Drive toggle (Claude's form) and nothing else to switch off; after the pasted block, N-T30's Drive-off question; the leader says Drive was still on; Test says plainly the run could have reached the framework files, finds nothing in it that shows them, and grades the run rather than refusing it.",
+      "expected_output": "The hand-over gives N-T8's Drive toggle (Claude's form) and nothing else to switch off; after the pasted block, N-T30's Drive-off question with its three replies; the leader answers a bare 'yes'; Test asks once which it was; told Drive was still on, Test says plainly the run could have reached the framework files, finds nothing in it that shows them, and grades the run rather than refusing it.",
       "expectations": [
         {
           "text": "Says N-T8 (Drive, Claude) word for word",
@@ -9605,6 +9615,11 @@
             "id": "N-T30",
             "form": "Refused"
           }
+        },
+        {
+          "text": "After the bare 'yes', Test asks one short follow-up (which it was: saw them, or the drive left on) before grading or refusing anything",
+          "kind": "judged",
+          "must": true
         },
         {
           "text": "After the leader says Google Drive was still on, Test says plainly, in one line, that the run could have reached the framework files, never that it did, and grades the run because nothing in it shows them",
