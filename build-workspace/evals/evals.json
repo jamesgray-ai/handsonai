@@ -4806,6 +4806,19 @@
     {
      "text": "Before Part 3 installs the changed skill, N-B41 names Client Check-In and waits for its answer, and the skill's current version is kept (a Git commit unchanged since, or a copy in history/kept-copy-*/), with its put-back steps in the record",
      "kind": "judged"
+    },
+    {
+     "text": "[P5] The pause answer for Client Check-In goes into shared_with, good until this change goes live",
+     "kind": "scripted",
+     "check": {
+      "type": "file_regex",
+      "path": "framework/client-follow-up/build-record.md",
+      "pattern": "shared_with:[\\s\\S]*?Client Check-In[\\s\\S]*?until:"
+     }
+    },
+    {
+     "text": "[P5] N-B41 leads with the condition and the reason (a scheduled run mustn't use the new version before it's tested), with the common reply first; one workflow is named as 'that workflow', never 'those workflows'",
+     "kind": "judged"
     }
    ],
    "est_turns": 40
@@ -4895,6 +4908,88 @@
     }
    ],
    "est_turns": 40
+  },
+  {
+   "id": "P5-shared-answered",
+   "name": "shared-skill-pause-not-asked-again",
+   "tier": "core",
+   "spec_item": "13 Fix mode on a shared skill (Pass 5, E27b): the record's shared_with already holds 'no schedule' for Client Check-In until this workflow's first go-live, so N-B41 isn't asked again; the entry is kept",
+   "fixture": "fix-shared-answered",
+   "prompt": "Run the build skill. My files are in framework/client-follow-up.",
+   "student": "students/default.md",
+   "files": [
+    "students/default.md"
+   ],
+   "expected_output": "Fix mode changes the shared skill: N-B25 as usual, but no pause question for Client Check-In (its 'no schedule' is in shared_with until the first go-live); the shared_with entry stays in the record; nothing is said about pausing Client Check-In at the close.",
+   "expectations": [
+    {
+     "text": "No N-B41: the answer is already in shared_with",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote_absent",
+        "id": "N-B41",
+        "form": "With switch-on steps in the record"
+       },
+       {
+        "type": "quote_absent",
+        "id": "N-B41",
+        "form": "not-on`"
+       },
+       {
+        "type": "quote_absent",
+        "id": "N-B41",
+        "form": "No switch-on steps in the record"
+       },
+       {
+        "type": "quote_absent",
+        "id": "N-B41",
+        "form": "paused` set since the last go-live"
+       }
+      ]
+     }
+    },
+    {
+     "text": "The shared_with entry is kept",
+     "kind": "scripted",
+     "check": {
+      "type": "file_regex",
+      "path": "framework/client-follow-up/build-record.md",
+      "pattern": "shared_with:[\\s\\S]*?Client Check-In[\\s\\S]*?schedule: none"
+     }
+    },
+    {
+     "text": "No N-B56 for a workflow recorded 'no schedule'",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote_absent",
+        "id": "N-B56",
+        "form": "main"
+       },
+       {
+        "type": "quote_absent",
+        "id": "N-B56",
+        "form": "One workflow"
+       }
+      ]
+     }
+    },
+    {
+     "text": "The record passes the structure check",
+     "kind": "scripted",
+     "check": {
+      "type": "structure",
+      "path": "framework/client-follow-up/build-record.md",
+      "kind": "build_record"
+     }
+    }
+   ],
+   "est_turns": 30
   },
   {
    "id": "P2-open-item",
@@ -7757,6 +7852,29 @@
        }
       ]
      }
+    },
+    {
+     "text": "[P5-brief] The brief is shown in the chat, a fenced block in Build's own text, before the skill creator's first step",
+     "kind": "scripted",
+     "check": {
+      "type": "brief_in_text"
+     }
+    },
+    {
+     "text": "[P5-progress] No progress line says a part is 'built and checked' before it's saved",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)[—-] built and checked"
+     }
+    },
+    {
+     "text": "[P5-quick-check] The fresh-chat run is 'your quick check', never a 'test run'",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)\\byour (?:test run|test)\\b(?! the)"
+     }
     }
    ],
    "est_turns": 44
@@ -8090,6 +8208,29 @@
        }
       ]
      }
+    },
+    {
+     "text": "[P5-brief] The brief is shown in the chat, a fenced block in Build's own text, before the skill creator's first step",
+     "kind": "scripted",
+     "check": {
+      "type": "brief_in_text"
+     }
+    },
+    {
+     "text": "[P5-progress] No progress line says a part is 'built and checked' before it's saved",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)[—-] built and checked"
+     }
+    },
+    {
+     "text": "[P5-quick-check] The fresh-chat run is 'your quick check', never a 'test run'",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)\\byour (?:test run|test)\\b(?! the)"
+     }
     }
    ],
    "est_turns": 44
@@ -8276,6 +8417,29 @@
         "type": "deny_in_every_handover"
        }
       ]
+     }
+    },
+    {
+     "text": "[P5-brief] The brief is shown in the chat, a fenced block in Build's own text, before the skill creator's first step",
+     "kind": "scripted",
+     "check": {
+      "type": "brief_in_text"
+     }
+    },
+    {
+     "text": "[P5-progress] No progress line says a part is 'built and checked' before it's saved",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)[—-] built and checked"
+     }
+    },
+    {
+     "text": "[P5-quick-check] The fresh-chat run is 'your quick check', never a 'test run'",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)\\byour (?:test run|test)\\b(?! the)"
      }
     }
    ],

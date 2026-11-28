@@ -1097,6 +1097,13 @@ def fx_fix_shared_skill(t):  # the miss is in a skill another workflow shares
     cc_close_state(t)
 
 
+def fx_fix_shared_answered(t):  # Pass 5 (E27b): the first Build session already heard "no schedule" for Client Check-In
+    """Fix mode on the shared skill, before this workflow's first go-live: the record's shared_with holds Client
+    Check-In's answer (`schedule: none`, until the first go-live), so the pause question isn't asked again."""
+    fx_fix_shared_skill(t)
+    sub(record(t), "change_requests: []\n", "change_requests: []\nshared_with:\n  - { workflow: Client Check-In, schedule: none, until: first go-live }\n")
+
+
 def fx_fix_declined_failed(t):  # T2's request was declined, T2 already Failed check, plan unchanged
     ff(t, S06)
     p = plan(t)
@@ -1506,7 +1513,7 @@ FIXTURES = {
     # fix mode
     "fix-mode": fx_fix_mode, "fix-mode-artifact": fx_fix_mode_artifact, "fix-requirement": fx_fix_requirement,
     "fix-plan": fx_fix_plan, "fix-leader-change": fx_fix_leader_change, "fix-three-rounds-unlogged": fx_fix_three_rounds_unlogged,
-    "fix-web-unreadable": fx_fix_web_unreadable, "fix-chatgpt-unreadable": fx_fix_chatgpt_unreadable, "fix-m365-agent": fx_fix_m365_agent, "fix-shared-skill": fx_fix_shared_skill,
+    "fix-web-unreadable": fx_fix_web_unreadable, "fix-chatgpt-unreadable": fx_fix_chatgpt_unreadable, "fix-m365-agent": fx_fix_m365_agent, "fix-shared-skill": fx_fix_shared_skill, "fix-shared-answered": fx_fix_shared_answered,
     "fix-declined-failed": fx_fix_declined_failed,
     # direct edits
     "edit-readable": fx_edit_readable, "edit-context": fx_edit_context, "edit-declined": fx_edit_declined,

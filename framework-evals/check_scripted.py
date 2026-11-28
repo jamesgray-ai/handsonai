@@ -109,6 +109,9 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   creator's `package_skill` made (unzip, zipinfo,
                                                                   python… naming the .skill file), in the same turn;
                                                                   no offer passes. No events.jsonl fails closed
+  brief_in_text    {session?}                                     on Claude and ChatGPT the brief is a fenced block in
+                                                                  Build's text before the creator's first sandbox write
+                                                                  or package_skill (Pass 5, E9); no events fails closed
   one_question     {containing, not_pattern?, session?}           every AI message matching containing asks at most one
                                                                   question, in its last paragraph; none matches
                                                                   not_pattern; none matched fails closed (Pass 5)
@@ -1173,6 +1176,8 @@ def check(c, run):
         return _nf4_leads(run)
     if t == "nf4_before_creator":
         return _nf4_before_creator(run)
+    if t == "brief_in_text":
+        return _brief_in_text(c, run)
     if t == "one_question":
         return _one_question(c, run)
     if t == "phrases_in_blocks":
@@ -1532,6 +1537,43 @@ def _asked_before_save(c, run):
         if not asked:
             return False, f"session {s['n']}: the keep-or-drop question never asked"
     return True, "asked, and no save offered"
+
+
+CREATOR_START = re.compile(r"(?:^|/)sandbox/|\bpackage_skill\b")
+
+
+def _brief_in_text(c, run):
+    """Pass 5 (E9): on Claude and ChatGPT, where Build is the skill creator, the brief is a fenced block in Build's own
+    message text (BRIEF_BLOCK) before the creator's first output: the first Write or Edit into the chat's sandbox, or
+    the first package_skill. A brief written only into a file or a tool call, or shown after the creator started,
+    fails; a session whose creator never started passes. No events.jsonl fails closed."""
+    seen = False
+    for s in _sessions(run, c.get("session")):
+        if not s.get("root"):
+            continue
+        try:
+            lines = (Path(s["root"]).parent / "events.jsonl").read_text(errors="replace").splitlines()
+        except OSError:
+            continue
+        seen = True
+        shown = False
+        for line in lines:
+            try:
+                e = json.loads(line)
+            except ValueError:
+                continue
+            content = (e.get("message") or {}).get("content") if isinstance(e, dict) and e.get("type") == "assistant" else None
+            for b in content if isinstance(content, list) else []:
+                if not isinstance(b, dict):
+                    continue
+                if b.get("type") == "text" and BRIEF_BLOCK.search(str(b.get("text") or "")):
+                    shown = True
+                elif b.get("type") == "tool_use":
+                    inp = b.get("input") or {}
+                    target = " ".join(str(inp.get(k) or "") for k in ("file_path", "path", "command"))
+                    if b.get("name") in ("Write", "Edit", "MultiEdit", "Bash") and CREATOR_START.search(target) and not shown:
+                        return False, f"session {s['n']}: the creator started ({b.get('name')} {target[:80]!r}) before the brief was shown in the chat"
+    return (seen, "the brief is shown in the chat before the creator starts" if seen else "no events.jsonl")
 
 
 def _read_before_save(c, run):

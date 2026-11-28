@@ -5419,7 +5419,7 @@
   {
    "id": "N-B11",
    "form": "main",
-   "text": "Everything else is built and checked. [Tasks, in plain words] wait for [the open item]. To answer it, say 'run the design skill. My files are in [location].' Then come back with 'run the build skill. My files are in [location].' and I'll finish.",
+   "text": "Everything else is drafted and checked: you'll save it at the end. [Tasks, in plain words] wait for [the open item]. To answer it, say 'run the design skill. My files are in [location].' Then come back with 'run the build skill. My files are in [location].' and I'll finish.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -5427,7 +5427,7 @@
    "files": {
     "build": "SKILL.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); 2026-11-27 Pass 5 Task 5 (E10: 'built and checked' read as finished; parts are saved together at the end)"
   },
   {
    "id": "N-B11",
@@ -6163,7 +6163,7 @@
   {
    "id": "N-B41",
    "form": "With switch-on steps in the record",
-   "text": "Pause [workflow]'s schedule while I change it: [steps]. Say 'done' when it's paused, or 'no schedule' if it isn't running on one.",
+   "text": "If [workflow] runs on a schedule, pause it while I change it, so a scheduled run doesn't use the new version before it's tested: [steps]. Say 'no schedule' if it doesn't, or 'done' once it's paused.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6171,12 +6171,12 @@
    "files": {
     "build": "references/live-change.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); 2026-11-27 Pass 5 Task 5 (E11, E27: the condition first, then why, the common reply first)"
   },
   {
    "id": "N-B41",
    "form": "not-on`",
-   "text": "If you've switched on [workflow]'s schedule, pause it while I change it: [steps]. Say 'done' when it's paused, or 'no schedule'.",
+   "text": "If you've switched on [workflow]'s schedule, pause it while I change it, so a scheduled run doesn't use the new version before it's tested: [steps]. Say 'no schedule' if you haven't, or 'done' once it's paused.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6184,12 +6184,12 @@
    "files": {
     "build": "references/live-change.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); 2026-11-27 Pass 5 Task 5 (E11, E27: the condition first, then why, the common reply first)"
   },
   {
    "id": "N-B41",
    "form": "No switch-on steps in the record",
-   "text": "If you've set up a schedule for [workflow] yourself, pause it while I change it. Say 'done' when it's paused, or 'no schedule'.",
+   "text": "If [workflow] runs on a schedule you set up yourself, pause it while I change it, so a scheduled run doesn't use the new version before it's tested. Say 'no schedule' if it doesn't, or 'done' once it's paused.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6197,12 +6197,12 @@
    "files": {
     "build": "references/live-change.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); 2026-11-27 Pass 5 Task 5 (E11, E27: the condition first, then why, the common reply first)"
   },
   {
    "id": "N-B41",
    "form": "paused` set since the last go-live",
-   "text": "Is [workflow]'s schedule still paused from the last change? Say 'yes', or pause it now[ ([steps])] and say 'done'.",
+   "text": "If [workflow]'s schedule is still paused from the last change, keep it that way, so a scheduled run doesn't use the new version before it's tested. Say 'yes' if it's still paused, or pause it now[ ([steps])] and say 'done'.",
    "kind": "question",
    "skills": [
     "build"
@@ -6210,7 +6210,7 @@
    "files": {
     "build": "references/live-change.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); 2026-11-27 Pass 5 Task 5 (E11, E27: the condition first, then why, the common reply first)"
   },
   {
    "id": "N-B42",
@@ -6293,7 +6293,7 @@
   {
    "id": "N-B50",
    "form": "main",
-   "text": "[Task] still can't be built as planned, and Design kept the plan as it is: [the reason, in plain words]. Everything that doesn't depend on it is built and checked. To try a different approach, say 'change my workflow. My files are in [location].'",
+   "text": "[Task] still can't be built as planned, and Design kept the plan as it is: [the reason, in plain words]. Everything that doesn't depend on it is drafted and checked, and nothing is saved yet. To try a different approach, say 'change my workflow. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -6301,7 +6301,7 @@
    "files": {
     "build": "SKILL.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24); \"Everything that doesn't depend on it\" for \"Everything else\", 3c-EB (2026-10-25)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); \"Everything that doesn't depend on it\" for \"Everything else\", 3c-EB (2026-10-25); 2026-11-27 Pass 5 Task 5 (E10: 'built and checked' read as finished; parts are saved together at the end)"
   },
   {
    "id": "N-B50",
@@ -11698,7 +11698,7 @@
   {
    "id": "N-B57",
    "form": "main",
-   "text": "Everything is built and checked. I'll now save [N] parts where [platform] starts them: [names]. OK to go ahead?",
+   "text": "Everything is drafted and checked. I'll now save [N] parts where [platform] starts them: [names]. OK to go ahead?",
    "kind": "question",
    "skills": [
     "build"
@@ -11706,7 +11706,7 @@
    "files": {
     "build": "references/package-and-install.md"
    },
-   "source": "independent review finding 6; approved by James 2026-11-21"
+   "source": "independent review finding 6; approved by James 2026-11-21; 2026-11-27 Pass 5 Task 5 (E10: 'built and checked' read as finished; parts are saved together at the end)"
   },
   {
    "id": "D5″",
@@ -11751,7 +11751,7 @@
   {
    "id": "N-B57",
    "form": "With a miss",
-   "text": "Everything is built and checked, apart from [the miss, in plain words]. I'll now save [N] parts where [platform] starts them: [names]. OK to go ahead?",
+   "text": "Everything is drafted and checked, apart from [the miss, in plain words]. I'll now save [N] parts where [platform] starts them: [names]. OK to go ahead?",
    "kind": "question",
    "skills": [
     "build"
@@ -11759,7 +11759,7 @@
    "files": {
     "build": "references/package-and-install.md"
    },
-   "source": "independent review check B1-19/B1-20; approved by James 2026-11-21"
+   "source": "independent review check B1-19/B1-20; approved by James 2026-11-21; 2026-11-27 Pass 5 Task 5 (E10: 'built and checked' read as finished; parts are saved together at the end)"
   },
   {
    "id": "N-B58",
@@ -11993,6 +11993,32 @@
     "test": "SKILL.md"
    },
    "source": "2026-11-27: shape release Pass 5 Task 2 (one question: the folder ask folded in)"
+  },
+  {
+   "id": "N-B56",
+   "form": "One workflow",
+   "text": "Keep [workflow]'s schedule paused until this test passes too, since it uses [skill].",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/live-change.md"
+   },
+   "source": "2026-11-27: shape release Pass 5 Task 5 (James: 'those workflows' for one; one workflow reads 'that workflow')"
+  },
+  {
+   "id": "N-B25",
+   "form": "One workflow",
+   "text": "[Skill] is also used by [workflow]. Here's the change: [before and after]. It changes that workflow too. Shall I make it?",
+   "kind": "question",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "SKILL.md"
+   },
+   "source": "2026-11-27: shape release Pass 5 Task 5 (James: 'those workflows' for one)"
   }
  ]
 }

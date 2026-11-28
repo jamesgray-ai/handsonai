@@ -269,5 +269,49 @@ class GoLivePhrasesInBlocks(unittest.TestCase):
         self.assertIn("phrases_in_blocks", V.REQUIRED)
 
 
+# ---------------------------------------------------------------- Task 5: Build's wording
+
+import json as _json
+import tempfile as _tempfile
+
+BRIEF = "```\nSkill brief: case-study-information-request\nWhat it does: drafts the request email.\n```"
+
+
+def events_run(events):
+    root = Path(_tempfile.mkdtemp()) / "workspace"
+    root.mkdir()
+    lines = [{"type": "system", "subtype": "init"}]
+    for kind, val in events:
+        if kind == "text":
+            lines.append({"type": "assistant", "message": {"content": [{"type": "text", "text": val}]}})
+        else:
+            lines.append({"type": "assistant", "message": {"content": [{"type": "tool_use", "name": kind, "input": val}]}})
+    (root.parent / "events.jsonl").write_text("\n".join(_json.dumps(x) for x in lines))
+    run = run_of(*[("ai", v) for k, v in events if k == "text"])
+    run["sessions"][0]["root"] = str(root)
+    return run
+
+
+class BriefShownInText(unittest.TestCase):
+    C = {"type": "brief_in_text"}
+    WRITE = ("Write", {"file_path": "./sandbox/case-study-information-request/SKILL.md", "content": "x"})
+
+    def test_brief_shown_in_text(self):
+        ok = events_run([("text", "Here's what I'm asking the skill creator to make:\n\n" + BRIEF), self.WRITE])
+        self.assertTrue(CS.check(self.C, ok)[0])
+
+    def test_brief_only_in_a_tool_call_fails(self):
+        only_tool = events_run([("Write", {"file_path": "./sandbox/brief.md", "content": BRIEF}), self.WRITE,
+                                ("text", "1 of 2: Update the case study request skill — drafted and checked")])
+        self.assertFalse(CS.check(self.C, only_tool)[0])
+
+    def test_brief_after_the_creator_started_fails(self):
+        late = events_run([self.WRITE, ("text", "Here's what I'm asking the skill creator to make:\n\n" + BRIEF)])
+        self.assertFalse(CS.check(self.C, late)[0])
+
+    def test_no_events_fails_closed(self):
+        self.assertFalse(CS.check(self.C, run_of(("ai", BRIEF)))[0])
+
+
 if __name__ == "__main__":
     unittest.main()

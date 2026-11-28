@@ -259,7 +259,7 @@ class SafetyOrPromiseLinesAreWordForWord(MeaningChangingSwapsFail):
         ("N-B21", "Codex", "keeps them from changing anything", "lets them keep changing anything"),
         ("N-T58", "main", "which just passed its test", "which just failed its test"),
         ("N-B26", "No private place", "would reach your team", "would miss your team"),
-        ("N-B50", "main", "is built and checked", "is built and unchecked"),
+        ("N-B50", "main", "is drafted and checked", "is drafted and unchecked"),
         ("N-B40", "main", "can't draw on our conversations", "can draw on our conversations"),
         ("N-B47", "main", "before it's been tested", "after it's been tested"),
         ("N-D16", "main", "are back in place", "are out of place"),
