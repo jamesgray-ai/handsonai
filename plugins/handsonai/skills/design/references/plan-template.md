@@ -125,7 +125,7 @@ The title, then exactly these `##` sections, named exactly, in this order, openi
 # [Workflow Name] — Design Plan
 
 ## Summary
-[The plan in brief, in plain words, as the review says it (`review.md`, items 1 to 5): how it runs and how the leader starts it, the parts it reuses or builds, what it reads and changes, how it's checked in a few words, and keeping it working. No requirement, task or line IDs, and no level name. Written at the end of Part 2 and kept up to date with every change.]
+[The plan in brief, in plain words, as the review says it (`review.md`, items 1 to 5): how it runs and how the leader starts it, the parts it reuses or builds, what it reads and changes, how it's checked in a few words, and keeping it working. Each main choice (what it's built from, how it runs, how the output reaches the leader, where they check it) with one plain line of why, in terms of the requirements. No requirement, task or line IDs, and no level name. Written at the end of Part 2 and kept up to date with every change.]
 
 ## Source
 - **Requirements:** `requirements.md`

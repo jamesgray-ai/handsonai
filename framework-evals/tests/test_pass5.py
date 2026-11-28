@@ -313,5 +313,79 @@ class BriefShownInText(unittest.TestCase):
         self.assertFalse(CS.check(self.C, run_of(("ai", BRIEF)))[0])
 
 
+# ---------------------------------------------------------------- Task 6: Design
+
+def _plan():
+    """A Design Plan as Build's fixtures write it (approved), built fresh by the build workspace's fixture builder."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("bfx", EVALS.parent / "build-workspace" / "evals" / "fixtures" / "make_fixture.py")
+    B = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(B)
+    t = str(Path(_tempfile.mkdtemp()) / "w")
+    B.FIXTURES["cc-first"](t)
+    return (Path(t) / "framework" / "client-follow-up" / "design-plan.md").read_text()
+
+
+class ApprovalRefusedWithQuestionToAsk(unittest.TestCase):
+    TO_ASK = ("## Open items\n1. **Reuse the existing case study request skill (to ask).** Why it matters: it decides "
+              "whether T1 extends it. Blocks: T1. Who answers: you. Safe default: none (not a safety item).")
+    WAITING = ("## Open items\n1. **Access to the shared Call notes folder.** Why it matters: T1 reads it. Blocks: T1. "
+               "Who answers: IT. Safe default: none (not a safety item).")
+
+    def test_approval_refused_with_question_to_ask(self):
+        plan = _plan()
+        self.assertIn("approved: true", plan)
+        bad = plan.replace("## Open items\nNone.", self.TO_ASK)
+        self.assertTrue(any("to ask" in p for p in ST.check_plan(bad, written=False)))
+
+    def test_an_item_waiting_on_access_is_allowed(self):
+        ok = _plan().replace("## Open items\nNone.", self.WAITING)
+        self.assertFalse(any("to ask" in p for p in ST.check_plan(ok, written=False)))
+
+    def test_a_draft_may_hold_a_question_to_ask(self):
+        draft = _plan().replace("approved: true", "approved: false").replace("## Open items\nNone.", self.TO_ASK)
+        self.assertFalse(any("to ask" in p for p in ST.check_plan(draft, written=False)))
+
+
+def choice_events(*steps):
+    """An events.jsonl: ("ask", question) is an AskUserQuestion call, ("pick", answer) its result, ("write", text) a
+    Write to the plan, ("say", text) the AI's text; one result event closes the turn."""
+    lines = [{"type": "system", "subtype": "init"}]
+    for kind, val in steps:
+        if kind == "ask":
+            lines.append({"type": "assistant", "message": {"content": [{"type": "tool_use", "name": "AskUserQuestion", "input": {"questions": [{"question": val}]}}]}})
+        elif kind == "pick":
+            lines.append({"type": "user", "message": {"content": [{"type": "tool_result", "content": val}]}})
+        elif kind == "write":
+            lines.append({"type": "assistant", "message": {"content": [{"type": "tool_use", "name": "Write", "input": {"file_path": "/w/framework/x/design-plan.md", "content": val}}]}})
+        else:
+            lines.append({"type": "assistant", "message": {"content": [{"type": "text", "text": val}]}})
+    lines.append({"type": "result"})
+    root = Path(_tempfile.mkdtemp()) / "workspace"
+    root.mkdir()
+    (root.parent / "events.jsonl").write_text("\n".join(_json.dumps(x) for x in lines))
+    run = run_of(("leader", "run the design skill"), ("ai", "\n".join(v for k, v in steps if k == "say") or "ok"))
+    run["sessions"][0]["root"] = str(root)
+    return run
+
+
+class WidgetAnswerSaved(unittest.TestCase):
+    C = {"type": "saved_before_next_question", "path": "*design-plan.md", "pattern": "Add to it", "answer": "(?i)add to it"}
+    Q1 = "Use your existing skill as it is, add to it, or build a new one?"
+    Q2 = "Where should the draft be saved?"
+
+    def test_widget_answer_saved(self):
+        run = choice_events(("ask", self.Q1), ("pick", "Add to it"), ("write", "Open item 1 Answered: Add to it"), ("ask", self.Q2))
+        self.assertTrue(CS.check(self.C, run)[0])
+
+    def test_next_choice_before_the_save_fails(self):
+        run = choice_events(("ask", self.Q1), ("pick", "Add to it"), ("ask", self.Q2), ("write", "Answered: Add to it"))
+        self.assertFalse(CS.check(self.C, run)[0])
+
+    def test_never_saved_fails(self):
+        run = choice_events(("ask", self.Q1), ("pick", "Add to it"), ("say", "Part 4 of 4 — review and approve. Do you approve the plan?"))
+        self.assertFalse(CS.check(self.C, run)[0])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -1696,9 +1696,48 @@ def _tool_write(c, run):
     return False, why
 
 
+def _choice_saved(s, c, pat, ans):
+    """saved_before_next_question for an answer picked in a choice: in events order, after the AskUserQuestion result
+    matching `answer`, a matching write to `path` comes before the next AskUserQuestion call or AI text that asks."""
+    if not s.get("root"):
+        return False, f"session {s['n']}: no leader message or choice matches {c['answer']!r}"
+    try:
+        lines = (Path(s["root"]).parent / "events.jsonl").read_text(errors="replace").splitlines()
+    except OSError:
+        return False, f"session {s['n']}: no leader message or choice matches {c['answer']!r}"
+    picked = False
+    for line in lines:
+        try:
+            e = json.loads(line)
+        except ValueError:
+            continue
+        content = (e.get("message") or {}).get("content") if isinstance(e, dict) else None
+        for b in content if isinstance(content, list) else []:
+            if not isinstance(b, dict):
+                continue
+            if e.get("type") == "user" and b.get("type") == "tool_result":
+                txt = b.get("content")
+                txt = " ".join(str(x.get("text", x)) if isinstance(x, dict) else str(x) for x in txt) if isinstance(txt, list) else str(txt or "")
+                if not picked and ans.search(norm(txt)):
+                    picked = True
+                continue
+            if not picked or e.get("type") != "assistant":
+                continue
+            if b.get("type") == "tool_use" and b.get("name") in ("Write", "Edit", "MultiEdit"):
+                inp = b.get("input") or {}
+                fp = str(inp.get("file_path") or "")
+                texts = [inp.get("content"), inp.get("new_string")] + [x.get("new_string") for x in inp.get("edits") or []]
+                if (fnmatch.fnmatch(fp, c["path"]) or fnmatch.fnmatch(fp, "*/" + c["path"])) and any(pat.search(norm(str(x))) for x in texts if x):
+                    return True, f"session {s['n']}: the choice's answer is written before the next question"
+            elif (b.get("type") == "tool_use" and b.get("name") == "AskUserQuestion") or (b.get("type") == "text" and "?" in str(b.get("text") or "")):
+                return False, f"session {s['n']}: the next question came before the choice's answer was written"
+    return False, (f"session {s['n']}: the choice's answer was never written" if picked
+                   else f"session {s['n']}: no leader message or choice matches {c['answer']!r}")
+
+
 def _saved_before_next_question(c, run):
     """Pass 4 final review M5: an answer the leader gives is written before the next question reaches them.
-    The first leader message matching `answer` gives it; a Write or Edit to `path` matching `pattern` must
+    The first leader message matching `answer` gives it (or, with none, a choice's AskUserQuestion result: Pass 5, E8); a Write or Edit to `path` matching `pattern` must
     come in an AI turn no later than the first AI turn after that message whose text asks something (a "?").
     The turns are told apart by the result event the harness logs at the end of each call; fails closed when
     the answer is never given, nothing matching is written, or the events can't be split into the AI turns."""
@@ -1712,7 +1751,10 @@ def _saved_before_next_question(c, run):
             elif answer_at is None and ans.search(norm(turn["text"])):
                 answer_at = len(ai_turns)  # the AI turn that replies to it
         if answer_at is None:
-            why = f"session {s['n']}: no leader message matches {c['answer']!r}"
+            # Pass 5 (E8): an answer given in a choice (AskUserQuestion's result) is an answer like any other
+            ok, why = _choice_saved(s, c, pat, ans)
+            if ok:
+                return True, why
             continue
         asks = next((i for i in range(answer_at, len(ai_turns)) if "?" in ai_turns[i]), None)
         if asks is None:

@@ -186,6 +186,12 @@ def check_plan(text, requirements_text=None, written=True):
         probs += check_requests(data.get("changes"), "changes", with_outcome=True)
     elif data:
         probs.append(f"frontmatter doesn't parse: {data['__error__']}")
+    # Pass 5 (E8): no question may still be "to ask" at approval; an item waiting on someone else may stay open
+    if isinstance(data, dict) and data.get("approved") is True:
+        items = [l for l in section(body, "Open items").split("\n") if re.match(r"^\d+\. ", l)]
+        asked = [l for l in items if re.search(r"(?i)\bto ask\b", l)]
+        if asked:
+            probs.append(f"approved with a question still to ask: {asked[0][:100]!r}")
     heads = h2(body)
     old = not written and "Self-Test Summary" in heads and "Summary" not in heads
     want = PLAN_SECTIONS_OLD if old else PLAN_SECTIONS

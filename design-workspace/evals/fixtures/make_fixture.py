@@ -547,6 +547,20 @@ def fx_open_item_consequential(t):  # an open item whose answer adds a change ot
         "1. **Whether the drafts go to your own Gmail or the shared sales@ mailbox the team reads.** Why it matters: a draft in the shared mailbox is something other people see.")
 
 
+def fx_draft_to_ask(t):  # Pass 5 (E8, Review Focus 4): a draft with one question still to ask and one item waiting on access
+    """Open item 1 is the sign-off question, still marked "to ask" (it blocks T2); item 2 waits on IT for access to the
+    shared notes folder (it blocks T1). Approval must ask item 1 first; item 2 may stay open on an approved plan."""
+    ff(t, "states/s05-plan-to-approve/with-registry")
+    p = wf_dir(t, CFU) / "design-plan.md"
+    sub(p, "## Open items\nNone.",
+        "## Open items\n1. **Whether the email signs off as you or as the account team (to ask).** Why it matters: it changes "
+        "the draft's sign-off. Blocks: T2. Who answers: you. Safe default: none (not a safety item).\n"
+        "2. **Access to the team's shared Call notes folder.** Why it matters: the notes are read from there. Blocks: T1. "
+        "Who answers: IT. Safe default: none (not a safety item).")
+    sub(p, "- **Depends on:** —\n", "- **Depends on:** open item 2\n")
+    sub(p, "- **Depends on:** T1\n", "- **Depends on:** T1, open item 1\n")
+
+
 def fx_live_context_unreadable(t):  # the skill is readable, the runtime copy of its context file isn't where the record says
     live(t)
     (Path(t) / ".claude" / "skills" / CFU / "references" / "follow-up-style.md").unlink()
@@ -731,7 +745,7 @@ FIXTURES = {
     "test-request-needs-requirement": fx_test_request_needs_requirement, "leader-at-test": fx_leader_at_test,
     "several-requests": fx_several_requests, "law-drop-request": fx_law_drop_request, "schedule-by-hand": fx_schedule_by_hand,
     "draft-with-gaps": fx_draft_with_gaps, "draft-safety-gap": fx_draft_safety_gap,
-    "open-item-consequential": fx_open_item_consequential, "live-context-unreadable": fx_live_context_unreadable,
+    "open-item-consequential": fx_open_item_consequential, "draft-to-ask": fx_draft_to_ask, "live-context-unreadable": fx_live_context_unreadable,
     "live-m365-agent": fx_live_m365_agent, "format-11": fx_format11, "format-11-all-test-writes": fx_format11_all_test_writes,
     "format-11-from-rule": fx_format11_from_rule, "format-11-booking": fx_format11_booking, "format-11-no-write": fx_format11_no_write, "live-chatgpt": fx_live_chatgpt, "agent-failed-check": fx_agent_failed_check,
 }

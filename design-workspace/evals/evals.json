@@ -396,9 +396,100 @@
      "text": "The resume line says where Design is picking up, in plain words, with no signpost unless the part changes",
      "kind": "judged",
      "must": true
+    },
+    {
+     "text": "[P5] The review asks one question, its last line",
+     "kind": "scripted",
+     "check": {
+      "type": "one_question",
+      "containing": "(?i)what would you change or clarify"
+     }
     }
    ],
    "est_turns": 8
+  },
+  {
+   "id": "P5-to-ask-before-approval",
+   "name": "question-to-ask-blocks-approval",
+   "tier": "core",
+   "spec_item": "Phase 4 approval (Pass 5, E8, E6, Review Focus 4): a question still 'to ask' is asked and saved before approval; an item waiting on access stays open on the approved plan; the review's one question is its last line; each main choice carries its why",
+   "fixture": "draft-to-ask",
+   "prompt": "Run the design skill. My files are in framework/client-follow-up.",
+   "student": "students/sign-off.md",
+   "files": [
+    "students/sign-off.md"
+   ],
+   "expected_output": "A draft with the sign-off question still to ask and the shared-folder access waiting on IT: the sign-off is asked first and saved as it's given; then the review (one question, last), approval; the plan is approved with item 2 still open, stated, not asked; Build will wait on T1.",
+   "expectations": [
+    {
+     "text": "The sign-off answer is written to the plan before the next question",
+     "kind": "scripted",
+     "check": {
+      "type": "saved_before_next_question",
+      "path": "*design-plan.md",
+      "pattern": "(?i)\\bas (?:me|you)\\b|Answered",
+      "answer": "(?i)\\bas me\\b"
+     }
+    },
+    {
+     "text": "Approved",
+     "kind": "scripted",
+     "check": {
+      "type": "file_regex",
+      "path": "framework/client-follow-up/design-plan.md",
+      "pattern": "(?m)^approved: true"
+     }
+    },
+    {
+     "text": "No item still 'to ask' on the approved plan, and the access item stays open",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "section_regex",
+        "path": "framework/client-follow-up/design-plan.md",
+        "section": "## Open items",
+        "pattern": "(?i)\\bto ask\\b",
+        "must": false
+       },
+       {
+        "type": "section_regex",
+        "path": "framework/client-follow-up/design-plan.md",
+        "section": "## Open items",
+        "pattern": "Call notes folder"
+       }
+      ]
+     }
+    },
+    {
+     "text": "The plan passes the structure check (no question to ask at approval)",
+     "kind": "scripted",
+     "check": {
+      "type": "structure",
+      "path": "framework/client-follow-up/design-plan.md",
+      "kind": "plan"
+     }
+    },
+    {
+     "text": "The review asks one question, its last line",
+     "kind": "scripted",
+     "check": {
+      "type": "one_question",
+      "containing": "(?i)what would you change or clarify"
+     }
+    },
+    {
+     "text": "The sign-off question is asked before the approval question; the access item is stated as still open (what waits for it), never asked as a question",
+     "kind": "judged",
+     "must": true
+    },
+    {
+     "text": "In the review, each main choice (what it's built from, how it runs, how the output reaches the leader, where they check it) carries one plain line of why in terms of the requirements; any fix is named as what changed in the plan, never 'build notes' or 'my note'",
+     "kind": "judged"
+    }
+   ],
+   "est_turns": 14
   },
   {
    "id": "EN-s7-open-item",
@@ -2865,6 +2956,16 @@
         "kind": "plan"
        }
       ]
+     }
+    },
+    {
+     "text": "[P5] The answer 'add to it' is written to the plan before the next question",
+     "kind": "scripted",
+     "check": {
+      "type": "saved_before_next_question",
+      "path": "*design-plan.md",
+      "pattern": "Extend existing: drafting-client-emails",
+      "answer": "(?i)\\badd to it\\b"
      }
     }
    ],
