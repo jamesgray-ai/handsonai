@@ -250,6 +250,28 @@ function stateOf(fm) {
   return null;
 }
 
+// The types that carry domain state.
+const STATE_TYPES = new Set(['Workflow', 'Business', 'LineOfBusiness']);
+
+// OKF v0.3 §7: an actor is <producer>/<version> (an agent or tool, e.g.
+// claude-code/claude-opus-5-5) or <scheme>:<id> (human:, team:, process:, or any other).
+function isActor(v) {
+  const s = String(v || '');
+  return /^[a-z][a-z0-9+.-]*:\S+$/i.test(s) || /^[^\s/:]+\/\S+$/.test(s);
+}
+
+// OKF v0.3 §5: a timestamp is an RFC 3339 date-time with an offset, or a date only (the start of
+// that UTC day). Milliseconds, or null when it doesn't parse.
+function toMillis(v) {
+  const s = String(v === undefined || v === null ? '' : v).trim();
+  if (AT_DATE.test(s)) return Date.parse(`${s}T00:00:00Z`);
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/.test(s)) {
+    const t = Date.parse(s);
+    return Number.isNaN(t) ? null : t;
+  }
+  return null;
+}
+
 // --- Bundle version (OKF v0.3 §8.1, §12)
 // The root index.md's okf_version, or null. No version, or one below 0.3, is the
 // 0.2 reading (§12.1's fallbacks apply); a version this code doesn't know is read
@@ -630,7 +652,7 @@ module.exports = {
   TOOLS_VERSION,
   DIR_TYPES, RESERVED, ENUMS, LEGACY_TOLERATED, BANNED_FIELDS, SECTION_NAMES,
   ARTIFACT_LABELS, LEGACY_LABELS, AT_INSTANT, AT_DATE, RECORD_MARKERS,
-  LIFECYCLE_STATUS, stateOf, okfVersionOf, isLegacyVersion, resolveHref, linkTo, resolveOutside, verifiedEvents,
+  LIFECYCLE_STATUS, STATE_TYPES, isActor, toMillis, stateOf, okfVersionOf, isLegacyVersion, resolveHref, linkTo, resolveOutside, verifiedEvents,
   normalizeLineEndings, parseFrontmatter, parseCapabilityFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
   findGeneratedBlocks, renderGeneratedBlock, replaceGeneratedBlock,
   loadBundle, scanSops, frameworkFolder, scanFrameworkFolders, resolveRepoLink, runLogHasEntries, artifactLabels, scanCapabilities,

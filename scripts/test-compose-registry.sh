@@ -661,6 +661,82 @@ node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));process
   && ok "flat bundle: compose reads <slug>/ beside registry/ for the state" || bad "flat bundle: state not read from <slug>/"
 rm -rf "$WEB"
 
+# --- OKF v0.3 rules (domain state, lifecycle, links, trust fields, version) ---------------------
+# in_ws <ws> <file> <perl expr>: edit one registry file in a staged workspace
+in_ws() { perl -0pi -e "$3" "$1/registry/$2"; }
+lint_ws() { (cd "$1" && node "$TOOLS/lint-registry.js" registry 2>&1); }
+expect() {  # expect <ws> <ERROR|WARN> <regex> <label>
+  local out; out=$(lint_ws "$1")
+  grep -qE "^$2 .*$3" <<<"$out" && ok "$4" || bad "$4: expected $2 matching /$3/, got: $(grep -E '^(ERROR|WARN)' <<<"$out" | tr '\n' ' ')"
+}
+expect_not() {
+  local out; out=$(lint_ws "$1")
+  grep -qE "$2" <<<"$out" && bad "$3: unexpected /$2/: $(grep -E "$2" <<<"$out")" || ok "$3"
+}
+WS=$(stage valid-bundle)
+expect_not "$WS" "OKF 0\.2|okf_version" "a 0.3 registry draws no version warning"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^state: backlog$/status: backlog/m'
+expect "$WS" ERROR 'second-workflow.md: status "backlog" is domain state -- write it as state: backlog' "0.3: a domain value in status is an error naming state"
+WS=$(stage valid-bundle); in_ws "$WS" businesses/kestrel-studio.md 's/^state: active$/status: active/m'
+expect "$WS" ERROR 'kestrel-studio.md: status "active" is domain state' "0.3: a Business's domain value in status is an error"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^(state: backlog)$/$1\nstatus: archived/m'
+expect "$WS" ERROR 'status "archived" not in \[draft, stable, deprecated\]' "0.3: an unknown status is an error (not stable, §5.4)"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^(state: backlog)$/$1\nstatus: draft/m'
+expect_not "$WS" "second-workflow.md: status" "a lifecycle status (draft) beside state is fine"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/third-workflow.md 's/^status: deprecated\n//m'
+expect "$WS" ERROR 'third-workflow.md: state "retired" needs status: deprecated' "a retired workflow needs status: deprecated"
+WS=$(stage valid-bundle); in_ws "$WS" processes/client-onboarding.md 's/^(owner: .*)$/$1\nstate: active/m'
+expect "$WS" ERROR 'client-onboarding.md: field "state" belongs on Workflow, Business and LineOfBusiness nodes' "state on a Process is an error"
+WS=$(stage valid-bundle); in_ws "$WS" processes/client-onboarding.md 's/^(owner: .*)$/$1\nstatus: retired/m'
+expect "$WS" ERROR 'client-onboarding.md: status "retired" not in \[draft, stable, deprecated\] -- a retired Process is status: deprecated' "0.3: a retired Process says deprecated"
+# links read from the file's own folder (§6)
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's|\(\.\./\.\./sops/one-sop\.md\)|(sops/one-sop.md)|'
+expect "$WS" ERROR 'first-workflow.md: link sops/one-sop.md is read from this file.s folder \(OKF v0\.3\) -- write \.\./\.\./sops/one-sop\.md' "0.3: a 0.2-form link is an error naming the ../../ form"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's|^(# Artifacts\n)|See [the process](../processes/client-onboarding.md).\n\n$1|m'
+expect "$WS" ERROR 'first-workflow.md: in-bundle link \.\./processes/client-onboarding\.md -- write it root-relative: /processes/client-onboarding\.md' "an in-bundle link written file-relative is an error naming the / form"
+# path fields
+WS=$(stage valid-bundle); in_ws "$WS" lines-of-business/design-services.md 's/^(state: .*)$/$1\nfolder: ..\/..\/no-such-folder\//m'
+expect "$WS" WARN 'design-services.md: folder: \.\./\.\./no-such-folder/ -- directory not found' "a folder: that reaches nothing warns"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/third-workflow.md 's/^(status: deprecated)$/$1\nsuperseded_by: \/workflows\/no-such.md/m'
+expect "$WS" ERROR 'third-workflow.md: superseded_by /workflows/no-such.md -- no such concept' "superseded_by must reach a concept"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^(state: backlog)$/$1\nsuperseded_by: \/workflows\/first-workflow.md/m'
+expect "$WS" WARN 'second-workflow.md: superseded_by without status: deprecated' "superseded_by without deprecated warns"
+# stale_after (§5.5)
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^stale_after: .*$/stale_after: next spring/m'
+expect "$WS" ERROR 'first-workflow.md: stale_after "next spring" is not a date \(YYYY-MM-DD\) or a UTC instant -- never read as fresh' "a malformed stale_after is an error"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^stale_after: .*$/stale_after: 2026-10-01T00:00:00Z/m'
+expect "$WS" WARN 'first-workflow.md: stale_after 2026-10-01T00:00:00Z is past -- re-check due' "an instant stale_after that has passed warns"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^stale_after: .*$/stale_after: 2999-01-01/m'
+expect_not "$WS" "first-workflow.md: stale_after" "a future stale_after draws nothing"
+# writer names (§7)
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^generated: .*$/generated: { by: claude-code\/claude-opus-5-5, at: 2026-11-01T00:00:00Z }/m'
+expect_not "$WS" "second-workflow.md: generated.by" "the agent form <producer>/<version> is a valid writer"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^generated: .*$/generated: { by: team:ops, at: 2026-11-01T00:00:00Z }/m'
+expect_not "$WS" "second-workflow.md: generated.by" "any scheme:id is a valid writer"
+# verified (§5.2-5.3)
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^(state: .*)$/$1\nverified: { by: human:ana, at: 2026-06-01T00:00:00Z }/m'
+expect "$WS" WARN 'first-workflow.md: verified before the last change \(2026-06-01T00:00:00Z < generated.at 2026-07-01T16:00:00Z\)' "a check the content has outrun warns"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^(state: .*)$/$1\nverified: [{ by: human:ana, at: 2026-06-01T00:00:00Z }, { by: human:bo, at: 2026-07-02T00:00:00Z }]/m'
+expect_not "$WS" "first-workflow.md: verified" "a current check in a verified list draws nothing"
+WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's/^(state: .*)$/$1\nverified: { by: human:ana }/m'
+expect "$WS" WARN 'first-workflow.md: verified event without both by and at is ignored' "a verified event missing at warns"
+# root index metadata (§8.1)
+WS=$(stage valid-bundle); in_ws "$WS" index.md 's/^(okf_version: .*)$/$1\ntitle: Kestrel Studio registry\ndescription: How Kestrel runs.\nlicense: CC-BY-4.0\nx-kestrel-owner: ana/m'
+expect_not "$WS" "index.md" "root index title, description, license and x- keys are allowed"
+WS=$(stage valid-bundle); in_ws "$WS" index.md 's/^(okf_version: .*)$/$1\nowner: ana/m'
+expect "$WS" WARN '/index.md: frontmatter key "owner" is not bundle metadata' "another root index key warns"
+# log.md (§9)
+WS=$(stage valid-bundle); printf '\n2026-11-01: First Workflow went live after test round 1\n' >> "$WS/registry/log.md"
+expect "$WS" WARN 'log.md is not in the OKF v0.3 §9 form' "0.3: an old-form log line warns"
+# a 0.2 registry: the old forms are fine, with one warning that names the upgrade
+WS=$(stage valid-bundle); to02 "$WS"; in_ws "$WS" workflows/second-workflow.md 's/^state: backlog$/status: backlog/m'
+out=$(lint_ws "$WS")
+grep -q "^ERROR" <<<"$out" && bad "0.2 registry: old forms should not error: $(grep ERROR <<<"$out")" || ok "0.2 registry: old forms lint without errors"
+[ "$(grep -c 'registry is OKF 0.2' <<<"$out")" -eq 1 ] && ok "0.2 registry: exactly one upgrade warning" || bad "0.2 registry: expected one 'registry is OKF 0.2' warning: $(grep WARN <<<"$out")"
+grep -q 'say "upgrade my registry"' <<<"$out" && ok "0.2 warning names the upgrade phrase" || bad "0.2 warning should name 'upgrade my registry'"
+WS=$(stage valid-bundle); to02 "$WS"; node "$TOOLS/upgrade-registry.js" "$WS/registry" >/dev/null
+out=$(lint_ws "$WS"); grep -q "^ERROR\|OKF 0.2" <<<"$out" && bad "upgraded registry should lint clean as 0.3: $(grep -E 'ERROR|OKF' <<<"$out")" || ok "a 0.2 registry upgraded lints clean as 0.3"
+
 # TOOLS_VERSION: raised, equal to package.json's version, and the plugin ships the same tools
 node -e "
 const lib=require(process.argv[1]); const pkg=require(process.argv[2]);

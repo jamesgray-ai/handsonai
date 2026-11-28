@@ -141,13 +141,15 @@ def write(t, rel, text, mtime=None):
         os.utime(p, (stamp, stamp))
 
 
-def lint_clean(t):
-    """Compose the registry's views and fail unless the registry lints 0 errors, 0 warnings: the
-    fixture is the state a leader's registry is in (R16: old-form links accepted as they are)."""
+def lint_clean(t, allow=()):
+    """Compose the registry's views and fail unless the registry lints 0 errors and no warning
+    beyond those `allow` names (each a substring): the fixture is the state a leader's registry is
+    in (R16: old-form links accepted as they are)."""
     for tool in ("compose-registry.js", "lint-registry.js"):
         r = subprocess.run(["node", str(TOOLS / tool), "registry"], cwd=t, capture_output=True, text=True)
         out = r.stdout + r.stderr
-        if r.returncode != 0 or (tool == "lint-registry.js" and "0 error(s), 0 warning(s)" not in out):
+        extra = [l for l in out.splitlines() if l.startswith("WARN") and not any(a in l for a in allow)]
+        if r.returncode != 0 or (tool == "lint-registry.js" and ("0 error(s)" not in out or extra)):
             sys.exit(f"{tool} not clean for {t}:\n{out[-2000:]}")
 
 
@@ -558,7 +560,9 @@ def old_links(t):
     proc.write_text(proc.read_text().rstrip("\n") + "\n- [Quarterly Review Pack](/workflows/quarterly-review-pack.md)\n")
     idx = t / "registry" / "workflows" / "index.md"
     idx.write_text(idx.read_text().rstrip("\n") + "\n- [Quarterly Review Pack](/workflows/quarterly-review-pack.md)\n")
-    lint_clean(t)
+    # a 0.2 registry, as a leader's is before the upgrade: the version warning, and its line of
+    # business's folder: names a folder this workspace doesn't hold
+    lint_clean(t, allow=("registry is OKF 0.2", "folder: client-services/ -- directory not found"))
 
 
 def solo_founder(t):

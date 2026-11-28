@@ -15,7 +15,9 @@ function lint(bundleDir) {
   const { nodes, errors: loadErrors } = lib.loadBundle(dir);
   // OKF v0.3 §6 / §12.1: a bundle that declares no okf_version, or one below
   // 0.3, keeps the 0.2 reading of a bare link (from the registry's parent folder).
-  const linkOpts = { legacy: lib.isLegacyVersion(lib.okfVersionOf(absBundle)), bundleName: path.basename(absBundle) };
+  const okfVersion = lib.okfVersionOf(absBundle);
+  const legacy = lib.isLegacyVersion(okfVersion);
+  const linkOpts = { legacy, bundleName: path.basename(absBundle) };
   const linksOf = (n) => lib.classifyLinks(n.raw, n.relPath, linkOpts);
   // A resolved outside link's path from the working folder: what it reaches
   // (with the 0.2 framework/ fallback for a 0.2-form link), else as written.
@@ -24,6 +26,10 @@ function lint(bundleDir) {
   const errors = [...loadErrors];
   const warnings = [];
   const today = new Date().toISOString().slice(0, 10);
+  const now = Date.now();
+  if (legacy) {
+    warnings.push(`registry is OKF ${okfVersion ? okfVersion : '0.2 (index.md declares no okf_version)'} -- say "upgrade my registry" to move it to 0.3 (node tools/upgrade-registry.js), which changes only the form, never the content`);
+  }
 
   const concepts = [];
   const indexes = [];
@@ -69,12 +75,74 @@ function lint(bundleDir) {
       if (!lib.AT_INSTANT.test(generated.at) && !lib.AT_DATE.test(generated.at)) {
         errors.push(`${c.relPath}: "generated.at" must be a UTC instant (YYYY-MM-DDTHH:MM:SSZ), or a bare YYYY-MM-DD date on an older node`);
       }
-      if (!/^(human:|process:)\S+$/.test(generated.by)) {
-        warnings.push(`${c.relPath}: generated.by "${generated.by}" does not follow the OKF actor convention (human:<id> or process:<skill-name>) -- malformed actor string`);
+      if (!lib.isActor(generated.by)) {
+        warnings.push(`${c.relPath}: generated.by "${generated.by}" does not follow the OKF actor convention (process:<skill-name>, human:<id>, or <app>/<model id>) -- malformed actor string`);
       }
     }
     if (expected === 'Workflow' && !lib.stateOf(c.fm)) errors.push(`${c.relPath}: missing required field "state"`);
     if (expected === 'Process' && !c.fm.owner) errors.push(`${c.relPath}: missing required field "owner" (must reference an existing Function slug)`);
+
+    // Domain state and lifecycle (OKF v0.3 §5.4; SCHEMA.md "Domain state and lifecycle").
+    const hasStateField = c.fm.state !== undefined && c.fm.state !== null && String(c.fm.state) !== '';
+    if (hasStateField && !lib.STATE_TYPES.has(expected)) {
+      errors.push(`${c.relPath}: field "state" belongs on Workflow, Business and LineOfBusiness nodes`);
+    }
+    const status = c.fm.status === undefined || c.fm.status === null || String(c.fm.status) === '' ? null : String(c.fm.status);
+    if (status && !lib.LIFECYCLE_STATUS.includes(status)) {
+      // A 0.2 registry keeps domain state in status: still read (stateOf), never an error there.
+      const oldForm = legacy && !hasStateField && (lib.STATE_TYPES.has(expected) || status === 'retired');
+      if (!oldForm) {
+        if (lib.STATE_TYPES.has(expected) && !hasStateField && ((lib.ENUMS[expected] || {}).state || []).includes(status)) {
+          errors.push(`${c.relPath}: status "${status}" is domain state -- write it as state: ${status}${status === 'retired' ? ' and status: deprecated' : ''} (status is the lifecycle: draft, stable or deprecated; OKF v0.3 §5.4)`);
+        } else {
+          errors.push(`${c.relPath}: status "${status}" not in [draft, stable, deprecated]${status === 'retired' ? ` -- a retired ${expected} is status: deprecated` : ''}`);
+        }
+      }
+    }
+    if (hasStateField && String(c.fm.state) === 'retired' && status !== 'deprecated') {
+      errors.push(`${c.relPath}: state "retired" needs status: deprecated (OKF v0.3 §5.4)`);
+    }
+    if (c.fm.superseded_by !== undefined && c.fm.superseded_by !== '') {
+      const r = lib.resolveHref(String(c.fm.superseded_by), c.relPath, linkOpts);
+      if (r.kind !== 'bundle' || !nodes.has(r.path)) errors.push(`${c.relPath}: superseded_by ${c.fm.superseded_by} -- no such concept in this bundle`);
+      if (status !== 'deprecated') warnings.push(`${c.relPath}: superseded_by without status: deprecated -- it means something only on a deprecated node (OKF v0.3 §5.4)`);
+    }
+
+    // Path fields from the node's own folder (guide:, folder:), as links are.
+    for (const field of ['guide', 'folder']) {
+      const v = c.fm[field];
+      if (v === undefined || v === null || String(v) === '') continue;
+      const r = lib.resolveHref(String(v), c.relPath, linkOpts);
+      if (r.kind !== 'outside') continue;
+      // A warning, never an error: nothing checked these before 11.1.0, so a registry with an old
+      // guide: or folder: that reaches nothing must not stop regenerating its views.
+      if (lib.resolveOutside(r, workspaceRoot) === null && !lib.isGitIgnored(r.path, workspaceRoot)) {
+        warnings.push(`${c.relPath}: ${field}: ${v} -- ${r.path.endsWith('/') ? 'directory' : 'file'} not found`);
+      }
+    }
+
+    // stale_after (§5.5): a date (the start of that UTC day) or a UTC instant; one that doesn't
+    // parse is never read as fresh.
+    if (c.fm.stale_after !== undefined && c.fm.stale_after !== null && String(c.fm.stale_after) !== '' && lib.toMillis(c.fm.stale_after) === null) {
+      errors.push(`${c.relPath}: stale_after "${c.fm.stale_after}" is not a date (YYYY-MM-DD) or a UTC instant -- never read as fresh (OKF v0.3 §5.5)`);
+    }
+
+    // verified (§5.2-5.3): events need both by and at; a check counts only while it is current.
+    if (c.fm.verified !== undefined && c.fm.verified !== null && c.fm.verified !== '') {
+      const raw = Array.isArray(c.fm.verified) ? c.fm.verified : [c.fm.verified];
+      if (raw.some((e) => !e || typeof e !== 'object' || !e.by || !e.at)) warnings.push(`${c.relPath}: verified event without both by and at is ignored (OKF v0.3 §5.2)`);
+      const events = lib.verifiedEvents(c.fm);
+      for (const e of events) {
+        if (lib.toMillis(e.at) === null) warnings.push(`${c.relPath}: verified at "${e.at}" is not a date or a UTC instant`);
+        if (!lib.isActor(e.by)) warnings.push(`${c.relPath}: verified by "${e.by}" does not follow the OKF actor convention`);
+      }
+      const genAt = generated && typeof generated === 'object' ? lib.toMillis(generated.at) : null;
+      const times = events.map((e) => lib.toMillis(e.at)).filter((t) => t !== null);
+      if (genAt !== null && times.length && times.every((t) => t < genAt)) {
+        const latest = events.reduce((a, e) => (lib.toMillis(e.at) > lib.toMillis(a.at) ? e : a));
+        warnings.push(`${c.relPath}: verified before the last change (${latest.at} < generated.at ${generated.at}) -- unverified until someone checks it again (OKF v0.3 §5.3)`);
+      }
+    }
 
     const enums = Object.assign({}, lib.ENUMS['*'], lib.ENUMS[expected] || {});
     for (const [field, allowed] of Object.entries(enums)) {
@@ -118,6 +186,15 @@ function lint(bundleDir) {
   //    relative link; lib.resolveRepoLink).
   for (const [relPath, n] of nodes) {
     for (const l of linksOf(n).links) {
+      if (l.kind === 'bundle' && l.form === 'relative') {
+        // Spec-valid, but this profile writes in-bundle links root-relative. In a 0.3 bundle a link
+        // written the 0.2 way lands here too: name the file-relative form it meant.
+        const asOld = lib.resolveHref(l.href, relPath, { ...linkOpts, legacy: true });
+        const reach = asOld.form === 'legacy' ? lib.resolveOutside(asOld, workspaceRoot) : null;
+        if (reach) errors.push(`${relPath}: link ${l.href} is read from this file's folder (OKF v0.3) -- write ${lib.linkTo(reach, relPath, linkOpts)}${l.href.replace(/^[^#?]*/, '')}`);
+        else errors.push(`${relPath}: in-bundle link ${l.href} -- write it root-relative: ${l.path}`);
+        continue;
+      }
       if (l.kind === 'bundle') {
         const target = l.path;
         const first = target.split('/')[1];
@@ -350,13 +427,37 @@ function lint(bundleDir) {
   // 11. Freshness warnings.
   for (const w of workflows) {
     if (!w.fm) continue;
-    if (w.fm.stale_after && w.fm.stale_after <= today && lib.stateOf(w.fm) !== 'retired') warnings.push(`${w.relPath}: stale_after ${w.fm.stale_after} is past -- re-check due`);
+    const dueAt = w.fm.stale_after ? lib.toMillis(w.fm.stale_after) : null;
+    if (dueAt !== null && now >= dueAt && lib.stateOf(w.fm) !== 'retired') warnings.push(`${w.relPath}: stale_after ${w.fm.stale_after} is past -- re-check due`);
     if (lib.stateOf(w.fm) === 'backlog') {
       const t = lib.lastChanged(w.fm);
       if (t) {
         const age = (Date.parse(today) - Date.parse(t)) / 86400000;
         if (age > 183) warnings.push(`${w.relPath}: backlog for ${Math.round(age)} days -- triage or retire`);
       }
+    }
+  }
+
+  // 11b. Index frontmatter (OKF v0.3 §8, §8.1): only the bundle root's index.md carries any, and
+  // only bundle metadata (okf_version, title, description, license) or an x- extension key.
+  for (const idx of indexes) {
+    if (!idx.fm) continue;
+    if (idx.relPath !== '/index.md') { warnings.push(`${idx.relPath}: a subdirectory index.md carries no frontmatter (OKF v0.3 §8)`); continue; }
+    for (const k of Object.keys(idx.fm)) {
+      if (!['okf_version', 'title', 'description', 'license'].includes(k) && !k.startsWith('x-')) {
+        warnings.push(`/index.md: frontmatter key "${k}" is not bundle metadata (okf_version, title, description, license, or an x- key; OKF v0.3 §8.1)`);
+      }
+    }
+  }
+  // 11c. log.md (OKF v0.3 §9): `## YYYY-MM-DD` headings, newest first, no frontmatter.
+  const logNode = nodes.get('/log.md');
+  if (logNode && !legacy) {
+    const lines = logNode.raw.split('\n');
+    const heads = lines.filter((l) => /^## /.test(l));
+    const dates = heads.map((l) => (l.match(/^## (\d{4}-\d{2}-\d{2})\s*$/) || [])[1]);
+    const ordered = dates.every((d, i) => d && (i === 0 || d <= dates[i - 1]));
+    if (logNode.fm || lines.some((l) => /^\d{4}-\d{2}-\d{2}: /.test(l)) || !ordered) {
+      warnings.push('/log.md: log.md is not in the OKF v0.3 §9 form (`## YYYY-MM-DD` headings, newest date first, entries as bullets) -- the upgrade (node tools/upgrade-registry.js) regroups it');
     }
   }
 
