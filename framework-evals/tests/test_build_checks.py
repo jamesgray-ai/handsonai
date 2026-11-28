@@ -13,6 +13,22 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 import approved_lines as AL  # noqa: E402
+
+
+def unretired(*ids):
+    """The corpus with these lines approved again: they were retired as held lines in Pass 3 (U1), and these
+    tests use them only as material for the matcher's own rules."""
+    import tempfile
+    data = json.loads(Path(AL.DEFAULT_CORPUS).read_text())
+    for e in data["lines"]:
+        if e["id"] in ids:
+            e.pop("retired", None)
+    f = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False)
+    f.write(json.dumps(data))
+    f.close()
+    return AL.Corpus(f.name)
+
+
 import check_scripted as CS  # noqa: E402
 
 EVALS = HERE.parents[1] / "build-workspace" / "evals" / "evals.json"
@@ -117,11 +133,11 @@ class NamedFormIncludesItsDerivedForms(unittest.TestCase):
                "Let's start with the Project for your workflow.")
 
     def test_no_draft_variant_counts_as_the_named_form(self):
-        forms = AL.load().get("N-B4", "after an orientation line")
+        forms = unretired("N-B4").get("N-B4", "after an orientation line")
         self.assertTrue(any(f.matches(self.OPENING) for f in forms))
 
     def test_another_approved_form_is_not_pulled_in(self):
-        forms = AL.load().get("N-B4", "Every task waits")
+        forms = unretired("N-B4").get("N-B4", "Every task waits")
         self.assertFalse(any(f.form.startswith("Every task waits, after an orientation line") and not f.derived
                              for f in forms))
 
@@ -162,7 +178,8 @@ class ShortRunNeedsTheRestOfItsLine(unittest.TestCase):
     is model wording, not the line reworded."""
 
     def misses(self, msg, skill="build"):
-        return [(ln.id, got) for ln, _, got in AL.load().near_misses(msg, skill)]
+        # N-B14, retired as a held line in Pass 3 (U1), stays the material for the short-run rule
+        return [(ln.id, got) for ln, _, got in unretired("N-B14").near_misses(msg, skill)]
 
     def test_false_hits_from_the_round(self):
         for msg, lid in [
@@ -242,9 +259,9 @@ class SafetyOrPromiseLinesAreWordForWord(MeaningChangingSwapsFail):
         ("N-B21", "Codex", "keeps them from changing anything", "lets them keep changing anything"),
         ("N-T58", "main", "which just passed its test", "which just failed its test"),
         ("N-B26", "No private place", "would reach your team", "would miss your team"),
-        ("N-B50", "main", "is built and checked", "is built and unchecked"),
+        ("N-B50", "main", "is drafted and checked", "is drafted and unchecked"),
         ("N-B40", "main", "can't draw on our conversations", "can draw on our conversations"),
-        ("N-B35", "main", "That didn't work", "That did work"),
+        ("N-B47", "main", "before it's been tested", "after it's been tested"),
         ("N-D16", "main", "are back in place", "are out of place"),
         ("N-A19", "left out", "I left out", "I added in"),
     ]
@@ -255,7 +272,7 @@ class ApprovalQuestionsAreWordForWord(MeaningChangingSwapsFail):
     question line is held word for word too. N-F2 and N-F10, which only say how to carry on, keep a small edit."""
 
     CASES = [
-        ("N-B42", "main", "download it now", "delete it now"),
+        ("N-B42", "main", "copy it out now", "delete it now"),
         ("N-T18", "main", "Remove it?", "Keep it?"),
         ("N-T34", "Ready, not yet live", "everything met", "everything missed"),
         ("N-16", "main", "with someone named who owns that risk", "with nobody named who owns that risk"),
@@ -326,6 +343,33 @@ class CodexListingReadFromTheCommands(unittest.TestCase):
         self.assertFalse(CS.check(self.C, self.run_with("ls", "cat x"))[0])
 
 
+class CodexListingAnchoredToTheChecks(unittest.TestCase):
+    """F9 (shape release): with `around`, a listing must come before the first check command and
+    after the last; on Codex the checks are the commands that read the practice inputs."""
+
+    C = {"type": "bash_count", "pattern": "\\bfind \\.[^\\n|;]*-type f", "min": 2, "around": "\\binputs/"}
+    LIST, CHECK = "find . -type f | sort > /tmp/a", "cat framework/x/inputs/E1-acme.md"
+
+    run_with = CodexListingReadFromTheCommands.run_with
+
+    def test_bash_count_around_both_sides(self):
+        self.assertTrue(CS.check(self.C, self.run_with(self.LIST, self.CHECK, self.CHECK, self.LIST))[0])
+
+    def test_bash_count_around_missing_after(self):
+        ok, why = CS.check(self.C, self.run_with(self.LIST, self.LIST, self.CHECK))
+        self.assertFalse(ok)
+        self.assertIn("after the last", why)
+
+    def test_bash_count_around_missing_before(self):
+        ok, why = CS.check(self.C, self.run_with(self.CHECK, self.LIST, self.LIST))
+        self.assertFalse(ok)
+        self.assertIn("before the first", why)
+
+    def test_bash_count_no_around_unchanged(self):
+        C = {k: v for k, v in self.C.items() if k != "around"}
+        self.assertTrue(CS.check(C, self.run_with(self.CHECK, self.LIST, self.LIST))[0])
+
+
 class InsertedRestartKeepsSessionNumbers(unittest.TestCase):
     """Review of 11a620994: a restart the harness inserts after a Build session in another skill's
     journey isn't one of the eval's sessions, so "session": n still names the eval's nth."""
@@ -346,19 +390,23 @@ class NT34WebFormStaysOnTheWeb(unittest.TestCase):
     """Review of b3f4b3d41: N-T34's web form is its own form. The plain Not ready check, used on Claude Code,
     Codex, Claude desktop and Microsoft 365, fails the web sentence, and no Claude Code variant is derived."""
 
-    WEB = ("Not ready yet: 1 to fix. Start Build in a new chat. Add your Google Drive to it, then say 'run the "
-           "build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.'")
+    WEB = ("Not ready yet: every check passed; what's left: 1 to change. Test only checks, so Build makes it, in your "
+           "build, then you come back here for a short second round. Start it in a new chat. "
+           "Add your Google Drive to it, then say:\n\n```\nrun the build skill. My files are in Google Drive, in "
+           "ai-workspace/framework/client-follow-up.\n```")
 
     def test_the_web_sentence_fails_the_plain_form_and_passes_its_own(self):
         self.assertFalse(CS.check({"type": "quote", "id": "N-T34", "form": "Not ready"}, _run_of(self.WEB))[0])
         self.assertTrue(CS.check({"type": "quote", "id": "N-T34", "form": "On the web, not ready"}, _run_of(self.WEB))[0])
-        plain = "Not ready yet: 1 to fix. Say 'run the build skill.'"
+        plain = ("Not ready yet: every check passed; what's left: 1 to change. Test only checks, so Build makes it, in "
+                 "your build, then you come back here for a short second round. Start it in a new chat and say:"
+                 "\n\n```\nrun the build skill.\n```")
         self.assertTrue(CS.check({"type": "quote", "id": "N-T34", "form": "Not ready"}, _run_of(plain))[0])
 
     def test_no_claude_code_variant_of_the_web_form(self):
         forms = [ln.form for ln in AL.load().lines if ln.id == "N-T34"]
         self.assertFalse([f for f in forms if f.startswith("On the web, not ready,")])
-        self.assertFalse([f for f in AL.load().get("N-T34", "Not ready") if "Start Build in a new chat" in (f.text or "")])
+        self.assertFalse([f for f in AL.load().get("N-T34", "Not ready") if "Add your" in (f.text or "")])
 
 if __name__ == "__main__":
     unittest.main()

@@ -169,7 +169,12 @@
     },
     "no-registry": {
       "state": 6,
-      "owner": "Build"
+      "owner": "Build",
+      "scorecard": {
+        "met": 13,
+        "total": 13,
+        "inputs": 4
+      }
     }
   },
   "edge/e-round-left-behind": {
@@ -201,7 +206,12 @@
     },
     "no-registry": {
       "state": 6,
-      "owner": "Build"
+      "owner": "Build",
+      "scorecard": {
+        "met": 12,
+        "total": 13,
+        "inputs": 4
+      }
     }
   },
   "edge/e-requirements-revision-above-plan": {
@@ -300,7 +310,12 @@
     "no-registry": {
       "state": 6,
       "owner": "Build",
-      "note": "no registry: a switched-off workflow brought back the same way"
+      "note": "no registry: a switched-off workflow brought back the same way",
+      "scorecard": {
+        "met": 13,
+        "total": 13,
+        "inputs": 4
+      }
     }
   },
   "edge/e-interrupted-redo-with-progress": {
@@ -674,6 +689,22 @@
     },
     "no-registry": {
       "state": 10,
+      "owner": "Test"
+    }
+  },
+  "edge/e-saved-failed-check": {
+    "no-registry": {
+      "state": 6,
+      "owner": "Build",
+      "saved_failed_check": [
+        "T2"
+      ],
+      "note": "a part saved before its fresh-chat run failed: never built, so Test refuses it"
+    }
+  },
+  "format-11/s08-test-needed": {
+    "self": {
+      "state": 8,
       "owner": "Test"
     }
   }

@@ -6,7 +6,7 @@ Read when the plan has an agent on Microsoft 365. Skills are made in Cowork by C
 
 ## 1. The build prompt
 
-At the agent's task in Part 2, write the prompt from this template, said word for word with only the brackets filled, and stage it in `package/[agent-name]-build-prompt.md`:
+At the agent's task in Part 2, write the prompt from this template, said word for word with only the brackets filled, and keep it in `built/[agent-name]/build-prompt.md`:
 
 "Build the agent described in task [task ID] of design-plan.md, using the requirements in requirements.md. Both files are in my OneDrive, in ai-workspace/framework/[workflow-slug]. Everything you need is in those files, so don't ask me anything they already answer. The agent reads only [each context file, by its place in OneDrive], and connects to [its connections / nothing else]. Its instructions must also include these lines, word for word: [the lines 6.3 names from 6.4]."
 
@@ -45,7 +45,7 @@ Run the built-text check (`carried-lines.md` section 7) on the instructions the 
 
 Up to three tries in all. A carried line is never finished as `Built, misses [line]`: it isn't a requirement line. After the third failed try, record `Failed check` for the agent's task; in N-B9's reason say plainly that Agent Builder keeps leaving out [the line, in plain words] that every practice run needs, so the agent can't be tested safely and isn't to be used; and ask, said exactly (N-B54):
 
-"Please delete [Agent]: select the … menu next to [Agent] and choose Delete. Say 'done' when it's gone."
+"Please delete [Agent] in Agent Builder, so it's never used: [one sentence on how, and the link to Microsoft's page on managing agents in `platform-docs.json`]. Say 'done' when it's gone."
 
 On the rebuild path (section 5), the newer copy from the third try is deleted first, as in its step 5, so this request leaves no copy of the agent made in this pass. On a live workflow it isn't asked for the agent that was running (below).
 
@@ -55,9 +55,9 @@ Record the task's row as `Failed check`, and in its Check column "Failed check, 
 
 ## 5. A fix, or a task rebuilt from a changed plan
 
-**Which path.** While release check 29 hasn't passed (today), every fix, update and paste-back gap takes the rebuild path at the end of this section, and nothing else here applies; the fix goes into a copy of the build prompt, staged as `package/[agent-name]-build-prompt-[n].md`. Once check 29 passes, the edit-in-place path that follows.
+**Which path.** While release check 29 hasn't passed (today), every fix, update and paste-back gap takes the rebuild path at the end of this section, and nothing else here applies; the fix goes into a copy of the build prompt, kept as `built/[agent-name]/build-prompt-[n].md`. Once check 29 passes, the edit-in-place path that follows.
 
-Fix the agent the way it was made: write a short fix prompt for its Agent Builder chat, stage it in `package/[agent-name]-fix-prompt-[n].md` beside the build prompt, and give the line at the end of the fixes, said exactly:
+Fix the agent the way it was made: write a short fix prompt for its Agent Builder chat, keep it in `built/[agent-name]/fix-prompt-[n].md` beside the build prompt, and give the line at the end of the fixes, said exactly:
 
 "To [fix / update] [Agent], open the … menu next to [Agent], choose Edit, then paste this into the chat box on the Describe tab:"
 
@@ -69,11 +69,11 @@ then the fix prompt, in a block to copy, then:
 
 "In this agent, [the change], so it [the requirement it must meet, in plain words / matches task [task ID] of design-plan.md in my OneDrive, in ai-workspace/framework/[workflow-slug] / carries this line word for word: '[the line]'].[ In a test it [the miss, in plain words].] Change nothing else."
 
-The miss sentence only in fix mode, for a Test miss; the plan's task for a task rebuilt from a changed plan, with no miss; the carried-line fill for a gap the paste-back found. A context file the change touches is staged in `package/` with the prompt and saved again in the workflow's own folder only in Part 3, right before this line, so a new version never reaches a live agent ahead of the rest of its fix; the Knowledge clause then has the leader replace it.
+The miss sentence only in fix mode, for a Test miss; the plan's task for a task rebuilt from a changed plan, with no miss; the carried-line fill for a gap the paste-back found. A context file the change touches is kept in `built/[agent-name]/` with the prompt and saved again in the workflow's own folder only in Part 3, right before this line, so a new version never reaches a live agent ahead of the rest of its fix; the Knowledge clause then has the leader replace it.
 
 After its "done", until release check 31 passes, the paste-back, said exactly: "Now open the … menu next to [Agent], choose Edit, then on the Configure tab copy everything under Instructions, and paste it here, so I can check the change kept every line it must carry." Check it again (a paste of the fix prompt itself is asked for again, as in section 3; a gap gets the carried-line fill), keep the new text in the record, then the done form: "[Agent] is [fixed / updated], and Test re-runs everything that uses it." Once release check 31 passes, no paste-back, and: "[Agent] is [fixed / updated]. I can't read its instructions from here, so Test re-runs everything that uses it." Then your close.
 
-**Where release check 29 hasn't passed** (Agent Builder changing an existing agent from a fix prompt; today, so this is the path every fix, update and paste-back gap takes), the rebuild path, in this order. A changed context file is staged and saved again in Part 3 as above, and section 2's step 3 adds it under Knowledge in the new agent.
+**Where release check 29 hasn't passed** (Agent Builder changing an existing agent from a fix prompt; today, so this is the path every fix, update and paste-back gap takes), the rebuild path, in this order. A changed context file is kept and saved again in Part 3 as above, and section 2's step 3 adds it under Knowledge in the new agent.
 
 1. The rebuild form's opening, said exactly: "Agent Builder can't change [Agent] in place, so we'll make a new one with the fix in it."
 2. Section 2's steps 1 to 6 (N-B52's main form), the build prompt carrying the fix (for a gap, the missing or reworded line; for a Test miss or a changed plan, the change). Its step 6 is the one paste-back request on this path: N-B53's own paste-back sentence and N-B52's gap sentence aren't said.
@@ -83,8 +83,8 @@ After its "done", until release check 31 passes, the paste-back, said exactly: "
 
 ## 6. Putting it back, and live changes
 
-- **Kept copy:** the build prompt and every fix prompt in `package/`. Putting it back means building it again from them (section 2, then section 5 for each fix kept), which gives the same instructions in substance, not word for word; say so in one line, and in the record's "Put back the kept copy".
-- **Before a live agent changes:** where the record holds the instructions the leader last pasted back and N-E1's agent form said nothing changed since, that text is the copy: save it, with the prompts from `package/`, in `history/kept-copy-YYYY-MM-DD-HHMM/`, asking nothing. Only where the record has none (release check 31 passed, so nothing was pasted) or N-E1 said it changed does N-B48 ask the leader to keep a copy, with Agent Builder's steps to copy its instructions out.
+- **Kept copy:** the build prompt and every fix prompt in `built/[agent-name]/` (in a folder built before this release, `package/`). Putting it back means building it again from them (section 2, then section 5 for each fix kept), which gives the same instructions in substance, not word for word; say so in one line, and in the record's "Put back the kept copy".
+- **Before a live agent changes:** where the record holds the instructions the leader last pasted back and N-E1's agent form said nothing changed since, that text is the copy: save it, with the prompts from `built/[agent-name]/`, in `history/kept-copy-YYYY-MM-DD-HHMM/`, asking nothing. Only where the record has none (release check 31 passed, so nothing was pasted) or N-E1 said it changed does N-B48 ask the leader to keep a copy, with Agent Builder's steps to copy its instructions out.
 
 ## 7. Release checks this rests on
 

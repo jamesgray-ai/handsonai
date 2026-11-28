@@ -14,6 +14,10 @@ changes: []
 
 # Weekly Status Report — Design Plan
 
+## Summary
+
+The requirements leave the method to the AI, but this work has one input and rules that settle each decision, so the plan sets four steps in a fixed order. One skill runs them every Friday: it reads the week's updates through the HubSpot connection, drafts the report from the last report and the tone guide, stops for the program manager's review, and saves the approved report as a new file in its own folder. It changes nothing in HubSpot or anywhere else.
+
 ## Source
 - **Requirements:** `requirements.md`
 - **Approach:** The requirements leave the method to the AI, but this work has one input and rules that settle each decision, so the plan sets four steps in a fixed order. One skill runs them every Friday: it reads the week's updates through the HubSpot connection, drafts the report from the last report and the tone guide, stops for the program manager's review, and saves the approved report as a new file in its own folder. It changes nothing in HubSpot or anywhere else.
@@ -153,12 +157,3 @@ None.
 - **Done when:** Build finds each listed line in the built text, and Test grades the flag line with the flag input
 - **Depends on:** T3
 - **rev:** 1
-
-## Self-Test Summary
-- ✓ Structure: frontmatter, sections and tasks in the template's order
-- ✓ Level and patterns: Deterministic, with the pattern cited from the catalogue
-- ✓ Blueprints: one orchestrator skill covering every planned step, no requirement wording copied
-- ✓ Safety: four questions answered; one write, a new file only the program manager sees, after their approval; outside-content rule in the blueprint
-- ✓ Tasks and trace: every planned step and every AC, R, G and W line in a task's Meets; P1 and P2 in Constraint Conformance
-- ✓ Open items and inputs: none open; one risk input written for the unclear-status checkpoint (E4)
-- ✓ Plan check: nothing needed fixing

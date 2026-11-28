@@ -394,3 +394,33 @@ class BuildRoundContext(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SkillPlatformFacts(unittest.TestCase):
+    """F4 (shape release): the judge reads the skill's own references/platform-facts.md, so a statement
+    those rules back isn't flagged as invented."""
+
+    def plugin_run(self, with_facts):
+        t = Path(tempfile.mkdtemp())
+        ref = t / "plugin" / "skills" / "build" / "references"
+        ref.mkdir(parents=True)
+        if with_facts:
+            (ref / "platform-facts.md").write_text("MARKER-PF: never make up a menu path.\n")
+        ws = t / "run" / "workspace"
+        ws.mkdir(parents=True)
+        (ws.parent / "events.jsonl").write_text("")
+        return {"skill": "build", "sessions": [{"root": str(ws), "files_start": {},
+                                                 "turns": [{"role": "ai", "text": "x"}]}]}
+
+    def test_platform_facts_in_judge_context(self):
+        run = self.plugin_run(True)
+        self.assertIn("MARKER-PF", G.skill_platform_facts(run, "build"))
+        _, prompt = G.rubric_prompt(run)
+        self.assertIn("## The skill's platform rules", prompt)
+        self.assertIn("MARKER-PF", prompt)
+
+    def test_platform_facts_missing_is_empty(self):
+        run = self.plugin_run(False)
+        self.assertEqual(G.skill_platform_facts(run, "build"), "")
+        _, prompt = G.rubric_prompt(run)
+        self.assertNotIn("## The skill's platform rules", prompt)

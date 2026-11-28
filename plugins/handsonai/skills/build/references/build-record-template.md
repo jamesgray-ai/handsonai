@@ -6,12 +6,12 @@ Read once a session, before your first record write; later writes in the session
 
 ## 1. When it's written
 
-- **Few writes, each whole.** At each moment the record changes, one call writes everything that changes then, with nothing before it but what the moment's own rule allows: created in one Write at your first entry; each task's row, with any frontmatter that changes with it, in one Edit straight after its check and its progress line (`SKILL.md`, *Phase 2*, step 6); at the block, the profile and the wrapper's fingerprint in one Edit, then `write_block` in one Edit (`claude-code-block.md` section 4, steps 3 and 6); at Part 3, the installed places and fingerprints in one Edit after the last install; and at a close, a stop or a pause, one Write of the whole file, `write_block: off` from the lift included. Read the record once a session, at entry (in the new session after Claude Code's restart too); never read it, or this template, again before a write: you have its text from that read and your own writes since.
+- **Few writes, each whole.** At each moment the record changes, one call writes everything that changes then, with nothing before it but what the moment's own rule allows: created in one Write at your first entry; each task's row, with any frontmatter that changes with it, in one Edit straight after its check and its progress line (`SKILL.md`, *Phase 2*, step 7); at the block, the profile and the wrapper's fingerprint in one Edit, then `write_block` in one Edit (`claude-code-block.md` section 4, steps 3 and 6); at Part 3, the installed places and fingerprints in one Edit after the last install; and at a close, a stop or a pause, one Write of the whole file, `write_block: off` from the lift included. Read the record once a session, at entry (in the new session after Claude Code's restart too); never read it, or this template, again before a write: you have its text from that read and your own writes since.
 - Created at your first entry, before the first task, even when every task waits on an open item.
 - Each row written straight after its task's check; frontmatter values updated as they change.
 - `plan_revision` and `last_close_after_round` set only at a close, never at a stop or a pause.
 - "What was built" and "What it can access" written at every close, and "What it can access" again whenever a connection or permission changes.
-- Saved after each task (local files, a drive that updates in place); at each part's end, after each main skill's task, and at every pause and stop on a drive that can only create files (the current file moved into `history/build-record-YYYY-MM-DD-HHMM.md` first); given to the leader on print-to-save.
+- Saved after each task (local files, a drive that updates in place); at each part's end, after each main skill's task, and at every pause and stop on a drive that can only create files (the current file moved into `history/build-record-YYYY-MM-DD-HHMM.md` first).
 
 ## 2. The template
 
@@ -22,16 +22,19 @@ last_close_after_round: [the last round's number at your last close, 0 before an
 live_checks:
   [kind of change]: "done: [the place it landed]"
 skills_on: yes
+plugins: []
 write_block: "off"
 schedule: none
 fingerprints:
   wrapper: sha256:[64 hex characters]
   [installed skill or agent, by its path]: sha256:[hex]
   [runtime context copy, by its path]: sha256:[hex]
-bare_run:
-  [main skill]: done
+fresh_chat_run: done
 run_folders: []
 change_requests: []
+uses_skills: []
+kept_from_existing: []
+shared_with: []
 ---
 
 # [Workflow name] — Build Record
@@ -40,7 +43,7 @@ change_requests: []
 [Live since YYYY-MM-DD. — Test's line, kept; the date in that form, which routing reads]
 [How to switch it off: [steps] — Test's line, kept]
 
-- [Each part and what it does, in plain words; where it lives; how to start it, and "practice run" to try it with nothing sent or changed.]
+- [Each part and what it does, in plain words; where it lives; how to start it: its start phrase, and where (its place, or with none, a new chat without the framework folder).]
 - [What's still waiting.]
 - [Where the kept copy is.]
 - An older version: [the line, section 6]
@@ -51,18 +54,18 @@ change_requests: []
 ## Parts
 | Task | Build Output | Context ID | Artifact | Path or location | Status | Saved | Built rev | Last built after round | Check | Ruling |
 |---|---|---|---|---|---|---|---|---|---|---|
-| — | The workflow's place | — | [the Project / folder / workspace] | [where] | Created | yes | — | — | [memory switch confirmed] | — |
+| — | The workflow's place | — | [the Project / folder / workspace; with no file read at run time: none — runs in any new chat] | [where; with none: —] | [Created; with none: Not needed] | [yes; with none: —] | — | — | [memory switch confirmed; with none: —] | — |
 
 ## Also
 - Practice-run instruction: [its text, with its cue "practice run"]
 - Places a dry run confirmed: [each place]
 - Quick real checks: [each, where it landed, and every real change it made with its undo status: undone, left, or the leader's to remove; permanent ones marked]
-- Bare run: [what the plain model handled, per main skill]
+- Fresh-chat run: [what it showed, in a few plain words]
 - [An agent on Microsoft 365: the instructions the leader last pasted back]
 - Schedule: [the five points, one by one; any risk accepted, naming the change and the checkpoint; a checkpoint the leader chose to keep running by hand; the switch-on steps, withheld while incomplete]
 - Put back the kept copy: [the steps]
 - Remaining manual steps and prerequisites: [each]
-- The package, for sharing: [where]
+- The kept copy: [the workflow's `built/` folder]
 
 ## Claude Code profile
 [Claude Code only: the one framework-profile block, section 8]
@@ -73,11 +76,15 @@ change_requests: []
 The keys above and no others, in that order:
 - **`live_checks`:** per kind of change, `done: [the place it landed]`, `declined`, `skipped` or `not yet`.
 - **`skills_on`:** `yes` once checked; left out when the plan builds no skill (a Microsoft 365 agent only), since nothing needs skills on.
+- **`plugins`** (Claude): the name of each plugin Claude saved a part inside (`creator.md` section 7), written at Part 3's save; Test reads them, with `uses_skills:`, when it checks which skills a practice run used. `[]` elsewhere, or left out.
 - **`write_block`** (Claude Code): `off`, or a mapping with `on:` (this workflow's own deny rules, a rule another workflow also lists included), `leader_rules:` (deny rules the leader already had, never removed), `leader_allow:` (the leader's allow rules when the block went on) and `check_agents:` (each check agent file written, removed with the block), as `claude-code-block.md` section 4 shows. Elsewhere, `off`.
 - **`schedule`:** `none` with no `SCH` task (a first build with no set-aside); carried over from a set-aside record (missing there, or no record in the set-aside folder, counts as not `none`); `not-on` once every safety point passes; `safety-incomplete: [points]` when one fails, including a checkpoint the leader chose to keep running by hand; `paused` when the leader confirms a pause. There is no value for "on".
 - **`fingerprints`:** at install, one per installed skill and agent (none for an agent Agent Builder made on Microsoft 365), one per runtime context copy you can read back, and on Claude Code `wrapper: sha256:<64 hex>` for `framework/.bin/test-run.sh`. Where no code can run, a part's size and date.
-- **`bare_run`:** per main skill, `done` or `skipped: [why]`.
-- **`run_folders`** (Claude Code): each fresh folder made for a check or a bare run, until it's cleared; `[]` otherwise.
+- **`fresh_chat_run`:** the one fresh-chat run of the installed workflow (`fresh-chat-run.md`): `done`, `"skipped: [why]"` or `"failed: [what it missed]"`. A record from before 11.0 has `bare_run:` instead: leave it out when you next write the record.
+- **`run_folders`** (Claude Code): each fresh folder made for a check, until it's cleared; `[]` otherwise.
+- **`uses_skills`:** each skill from another plugin that a part uses, as `{plugin, skill}` (the plan blueprint's `Uses skills from:` line, copied at the part's task); Test reads it when it checks which skills a practice run loaded. `[]` when none. Never `depends_on`, which the plan uses for tasks.
+- **`kept_from_existing`:** for a part that extends an existing skill, each thing that skill held that the plan doesn't (a link, a rule, a step, another plugin's skill) and the leader's answer, as `{part, item, kept: yes|no}`; Test grades each kept item like any line ("kept from the earlier version (you, at Build)"), and Design reads them when the plan next changes. `[]` when none.
+- **`shared_with`:** each other workflow that uses a skill this change touches, as `{workflow, schedule: none|paused, until}`: the leader's answer to the pause question (`live-change.md` section 7), good `until` this change goes live (its change request id, or "first go-live"), so it isn't asked again before then and is asked again for the next change. `[]` when none.
 - **`change_requests`:** in the one shape, each with exactly `id` (`B1`, `B2`…; never left out), `source` (`build`; `direct edit` for an edit the leader keeps, its edited text saved as `history/direct-edit-[id]-YYYY-MM-DD-HHMM.md` and `what` a one-line summary, in double quotes, naming that file, never the text itself), `what`, `why`, `tasks`, `after_round` (a number, 0 before any round). The track switch goes here too.
 
 ## 4. The table
@@ -85,11 +92,11 @@ The keys above and no others, in that order:
 One row per task, `KW` and `SCH` included, its Task cell the plan's task ID exactly (`T3`, `KW`, `SCH`, never "T3 (S2)"): a task with no row, or with another Task cell, reads as not built. Plus the orchestrator, each connection, each context item (its runtime copy), and the workflow's place. For example:
 
 ```markdown
-| T3 | New skill: S2 | C1 | follow-up-drafter | package/skills/follow-up-drafter/ | Created | yes | 2 | 1 | E2: AC1–AC4 met | — |
+| T3 | New skill: S2 | C1 | follow-up-drafter | built/follow-up-drafter/ | Created | yes | 2 | 1 | E2: AC1–AC4 met | — |
 ```
-- **Status:** `Created`, `Reused`, `Extended` or `Installed by you`, for what was made; `Built, misses [line]`, for a task finished with a known miss; `Waiting on [the open item]`, `Waiting on change request [id]`, `Failed check`, `Not built yet` or `Removed from the plan`, for what wasn't. The `SCH` row is `Created` with `schedule: safety-incomplete` too.
-- **Saved:** `yes` once the part is kept where a later session can find it (installed, or staged in `package/`); on print-to-save, once the leader has the text; otherwise `no`.
-- **Path or location:** `package/…` while a part is staged; its installed place once Part 3 installs it.
+- **Status:** `Created`, `Reused`, `Extended` or `Installed by you`, for what was made; `Not needed`, only for the workflow's place when it reads no file when it runs (`setup.md` section 1); `Built, misses [line]`, for a task finished with a known miss; `Waiting on [the open item]`, `Waiting on change request [id]`, `Failed check`, `Not built yet` or `Removed from the plan`, for what wasn't. The `SCH` row is `Created` with `schedule: safety-incomplete` too.
+- **Saved:** `yes` once the part is kept where a later session can find it (installed, or its checked text kept in `built/`); otherwise `no`.
+- **Path or location:** `built/[part name]/…` while a part's checked text is kept but not yet saved where it runs; its installed place once Part 3 saves it. Never `package/…` (the layout before this release).
 - **Built rev:** the task's `rev` when built. **Last built after round:** the last round's number when you last built or rebuilt it (0 before any round).
 - **Check:** the result in one line ("E2: AC1–AC4 met"; "dry run confirmed: #sales-updates"; "read-back: 3 open deals"; for an agent that failed its paste-back, "Failed check, deleted" or "Failed check, not deleted").
 - **Ruling:** "what, why, cost if wrong", or "—".
@@ -97,7 +104,7 @@ One row per task, `KW` and `SCH` included, its Task cell the plan's task ID exac
 ## 5. The two sections for people
 
 In plain words, with no IDs; anyone the leader shows it to (IT, security, a manager) can see what the workflow can read and change.
-- **What was built:** each part and what it does ("a skill that reads your open deals and drafts the Friday summary"); where it lives; how to start it (under its different name, where one was used), and "practice run" to try it with nothing sent or changed, and, on Microsoft 365 while release check 32 hasn't passed, attaching its context files from `Documents/Cowork/[workflow-slug]` each time; what's still waiting; where the kept copy is; and the older-version line. Keep Test's "Live since" and "How to switch it off" lines and the older-version line whenever you rewrite it.
+- **What was built:** each part and what it does ("a skill that reads your open deals and drafts the Friday summary"); where it lives; how to start it: its start phrase (under its different name, where one was used) and where (its place; with none, a new chat outside any Project and without the framework folder), and, on Microsoft 365 while release check 32 hasn't passed, attaching its context files from `Documents/Cowork/[workflow-slug]` each time; what's still waiting; where the kept copy is; and the older-version line. Keep Test's "Live since" and "How to switch it off" lines and the older-version line whenever you rewrite it.
 - **What it can access,** one block per connection: the account; what it reads; what it can change, and which of those changes can't be undone; each tool's class; the permissions left off on purpose; what it never does (from the requirements' "It never…" rules and Prohibited actions); the checkpoints before a change.
 
 ## 6. The older-version line
@@ -112,7 +119,7 @@ The line is kept whenever the section is rewritten, and carried over a set-aside
 
 ## 7. Also in the record
 
-Under `## Also`: the places a dry run confirmed; the quick real checks and where they landed; every real change a quick real check made, with its undo status; the practice-run instruction's text; for an agent on Microsoft 365, the instructions the leader last pasted back; what the plain model handled in each bare run; the schedule's safety record and switch-on steps (withheld while incomplete); "Put back the kept copy"; any other live workflow paused for a shared skill this build changes ("Paused for the shared skill [skill]: [workflow]", `live-change.md` section 7); the remaining manual steps and prerequisites; where the package is kept for sharing.
+Under `## Also`: the places a dry run confirmed; the quick real checks and where they landed; every real change a quick real check made, with its undo status; the practice-run instruction's text; for an agent on Microsoft 365, the instructions the leader last pasted back; what the fresh-chat run showed; the schedule's safety record and switch-on steps (withheld while incomplete); "Put back the kept copy"; any other live workflow paused for a shared skill this build changes ("Paused for the shared skill [skill]: [workflow]", `live-change.md` section 7); the remaining manual steps and prerequisites; where the kept copy is (`built/`).
 
 ## 8. The Claude Code profile
 

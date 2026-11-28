@@ -15,6 +15,10 @@ changes:
 
 # Client Follow-Up — Design Plan
 
+## Summary
+
+One skill runs the whole workflow on Claude Code: it reads what comes in, writes the deliverable with the context file beside it, and stops for your review. Nothing goes out without you.
+
 ## Source
 - **Requirements:** `requirements.md`
 - **Approach:** One skill runs the whole workflow on Claude Code: it reads what comes in, writes the deliverable with the context file beside it, and stops for your review. Nothing goes out without you.
@@ -130,12 +134,3 @@ None.
 - **Done when:** Build finds each line in the built text, and Test grades the flag line with the flag input
 - **Depends on:** T2
 - **rev:** 1
-
-## Self-Test Summary
-- ✓ Structure
-- ✓ Level and patterns
-- ✓ Blueprints
-- ✓ Safety
-- ✓ Tasks and trace
-- ✓ No placeholders, no copies
-- ✓ Open items and inputs

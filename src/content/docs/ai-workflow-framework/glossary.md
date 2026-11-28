@@ -1,6 +1,6 @@
 ---
 title: Framework Glossary
-description: "Every term you meet in the five-step AI Workflow Framework, in plain language: practice runs, checkpoints, must-haves, the Design Plan, re-checks and more."
+description: "Every term you meet in the five-step AI Workflow Framework, in plain language: practice runs, checkpoints, checks, the Design Plan, re-checks and more."
 ---
 
 Every term you'll meet across the five steps, in plain language, each linked to the page that introduces it.
@@ -43,8 +43,6 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **Live** — A workflow you've taken live at the end of [Test](../test/) and now use for real work. Live is a fact about the workflow, not a step: a live workflow stays live while it's changed or re-checked. Build asks you to pause any schedule while it makes a change, and the changed version is tested before its next real run.
 
-**Must-have** — A check the output can't pass without. Marked among what every output must get right in [Deconstruct](../deconstruct/); a miss on a must-have is never accepted.
-
 **Practice inputs** — Realistic examples, based on your real work, that [Test](../test/) runs the workflow on. Captured in [Deconstruct](../deconstruct/) and saved in the workflow's `inputs/` folder; you see each one Deconstruct or Test writes before it's used. Each round also includes one new input the workflow hasn't seen, ideally a real one.
 
 **Practice run** — A run of the workflow that's built never to send or change anything. It goes up to each change, shows exactly what it would send or change and where, and stops there. Every workflow [Build](../build/) makes has one, and every run in [Test](../test/) is one.
@@ -69,7 +67,7 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **Tricky case** — An input that's harder than usual: missing information, an unusual request, something that tests a rule. Your practice inputs should include at least one.
 
-**What it must get right** — Yes-or-no checks in your requirements that every output is graded against; the one or two you can never let go out wrong are must-haves. One of the [three kinds of line](../#how-it-fits-together), captured in [Deconstruct](../deconstruct/) and checked in every [Test](../test/) round.
+**What it must get right** — Yes-or-no checks in your requirements that every output is graded against; every one is required, and each says where its information comes from. One of the [three kinds of line](../#how-it-fits-together), captured in [Deconstruct](../deconstruct/) and checked in every [Test](../test/) round.
 
 **"What I did" summary** — The short summary a workflow ends each run with: the steps it took, where it paused for you, and what it did with your tools. [Test](../test/) uses it to check the path, but always grades the output itself, never the summary's claims about it.
 

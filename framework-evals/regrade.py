@@ -245,7 +245,7 @@ def rebuild_run(rdir, evals_dir, data, work):
             sessions.insert(k - 1, {"from_previous": True, "student": True, "restart": True, "inserted": True})
     while (rdir / f"session-{len(sessions) + 1}" / "turns.json").exists():
         sessions.append({"from_previous": True, "student": True, "restart": True})
-    run, prev_end = {"sessions": []}, None
+    run, prev_end = {"sessions": [], "skill": data.get("skill_name")}, None  # the judge reads its platform facts
     for n, s in enumerate(sessions, 1):
         sdir = rdir / f"session-{n}"
         if not (sdir / "turns.json").exists():

@@ -29,7 +29,7 @@ framework/.bin/test-run.sh practice-create <slug> --plugin-copy <this skill's fo
 
 It prints the folder: `practice/`, or `practice-<slug>/` where a `practice/` without this workflow's marker is already there or several workflows share the workspace. Record that path in the round's Environment section and the results file's `environment`. The marker file is `.framework-practice`. If it refuses because a marked folder is still there from an earlier round, clear that one first (section 7) at the path that round recorded; if a folder is there without the marker, it's the leader's own and is never used or cleared. If `practice-create` refuses for that reason and no other folder can be made, the leader's runs save nothing in the workspace: each hand-over's block leaves out the `Practice folder:` and `Run:` lines, and the leader copies the run's closing block back, as on Codex.
 
-Each of the leader's runs saves into `[practice folder]/[input]-[run]/`, named in Test's hand-over block. Nothing reads the practice folder during the round except Test, after a run comes back.
+Each of the leader's runs saves into `[practice folder]/input-[n]-1/` (`[n]` its place in the block, `references/hand-overs.md` section 7), named in Test's hand-over block. Nothing reads the practice folder during the round except Test, after a run comes back.
 
 The AI's runs don't use it. Each has its own `practice/` inside its own run folder, outside the repository.
 
@@ -81,7 +81,7 @@ The second run of the same input reuses the leader's decision. Show the leader i
 
 Both runs must meet a line for it to count as met. When they disagree, show both and say N-T31:
 
-> "[Input] passed once and missed once ([the line]), so it isn't reliable yet. It's on the list for Build to tighten."
+> "[Input] passed once and missed once ([the line]), so it isn't reliable yet. It's on the list for Build to tighten." *(your words)*
 
 Then the next input, or the verdict. The disagreement is a build miss, with Cause `two runs differ`. Before the per-input reply, show the leader what the run produced (the weaker run's, when the two differ).
 

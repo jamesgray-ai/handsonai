@@ -9,7 +9,9 @@ headings and table columns are scripted).
 
 Each check returns a list of problems (empty when the file is well formed).
 
-Usage: python3 structure.py <plan|build_record|results|requirements> <file>... [--no-registry]
+Usage: python3 structure.py <plan|build_record|results|requirements> <file>... [--no-registry] [--written]
+  (a plan file is checked as found, so the older form passes too; --written checks it as a run's own
+  plan, which must open with ## Summary and hold no ## Self-Test Summary)
 """
 import re
 import shutil
@@ -145,9 +147,12 @@ PLAN_VALUES = {"approved": {True, False}, "autonomy": {"Deterministic", "Guided"
                "decomposition": {"steps", "domains"}, "mechanism": {"Skill", "Agent"},
                "involvement": {"Augmented", "Automated"}, "platform_mode": {"code", "guided"},
                "packaging": {"Plugin", "Standalone Skill", "Workspace Agent", "Loose Files"}}
-PLAN_SECTIONS = ["Source", "Architecture", "Decomposition", "Data Readiness", "Component Blueprints",
-                 "Prerequisites", "Deployment Plan", "Deferred to Build", "Stakeholders", "Open items",
-                 "Tasks", "Self-Test Summary"]
+# Pass 4 (P4, shape release): a plan opens with ## Summary (the plain summary the review shows) and holds no
+# ## Self-Test Summary (the self-test runs, its fixes are named in the chat, nothing of it is saved). The older
+# form, ending in ## Self-Test Summary, passes only on a plan the run left as it found it.
+PLAN_SECTIONS = ["Summary", "Source", "Architecture", "Decomposition", "Data Readiness", "Component Blueprints",
+                 "Prerequisites", "Deployment Plan", "Deferred to Build", "Stakeholders", "Open items", "Tasks"]
+PLAN_SECTIONS_OLD = PLAN_SECTIONS[1:] + ["Self-Test Summary"]
 PLAN_OPTIONAL = {"Multi-Agent Configuration"}
 PLAN_NEVER = {"Global Constraints", "Coverage", "Evaluation Inputs", "Recommended Implementation Order",
               "Value & Measurement", "Run logging", "Review focus"}
@@ -161,7 +166,9 @@ BUILD_OUTPUT = re.compile(r"^(New skill: S\d+|Use existing: .+|Extend existing: 
 TASK_FIELDS = ["Builds", "Uses / hands on", "Meets", "Done when", "Depends on", "rev"]
 
 
-def check_plan(text, requirements_text=None):
+def check_plan(text, requirements_text=None, written=True):
+    """The plan's problems. `written`: the plan was written or changed by the run being checked, so it must be in
+    this release's form; False (a plan left as it was found) also takes the older form."""
     probs = []
     fm, body = split_frontmatter(text)
     if fm is None:
@@ -179,9 +186,21 @@ def check_plan(text, requirements_text=None):
         probs += check_requests(data.get("changes"), "changes", with_outcome=True)
     elif data:
         probs.append(f"frontmatter doesn't parse: {data['__error__']}")
+    # Pass 5 (E8): no question may still be "to ask" at approval; an item waiting on someone else may stay open
+    if isinstance(data, dict) and data.get("approved") is True:
+        items = [l for l in section(body, "Open items").split("\n") if re.match(r"^\d+\. ", l)]
+        asked = [l for l in items if re.search(r"(?i)\bto ask\b", l)]
+        if asked:
+            probs.append(f"approved with a question still to ask: {asked[0][:100]!r}")
     heads = h2(body)
-    probs += in_order(heads, PLAN_SECTIONS, "sections")
-    extra = [h for h in heads if h not in PLAN_SECTIONS and h not in PLAN_OPTIONAL]
+    old = not written and "Self-Test Summary" in heads and "Summary" not in heads
+    want = PLAN_SECTIONS_OLD if old else PLAN_SECTIONS
+    if written and "Self-Test Summary" in heads:
+        probs.append("a Self-Test Summary section: the plan saves nothing of the self-test (Pass 4, P4)")
+    if heads[:1] != ["Summary"] and not old:
+        probs.append("the plan doesn't open with ## Summary (Pass 4, P4)")
+    probs += in_order(heads, want, "sections")
+    extra = [h for h in heads if h not in want and h not in PLAN_OPTIONAL and h != "Self-Test Summary"]
     if extra:
         probs.append(f"sections not in 11.2: {extra}")
     never = [h for h in heads + h3_under(body, "Architecture") if h in PLAN_NEVER]
@@ -233,10 +252,12 @@ def check_plan(text, requirements_text=None):
     tail = [t for t in ids if not t.startswith("T")]
     if ids[len(nums):] != tail or (tail and tail not in (["KW"], ["KW", "SCH"])):
         probs.append(f"KW then SCH come after the numbered tasks: {ids}")
-    # self-test summary
-    sts = [l for l in section(body, "Self-Test Summary").split("\n") if l.startswith("- ")]
-    if not sts or any(not re.match(r"^- [✓⚠]", l) for l in sts):
-        probs.append("Self-Test Summary: one line per item, each ✓ or ⚠")
+    if old:  # the older form's self-test summary
+        sts = [l for l in section(body, "Self-Test Summary").split("\n") if l.startswith("- ")]
+        if not sts or any(not re.match(r"^- [✓⚠]", l) for l in sts):
+            probs.append("Self-Test Summary: one line per item, each ✓ or ⚠")
+    elif not section(body, "Summary").strip():
+        probs.append("Summary: empty")
     # no copied requirement wording
     if requirements_text:
         for line in re.findall(r"^- (?:AC|R|G)\d+[^:]*: (.+)$", requirements_text, re.M):
@@ -248,8 +269,15 @@ def check_plan(text, requirements_text=None):
 
 # ---------------------------------------------------------------- the build record
 
-RECORD_KEYS = ["plan_revision", "last_close_after_round", "live_checks", "skills_on", "write_block", "schedule",
-               "fingerprints", "bare_run", "run_folders", "change_requests"]
+RECORD_KEYS = ["plan_revision", "last_close_after_round", "live_checks", "skills_on", "plugins", "write_block", "schedule",
+               "fingerprints", "fresh_chat_run", "run_folders", "change_requests",
+               "uses_skills", "kept_from_existing", "shared_with"]
+# Pass 5 (E16, E19, E27): another plugin's skill a part uses; what an extended skill held that the plan
+# doesn't, and the leader's keep or drop; another workflow sharing a skill this change touches, its schedule
+# answer good until this change goes live
+RECORD_LISTS = {"uses_skills": ("plugin", "skill"), "kept_from_existing": ("part", "item", "kept"),
+                "shared_with": ("workflow", "schedule", "until")}
+SHARED_SCHEDULE = re.compile(r"^(none|paused)$")
 RECORD_COLS = ["Task", "Build Output", "Context ID", "Artifact", "Path or location", "Status", "Saved",
                "Built rev", "Last built after round", "Check", "Ruling"]
 RECORD_STATUS = re.compile(r"^(Created|Reused|Extended|Installed by you|Built, misses .+|Waiting on .+|"
@@ -274,6 +302,11 @@ def check_build_record(text):
             probs.append(f"schedule: {data['schedule']!r} isn't none, not-on, paused or safety-incomplete: [points]")
         if "skills_on" in data and data["skills_on"] not in ("yes", True):
             probs.append(f"skills_on: {data['skills_on']!r} (only 'yes' once checked)")
+        # B8 (Pass 3): on Claude each skill is saved inside a plugin of its own; its name is recorded, so
+        # Test's switch-off leaves it on
+        if "plugins" in data and not (isinstance(data["plugins"], list)
+                                      and all(isinstance(x, str) and x.strip() for x in data["plugins"])):
+            probs.append(f"plugins: {data['plugins']!r} isn't a list of plugin names")
         wb = data.get("write_block")
         # YAML 1.1 reads `off` as False and an `on:` key as True: accept both spellings,
         # and the mapping form (on/leader_rules/leader_allow) the safety kit writes.
@@ -287,10 +320,24 @@ def check_build_record(text):
         for k, v in (data.get("live_checks") or {}).items():
             if not re.match(r"^(done(: .+)?|declined|skipped|not yet)$", str(v)):
                 probs.append(f"live_checks.{k}: {v!r} isn't done, declined, skipped or not yet")
-        for k, v in (data.get("bare_run") or {}).items():
-            if not re.match(r"^(done|skipped: .+)$", str(v)):
-                probs.append(f"bare_run.{k}: {v!r} isn't done or skipped: [why]")
+        # B4 (Pass 3): one fresh-chat run of the installed workflow replaces the bare run of each main skill
+        if "fresh_chat_run" in data and not re.match(r"^(done|skipped: .+|failed: .+)$", str(data["fresh_chat_run"])):
+            probs.append(f"fresh_chat_run: {data['fresh_chat_run']!r} isn't done, skipped: [why] or failed: [what]")
+        if "bare_run" in data:
+            probs.append("bare_run is the layout before 11.0: the record keeps fresh_chat_run")
         probs += check_requests(data.get("change_requests"), "change_requests")
+        for k, want in RECORD_LISTS.items():
+            v = data.get(k)
+            if v is None:
+                continue
+            if not (isinstance(v, list) and all(isinstance(x, dict) and all(f in x and str(x[f]).strip() for f in want)
+                                                for x in v)):
+                probs.append(f"{k}: each entry needs {', '.join(want)}")
+                continue
+            if k == "kept_from_existing" and any(str(x["kept"]).lower() not in ("yes", "no", "true", "false") for x in v):
+                probs.append("kept_from_existing: kept is yes or no")
+            if k == "shared_with" and any(not SHARED_SCHEDULE.match(str(x["schedule"])) for x in v):
+                probs.append("shared_with: schedule is none or paused")
     heads = h2(body)
     if heads[:2] != ["What was built", "What it can access"]:
         probs.append(f"the record opens with 'What was built' then 'What it can access' (have {heads[:2]})")
@@ -304,10 +351,18 @@ def check_build_record(text):
             if len(r) != len(RECORD_COLS):
                 probs.append(f"row {r[:2]} has {len(r)} cells")
                 continue
-            if not RECORD_STATUS.match(r[5]):
+            if r[5] == "Not needed":
+                # B3 (Pass 3): a workflow that reads no file when it runs has no place; only that row
+                if r[1] != "The workflow's place":
+                    probs.append(f"row {r[0]} {r[3]!r}: Status 'Not needed' is only for the workflow's place")
+            elif not RECORD_STATUS.match(r[5]):
                 probs.append(f"row {r[0]} {r[3]!r}: Status {r[5]!r} isn't one of build 11's values")
             if r[6] not in ("yes", "no", "—", ""):
                 probs.append(f"row {r[0]} {r[3]!r}: Saved {r[6]!r} isn't yes or no")
+            if re.match(r"^`?package/", r[4]):
+                # F11 (Pass 3): one fixed layout, the kept copy in built/[part]/, never package/
+                probs.append(f"row {r[0]} {r[3]!r}: Path {r[4]!r} is the staged layout before 11.0 "
+                             f"(the kept copy is built/[part]/)")
     built = section(body, "What was built")
     if "An older version:" in built and not OLDER.search(built):
         probs.append("the older-version line isn't in one of rules 6.4's forms")
@@ -369,6 +424,18 @@ def check_results(text):
             if extra_keys:
                 probs.append(f"results.{name}: keys {sorted(extra_keys)} not in rules 6.5")
         probs += check_requests(data.get("change_requests"), "change_requests")
+        for k, want in RECORD_LISTS.items():
+            v = data.get(k)
+            if v is None:
+                continue
+            if not (isinstance(v, list) and all(isinstance(x, dict) and all(f in x and str(x[f]).strip() for f in want)
+                                                for x in v)):
+                probs.append(f"{k}: each entry needs {', '.join(want)}")
+                continue
+            if k == "kept_from_existing" and any(str(x["kept"]).lower() not in ("yes", "no", "true", "false") for x in v):
+                probs.append("kept_from_existing: kept is yes or no")
+            if k == "shared_with" and any(not SHARED_SCHEDULE.match(str(x["schedule"])) for x in v):
+                probs.append("shared_with: schedule is none or paused")
     heads = h2(body)
     if heads != RESULTS_SECTIONS:
         probs.append(f"sections {heads} != {RESULTS_SECTIONS} (test 9: in order, and no others)")
@@ -383,8 +450,8 @@ def check_results(text):
         return probs  # the verdict is written in Part 3
     if not re.match(r"^(Ready|Not ready|Waiting on access)\b", verdict):
         probs.append(f"Verdict doesn't open with Ready, Not ready or Waiting on access: {verdict[:60]!r}")
-    if verdict and not re.search(r"\b\d+ of \d+ lines met across \d+ inputs?\b", verdict):
-        probs.append("Verdict has no '[n] of [m] lines met across [k] inputs'")
+    if verdict and not re.search(r"\b\d+ of \d+ (?:checks|lines) met across \d+ inputs?\b", verdict):
+        probs.append("Verdict has no '[n] of [m] checks met across [k] inputs' (10.x files: 'lines')")
     return probs
 
 
@@ -426,7 +493,7 @@ def main(argv):
     bad = 0
     for f in files:
         probs = (check_requirements(f, False if "--no-registry" in argv else None) if kind == "requirements"
-                 else check_text(kind, Path(f).read_text()))
+                 else check_text(kind, Path(f).read_text(), **({"written": "--written" in argv} if kind == "plan" else {})))
         print(f"{f}: {'OK' if not probs else str(len(probs)) + ' problem(s)'}")
         for p in probs:
             print("   ", p)

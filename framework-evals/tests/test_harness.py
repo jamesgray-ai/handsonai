@@ -34,7 +34,7 @@ import structure as ST  # noqa: E402
 import validate_evals as V  # noqa: E402
 
 FIX = ROOT / "framework-fixtures" / "states" / "s11-live" / "with-registry" / "framework" / "client-follow-up"
-N_D1 = "Do you have anything written down for this: an SOP, a checklist, a past example, or notes?"
+N_D1 = "Do you have anything written down for this: an SOP, a checklist, or notes?"
 
 
 def run_of(*ai_messages, files_end=None, files_start=None, root=None):
@@ -64,8 +64,8 @@ class QuoteCheck(unittest.TestCase):
         # review of 390f375b8 (James, 2026-11-22): N-D1 is a question, held word for word: any word changed fails
         bad = run_of("Thanks. " + N_D1.replace("anything", "nothing"))
         self.assertTrue(ok({"type": "scripted_lines"}, good))
-        self.assertFalse(ok({"type": "scripted_lines"}, run_of("Thanks. " + N_D1.replace("past example", "past sample"))))
-        self.assertFalse(ok({"type": "quote", "id": "N-D1"}, run_of("Thanks. " + N_D1.replace("past example", "past sample"))))
+        self.assertFalse(ok({"type": "scripted_lines"}, run_of("Thanks. " + N_D1.replace("a checklist", "a check list"))))
+        self.assertFalse(ok({"type": "quote", "id": "N-D1"}, run_of("Thanks. " + N_D1.replace("a checklist", "a check list"))))
         self.assertFalse(ok({"type": "quote", "id": "N-D1"}, bad))
         passed, why = CS.check({"type": "scripted_lines"}, bad)
         self.assertFalse(passed)
@@ -91,11 +91,11 @@ class QuoteCheck(unittest.TestCase):
         self.assertFalse(ok({"type": "quote", "id": "N-F2", "form": "main"}, run_of(wrong)))
 
     def test_label_clause_is_optional(self):
-        base = ("To see what the AI does with no instructions, open a new chat in your workflow's Project, "
-                "so it has nothing it could send or change with. Paste this, and copy back what it says. Then delete that chat.")
-        with_clause = base.replace("Project,", "Project, and before typing, switch off connectors and memory under +,")
-        self.assertTrue(ok({"type": "quote", "id": "N-B45", "form": "main"}, run_of(base)))
-        self.assertTrue(ok({"type": "quote", "id": "N-B45", "form": "main"}, run_of(with_clause)))
+        # N-T8's chat form (N-B45, the line this used before, retired with the bare run in Pass 3)
+        base = "Open a new chat in your Client Follow-Up Project."
+        with_clause = base.replace("Project.", "Project, and before typing, open + and switch off memory.")
+        self.assertTrue(ok({"type": "quote", "id": "N-T8", "form": "Chat platforms"}, run_of(base)))
+        self.assertTrue(ok({"type": "quote", "id": "N-T8", "form": "Chat platforms"}, run_of(with_clause)))
 
     def test_two_label_clauses_in_one_bracket_are_alternatives(self):
         # N-B27's "[Can be undone: '…' Permanent: '…']": either clause alone is word for word
@@ -144,7 +144,17 @@ class QuoteCheck(unittest.TestCase):
     def test_n_b4_leaves_out_an_empty_clause_and_nothing_else(self):
         """build SKILL.md: "A clause with nothing in it is left out." No draft to check: the list closes
         up. A changed OK clause still fails."""
-        c = AL.Corpus()
+        # N-B4, retired as a held line in Pass 3 (U1), stays the material for the empty-clause rule
+        import json as _json
+        import tempfile as _tf
+        data = _json.loads(Path(AL.DEFAULT_CORPUS).read_text())
+        for e in data["lines"]:
+            if e["id"] == "N-B4":
+                e.pop("retired", None)
+        f = _tf.NamedTemporaryFile("w", suffix=".json", delete=False)
+        f.write(_json.dumps(data))
+        f.close()
+        c = AL.Corpus(f.name)
         forms = [ln for ln in c.checkable() if ln.id == "N-B4"]
         said = ("Build makes your workflow for Client Follow-Up from your approved plan, task by task, checking each "
                 "part as it goes. First I'll need you to connect Gmail and OK 2 quick real checks and setup changes; "
@@ -176,11 +186,9 @@ class WordingChecks(unittest.TestCase):
         self.assertTrue(ok({"type": "vocabulary"}, run_of("Your plan is ready. Shall I go on?")))
         self.assertFalse(ok({"type": "vocabulary"}, run_of("I'll write the acceptance criteria next. OK?")))
         self.assertFalse(ok({"type": "vocabulary"}, run_of("This edge case needs a test case. Ready?")))
-        # an approved line that holds a platform label isn't flagged
-        self.assertTrue(ok({"type": "vocabulary"}, run_of(
-            "To see what the AI does with no instructions, open a new chat in your workflow's Project, and before typing, "
-            "switch off connectors and memory under +, so it has nothing it could send or change with. Paste this, and "
-            "copy back what it says. Then delete that chat.")))
+        # a platform's own label, quoted as its screen shows it, isn't flagged (the approved line this used, N-B45,
+        # retired with the bare run in Pass 3)
+        self.assertTrue(ok({"type": "vocabulary"}, run_of("Open 'Connectors' in your settings. Done?")))
         # file names in code aren't wording
         self.assertTrue(ok({"type": "vocabulary"}, run_of("I moved `design-spec.md` aside. Shall I start?")))
         # the leader's work shown back in a block quote isn't the AI's wording
@@ -362,12 +370,13 @@ class WordingChecks(unittest.TestCase):
         reg = json.dumps({"notes": "Skills: sidebar Plugins > Skills > Create. The skills article lists Business, "
                                    "Enterprise, Healthcare and Edu, so skills on Plus and Pro are unverified. "
                                    "Memory: Settings > Personalization > Memory."})
-        res = f"     1\t{reg}\n     2\tThe plan is short.\n     3\tHere's the plan in brief, as approved."
+        # an approved line the message says (N-5; N-4, used before, is model wording since Pass 4)
+        res = f"     1\t{reg}\n     2\tThe plan is short.\n     3\tBefore you approve, a few things this plan does, as approved."
         with tempfile.TemporaryDirectory() as t:
             ev = {"type": "user", "message": {"content": [{"type": "tool_result", "content": res}]}}
             Path(t, "events.jsonl").write_text(json.dumps(ev) + "\n")
             run = {"sessions": [{"root": str(Path(t, "workspace")), "files_start": {}, "turns": [
-                {"role": "ai", "text": "Here's the plan in brief. The full plan is in `framework/x/design-plan.md`.\n\n"
+                {"role": "ai", "text": "Before you approve, a few things this plan does that you should choose on purpose:\n\n"
                                        "OpenAI documents skills for its Business, Enterprise, Healthcare and Edu plans."}]}]}
             _, prompt = G.rubric_prompt(run)
         self.assertIn("The skills article lists Business, Enterprise, Healthcare and Edu, so skills on Plus", prompt)
@@ -480,6 +489,66 @@ RESET = {"type": "tool_write", "path": "framework/client-follow-up/design-plan.m
          "pattern": "(?m)^approved: false[ \\t]*$", "before": "approved: true"}
 
 
+def turns_run(*turns, results=True):
+    """A one-session run of (leader message, AI text, [tool uses]) turns; events.jsonl holds each AI turn's tool
+    calls, each turn closed by its result event, as the harness logs one call per turn."""
+    t = tempfile.mkdtemp()
+    lines, conv = [], []
+    for i, (leader, ai, uses) in enumerate(turns):
+        conv += [{"role": "student", "text": leader, "student": True}, {"role": "ai", "text": ai}]
+        lines += [json.dumps({"type": "assistant", "message": {"content": [
+            {"type": "tool_use", "id": f"t{i}-{j}", "name": n, "input": inp}]}}) for j, (n, inp) in enumerate(uses)]
+        if results:
+            lines.append(json.dumps({"type": "result", "result": ai}))
+    Path(t, "events.jsonl").write_text("".join(l + "\n" for l in lines))
+    return {"sessions": [{"n": 1, "turns": conv, "files_by_turn": [[]] * len(turns), "files_start": {},
+                          "files_end": {}, "cap_hit": False, "root": str(Path(t, "workspace"))}]}
+
+
+SAVED = {"type": "saved_before_next_question", "path": "*design-plan.md", "pattern": "cal\\.example\\.com/dana",
+         "answer": "cal\\.example\\.com/dana"}
+LINK = "Go ahead. And my booking link is https://cal.example.com/dana-ortiz/30min."
+
+
+class SavedBeforeNextQuestion(unittest.TestCase):
+    """Pass 4 final review M5: an answer's write lands before the next question reaches the leader."""
+
+    def test_written_in_the_reply_that_asks_next_passes(self):
+        run = turns_run(("Run the design skill.", "It'll run on Claude Code. Shall I go ahead?", []),
+                        (LINK, "Part 3 of 4 — a few questions for you. Which mailbox?",
+                         [("Write", {"file_path": PLAN, "content": "end with https://cal.example.com/dana-ortiz/30min"})]))
+        self.assertTrue(ok(SAVED, run))
+
+    def test_written_only_after_the_next_question_fails(self):
+        run = turns_run(("Run the design skill.", "It'll run on Claude Code. Shall I go ahead?", []),
+                        (LINK, "Part 3 of 4 — a few questions for you. Which mailbox?", []),
+                        ("Not sure.", "Here's the plan in brief. What would you change or clarify?",
+                         [("Edit", {"file_path": PLAN, "old_string": "x", "new_string": "https://cal.example.com/dana-ortiz/30min"})]))
+        self.assertFalse(ok(SAVED, run))
+
+    def test_a_reply_with_no_question_may_come_first(self):
+        run = turns_run((LINK, "Part 2 of 4 — the plan. Drafting it now.", []),
+                        ("ok", "Part 3 of 4. Which mailbox?",
+                         [("Write", {"file_path": PLAN, "content": "https://cal.example.com/dana-ortiz/30min"})]))
+        self.assertTrue(ok(SAVED, run))
+
+    def test_fails_closed(self):
+        never = turns_run((LINK, "Which mailbox?", []))
+        self.assertFalse(ok(SAVED, never), "never written")
+        no_answer = turns_run(("Go ahead.", "Which mailbox?",
+                               [("Write", {"file_path": PLAN, "content": "https://cal.example.com/dana-ortiz/30min"})]))
+        self.assertFalse(ok(SAVED, no_answer), "the leader never gave the answer")
+        unsplit = turns_run((LINK, "Which mailbox?", [("Write", {"file_path": PLAN, "content": "https://cal.example.com/dana-ortiz/30min"})]),
+                            results=False)
+        self.assertFalse(ok(SAVED, unsplit), "turns can't be told apart without result events")
+        self.assertFalse(ok(SAVED, run_of("Which mailbox?")), "no events at all")
+
+    def test_the_eval_uses_it(self):
+        ev = next(e for e in json.loads((ROOT / "design-workspace" / "evals" / "evals.json").read_text())["evals"]
+                  if e["id"] == "P4-answer-saved-when-given")
+        self.assertIn('"saved_before_next_question"', json.dumps([x.get("check") for x in ev["expectations"]]))
+
+
 class ToolWrite(unittest.TestCase):
     """EN-rerun-consequential: the plan is set back to approved: false before it's approved again
     (cc11ff3a7 left the reset to the judge, who sees only the end state)."""
@@ -544,15 +613,68 @@ class FileChecks(unittest.TestCase):
         with self.assertRaises(ValueError):
             CS.check({"type": "no_yaml", "path": "x"}, run_of("x", files_end={"x": "a"}))
 
-    def structure(self, kind, text):
-        return ok({"type": "structure", "kind": kind, "path": "f.md"}, run_of("x", files_end={"f.md": text}))
+    def structure(self, kind, text, start=None):
+        files_start = {"f.md": start} if start is not None else None
+        return ok({"type": "structure", "kind": kind, "path": "f.md"},
+                  run_of("x", files_end={"f.md": text}, files_start=files_start))
+
+    def new_plan(self):
+        """The fixture plan in the form Design writes from Pass 4 (P4): it opens with `## Summary`, and has no
+        `## Self-Test Summary` (the self-test runs, its fixes are named in the chat, nothing of it is saved)."""
+        body = re.sub(r"\n## Self-Test Summary\n.*\Z", "\n", self.plan, flags=re.S)
+        return body.replace("\n## Source\n", "\n## Summary\n\nIt drafts each client follow-up email for you to check and send.\n\n## Source\n", 1)
 
     def test_plan_structure(self):
-        self.assertTrue(self.structure("plan", self.plan))
-        self.assertFalse(self.structure("plan", self.plan.replace("autonomy: Guided", "autonomy: guided")))
-        self.assertFalse(self.structure("plan", self.plan.replace("### KW — Keeping it working", "### X9 — Keeping it working")))
-        self.assertFalse(self.structure("plan", self.plan.replace("## Self-Test Summary", "## Coverage\n\n## Self-Test Summary")))
-        self.assertFalse(self.structure("plan", self.plan.replace("| Handled by orchestrator |", "| Orchestrator does it |")))
+        new = self.new_plan()
+        self.assertTrue(self.structure("plan", new))
+        self.assertFalse(self.structure("plan", new.replace("autonomy: Guided", "autonomy: guided")))
+        self.assertFalse(self.structure("plan", new.replace("### KW — Keeping it working", "### X9 — Keeping it working")))
+        self.assertFalse(self.structure("plan", new.replace("## Source", "## Coverage\n\n## Source")))
+        self.assertFalse(self.structure("plan", new.replace("| Handled by orchestrator |", "| Orchestrator does it |")))
+
+    def test_plan_a_run_writes_opens_with_summary(self):
+        # Pass 4 (P4): a plan the run wrote must open with ## Summary and hold no ## Self-Test Summary
+        new = self.new_plan()
+        self.assertIn("## Self-Test Summary", self.plan)
+        self.assertFalse(self.structure("plan", self.plan), "the old form, written by the run, fails")
+        self.assertFalse(self.structure("plan", new.rstrip("\n") + "\n\n## Self-Test Summary\n- ✓ Plan check: nothing needed fixing\n"))
+        self.assertFalse(self.structure("plan", new.replace("## Summary\n", "## Overview\n", 1)))
+        self.assertFalse(self.structure("plan", re.sub(r"## Summary\n\n[^\n]+\n\n", "", new, count=1)))
+        changed = self.plan.replace("approved: true", "approved: false", 1)
+        self.assertNotEqual(changed, self.plan)
+        self.assertFalse(self.structure("plan", changed, start=self.plan), "an old-form plan the run changed is checked as written")
+        self.assertTrue(self.structure("plan", new, start=self.plan), "a plan the run rewrote in the new form passes")
+
+    def test_plan_written_in_an_earlier_session_is_checked_as_written(self):
+        # final review M4 (Pass 4): `written` compared only the checked session's start, so an old-form plan
+        # session 1 wrote, left unchanged by session 2, passed as if a fixture had left it
+        older = self.plan.replace("approved: true", "approved: false", 1)
+        s1 = {"n": 1, "turns": [], "files_by_turn": [], "files_start": {"f.md": older},
+              "files_end": {"f.md": self.plan}, "cap_hit": False, "root": None}
+        s2 = dict(s1, n=2, files_start={"f.md": self.plan})
+        c = {"type": "structure", "kind": "plan", "path": "f.md"}
+        self.assertFalse(ok(c, {"sessions": [s1, s2]}), "written in session 1, unchanged in session 2: still written")
+        same = dict(s1, files_start={"f.md": self.plan})
+        self.assertTrue(ok(c, {"sessions": [same, dict(same, n=2)]}), "left as found in every session: the older form passes")
+
+    def test_not_contains_can_skip_a_fenced_brief(self):
+        # build-smoke-2 (Pass 4): Build's "Never Test's phrase" matched the brief's own quoted line; a check
+        # may skip fenced blocks whose first line opens with one of `outside_fences` ("Skill brief:")
+        brief = "Here's the brief.\n\n```\nSkill brief: drafting-follow-ups\nKeep these exactly:\nsay 'test the workflow I built.'\n```\n"
+        c = {"type": "ai_not_contains", "text": "test the workflow I built", "outside_fences": ["Skill brief:", "Agent brief:"]}
+        self.assertTrue(ok(c, run_of(brief)))
+        self.assertFalse(ok(c, run_of(brief + "\nThen say 'test the workflow I built.'")))
+        self.assertFalse(ok(c, run_of("```\nrun this\ntest the workflow I built\n```")), "only a brief's fence is skipped")
+        self.assertFalse(ok({"type": "ai_not_contains", "text": "test the workflow I built"}, run_of(brief)))
+        r = {"type": "ai_not_regex", "pattern": "test the workflow", "outside_fences": ["Skill brief:"]}
+        self.assertTrue(ok(r, run_of(brief)))
+
+    def test_plan_left_untouched_keeps_the_old_form(self):
+        # a plan the run left as it found it (a fixture's older plan) still passes in the old form
+        self.assertTrue(self.structure("plan", self.plan, start=self.plan))
+        self.assertTrue(self.structure("plan", self.new_plan(), start=self.new_plan()))
+        self.assertFalse(self.structure("plan", self.plan.replace("autonomy: Guided", "autonomy: guided"),
+                                        start=self.plan.replace("autonomy: Guided", "autonomy: guided")))
 
     def test_build_record_structure(self):
         self.assertTrue(self.structure("build_record", self.record))
@@ -775,7 +897,7 @@ class PlatformSimulations(unittest.TestCase):
             self.assertEqual(seen, ["Practice folder: practice/\nInput: E1\nRun: E1-1"])
             self.assertIn("It answered:]\nPractice run", out[0][0])
         cc = L.PLATFORMS["claude-code"]()
-        self.assertFalse(L.simulates_leader_runs("build", cc))  # Build keeps its behaviour
+        self.assertTrue(L.simulates_leader_runs("build", cc))  # Build's one fresh-chat run (Pass 3, B4)
         self.assertFalse(L.simulates_leader_runs("test", cc, {"leader_runs": "scripted"}))  # a planted block
         self.assertFalse(L.simulates_leader_runs("test", cc, {}, {"leader_runs": "scripted"}))
         self.assertTrue(L.simulates_leader_runs("test", cc, {}, {"leader_runs": "simulated"}))
@@ -1657,7 +1779,7 @@ class StubbedHarness(unittest.TestCase):
     def test_no_yes_means_no_calls(self):
         import run_eval as R
         argv = sys.argv
-        sys.argv = ["run_eval.py", str(self.tmp / "o"), "I1", "--evals",  # a live eval (I16 retired with the two-track interview)
+        sys.argv = ["run_eval.py", str(self.tmp / "o"), "SI-plain-cold", "--evals",  # a live eval (I1 retired with the shape release)
                     str(ROOT / "deconstruct-workspace" / "evals" / "evals.json")]
         H.pin_binary = lambda: self.fail("a model call was set up without --yes")
         try:
@@ -1699,8 +1821,7 @@ class ExistingEvals(unittest.TestCase):
         # the evals the design names are there, and the whole file validates
         ids = {e["id"] for e in data["evals"] if not e.get("retired")}
         for i in ("SI-plain-cold", "SI-confidential", "SI-scheduled-without-you", "SI-law-yes", "SI-no-worth", "SI-fixed-order",
-                  "SI-old-light-progress-rules", "SI-rerun-old-full", "SI-draft-limits-looks-fine", "LS-draft-own-email",
-                  "DC-old-progress-resume"):
+                  "SI-draft-limits-looks-fine", "LS-draft-own-email", "SI-late-signal", "SI-no-signal-no-law"):
             self.assertIn(i, ids)
         self.assertEqual(V.validate_file(ROOT / "deconstruct-workspace" / "evals" / "evals.json"), [])
 
@@ -1723,8 +1844,8 @@ class Corpus(unittest.TestCase):
     def test_shape(self):
         c = AL.load()
         ids = set(c.by_id)
-        for must in ("N-F1", "N-F13", "N-B52", "N-B53", "N-B54", "N-T2", "N-T35", "N-T42", "N-R1", "git-save-point",
-                     "D5", "D10", "practice-run-line"):
+        for must in ("N-F1", "N-F13", "N-B52", "N-B53", "N-B54", "N-T42", "N-T60", "N-R1", "git-save-point",
+                     "D5", "D7", "N-31", "practice-run-line"):
             self.assertIn(must, ids)
         for e in json.loads(AL.DEFAULT_CORPUS.read_text())["lines"]:
             # "states": the phrases a line's [state] takes (N-F23, the routing lead-in)
@@ -1878,6 +1999,7 @@ class CoreRound1Corpus(unittest.TestCase):
         self.assertFalse(ok(c, run_of(line, line + "\n\n" + close)))
         self.assertFalse(ok(dict(c, opens=False), run_of("go?", line + "\n\nOne thing is still open.\n\n" + close)))
 
+    @unittest.skip("N-D25 retired in the shape release (11.0): Deconstruct no longer writes practice inputs, and no live eval uses inputs_shown")
     def test_deconstruct_inputs_shown(self):
         # N-D25 (approved 2026-11-14): every proposed practice input is shown in full before saving
         # said in two parts around the inputs (smoke-3 fixes), so the message ends on the question

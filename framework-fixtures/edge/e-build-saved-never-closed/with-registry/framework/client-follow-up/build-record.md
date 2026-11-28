@@ -8,8 +8,7 @@ fingerprints:
   .claude/skills/client-follow-up/SKILL.md: sha256:c05d2b6b0c4a62fb629bae99716d65e4621c252b5c6cd77de63637e23593bd55
   .claude/skills/client-follow-up/references/follow-up-style.md: sha256:8055f2b4c168a2791dfc610de0297bd97bf43c3eb40f8a0ee76c4dcb789682df
   test-run.sh: sha256:c03e8f11
-bare_run:
-  client-follow-up: done
+fresh_chat_run: done
 run_folders: []
 change_requests: []
 ---

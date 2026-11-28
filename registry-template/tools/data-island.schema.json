@@ -259,6 +259,11 @@
               "null"
             ]
           },
+          "scorecard": {
+            "type": "string",
+            "description": "The last test round's headline, \"[met] of [total] checks met across [k] inputs\", worked out by the framework-state script from the round's results (never stored). Omitted before any test round.",
+            "pattern": "^\\d+ of \\d+ checks met across \\d+ inputs?$"
+          },
           "state": {
             "type": "string",
             "description": "The workflow's progress: the routing state's name (never its number), read from the workflow's folder by the framework-state script; state 0 shows as \"Runs outside the framework\" (running work) or \"Retired\". Omitted when the folder can't be read or settled.",

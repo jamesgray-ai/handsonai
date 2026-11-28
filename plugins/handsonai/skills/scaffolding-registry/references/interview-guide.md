@@ -45,15 +45,9 @@ don't ask, how files are saved:
   the student selected. Don't ask the student to approve the path.
 - **On the web and in Cowork:** the registry goes in `registry/` in the
   working folder in the student's drive, written through the connection.
-- **No files and no connection that can save (Gemini, or on the web after the
-  student says 'continue' to N-F16) → print-to-save.** Say N-F6 in the
-  opening: "I can't save files here, so I'll give you the files to save as we go. Where I can, I'll give you one zip of your working folder at each save point; keep the latest and attach it when you start the next step."
-  Where you can create a file to download, give one zip of the working
-  folder, its folders intact, at each save point, each replacing the last
-  (`references/saving.md`, rule 5); otherwise, on **every** file, give its
-  location inside that folder (`registry/…`) and remind them to save it as
-  plain `.md`. Never say "I've created" for a file you only gave. (A file the
-  student would have to download does not count as saved.)
+- **No files and no connection that can save (Gemini, or on the web with no
+  drive that can save):** N-F16, and wait; nothing is written until a place
+  that can save is added (`references/saving.md`, rule 5).
 
 **Scan first, silently (wherever you can read the files).** Before the
 opening, look for `knowledge/`, `sops/`, `process-guides/`, `CLAUDE.md` or
@@ -69,9 +63,6 @@ question, all in one message:
 
 > "This sets up your registry: a map of what your business offers and the processes that deliver it. Every step of the framework builds on it. I'll draft it from what you tell me, and nothing is saved until you confirm it. Stopping early is safe. Progress is saved."
 
-Leave out "Stopping early is safe. Progress is saved." (N-SR1) on
-print-to-save, where a new chat can't read the files.
-
 Then confirm where the files go in one line (N-F3): model wording carrying
 the promise clause "I'll read and save your files in [location]." — locally
 the workspace (Claude Code, Codex) or the working folder the student selected
@@ -83,7 +74,6 @@ this chat; I'll only read and save inside your working folder." (in Cowork,
 save a file, you can allow edits for this session; I'll only change the files
 this step needs." On Codex, add: "When Codex asks before I save a file, you
 can allow it for this session; I'll only change the files this step needs."
-On print-to-save, say N-F6 in its place.
 
 Then the first question, N-SR5:
 
@@ -134,9 +124,7 @@ from what you know, and the student corrects them there.
 needs no confirmation): `registry/` + `SCHEMA.md` + `index.md` + `log.md` +
 the six typed directories with stub `index.md` files (each stub is its
 heading, a blank line, and `_No entries yet — your AI assistant fills this index as nodes are added._` — the exact empty body compose writes),
-unless they already exist. On print-to-save, ask first, once: "Have you saved
-any registry files before, such as a `registry` folder with a `SCHEMA.md`?"
-If yes, don't give again or recreate those files. The root
+unless they already exist. The root
 `index.md` and `log.md` have fixed bodies — lint requires the root index to
 link every typed index and to carry the two GENERATED inventory blocks
 compose fills. Write them exactly as the template repository ships them:
@@ -174,8 +162,7 @@ The dashboard view is the generated root `REGISTRY.md`.
 Setup decisions, schema changes, the dashboard's Claude Artifact link, and one line per workflow event (a big change and its reason, go-live, re-checks) — routine regeneration is not logged.
 ```
 
-On print-to-save with no skeleton yet, give those same files first, in that
-order. If the student asks "where's the template repo?", the URL is
+If the student asks "where's the template repo?", the URL is
 `https://github.com/jamesgray-ai/ai-registry-template` — it ships this same
 skeleton plus a GitHub Action that checks the registry on every save, and is
 optional. Give this only when asked; never offer it, and never ask the
@@ -318,11 +305,7 @@ after the last confirmation, leave it out and say nothing.
   pages, with the standard empty body, including `registry/workflows/index.md`
   (Analyze replaces the placeholder line with its first entry)
 
-Then the check and the views (SKILL.md, *Close*). On print-to-save there is
-no hand-off: give the `log.md` entry, every typed `index.md` you updated,
-each Function page with its `# Owns` filled, and a complete `REGISTRY.md`
-composed per `indexing-registry`'s rules, each with its location, and say the
-set is complete.
+Then the check and the views (SKILL.md, *Close*).
 
 Before the check, if you say anything, say only this, word for word: "Now
 I'll check your registry and build your dashboard." Never a longer or more
@@ -331,7 +314,7 @@ it passes, or about GENERATED blocks. Call the files pages, never nodes, and
 never say "maintenance pass" or name lint, compose, scripts, `tools/`, GitHub
 Actions or the template repository unless the student asks.
 
-**The close (last message) — files saved (locally or in the drive):**
+**The close (last message):**
 
 > "Your registry is set up in [where it's saved: on Claude Code and Codex, "this project's folder"; on Claude desktop, the folder's name; in a drive, "your Google Drive, in [working folder]/registry" or "your OneDrive, in [working folder]/registry", with the storage service's own name, with the working folder's own name, ai-workspace unless the leader chose another]. It holds your [business], [N lines of business] and [N processes], each with its owner — no workflows yet; Analyze adds those."
 >
@@ -361,12 +344,6 @@ Claude Code form, "Next is Analyze. With your permission, it looks through what 
 as Codex), say its Codex form, which ends at "'run the analyze skill.'": "Next is Analyze. With your permission, it looks through what you've given your AI and what it already knows about your work, asks you a few questions, and aims to save 3 to 5 workflows worth building to your backlog. When you're ready, say 'run the analyze skill.'" Leave out the
 `/analyze` clause anywhere but Claude Code.
 
-**The close — print-to-save:** the same parts, with two changes. Say where the
-files go: "Save each file I gave you into your `registry` folder, at the
-location shown above it." And for the dashboard, which can't be given usefully
-as text: "Your visual dashboard is created as soon as your files are in a
-folder I can save to. Then say 'generate my visual dashboard'."
-
 **In a cloud session** (*Where the files live*, in `SKILL.md`): commit and
 push the registry's files yourself first, name the repository, never a path
 on the machine ("Your registry is set up in your [repository] repository on
@@ -376,7 +353,7 @@ GitHub"), and say N-F18 where the branch isn't the default.
 it asks nothing. Then the close's one question, where it applies, as its last
 line:
 
-- **On Claude on the web, Claude desktop, and in a cloud session:** "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." On print-to-save on Claude, this is the way to see the dashboard now, so offer it in place of "created as soon as your files are in a folder I can save to". On Claude Code (not a cloud session), N-SR8's bracketed clause makes this offer instead, as a choice rather than a question. This close is the only place the Artifact is offered; `indexing-registry` doesn't repeat it here. On yes, publish it and append a `registry/log.md` entry, `Dashboard Artifact: <link>`, so every later step can update the same page in any conversation. On print-to-save, give that one line and say: "Add this line to the end of your `registry/log.md`, so later steps can keep this page up to date."
+- **On Claude on the web, Claude desktop, and in a cloud session:** "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." On Claude Code (not a cloud session), N-SR8's bracketed clause makes this offer instead, as a choice rather than a question. This close is the only place the Artifact is offered; `indexing-registry` doesn't repeat it here. On yes, publish it and append a `registry/log.md` entry, `Dashboard Artifact: <link>`, so every later step can update the same page in any conversation.
 - **Elsewhere (Codex, or Claude Code where no Claude page can be published), only when the folder is a git repository** — locally, with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never on the web or in a connected drive: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; don't push as part of this offer (a student who asks to push or back up to GitHub gets that separately).
 
 With neither, the close ends on N-A7. When the leader then says Analyze's

@@ -1,13 +1,13 @@
 # Workflow Requirements: the drafts and the file
 
-Read at entry, with the other files every interview needs (`saving-the-requirements.md`, its first paragraph), never between the leader's lines: it serves every draft and the file write from that one read. Every quoted line is said exactly. The format is fixed: later steps and scripts parse it.
+Read at entry, with the other files every interview needs (`saving-the-requirements.md`, its first paragraph), never between the leader's lines: it serves every draft and the file write from that one read. Lines marked *held* are said word for word; the rest is your own wording (`SKILL.md` rule 18). The file's format is fixed: later steps and scripts parse it.
 
 ## Contents
 
 1. The drafts: what goes in each
 2. Which security categories are worked
 3. Standing rules
-4. The preview
+4. The summary
 5. Writing the file: style
 6. The file: frontmatter, sections and line formats
 7. `inputs/`, `context/` and `history/`
@@ -15,27 +15,25 @@ Read at entry, with the other files every interview needs (`saving-the-requireme
 
 ## 1. The drafts: what goes in each
 
-Each is short, plays its items back in plain words (never IDs or the tagged line format), and tags every line *(you said)*, *(from your [document])* or *(my suggestion)*.
+Each is short, plays its items back in plain words (never IDs or the file's line format), and marks your suggestions in italics, said once at its top in the first person ("My suggestions are in italics; your own words are plain." *(your words)*, `SKILL.md` rule 6). The goal and output and the checks are drafted as `interview.md` says (parts 1 and 2).
 
-**The sources draft.**
-- The sources it uses, introduced the first time in these words: "These are the sources it uses, what we call its **context**: any information a step needs to do its job, such as documents, spreadsheets, emails, style guides, or knowledge that lives in someone's head." For each: what it is, where it lives, and whether it exists or needs creating. A step's existing prompt or instructions count as a source. Content nobody on the team wrote that a step reads on each run (inbound emails, form submissions, web pages) gets its own `External` row as well as its Inputs line. For sources that trip no privacy test, draft whether the AI can reach them, tagged *(my suggestion)*. What a source holds and who wrote it are played back only as the leader said them; where they haven't, say it's not known yet, never a guess (SKILL.md rule 13).
-- The Inputs drafted from the trigger and the typical case, each with where it comes from and whether it exists yet.
-- Ends "What would you change or add?"
+**What it works from** (part 4).
+- The sources it uses, introduced the first time with what **context** means in one plain line (any information it needs to do its job, such as documents, spreadsheets, emails, style guides, or knowledge in someone's head). For each: what it is, where it lives, and whether it exists or needs creating. A step's existing prompt or instructions count as a source. Content nobody on the team wrote that a step reads on each run (inbound emails, form submissions, web pages) gets its own `External` row as well as its Inputs line. For sources that trip no privacy test, draft whether the AI can reach them, as your suggestion. What a source holds and who wrote it are played back only as the leader said them; where they haven't, say it's not known yet, never a guess (SKILL.md rule 13).
+- The Inputs drafted from the trigger and the checks, each with where it comes from and whether it exists yet; then the one question of where they live and whether the workflow reaches them there or the leader pastes them.
 
-**The rules draft.** Drafted from everything said so far, in the "When… it…" shape: what it always and never does (the always/never answers, a prohibition volunteered at the send-back test, an order the leader insisted on), what's in and what's out, any tone, format or length rule, and, when it runs without the leader, the Fallback. Offer matching standing rules and rules from the leader's other workflows or a policy document they named (section 3). A rule the leader gave stays a rule, never a step ("no shellfish"). Constraints about data and authority go to Security. A checkpoint isn't a prohibition: "never send without approval" is a checkpoint; "never send" is a prohibited action, offered in Security's Prohibited actions. An "It never…" that restates an "It always…" isn't added, and a step's own action isn't restated as a rule. Also in this draft, with no question of their own:
-- **The checkpoints** collected so far, to confirm, with where each sits, who performs it, and whether it runs with the leader; no new checkpoint questions. Offer matching standing checkpoints (section 3).
+**The rules** (drafted in part 2, settled in part 5). Drafted from everything said so far, in the "When… it…" shape: what it always and never does (a prohibition the leader volunteered, an order the leader insisted on, and what you drafted from the goal and checks), what's in and what's out, any tone, format or length rule, and, when it runs without the leader, the Fallback. Offer matching standing rules and rules from the leader's other workflows or a policy document they named (section 3). A rule the leader gave stays a rule, never a step ("no shellfish"). Constraints about data and authority go to Security. A checkpoint isn't a prohibition: "never send without approval" is a checkpoint (part 6); "never send" is a prohibited action, offered in Security's Prohibited actions. An "It never…" that restates an "It always…" isn't added, and a step's own action isn't restated as a rule. Also in this draft:
 - **When it runs without the leader,** the Fallback's conditions and where flags go:
-  - **The Fallback's conditions:** when "it can't confidently handle it", proposed from the tricky case and the out-of-bounds rule, tagged *(my suggestion)*.
-  - **Where flags go, when `Runs: without you`:** the Fallback proposes "…it does its best and flags it in [an email / a chat message] to you", tagged *(my suggestion)*: an email by default, a chat message only when the leader has named the chat tool they use (named as they named it). The rubber-stamp guard applies: the leader keeps, changes or drops it. Kept, it's also a W line, `- W[n] · [email / chat] to you · send a flag · after each run`. Dropped, the flag stays in the end-of-run message.
+  - **The Fallback's conditions:** when "it can't confidently handle it", proposed from the tricky case and the out-of-bounds rule, as your suggestion.
+  - **Where flags go, when `Runs: without you`:** the Fallback proposes "…it does its best and flags it in [an email / a chat message] to you", as your suggestion: an email by default, a chat message only when the leader has named the chat tool they use (named as they named it). The leader keeps, changes or drops it. Kept, it's also a W line, `- W[n] · [email / chat] to you · send a flag · after each run`. Dropped, the flag stays in the end-of-run message.
 - **An alternative output** for a case that's out of bounds: a `When` rule in the leader's words, "When [the case is out of bounds], it doesn't [produce the deliverable] and [does what instead]". The main output stays the one deliverable.
-- **A policy removal:** a `When` rule with its role tag, "When [source] arrives, [role] removes [those details] before the AI sees it." (`interview.md`, *What it works from*).
+- **A policy removal:** a `When` rule with its role tag, "When [source] arrives, [role] removes [those details] before the AI sees it." (`interview.md`, *4. What it works from*).
 - **A write whose place isn't known** and that no list has named: shown as "[place] not known yet".
 
 Ends "What would you change or add?"
 
-**The security limits** (every workflow; the categories are in section 2). Work out the tripped tests and categories from the Context Inventory as corrected. Any line giving the reason for them names only what the leader said (for illustration only; use the leader's own words: "since you said your intake forms hold patients' health details"), never that a source holds confidential details they didn't mention, and never anything they said is made up. Then play back each constraint in plain words under its category, never by its `P` ID (where data may go, who sees it, what it must never do, what gets recorded), tagged, and kept or dropped like the other drafts. Offer matching standing limits (section 3). A prohibition already in the rules draft isn't repeated. A trace record says where it's kept, never inside the deliverable (for an invoice summary, for illustration only: "Each summary is logged with the invoice it came from, outside the summary itself."; write the leader's own version). A write whose place isn't known yet, and that the rules draft didn't name, is shown here as "[place] not known yet". Ends "What would you change or add?"
+**The security limits** (part 5, after the rules in the same message; every workflow; the categories are in section 2). Work out the tripped tests and categories from the Context Inventory as corrected. Any line giving the reason for them names only what the leader said (for illustration only; use the leader's own words: "since you said your intake forms hold patients' health details"), never that a source holds confidential details they didn't mention, and never anything they said is made up. Then play back each constraint in plain words under its category, never by its `P` ID (where data may go, who sees it, what it must never do, what gets recorded), kept or dropped like the other drafts (a loosening is re-asked, `SKILL.md` rule 7). Offer matching standing limits (section 3). A prohibition already in the rules draft isn't repeated. A trace record says where it's kept, never inside the deliverable (for an invoice summary, for illustration only: "Each summary is logged with the invoice it came from, outside the summary itself."; write the leader's own version). A write whose place isn't known yet, and that the rules draft didn't name, is shown here as "[place] not known yet". Ends "What would you change or add?"
 
-The list of what every [deliverable] must get right and the practice runs are played back as `interview.md` says.
+**The checkpoints** (part 6) and **the practice runs** (part 7) are played back as `interview.md` says. Offer matching standing checkpoints (section 3) in part 6.
 
 ## 2. Which security categories are worked
 
@@ -60,13 +58,9 @@ With nothing tripped, `### Prohibited actions` holds the lines the leader kept, 
 
 `standing-rules.md` in the framework folder holds the rules a leader keeps for every workflow: tone and voice, who approves what, data that's never shared, systems that are never touched.
 
-**Proposing them.** In the rules draft and the security limits, offer matching lines from: `standing-rules.md`; the rules, checkpoints and security limits of the leader's other workflows in the registry; context files, and any policy document the leader named (an AI policy, a brand guide). Each is tagged *(my suggestion)* with its source in plain words ("from your standing rules", "as in your Client Follow-Up workflow", "from your AI policy") and needs a keep or drop. Offer only lines that fit this workflow. A kept line is copied into this workflow's requirements as an R or G line (or a security constraint), so each workflow's requirements stay its own source of truth. A first-time leader with none of these sees nothing extra.
+**Proposing them.** In the rules draft and the security limits, offer matching lines from: `standing-rules.md`; the rules, checkpoints and security limits of the leader's other workflows in the registry; context files, and any policy document the leader named (an AI policy, a brand guide). Each is your suggestion, with its source in plain words ("from your standing rules", "as in your Client Follow-Up workflow", "from your AI policy") and needs a keep or drop. Offer only lines that fit this workflow. A kept line is copied into this workflow's requirements as an R or G line (or a security constraint), so each workflow's requirements stay its own source of truth. A first-time leader with none of these sees nothing extra.
 
-**Keeping them.** Once the rules, checkpoints and security limits are settled (after the security limits), and only when at least one kept line looks like one the leader would want everywhere and isn't already a standing rule, ask in its own message. Ask it only from the leader's second workflow: another workflow's folder (not this one's) holding more than a progress file, or another node past `backlog`, not counting running work. Never on print-to-save, where there's no framework folder to keep it in.
-
-**Ask:** "Some of these sound like rules you'd want for every workflow: [rules, in plain words]. Should I keep them as standing rules, so I suggest them for your next workflows too?"
-- *Why:* I'll suggest them whenever you start a new workflow, and each workflow keeps its own copy, so changing one later doesn't touch workflows already built.
-- *Not sure?* Say no for now; I'll ask again the next time one of these comes up.
+**Keeping them.** Once the rules, checkpoints and security limits are settled (after the security limits), and only when at least one kept line looks like one the leader would want everywhere and isn't already a standing rule, ask in its own message. Ask it only from the leader's second workflow: another workflow's folder (not this one's) holding more than a progress file, or another node past `backlog`, not counting running work. In your own words, name the rules and ask whether to keep them as standing rules, suggested for their next workflows too; say that each workflow keeps its own copy, so changing one later doesn't touch workflows already built; if not sure, say no for now, and it's asked again next time.
 
 The lines kept are written to `standing-rules.md` at the close (Phase 3); create the file the first time:
 
@@ -81,21 +75,15 @@ Rules you keep for every workflow. Deconstruct suggests the ones that fit each n
 
 Each line is in the "When… it…" shape, with its kind (`rule` or `checkpoint`), the workflow it came from and the date. The leader may edit or remove lines directly, or ask you to; never change or remove a standing rule on your own. A changed standing rule applies to new workflows only; an existing workflow changes through "change my workflow".
 
-## 4. The preview
+## 4. The summary
 
-Always, in its own message, right after the filled-in message (`interview.md`, *What was filled in*) and before anything is written; never skipped. Say, word for word, with "[ and where it asks first]" only when there's a checkpoint:
+Always, in its own message (`interview.md`, *8. The defaults and the summary*), after the defaults and before anything is written; never skipped. On one screen, in plain words, never IDs: the goal; the output and its structure; why it matters (the registry goal and one measure, your suggestion); the checks, each with where its information comes from; the rules and the safety limits (a rule tagged ` · (you)` that says the same as a checkpoint, such as "you send it yourself" beside "it stops until you approve the draft", is shown once, as the checkpoint, never twice); the policy answer, when asked, on its own line (never as a rule); the checkpoints; the practice runs; open items, each with who and when. Then how readiness works, said once, and the go-ahead, both as `interview.md` gives them.
 
-> Each practice run is checked against the lines we've written: what every [deliverable] must get right, its rules[ and where it asks first]. The workflow is ready when every line is met on the inputs that test it — or when you've looked at a miss on a line that isn't a must-have and decided you can live with it. Anything it must never do counts like a must-have: one miss always sends it back.
->
-> Next, I'll write your Workflow Requirements file. Say 'go ahead', or tell me anything to change first.
+Before it, trace every check's source in the draft (each `from:` names an input, a source or a rule in the draft, or the draft alone); a check whose information nothing supplies is listed as an open item, never saved with a guessed source. A test that trips here brings its limits first.
 
-Its sentence "Anything it must never do counts like a must-have: one miss always sends it back." is said always, whether or not the workflow has an "It never…" rule or a prohibited action yet.
+Everything the save needs is read at entry (`saving-the-requirements.md`, first paragraph), so the go-ahead's turn holds only writes; only a file that shows up later is read in the summary's turn, with no text.
 
-Everything the save needs is read at entry (`saving-the-requirements.md`, first paragraph), so the go-ahead's turn holds only writes; only a file that shows up later is read in the preview's turn, with no text.
-
-**On a re-run or a redo whose old inputs lack `expect:`,** one drafted message comes before the preview (`re-runs.md`).
-
-Line IDs (AC1, R3, G1, P1) stay in the file and never reach the leader.
+**On a re-run or a redo,** a 10.x file is converted as `re-runs.md` says, and what changed is in the summary for correction.
 
 ## 5. Writing the file: style
 
@@ -112,7 +100,7 @@ The file reads like a requirements document, not an interview transcript:
 
 ## 6. The file: frontmatter, sections and line formats
 
-`requirements.md` in the workflow folder. Frontmatter, then the title, then exactly these `##` sections, named exactly, in this order, and no others.
+`requirements.md` in the workflow folder. Frontmatter, then the title, then exactly these twelve `##` sections, named exactly, in this order, and no others. (A 10.x file has no `## Output` and is still read; Deconstruct converts it on its next save, `re-runs.md`.)
 
 **Frontmatter:**
 
@@ -136,7 +124,17 @@ revisions:
 # [Workflow Name] — Workflow Requirements
 
 ## Goal
-For each [trigger], a [format] [deliverable] to [who], ready for you to [review] [when].
+For each [trigger], a [deliverable] for [who], so [purpose].
+
+## Output
+
+What: [the deliverable]
+For: [who receives or acts on it]
+Form: [its form: length, format and any fixed parts, such as a subject line]
+Voice: [whose voice, and the source that sets it, if any]
+Structure:
+    [a short Markdown skeleton of the deliverable, drafted from the checks]
+Delivered as: set in Design
 
 ## Value & Measurement
 
@@ -160,7 +158,7 @@ For each [trigger], a [format] [deliverable] to [who], ready for you to [review]
 | Owner | [person or role] |
 | Lens | Individual / Organizational |
 | Stakeholders | [roles or teams; Organizational lens only] |
-| Runs today | [running work brought in only: by hand; or set up as [a skill, an agent, an automation] in [where]; on a schedule or not] |
+| Runs today | [running work brought in only: by hand; or set up as [a skill, an agent, an automation] in [where]; on a schedule or not. Or, at cold entry, what the leader said about the one that already runs, in their words, ending `· where: not asked`] |
 | Remembers | [optional: nothing / [what] / not sure] |
 
 ## Path
@@ -179,14 +177,14 @@ Path: none — the AI plans each run from the goal
 
 | ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
 |---|---|---|---|---|---|---|---|---|
-| C1 | [name] | [All, or —; in an older file with steps, Step N or the AI's part after Step N] | Exists / Needs Creation | Public / Internal / Confidential / Regulated | Authored / External | Yes / Partial / No | [`context/C1-[short-name].md`, a system or a URL, or "Create as `context/C1-[short-name].md`"] | [what's in it] |
+| C1 | [name] | [All, or —; in an older file with steps, Step N or the AI's part after Step N] | Exists / Needs Creation | Public / Internal / Confidential / Regulated | Authored / External | Yes / Partial / No | [`context/C1-[short-name].md`, a system or a URL, or "Create as `context/C1-[short-name].md` · by [who], [when]"] | [what's in it] |
 
 ## Acceptance Criteria
 
-Each line is one thing a single run's output either does or doesn't do. Every practice run is checked against every line; one miss on a must-have sends it back.
+Each line is one thing a single run's output either does or doesn't do. Every practice run is checked against every line.
 
-1. **AC1 (must)** — [yes-or-no statement]
-2. **AC2** — [yes-or-no statement]
+1. **AC1** — [yes-or-no statement] · from: [I#, C#, R# it needs, or "the output alone"]
+2. **AC2** — [yes-or-no statement] · from: [I#, C#, R#, or "the output alone"]
 
 Reference example: [C# of the real output, or "—"]
 
@@ -196,7 +194,9 @@ Reference example: [C# of the real output, or "—"]
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
 | E1 | [short name] (real) | `inputs/E1-[short-name].md` — [description] | [the input's `expect:` line, word for word] | [C#, or "—"] |
-| E2 | [short name] (proposed, hard) | `inputs/E2-[short-name].md` — [description] | [the input's `expect:` line, word for word] | — |
+| E2 | [short name] (made up) | Test writes it — [what the input holds] | [what should happen, in plain words] | — |
+
+Every check is required: there are no must-haves, and `(must)` is never written. A form item (a subject line, a length) is in `## Output`, not a check. Each check's `from:` names where its information comes from; a check whose information nothing supplies is an open item in the summary, never saved with a guessed source. A scenario is `(real)` only when the leader gave a real input; otherwise `(made up)` and `Test writes it`.
 
 ## Rules & Constraints
 *Its rules: what it always does, never does, and does when something happens.*
@@ -206,7 +206,7 @@ Reference example: [C# of the real output, or "—"]
 | R1 | Always | It always [does that]. |
 | R2 | Never | It never [does that]. |
 | R3 | When | When [this happens], it [does that]. |
-| R4 | When | When the draft is ready, you send it yourself. · (you) |
+| R4 | When | When [the input is missing something it needs], it asks you for it before [producing the deliverable]. |
 | R5 | Fallback | When [the conditions it can't confidently handle], it [stops and asks you / does its best and flags it[ in an email / a chat message] to you / skips that item]. |
 | R6 | When | When [the case is out of bounds], it doesn't [produce the deliverable] and [does what instead]. |
 
@@ -258,14 +258,14 @@ Policy check: Allowed | No — [source] left out | No — details removed first 
 - **Metadata's rows,** in this one order: Workflow Name, Description, Trigger, Starts, Per run, Owner, Lens, Stakeholders, Runs today, Remembers. The optional ones, each left out when it doesn't apply (old files without them pass):
   - `Starts`: `you`, `you, when [event]`, `schedule: [when]` or `event: [event] · checked [interval | as often as it can]`;
   - `Per run`: `one [case]` or `a batch of [cases]`, inferred, left out when it can't be told;
-  - `Runs today`: running work brought in only;
+  - `Runs today`: running work brought in, or what the leader said at cold entry about a version that already runs (`· where: not asked` at its end, `choosing-a-workflow.md`);
   - `Remembers`: `nothing`, `[what]` or `not sure`;
   - `Stakeholders`: Organizational lens only.
 - **The glosses:** one italic line of fixed text right under four headings, `## Context Inventory`, `## Example Scenarios`, `## Rules & Constraints` and `## Human Gates`, word for word as the template shows them, written on every file Deconstruct saves.
 - **Input line:** `- I1 · [what] · from [source or C#] · Status: available | not available yet | Not sure — to check`, with the route where there is one (for illustration only: "from C1, through the [storage service] connection"). Inputs' Status is about what comes in on each run; the Context Inventory's Status is about reference material; a run input that doesn't exist yet is recorded in Inputs only.
 - **Writes** under `### Writes`: `- W1 · [system] · [action] · Step 3`, or `· after [moment]` with no steps. A write's place sits inside `[system]`: `[system] [place, as the leader named it]`, or `[system] ([place] to confirm)` when it isn't known; there's no fifth field. A flag sent to the leader after each run is `- W[n] · [email / chat] to you · send a flag · after each run`, allowed with steps (that exact phrase only). With nothing written, the heading stays, with the line `None`.
 - **Policy check:** one optional line, once, right after `Governing regime:` and before `### Writes`, with one of five values: `Allowed`; `No — [source] left out`; `No — details removed first (Step [N])`, or `(R[n])` for a `When` rule, written as `(Step 2)` or `(R4)` and naming a step or rule in this file (filled from the final numbering); `No — not live until approved`; `Not sure — to check`. No line means the question wasn't asked. A removal step or rule also has a Boundaries P line: [source] reaches the AI only after that step or rule.
-- **Rules:** each in the "When… it…" shape, in the leader's words where they gave them; `Kind` is `Always`, `Never`, `When` or `Fallback`. The Fallback carries the conditions it can't confidently handle and, when it runs without the leader, where flags go. An out-of-bounds case's alternative output is a `When` rule. A rule a person carries out ends with its role tag (`· (you)` or `· ([role])`) and isn't graded on the output. A `Never` rule with no role tag, like every Prohibited-actions P line, counts as a must-have when it's tested; no marker records it. Rules are behavioural ("It never invents a figure"); a prohibition on acting ("It never emails a customer") is a prohibited action in Security. A "stop and ask" Fallback also has a checkpoint.
+- **Rules:** each in the "When… it…" shape, in the leader's words where they gave them; `Kind` is `Always`, `Never`, `When` or `Fallback`. The Fallback carries the conditions it can't confidently handle and, when it runs without the leader, where flags go. An out-of-bounds case's alternative output is a `When` rule. A rule a person carries out ends with its role tag (`· (you)` or `· ([role])`) and isn't graded on the output. A `Never` rule with no role tag, like every Prohibited-actions P line, can never be accepted as a miss when it's tested; no marker records it. Rules are behavioural ("It never invents a figure"); a prohibition on acting ("It never emails a customer") is a prohibited action in Security. A "stop and ask" Fallback also has a checkpoint.
 - **Human Gates:** the first line is `Runs: with you` or `Runs: without you`. Each checkpoint is in the shape "When [this happens], it [stops / waits] …", names who performs it, and ends with the role tag: "When the draft is ready, it waits for you to read and edit it before you send it. · (you)", never "When the draft is ready, you read and edit it…" (the validator rejects a checkpoint whose second half doesn't start with "it"). With none, under the `Runs:` line: "No human gates — the workflow runs end-to-end with final review only."
 - **Security:** every constraint has a `P` ID, numbered in one series across the four tables in the order they're written (only the categories that were worked appear), and a Source (`Self` when the leader is the source). Design and Test name a constraint by its ID, never by copying its words. Prohibited actions are absolute; checkpoints are conditional (if an approval can satisfy it, it's a checkpoint). The sensitivity of what the workflow produces belongs in Access. `Governing regime:` and `### Writes` appear in both the full and the one-line form.
 - **Context Inventory:** a `Needs Creation` item's location is where it will be created (`context/…`). On the Organizational lens, existing process documents (SOPs, training guides, compliance requirements, service levels) are included.
@@ -276,7 +276,7 @@ Policy check: Allowed | No — [source] left out | No — details removed first 
 
 ## 7. `inputs/`, `context/` and `history/`
 
-**Practice inputs** are `inputs/E[n]-[short-name].md` (a short name of three or four words, in kebab-case), numbered in one series with any inputs Design or Test write later. Each file Deconstruct writes opens with three header lines, then a blank line, then the input itself; a carry-over input's body opens with its `Earlier run:` paragraph and a blank line:
+**Practice inputs** are `inputs/E[n]-[short-name].md` (a short name of three or four words, in kebab-case), numbered in one series with any inputs Design or Test write later. Deconstruct writes one only when the leader gives a real input (it never asks for one, and never writes a made-up one: Test writes those from the scenario). Each file Deconstruct writes opens with three header lines, then a blank line, then the input itself; a carry-over input's body opens with its `Earlier run:` paragraph and a blank line:
 
 ```
 source: deconstruct
@@ -292,7 +292,7 @@ Earlier run: [what an earlier run left behind, in plain words: the cases it hand
 - **`expect:`** is always written by Deconstruct, never empty: the result the leader confirmed in the practice-runs playback, in the form "[what it produces or does]; [what it doesn't do]". Deconstruct proposes no input aimed at a decision, an out-of-bounds case or carry-over (Test writes those); in an older file that holds one, its `expect:` is taken from that line's own wording ("[takes the D line's path]", "[does what the `When` line says instead]", "[does what with] the [case] an earlier run already handled"). The Example Scenarios row's "What to look for in the output" is the same text, word for word.
 - **`Earlier run:`** appears only on a carry-over input: one paragraph of set-up, never input. Testing puts it where the workflow keeps what it remembers, and no run ever sees it.
 
-The header lines and the `Earlier run:` paragraph are for the steps only and never reach a run. A real input is saved exactly as given, except that a password or key in it is replaced with a placeholder first, with N-F14 said; a proposed one is written out in full, so it can be pasted as it is, and saved exactly as the leader saw and confirmed it at N-D25, with their corrections (`interview.md`, *The inputs you wrote, shown before saving*). The interview saves two or three, plus any pasted input that holds an instruction addressed to the AI, which is always kept (`interview.md`, *The practice runs*). Deconstruct's inputs are also listed in Example Scenarios, path first.
+The header lines and the `Earlier run:` paragraph are for the steps only and never reach a run. A real input is saved exactly as given, except that a password or key in it is replaced with a placeholder first, with N-F14 said; Deconstruct writes no made-up input (Test does). Any pasted input that holds an instruction addressed to the AI is always kept (`interview.md`, *7. The practice runs*). Deconstruct's inputs are also listed in Example Scenarios, path first.
 
 **Context files** are `context/C[n]-[short-name].md`: a real past output, the document the leader started from, a style guide or other reference they pasted. Build later places the copies the workflow reads at runtime in the workflow's own place.
 
@@ -309,14 +309,17 @@ Every move is Deconstruct's own, never the leader's. On a connection that can on
 After writing, check the file and fix any miss before the close. Where code can run, the requirements validator does these checks: run `node [plugin root]/tools/requirements-check.js [workflow folder] --before-save` (the plugin root is two folders above this skill's folder); it exits 0 when the file is valid; exit 1 names each problem by section and line: fix them and run it again. Any other non-zero exit means it couldn't run or couldn't read the file: check every item below by hand, as you would where it can't run or isn't there, since this list is its written fallback. A run that didn't finish is never a pass. Never mention the validator to the leader.
 
 - The frontmatter holds `revision`, `revisions` and `track` with valid values, a `revisions:` entry for every revision above 1, and no `big_change`.
-- Exactly the eleven `##` sections, in order and exactly named, under the title.
+- Exactly the twelve `##` sections, in order and exactly named, under the title; `## Output` holds What, For, Form, Voice, Structure (with its skeleton or a context file) and `Delivered as: set in Design`, in that order.
+- Every check reads `**AC[n]** — [statement] · from: [sources]`, with no `(must)`; every I, C and R it names exists in the file, or it reads `the output alone`.
+- Every scenario is `(real)` with its `inputs/` file, or `(made up)` with `Test writes it — [what it holds]`.
+- Every `Needs Creation` row names who creates it and when.
 - Every step line has a name, `produces` and a fixed-or-flexible mark, with its tags in the stated order; steps you added carry `· proposed by AI`.
 - `## Path` opens with the `Method preference:` line; `Path: none` has no step lines; "some of each" has at least one fixed step and at least one `The AI plans this part` line; every `Step N` reference (decisions, writes, `Used By`, `Where`) matches a step line or names the AI's part.
 - Every rule, checkpoint and decision is in the "When… it…" shape; no "It never…" restates an "It always…"; a decision is never restated as a rule.
 - A decision classified from free text is `your criteria` or `open judgment`, never `a rule on a value`.
 - Each requirement lives in one place: a quality of the output is an AC, a behaviour an R; a detail block's lines say only what that step adds ("look each promised link up in C2, for AC4"), never an AC's own wording again.
 - Human Gates opens with the `Runs:` line; Security has the `Governing regime:` line, then `### Writes` with W lines or `None`; every security constraint has a `P` ID, in one series across its tables, and a Source.
-- The safety limits message was shown in this interview and every Security line in the file is one the leader kept in it; the one-line form is written only when no test tripped and the leader dropped every line. The validator can't see this: check it yourself, and if the message wasn't shown, stop and show it (`interview.md`, *The safety limits*).
+- The safety limits message was shown in this interview (and shown again for any test that tripped later) and every Security line in the file is one the leader kept in it; the one-line form is written only when no test tripped and the leader dropped every line. The validator can't see this: check it yourself, and if the message wasn't shown, stop and show it (`interview.md`, *5. Rules and limits*).
 - No saved file (requirements, input, context or progress file) holds a password or key.
 - Every practice input listed exists at its path, opens with its header lines (`source:`, `tests:`, then `expect:` with text, required on every input whose `source:` is `deconstruct`, then a blank line), and holds the input itself (or the one allowed placeholder line), never a description of it; its `tests:` IDs (AC, R, G and D) exist in the file. Each `expect:` comes from the playback, or from the line's own wording for an input aimed at a D line, an out-of-bounds line or carry-over, and "What to look for" matches it word for word. Only a carry-over input opens its body with an `Earlier run:` paragraph.
 - `Starts`, `Per run` and `Remembers`, when present, sit in the Metadata order (Workflow Name, Description, Trigger, Starts, Per run, Owner, Lens, Stakeholders, Runs today, Remembers) with one of their values.

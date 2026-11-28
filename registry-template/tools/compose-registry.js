@@ -182,6 +182,19 @@ function workflowProgress(w, frameworkDir, absBundle) {
   }
 }
 
+// The last test round's headline ("12 of 13 checks met across 4 inputs"), worked out by framework-state
+// from the round's results, never stored. Undefined before any round, or when it can't be read.
+function workflowScorecard(w, frameworkDir, absBundle) {
+  if (!frameworkDir) return undefined;
+  try {
+    const r = workflowState(path.join(frameworkDir, lib.slugOf(w.relPath)), { registryDir: absBundle });
+    const s = r && r.facts && r.facts.scorecard;
+    return s ? `${s.met} of ${s.total} checks met across ${s.inputs} input${s.inputs === 1 ? '' : 's'}` : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 // --- Compose (build everything in memory; caller decides what to do with it) ---
 function compose(bundleDir) {
   const dir = bundleDir || 'registry';
@@ -213,6 +226,7 @@ function compose(bundleDir) {
   const fwDir = lib.frameworkFolder(workspaceRoot).dir;
   const frameworkDir = fwDir && fs.existsSync(fwDir) ? fwDir : (fwDir ? workspaceRoot : null);
   const progress = new Map(workflowsAll.map((w) => [w.relPath, workflowProgress(w, frameworkDir, absBundle)]));
+  const scorecards = new Map(workflowsAll.map((w) => [w.relPath, workflowScorecard(w, frameworkDir, absBundle)]));
 
   // Workflow -> Skill/Agent is the Workflow node's `# Skills` / `# Agents`
   // body links (SCHEMA.md "Relationships"); usedBy is the reverse view.
@@ -427,6 +441,7 @@ function compose(bundleDir) {
       processId: pr ? lib.slugOf(pr.relPath) : null,
       lobId: lob ? lib.slugOf(lob.relPath) : null,
       state: progress.get(w.relPath),
+      ...(scorecards.get(w.relPath) ? { scorecard: scorecards.get(w.relPath) } : {}),
       skills: lib.orderedLinks(w.sections['Skills'] || '').map((l) => l.href),
       agents: lib.orderedLinks(w.sections['Agents'] || '').map((l) => l.href),
       nodePath: p,

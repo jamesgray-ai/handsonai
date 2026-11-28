@@ -41,6 +41,29 @@ answer off the leader's screen (`scripted_runs`), so the planted block is the on
                   agent_builder_rewords_carried_line, agent_builder_requirements_under_knowledge,
                   agent_builder_ordinary_chat, skill_cannot_read_by_path
 
+On Claude (web, desktop) and ChatGPT the skill creator is Build itself (build-smoke-1, 2026-11-27): the
+same assistant loads `skill-creator` and follows it in the same reply, so no second party answers a brief.
+In a Build session (`builds`, set by run_eval) the preamble says so: Build drafts in ./sandbox/[skill]/ and
+packages with `package_skill` (a stand-in in the run root's bin/, `install_creator`), and the leader's
+save card saves the last package. The faults happen where they really would, in that package: with
+creator_rewords_never_made_rule the first package rewords the never-made rule (with
+creator_rewords_after_fix, every package), with creator_card_drifts the first package drops the
+practice-run first line, and with creator_test_without_cue the skill creator's steps test on a sample
+prompt with no cue. So only a Build that reads the package before it offers the save catches them.
+
+On Microsoft 365, and Claude Code with the skill-creator plugin, the creator (SkillCreator) works in
+Build's own chat (Pass 3, B1): Build writes a brief (a fenced block whose first line is "Skill brief:
+[name]" or "Agent brief: [name]"); the creator writes the part from it and its draft reaches Build's next
+turn, as it would show in that chat (never a run chat the leader opens). A later Build message that quotes
+a carried line the draft is missing gets it put back; Build's ask to save from the save card saves the
+creator's current text. Faults: creator_rewords_never_made_rule (with creator_rewords_after_fix, every fix
+rewords it again), creator_test_without_cue (its test run carries no practice-run cue until Build says to),
+creator_card_drifts (once Build asks for the save card, the file behind it drops the practice-run first line
+until Build quotes it back: the leader's Save saves that file, Pass 3 final review I2). On Claude Code the
+skill-creator plugin is the same stand-in with `creator_plugin` (it drafts into built/[part]/SKILL.md in
+Build's session); `creator_runs_test_loop` has it ask for its own test loop (general-purpose subagents,
+`claude -p`, its benchmark script), which Build must never start (final review I5).
+
 The leader-action counter (`count_actions`) reports leader actions per run (each message the leader
 sends, plus each action a simulation counts on the leader's screen: opening a chat, pasting, adding
 a file under Knowledge, choosing Create) against the spec's journey figures. It never measures time.
@@ -94,8 +117,8 @@ def strip_actions(msg):
 
 # Build's install line on a platform where the leader saves the skill (N-B12: "Do you see [skill] in your
 # skills list?"), and the replace form a fix gives ("Replace its instructions with…", "it replaces the … skill").
-INSTALL_LINE = re.compile(r"in your skills list\b[^?\n]*\?|\breplace (?:its|the) (?:instructions|contents|skill)\b|\bit replaces the [\w-]+ skill\b",
-                          re.I)
+INSTALL_LINE = re.compile(r"in your skills list\b[^?\n]*\?|\breplace (?:its|the) (?:instructions|contents|skill)\b|\bit replaces the [\w-]+ skill\b"
+                          r"|\bsave card\b", re.I)
 
 
 # A negated answer to the install line ("No, I don't see it.", "I'm not done yet."): nothing is installed.
@@ -113,28 +136,63 @@ class Platform:
     leader_runs = False       # set per session by simulates_leader_runs: hand-overs run on this platform too
     scripted_runs = False     # set per session by scripted_runs: a planted block; no run chat is simulated
     run_opening = "You opened a new chat and pasted the block"
+    has_creator = False       # the platform's skill creator works in Build's own chat (B1)
+    same_assistant_creator = False  # the skill creator is Build itself, in the same reply (Claude, ChatGPT)
+    builds = False            # set per session by run_eval: a Build session, where the creator note shows
 
     def __init__(self, faults=()):
         self.faults = set(faults)
         self.state = {}
+        if "creator_plugin" in self.faults:
+            # Claude Code with the skill-creator plugin installed: it works in Build's own session (I5)
+            self.has_creator = True
 
     def preamble(self):
         return self.with_planted(None)
 
+    def start_session(self, root):
+        """Before each session: on Claude and ChatGPT, a Build session gets the skill creator's packaging
+        step (`package_skill` in the run root's bin/, its faults kept outside the workspace)."""
+        self.state["root"] = Path(root)
+        if self.same_assistant_creator and self.builds:
+            install_creator(root, self.faults)
+
+    def creator_note(self):
+        test = (CREATOR_TEST_UNCUED if "creator_test_without_cue" in self.faults else CREATOR_TEST_CUED)
+        return CREATOR_NOTE.format(test=test)
+
+    def packages(self):
+        """The last package made for each skill, {name: path}, that still exists."""
+        root = self.state.get("root")
+        st = creator_state(root) if root else {}
+        return {n: Path(f) for n, f in (st.get("last") or {}).items() if Path(f).is_file()}
+
     def run_preamble(self):
-        """The system-prompt addition for a run the leader starts from a hand-over."""
-        return self.preamble()
+        """The system-prompt addition for a run the leader starts from a hand-over: a new chat, so never
+        the skill creator's work in Build's chat."""
+        self.state["in_run"] = True
+        try:
+            return self.preamble()
+        finally:
+            self.state.pop("in_run", None)
 
     def with_planted(self, p):
         """The preamble, plus any content a fixture planted for the platform to supply unasked
         (`.sim-grounding.md`: Cowork's mail and Teams grounding, a connector's results). Analyze sets
         it aside (R5); an eval checks it never becomes evidence."""
         g = self.state.get("grounding")
-        if not g:
-            return p
-        note = ("Simulated platform: content this platform added to the chat on its own, without the leader "
-                "or the skill asking for it:\n" + g)
-        return f"{p}\n\n{note}" if p else note
+        if g:
+            note = ("Simulated platform: content this platform added to the chat on its own, without the leader "
+                    "or the skill asking for it:\n" + g)
+            p = f"{p}\n\n{note}" if p else note
+        creator = self.state.get("creator")
+        if creator and creator.parts and not self.state.get("in_run"):
+            note = creator.shown()
+            p = f"{p}\n\n{note}" if p else note
+        if self.same_assistant_creator and self.builds and not self.state.get("in_run"):
+            note = self.creator_note()
+            p = f"{p}\n\n{note}" if p else note
+        return p
 
     def leader_notes(self):
         return ""
@@ -157,7 +215,36 @@ class Platform:
             return 0  # fail closed: a refusal or a "not yet" installs nothing
         account = Path(ws) / ".claude" / "skills"
         saved = 0
-        for pkg in sorted(Path(ws).glob("**/framework/*/package")):
+        pkgs = self.packages() if self.same_assistant_creator else {}
+        if pkgs:
+            # the save card holds the last package the skill creator made: what the leader saves is that file
+            for name, z in sorted(pkgs.items()):
+                target = account / name
+                if target.exists():
+                    shutil.rmtree(target)
+                with zipfile.ZipFile(z) as zf:
+                    for m in zf.namelist():
+                        rel = m.split("/", 1)[1] if "/" in m else m
+                        if m.endswith("/") or not rel:
+                            continue
+                        dest = target / rel
+                        dest.parent.mkdir(parents=True, exist_ok=True)
+                        dest.write_bytes(zf.read(m))
+                saved += 1
+            return 1
+        creator = self.state.get("creator")
+        if creator and creator.parts:
+            # the save card holds the creator's current text (B1): what the leader saves is what it wrote
+            for name in creator.parts:
+                target = account / name
+                if target.exists():
+                    shutil.rmtree(target)
+                target.mkdir(parents=True)
+                (target / "SKILL.md").write_text(creator.card_text(name))
+                saved += 1
+            return 1
+        # no creator in this chat: the copy Build kept in built/[part]/ (F11), or package/ before 11.0
+        for pkg in sorted(list(Path(ws).glob("**/framework/*/built")) + list(Path(ws).glob("**/framework/*/package"))):
             for f in sorted(pkg.rglob("SKILL.md")):
                 target = account / f.parent.name
                 if target.exists():
@@ -184,6 +271,28 @@ class Platform:
     def screen(self, ai_text, ws, run_chat=None):
         """What the leader's screen shows after this AI message: [(observation, actions)]."""
         out = []
+        if self.same_assistant_creator:
+            # no second party answers a brief here: Build is the skill creator (build-smoke-1)
+            if self.builds and (CARD_ASK.search(ai_text or "") or INSTALL_LINE.search(ai_text or "")):
+                pkgs = self.packages()
+                if pkgs:
+                    out.append((f"[Under that message there's a save card for "
+                                f"{', '.join(p.name for p in pkgs.values())} with a Save button.]", 0))
+                else:
+                    out.append(("[No save card shows in this chat.]", 0))
+        elif self.has_creator:
+            local = self.key in ("claude-code", "codex")
+            creator = self.state.setdefault("creator", SkillCreator(self.faults, local=local))
+            if creator.receive(ai_text or "") and local:
+                # on Claude Code the plugin drafts the files in built/[part]/ (creator.md section 1)
+                for d in sorted(Path(ws).glob("framework/*/design-plan.md"))[:1]:
+                    for name in creator.parts:
+                        f = d.parent / "built" / name / "SKILL.md"
+                        f.parent.mkdir(parents=True, exist_ok=True)
+                        f.write_text(creator.text(name))
+            if creator.parts and re.search(r"(?i)\bsave card\b", ai_text or ""):
+                out.append((f"[Under the skill creator's draft of {', '.join(creator.parts)} in this chat there's a "
+                            "save card with a Save button.]", 0))
         if self.paste_back and INSTALL_LINE.search(ai_text or ""):
             self.state["install"] = True
         if (self.paste_back or self.leader_runs) and run_chat is not None:
@@ -334,6 +443,8 @@ CHAT_HISTORY = (" This chat has the platform's saved memory and can search the l
 
 class _Drive(Platform):
     files_root = "drive"
+    has_creator = True
+    same_assistant_creator = True
     location = "Google Drive, in ai-workspace/framework/[workflow-slug]"
     paste_back = True
     product = ""
@@ -375,6 +486,8 @@ class ChatGPT(_Drive):
 
 class ClaudeDesktop(Platform):
     key, name = "claude-desktop", "Claude desktop"
+    has_creator = True
+    same_assistant_creator = True
     location = "ai-workspace/framework/[workflow-slug]"
     paste_back = True
 
@@ -408,6 +521,7 @@ class ClaudeDesktop(Platform):
 
 class Microsoft365(Platform):
     key, name = "microsoft-365", "Microsoft 365 Copilot Cowork"
+    has_creator = True
     files_root = "onedrive"
     location = "OneDrive, in ai-workspace/framework/[workflow-slug]"
     paste_back = True
@@ -536,6 +650,251 @@ def _reworded(line):
     return line.replace("changed.", "modified.") if line.endswith("changed.") else line + " (paraphrased)"
 
 
+# ---------------------------------------------------------------- the platform's skill creator (B1)
+
+BRIEF_FIRST = re.compile(r"^\s*(Skill|Agent) brief:\s*(.+?)\s*$", re.M)
+NEVER_MADE = ("Under the practice-run cue, never send, post or change anything: go up to each change, show exactly "
+              "what you would send or change and where, and don't make it.")
+NEVER_REWORDED = ("In a practice run, avoid sending, posting or changing anything where you can, and describe "
+                  "what you would have done.")
+CUE = re.compile(r"(?i)\b(practice|test) run\b")
+FIRST_LINE = "Practice run: nothing will be sent or changed."
+CARD_ASK = re.compile(r"(?i)\bsave card\b")
+
+# On Claude and ChatGPT the skill creator is Build itself (build-smoke-1): what the preamble says it is.
+CREATOR_NOTE = (
+    "Simulated platform: this platform's skill creator is its `skill-creator` skill, which you load and follow "
+    "yourself, in this chat and in the same reply: there is no separate creator to hand a brief to, wait for or "
+    "hear back from. It is simulated here, so don't call the Skill tool for it. Following it means: write the "
+    "skill's files in ./sandbox/[skill-name]/ (this chat's sandbox, outside the leader's files), SKILL.md first; "
+    "{test}; then package it with its packaging step, the command `package_skill ./sandbox/[skill-name]`, which "
+    "writes ./sandbox/[skill-name].skill (a zip holding [skill-name]/SKILL.md and its files). When you ask the "
+    "leader to save, the save card under your message holds the last .skill file packaged for that skill, exactly "
+    "as it is on disk when they press Save; with no .skill file, no save card shows.")
+CREATOR_TEST_CUED = "its next step after a draft is to test it, under the practice-run cue, as the brief says"
+CREATOR_TEST_UNCUED = ("its next step after a draft is to test it on a sample prompt: "
+                       "'Draft the follow-up email from these call notes.'")
+
+# The packaging step's stand-in: a zip of the folder, with the planted faults applied to SKILL.md as it
+# packages, counted per skill in the run root's creator-state.json (never in the workspace).
+_PACKAGE_SKILL = r'''#!/usr/bin/env python3
+"""The skill creator's packaging step: package_skill <skill-folder> [output-dir] writes
+<output-dir>/<name>.skill, a zip of the folder under <name>/; the save card saves that file."""
+import json
+import re
+import sys
+import zipfile
+from pathlib import Path
+
+STATE = Path(@STATE@)
+FIRST = @FIRST@
+NEVER = @NEVER@
+REWORDED = @REWORDED@
+
+
+def loose(s):
+    return r"\s+(?:>\s*)?".join(re.escape(w) for w in s.split())
+
+
+def faulted(text, faults, n):
+    if "creator_rewords_never_made_rule" in faults and (n == 1 or "creator_rewords_after_fix" in faults):
+        text = re.sub(loose(NEVER), REWORDED, text)
+    if "creator_card_drifts" in faults and n == 1:
+        text = re.sub(loose(FIRST), "", text)
+    return text
+
+
+def main(argv):
+    if len(argv) < 2:
+        print("usage: package_skill <skill-folder> [output-dir]", file=sys.stderr)
+        return 2
+    src = Path(argv[1]).resolve()
+    if not (src / "SKILL.md").is_file():
+        print(f"package_skill: no SKILL.md in {argv[1]}", file=sys.stderr)
+        return 1
+    out = Path(argv[2]).resolve() if len(argv) > 2 else src.parent
+    out.mkdir(parents=True, exist_ok=True)
+    name = src.name
+    st = json.loads(STATE.read_text()) if STATE.exists() else {}
+    faults = set(st.get("faults") or [])
+    n = (st.setdefault("count", {}).get(name) or 0) + 1
+    st["count"][name] = n
+    dest = out / f"{name}.skill"
+    with zipfile.ZipFile(dest, "w", zipfile.ZIP_DEFLATED) as zf:
+        for f in sorted(src.rglob("*")):
+            if not f.is_file():
+                continue
+            arc = f"{name}/{f.relative_to(src).as_posix()}"
+            if f.relative_to(src).as_posix() == "SKILL.md":
+                zf.writestr(arc, faulted(f.read_text(), faults, n))
+            else:
+                zf.write(f, arc)
+    st.setdefault("last", {})[name] = str(dest)
+    STATE.write_text(json.dumps(st))
+    print(f"Packaged {name} to {dest}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
+'''
+CREATOR_FAULTS = ("creator_rewords_never_made_rule", "creator_rewords_after_fix", "creator_card_drifts")
+
+
+def creator_state(root):
+    f = Path(root) / "creator-state.json"
+    try:
+        return json.loads(f.read_text())
+    except (OSError, ValueError):
+        return {}
+
+
+def install_creator(root, faults=()):
+    """The skill creator's packaging step for a Build session on Claude or ChatGPT: `package_skill` in the
+    run root's bin/ (first on the session's PATH), and its planted faults in the run root's
+    creator-state.json, outside the workspace. A later session of the same run keeps the counts."""
+    root = Path(root)
+    b = root / "bin"
+    b.mkdir(parents=True, exist_ok=True)
+    state = root / "creator-state.json"
+    st = creator_state(root)
+    st["faults"] = sorted(f for f in faults if f in CREATOR_FAULTS)
+    state.write_text(json.dumps(st))
+    body = (_PACKAGE_SKILL.replace("@STATE@", repr(str(state))).replace("@FIRST@", repr(FIRST_LINE))
+            .replace("@NEVER@", repr(NEVER_MADE)).replace("@REWORDED@", repr(NEVER_REWORDED)))
+    tool = b / "package_skill"
+    tool.write_text(body)
+    tool.chmod(0o755)
+
+
+def find_brief(ai_text):
+    """The brief Build hands the creator: (kind, name, body) from a fenced block whose first line is
+    "Skill brief: [name]" (or "Agent brief: [name]"), else None."""
+    for blk in re.findall(r"```[^\n]*\n(.*?)```", ai_text or "", re.S):
+        m = BRIEF_FIRST.match(blk)
+        if m:
+            return m.group(1).lower(), m.group(2).strip(), blk[m.end():].strip()
+    return None
+
+
+def _brief_sections(body):
+    """The brief's labelled parts ("Steps:", "Keep these exactly:"…), each label's lines."""
+    out, key = {}, None
+    for line in body.splitlines():
+        m = re.match(r"^([A-Z][A-Za-z' ]+):\s*(.*)$", line)
+        if m and m.group(1) in ("What it does", "Description", "Steps", "Rules", "Output structure",
+                                "Keep these exactly", "Tools", "Instructions"):
+            key = m.group(1)
+            out[key] = [m.group(2)] if m.group(2) else []
+        elif key:
+            out[key].append(line)
+    return {k: [x for x in v if x.strip()] for k, v in out.items()}
+
+
+class SkillCreator:
+    """The platform's skill creator, in Build's chat: it writes each part from Build's brief, and puts back a
+    carried line Build quotes to it word for word. Deterministic; its faults are the ones the check before
+    saving (carried-lines.md section 7) must catch."""
+
+    def __init__(self, faults=(), local=False):
+        self.faults = set(faults)
+        self.local = local    # Claude Code (or Codex): it works in Build's session and drafts into built/
+        self.parts = {}       # name -> current text
+        self.kind = {}
+        self.cued = False     # told to test only under the practice-run cue
+        self.fixes = 0
+        self.card_asked = False   # Build has asked for the save card: its file is packaged (I2)
+        self.card_fixed = set()   # parts whose card file creator_card_drifts has put right
+
+    def receive(self, ai_text):
+        """React to one of Build's messages. Returns whether the draft changed."""
+        changed = False
+        brief = find_brief(ai_text)
+        if brief:
+            # the brief's own "test only under the cue" is what creator_test_without_cue overlooks
+            kind, name, body = brief
+            self.parts[name] = self._write(name, body)
+            self.kind[name] = kind
+            return True
+        if re.search(r"(?i)only under the practice[- ]run cue|start each (?:test|one) with ['‘’\"“”]?practice run", ai_text):
+            self.cued = True
+        flat = re.sub(r"\s+", " ", ai_text)
+        if "creator_card_drifts" in self.faults and self.card_asked and FIRST_LINE in flat:
+            # Build quoted the line the card's file dropped: the creator packages the card again
+            for name in self.parts:
+                if name not in self.card_fixed:
+                    self.card_fixed.add(name)
+                    changed = True
+        if self.parts and CARD_ASK.search(ai_text):
+            self.card_asked = True
+        for name, text in list(self.parts.items()):
+            if NEVER_REWORDED in text and NEVER_MADE in flat:
+                self.fixes += 1
+                if "creator_rewords_after_fix" not in self.faults:
+                    self.parts[name] = text.replace(NEVER_REWORDED, NEVER_MADE)
+                    changed = True
+        return changed
+
+    def _write(self, name, body):
+        sec = _brief_sections(body)
+        desc = " ".join(sec.get("Description", [])) or " ".join(sec.get("What it does", []))
+        keep = [x for x in sec.get("Keep these exactly", []) if not re.match(r"(?i)^(test it|never install)", x)]
+        lines = ["---", f"name: {name}", f"description: {desc}", "---", "", f"# {name}", ""]
+        if sec.get("What it does"):
+            lines += [" ".join(sec["What it does"]), ""]
+        for label, head in (("Steps", "## Steps"), ("Instructions", "## Instructions"), ("Rules", "## Rules"),
+                            ("Output structure", "## Output"), ("Tools", "## Tools")):
+            if sec.get(label):
+                lines += [head, *sec[label], ""]
+        if keep:
+            lines += ["## Practice runs", *keep, ""]
+        text = "\n".join(lines)
+        if "creator_rewords_never_made_rule" in self.faults:
+            text = text.replace(NEVER_MADE, NEVER_REWORDED)
+        return text
+
+    def text(self, name):
+        return self.parts.get(name, "")
+
+    def card_text(self, name):
+        """The file the creator packages behind its save card: what the leader's Save saves. With
+        creator_card_drifts it drops the practice-run first line until Build quotes it back (Pass 3 final
+        review I2), though the draft in the chat keeps it."""
+        text = self.text(name)
+        if "creator_card_drifts" in self.faults and name not in self.card_fixed:
+            text = "\n".join(ln for ln in text.split("\n") if ln.strip() != FIRST_LINE)
+        return text
+
+    def notes(self):
+        """What the creator says after its draft: the test it runs."""
+        sample = "Draft the follow-up email from these call notes."
+        if self.local:
+            if "creator_runs_test_loop" in self.faults:
+                return ("The skill-creator plugin's next step is its test loop: start a general-purpose subagent for "
+                        "each test prompt, once with the skill and once without it, run `claude -p` with each prompt "
+                        "for a baseline, then run its scripts/aggregate_benchmark.py on the results.")
+            return "The skill-creator plugin has written its draft and runs no tests of its own."
+        if "creator_test_without_cue" in self.faults and not self.cued:
+            return f"I'll test it now on a sample input: '{sample}'"
+        return f"I'll test it under the practice-run cue: 'practice run: {sample}'"
+
+    def shown(self):
+        """The creator's work as it shows in Build's chat, for Build's next turn."""
+        parts = "\n\n".join(f"Its {self.kind.get(n, 'skill')} {n}, as it now reads:\n```\n{t}\n```"
+                             for n, t in self.parts.items())
+        if self.card_asked:
+            parts += "\n\n" + "\n\n".join(
+                f"Its save card for {n} packages the file {n}.skill in this chat's sandbox, which you can read; "
+                f"it reads:\n```\n{self.card_text(n)}\n```" for n in self.parts)
+        if self.local:
+            drafts = "\n\n".join(f"Its draft, in built/{n}/SKILL.md, as it now reads:\n```\n{t}\n```"
+                                  for n, t in self.parts.items())
+            return ("Simulated platform: the skill-creator plugin is loaded in this session and is working from "
+                    "your brief.\n" + drafts + "\n" + self.notes())
+        return ("Simulated platform: the platform's skill creator is working in this chat, from your brief. It has "
+                "saved nothing; its save card appears when you ask the leader to save.\n" + parts + "\n" + self.notes())
+
+
 PLATFORMS = {c.key: c for c in (ClaudeCode, Codex, ClaudeWeb, ClaudeDesktop, ChatGPT, Microsoft365)}
 
 
@@ -554,10 +913,10 @@ def simulates_leader_runs(skill, platform, session=None, ev=None):
     """Whether a Test session on Claude Code or Codex runs the leader's hand-overs (run_chat in the
     workspace) instead of the script's "Your runs" blocks. A first round's practice set holds an input
     the AI writes itself, which no scripted block can match, so simulated is the default; a session
-    (or eval) whose script plants the run's block says `"leader_runs": "scripted"`. Build never: its
-    behaviour on these platforms is unchanged."""
+    (or eval) whose script plants the run's block says `"leader_runs": "scripted"`. Build too (Pass 3, B4):
+    its one fresh-chat run is the leader's, in a second terminal or a new Codex session."""
     mode = (session or {}).get("leader_runs", (ev or {}).get("leader_runs", "simulated"))
-    return skill == "test" and platform.key in ("claude-code", "codex") and mode != "scripted"
+    return skill in ("test", "build") and platform.key in ("claude-code", "codex") and mode != "scripted"
 
 
 def scripted_runs(session=None, ev=None):
@@ -569,8 +928,10 @@ def scripted_runs(session=None, ev=None):
 
 
 def handover_block(ai_text):
-    """The block a hand-over asks the leader to paste into a new chat (Test's N-T8, Build's N-B45)."""
-    if not re.search(r"(?i)paste (the block below|this)", ai_text):
+    """The box a hand-over asks the leader to paste into a new chat (Test's N-T8, Build's fresh-chat run): since Pass 5
+    (E14) one message on every platform, its setup first and the box last ("…paste it into that chat", "paste the
+    box below"); "the block below" is the wording before Pass 5."""
+    if not re.search(r"(?i)paste (the (?:block|box) below|this|it into that chat)", ai_text):
         return None
     m = re.findall(r"```[^\n]*\n(.*?)```", ai_text, re.S)
     return m[-1].strip() if m else None
@@ -595,16 +956,15 @@ def replies_by_part(sessions, skill="deconstruct"):
     """Leader replies per part, on top of count_actions: every reply count_actions counts as a message, split
     at the skill's "Part k of N" signposts (check_scripted.SIGNPOST_IDS; replies before the first signpost are
     "entry"), plus, at each AI message that carries a count, the replies still to come after it: what that
-    count's [M] promises. Deconstruct's one count is in the line that says how the interview will go
-    (check_scripted.COUNT_CARRIERS); a run that also says "About [M] questions left." gets a count point for it,
+    count's [M] promises. Deconstruct's one count is in the line that says how the interview will go, found by
+    pattern (check_scripted.COUNT_CARRIER_RE); a run that also says "About [M] questions left." gets a count point for it,
     so the stray count shows. A skill with no signposts (Deconstruct, since its single interview) has only
     "entry". Never measures time."""
     import check_scripted as CS  # lazily: check_scripted doesn't import this module, but keep loading cheap
     total = CS.SIGNPOST_IDS.get(skill, (0, []))[0]
     signpost = re.compile(rf"\bPart ([1-9]) of {total}\b") if total else None
-    corpus = AL.load()
-    carriers = [(f, f"{lid}") for lid, form in CS.COUNT_CARRIERS for f in corpus.get(lid, form) if f.text]
-    count_line = [f for f in corpus.get(CS.COUNT_LINE_ID) if f.text]
+    carrier = re.compile(CS.COUNT_CARRIER_RE)
+    count_line = re.compile(CS.COUNT_LINE_RE)
     flat = [(s.get("n", k), t) for k, s in enumerate(sessions, 1) for t in s["turns"]]
     by_part, part, points, ai_no = {"entry": 0}, "entry", [], {}
     for at, (n, t) in enumerate(flat):
@@ -614,8 +974,8 @@ def replies_by_part(sessions, skill="deconstruct"):
             if hit:
                 part = f"Part {hit.group(1)}"
                 by_part.setdefault(part, 0)
-            said = [lid for f, lid in carriers if f.matches(t["text"])]
-            if any(f.matches(t["text"]) for f in count_line):
+            said = ["the how-it-will-go line"] if carrier.search(AL.norm(t["text"])) else []
+            if count_line.search(AL.norm(t["text"])):
                 said.append(f"{part} signpost" if hit else "the count line")
             if said:
                 still = sum(1 for _, x in flat[at + 1:] if _is_reply(x))

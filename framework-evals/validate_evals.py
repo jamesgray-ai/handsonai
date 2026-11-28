@@ -29,21 +29,23 @@ import leader as L
 REQUIRED = {
     "ai_contains": ["text"], "ai_not_contains": ["text"], "ai_regex": ["pattern"], "ai_not_regex": ["pattern"], "leader_regex": ["pattern"],
     "quote": ["id"], "quote_absent": ["id"], "scripted_lines": [], "vocabulary": [], "no_time_or_step_numbers": [], "narration": [],
-    "no_team_visible_writes": [], "quoted_output_seen": [], "nf4_leads": [], "bash_count": ["pattern"],
+    "no_team_visible_writes": [], "quoted_output_seen": [], "nf4_leads": [], "nf4_before_creator": [], "nf4_before_fresh_run": [], "no_false_first_line_claim": [], "handover_one_message": [], "asked_before_save": ["pattern"], "one_question": ["containing"], "brief_in_text": [], "close_shape": ["containing"], "phrases_in_blocks": [], "deny_in_every_handover": [], "bash_count": ["pattern"], "no_tool_call": ["tool"], "read_before_save": [],
     "signposts": [], "file_exists": ["path"], "file_absent": ["path"], "file_existed_during": ["path"],
     "file_contains": ["path", "text"], "file_not_contains": ["path", "text"], "file_regex": ["path", "pattern"],
     "file_not_regex": ["path", "pattern"], "sections_in_order": ["path", "headings"], "yaml_keys": ["path", "keys"],
     "structure": ["path", "kind"], "fill_check": ["kind"],
     "file_unchanged": ["path"], "no_added_files": [], "file_line": ["path", "line", "pattern"],
     "section_regex": ["path", "section", "pattern"], "all": ["checks"], "any": ["checks"],
-    "release_check": ["ids", "passed", "open"], "tool_write": ["path", "pattern"], "max_words": ["max"],
+    "release_check": ["ids", "passed", "open"], "tool_write": ["path", "pattern"], "saved_before_next_question": ["path", "pattern", "answer"], "max_words": ["max"],
     "opens_with": ["ids"], "said_before": ["id", "anchor"], "inputs_shown": ["id", "anchor"],
 }
 RETIRED = {"no_yaml": "retired: use yaml_keys (every framework file has frontmatter now)"}
 FAULTS = {"no_folder_added", "cowork_cannot_read_onedrive", "attach_fails", "agent_builder_missing_context_file",
           "agent_builder_rewords_carried_line", "agent_builder_rewords_after_fix",
           "agent_builder_requirements_under_knowledge", "agent_builder_ordinary_chat", "skill_cannot_read_by_path",
-          "no_gmail", "leader_denies_settings_prompt", "no_python3", "service_dropbox", "drive_cannot_save"}
+          "no_gmail", "leader_denies_settings_prompt", "no_python3", "service_dropbox", "drive_cannot_save",
+          "creator_rewords_never_made_rule", "creator_rewords_after_fix", "creator_test_without_cue",
+          "creator_card_drifts", "creator_plugin", "creator_runs_test_loop"}
 
 
 def check_check(c, where, errs, nsessions, corpus):
@@ -90,6 +92,9 @@ def check_check(c, where, errs, nsessions, corpus):
             errs.append(f"{where}: max_words containing names no approved line {c['containing']} ({c.get('form', 'any form')})")
     if t == "ai_contains" and c.get("line") and not corpus.get(c["line"]):
         errs.append(f"{where}: ai_contains names unknown line {c['line']}")
+    if "outside_fences" in c and not (t in ("ai_not_contains", "ai_not_regex") and isinstance(c["outside_fences"], list)
+                                      and c["outside_fences"] and all(isinstance(x, str) and x for x in c["outside_fences"])):
+        errs.append(f"{where}: outside_fences is a list of fence openers, on ai_not_contains or ai_not_regex only")
     if t == "structure" and c.get("kind") not in ("plan", "build_record", "results", "requirements"):
         errs.append(f"{where}: structure kind {c.get('kind')!r}")
     if t == "fill_check" and c.get("kind") not in ("build", "fix"):
@@ -166,6 +171,19 @@ def validate_file(path, build=False, strict_tiers=False, only=None, warnings=Non
         if "core_runs" in ev and not (isinstance(ev["core_runs"], int) and not isinstance(ev["core_runs"], bool)
                                       and 1 <= ev["core_runs"] <= 3 and (tier or data.get("default_tier")) == "core"):
             errs.append(f"{w}: core_runs {ev['core_runs']!r} must be 1 to 3, on a core eval")
+        for k in ev:
+            if k != "safety" and k.lower() in ("safety", "safe", "safety_test", "is_safety"):
+                errs.append(f"{w}: unknown key {k!r}: did you mean safety?")
+        if "safety" in ev:
+            # the shape release's paid gate: tagged core evals, 3 runs each (1 on Microsoft 365 and Codex)
+            if ev["safety"] is not True:
+                errs.append(f"{w}: safety must be true (or left out), not {ev['safety']!r}")
+            elif (tier or data.get("default_tier")) != "core":
+                errs.append(f"{w}: safety is set only on a core eval")
+            elif ev.get("core_runs", 3) != 3 and not all(
+                    (s.get("platform") or ev.get("platform") or "claude-code") in ("microsoft-365", "codex")
+                    for s in ev.get("sessions") or [{}]):
+                errs.append(f"{w}: a safety eval runs 3 times (core_runs 1 only on Microsoft 365 or Codex)")
         for k in ("id", "name", "expected_output", "expectations", "files"):
             if k not in ev:
                 errs.append(f"{w}: missing {k}")

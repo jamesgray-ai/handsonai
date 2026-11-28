@@ -5,7 +5,7 @@ The shared runner for every step's eval set (build-task-list T18). Dev-only: nev
 
 Usage:
   python3 framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals FILE
-          [--tier core|regression|all] [--runs N] [--plugin DIR] [--max-turns N] [--parallel N]
+          [--tier core|regression|safety|all] [--runs N] [--plugin DIR] [--max-turns N] [--parallel N]
           [--skill-model MODEL] [--max-usd N] [--cost-from ROUND-DIR] [--dry-run] [--yes]
 
   --evals        the evals.json to read (required; each step keeps its own in <step>-workspace/evals/)
@@ -16,6 +16,8 @@ Usage:
                  eval marked `"core_runs": 1` (the evals that run only on Microsoft 365 or Codex, which few
                  students use; James tests Microsoft 365 by hand) runs once in the core round, and its one
                  valid run counts
+                 safety: the release gate (shape release): the core evals tagged `"safety": true`,
+                 3 runs each (1 on Microsoft 365 and Codex), with core's pass rule; exits when none
   --runs         repeats per eval (default: the eval's `runs`, else 3; for core never fewer than 3,
                  or than its `core_runs` where it sets one)
   --plugin       plugin folder under test (default: this repo's plugins/handsonai)
@@ -119,6 +121,20 @@ def tier_of(ev, data):
     return ev.get("tier") or data.get("default_tier") or "regression"
 
 
+def is_safety(ev, data):
+    """A release-gate safety test (shape release): a non-retired core eval tagged `"safety": true`."""
+    return ev.get("safety") is True and not ev.get("retired") and tier_of(ev, data) == "core"
+
+
+def select_tier(evs, data, tier):
+    """The evals a `--tier` choice runs: all, one tier, or `safety` (the tagged core evals)."""
+    if tier == "all":
+        return list(evs)
+    if tier == "safety":
+        return [ev for ev in evs if is_safety(ev, data)]
+    return [ev for ev in evs if tier_of(ev, data) == tier]
+
+
 def core_runs(ev):
     """The valid runs a core eval needs before it counts: three (rules 14), or the eval's own
     `core_runs` (1 for the evals that run only on Microsoft 365 or Codex)."""
@@ -148,6 +164,14 @@ def build_fixture(fixture, target, evals_dir, builder=None):
         raise H.HarnessFailure(f"fixture {fixture}: {r.stderr[-800:]}")
 
 
+def is_build(data, s):
+    """final-test-1b (2026-11-24): a Build session inside another skill's journey is Build too, and its
+    checks need check agents just the same (TJ-claude-code: none could run, 3 of 3); on Claude and
+    ChatGPT it also gets the skill creator Build follows itself (build-smoke-1)."""
+    return bool((data or {}).get("skill_name") == "build" or s.get("restart")
+                or re.match(r"\s*run the build skill\b", s.get("prompt") or "", re.I))
+
+
 def tools_for(ev, s, data=None, platform=None):
     """The skill session's tools: an eval's (or session's) `tools` kind, else SKILL_TOOLS. Build on
     Claude Code gets the Agent tool by default (AGENT_TOOLS): its checks run in check agents, which a
@@ -160,11 +184,7 @@ def tools_for(ev, s, data=None, platform=None):
         return H.WEB_TOOLS
     if kind == "agent":
         return H.AGENT_TOOLS
-    # final-test-1b (2026-11-24): a Build session inside another skill's journey is Build too, and its
-    # checks need check agents just the same (TJ-claude-code: none could run, 3 of 3)
-    is_build = (data or {}).get("skill_name") == "build" or s.get("restart") \
-        or re.match(r"\s*run the build skill\b", s.get("prompt") or "", re.I)
-    if kind is None and is_build and getattr(platform, "key", None) == "claude-code":
+    if kind is None and is_build(data, s) and getattr(platform, "key", None) == "claude-code":
         return H.AGENT_TOOLS
     return H.SKILL_TOOLS
 
@@ -320,7 +340,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
     root = H.new_run_root(args.plugin)
     plugin = root / "plugin"
     ws = root / "workspace"
-    calls, run = [], {"sessions": []}
+    calls, run = [], {"sessions": [], "skill": data.get("skill_name")}
     status, note = "valid", ""
     judged, scripted, fid = [], [], None
     sessions = list(ev.get("sessions") or [{"prompt": ev["prompt"], "student": True}])
@@ -330,6 +350,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             platform = L.platform_for(ev, s)
             platform.leader_runs = L.simulates_leader_runs(data.get("skill_name"), platform, s, ev)
             platform.scripted_runs = L.scripted_runs(s, ev)
+            platform.builds = is_build(data, s)
+            platform.start_session(root)  # on Claude and ChatGPT, Build's skill creator (build-smoke-1)
             fresh = bool(s.get("fixture_from")) or n == 1 or not s.get("from_previous")
             if s.get("fixture_from"):
                 src = Path(s["fixture_from"])
@@ -680,12 +702,19 @@ def dry_run(evs, evals_path, data):
     return errs
 
 
+def safety_banner(n, named):
+    """The safety tier's opening line; a run of named ids is never mistaken for the whole gate."""
+    if named:
+        return f"safety: {n} evals (partial gate run: only the named evals, not the whole gate)"
+    return f"safety: {n} evals"
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("out_dir")
     ap.add_argument("eval_ids", nargs="*")
     ap.add_argument("--evals", required=True)
-    ap.add_argument("--tier", choices=["core", "regression", "all"], default="all",
+    ap.add_argument("--tier", choices=["core", "regression", "safety", "all"], default="all",
                     help="core runs each eval three times, or once where it sets core_runs: 1 (the Microsoft 365 "
                          "and Codex evals); regression each eval's runs, else 3")
     ap.add_argument("--runs", type=int)
@@ -714,8 +743,16 @@ def main():
     if retired:
         sys.exit(f"retired evals can't run: {retired}")
     evs = [by_id[i] for i in args.eval_ids] if args.eval_ids else [e for e in data["evals"] if not e.get("retired")]
-    if args.tier != "all":
-        evs = [ev for ev in evs if tier_of(ev, data) == args.tier]
+    evs = select_tier(evs, data, args.tier)
+    if args.tier == "safety":
+        if not evs:
+            sys.exit("no safety evals selected")
+        print(safety_banner(len(evs), bool(args.eval_ids)))
+    if args.tier == "safety" and not args.eval_ids:
+        # the gate never shrinks quietly (Pass 0 review): a blocked safety eval fails the round
+        blocked = [ev["id"] for ev in evs if ev.get("blocked_on")]
+        if blocked:
+            sys.exit(f"blocked safety evals, so the gate can't run whole: {', '.join(blocked)}")
     if not args.eval_ids:
         # an eval with a `blocked_on` note can't pass until that lands: every run would be spent invalid
         blocked = [ev["id"] for ev in evs if ev.get("blocked_on")]

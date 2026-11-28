@@ -94,7 +94,7 @@ Any framework skill may receive it. On the web with no location given, first fin
 **Nothing to continue: check this first.** When the leader named no workflow, and the framework folder has no workflow folder that isn't retired, no backlog candidates (the registry's `backlog` nodes; `backlog.md` only where there's no registry) and no `analyze-in-progress.md`, there is nothing to continue. Whatever else the working folder holds, the whole message is this:
 
 - **Optionally, first,** only when there is a registry with no Workflow nodes at all, N-F24 as its own paragraph: "Your registry has no workflows yet, so the next step is Analyze."
-- **Then N-F22,** in its platform form, in full. On the web, Claude desktop and Microsoft 365 ([location] is the working folder): "There's nothing to continue yet. To find workflows worth building, say 'run the analyze skill. My files are in [location].'" On Claude Code and Codex, and on print-to-save: "There's nothing to continue yet. To find workflows worth building, say 'run the analyze skill.'"
+- **Then N-F22,** in its platform form, in full. On the web, Claude desktop and Microsoft 365 ([location] is the working folder): "There's nothing to continue yet. To find workflows worth building, say 'run the analyze skill. My files are in [location].'" On Claude Code and Codex: "There's nothing to continue yet. To find workflows worth building, say 'run the analyze skill.'"
 
 Nothing else, then stop: no account of what the folder holds, no explanation of Analyze or the framework, no question and no offer to start, and no other reason or lead-in (N-F22 carries its own reason). Every step says it, Analyze included. Otherwise, go on:
 

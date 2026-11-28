@@ -56,6 +56,7 @@ Expected values are the routing rule's (rules 4.2): the state number and its own
 | `edge/e-policy-wait/` | 8 · Test | 8 · Test |
 | `edge/e-policy-confirmed/` | 10 · Test | 10 · Test |
 | `edge/e-safety-input/` | 10 · Test | 10 · Test |
+| `edge/e-saved-failed-check/` | — | 6 · Build: a part saved before its fresh-chat run failed (`Failed check`, `Saved: yes`) |
 | `edge/e-new-fields/` | 4 · Design | 4 · Design |
 
 ## State 1: earlier versions
@@ -104,3 +105,10 @@ Every Client Follow-Up above is the older, step-shaped file (three steps, a `###
 
 - Four registry fixtures don't lint clean on purpose: `edge/e-big-change-stopped-partway` and `edge/e-platform-change-stopped-after-plan` keep a link to a file the interrupted set-aside already moved (an error), `edge/e-build-saved-never-closed` has a skill no node links yet (Build links it at its close; a warning), and `earlier-version/v1-run-guide-built` is past its `stale_after` (a warning).
 - Replays of real calls never land here; `.gitignore` keeps any `post-call-*/` folder out.
+
+## Format 11.0
+
+| Fixture | State |
+|---|---|
+| `format-11/client-follow-up/` | Not a workspace: an 11.0 requirements file with a real and a made-up practice run, for `requirements-check` |
+| `format-11/s08-test-needed/` | 8 · Test (one workspace, `self`): built, never tested, on an 11.0 requirements file |

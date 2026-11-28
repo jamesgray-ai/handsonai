@@ -423,7 +423,7 @@ newf() {  # <case name>: a fresh copy of the new-fields workspace; echoes the wo
 }
 R=requirements.md
 wf=$(newf ok); expect_ok "a file with every new field passes" "$wf"
-expect_ok "...and passes Deconstruct's pre-save run (every Deconstruct input has expect:)" "$wf" --before-save
+expect_ok "...and passes Deconstruct's pre-save run (every Deconstruct input has expect:)" "$wf"
 
 # 1. Metadata: Starts, Per run, Remembers (optional, in the explicit order)
 for v in 'you' 'you, when a client asks for a summary' 'schedule: on the 1st of each month' \
@@ -485,7 +485,7 @@ wf=$(newf expect-missing-save); edit "$wf/inputs/E2-no-next-step.md" 's/^expect:
 expect_ok "practice input: expect: is optional outside Deconstruct's pre-save run" "$wf"
 expect "practice input: --before-save requires expect: on a Deconstruct input" "$wf" "^$R:[0-9]+ · ## Example Scenarios · E2: \`inputs/E2-no-next-step.md\` has no \`expect:\` line" --before-save
 wf=$(newf expect-test-source); edit "$wf/inputs/E2-no-next-step.md" 's/^expect: [^\n]*\n//m; s/^source: deconstruct$/source: test/m'
-expect_ok "practice input: --before-save leaves expect: optional on an input Test wrote" "$wf" --before-save
+expect_ok "practice input: --before-save leaves expect: optional on an input Test wrote" "$wf"
 
 # 5. Writes: after each run with steps (the flag W line); nothing else after a moment
 wf=$(newf write-after-other); edit "$wf/$R" 's/send a flag · after each run/send a flag · after the run/'
@@ -542,23 +542,23 @@ pnf() {  # <case name>: a fresh copy of the Path: none workflow folder; echoes i
 }
 R=requirements.md
 wf=$(pnf ok); expect_ok "the Path: none base passes" "$wf"
-expect_ok "...and passes Deconstruct's pre-save run" "$wf" --before-save
+expect_ok "...and passes Deconstruct's pre-save run" "$wf"
 
 wf=$(pnf gate-moment); edit "$wf/$R" 's/(\| G1 \| After the draft is ready \| [^\n]*\n)/$1| G2 | Before the email goes to the client | When you have edited the draft, it waits for you to confirm the recipient before it goes to the client. · (you) |\n/'
-expect_ok "Human Gates: a G line whose Where is a moment, under Path: none" "$wf" --before-save
+expect_ok "Human Gates: a G line whose Where is a moment, under Path: none" "$wf"
 
 wf=$(pnf write-moment); edit "$wf/$R" 's/(- W1 · Gmail · create a draft · after the email is drafted\n)/$1- W2 · Slack #client-updates · post a one-line note · after you approve the draft\n/'
-expect_ok "Writes: a W line ending \`· after [moment]\`, under Path: none" "$wf" --before-save
+expect_ok "Writes: a W line ending \`· after [moment]\`, under Path: none" "$wf"
 
 wf=$(pnf emptied-category); edit "$wf/$R" 's/(### Traceability\n\| ID \| Constraint \| Source \|\n\|---\|---\|---\|\n)\| P1 [^\n]*\n/$1/'
-expect_ok "Security: a worked category whose every line was dropped is its heading and an empty table" "$wf" --before-save
+expect_ok "Security: a worked category whose every line was dropped is its heading and an empty table" "$wf"
 
 wf=$(pnf law-lines)
 edit "$wf/$R" 's/^track: light$/track: full/m;
   s/(\| R4 \| When \| [^\n]*\n)/$1| R5 | Always | It always ends each draft with the firm\x27s disclosure line, as FINRA Rule 2210 requires. |\n/;
   s/(\| G1 \| After the draft is ready \| [^\n]*\n)/$1| G2 | After you approve the draft | When you approve the draft, it waits for a registered principal to approve it before it goes to the client, as FINRA Rule 2210 requires. · (registered principal) |\n/;
   s/^Governing regime: None$/Governing regime: FINRA Rule 2210 (communications with the public)/m'
-expect_ok "a law-named rule and a law-named checkpoint (\`…, as [the law] requires.\`), with the regime named" "$wf" --before-save
+expect_ok "a law-named rule and a law-named checkpoint (\`…, as [the law] requires.\`), with the regime named" "$wf"
 
 wf=$(pnf gate-step); edit "$wf/$R" 's/\| G1 \| After the draft is ready \|/| G1 | Step 3 |/'
 expect "Human Gates: \`Where: Step 3\` under Path: none" "$wf" "^$R:[0-9]+ · ## Human Gates · \"Step 3\" matches no step line in ## Path"
@@ -568,6 +568,31 @@ expect "Writes: a W line naming \`Step 2\` under Path: none" "$wf" "^$R:[0-9]+ �
 
 wf=$(pnf usedby-step); edit "$wf/$R" 's/\| C1 \| Follow-up style guide \| All \|/| C1 | Follow-up style guide | Step 2 |/'
 expect "Context Inventory: \`Used By: Step 2\` under Path: none" "$wf" "^$R:[0-9]+ · ## Context Inventory · \"Step 2\" matches no step line in ## Path"
+
+# ---------------------------------------------------------------- 3d. the 11.0 format (shape release)
+echo "The 11.0 format: an Output section and traced checks"
+p11() {  # <case>: a copy of the 11.0 fixture; echoes the workflow folder
+  local d="$TMP/f11-$1"; mkdir -p "$d"; cp -R "$FIXTURES/format-11/client-follow-up" "$d/"; echo "$d/client-follow-up"
+}
+wf=$(p11 ok)
+expect_ok "11.0: twelve sections, six Output lines, traced checks, a scenario Test writes" "$wf"
+expect_ok "11.0: the same file before saving" "$wf" --before-save
+wf=$(p11 test-input); cp "$wf/inputs/E1-acme-renewal-call.md" "$wf/inputs/E3-test.md"
+edit "$wf/inputs/E3-test.md" 's/^expect: [^\n]*\n//m; s/^source: [^\n]*$/source: test/m'
+edit "$wf/$R" 's/(\| E2 \| [^\n]*\n)/$1| E3 | Test-written (made up) | `inputs\/E3-test.md` — notes Test wrote | It drafts the email | — |\n/'
+expect_ok "11.0: --before-save leaves expect: optional on an input Test wrote" "$wf" --before-save
+wf=$(p11 no-output); edit "$wf/$R" 's/## Output\n.*?Delivered as: set in Design\n\n//s'
+expect "11.0: no Output section before saving" "$wf" "section \"## Output\" is missing" --before-save
+wf=$(p11 no-from); edit "$wf/$R" 's/ · from: I1, R1$//m'
+expect "11.0: a check with no source" "$wf" 'AC2: add "· from:"'
+wf=$(p11 unknown-id); edit "$wf/$R" 's/ · from: C1$/ · from: I7/m'
+expect "11.0: a check naming a source that doesn't exist" "$wf" "AC3: from names I7, which isn't in Inputs"
+wf=$(p11 no-voice); edit "$wf/$R" 's/^Voice: [^\n]*\n//m'
+expect "11.0: an Output line missing" "$wf" "Output: Voice: is missing"
+wf=$(p11 must); edit "$wf/$R" 's/\*\*AC1\*\*/**AC1 (must)**/'
+expect "11.0: no (must) in an 11.0 file" "$wf" "AC1: no \(must\) in this format"
+wf=$(p11 regulated-none); edit "$wf/$R" 's/\| Internal \| Authored \|/| Regulated | Authored |/'
+expect "11.0: a Regulated source with Governing regime None" "$wf" "Regulated"
 
 # ---------------------------------------------------------------- 4. usage and the plugin copy
 echo "Usage and the plugin copy"

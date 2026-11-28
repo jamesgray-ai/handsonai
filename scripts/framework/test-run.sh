@@ -1167,16 +1167,16 @@ def fill_run_folder(place, prof, profile, input_path, run, cfg):
         for s in prof["skills"]:
             src = os.path.join(place.workspace, s)
             ok = inside(src, os.path.join(place.workspace, ".claude", "skills")) or \
-                inside(src, os.path.join(place.wf, "package"))
+                inside(src, os.path.join(place.wf, "built")) or inside(src, os.path.join(place.wf, "package"))
             if not ok or not os.path.isfile(os.path.join(src, "SKILL.md")):
-                fail(EXIT_RECORD, "skill %r isn't a skill folder in .claude/skills/ or this workflow's package/" % s)
+                fail(EXIT_RECORD, "skill %r isn't a skill folder in .claude/skills/ or this workflow's built/" % s)
             copy_into(src, os.path.join(run, ".claude", "skills", os.path.basename(s)))
         for a in prof["agents"]:
             src = os.path.join(place.workspace, a)
             ok = inside(src, os.path.join(place.workspace, ".claude", "agents")) or \
-                inside(src, os.path.join(place.wf, "package"))
+                inside(src, os.path.join(place.wf, "built")) or inside(src, os.path.join(place.wf, "package"))
             if not ok or not os.path.isfile(src):
-                fail(EXIT_RECORD, "agent %r isn't an agent file in .claude/agents/ or this workflow's package/" % a)
+                fail(EXIT_RECORD, "agent %r isn't an agent file in .claude/agents/ or this workflow's built/" % a)
             copy_into(src, os.path.join(run, ".claude", "agents", os.path.basename(a)))
     for c in prof["context"]:
         src = os.path.join(place.workspace, c)

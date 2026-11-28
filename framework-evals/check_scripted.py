@@ -5,7 +5,9 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
 
   ai_contains      {text, session?, turn?: first|any|all|last, line?}  an AI message contains the text
                                                                   (`line`: the approved line it quotes)
-  ai_not_contains  {text, session?}                               no AI message contains it
+  ai_not_contains  {text, session?, outside_fences?}               no AI message contains it (outside_fences: a
+                                                                  list of openers; a fenced block whose first line
+                                                                  starts with one is skipped, as Build's brief)
   ai_regex         {pattern, session?, turn?}                     an AI message matches
   ai_not_regex     {pattern, session?}                            no AI message matches
   quote            {id, form?, session?, turn?, ending?}          an AI message says that approved line
@@ -90,6 +92,45 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   write by any tool (a Bash command naming the file
                                                                   too) whose new text matches it, and one follows
                                                                   (plan reset to approved: false before re-approval)
+  saved_before_next_question {path, pattern, answer, session?}  the leader's first message matching `answer` is
+                                                                  written (a Write or Edit to `path` matching
+                                                                  `pattern`) no later than the first AI turn after it
+                                                                  that asks something; turns split by each call's
+                                                                  result event; fails closed (Pass 4 review M5)
+  no_tool_call     {tool, input_pattern?, input_not_pattern?,     no tool call in the session's events.jsonl whose
+                    after?, session?}                             name matches `tool` (and whose JSON input matches
+                                                                  input_pattern, and not input_not_pattern); with
+                                                                  `after`, only calls after the first AI text matching
+                                                                  it. No events.jsonl fails closed
+  read_before_save {session?}                                     on Claude and ChatGPT (build-smoke-1): every AI text
+                                                                  that offers the save (a save card, the skills-list
+                                                                  ask, an upload or download of a .skill or .zip)
+                                                                  comes after a read of the last package the skill
+                                                                  creator's `package_skill` made (unzip, zipinfo,
+                                                                  python… naming the .skill file), in the same turn;
+                                                                  no offer passes. No events.jsonl fails closed
+  close_shape      {containing, headline?, session?}              the close is spaced out: a bold headline first (unless
+                                                                  headline: false), 3+ paragraphs, no no-news line, the
+                                                                  next phrase in a code block last (Pass 5, E29)
+  brief_in_text    {session?}                                     on Claude and ChatGPT the brief is a fenced block in
+                                                                  Build's text before the creator's first sandbox write
+                                                                  or package_skill (Pass 5, E9); no events fails closed
+  one_question     {containing, not_pattern?, session?}           every AI message matching containing asks at most one
+                                                                  question, in its last paragraph; none matches
+                                                                  not_pattern; none matched fails closed (Pass 5)
+  phrases_in_blocks {containing?, phrases?, session?}             in those messages a start phrase is never inline: only
+                                                                  in a code block (Pass 5, E32, X3)
+  asked_before_save {pattern, anchor?, session?}                  an AI message matching pattern comes before the first
+                                                                  save offer, or `anchor` (Build's keep-or-drop question,
+                                                                  Pass 5 E16)
+  handover_one_message {session?}                                 every practice-run hand-over is one message: setup,
+                                                                  then the box last, nothing after it; no "say 'ready'"
+  deny_in_every_handover {session?}                               N-F4 (any form) before every practice-run box, in its
+                                                                  message, whatever the workflow's connections (Pass 5)
+  no_false_first_line_claim {session?}                            once the leader pastes a run reply whose practice-run
+                                                                  line isn't its opening words (a short line came first,
+                                                                  or the output did), no later AI message says the reply
+                                                                  starts, begins or opens with it (Pass 5, E22)
   file_unchanged   {path, session?}                               every matching file is byte-identical
                                                                   at session start and end
   file_line        {path, line: n, pattern, session?}             line n (1-based) matches the pattern
@@ -183,11 +224,12 @@ STEP_NUMBER = re.compile(
 # One interview for every workflow (2026-11-15): Deconstruct has no parts and so no signposts
 # Build announces no parts either (2026-11-22, James, after final-build-2): its opening says what comes
 SIGNPOST_IDS = {"design": (4, ["N-0"]), "test": (4, ["N-T1"])}
-# Deconstruct gives one figure, once: the count in the line that says how the interview will go
-# (deconstruct:light-line). "About [M] questions left." is never said after it; leader.replies_by_part still
-# reports it as a count point when a run says it, so a stray count shows up in the measurement
-COUNT_LINE_ID = "deconstruct:questions-left"
-COUNT_CARRIERS = [("deconstruct:light-line", "main")]
+# Deconstruct gives one figure, once: the range in the line that says how the interview will go. Since the
+# shape release (11.0) that line is model wording, so the measurement finds it by pattern ("about 10 to 15
+# replies"); "About [M] questions left." is never said, and leader.replies_by_part reports a stray count by
+# pattern too, so it shows up in the measurement. Measurement only: nothing is graded on these.
+COUNT_CARRIER_RE = r"(?i)\babout \d+ to \d+ replies\b"
+COUNT_LINE_RE = r"(?i)\babout \d+ (?:more )?questions? (?:left|to go|remaining)\b"
 BUILTIN =("scripted_lines", "vocabulary", "no_time_or_step_numbers")
 BUILTIN_TEXT = {"scripted_lines": "Every scripted line the AI says is the approved line, word for word (the quote check; "
                                   "a line that doesn't protect the leader may have a word or two changed)",
@@ -257,6 +299,18 @@ def _listed(run):
 
 def _sessions(run, n):
     return [_listed(run)[n - 1]] if n else run["sessions"]
+
+
+def _strip_fences(text, openers):
+    """The text without each fenced block whose first line inside the fence starts with one of `openers`
+    (Build's `Skill brief:` block quotes lines the AI must never say outside it; Pass 4)."""
+    out, i = [], 0
+    for m in re.finditer(r"(?ms)^[ \t]*(`{3,}|~{3,})[^\n]*\n(.*?)^[ \t]*\1[ \t]*$", text):
+        if m.group(2).lstrip().startswith(openers):
+            out.append(text[i:m.start()])
+            i = m.end()
+    out.append(text[i:])
+    return "".join(out)
 
 
 def _ai_turns(sess, which="any"):
@@ -919,6 +973,131 @@ def _nf4_leads(run):
                   else "no checkpoint relayed")
 
 
+BRIEF_BLOCK = re.compile(r"```[^\n]*\n\s*(?:Skill|Agent) brief:", re.I)
+
+
+def _nf4_before_creator(run):
+    """Pass 3, Task 2 (B1): Build's form of N-F4 (the Deny line, with no "answer the workflow's questions")
+    is said in each session before the platform's creator starts (the first brief) and before the first
+    checkpoint it relays; a session with neither passes."""
+    forms = [ln for ln in corpus().get("N-F4", "Build") if ln.text]
+    for s in run["sessions"]:
+        said = False
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            nf4 = next((f for f in forms if f.matches(m)), None)
+            at = m.lower().find("this is a practice run") if nf4 else -1
+            brief = BRIEF_BLOCK.search(m)
+            quote = re.search(r"^\s*>", m, re.M) if LEAD_IN.search(m) else None
+            first = min([x.start() for x in (brief, quote) if x], default=None)
+            if first is not None and not said and not (nf4 and at < first):
+                what = "the creator's brief" if brief and brief.start() == first else "a relayed checkpoint"
+                return False, f"session {s['n']} AI message {i}: {what} before N-F4's Build form"
+            if first is not None:
+                break  # only each session's first brief or checkpoint
+            said = said or bool(nf4)
+    return True, "N-F4's Build form leads the creator and the first relayed checkpoint in every session"
+
+
+FRESH_BLOCK = re.compile(r"```[^\n]*\n[^\n]*[—-]+ practice run[ \t]*\n", re.I)
+
+
+def _nf4_before_fresh_run(run):
+    """Pass 3, Task 4 (F5); Pass 5 (E14): the fresh-chat run's hand-over is one message, and it carries Build's
+    form of N-F4 before its block, in that message. Said only in an earlier message (the two-message hand-over
+    before 11.0's Pass 5), or after the block, fails; a session with no such block passes."""
+    forms = [ln for ln in corpus().get("N-F4", "Build") if ln.text]
+    for s in run["sessions"]:
+        for i, m in enumerate(_ai_turns(s, "any")):
+            b = FRESH_BLOCK.search(m)
+            if b and not any(f.matches(m[:b.start()]) for f in forms):
+                return False, f"session {s['n']} AI message {i + 1}: the fresh-chat run's block with no N-F4 Build form before it in its message"
+    return True, "N-F4's Build form is in every fresh-chat run hand-over, before its block"
+
+
+READY_ASK = re.compile(r"(?i)\bsay ['\"]?ready['\"]?")
+
+
+def _handover_one_message(run, n=None):
+    """Pass 5 (E14): every hand-over of a practice run (Build's fresh-chat run, Test's practice chat) is one
+    message: its setup first, then the box last, with nothing after it, and no "say 'ready'" round trip."""
+    for s in _sessions(run, n):
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            where = f"session {s['n']} AI message {i}"
+            if READY_ASK.search(m):
+                return False, f"{where}: asks the leader to say 'ready'"
+            b = FRESH_BLOCK.search(m)
+            if not b:
+                continue
+            end = m.find("```", b.end())
+            if end < 0 or m[end + 3:].strip():
+                return False, f"{where}: something follows the box"
+            if len(m[:b.start()].split()) < 20:
+                return False, f"{where}: the box with no setup before it in the same message"
+    return True, "every practice-run hand-over is one message, its box last"
+
+
+def _deny_in_every_handover(run, n=None):
+    """Pass 5 (plan review C1): every hand-over of a practice run says the Deny line (N-F4, any form) before its
+    box, in the same message, whatever the workflow's own connections: the leader's other connections stay on."""
+    forms = [ln for ln in corpus().lines if ln.id == "N-F4" and ln.text]
+    for s in _sessions(run, n):
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            b = FRESH_BLOCK.search(m)
+            if b and not any(f.matches(m[:b.start()]) for f in forms):
+                return False, f"session {s['n']} AI message {i}: a practice-run box with no Deny line before it"
+    return True, "the Deny line is in every practice-run hand-over"
+
+
+PRACTICE_LINE = "Practice run: nothing will be sent or changed."
+# Pass 5 (E22, plan review C3): what the workflow produced, as opposed to a line the assistant says before its
+# skill loads ("I'll run the … skill on all seven practice inputs, drafting only."): a fenced block, an input
+# label, an email's subject or greeting, or a question to the person
+OUTPUT_SIGNS = re.compile(r"```|^\s*(?:Input \d+\s*:|Subject\s*:|(?:Hi|Hello|Dear|Hey)\b)|\?\s*$", re.M | re.I)
+PREAMBLE_MAX_WORDS = 40
+
+
+def practice_line_position(reply):
+    """Where the fixed first line sits in a pasted run reply: "first" (its opening words), "after_preamble" (a
+    short line or two came first, holding nothing the workflow produced: the run stands), "after_output" (a
+    draft, a question, a stop or an input's result came before it: refused, N-T51) or "missing"."""
+    text = norm(reply).strip()
+    at = text.find(norm(PRACTICE_LINE))
+    if at < 0:
+        return "missing"
+    before = text[:at].strip()
+    if not before:
+        return "first"
+    if OUTPUT_SIGNS.search(before) or len(before.split()) > PREAMBLE_MAX_WORDS:
+        return "after_output"
+    return "after_preamble"
+
+
+def practice_line_stands(reply):
+    """The run carries its practice-run mode: the fixed line comes before anything the workflow produced."""
+    return practice_line_position(reply) in ("first", "after_preamble")
+
+
+FIRST_LINE_CLAIM = re.compile(r"(?i)\b(?:starts?|started|starting|begins?|began|opens?|opened|leads?|led) with (?:the |its |a )?"
+                              r"(?:fixed )?(?:practice[- ]run (?:line|label)|['\"]?practice run: nothing will be sent)")
+
+
+def _no_false_first_line_claim(run, n=None):
+    """Pass 5 (E22, missed twice in James's run): after the leader pastes a reply whose practice-run line isn't its
+    opening words, no AI message says the reply starts (begins, opens) with it, until the leader pastes another reply
+    (a re-run), which is then the one judged."""
+    for s in _sessions(run, n):
+        late = False
+        for i, t in enumerate(s["turns"]):
+            if t["role"] != "ai":
+                if PRACTICE_LINE.lower() in norm(t["text"]).lower():
+                    # judged against the most recent reply the leader pasted (smoke round: a re-run with no preamble)
+                    late = practice_line_position(t["text"]) != "first"
+                continue
+            if late and FIRST_LINE_CLAIM.search(norm(t["text"])):
+                return False, f"session {s['n']} turn {i + 1}: says the reply starts with the practice-run line, but a line came before it"
+    return True, "no claim that a reply starts with the practice-run line when something came before it"
+
+
 def check(c, run):
     """Return (passed, evidence)."""
     t = c["type"]
@@ -944,8 +1123,11 @@ def check(c, run):
                     return True, f"the leader said it in session {s['n']}"
         return False, "not in any leader message"
     if t in ("ai_not_contains", "ai_not_regex"):
+        skip = tuple(c.get("outside_fences") or ())
         for s in _sessions(run, n):
             for i, m in enumerate(_ai_turns(s)):
+                if skip:
+                    m = _strip_fences(m, skip)
                 hit = (qnorm(c["text"]) in qnorm(m)) if t == "ai_not_contains" else re.search(norm(c["pattern"]), norm(m), re.M)
                 if hit:
                     return False, f"session {s['n']} AI message {i + 1}: {m[:200]!r}"
@@ -997,6 +1179,26 @@ def check(c, run):
         return _quoted_output_seen(run)
     if t == "nf4_leads":
         return _nf4_leads(run)
+    if t == "nf4_before_creator":
+        return _nf4_before_creator(run)
+    if t == "close_shape":
+        return _close_shape(c, run)
+    if t == "brief_in_text":
+        return _brief_in_text(c, run)
+    if t == "one_question":
+        return _one_question(c, run)
+    if t == "phrases_in_blocks":
+        return _phrases_in_blocks(c, run)
+    if t == "asked_before_save":
+        return _asked_before_save(c, run)
+    if t == "handover_one_message":
+        return _handover_one_message(run, n)
+    if t == "deny_in_every_handover":
+        return _deny_in_every_handover(run, n)
+    if t == "no_false_first_line_claim":
+        return _no_false_first_line_claim(run, n)
+    if t == "nf4_before_fresh_run":
+        return _nf4_before_fresh_run(run)
     if t == "no_time_or_step_numbers":
         allowed = leader_sizes(run)
         return _scan(run, n, lambda m: time_or_step_hits(m, allowed), "time estimate or step number")
@@ -1043,8 +1245,14 @@ def check(c, run):
         return False, f"{c['path']} never present after any turn"
     if t == "tool_write":
         return _tool_write(c, run)
+    if t == "saved_before_next_question":
+        return _saved_before_next_question(c, run)
     if t == "bash_count":
         return _bash_count(c, run)
+    if t == "no_tool_call":
+        return _no_tool_call(c, run)
+    if t == "read_before_save":
+        return _read_before_save(c, run)
     if t == "release_check":
         passed = release_checks_passed(c["ids"])
         ok, why = check(c["passed" if passed else "open"], run)
@@ -1106,6 +1314,14 @@ def check(c, run):
             if not root:
                 return False, "requirements structure needs the session's workspace on disk"
             probs = ST.check_requirements(Path(root) / path, c.get("registry"))
+        elif c["kind"] == "plan":
+            # Pass 4 (P4): a plan this run wrote or changed must be in this release's form; one it left as it
+            # found it (a fixture's older plan) may keep the older form
+            # final review M4: against the run's first session too, so a plan an earlier session wrote, left
+            # unchanged by the checked one, is still checked as written
+            starts = [(x.get("files_start") or {}) for x in (_listed(run)[:1] + [s])]
+            written = any(st.get(path) != body for st in starts)
+            probs = ST.check_text("plan", body, written=written)
         else:
             probs = ST.check_text(c["kind"], body)
         return (not probs, f"{path}: " + ("; ".join(probs[:6]) if probs else "well formed"))
@@ -1200,21 +1416,288 @@ def bash_commands(events_path):
     return out
 
 
+def _no_tool_call(c, run):
+    """Pass 3 final review (M8, I5): no tool call in the session's events.jsonl whose name matches `tool`
+    and whose input, as JSON, matches `input_pattern` (when given) and doesn't match `input_not_pattern`
+    (when given); with `after`, only calls after the first assistant text matching it count (a quick real
+    check before the first brief, say). A broken guardrail fails here, not only before the judge. No
+    session with an events.jsonl fails closed: what was called can't be told."""
+    tool = re.compile(c["tool"])
+    inp_pat = re.compile(c["input_pattern"], re.M) if c.get("input_pattern") else None
+    not_pat = re.compile(c["input_not_pattern"], re.M) if c.get("input_not_pattern") else None
+    after = re.compile(c["after"], re.M) if c.get("after") else None
+    read = False
+    for s in _sessions(run, c.get("session")):
+        if not s.get("root"):
+            continue
+        try:
+            lines = (Path(s["root"]).parent / "events.jsonl").read_text(errors="replace").splitlines()
+        except OSError:
+            continue
+        read = True
+        started = after is None
+        for line in lines:
+            try:
+                e = json.loads(line)
+            except ValueError:
+                continue
+            content = (e.get("message") or {}).get("content") if isinstance(e, dict) and e.get("type") == "assistant" else None
+            for b in content if isinstance(content, list) else []:
+                if not isinstance(b, dict):
+                    continue
+                if b.get("type") == "text" and not started and after.search(str(b.get("text") or "")):
+                    started = True
+                if b.get("type") != "tool_use" or not started or not tool.search(str(b.get("name") or "")):
+                    continue
+                inp = json.dumps(b.get("input") or {}, ensure_ascii=False)
+                if inp_pat and not inp_pat.search(inp):
+                    continue
+                if not_pat and not_pat.search(inp):
+                    continue
+                return False, f"session {s['n']}: {b.get('name')} {inp[:200]}"
+    if not read:
+        return False, "no session with an events.jsonl, so the tool calls can't be told: fails closed"
+    return True, f"no {c['tool']!r} call" + (f" matching {c['input_pattern']!r}" if inp_pat else "") + \
+        (f" after {c['after']!r}" if after else "")
+
+
+# An AI text that has the leader save, upload or download the part (build-smoke-1): N-B12's skills-list
+# ask, a save from the save card, or an upload or download of the packaged file.
+SAVE_OFFER = re.compile(r"in your skills list\b[^?\n]*\?"
+                        r"|\b(?:save|upload)\b[^.\n]{0,80}?(?:\bsave card\b|\.zip\b|\.skill\b)"
+                        r"|\bdownload\b[^.\n]{0,80}?\.(?:zip|skill)\b", re.I)
+PACKAGE_CMD = re.compile(r"\bpackage_skill\b")
+PACKAGE_READ = re.compile(r"\b(?:unzip|zipinfo|bsdtar|tar|python3?|strings|zcat)\b[\s\S]*?\.skill\b"
+                          r"|\.skill\b[\s\S]*?\b(?:unzip|zipinfo|zipfile|bsdtar)\b")
+
+
+def _prose(m):
+    """A message without its fenced blocks and block-quoted lines: the AI's own words, for question counts."""
+    m = re.sub(r"```.*?```", " ", m, flags=re.S)
+    return re.sub(r"(?m)^[ \t]*>.*$", " ", m)
+
+
+def _one_question(c, run):
+    """Pass 5 (E6, E23): every AI message matching `containing` asks at most one question, and that question is
+    in its last paragraph (X2: one question per message, last); with `not_pattern`, none of those messages matches
+    it ("Do you agree", the rubber stamp E23 retired). Fenced blocks and quotes don't count. None said fails closed."""
+    want = re.compile(norm(c["containing"]), re.M)
+    bad = re.compile(norm(c["not_pattern"]), re.M) if c.get("not_pattern") else None
+    seen = 0
+    for s in _sessions(run, c.get("session")):
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            if not want.search(norm(m)):
+                continue
+            seen += 1
+            where = f"session {s['n']} AI message {i}"
+            if bad and bad.search(norm(m)):
+                return False, f"{where}: {bad.search(norm(m)).group(0)!r}"
+            prose = _prose(norm(m)).strip()
+            paras = [p for p in re.split(r"\n\s*\n", prose) if p.strip()]
+            asks = prose.count("?")
+            if asks > 1:
+                return False, f"{where}: {asks} questions"
+            if asks == 1 and "?" not in (paras[-1] if paras else ""):
+                return False, f"{where}: its question isn't in the last paragraph"
+    return (seen > 0, f"{seen} message(s) checked" if seen else "no message matched")
+
+
+START_PHRASES = [r"\btest the workflow I built\b", r"\bchange my workflow\b", r"\brun the (?:analyze|deconstruct|design|build|test) skill\b",
+                 r"\bupdate my registry\b"]
+
+
+def _phrases_in_blocks(c, run):
+    """Pass 5 (E32, X3): in every AI message matching `containing` (every message, without it), a framework start
+    phrase (or each of `phrases`) is never said inline: it stands alone in a code block. None matched fails closed."""
+    want = re.compile(norm(c["containing"]), re.M) if c.get("containing") else None
+    pats = [re.compile(norm(p), re.I) for p in (c.get("phrases") or START_PHRASES)]
+    seen = 0
+    for s in _sessions(run, c.get("session")):
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            t = norm(m)
+            if want and not want.search(t):
+                continue
+            seen += 1
+            outside = re.sub(r"`[^`\n]*`", " ", re.sub(r"```.*?```", " ", t, flags=re.S))
+            hit = next((p.search(outside) for p in pats if p.search(outside)), None)
+            if hit:
+                return False, f"session {s['n']} AI message {i}: {hit.group(0)!r} said inline, not in a code block"
+    return (seen > 0, f"{seen} message(s) checked" if seen else "no message matched")
+
+
+NO_NEWS = re.compile(r"(?i)\bnothing is still waiting\b|\bif anyone asks\b|\bnothing else is waiting\b")
+
+
+def _close_shape(c, run):
+    """Pass 5 (E29): every AI message matching `containing` (a step's close) is spaced out: a bold headline as its
+    first paragraph (unless `headline` is false), at least three paragraphs, no line that carries no news ("Nothing
+    is still waiting", "if anyone asks"), and it ends with a code block, the next step's phrase. None matched fails."""
+    want = re.compile(norm(c["containing"]), re.M)
+    seen = 0
+    for s in _sessions(run, c.get("session")):
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            t = norm(m).strip()
+            if not want.search(t):
+                continue
+            seen += 1
+            where = f"session {s['n']} AI message {i}"
+            paras = [p for p in re.split(r"\n\s*\n", re.sub(r"```.*?```", "<block>", t, flags=re.S)) if p.strip()]
+            if c.get("headline", True) and not re.match(r"^\*\*[^*\n]+\*\*\s*$", paras[0].strip()):
+                return False, f"{where}: no bold headline as its first line"
+            if len(paras) < 3:
+                return False, f"{where}: {len(paras)} paragraph(s): the close isn't spaced out"
+            if NO_NEWS.search(t):
+                return False, f"{where}: {NO_NEWS.search(t).group(0)!r} carries no news"
+            tail = re.sub(r"\n\s*\(In Claude Code, you can also type `/\w+`[^\n]*\)\s*$", "", t).rstrip()
+            if not tail.endswith("```"):
+                return False, f"{where}: doesn't end with the next step's phrase in a code block"
+    return (seen > 0, f"{seen} close(s) checked" if seen else "no message matched")
+
+
+def _asked_before_save(c, run):
+    """Pass 5 (E16): an AI message matching `pattern` (Build's keep-or-drop question about what an extended skill
+    held that the plan doesn't) comes before the first AI message that offers the save (SAVE_OFFER), in an earlier
+    message or earlier in the same one. A session with no save offer passes only when the pattern was said."""
+    pat = re.compile(norm(c["pattern"]), re.M)
+    anchor = re.compile(norm(c["anchor"]), re.M | re.I) if c.get("anchor") else SAVE_OFFER
+    for s in _sessions(run, c.get("session")):
+        asked = False
+        for i, m in enumerate(_ai_turns(s, "any"), 1):
+            t = norm(m)
+            q, offer = pat.search(t), anchor.search(t)
+            if offer and not (asked or (q and q.start() < offer.start())):
+                return False, f"session {s['n']} AI message {i}: the save offered before the keep-or-drop question"
+            if offer:
+                return True, "asked before the first save offer"
+            asked = asked or bool(q)
+        if not asked:
+            return False, f"session {s['n']}: the keep-or-drop question never asked"
+    return True, "asked, and no save offered"
+
+
+CREATOR_START = re.compile(r"(?:^|/)sandbox/|\bpackage_skill\b")
+
+
+def _brief_in_text(c, run):
+    """Pass 5 (E9): on Claude and ChatGPT, where Build is the skill creator, the brief is a fenced block in Build's own
+    message text (BRIEF_BLOCK) before the creator's first output: the first Write or Edit into the chat's sandbox, or
+    the first package_skill. A brief written only into a file or a tool call, or shown after the creator started,
+    fails; a session whose creator never started passes. No events.jsonl fails closed."""
+    seen = False
+    for s in _sessions(run, c.get("session")):
+        if not s.get("root"):
+            continue
+        try:
+            lines = (Path(s["root"]).parent / "events.jsonl").read_text(errors="replace").splitlines()
+        except OSError:
+            continue
+        seen = True
+        shown = False
+        for line in lines:
+            try:
+                e = json.loads(line)
+            except ValueError:
+                continue
+            content = (e.get("message") or {}).get("content") if isinstance(e, dict) and e.get("type") == "assistant" else None
+            for b in content if isinstance(content, list) else []:
+                if not isinstance(b, dict):
+                    continue
+                if b.get("type") == "text" and BRIEF_BLOCK.search(str(b.get("text") or "")):
+                    shown = True
+                elif b.get("type") == "tool_use":
+                    inp = b.get("input") or {}
+                    target = " ".join(str(inp.get(k) or "") for k in ("file_path", "path", "command"))
+                    if b.get("name") in ("Write", "Edit", "MultiEdit", "Bash") and CREATOR_START.search(target) and not shown:
+                        return False, f"session {s['n']}: the creator started ({b.get('name')} {target[:80]!r}) before the brief was shown in the chat"
+    return (seen, "the brief is shown in the chat before the creator starts" if seen else "no events.jsonl")
+
+
+def _read_before_save(c, run):
+    """build-smoke-1 (2026-11-27): on Claude and ChatGPT Build is the skill creator, and the file the save card
+    saves is the last package `package_skill` made, where the stand-in plants its faults. Every AI text that
+    offers the save must come after a read of that package (a Bash command naming the .skill file with
+    unzip, zipinfo, python…) made after the last packaging and in the same turn (a turn starts at each
+    session's init event): a file's contents are never asserted unread. No offer passes; no events.jsonl
+    fails closed."""
+    read_any, offers = False, 0
+    for s in _sessions(run, c.get("session")):
+        if not s.get("root"):
+            continue
+        try:
+            lines = (Path(s["root"]).parent / "events.jsonl").read_text(errors="replace").splitlines()
+        except OSError:
+            continue
+        read_any = True
+        packaged = read = False
+        turn = 0
+        for line in lines:
+            try:
+                e = json.loads(line)
+            except ValueError:
+                continue
+            if not isinstance(e, dict):
+                continue
+            if e.get("type") == "system" and e.get("subtype") == "init":
+                turn += 1
+                read = False
+                continue
+            content = (e.get("message") or {}).get("content") if e.get("type") == "assistant" else None
+            for b in content if isinstance(content, list) else []:
+                if not isinstance(b, dict):
+                    continue
+                if b.get("type") == "tool_use" and b.get("name") == "Bash":
+                    cmd = str((b.get("input") or {}).get("command") or "")
+                    marks = list(PACKAGE_CMD.finditer(cmd))
+                    if marks:
+                        packaged, read = True, False
+                        cmd = cmd[marks[-1].end():]
+                    if packaged and PACKAGE_READ.search(cmd):
+                        read = True
+                elif b.get("type") == "text":
+                    m = SAVE_OFFER.search(str(b.get("text") or ""))
+                    if not m:
+                        continue
+                    offers += 1
+                    if not packaged:
+                        return False, f"session {s['n']} turn {turn}: the save offered with nothing packaged: {m.group(0)[:120]!r}"
+                    if not read:
+                        return False, (f"session {s['n']} turn {turn}: the save offered with no read of the last "
+                                       f"package in this turn: {m.group(0)[:120]!r}")
+    if not read_any:
+        return False, "no session with an events.jsonl, so the reads can't be told: fails closed"
+    return True, (f"{offers} save offer{'s' if offers != 1 else ''}, each after a read of the last package in its turn"
+                  if offers else "no save offered")
+
+
 def _bash_count(c, run):
     """final-build-4c review (2026-11-24): what Build ran, not what the leader read. Passes when the
     session's Bash commands hold the pattern at least `min` times (JR-codex: the workspace listed by
-    command before Build's checks and again after them)."""
+    command before Build's checks and again after them). With `around` (F9, shape release), one match
+    must come before the first command matching `around` and one after the last."""
     pat = re.compile(c["pattern"], re.M)
-    total, why = 0, "no session with an events.jsonl"
+    around = re.compile(c["around"], re.M) if c.get("around") else None
+    total, why, cmds_all = 0, "no session with an events.jsonl", []
     for s in _sessions(run, c.get("session")):
         if not s.get("root"):
             continue
         cmds = bash_commands(Path(s["root"]).parent / "events.jsonl")
         if cmds is None:
             continue
+        cmds_all += cmds
         total += sum(len(pat.findall(x)) for x in cmds)
         why = f"{total} match{'es' if total != 1 else ''} of {c['pattern']!r} in Bash commands"
-    return total >= c.get("min", 1), why
+    if total < c.get("min", 1) or not around:
+        return total >= c.get("min", 1), why
+    # F9 (shape release): a listing before the first command matching `around` and after the last
+    at = [i for i, x in enumerate(cmds_all) if around.search(x)]
+    hits = [i for i, x in enumerate(cmds_all) if pat.search(x)]
+    if not at:
+        return False, f"no Bash command matches {c['around']!r}"
+    if not any(i < at[0] for i in hits):
+        return False, f"no {c['pattern']!r} before the first {c['around']!r} command"
+    if not any(i > at[-1] for i in hits):
+        return False, f"no {c['pattern']!r} after the last {c['around']!r} command"
+    return True, why + f", before the first and after the last {c['around']!r} command"
 
 
 def _tool_write(c, run):
@@ -1246,6 +1729,112 @@ def _tool_write(c, run):
             why = f"session {s['n']}: no write matching {c['before']!r} after it"
             continue
         return True, f"session {s['n']}: write {at + 1}, then write {later[0] + 1} matching {c['before']!r}"
+    return False, why
+
+
+def _choice_saved(s, c, pat, ans):
+    """saved_before_next_question for an answer picked in a choice: in events order, after the AskUserQuestion result
+    matching `answer`, a matching write to `path` comes before the next AskUserQuestion call or AI text that asks."""
+    if not s.get("root"):
+        return False, f"session {s['n']}: no leader message or choice matches {c['answer']!r}"
+    try:
+        lines = (Path(s["root"]).parent / "events.jsonl").read_text(errors="replace").splitlines()
+    except OSError:
+        return False, f"session {s['n']}: no leader message or choice matches {c['answer']!r}"
+    picked = False
+    for line in lines:
+        try:
+            e = json.loads(line)
+        except ValueError:
+            continue
+        content = (e.get("message") or {}).get("content") if isinstance(e, dict) else None
+        for b in content if isinstance(content, list) else []:
+            if not isinstance(b, dict):
+                continue
+            if e.get("type") == "user" and b.get("type") == "tool_result":
+                txt = b.get("content")
+                txt = " ".join(str(x.get("text", x)) if isinstance(x, dict) else str(x) for x in txt) if isinstance(txt, list) else str(txt or "")
+                if not picked and ans.search(norm(txt)):
+                    picked = True
+                continue
+            if not picked or e.get("type") != "assistant":
+                continue
+            if b.get("type") == "tool_use" and b.get("name") in ("Write", "Edit", "MultiEdit"):
+                inp = b.get("input") or {}
+                fp = str(inp.get("file_path") or "")
+                texts = [inp.get("content"), inp.get("new_string")] + [x.get("new_string") for x in inp.get("edits") or []]
+                if (fnmatch.fnmatch(fp, c["path"]) or fnmatch.fnmatch(fp, "*/" + c["path"])) and any(pat.search(norm(str(x))) for x in texts if x):
+                    return True, f"session {s['n']}: the choice's answer is written before the next question"
+            elif (b.get("type") == "tool_use" and b.get("name") == "AskUserQuestion") or (b.get("type") == "text" and "?" in str(b.get("text") or "")):
+                return False, f"session {s['n']}: the next question came before the choice's answer was written"
+    return False, (f"session {s['n']}: the choice's answer was never written" if picked
+                   else f"session {s['n']}: no leader message or choice matches {c['answer']!r}")
+
+
+def _saved_before_next_question(c, run):
+    """Pass 4 final review M5: an answer the leader gives is written before the next question reaches them.
+    The first leader message matching `answer` gives it (or, with none, a choice's AskUserQuestion result: Pass 5, E8); a Write or Edit to `path` matching `pattern` must
+    come in an AI turn no later than the first AI turn after that message whose text asks something (a "?").
+    The turns are told apart by the result event the harness logs at the end of each call; fails closed when
+    the answer is never given, nothing matching is written, or the events can't be split into the AI turns."""
+    pat, ans = re.compile(c["pattern"], re.M), re.compile(c["answer"], re.M)
+    why = "no session"
+    for s in _sessions(run, c.get("session")):
+        ai_turns, answer_at = [], None
+        for turn in s["turns"]:
+            if turn["role"] == "ai":
+                ai_turns.append(turn["text"])
+            elif answer_at is None and ans.search(norm(turn["text"])):
+                answer_at = len(ai_turns)  # the AI turn that replies to it
+        if answer_at is None:
+            # Pass 5 (E8): an answer given in a choice (AskUserQuestion's result) is an answer like any other
+            ok, why = _choice_saved(s, c, pat, ans)
+            if ok:
+                return True, why
+            continue
+        asks = next((i for i in range(answer_at, len(ai_turns)) if "?" in ai_turns[i]), None)
+        if asks is None:
+            why = f"session {s['n']}: no question after the answer"
+            continue
+        if not s.get("root"):
+            why = f"session {s['n']}: no events.jsonl to read the writes from"
+            continue
+        try:
+            lines = (Path(s["root"]).parent / "events.jsonl").read_text(errors="replace").splitlines()
+        except OSError:
+            why = f"session {s['n']}: no events.jsonl to read the writes from"
+            continue
+        k, first = 0, None
+        for line in lines:
+            try:
+                e = json.loads(line)
+            except ValueError:
+                continue
+            if e.get("type") == "result":
+                k += 1
+                continue
+            if first is None and e.get("type") == "assistant":
+                for b in (e.get("message") or {}).get("content") or []:
+                    if not (isinstance(b, dict) and b.get("type") == "tool_use" and b.get("name") in ("Write", "Edit", "MultiEdit")):
+                        continue
+                    inp = b.get("input") or {}
+                    fp = str(inp.get("file_path") or "")
+                    if not (fnmatch.fnmatch(fp, c["path"]) or fnmatch.fnmatch(fp, "*/" + c["path"])):
+                        continue
+                    texts = [inp.get("content"), inp.get("new_string")] + [x.get("new_string") for x in inp.get("edits") or []]
+                    if any(pat.search(norm(str(x))) for x in texts if x):
+                        first = k
+                        break
+        if k != len(ai_turns):
+            why = f"session {s['n']}: {k} result events for {len(ai_turns)} AI turns: the writes can't be placed"
+            continue
+        if first is None:
+            why = f"session {s['n']}: no Write or Edit to {c['path']} matches {c['pattern']!r}"
+            continue
+        if first > asks:
+            why = f"session {s['n']}: written in AI turn {first + 1}, after the question in AI turn {asks + 1}"
+            continue
+        return True, f"session {s['n']}: written in AI turn {first + 1}, by the question in AI turn {asks + 1}"
     return False, why
 
 

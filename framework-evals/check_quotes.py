@@ -16,6 +16,14 @@ the skills, with placeholders as wildcards.
                   runner does with the evals file's skill_name
   --corpus FILE   another approved-lines.json (tests)
 
+When a line stops being held fixed (U1, shape release): (1) remove it from its source in the
+business repo's learning/framework-walkthrough/final/ spec files (the step's line table, or
+lines-to-approve.md); (2) regenerate the corpus with tools/extract_approved_lines.py <spec-dir>;
+(3) run `check_quotes.py evals` on all five evals files and replace each flagged `quote` check
+with a check on behaviour (nothing sent, nothing invented, stops to ask), never with a looser
+quote; (4) run scripts/check-line-placement.py. Lines that protect the leader (approvals, what
+can't be undone, sends, deletes, go-live, passwords) and start phrases stay fixed.
+
 Exit 1 when anything fails. Run it after every skill change and before any paid eval round; the
 runner also applies it to every run as a built-in check.
 """

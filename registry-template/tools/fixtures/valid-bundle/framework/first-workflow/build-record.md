@@ -8,8 +8,7 @@ schedule: none
 fingerprints:
   .claude/skills/some-skill/SKILL.md: sha256:0d6f1c2a
   framework/.bin/test-run.sh: sha256:7a41e0b9
-bare_run:
-  some-skill: done
+fresh_chat_run: done
 run_folders: []
 change_requests: []
 ---

@@ -1,25 +1,21 @@
 # Personal life
 
-Read before the interview's first message when the registry is personal-life: detected as Analyze detects it (the founding `registry/log.md` entry says so). It applies from then to the end. Every quoted line is said exactly; each question is its own message. Everything not listed here runs as written, in personal words.
+Read before the interview's first message when the registry is personal-life: detected as Analyze detects it (the founding `registry/log.md` entry says so). It applies from then to the end. Each question is its own message. Everything not listed here runs as `interview.md` says, in personal words ("your household", or "your life" for one person; "routine" for "process"; "role" for "function").
 
 ## The name and description
 
-Ask these before item 1's message, each in its own message, even when a backlog candidate suggests the answer:
+Ask these before item 1's message, each in its own message, even when a backlog candidate suggests the answer: "What starts it?", then "What do you end up with?". The progress file is first saved once the workflow is named.
 
-- **Trigger:** **Ask:** "What starts it?"
-- **Deliverable:** **Ask:** "What do you end up with?"
-- The progress file is first saved once the workflow is named.
-- Analyze's no-process question, where it's asked, takes the personal-life form `interview.md` gives it.
+## The drafts
 
-## The safety questions
+- **The goal and the output, and the checks** are drafted as for everyone, from the household's own words.
+- **What it works from:** drafted from a normal week ("When it runs, you give it [what a normal week brings]"); ask for one in a line if nothing says.
+- **Rules are rules.** "No shellfish" goes in Rules & Constraints.
+- **No policy question.**
 
-- **What it sends or changes:** **Ask:** "Does it send, order or book anything for you?"
+## Rules and limits
+
+- **What it sends or changes,** where not known: ask whether it sends, orders or books anything for them.
 - **Taking part** is worded as for everyone.
 - **No law or regulation question,** and no regulation questions. Record `Governing regime: None`.
-
-## What it works from, and its rules
-
-- **The typical case** becomes: **Ask:** "Give me a normal week."
-- **Rules are rules.** "No shellfish" goes in Rules & Constraints.
-- **No policy question** (`interview.md`).
-- Everything else runs in full, in personal words: the drafts, the safety limits, the practice runs and the preview.
+- The safety limits, the checkpoints, the practice runs and the summary run in full, in personal words.

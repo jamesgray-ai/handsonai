@@ -547,6 +547,20 @@ def fx_open_item_consequential(t):  # an open item whose answer adds a change ot
         "1. **Whether the drafts go to your own Gmail or the shared sales@ mailbox the team reads.** Why it matters: a draft in the shared mailbox is something other people see.")
 
 
+def fx_draft_to_ask(t):  # Pass 5 (E8, Review Focus 4): a draft with one question still to ask and one item waiting on access
+    """Open item 1 is the sign-off question, still marked "to ask" (it blocks T2); item 2 waits on IT for access to the
+    shared notes folder (it blocks T1). Approval must ask item 1 first; item 2 may stay open on an approved plan."""
+    ff(t, "states/s05-plan-to-approve/with-registry")
+    p = wf_dir(t, CFU) / "design-plan.md"
+    sub(p, "## Open items\nNone.",
+        "## Open items\n1. **Whether the email signs off as you or as the account team (to ask).** Why it matters: it changes "
+        "the draft's sign-off. Blocks: T2. Who answers: you. Safe default: none (not a safety item).\n"
+        "2. **Access to the team's shared Call notes folder.** Why it matters: the notes are read from there. Blocks: T1. "
+        "Who answers: IT. Safe default: none (not a safety item).")
+    sub(p, "- **Depends on:** —\n", "- **Depends on:** open item 2\n")
+    sub(p, "- **Depends on:** T1\n", "- **Depends on:** T1, open item 1\n")
+
+
 def fx_live_context_unreadable(t):  # the skill is readable, the runtime copy of its context file isn't where the record says
     live(t)
     (Path(t) / ".claude" / "skills" / CFU / "references" / "follow-up-style.md").unlink()
@@ -656,6 +670,62 @@ def fx_place_to_confirm(t):  # a write place the leader didn't know: a visible u
     sub(wf_dir(t, LFU) / "requirements.md", "- W1 · Gmail (your Drafts folder) ·", "- W1 · Gmail (which mailbox to confirm) ·")
 
 
+# ---------- Pass 4 (shape release, 2026-11-27): 11.0 requirements ----------
+
+F11 = FF / "format-11" / "client-follow-up"
+
+
+def fx_format11(t):  # P7: Client Follow-Up as 11.0's Deconstruct writes it, at state 4 (no plan)
+    """`## Output` (Delivered as: set in Design), `· from:` on every check, no `(must)`, R2 and G1 tagged
+    `· (you)`, and E2 a `(made up)` scenario Test writes, with no `inputs/` file (11.0 saves only a real input),
+    from `framework-fixtures/format-11/`, in the state-4 registry."""
+    ff(t, S04)
+    w = wf_dir(t, CFU)
+    for part in ("context", "inputs"):
+        shutil.rmtree(w / part, ignore_errors=True)
+        shutil.copytree(F11 / part, w / part)
+    shutil.copy(F11 / "requirements.md", w / "requirements.md")
+
+
+
+def f11_req(t):
+    return wf_dir(t, CFU) / "requirements.md"
+
+
+def fx_format11_all_test_writes(t):  # Review Focus 1: every scenario is one Test writes, so there's no inputs/ folder
+    """No real input: E1 becomes `(made up)` with `Test writes it`, and inputs/ goes. Complete as it stands: the
+    hand check passes it, Design plans from the rows, and nothing goes back to Deconstruct."""
+    fx_format11(t)
+    shutil.rmtree(wf_dir(t, CFU) / "inputs")
+    sub(f11_req(t), "| E1 | Renewal call (real) | `inputs/E1-acme-renewal-call.md` — notes from a renewal call with three next steps |",
+        "| E1 | Renewal call (made up) | Test writes it — notes from a renewal call with three next steps |")
+
+
+def fx_format11_from_rule(t):  # Review Focus 3: AC1's `· from:` names R4, the rule the leader asks to drop
+    """AC1 comes from I1 and R4; AC5 from R4 alone (Pass 4 final review I3: when R4 goes, AC5 has nothing to come
+    from, and keeping or dropping it is the leader's, asked once, never converted to `the output alone` silently)."""
+    fx_format11(t)
+    sub(f11_req(t), "each with its owner. · from: I1\n", "each with its owner. · from: I1, R4\n")
+    sub(f11_req(t), "4. **AC4** — The draft has a subject line. · from: the output alone\n",
+        "4. **AC4** — The draft has a subject line. · from: the output alone\n"
+        "5. **AC5** — When the notes name no next step, no draft is written until you give one. · from: R4\n")
+
+
+def fx_format11_booking(t):  # Review Focus 5: the email ends with the leader's booking link, which no file holds
+    fx_format11(t)
+    sub(f11_req(t), "    Next steps, each with its owner\n", "    Next steps, each with its owner\n    Your booking link for the next call\n")
+
+
+def fx_format11_no_write(t):  # Review Focus 6: the Output says "email", but the requirements hold no write
+    """`### Writes` reads None, and no Traceability limit names Gmail: nothing in the requirements creates a draft
+    anywhere, so the email is shown in the chat unless a write is added through a requirement change."""
+    fx_format11(t)
+    r = f11_req(t)
+    sub(r, "*Scope: writes to a live system*\n\n### Traceability\n| ID | Constraint | Source |\n|---|---|---|\n"
+           "| P1 | Each run's closing summary names the draft it created in Gmail Drafts. | Self |\n\n", "*Scope: no writes*\n\n")
+    sub(r, "\n### Writes\n- W1 · Gmail · create a draft · after the email is drafted\n", "\n### Writes\nNone\n")
+
+
 FIXTURES = {
     "event-30min": fx_event_30min, "event-as-often": fx_event_as_often, "place-to-confirm": fx_place_to_confirm,
     "regulated-same-way": fx_regulated_same_way, "regulated-some-of-each": fx_regulated_some_of_each,
@@ -675,8 +745,9 @@ FIXTURES = {
     "test-request-needs-requirement": fx_test_request_needs_requirement, "leader-at-test": fx_leader_at_test,
     "several-requests": fx_several_requests, "law-drop-request": fx_law_drop_request, "schedule-by-hand": fx_schedule_by_hand,
     "draft-with-gaps": fx_draft_with_gaps, "draft-safety-gap": fx_draft_safety_gap,
-    "open-item-consequential": fx_open_item_consequential, "live-context-unreadable": fx_live_context_unreadable,
-    "live-m365-agent": fx_live_m365_agent, "live-chatgpt": fx_live_chatgpt, "agent-failed-check": fx_agent_failed_check,
+    "open-item-consequential": fx_open_item_consequential, "draft-to-ask": fx_draft_to_ask, "live-context-unreadable": fx_live_context_unreadable,
+    "live-m365-agent": fx_live_m365_agent, "format-11": fx_format11, "format-11-all-test-writes": fx_format11_all_test_writes,
+    "format-11-from-rule": fx_format11_from_rule, "format-11-booking": fx_format11_booking, "format-11-no-write": fx_format11_no_write, "live-chatgpt": fx_live_chatgpt, "agent-failed-check": fx_agent_failed_check,
 }
 
 # The library's routing states as today's Deconstruct leaves Client Follow-Up (`Path: none`): the folders the

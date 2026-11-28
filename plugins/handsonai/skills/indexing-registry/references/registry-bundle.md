@@ -72,8 +72,8 @@ skill sets a registry up when the leader wants one.
      `framework/<slug>/requirements.md` everywhere.
    - An older relative link that doesn't resolve as written (`<slug>/requirements.md`, written
      before `framework/` was the form on every platform) is valid when `framework/` plus the same
-     path resolves. The lint scripts apply this, and so does the AI-performed check, on a drive and
-     on a pasted print-to-save copy: accept the link as it is, never rewrite it, never report it.
+     path resolves. The lint scripts apply this, and so does the AI-performed check, including on a drive:
+     accept the link as it is, never rewrite it, never report it.
    - A full URL: external.
 5. **A workflow joins exactly one Process** through that Process's curated, ordered `# Workflows`
    list (`registry/processes/<process-slug>.md`); the list is both the Workflow→Process edge and
@@ -95,10 +95,8 @@ skill sets a registry up when the leader wants one.
    (`history/registry/workflows/<slug>-2026-10-24-1504.md`), and the new file is
    created under its own name; such a step saves at the end of a part or a batch, not after every
    node. Nothing in the registry is ever shared, trashed or deleted on a drive.
-9. **Print-to-save, only as the fallback.** With no files and no connection that can save,
-   every write in this contract becomes: give the file complete, with its exact location, and say
-   plainly that the leader must save it. Never report a file as written that you only gave. At
-   the end of the step, list every file the leader needs to save.
+9. **Nothing that can save.** With no files and no connection that can save, nothing in this
+   contract is written: N-F16, and wait (`references/saving.md`, rule 5).
 
 **Bundle-wide anchors (consistency-check anchors, restated here on purpose):**
 
@@ -182,6 +180,7 @@ None shows a step number.
 | Field | Label | Shown as |
 |---|---|---|
 | progress | Progress | the routing state's name |
+| the last test round | Last test (dashboard only) | "[met] of [total] checks met across [k] inputs", worked out by `framework-state` from `test-results.md`, never stored; left out before any round |
 | `stale_after` | Re-check by | the date |
 | `autonomy` | How it decides | `deterministic`: "Deterministic: follows your instructions"; `guided`: "Guided: makes bounded decisions with your method"; `autonomous`: "Autonomous: works toward a goal you set" |
 | `execution_mode` | Runs with you / Runs without you | `manual` and `augmented`: "Runs with you"; `automated`: "Runs without you" |
@@ -293,5 +292,3 @@ is in exactly one parent list and in its folder's index, links into and out of t
 claims no more, and says nothing when they pass. To the leader it is "checking your registry", the
 files are "pages", and no "maintenance pass", lint, script or `tools/` name is said unless they ask. Do not restate the maintenance pass
 inline; point here. On the web, the pass writes in `registry/` in the working folder, through the connection.
-Only on print-to-save does it give the updated `REGISTRY.md` with its location instead, for the
-leader to save, and say so.
