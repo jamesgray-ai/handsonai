@@ -53,7 +53,8 @@ skill sets a registry up when the leader wants one.
    multi-line values of any kind. If a description is long, shorten it; never wrap it in a block
    scalar. Quote a value that holds `: ` or starts with a character YAML treats specially.
 2. **Stamp `generated` when your step changes the content.** A write that creates a node, or
-   changes what it says (a field value, a link added or removed, the description), carries:
+   changes what it says (a field value, a link added or removed, the description, a line added to
+   or removed from its curated list, such as a Process's `# Workflows`), carries:
 
    ```yaml
    generated: { by: process:<skill-name>, at: <YYYY-MM-DDTHH:MM:SSZ> }
@@ -91,7 +92,8 @@ skill sets a registry up when the leader wants one.
      `/` form.
    - A full URL: external.
    - **A registry still at OKF 0.2** (its root `index.md` says `okf_version: "0.2"`, or no
-     version): its older links were written from the registry's parent folder
+     version): its older links were written from the registry's parent folder (this profile's
+     own 0.2 rule, not the spec's §12.1 fallback to the bundle root)
      (`framework/<slug>/requirements.md`), and one that doesn't resolve as written
      (`<slug>/requirements.md`) is valid when `framework/` plus the same path resolves. Read them
      that way, as the lint scripts do; never rewrite one outside the upgrade (section 10), never
@@ -244,7 +246,7 @@ reworded, moved or removed: no skill rewrites an entry. It holds:
 - **Setup decisions and schema changes:** `scaffolding-registry`'s founding entry
   (`- **Registry scaffolded** — [the founding line]`), and later changes to `SCHEMA.md`
   (`- **Schema change** — [what changed]`).
-- **The dashboard's Claude Artifact link,** as `- Dashboard Artifact: <link>`; the latest entry
+- **The dashboard's Claude Artifact link,** as `- Dashboard Artifact: <link>`; the newest entry
   wins.
 - **The leader's checker ID,** once, at their first check: `- **Checker** — [name] checks pages as
   human:[id]` (*Record a check* in the indexing-registry skill).
@@ -254,7 +256,7 @@ reworded, moved or removed: no skill rewrites an entry. It holds:
 |---|---|---|
 | A big change | Design, on "go ahead" | `- **Big change** — [workflow]: [reason]` |
 | Go-live | Test | `- **Go-live** — [workflow] went live after test round [n]` |
-| A re-check that passes | Test | `- **Re-check** — [workflow]: re-checked, ready` |
+| A re-check or change that passes | Test | `- **Re-check** — [workflow]: re-checked, ready` |
 | A re-check not ready | Test | `- **Re-check** — [workflow]: re-check not ready` |
 | A changed version not ready | Test | `- **Changed version** — [workflow]: changed version not ready` |
 
@@ -363,7 +365,7 @@ before OKF v0.3. It still works: the tools and the AI-performed check read its o
 `indexing-registry` skill offers the upgrade when the leader says "upgrade my registry", or once,
 in plain words, when a maintenance pass finds one (never in the middle of another step).
 
-The upgrade changes the form, never the content, so it moves no `generated` line (rule 2) and
+The upgrade changes the form, never the content, so it moves no page's `generated` line (rule 2) and
 keeps every key the tool doesn't own (rule 10):
 
 1. The root `index.md`: `okf_version: "0.3"`.
@@ -377,9 +379,14 @@ keeps every key the tool doesn't own (rule 10):
    that only resolves through `framework/` → `../../framework/<slug>/requirements.md`. Links in
    code spans and fenced blocks stay as they are.
 4. `log.md`: the older entries regrouped under `## YYYY-MM-DD` headings, newest date first, each a
-   bullet, every word kept.
+   bullet, every word kept: a `## [date] — [title]` entry becomes `- **[title]** — [its first
+   paragraph]` under its date, with any further paragraph or list line indented two spaces below
+   it; a `[date]: [text]` line becomes `- [text]` under its date; a `Dashboard Artifact:` line
+   stays a bullet of its own, under the date of the entry before it. The log's title and
+   description stay at the top as they are.
 5. `registry/SCHEMA.md` replaced with the current one (the scaffolding-registry skill's
-   `references/schema-template.md`).
+   `references/schema-template.md`), copied as it ships, its own `generated` line included: the
+   schema's content does change, so this is the one file whose stamp moves.
 
 Where code can run, `node tools/upgrade-registry.js` (`--check` first, to see what it will
 change) does 1 to 4. On a drive the same changes are made page by page, saved as rule 8 says (on a

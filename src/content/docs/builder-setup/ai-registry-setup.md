@@ -186,7 +186,7 @@ state: in-production
 execution_mode: augmented
 autonomy: guided
 trigger: "manual"
-stale_after: 2026-12-01
+stale_after: 2026-09-01
 ---
 # Client Onboarding Kickoff
 
@@ -236,7 +236,7 @@ An **enum** (short for "enumeration") is just a field that only accepts one of a
 A node written by an earlier version of this playbook may carry a `definition_type` field. Your assistant reads past it and never writes it.
 :::
 
-`state` is where the workflow is in its life. A separate field, `status`, appears only on a retired workflow, as `status: deprecated`: it tells any tool that reads your registry that the page is kept for the record and isn't current. Business and line-of-business pages have a `state` too: `active`, `incubating` or `dormant`.
+`state` is where the workflow is in its life. A separate field, `status`, appears only on a retired workflow or a removed process, as `status: deprecated`: it tells any tool that reads your registry that the page is kept for the record and isn't current. Business and line-of-business pages have a `state` too: `active`, `incubating` or `dormant`.
 
 The bundle root (`registry/index.md`) also declares one frontmatter field of its own: `okf_version: "0.3"`, the version of the OKF spec your registry follows. You'll never need to change it by hand.
 

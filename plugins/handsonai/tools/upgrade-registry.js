@@ -44,6 +44,9 @@ function upgradeHref(href, from, workspaceRoot, bundleName) {
   if (r.form !== 'legacy') return href;
   const frag = (href.match(/[#?].*$/) || [''])[0];
   const reach = lib.resolveOutside(r, workspaceRoot) || r.path;
+  // A 0.2 link that reaches back into the registry (compose's used-by text in the root
+  // index, registry/workflows/x.md) is a link between pages: root-relative.
+  if (reach.startsWith(bundleName + '/')) return '/' + reach.slice(bundleName.length + 1) + frag;
   return lib.linkTo(reach, from, { bundleName }) + frag;
 }
 
@@ -114,7 +117,9 @@ function upgradeLog(raw) {
   const lines = raw.replace(/\s+$/, '').split('\n');
   const HEAD = /^## (\d{4}-\d{2}-\d{2})(?:\s*(?:—|–|-|:)\s*(.*))?\s*$/;
   const LINE = /^(\d{4}-\d{2}-\d{2}):\s+(.*)$/;
-  const isConformant = lines.every((l) => !LINE.test(l)) && lines.filter((l) => /^## /.test(l)).every((l) => /^## \d{4}-\d{2}-\d{2}\s*$/.test(l));
+  const heads = lines.filter((l) => /^## /.test(l));
+  const dates = heads.map((l) => (l.match(/^## (\d{4}-\d{2}-\d{2})\s*$/) || [])[1]);
+  const isConformant = lines.every((l) => !LINE.test(l)) && dates.every((d, i) => d && (i === 0 || d <= dates[i - 1]));
   if (isConformant) return raw;
   const preamble = [];
   const entries = []; // { date, order, title, paras: [string] } | { date, order, text }
@@ -141,6 +146,13 @@ function upgradeLog(raw) {
     if (!l.trim()) { flush(); continue; }
     // The dashboard's link is its own entry, dated by the entry before it.
     if (/^Dashboard Artifact:/.test(l.trim())) { flush(); cur = null; entries.push({ date: lastDate, order: entries.length, text: l.trim() }); continue; }
+    // Under a date-only heading (already the §9 form) a top-level bullet is an entry of its own,
+    // and an indented line belongs to the entry before it.
+    if (cur && !cur.title && /^[-*]\s/.test(l)) { flush(); entries.push({ date: lastDate, order: entries.length, text: l.replace(/^[-*]\s+/, '').trim(), extra: [] }); continue; }
+    const last = entries[entries.length - 1];
+    if (cur && !cur.title && /^\s+\S/.test(l) && last && last.extra) { last.extra.push(l.replace(/\s+$/, '')); continue; }
+    // A list or table line inside a titled entry keeps its own line, under the entry's bullet.
+    if (cur && /^\s*([-*+]\s|\d+[.)]\s|\|)/.test(l)) { flush(); cur.paras.push({ raw: l.replace(/\s+$/, '') }); continue; }
     if (cur) { para.push(l.trim()); continue; }
     entries.push({ date: lastDate, order: entries.length, text: l.trim() });
   }
@@ -150,16 +162,19 @@ function upgradeLog(raw) {
     if (!byDate.has(e.date)) byDate.set(e.date, []);
     byDate.get(e.date).push(e);
   }
-  const dates = [...byDate.keys()].sort().reverse();
+  const order = [...byDate.keys()].sort().reverse();
   const out = [preamble.join('\n').replace(/\s+$/, '')];
-  for (const date of dates) {
+  for (const date of order) {
     out.push('', `## ${date}`, '');
     for (const e of byDate.get(date)) {
-      if (e.text !== undefined) { out.push(`- ${e.text}`); continue; }
-      const [first, ...more] = e.paras;
+      if (e.text !== undefined) { out.push(`- ${e.text}`); for (const x of e.extra || []) out.push(x); continue; }
+      if (!e.title && !e.paras.length) continue; // a date-only heading: its bullets are entries of their own
+      const firstIsText = e.paras.length && typeof e.paras[0] === 'string';
+      const first = firstIsText ? e.paras[0] : '';
+      const more = firstIsText ? e.paras.slice(1) : e.paras;
       const lead = e.title ? `**${e.title}**${first ? ` — ${first}` : ''}` : (first || '');
       out.push(`- ${lead}`);
-      for (const p of more) out.push(`  ${p}`);
+      for (const p of more) out.push(typeof p === 'string' ? `  ${p}` : `  ${p.raw}`);
     }
   }
   return out.join('\n').replace(/^\n+/, '') + '\n';

@@ -169,9 +169,22 @@ function unquote(v) {
 // commas; keys split at the FIRST colon so actor ids (human:jamesgray) survive;
 // a quoted value (OKF v0.3's examples quote timestamps) is unquoted. Returns
 // null on an entry with no colon.
+function splitOutsideQuotes(text) {
+  const parts = [];
+  let cur = '';
+  let q = null;
+  for (const ch of text) {
+    if (q) { if (ch === q) q = null; cur += ch; continue; }
+    if (ch === '"' || ch === "'") { q = ch; cur += ch; continue; }
+    if (ch === ',') { parts.push(cur); cur = ''; continue; }
+    cur += ch;
+  }
+  parts.push(cur);
+  return parts;
+}
 function parseFlowMap(text) {
   const map = {};
-  for (const part of text.trim().slice(1, -1).split(',')) {
+  for (const part of splitOutsideQuotes(text.trim().slice(1, -1))) {
     if (!part.trim()) continue;
     const c = part.indexOf(':');
     if (c === -1) return null;
@@ -264,12 +277,16 @@ function isActor(v) {
 // that UTC day). Milliseconds, or null when it doesn't parse.
 function toMillis(v) {
   const s = String(v === undefined || v === null ? '' : v).trim();
-  if (AT_DATE.test(s)) return Date.parse(`${s}T00:00:00Z`);
-  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$/.test(s)) {
-    const t = Date.parse(s);
-    return Number.isNaN(t) ? null : t;
-  }
-  return null;
+  const m = s.match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(\.\d+)?(Z|[+-]\d{2}:\d{2}))?$/);
+  if (!m) return null;
+  // A real calendar day and time: Date.parse would roll 2026-02-30 over into March.
+  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  const day = new Date(Date.UTC(y, mo - 1, d));
+  if (day.getUTCFullYear() !== y || day.getUTCMonth() !== mo - 1 || day.getUTCDate() !== d) return null;
+  if (m[4] === undefined) return day.getTime();
+  if (Number(m[4]) > 23 || Number(m[5]) > 59 || Number(m[6]) > 59) return null;
+  const t = Date.parse(s);
+  return Number.isNaN(t) ? null : t;
 }
 
 // --- Bundle version (OKF v0.3 §8.1, §12)
@@ -308,7 +325,9 @@ function resolveHref(href, from, opts = {}) {
   if (href.startsWith('#')) return { kind: 'fragment', path: href, form: 'fragment', href };
   const bare = decodePath(href.replace(/[#?].*$/, ''));
   if (bare.startsWith('/')) return { kind: 'bundle', path: bare, form: 'root', href };
-  if (opts.legacy && !bare.startsWith('./') && !bare.startsWith('../')) return { kind: 'outside', path: bare, form: 'legacy', href };
+  // In 0.2 a bare path (./ included) is read from the registry's parent folder; only ../ is
+  // read file-relative there, which is the 0.3 form 11.1.0's steps write into a 0.2 registry.
+  if (opts.legacy && !bare.startsWith('../')) return { kind: 'outside', path: bare.replace(/^(\.\/)+/, ''), form: 'legacy', href };
   const fromDir = path.posix.dirname(from || '/index.md'); // '/workflows' or '/'
   let joined = path.posix.normalize(path.posix.join(bundleName, fromDir, bare));
   if (bare.endsWith('/') && !joined.endsWith('/')) joined += '/';
@@ -329,7 +348,9 @@ function linkTo(target, from, opts = {}) {
   const fromDir = path.posix.join(bundleName, path.posix.dirname(from || '/index.md'));
   let rel = path.posix.relative(fromDir, target.replace(/\/$/, ''));
   if (target.endsWith('/')) rel += '/';
-  return rel;
+  // A link is a URI reference (OKF v0.3 §6): a space or other reserved character is
+  // percent-encoded, as resolveHref decodes it.
+  return encodeURI(rel);
 }
 
 // All markdown link hrefs in text, classified per SCHEMA.md's discriminator.

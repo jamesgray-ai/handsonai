@@ -734,6 +734,10 @@ out=$(lint_ws "$WS")
 grep -q "^ERROR" <<<"$out" && bad "0.2 registry: old forms should not error: $(grep ERROR <<<"$out")" || ok "0.2 registry: old forms lint without errors"
 [ "$(grep -c 'registry is OKF 0.2' <<<"$out")" -eq 1 ] && ok "0.2 registry: exactly one upgrade warning" || bad "0.2 registry: expected one 'registry is OKF 0.2' warning: $(grep WARN <<<"$out")"
 grep -q 'say "upgrade my registry"' <<<"$out" && ok "0.2 warning names the upgrade phrase" || bad "0.2 warning should name 'upgrade my registry'"
+# a 0.2 registry gets no new errors: a malformed stale_after and a domain status on a Process were never checked there
+WS=$(stage valid-bundle); to02 "$WS"; in_ws "$WS" workflows/first-workflow.md 's/^stale_after: .*$/stale_after: next spring/m'; in_ws "$WS" processes/client-onboarding.md 's/^(owner: .*)$/$1\nstatus: active/m'
+out=$(lint_ws "$WS"); grep -q "^ERROR" <<<"$out" && bad "0.2 registry: these must not error: $(grep ERROR <<<"$out")" || ok "0.2 registry: a malformed stale_after or a Process status is not an error"
+grep -q 'WARN.*stale_after "next spring"' <<<"$out" && ok "0.2 registry: a malformed stale_after warns" || bad "0.2 registry: expected a stale_after warning"
 WS=$(stage valid-bundle); to02 "$WS"; node "$TOOLS/upgrade-registry.js" "$WS/registry" >/dev/null
 out=$(lint_ws "$WS"); grep -q "^ERROR\|OKF 0.2" <<<"$out" && bad "upgraded registry should lint clean as 0.3: $(grep -E 'ERROR|OKF' <<<"$out")" || ok "a 0.2 registry upgraded lints clean as 0.3"
 

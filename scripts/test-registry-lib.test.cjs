@@ -228,3 +228,40 @@ test('upgrade: a bundle with no okf_version gets one', () => {
   up.upgrade(path.join(ws, 'registry'));
   assert.equal(fs.readFileSync(path.join(ws, 'registry/index.md'), 'utf8'), '---\nokf_version: "0.3"\n---\n# AI Registry\n');
 });
+
+// --- review fixes (code review of commits 1-5)
+test('upgrade: a 0.2 link that reaches inside the bundle becomes root-relative', () => {
+  const ws = fs.mkdtempSync(path.join(os.tmpdir(), 'regup-'));
+  fs.mkdirSync(path.join(ws, 'registry', 'workflows'), { recursive: true });
+  fs.writeFileSync(path.join(ws, 'registry', 'workflows', 'w.md'), '---\ntype: Workflow\nstatus: backlog\n---\n');
+  fs.writeFileSync(path.join(ws, 'registry', 'index.md'), '---\nokf_version: "0.2"\n---\n- [s](.claude/skills/s/SKILL.md) (used by: [W](registry/workflows/w.md))\n');
+  up.upgrade(path.join(ws, 'registry'));
+  const t = fs.readFileSync(path.join(ws, 'registry', 'index.md'), 'utf8');
+  assert.match(t, /\[W\]\(\/workflows\/w\.md\)/);
+  assert.match(t, /\[s\]\(\.\.\/\.claude\/skills\/s\/SKILL\.md\)/);
+});
+test('toMillis: an impossible date is null, never NaN or a rolled-over day', () => {
+  assert.equal(lib.toMillis('2026-13-45'), null);
+  assert.equal(lib.toMillis('2026-02-30'), null);
+  assert.equal(lib.toMillis('2026-02-30T00:00:00Z'), null);
+  assert.equal(lib.toMillis('2028-02-29'), Date.parse('2028-02-29T00:00:00Z'));
+});
+test('upgrade and linkTo keep a link percent-encoded', () => {
+  const r = lib.resolveHref('framework/my%20wf/requirements.md', '/workflows/a.md', { legacy: true, bundleName: 'registry' });
+  assert.equal(lib.linkTo(r.path, '/workflows/a.md', { bundleName: 'registry' }), '../../framework/my%20wf/requirements.md');
+});
+test('a quoted flow-map value may hold a comma', () => {
+  const { fields, error } = lib.parseFrontmatter('---\nsources: [{ id: a, title: "Smith, 2025", resource: x }]\ngenerated: { by: process:x, at: "2026-01-01T00:00:00Z" }\n---\n');
+  assert.equal(error, undefined);
+  assert.deepEqual(fields.sources, [{ id: 'a', title: 'Smith, 2025', resource: 'x' }]);
+});
+test('in a 0.2 bundle a ./ link keeps its 0.2 meaning (from the parent folder)', () => {
+  const r = lib.resolveHref('./framework/a/r.md', '/workflows/a.md', { legacy: true, bundleName: 'registry' });
+  assert.equal(r.kind, 'outside'); assert.equal(r.path, 'framework/a/r.md'); assert.equal(r.form, 'legacy');
+});
+test('upgradeLog: date-only headings oldest first are put newest first', () => {
+  assert.equal(up.upgradeLog('# Log\n\n## 2026-01-01\n\n- a\n\n## 2026-02-01\n\n- b\n'), '# Log\n\n## 2026-02-01\n\n- b\n\n## 2026-01-01\n\n- a\n');
+});
+test('upgradeLog: a list inside an entry keeps its lines', () => {
+  assert.equal(up.upgradeLog('# Log\n\n## 2026-01-01 — T\n\nPara:\n- one\n- two\n'), '# Log\n\n## 2026-01-01\n\n- **T** — Para:\n  - one\n  - two\n');
+});

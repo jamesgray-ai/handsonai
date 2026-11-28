@@ -99,7 +99,7 @@ state: in-production
 execution_mode: augmented
 autonomy: guided
 trigger: "Friday 3pm — weekly reporting window"
-stale_after: 2026-11-01
+stale_after: 2026-11-10
 ---
 Every Friday afternoon, this workflow pulls the week's delivery notes and
 open items into a draft status update. A consultant reviews and sends it to

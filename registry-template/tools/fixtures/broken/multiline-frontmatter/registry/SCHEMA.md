@@ -118,7 +118,8 @@ content* was made, so it moves only when the content does:
   neither `by` nor `at`.
 
 **`verified`** (optional, OKF v0.3 §5.2–5.3) records a person's own check of the file against what
-it describes: `verified: { by: human:<id>, at: <instant> }`, or a list of such events. It is written
+it describes: `verified: { by: human:<id>, at: <instant> }`, or a list of such events
+(`verified: [{ … }, { … }]`; a block list of one-line maps reads the same). It is written
 only when the leader says they have read the file and it is right — never on their behalf, and never
 by a skill on its own. A check counts only while it is current (its `at` is on or after
 `generated.at`): once the content changes, the file is unverified again until someone checks it
@@ -164,6 +165,11 @@ All OKF-permitted; recorded so a reader of the spec isn't surprised:
   advice to name producer keys `x-<producer>-<name>` (§4.1) and stay as they are: renaming them
   would break every registry. A future OKF version could define one of them; this schema would then
   record how it reads that key.
+- **The root `index.md` must declare `okf_version`** (§8.1 makes it a SHOULD), and lint warns on
+  any root-index key beyond `title`, `description`, `license` and `x-` keys (the spec permits any
+  extension key there).
+- **A 0.2 registry's bare links read from the registry's parent folder:** this profile's own
+  rule from before v0.3, not the spec's §12.1 fallback to the bundle root.
 - **The registry's own tools read files outside the bundle.** To a generic OKF consumer a link
   that leaves the bundle is external and never read (§6, §11.2). Lint and compose read the SOPs,
   workflow folders, run logs, skills and agents a node links (to check they exist, and for the
@@ -279,7 +285,8 @@ GitHub Action) — you never run them yourself; your AI assistant and CI do.
 # Upgrading from OKF v0.2
 
 A registry set up before OKF v0.3 says `okf_version: "0.2"` (or no version) in `index.md`. The
-upgrade changes only the form, never the content, so no `generated` line moves: the root index
+upgrade changes only the form, never the content, so no page's `generated` line moves (the
+replaced `SCHEMA.md` brings its own): the root index
 declares `"0.3"`; on Workflow, Business and LineOfBusiness nodes a domain value in `status` moves
 to `state` (a retired Workflow also gets `status: deprecated`; a retired Process becomes
 `status: deprecated`); each link and `guide:`/`folder:` value written from the registry's parent

@@ -90,7 +90,9 @@ function lint(bundleDir) {
     const status = c.fm.status === undefined || c.fm.status === null || String(c.fm.status) === '' ? null : String(c.fm.status);
     if (status && !lib.LIFECYCLE_STATUS.includes(status)) {
       // A 0.2 registry keeps domain state in status: still read (stateOf), never an error there.
-      const oldForm = legacy && !hasStateField && (lib.STATE_TYPES.has(expected) || status === 'retired');
+      // Before 0.3 nothing checked status on a Process, Function or Note, so a 0.2 registry
+      // never gets a new error for it.
+      const oldForm = legacy && !hasStateField;
       if (!oldForm) {
         if (lib.STATE_TYPES.has(expected) && !hasStateField && ((lib.ENUMS[expected] || {}).state || []).includes(status)) {
           errors.push(`${c.relPath}: status "${status}" is domain state -- write it as state: ${status}${status === 'retired' ? ' and status: deprecated' : ''} (status is the lifecycle: draft, stable or deprecated; OKF v0.3 §5.4)`);
@@ -124,7 +126,7 @@ function lint(bundleDir) {
     // stale_after (§5.5): a date (the start of that UTC day) or a UTC instant; one that doesn't
     // parse is never read as fresh.
     if (c.fm.stale_after !== undefined && c.fm.stale_after !== null && String(c.fm.stale_after) !== '' && lib.toMillis(c.fm.stale_after) === null) {
-      errors.push(`${c.relPath}: stale_after "${c.fm.stale_after}" is not a date (YYYY-MM-DD) or a UTC instant -- never read as fresh (OKF v0.3 §5.5)`);
+      (legacy ? warnings : errors).push(`${c.relPath}: stale_after "${c.fm.stale_after}" is not a date (YYYY-MM-DD) or a UTC instant -- never read as fresh (OKF v0.3 §5.5)`);
     }
 
     // verified (§5.2-5.3): events need both by and at; a check counts only while it is current.
