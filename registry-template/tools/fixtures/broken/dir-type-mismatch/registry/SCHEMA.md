@@ -37,7 +37,7 @@ Plural directories, singular `type` values. Directory↔type agreement is lint-e
 | `processes/` | Process | `owner` (required — a function slug), optional `guide:` | prose · curated ordered `# Workflows` list (the edge AND the value-chain order) |
 | `workflows/` | Workflow | `state` (required), `execution_mode`, `autonomy`, `trigger`, optional `stale_after`, optional `big_change` (`definition_type` is tolerated on older nodes, never written) | prose · `# Artifacts` labeled links · `# Skills` · `# Agents` · GENERATED `# Insights` |
 | `notes/` | Note | — | free body; its links to Workflow/Process nodes are the single source of the insight edge |
-| `functions/` | Function | optional `lead:` (free text; blank = unstaffed) | charter prose · required GENERATED `# Owns` block (write it empty at creation) |
+| `functions/` | Function | optional `lead:` (free text; blank = unstaffed) | charter prose · required GENERATED `# Owns` block (written current, listing the processes it owns, by the step that saves each process; the empty pair only while it owns none) |
 
 # Enums
 

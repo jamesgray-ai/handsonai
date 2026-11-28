@@ -280,9 +280,12 @@ entry in its line's curated `# Processes` list, and the index entries. **The
 functions are the owners:** the first time an owner is used, write its
 Function page in the same save (named for the area or role, one sentence of
 what it takes care of, `lead:` only if the student asked for a person to be
-recorded, and its empty GENERATED `# Owns` block), with its index entry. A
-Function is never written before a process uses it, so none owns nothing and
-there is no question about unused ones. An owner the student renames or
+recorded, and its GENERATED `# Owns` block listing that process, the `# Owns`
+heading above the markers), with its
+index entry. A later process whose owner is already written adds its line to
+that Function's `# Owns` block in the same save, in path order (the form in
+`SKILL.md`'s write rules). A Function is never written before a process uses
+it, so none owns nothing and there is no question about unused ones. An owner the student renames or
 removes before saving is never written.
 
 ---

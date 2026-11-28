@@ -73,7 +73,9 @@ skill sets a registry up when the leader wants one.
      by hand is theirs: `human:<id>`.
 3. **Never edit between GENERATED markers.** Content between `<!-- GENERATED:<name> -->` and
    `<!-- /GENERATED -->` is machine-owned: write around it, never inside it, and never leave a
-   marker pair unterminated.
+   marker pair unterminated. The one exception: a step that saves a Process writes it into its
+   owner Function's `# Owns` block, in the derived form (indexing-registry's *Regenerate
+   GENERATED blocks*), so the block is current; that is not a content change (rule 2).
 4. **Link discriminator, exact** (OKF v0.3 §6):
    - Leading `/`: bundle-root-relative, resolved from `registry/` (`/processes/new-business.md`).
      The first path segment must be one of the bundle's directories or a root file. Every link
