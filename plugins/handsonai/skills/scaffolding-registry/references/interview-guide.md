@@ -123,7 +123,8 @@ from what you know, and the student corrects them there.
 **Then write the skeleton** (it holds nothing about the business yet, so it
 needs no confirmation): `registry/` + `SCHEMA.md` + `index.md` + `log.md` +
 the six typed directories with stub `index.md` files (each stub is its
-heading, a blank line, and `_No entries yet — your AI assistant fills this index as nodes are added._` — the exact empty body compose writes),
+heading — `# Businesses`, `# Lines of Business`, `# Functions`, `# Processes`,
+`# Workflows` or `# Notes`, exactly — a blank line, and `_No entries yet — your AI assistant fills this index as nodes are added._` — the exact empty body compose writes),
 unless they already exist. The root
 `index.md` and `log.md` have fixed bodies — lint requires the root index to
 link every typed index and to carry the two GENERATED inventory blocks

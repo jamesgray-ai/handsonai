@@ -835,7 +835,7 @@ def extend_shared(t):
                 "# Client Check-In\n\nDrafts a monthly check-in email to each client.\n\n# Artifacts\n\n\n# Skills\n\n"
                 "- [drafting-client-emails](../../.claude/skills/drafting-client-emails/SKILL.md)\n\n# Agents\n")
     idx = Path(t) / "registry" / "workflows" / "index.md"
-    idx.write_text(idx.read_text().rstrip("\n") + "\n- [Client Check-In](/workflows/client-check-in.md)\n")
+    idx.write_text(idx.read_text().rstrip("\n") + "\n- [Client Check-In](/workflows/client-check-in.md) — Drafts a monthly check-in email to each client.\n")
     p = plan(t)
     sub(p, PB_ROW, PB_ROW.replace("| New skill: S1 |", "| Extend existing: drafting-client-emails (also used by: Client Check-In) |"))
     sub(p, "- **Builds:** New skill: S1 (`client-follow-up`)", "- **Builds:** New skill: S1 (`client-follow-up`), the orchestrator; Extend existing: drafting-client-emails (add: list every next step with its owner)")

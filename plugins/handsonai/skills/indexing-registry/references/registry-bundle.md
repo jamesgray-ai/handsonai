@@ -306,6 +306,8 @@ the two.
 - Function node missing its GENERATED `# Owns` marker block
 - Unterminated GENERATED block
 - A concept file missing from its directory index, or a typed directory missing its `index.md`
+  (an entry is `- [Title](/dir/slug.md) — [description]`; an entry without its description is a
+  stale view that the next refresh rewrites, never an error)
   (index coverage)
 - **Claims sweep:** an SOP claimed by no Workflow node's `# Artifacts` (or by more than one)
 - SOP `workflow:` back-pointer disagreeing with the claiming node

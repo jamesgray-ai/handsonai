@@ -29,8 +29,8 @@ firms modernize back-office work.
 
 # Lines of Business
 
-1. [Advisory](/lines-of-business/advisory.md)
-2. [Training](/lines-of-business/training.md)
+- [Advisory](/lines-of-business/advisory.md)
+- [Training](/lines-of-business/training.md)
 ```
 
 ## LineOfBusiness: `registry/lines-of-business/advisory.md`
@@ -48,7 +48,7 @@ engagement.
 
 # Processes
 
-1. [Client Delivery](/processes/client-delivery.md)
+- [Client Delivery](/processes/client-delivery.md)
 ```
 
 ## LineOfBusiness: `registry/lines-of-business/training.md`
@@ -84,7 +84,7 @@ through handoff.
 
 # Workflows
 
-1. [Client Status Reporting](/workflows/client-status-reporting.md)
+- [Client Status Reporting](/workflows/client-status-reporting.md)
 ```
 
 ## Workflow: `registry/workflows/client-status-reporting.md`
@@ -151,15 +151,15 @@ kickoff to handoff.
 
 ## Directory index: `registry/workflows/index.md`
 
-Every typed directory gets one. Entries are bundle-root-relative leading-slash
-links — never bare same-directory links like `[Client Status Reporting](client-status-reporting.md)`,
+Every typed directory gets one. Each entry is the page's root-relative link and,
+after ` — `, its `description` (OKF v0.3 §8): the same line compose writes. Never bare same-directory links like `[Client Status Reporting](client-status-reporting.md)`,
 which read from the index's own folder and which the schema forbids for a
 link to another page.
 
 ```markdown
 # Workflows
 
-- [Client Status Reporting](/workflows/client-status-reporting.md)
+- [Client Status Reporting](/workflows/client-status-reporting.md) — Drafts the weekly client status update from delivery notes and open items.
 ```
 
 ## Note: `registry/notes/2026-08-status-report-timing.md`

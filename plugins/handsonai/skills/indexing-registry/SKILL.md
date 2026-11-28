@@ -46,7 +46,7 @@ Report findings in plain language, named by page. On a pass called by another st
 
 ### 2. Refresh indexes
 
-Regenerate the typed-directory `index.md` files and the bundle-root inventories (Skills and Agents, each with a "used by" column derived from which Workflow nodes link them).
+Regenerate the typed-directory `index.md` files, each entry the page's link and its description on one line (`- [Title](/dir/slug.md) — [description]`, OKF v0.3 §8), in path order (alphabetical by file name; an empty directory keeps the stub body), and the bundle-root inventories (Skills and Agents, each with a "used by" column derived from which Workflow nodes link them).
 
 **Quick Start Prompts.** A Quick Start Prompt is a single copy-paste-ready prompt demonstrating an asset's primary use case. When an asset has no `quick_start_prompt` frontmatter field, generate one and **offer to write it back into the asset's frontmatter** (with the user's confirmation — this is the only write this skill makes outside the bundle and its derived views). Until it's written back, show the generated prompt in the index but note it's unsaved.
 

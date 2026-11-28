@@ -96,7 +96,7 @@ def add_workflow(t, slug, title, description, trigger, status="under-development
         f"- [Requirements](../../framework/{slug}/requirements.md)\n\n# Skills\n\n\n# Agents\n"
     )
     idx = Path(t) / "registry" / "workflows" / "index.md"
-    idx.write_text(idx.read_text().rstrip("\n") + f"\n- [{title}](/workflows/{slug}.md)\n")
+    idx.write_text(idx.read_text().rstrip("\n") + f"\n- [{title}](/workflows/{slug}.md) — {description}\n")
 
 
 def add_skill(t, name, description, body, used_by=None):
@@ -118,7 +118,7 @@ def add_skill(t, name, description, body, used_by=None):
             f"# {title}\n\n{desc}\n\n# Artifacts\n\n\n# Skills\n\n- [{name}](../../.claude/skills/{name}/SKILL.md)\n\n# Agents\n"
         )
         idx = Path(t) / "registry" / "workflows" / "index.md"
-        idx.write_text(idx.read_text().rstrip("\n") + f"\n- [{title}](/workflows/{slug}.md)\n")
+        idx.write_text(idx.read_text().rstrip("\n") + f"\n- [{title}](/workflows/{slug}.md) — {desc}\n")
         # an in-production workflow joins a Process (registry-bundle.md rule 5; the lint's error otherwise)
         proc = Path(t) / "registry" / "processes" / "client-relationship-management.md"
         if proc.exists():
