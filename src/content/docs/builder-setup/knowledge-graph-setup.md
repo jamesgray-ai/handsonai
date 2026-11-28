@@ -115,16 +115,15 @@ Reading a linked record needs the connector to that system — what *Distinguish
 
 An example question: *"Where does the Acme deal stand?"* Your assistant opens `knowledge/clients/acme.md`, sees the `records:` line, reads the deal from your CRM, and answers with the page path, the record link, and when it read it.
 
-### Built your graph before this change?
+### Upgrading a graph you built earlier
 
-Tell your AI: *Use the building-knowledge-graph skill to upgrade my knowledge graph: add the `records:` convention to `SCHEMA.md` — a page may link to its record in a system of record, and facts that system keeps stay there — and replace the Answering my questions section of my standing-rules file with the skill's current version.* Nothing else needs rebuilding.
+Tell your AI: *Use the building-knowledge-graph skill to upgrade my knowledge graph.* It checks what's out of date and brings it up to date in one go, then lists what it changed. Depending on when you built your graph, that can mean:
 
-### Answers don't flag unconfirmed pages?
+- **Records:** pages can link to their record in a system of record, like your CRM, and the facts that system keeps stay there. It asks which system keeps each kind of thing, because only you know.
+- **Format:** the graph moves to the current version of the Open Knowledge Format (0.3). If `knowledge/index.md` says `okf_version: "0.2"` at the top, or no version, you need this. Fixing the paths that point into `raw/` doesn't count as changing your pages, so they keep their confirmations.
+- **Answers:** beside each page it cites, your assistant notes when that page isn't confirmed yet, has changed since you confirmed it, or is due for a check.
+- **Old file:** it deletes a leftover `types.md`. Your rulebook, `knowledge/SCHEMA.md`, is the copy it keeps up to date.
 
-If your assistant cites pages without telling you which ones aren't confirmed or are due for a check, your rules file has the older *Answering my questions* section. Tell your AI: *Use the building-knowledge-graph skill to replace the Answering my questions section of my rules file with the current version.* Nothing else changes.
-
-### Built your graph to OKF 0.2?
-
-The Open Knowledge Format is now at version 0.3. If `knowledge/index.md` says `okf_version: "0.2"` at the top, your graph was built to the earlier version. Tell your AI: *Use the building-knowledge-graph skill to do the OKF upgrade on my knowledge graph.* It updates the version, two of the rulebook's notes, the paths that point into `raw/`, your ingest and lint skills, and one line of your rules file. Nothing else changes, and fixing those paths doesn't count as changing your pages, so they keep their confirmations.
+Nothing else changes. To make just one of these, name it: for example, *replace the Answering my questions section of my rules file with the current version.*
 
 To see the graph drawn: install [Obsidian](https://obsidian.md), choose **Open folder as vault**, pick `knowledge/`, and click the graph icon.
