@@ -340,6 +340,20 @@ function findRegistry(frameworkDir, opts) {
   return null;
 }
 
+// A node's domain state (OKF v0.3 §5.4): `state`, or, on a registry written
+// before 11.1.0, a domain value left in `status` (never a lifecycle value:
+// draft | stable | deprecated). Same rule as registry-lib.js stateOf(); this
+// script stays self-contained. The output keeps the key `status`, because
+// `state` there is the routing state.
+const LIFECYCLE_STATUS = ['draft', 'stable', 'deprecated'];
+function stateOf(fm) {
+  const has = (v) => v !== undefined && v !== null && String(v) !== '';
+  if (!fm) return null;
+  if (has(fm.state)) return String(fm.state);
+  if (has(fm.status) && !LIFECYCLE_STATUS.includes(String(fm.status))) return String(fm.status);
+  return null;
+}
+
 function readNode(registryDir, slug) {
   const p = path.join(registryDir, 'workflows', `${slug}.md`);
   const doc = readDoc(p);
@@ -352,7 +366,7 @@ function readNode(registryDir, slug) {
   };
   return {
     path: p,
-    status: fm.status == null ? null : String(fm.status),
+    status: stateOf(fm),
     big_change: fm.big_change == null || fm.big_change === '' ? null : String(fm.big_change),
     links_skills_or_agents: linked('Skills') || linked('Agents'),
   };
@@ -370,7 +384,9 @@ function nodeForFolder(registryDir, slug) {
   const dir = path.join(registryDir, 'workflows');
   if (!isDir(dir)) return null;
   const esc = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const linkInto = new RegExp(`\\]\\((?:\\.\\/)?(?:framework\\/)?${esc}\\/[^)]*\\)`);
+  // Any form that reaches the folder: file-relative (../../framework/<slug>/, or
+  // ../../<slug>/ with registry/ inside the framework folder) or the 0.2 form.
+  const linkInto = new RegExp(`\\]\\((?:\\.\\.\\/)*(?:\\.\\/)?(?:framework\\/)?${esc}\\/[^)]*\\)`);
   const found = [];
   for (const d of listDir(dir)) {
     if (!d.isFile() || !d.name.endsWith('.md') || d.name === 'index.md') continue;

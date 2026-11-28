@@ -34,6 +34,10 @@ lint_output() { local ws; ws=$(stage "$1"); (cd "$ws" && node "$TOOLS/lint-regis
 run_lint_at() { (cd "$1" && node "$TOOLS/lint-registry.js" registry); }
 compose_at()  { WS=$(stage "$1"); (cd "$WS" && node "$TOOLS/compose-registry.js" registry); }  # sets $WS for assertions
 
+# registry-lib unit tests (OKF v0.3 readers: state, both link forms, version, verified lists)
+if node --test "$REPO_ROOT/scripts/test-registry-lib.test.cjs" >/dev/null 2>&1; then ok "registry-lib unit tests pass"
+else bad "registry-lib unit tests fail (node --test scripts/test-registry-lib.test.cjs)"; fi
+
 # lint: valid bundle passes
 run_lint valid-bundle && ok "valid bundle lints clean (exit 0)" || bad "valid bundle should lint clean"
 # lint: warnings present but exit 0
