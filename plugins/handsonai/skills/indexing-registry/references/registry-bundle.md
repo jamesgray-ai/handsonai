@@ -319,7 +319,6 @@ the two.
 - A `verified` event missing `by` or `at` (ignored); a check the content has outrun (every
   `verified` `at` earlier than `generated.at`: the page is unverified until checked again)
 - `superseded_by` without `status: deprecated`
-- A `guide:` or `folder:` that reaches nothing
 - Root `index.md` frontmatter beyond `okf_version`, `title`, `description`, `license` and `x-`
   keys; any frontmatter in a subdirectory `index.md`
 - `log.md` out of the §9 form (OKF 0.3 registry)

@@ -217,7 +217,6 @@ OKF v0.3 §6, exact:
 
 Links into gitignored paths (e.g. `outputs/`, where a workflow's own output may land) are
 declarations, not guarantees: lint checks them when the target is present and skips them otherwise.
-A `guide:` or `folder:` that reaches nothing is a warning.
 
 In a registry still at OKF 0.2, a bare link is read from the registry's parent folder
 (`framework/course-improvement/requirements.md`), and an older one that doesn't resolve as written
@@ -266,7 +265,7 @@ OKF 0.2 (the upgrade offer), a workflow folder in the framework folder claimed b
 re-check overdue (now ≥ `stale_after`), a `backlog` workflow older than six months, a Note linking
 no node, uncaptured skills/agents, a malformed actor string in `generated.by` or `verified`, a
 `verified` event missing `by` or `at`, a check the content has outrun, `superseded_by` without
-`status: deprecated`, a `guide:` or `folder:` that reaches nothing, frontmatter in the wrong
+`status: deprecated`, frontmatter in the wrong
 `index.md`, a `log.md` out of the §9 form, an artifact link pointing outside the workflow's derived
 LOB `folder:` when one is set, and stale Function `# Owns` content (present but no longer matching the derived owners list — regenerate via
 a maintenance pass; hand-editing between the markers is still prohibited, but staleness alone never

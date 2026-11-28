@@ -696,7 +696,7 @@ WS=$(stage valid-bundle); in_ws "$WS" workflows/first-workflow.md 's|^(# Artifac
 expect "$WS" ERROR 'first-workflow.md: in-bundle link \.\./processes/client-onboarding\.md -- write it root-relative: /processes/client-onboarding\.md' "an in-bundle link written file-relative is an error naming the / form"
 # path fields
 WS=$(stage valid-bundle); in_ws "$WS" lines-of-business/design-services.md 's/^(state: .*)$/$1\nfolder: ..\/..\/no-such-folder\//m'
-expect "$WS" WARN 'design-services.md: folder: \.\./\.\./no-such-folder/ -- directory not found' "a folder: that reaches nothing warns"
+expect_not "$WS" "design-services.md: folder:" "a folder: that reaches nothing draws nothing (not checked, as before 11.1.0)"
 WS=$(stage valid-bundle); in_ws "$WS" workflows/third-workflow.md 's/^(status: deprecated)$/$1\nsuperseded_by: \/workflows\/no-such.md/m'
 expect "$WS" ERROR 'third-workflow.md: superseded_by /workflows/no-such.md -- no such concept' "superseded_by must reach a concept"
 WS=$(stage valid-bundle); in_ws "$WS" workflows/second-workflow.md 's/^(state: backlog)$/$1\nsuperseded_by: \/workflows\/first-workflow.md/m'

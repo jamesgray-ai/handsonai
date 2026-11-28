@@ -560,9 +560,8 @@ def old_links(t):
     proc.write_text(proc.read_text().rstrip("\n") + "\n- [Quarterly Review Pack](/workflows/quarterly-review-pack.md)\n")
     idx = t / "registry" / "workflows" / "index.md"
     idx.write_text(idx.read_text().rstrip("\n") + "\n- [Quarterly Review Pack](/workflows/quarterly-review-pack.md)\n")
-    # a 0.2 registry, as a leader's is before the upgrade: the version warning, and its line of
-    # business's folder: names a folder this workspace doesn't hold
-    lint_clean(t, allow=("registry is OKF 0.2", "folder: client-services/ -- directory not found"))
+    # a 0.2 registry, as a leader's is before the upgrade: the version warning
+    lint_clean(t, allow=("registry is OKF 0.2",))
 
 
 def solo_founder(t):

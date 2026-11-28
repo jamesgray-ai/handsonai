@@ -110,19 +110,6 @@ function lint(bundleDir) {
       if (status !== 'deprecated') warnings.push(`${c.relPath}: superseded_by without status: deprecated -- it means something only on a deprecated node (OKF v0.3 §5.4)`);
     }
 
-    // Path fields from the node's own folder (guide:, folder:), as links are.
-    for (const field of ['guide', 'folder']) {
-      const v = c.fm[field];
-      if (v === undefined || v === null || String(v) === '') continue;
-      const r = lib.resolveHref(String(v), c.relPath, linkOpts);
-      if (r.kind !== 'outside') continue;
-      // A warning, never an error: nothing checked these before 11.1.0, so a registry with an old
-      // guide: or folder: that reaches nothing must not stop regenerating its views.
-      if (lib.resolveOutside(r, workspaceRoot) === null && !lib.isGitIgnored(r.path, workspaceRoot)) {
-        warnings.push(`${c.relPath}: ${field}: ${v} -- ${r.path.endsWith('/') ? 'directory' : 'file'} not found`);
-      }
-    }
-
     // stale_after (§5.5): a date (the start of that UTC day) or a UTC instant; one that doesn't
     // parse is never read as fresh.
     if (c.fm.stale_after !== undefined && c.fm.stale_after !== null && String(c.fm.stale_after) !== '' && lib.toMillis(c.fm.stale_after) === null) {

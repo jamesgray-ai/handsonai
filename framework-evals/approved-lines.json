@@ -8040,6 +8040,19 @@
    "source": "lines-to-approve.md Registry skills; 3c-DP (2026-10-24), build T31 from eval IR1"
   },
   {
+   "id": "N-R2",
+   "form": "main",
+   "text": "Your registry was set up with an earlier version of its file format. Updating it changes how the pages are written, never what they say. Update it now?",
+   "kind": "question",
+   "skills": [
+    "indexing-registry"
+   ],
+   "files": {
+    "indexing-registry": "SKILL.md"
+   },
+   "source": "OKF v0.3 upgrade (handsonai 11.1.0), approved by James 2026-11-28"
+  },
+  {
    "id": "D12",
    "form": "main",
    "text": "Before its first real run, this workflow needs inputs that don't exist yet:",
